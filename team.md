@@ -14,4 +14,4 @@ Martin Mosquera, 30216099, martin.mosquera1@ucalgary.ca \
 Matias Lupick, 30216478, matias.lupick@ucalgary.ca \
 Emma Djukic, 30213555, emma.djukic@ucalgary.ca \
 Alessia Flaig, 30097289, alessia.flaig@ucalgary.ca \
-Yash Dhaneshwari, 30204884, yash.dhaneshwari@ucalgary.ca \
+Yash Dhaneshwari, 30204884, yash.dhaneshwari@ucalgary.ca 
