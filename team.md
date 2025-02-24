@@ -1,17 +1,17 @@
-Nathania Castillo, 30152619
-Jeffrey Suen, 10078303, jeff.suen@ucalgary.ca
-Vicente David, 30172781, vicente.david@ucalgary.ca
-Leo Nguyen, 30211103, leo.nguyen1@ucalgary.ca
-Cristian Otalora, 10137257, cristian.otalora1@ucalgary.ca
-Josiah Jukes, 30161649, Josiah.jukes@ucalgary.ca 
-Ava Rudrum, 30209002, ava.rudrum@ucalgary.ca
-Devanshi Iragavarapu, 30204017, devanshi.iragavar1@ucalgary.ca
-Harry Hu, 30213135, harry.hu1@ucalgary.ca
-Aditya Mulunjkar, 30221469, aditya.mulunjkar@ucalgary.ca
-Ryan Hashemian, 30195181, ryan.hashemiantabriz@ucalgary.ca
-Sylest Holzwarth, 30020534, Sylest.holzwarth@ucalgary.ca
-Martin Mosquera, 30216099, martin.mosquera1@ucalgary.ca
-Matias Lupick, 30216478, matias.lupick@ucalgary.ca
-Emma Djukic, 30213555, emma.djukic@ucalgary.ca
-Alessia Flaig, 30097289, alessia.flaig@ucalgary.ca
-Yash Dhaneshwari, 30204884, yash.dhaneshwari@ucalgary.ca
+Nathania Castillo, 30152619 \
+Jeffrey Suen, 10078303, jeff.suen@ucalgary.ca \
+Vicente David, 30172781, vicente.david@ucalgary.ca \
+Leo Nguyen, 30211103, leo.nguyen1@ucalgary.ca \
+Cristian Otalora, 10137257, cristian.otalora1@ucalgary.ca \
+Josiah Jukes, 30161649, Josiah.jukes@ucalgary.ca \
+Ava Rudrum, 30209002, ava.rudrum@ucalgary.ca \
+Devanshi Iragavarapu, 30204017, devanshi.iragavar1@ucalgary.ca \
+Harry Hu, 30213135, harry.hu1@ucalgary.ca \
+Aditya Mulunjkar, 30221469, aditya.mulunjkar@ucalgary.ca \
+Ryan Hashemian, 30195181, ryan.hashemiantabriz@ucalgary.ca \
+Sylest Holzwarth, 30020534, Sylest.holzwarth@ucalgary.ca \
+Martin Mosquera, 30216099, martin.mosquera1@ucalgary.ca \
+Matias Lupick, 30216478, matias.lupick@ucalgary.ca \
+Emma Djukic, 30213555, emma.djukic@ucalgary.ca \
+Alessia Flaig, 30097289, alessia.flaig@ucalgary.ca \
+Yash Dhaneshwari, 30204884, yash.dhaneshwari@ucalgary.ca \
