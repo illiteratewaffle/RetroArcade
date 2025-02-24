@@ -1,4 +1,4 @@
-Nathania Castillo, 30152619 \
+Nathania Castillo, 30152619, nathania.castillo@ucalgary.ca \
 Jeffrey Suen, 10078303, jeff.suen@ucalgary.ca \
 Vicente David, 30172781, vicente.david@ucalgary.ca \
 Leo Nguyen, 30211103, leo.nguyen1@ucalgary.ca \
