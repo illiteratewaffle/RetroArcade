@@ -18,4 +18,5 @@ Yash Dhaneshwari, 30204884, yash.dhaneshwari@ucalgary.ca \
 Evan Poulson, 30208763, evan.poulson@ucalgary.ca \
 Brianna Balan, 30176844, brianna.balan@ucalgary.ca \
 Colby Campbell, 30208300, colby.campbell@ucalgary.ca \
-Abigail Mullen, 30220349, abigail.mullen@ucalgary.ca
+Abigail Mullen, 30220349, abigail.mullen@ucalgary.ca \
+Ashton Giles, 30213188, ashton.giles@ucalgary.ca 
