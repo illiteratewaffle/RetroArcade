@@ -14,4 +14,8 @@ Martin Mosquera, 30216099, martin.mosquera1@ucalgary.ca \
 Matias Lupick, 30216478, matias.lupick@ucalgary.ca \
 Emma Djukic, 30213555, emma.djukic@ucalgary.ca \
 Alessia Flaig, 30097289, alessia.flaig@ucalgary.ca \
-Yash Dhaneshwari, 30204884, yash.dhaneshwari@ucalgary.ca 
+Yash Dhaneshwari, 30204884, yash.dhaneshwari@ucalgary.ca \
+Evan Poulson, 30208763, evan.poulson@ucalgary.ca \
+Brianna Balan, 30176844, brianna.balan@ucalgary.ca \
+Colby Campbell, 30208300, colby.campbell@ucalgary.ca \
+Abigail Mullen, 30220349, abigail.mullen@ucalgary.ca
