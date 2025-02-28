@@ -306,4 +306,54 @@ is already associated with an already created profile.
 **Open issues:**
 1. Other player’s have access to view some of their opponent’s game history (i.e. ranks, current status, recent matches). Should there be an option presented to users allowing them to make this information private?
 
+**Use case:** Allow players to access instructions before game has started
+**Iteration:** 1
+**Primary Actor:** Player
+**Goal in context:**The player can be well informed before starting the game
+**Preconditions:**The player has chosen a game.
+**Trigger:** The player presses the information button on the multiplayer pop up window.
+**Scenario:**
+    1.The player selects a game (connect 4, checkers, tic tac toe) on game page
+    2.The player is taken to a pop up window where they can choose a match or create their own.
+    3.If the player already knows the rules, the player chooses a preferred match.
+    4.If the player has never played the game before or needs a refresher, the player will press the information button (i on the left corner) .
+    5.New pop up will show the instructions of selected game
 
+**Post conditions:** The player is informed of all the rules. The player can now start the game.
+
+**Exceptions:**
+    1.
+**Priority:**  Medium. Not all players will need to check the game description as some may have memorized the instructions
+**When available:** 2nd or 3rd project iteration.
+**Frequency of use:** Occasional. If it is a new player or a player needs a refresher on game rules.
+**Channel to actor:**In the multiplayer join match window, under the information icon “i
+**Secondary actors:** N/A
+**Channel to secondary actors:** N/A
+**Open issues:**  Should the instructions be shown every time you first log into the game or just make it optional from the start ?
+
+**Use case:** Allow players to access instructions after game has started.
+**Iteration:** 1
+**Primary Actor:** Player
+**Goal in context:**The player can go back to the instructions after starting the match.
+**Preconditions:**The player has started a match.
+**Trigger:** The player presses the information button on the active game page.
+**Scenario:**
+    1.The player selects a game (connect 4, checkers, tic tac toe) on the game page.
+    2.The player is taken to a pop up window where they can choose a match or create their own.
+    3.The player starts the game and forgets the game instructions.
+    4.The player presses the information button on the left corner.
+    5.New pop up window will have selected game instructions.
+
+
+**Post conditions:** The player has selected a match. The player starts playing and forgets a step.
+
+**Exceptions:**
+    1.
+**Priority:** Medium. Not all players will need to check the game description as some may have memorized the instructions.
+**When available:** 2nd or 3rd project iteration.
+**Frequency of use:** Occasional. If it is a new player or a player needs a refresher on game rules.
+**Channel to actor:** In the active game window, under the information icon “i” on the left corner.
+
+**Secondary actors:** N/A
+**Channel to secondary actors:** N/A
+**Open issues:** N/A
