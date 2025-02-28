@@ -43,12 +43,12 @@ a username, and a password. There is a button at the end to confirm and complete
 **Exceptions:**
 1. A Profile is already currently logged in, so Create an Account is unavailable.
 2. Program malfunctions and does not properly load the new Account Creation Screen.
-2. The Create a New Account Button is unresponsive when selected.
-3. The Create a New Account Button does not appear.
+3. The Create a New Account Button is unresponsive when selected.
+4. The Create a New Account Button does not appear.
 
 **Priority:** High. The creation of Profiles is required to properly track players' game history, leaderboard rankings, 
 player stats and win/loss ratios for appropriate match making. Profiles also allow users to find their friends' profiles
-to play against. 
+to play against.
 
 **When available:** On the Main Menu Screen near Log in when no profile is currently logged into the program currently.
 
@@ -57,7 +57,52 @@ to play against.
 **Channel to actor:** Using a mouse to click the button on the screen.
 
 **Secondary actors:** N/A
+
 **Channel to secondary actors:** N/A
+
+**Open issues:** N/A
+
+
+**Use case:** Add E-mail Address
+
+**Iteration:** 1
+
+**Primary Actor:** New (Unregistered) Player
+
+**Goal in context:** Add E-mail to associate with the account.
+
+**Preconditions:** The program is on the Account Registration page.
+
+**Trigger:** The user is prompted to enter an e-mail address that is not associated with any current account.
+
+**Scenario:**
+1. Click on text box marked e-mail.
+2. User types in e-mail address.
+3. Press Enter.
+4. Once submitted, verified to be a unique e-mail address on the server and added to user profile.
+
+**Post conditions:** Profile has a unique e-mail associated to it.
+
+**Exceptions:**
+1. Invalid e-mail address.
+2. E-mail address is already associated with another profile.
+
+**Priority:** Medium Priority. Often a requirement of many account creation processes, which allows the company a means of
+communication with account holder for news and account changes. May also allow for account verification and permit access if password
+forgotten. A username is also included, which could be used as the only means of profile identification for log in purposes
+without an e-mail address.
+
+**When available:** Available when on the Register Account Information Fill-in Page.
+
+**Frequency of use:** Once for every profile created on the platform.
+
+**Channel to actor:** Keyboard and mouse
+
+**Secondary actors:** Profile Server
+
+**Channel to secondary actors:** Entered e-mail is searched up on the Profile server. An error is thrown if the e-mail address
+is already associated with an already created profile.
+
 **Open issues:** N/A
 
 ## GUI Team
