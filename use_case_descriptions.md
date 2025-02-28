@@ -270,4 +270,40 @@ is already associated with an already created profile.
 1. How will information be displayed for each game? Will the player have the option to choose to view instructions on how to play if needed?
 
 
+**Use case:** Allow user to view their game history
+
+**Iteration:** 1
+
+**Primary Actor:** Player
+
+**Goal in context:** By viewing their profile, the player can access their past game history (wins, losses, playing statistics) and rankings
+
+**Preconditions:** The user has logged into their account on the system
+
+**Trigger:** The user selects the “profile” button on the home game page
+
+**Scenario:**
+1. After player selects the profile button on the home screen, the system displays a list of past games played by the logged in player and any associated statistics 
+2. Player selects specific games played to view more specific details of a given match, such as ranking, which is displayed by the system
+
+**Post conditions:** The player has viewed their game history
+
+**Exceptions:**
+1. If the user has not played any games, the system will display a message to the user redirecting them back to the home game page to select a game
+
+**Priority:** Medium priority. While users may be curious about their game history/status, it is not essential in order for the gameplay features of the system to run
+
+**When available:** Second or third iteration.
+
+**Frequency of use:** Somewhat frequent. Some players may occasionally wish to view their game history out of curiosity, or to improve their gameplay skills.
+
+**Channel to actor:** Via the touch screen interface (game selection homepage)
+
+**Secondary actors:** N/A
+
+**Channel to secondary actors:** N/A
+
+**Open issues:**
+1. Other player’s have access to view some of their opponent’s game history (i.e. ranks, current status, recent matches). Should there be an option presented to users allowing them to make this information private?
+
 
