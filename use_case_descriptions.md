@@ -143,3 +143,47 @@ is already associated with an already created profile.
 **Channel to secondary actors:** N/A
 
 **Open issues:**  Should players be able to upload their own profile pictures/banners, or should they only be able to choose from a predefined selection?
+
+
+
+**Use case:** Login to existing account
+
+**Iteration:** 1
+
+**Primary Actor:** Player
+
+**Goal in context:** The player is able to log into their account securely in order to access their profile and play games
+
+**Preconditions:** The player has an existing account and the system’s authentication system is responsive
+
+**Trigger:** The player selects the “login” button on the system’s home page
+
+**Scenario:**
+A login screen is displayed to player prompting them to enter their username and password
+The player enters their username and password and hits enter
+The system verifies the player’s credentials using the authentication database
+The system verifies the player’s credentials and redirects them to the page displaying their profile
+If the username and/or password entered by the user are invalid, the screen displays an error message and the user is prompted to re-enter their credentials, or to create an account if they do not have an existing one
+
+**Post conditions:** The player has successfully logged in and now has access to their profile, leaderboard, and the systems various game features
+
+**Exceptions:**
+Username and/or password not correct. System displays error message and prompts user to try again
+Player has forgotten password. Screen displays “forgot password” option, enabling player to reset their password through email
+
+
+**Priority:** High. Essential in order for players to access the gaming platform and its various features, some of which include playing games, checking leaderboards, and viewing their profile
+
+**When available:** Second or third project iteration.
+
+**Frequency of use:** Most, if not every use. Players will need to log in every time they attempt to access the platform after closing it.
+
+**Channel to actor:** Via the touch screen interface (login screen on the homepage)
+
+**Secondary actors:** Authentication system/database
+
+**Channel to secondary actors:** User database
+
+**Open issues:**
+If the login page provides the option to access the system through third-party logins, how will this be presented on the screen?
+How will error messages be displayed on the screen?
