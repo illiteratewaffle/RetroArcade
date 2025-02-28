@@ -145,7 +145,6 @@ is already associated with an already created profile.
 **Open issues:**  Should players be able to upload their own profile pictures/banners, or should they only be able to choose from a predefined selection?
 
 
-
 **Use case:** Login to existing account
 
 **Iteration:** 1
@@ -159,18 +158,17 @@ is already associated with an already created profile.
 **Trigger:** The player selects the “login” button on the system’s home page
 
 **Scenario:**
-A login screen is displayed to player prompting them to enter their username and password
-The player enters their username and password and hits enter
-The system verifies the player’s credentials using the authentication database
-The system verifies the player’s credentials and redirects them to the page displaying their profile
-If the username and/or password entered by the user are invalid, the screen displays an error message and the user is prompted to re-enter their credentials, or to create an account if they do not have an existing one
+1. A login screen is displayed to player prompting them to enter their username and password
+2. The player enters their username and password and hits enter 
+3. The system verifies the player’s credentials using the authentication database 
+4. The system verifies the player’s credentials and redirects them to the page displaying their profile 
+5. If the username and/or password entered by the user are invalid, the screen displays an error message and the user is prompted to re-enter their credentials, or to create an account if they do not have an existing one
 
 **Post conditions:** The player has successfully logged in and now has access to their profile, leaderboard, and the systems various game features
 
 **Exceptions:**
-Username and/or password not correct. System displays error message and prompts user to try again
-Player has forgotten password. Screen displays “forgot password” option, enabling player to reset their password through email
-
+1. Username and/or password not correct. System displays error message and prompts user to try again 
+2. Player has forgotten password. Screen displays “forgot password” option, enabling player to reset their password through email
 
 **Priority:** High. Essential in order for players to access the gaming platform and its various features, some of which include playing games, checking leaderboards, and viewing their profile
 
@@ -185,5 +183,49 @@ Player has forgotten password. Screen displays “forgot password” option, ena
 **Channel to secondary actors:** User database
 
 **Open issues:**
-If the login page provides the option to access the system through third-party logins, how will this be presented on the screen?
-How will error messages be displayed on the screen?
+1. If the login page provides the option to access the system through third-party logins, how will this be presented on the screen? 
+2. How will error messages be displayed on the screen?
+
+
+
+**Use case:** Allow players to communicate during gameplay using in-game chat
+
+**Iteration:** 1
+
+**Primary Actor:** Player
+
+**Goal in context:** Player can communicate with opponents during a match
+
+**Preconditions:** The player is actively playing a multiplayer game
+
+**Trigger:** The player selects the chat icon on the game interface during a match
+
+**Scenario:**
+1. Player selects the “chat” button displayed during the match 
+2. A chat bar is displayed on the screen, through which players are enabled to type the message they wish to send to their opponents 
+3. Player types a message to opponent 
+4. Player selects “send” option on the screen to deliver their message 
+5. Player may also receive messages from opponents
+
+**Post conditions:** The player has communicated with their opponent during an ongoing multiplayer game
+
+**Exceptions:**
+1. If there is an error that prevents communication, the system will display an error message
+2. Any inappropriate messages sent by a player will be filtered by the system and will not be received by opponent
+
+**Priority:** Medium. May increase player’s sense of community and enhance their experience using the system, but not required in order to play games
+
+**When available:** Second or third iteration
+
+**Frequency of use:** Somewhat frequent. Different players may choose to utilize this functionality more or less frequently based on personal preference.
+
+**Channel to actor:** The interface available to users during a game match
+
+**Secondary actors:** N/A
+
+**Channel to secondary actors:** N/A
+
+**Open issues:**
+1. When a player receives a message from an opponent, will the system automatically open the chat bar on the receiving player’s end, or will they receive a notification which prompts them to open the chat bar on their own (if they choose to do so)?
+2. What message/warning will the system display to users who write inappropriate/offensive messages?
+
