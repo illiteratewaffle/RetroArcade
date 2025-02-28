@@ -229,3 +229,45 @@ is already associated with an already created profile.
 1. When a player receives a message from an opponent, will the system automatically open the chat bar on the receiving player’s end, or will they receive a notification which prompts them to open the chat bar on their own (if they choose to do so)?
 2. What message/warning will the system display to users who write inappropriate/offensive messages?
 
+
+**Use case:** Allow player to choose game from game library
+
+**Iteration:** 1
+
+**Primary Actor:** Player
+
+**Goal in context:** Player is able to view games offered by the platform and select one to play
+
+**Preconditions:** The player has logged in
+
+**Trigger:** After submitting login credentials, the player is redirected to the main game page
+
+**Scenario:**
+1. On the main game page screen, the system displays a list of games available for the player to choose from
+2. When requested by the player, the system displays a brief description for each game selection on the game library page interface 
+3. Player selects desired game from the list 
+4. Player is redirected to the game play screen
+
+**Post conditions:** The player has selected a game to play and has now been redirected to the screen where they will play the chosen game
+
+**Exceptions:**
+1. In the case of a server issue, the system will display an error message to the user to try again later
+2. If there are no opponents available to match, the system will display this message to the user and request that they wait for a match
+
+**Priority:** High. Selecting games is necessary in order to be able to play games using the system.
+
+**When available:** Second or third iteration
+
+**Frequency of use:** Frequent. Players will need to select a game each time they wish to start playing a game or enter a new match
+
+**Channel to actor:** Game page screen
+
+**Secondary actors:** N/A
+
+**Channel to secondary actors:** N/A
+
+**Open issues:**
+1. How will information be displayed for each game? Will the player have the option to choose to view instructions on how to play if needed?
+
+
+
