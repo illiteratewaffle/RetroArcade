@@ -503,3 +503,43 @@ to ensure it is entered correctly?
 
 **Open issues:**
 1. If a player consistently leaves ongoing games, should they receive incrementing forms of punishment? (lower matchmaking priority, temporary matchmaking bans, timeouts, other?)
+
+**Use case:** Update Current Game State
+
+**Iteration:** 1
+
+**Primary Actor:** Game Logic software
+
+**Goal in context:** To update the current state of the game being played to the player in real-time. The game logic should be able to know when a player is ending/beginning their turn. It should also know when a game is over and update the game state to be completed.
+
+**Preconditions:** The player has joined a match, and the game state has initiated.
+
+**Trigger:** Whenever a game is started and a player is designated to make their turn, or whenever the game has concluded.
+
+**Scenario:**
+1. A player begins a match from one of the 3 available games, Connect 4, Tic Tac Toe, Checkers.
+2. The game state is initiated and a player must take their turn.
+3. The game state is updated to ensure the correct player is able to make their turn as designated.
+4. The designated player makes their turn.
+5. If the game ends due to a win condition being met, go to 7.
+6. If the game is still ongoing and it is now the next player's turn, go back to 3.
+7. Update the game state to ensure that the game is concluded and no other players can take turns. A winner and loser are assigned and the match concludes.
+
+**Post conditions:** The game state is updated and the game is either initiated, awaiting a player's turn, or completed.
+
+**Exceptions:** N/A
+
+**Priority:** High priority.
+
+**When available:** 2nd or 3rd iteration.
+
+**Frequency of use:** Always. Game state is being constantly updated through gameplay.
+
+**Channel to actor:** Game Logic Java Classes.
+
+**Secondary actors:** N/A
+
+**Channel to secondary actors:** N/A
+
+**Open issues:**
+1. If there are network errors or disconnects, how will we handle delayed game status updates? Must prepare for this case to ensure that the game state is appropriately updated when possible for both players.
