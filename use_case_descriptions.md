@@ -583,3 +583,62 @@ profiles to play against them and see profile ranks.
 
 **Open issues:**
 1. If there are network errors or disconnects, how will we handle delayed game status updates? Must prepare for this case to ensure that the game state is appropriately updated when possible for both players.
+
+## Networking Team
+
+**Use case:** Player Joins a Multiplayer Game (client-server Model)
+
+**Iteration:** 1
+
+**Primary Actor:** Player (client)
+
+**Goal in context:** The player selects a game and sends a request to the server to join a game session.
+
+**Preconditions:** 
+
+1. The player is logged into their account.
+2. The client is successfully connected to the server.
+3. The player is on the game selection screen.
+4. The game server is online and responsive.
+
+**Trigger:** The player selects a game and requests to join a session.
+
+**Scenario:**
+1. The client and host player's select from list of board games to play.
+2. The host player creates a game server/session.
+3. The client player sends the host player a request to join the game server.
+4. The server receives the request, processes it and sends session details back to the client player.
+5. The client receives confirmation and the initial game state loads.
+
+**Post conditions:** The player is successfully connected to a game session through a client-server socket connnection.
+
+**Exceptions:** 
+
+1. The server is unreachable, preventing the player from joining.
+2. The client loses connection before the game session is initialized.
+3. The game session has reached the player limit.
+4. The request is incorrect, or corrupted during connection phase.
+5. A timeout threshold is surpassed, where either the server or client do not receive a response within a predefined time.
+
+**Priority:** High priority. Establishing a reliable multiplayer connection is crucial for gameplay.
+
+**When available:** 2nd or 3rd iteration.
+
+**Frequency of use:** Frequent. Everytime player's would like to play against other human opponents.
+
+**Channel to actor:** 
+
+1. GUI interaction.
+2. Socket connection for communication with the server.
+
+**Secondary actors:** 
+
+1. Game Server which handles session management and player matchmaking.
+
+**Channel to secondary actors:** 
+
+1. TCP socket communication between client and server for session handling.
+
+**Open issues:**
+
+1. What kind of authentication mechanism should be used for verifying player join requests?
