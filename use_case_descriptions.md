@@ -105,6 +105,87 @@ is already associated with an already created profile.
 
 **Open issues:** N/A
 
+
+**Use case:** Create Username
+
+**Iteration:** 1
+
+**Primary Actor:** New (Unregistered) Player
+
+**Goal in context:** Create a username associated with the players account.
+
+**Preconditions:** The program is on the Account Registration page, and ready to add a username.
+
+**Trigger:** The user is prompted to enter a username that is not associated with any current account.
+
+**Scenario:**
+1. Click on the text box marked username.
+2. User types in the username.
+3. Press Enter.
+4. Once submitted, verified to be a unique username in the system and then added to user profile.
+
+**Post conditions:** Profile has a unique username attached to it .
+
+**Exceptions:**
+1. Username is already associated with another profile.
+2. Invalid username.
+
+**Priority:** High Priority. The username is the main reference to the users account and is specific to each individual account. 
+
+**When available:** Available on the Register Account Information page.
+
+**Frequency of use:** Once for every profile that is created on the platform.
+
+**Channel to actor:** Keyboard and mouse
+
+**Secondary actors:** Profile server
+
+**Channel to secondary actors:** Entered username is searched on the Profile server and stored if valid. An error is thrown 
+if the username is already associated with an already existing profile.
+
+**Open issues:** Any length/character restrictions for a username (number of characters, no spaces, etc.)? Prevention of 
+offensive usernames?
+
+
+**Use case:** Create Password
+
+**Iteration:** 1
+
+**Primary Actor:** New (Unregistered) Player
+
+**Goal in context:** Create a password associated with the players account.
+
+**Preconditions:** The program is on the Account Registration page, and ready to add a password.
+
+**Trigger:** The user is prompted to create a password for the account.
+
+**Scenario:**
+1. Click on the text box marked password.
+2. User types in the password.
+3. Press Enter.
+4. Once submitted, the password is added to the user profile
+
+**Post conditions:** Profile has a password attached to it. 
+
+**Exceptions:**
+1. Invalid password.
+
+**Priority:** High Priority. The password is needed for account security, along with signing in to a users account.
+
+**When available:** Available on the Register Account Information page.
+
+**Frequency of use:** Once for every profile that is created on the platform.
+
+**Channel to actor:** Keyboard and mouse
+
+**Secondary actors:** Profile server
+
+**Channel to secondary actors:** Entered password is stored on the Profile server.
+
+**Open issues:** Specific requirements for a password to be valid (at least 8 characters, a number, etc.)? Password confirmation step 
+to ensure it is entered correctly?
+
+
 ## GUI Team
 
 **Use case:** Allow players to customize/edit their profile.
