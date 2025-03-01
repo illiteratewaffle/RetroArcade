@@ -382,3 +382,43 @@ is already associated with an already created profile.
 **Channel to secondary actors:** N/A
 
 **Open issues:** N/A
+
+## Game Logic Team
+
+**Use case:** Allow Player To Voluntarily Quit The Game.
+
+**Iteration:** 1
+
+**Primary Actor:** Player
+
+**Goal in context:** The player will be able to voluntarily leave/quit their current game session. This will result in a loss for the player that left, and a win for the other player.
+
+**Preconditions:** The player has joined a match, and the game is ongoing.
+
+**Trigger:** The player wishes to leave the ongoing game.
+
+**Scenario:**
+1. The player begins playing any of the available games (Connect 4, Tic Tac Toe, Checkers).
+2. The game begins and the player wishes to leave the ongoing game.
+3. The player is warned, before leaving, that he will be given a loss for leaving the match.
+4. The player makes the choice to leave the game.
+5. The game is ended and the leaving player is given a loss, while the other player is awarded a win.
+
+**Post conditions:** The player has voluntarily left the game, and the game is ended.
+
+**Exceptions:** N/A
+
+**Priority:** Medium-High Priority. Is an almost essential feature for many players to have available to them. Although it is not essential for gameplay functionality, it is a good feature to provide to our players to ensure they do not feel "trapped" in a game.
+
+**When available:** Second or third iteration.
+
+**Frequency of use:** Somewhat frequent. Some players may wish to leave as a form of conceding to their opponent, others may be under a time crunch, and many other reasons.
+
+**Channel to actor:** Via the main menu interface.
+
+**Secondary actors:** N/A
+
+**Channel to secondary actors:** N/A
+
+**Open issues:**
+1. If a player consistently leaves ongoing games, should they receive incrementing forms of punishment? (lower matchmaking priority, temporary matchmaking bans, timeouts, other?)
