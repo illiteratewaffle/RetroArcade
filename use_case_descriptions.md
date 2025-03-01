@@ -186,6 +186,46 @@ offensive usernames?
 to ensure it is entered correctly?
 
 
+**Use case:** Search for Other Users
+
+**Iteration:** 1
+
+**Primary Actor:** Player
+
+**Goal in context:** Search username of another player to view their profile.
+
+**Preconditions:** Player is logged in.
+
+**Trigger:** The player wants to find a profile of another player to view current status, rank, and recent matches.
+
+**Scenario:**
+1. Player clicks on Profile Search box.
+2. Player types in username using a keyboard.
+3. Player clicks enter.
+4. Profile database is searched and returns usernames that contain the searched term. The highest results are profiles that 
+most match the search term. 
+
+**Post conditions:** Usernames of profiles that match search input are displayed. The player may select one to view the profile.
+
+**Exceptions:**
+1. Error searching the database not terminating or returning any results.
+2. No results match the search term.
+
+**Priority:** High priority. The platform is to play multiplayer games, so it is important that players can find their friends'
+profiles to play against them and see profile ranks.
+
+**When available:** Available when logged in when not in a game.
+
+**Frequency of use:**
+
+**Channel to actor:** Keyboard
+
+**Secondary actors:** Profile database server
+
+**Channel to secondary actors:** Search algorithm through all profile usernames in the database.
+
+**Open issues:** N/A
+
 ## GUI Team
 
 **Use case:** Allow players to customize/edit their profile.
