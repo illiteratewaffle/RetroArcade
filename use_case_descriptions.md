@@ -584,6 +584,48 @@ profiles to play against them and see profile ranks.
 **Open issues:**
 1. If there are network errors or disconnects, how will we handle delayed game status updates? Must prepare for this case to ensure that the game state is appropriately updated when possible for both players.
 
+
+**Use case:** Provide user with tutorials and/or hints
+
+**Iteration:** 1
+
+**Primary Actor:** Player
+
+**Goal in context:** The player will be able to ask for a tutorial or hint at the beginning or end.
+
+**Preconditions:** The player has started one of 3 games.
+
+**Trigger:** The player clicks on the button for tutorial or hint on the screen.
+
+**Scenario:**
+1. The player selects the tutorial or hint button from the game interface.
+2. If tutorial is selected, the player is walked through the first few steps of a game and its rules.
+3. If a hint is selected, the player will receive a game-appropriate hint that does nudges them in the right direction in relation to the game.
+4. The player should be allowed to then close the tutorial/hint and continue playing.
+
+**Post conditions:** The player received a tutorial/hint and continues with the game.
+
+**Exceptions:** 
+1. If the player selects a hint but they are in a stalemate, hint may not be provided.
+
+**Priority:** Medium priority. It's not extremely necessary as these games are quite common and popular, you can find the rules anywhere, but some users may not know it well enough and would need a tutorial or hints or both.
+
+**When available:** Between 2nd and 3rd iterations
+
+**Frequency of use:** Somewhat frequent. As mentioned above, some people may need to use it and some don't.
+
+**Channel to actor:** The game's interface.
+
+**Secondary actors:** N/A
+
+**Channel to secondary actors:** N/A
+
+**Open issues:**
+1. How would the hints be generated?
+2. Should there be a limited number of hints to prevent users from exploiting it?
+
+
+
 ## Networking Team
 
 **Use case:** Player Joins a Multiplayer Game (client-server Model)
