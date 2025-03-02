@@ -642,3 +642,63 @@ profiles to play against them and see profile ranks.
 **Open issues:**
 
 1. What kind of authentication mechanism should be used for verifying player join requests?
+
+**Use case:** Player Disconnection & Reconnection
+
+**Iteration:** 1
+
+**Primary Actor:** Player
+
+**Goal in context:** Ensure that if player disconnects from an ongoing game session, their game state is retained, allowing
+them to reconnect and resume the match if they return within a certain timeframe.
+
+**Preconditions:**
+
+1. The player is currently connected to an active multiplayer session.
+2. The server is online and managing the session.
+3. The game session is still ongoing when the disconnection occurs.
+
+**Trigger:** The player's connection is cut due to network issues, system crashes, or manual disconnection.
+
+**Scenario:**
+
+1. The player is currently within a multiplayer game session.
+2. The player disconnects unexpectedly due to internet issues, game/system crashes, or manual disconnection.
+3. The server detects the player's disconnection and marks the player a disconnected (temporarily).
+4. The server retains the player's game state (moves, scores, turn state) for a predetermined amount of time.
+5. If the player reconnects:
+   - The client sends a reconnection request to the server.
+   - The server verifies the player's identity and checks if their previous session is still available,
+   - The server restores the player's last game state and re-establishes their connection to the session.
+
+**Post conditions:** If the player successfully reconnects, they resume the game from the last known state.
+
+**Exceptions:**
+
+1. The player does not reconnect within the allocated time, and the game session is forced to continue.
+2. If the server goes down before the player reconnects, their game state may be lost.
+3. The player reconnects but fails identity verification.
+4. If the player repeatedly disconnects and reconnects, the server may impose a limit.
+
+**Priority:** High. Disconnection and reconnection handling is essential for preventing abuse of online system, and ensuring smooth
+multiplayer experience.
+
+**When available:** 2nd or 3rd iteration.
+
+**Frequency of use:** Variable. Some player's may rarely disconnect, while others may have unstable connections, or abuse the system.
+
+**Channel to actor:**
+
+1. Player interacts via the game client.
+2. Reconnection occurs via the server-client communication.
+
+**Secondary actors:** N/A
+
+**Channel to secondary actors:** N/A
+
+**Open issues:**
+
+1. How long should the server retain the player's game state before removing them from the session?
+2. How should the system handle repeated connections and disconnections from players?
+3. What security measures are in place to prevent exploitation of disconnect/reconnect logic?
+4. How long should the reconnect threshold times be, and should it depend on game type?
