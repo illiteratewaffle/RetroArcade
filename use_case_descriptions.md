@@ -642,3 +642,61 @@ profiles to play against them and see profile ranks.
 **Open issues:**
 
 1. What kind of authentication mechanism should be used for verifying player join requests?
+
+**Use case:** Multiplayer Game State Update (client-server Model) 
+ 
+**Iteration:** 1 
+ 
+**Primary Actor:** Player (client) 
+ 
+**Goal in context:** The player makes an in-game action that is sent to the server. The server then updates the game state and sends the new state to all connected players. 
+ 
+**Preconditions:**  
+ 
+1. The player is logged into their account. 
+2. The player is connected to the game. 
+3. The client is connected to the server. 
+4. The game server is online and responsive. 
+ 
+**Trigger:** The player takes an action in the game 
+ 
+**Scenario:** 
+1. The player takes an action in the client. 
+2. The client sends the action to the server. 
+3. The server game session manager updates the game state. 
+4. The server game state synchronizer sends the new game state to all connected clients 
+5. The client receives the new game state and replaces the old game state with it. 
+ 
+**Post conditions:** All players receive the updated game state 
+
+**Exceptions:**  
+ 
+1. The server is unreachable, so the action is not sent to the server. 
+2. The client loses connection before the game state is synchronized. 
+4. A move is invalid or corrupted during the game state update. 
+5. A timeout threshold is surpassed, where either the server or client do not receive a response within a predefined time. 
+ 
+**Priority:** High priority. Establishing a reliable multiplayer connection is crucial for gameplay. 
+ 
+**When available:** 2nd or 3rd iteration. 
+ 
+**Frequency of use:** Very Frequent. Every time any player takes an action in a multiplayer game. 
+ 
+**Channel to actor:**  
+ 
+1. GUI interaction. 
+2. Socket connection for communication with the server. 
+ 
+**Secondary actors:**  
+ 
+1. Game Server which handles session management and player matchmaking.
+2. Other player clients 
+ 
+**Channel to secondary actors:**  
+ 
+1. TCP socket communication between client and server for session handling. 
+ 
+**Open issues:** 
+
+1. How to handle simultaneous moves from different players.
+2. How to make sure the game state is updated at the same time for all players 
