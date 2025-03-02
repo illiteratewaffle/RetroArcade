@@ -105,6 +105,127 @@ is already associated with an already created profile.
 
 **Open issues:** N/A
 
+
+**Use case:** Create Username
+
+**Iteration:** 1
+
+**Primary Actor:** New (Unregistered) Player
+
+**Goal in context:** Create a username associated with the players account.
+
+**Preconditions:** The program is on the Account Registration page, and ready to add a username.
+
+**Trigger:** The user is prompted to enter a username that is not associated with any current account.
+
+**Scenario:**
+1. Click on the text box marked username.
+2. User types in the username.
+3. Press Enter.
+4. Once submitted, verified to be a unique username in the system and then added to user profile.
+
+**Post conditions:** Profile has a unique username attached to it .
+
+**Exceptions:**
+1. Username is already associated with another profile.
+2. Invalid username.
+
+**Priority:** High Priority. The username is the main reference to the users account and is specific to each individual account. 
+
+**When available:** Available on the Register Account Information page.
+
+**Frequency of use:** Once for every profile that is created on the platform.
+
+**Channel to actor:** Keyboard and mouse
+
+**Secondary actors:** Profile server
+
+**Channel to secondary actors:** Entered username is searched on the Profile server and stored if valid. An error is thrown 
+if the username is already associated with an already existing profile.
+
+**Open issues:** Any length/character restrictions for a username (number of characters, no spaces, etc.)? Prevention of 
+offensive usernames?
+
+
+**Use case:** Create Password
+
+**Iteration:** 1
+
+**Primary Actor:** New (Unregistered) Player
+
+**Goal in context:** Create a password associated with the players account.
+
+**Preconditions:** The program is on the Account Registration page, and ready to add a password.
+
+**Trigger:** The user is prompted to create a password for the account.
+
+**Scenario:**
+1. Click on the text box marked password.
+2. User types in the password.
+3. Press Enter.
+4. Once submitted, the password is added to the user profile
+
+**Post conditions:** Profile has a password attached to it. 
+
+**Exceptions:**
+1. Invalid password.
+
+**Priority:** High Priority. The password is needed for account security, along with signing in to a users account.
+
+**When available:** Available on the Register Account Information page.
+
+**Frequency of use:** Once for every profile that is created on the platform.
+
+**Channel to actor:** Keyboard and mouse
+
+**Secondary actors:** Profile server
+
+**Channel to secondary actors:** Entered password is stored on the Profile server.
+
+**Open issues:** Specific requirements for a password to be valid (at least 8 characters, a number, etc.)? Password confirmation step 
+to ensure it is entered correctly?
+
+
+**Use case:** Search for Other Users
+
+**Iteration:** 1
+
+**Primary Actor:** Player
+
+**Goal in context:** Search username of another player to view their profile.
+
+**Preconditions:** Player is logged in.
+
+**Trigger:** The player wants to find a profile of another player to view current status, rank, and recent matches.
+
+**Scenario:**
+1. Player clicks on Profile Search box.
+2. Player types in username using a keyboard.
+3. Player clicks enter.
+4. Profile database is searched and returns usernames that contain the searched term. The highest results are profiles that 
+most match the search term. 
+
+**Post conditions:** Usernames of profiles that match search input are displayed. The player may select one to view the profile.
+
+**Exceptions:**
+1. Error searching the database not terminating or returning any results.
+2. No results match the search term.
+
+**Priority:** High priority. The platform is to play multiplayer games, so it is important that players can find their friends'
+profiles to play against them and see profile ranks.
+
+**When available:** Available when logged in when not in a game.
+
+**Frequency of use:**
+
+**Channel to actor:** Keyboard
+
+**Secondary actors:** Profile database server
+
+**Channel to secondary actors:** Search algorithm through all profile usernames in the database.
+
+**Open issues:** N/A
+
 ## GUI Team
 
 **Use case:** Allow players to customize/edit their profile.
@@ -382,3 +503,202 @@ is already associated with an already created profile.
 **Channel to secondary actors:** N/A
 
 **Open issues:** N/A
+
+## Game Logic Team
+
+**Use case:** Allow Player To Voluntarily Quit The Game.
+
+**Iteration:** 1
+
+**Primary Actor:** Player
+
+**Goal in context:** The player will be able to voluntarily leave/quit their current game session. This will result in a loss for the player that left, and a win for the other player.
+
+**Preconditions:** The player has joined a match, and the game is ongoing.
+
+**Trigger:** The player wishes to leave the ongoing game.
+
+**Scenario:**
+1. The player begins playing any of the available games (Connect 4, Tic Tac Toe, Checkers).
+2. The game begins and the player wishes to leave the ongoing game.
+3. The player is warned, before leaving, that he will be given a loss for leaving the match.
+4. The player makes the choice to leave the game.
+5. The game is ended and the leaving player is given a loss, while the other player is awarded a win.
+
+**Post conditions:** The player has voluntarily left the game, and the game is ended.
+
+**Exceptions:** N/A
+
+**Priority:** Medium-High Priority. Is an almost essential feature for many players to have available to them. Although it is not essential for gameplay functionality, it is a good feature to provide to our players to ensure they do not feel "trapped" in a game.
+
+**When available:** Second or third iteration.
+
+**Frequency of use:** Somewhat frequent. Some players may wish to leave as a form of conceding to their opponent, others may be under a time crunch, and many other reasons.
+
+**Channel to actor:** Via the main menu interface.
+
+**Secondary actors:** N/A
+
+**Channel to secondary actors:** N/A
+
+**Open issues:**
+1. If a player consistently leaves ongoing games, should they receive incrementing forms of punishment? (lower matchmaking priority, temporary matchmaking bans, timeouts, other?)
+
+**Use case:** Update Current Game State
+
+**Iteration:** 1
+
+**Primary Actor:** Game Logic software
+
+**Goal in context:** To update the current state of the game being played to the player in real-time. The game logic should be able to know when a player is ending/beginning their turn. It should also know when a game is over and update the game state to be completed.
+
+**Preconditions:** The player has joined a match, and the game state has initiated.
+
+**Trigger:** Whenever a game is started and a player is designated to make their turn, or whenever the game has concluded.
+
+**Scenario:**
+1. A player begins a match from one of the 3 available games, Connect 4, Tic Tac Toe, Checkers.
+2. The game state is initiated and a player must take their turn.
+3. The game state is updated to ensure the correct player is able to make their turn as designated.
+4. The designated player makes their turn.
+5. If the game ends due to a win condition being met, go to 7.
+6. If the game is still ongoing and it is now the next player's turn, go back to 3.
+7. Update the game state to ensure that the game is concluded and no other players can take turns. A winner and loser are assigned and the match concludes.
+
+**Post conditions:** The game state is updated and the game is either initiated, awaiting a player's turn, or completed.
+
+**Exceptions:** N/A
+
+**Priority:** High priority.
+
+**When available:** 2nd or 3rd iteration.
+
+**Frequency of use:** Always. Game state is being constantly updated through gameplay.
+
+**Channel to actor:** Game Logic Java Classes.
+
+**Secondary actors:** N/A
+
+**Channel to secondary actors:** N/A
+
+**Open issues:**
+1. If there are network errors or disconnects, how will we handle delayed game status updates? Must prepare for this case to ensure that the game state is appropriately updated when possible for both players.
+
+## Networking Team
+
+**Use case:** Player Joins a Multiplayer Game (client-server Model)
+
+**Iteration:** 1
+
+**Primary Actor:** Player (client)
+
+**Goal in context:** The player selects a game and sends a request to the server to join a game session.
+
+**Preconditions:** 
+
+1. The player is logged into their account.
+2. The client is successfully connected to the server.
+3. The player is on the game selection screen.
+4. The game server is online and responsive.
+
+**Trigger:** The player selects a game and requests to join a session.
+
+**Scenario:**
+1. The client and host player's select from list of board games to play.
+2. The host player creates a game server/session.
+3. The client player sends the host player a request to join the game server.
+4. The server receives the request, processes it and sends session details back to the client player.
+5. The client receives confirmation and the initial game state loads.
+
+**Post conditions:** The player is successfully connected to a game session through a client-server socket connnection.
+
+**Exceptions:** 
+
+1. The server is unreachable, preventing the player from joining.
+2. The client loses connection before the game session is initialized.
+3. The game session has reached the player limit.
+4. The request is incorrect, or corrupted during connection phase.
+5. A timeout threshold is surpassed, where either the server or client do not receive a response within a predefined time.
+
+**Priority:** High priority. Establishing a reliable multiplayer connection is crucial for gameplay.
+
+**When available:** 2nd or 3rd iteration.
+
+**Frequency of use:** Frequent. Everytime player's would like to play against other human opponents.
+
+**Channel to actor:** 
+
+1. GUI interaction.
+2. Socket connection for communication with the server.
+
+**Secondary actors:** 
+
+1. Game Server which handles session management and player matchmaking.
+
+**Channel to secondary actors:** 
+
+1. TCP socket communication between client and server for session handling.
+
+**Open issues:**
+
+1. What kind of authentication mechanism should be used for verifying player join requests?
+
+**Use case:** Player Disconnection & Reconnection
+
+**Iteration:** 1
+
+**Primary Actor:** Player
+
+**Goal in context:** Ensure that if player disconnects from an ongoing game session, their game state is retained, allowing
+them to reconnect and resume the match if they return within a certain timeframe.
+
+**Preconditions:**
+
+1. The player is currently connected to an active multiplayer session.
+2. The server is online and managing the session.
+3. The game session is still ongoing when the disconnection occurs.
+
+**Trigger:** The player's connection is cut due to network issues, system crashes, or manual disconnection.
+
+**Scenario:**
+
+1. The player is currently within a multiplayer game session.
+2. The player disconnects unexpectedly due to internet issues, game/system crashes, or manual disconnection.
+3. The server detects the player's disconnection and marks the player a disconnected (temporarily).
+4. The server retains the player's game state (moves, scores, turn state) for a predetermined amount of time.
+5. If the player reconnects:
+   - The client sends a reconnection request to the server.
+   - The server verifies the player's identity and checks if their previous session is still available,
+   - The server restores the player's last game state and re-establishes their connection to the session.
+
+**Post conditions:** If the player successfully reconnects, they resume the game from the last known state.
+
+**Exceptions:**
+
+1. The player does not reconnect within the allocated time, and the game session is forced to continue.
+2. If the server goes down before the player reconnects, their game state may be lost.
+3. The player reconnects but fails identity verification.
+4. If the player repeatedly disconnects and reconnects, the server may impose a limit.
+
+**Priority:** High. Disconnection and reconnection handling is essential for preventing abuse of online system, and ensuring smooth
+multiplayer experience.
+
+**When available:** 2nd or 3rd iteration.
+
+**Frequency of use:** Variable. Some player's may rarely disconnect, while others may have unstable connections, or abuse the system.
+
+**Channel to actor:**
+
+1. Player interacts via the game client.
+2. Reconnection occurs via the server-client communication.
+
+**Secondary actors:** N/A
+
+**Channel to secondary actors:** N/A
+
+**Open issues:**
+
+1. How long should the server retain the player's game state before removing them from the session?
+2. How should the system handle repeated connections and disconnections from players?
+3. What security measures are in place to prevent exploitation of disconnect/reconnect logic?
+4. How long should the reconnect threshold times be, and should it depend on game type?
