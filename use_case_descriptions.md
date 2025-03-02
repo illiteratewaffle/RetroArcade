@@ -676,7 +676,7 @@ profiles to play against them and see profile ranks.
 3. A move is invalid or corrupted during the game state update. 
 4. A timeout threshold is surpassed, where either the server or client do not receive a response within a predefined time. 
  
-**Priority:** High priority. Establishing a reliable multiplayer connection is crucial for gameplay. 
+**Priority:** High priority. Being able to make moves that all players can see is crucial for multiplayer gameplay
  
 **When available:** 2nd or 3rd iteration. 
  
