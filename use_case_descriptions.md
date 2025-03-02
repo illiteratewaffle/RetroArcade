@@ -700,3 +700,59 @@ profiles to play against them and see profile ranks.
 
 1. How to handle simultaneous moves from different players.
 2. How to make sure the game state is updated at the same time for all players 
+
+**Use case:** Player Creates Account (client-server Model)
+
+**Iteration:** 1
+
+**Primary Actor:** Player (client)
+
+**Goal in context:** The player creates a new account by entering their details on the registration screen, their credentials are then stored on the server.
+
+**Preconditions:**
+
+1. The client can be connected to the server.
+2. The player is on the registration screen.
+3. The game server is online and responsive.
+
+**Trigger:** The player selects the option to register a new account.
+
+**Scenario:**
+1. The player enters the required registration details.
+2. The client sends the registration information and request to the server.
+3. The server checks the validity of the submitted information.
+4. The server stores the player's registration info in its database.
+5. The server sends confirmation back to the client and connects to the player's account.
+
+**Post conditions:** The player's account is successfully created, and is connected to the server
+
+
+**Exceptions:**
+
+1. The server is unreachable, so the registration info was not sent to the server.
+2. The database is unreachable and cannot store the data.
+3. The player's registration information is invalid
+
+**Priority:** High priority. Having an account is necessary to connect to the multiplayer aspects of the game.
+
+**When available:** 2nd or 3rd iteration.
+
+**Frequency of use:** Low. Will be used when a player first begins using the multiplayer aspects of a game
+
+**Channel to actor:**
+
+1. GUI interaction.
+2. Socket connection for communication with the server.
+
+**Secondary actors:**
+
+1. Game Server
+2. Game Database
+
+**Channel to secondary actors:**
+
+1. TCP socket communication between client and server for session handling.
+
+**Open issues:**
+
+1. How to handle registration information if the server database is full
