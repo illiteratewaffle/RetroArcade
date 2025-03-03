@@ -20,7 +20,7 @@
 **Open issues:**
 ///////////////////////////////////////
 
-## Authentication and Profile Team
+## Authentication and Profile Team 
 **Use case:** Select Create an Account
 
 **Iteration:** 1
