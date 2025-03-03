@@ -34,10 +34,10 @@
 **Trigger:** The new unregistered player wants to register for a new profile account to use the service.
 
 **Scenario:**
-1. The user clicks the Create a New Account Button.
-2. The user is taken to a new Account Creation Screen.
+1. The unregistered player clicks the Create a New Account Button.
+2. The unregistered player is taken to a new Account Creation Screen.
 
-**Post conditions:** The new Account Creation Screen prompts the user to fill in text boxes to input an E-mail Address,
+**Post conditions:** The new Account Creation Screen prompts the unregistered player to fill in text boxes to input an E-mail Address,
 a username, and a password. There is a button at the end to confirm and complete registration.
 
 **Exceptions:**
@@ -47,7 +47,7 @@ a username, and a password. There is a button at the end to confirm and complete
 4. The Create a New Account Button does not appear.
 
 **Priority:** High. The creation of Profiles is required to properly track players' game history, leaderboard rankings, 
-player stats and win/loss ratios for appropriate match making. Profiles also allow users to find their friends' profiles
+player stats and win/loss ratios for appropriate match making. Profiles also allow players to find their friends' profiles
 to play against.
 
 **When available:** On the Main Menu Screen near Log in when no profile is currently logged into the program currently.
@@ -73,13 +73,13 @@ to play against.
 
 **Preconditions:** The program is on the Account Registration page.
 
-**Trigger:** The user is prompted to enter an e-mail address that is not associated with any current account.
+**Trigger:** The unregistered player is prompted to enter an e-mail address that is not associated with any current account.
 
 **Scenario:**
 1. Click on text box marked e-mail.
-2. User types in e-mail address.
+2. Unregistered player types in e-mail address.
 3. Press Enter.
-4. Once submitted, verified to be a unique e-mail address on the server and added to user profile.
+4. Once submitted, verified to be a unique e-mail address on the server and added to profile.
 
 **Post conditions:** Profile has a unique e-mail associated to it.
 
@@ -102,6 +102,46 @@ without an e-mail address.
 
 **Channel to secondary actors:** Entered e-mail is searched up on the Profile server. An error is thrown if the e-mail address
 is already associated with an already created profile.
+
+**Open issues:** N/A
+
+
+**Use case:** Verify E-mail Address
+
+**Iteration:** 1
+
+**Primary Actor:** Profile Server
+
+**Goal in context:** Check if entered e-mail already is not associated with an already existing profile.
+
+**Preconditions:** An e-mail has been submitted from either Create an Account page Add E-mail Address or from Update E-mail Address.
+
+**Trigger:** E-mail Address is submitted to server.
+
+**Scenario:**
+1. Profile Server checks HashSet profileEmailSet if it contains the requested e-mail. 
+2. Returns true if the HashSet does not contain the e-mail address, indicating a valid e-mail address allowing Player to proceed.
+3. Returns false if the HashSet already contains the e-mail address, indicating that e-mail is not valid due to the e-mail
+address being already associated with another profile.
+
+**Post conditions:** Returns back if the E-mail address is valid or invalid.
+
+**Exceptions:**
+1. An Empty string is submitted by the player.
+
+**Priority:** High priority, A profile needs to have a unique identifier through the e-mail address, so an e-mail cannot
+be used by multiple profiles.
+
+**When available:** When Adding to a new Profile or Updating an E-mail Address of an existing Profile.
+
+**Frequency of use:** Not very frequently. At least once for every created profile, with un frequent additional calls for e-mail address
+updates.
+
+**Channel to actor:** profileEmailSet HashSet
+
+**Secondary actors:** N/A
+
+**Channel to secondary actors:** N/A
 
 **Open issues:** N/A
 
@@ -223,6 +263,48 @@ profiles to play against them and see profile ranks.
 **Secondary actors:** Profile database server
 
 **Channel to secondary actors:** Search algorithm through all profile usernames in the database.
+
+**Open issues:** N/A
+
+
+**Use case:** View Current Status
+
+**Iteration:** 1
+
+**Primary Actor:** Player
+
+**Goal in context:** View the current status of a searched player.
+
+**Preconditions:** The player has searched for and selected a Profile.
+
+**Trigger:** The player wants to see if the player is online and available to play.
+
+**Scenario:**
+1. Player selects view status.
+2. Server checks current profile online variable status
+3. If false and therefore not logged in, profile is displayed as offline.
+4. If true and therefore logged in, profile is displayed as online.
+5. If logged in, Server checks current profile current_game variable status.
+6. If null, player is not currently in a game, profile is displayed as available.
+7. If variable contains a string of a game name, then profile displays the current game name.
+
+**Post conditions:** Current status is displayed on Profile, showing if online, offline, or what game the profile is currently playing.
+
+**Exceptions:**
+1. online and current_game variables display not up-to-date information
+
+**Priority:** High priority, because players need to know if a player is currently available to be able to invite them to 
+play a game together. 
+
+**When available:** Viewable on a Profile page or on the Friends List.
+
+**Frequency of use:** Constantly updated when on the Friends List page or on a Profile Page. 
+
+**Channel to actor:** Displayed on a Profile Page Screen, or on the Friends List Page.
+
+**Secondary actors:** Server
+
+**Channel to secondary actors:** Obtains profile of selected profile to obtain variable contents.
 
 **Open issues:** N/A
 
