@@ -402,17 +402,17 @@ profiles to play against them and see profile ranks.
 
 **Scenario:**
 1. Player selects view status.
-2. Server checks current profile online variable status
+2. Server checks current profile isOnline variable status
 3. If false and therefore not logged in, profile is displayed as offline.
 4. If true and therefore logged in, profile is displayed as online.
-5. If logged in, Server checks current profile current_game variable status.
+5. If logged in, Server checks current profile currentGame variable status.
 6. If null, player is not currently in a game, profile is displayed as available.
 7. If variable contains a string of a game name, then profile displays the current game name.
 
 **Post conditions:** Current status is displayed on Profile, showing if online, offline, or what game the profile is currently playing.
 
 **Exceptions:**
-1. online and current_game variables display not up-to-date information
+1. isOnline and currentGame variables display not up-to-date information
 
 **Priority:** High priority, because players need to know if a player is currently available to be able to invite them to 
 play a game together. 
