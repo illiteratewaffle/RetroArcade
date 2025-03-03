@@ -44,6 +44,7 @@ Class Ideas:
 - Authentication (methods for log in, log off, account creation)
 - WinLossRatio (calculate ratio)
 - RecentGames
+- GameHistory (Total viewed for personal profile)
 
 
 Class Structure Diagram:
@@ -54,3 +55,28 @@ Possible Sequence Diagrams:
 - registration
 
 Confirm with GUI and LeaderBoard Teams for class organization and Button Layout, Sequence of things
+
+
+
+Use Case Descriptions to be done:
+- Add new Profile to Profile Database
+- View Bio
+- Change Bio
+- View Nickname
+- Change Nickname
+- View Profile Picture
+- Change Profile Picture
+- View Recent matches
+- add Friend
+- View Friends List
+- Challenge Button to Challenge Users to Games
+- Sign In
+- Forgot Password
+- Forgot Username
+- Update Current Status
+- Update Rank
+- Update Win/Loss Ratio
+- Edit Information
+- View Games Played (Total History)
+- View Player Stats
+- View Win/Loss Records
