@@ -156,13 +156,13 @@ updates.
 
 **Preconditions:** The program is on the Account Registration page, and ready to add a username.
 
-**Trigger:** The user is prompted to enter a username that is not associated with any current account.
+**Trigger:** The player is prompted to enter a username that is not associated with any current account.
 
 **Scenario:**
 1. Click on the text box marked username.
-2. User types in the username.
+2. Player types in the username.
 3. Press Enter.
-4. Once submitted, verified to be a unique username in the system and then added to user profile.
+4. Once submitted, verified to be a unique username in the system and then added to player profile.
 
 **Post conditions:** Profile has a unique username attached to it .
 
@@ -170,7 +170,7 @@ updates.
 1. Username is already associated with another profile.
 2. Invalid username.
 
-**Priority:** High Priority. The username is the main reference to the users account and is specific to each individual account. 
+**Priority:** High Priority. The username is the main reference to the players account and is specific to each individual account. 
 
 **When available:** Available on the Register Account Information page.
 
@@ -181,7 +181,7 @@ updates.
 **Secondary actors:** Profile server
 
 **Channel to secondary actors:** Entered username is searched on the Profile server and stored if valid. An error is thrown 
-if the username is already associated with an already existing profile.
+if the username is associated with an already existing profile.
 
 **Open issues:** Any length/character restrictions for a username (number of characters, no spaces, etc.)? Prevention of 
 offensive usernames?
@@ -197,20 +197,20 @@ offensive usernames?
 
 **Preconditions:** The program is on the Account Registration page, and ready to add a password.
 
-**Trigger:** The user is prompted to create a password for the account.
+**Trigger:** The player is prompted to create a password for the account.
 
 **Scenario:**
 1. Click on the text box marked password.
-2. User types in the password.
+2. Player types in the password.
 3. Press Enter.
-4. Once submitted, the password is added to the user profile
+4. Once submitted, the password is added to the player profile
 
 **Post conditions:** Profile has a password attached to it. 
 
 **Exceptions:**
 1. Invalid password.
 
-**Priority:** High Priority. The password is needed for account security, along with signing in to a users account.
+**Priority:** High Priority. The password is needed for account security, along with signing in to a players account.
 
 **When available:** Available on the Register Account Information page.
 
@@ -224,6 +224,127 @@ offensive usernames?
 
 **Open issues:** Specific requirements for a password to be valid (at least 8 characters, a number, etc.)? Password confirmation step 
 to ensure it is entered correctly?
+
+
+**Use case:** Change E-mail Address
+
+**Iteration:** 1
+
+**Primary Actor:** Existing Player
+
+**Goal in context:** Change the e-mail address associated with the players current account. 
+
+**Preconditions:** The program is on the Edit Information page, and ready to change the e-mail.
+
+**Trigger:** The player initiates changing the e-mail associated with the account.
+
+**Scenario:**
+1. Player selects the option to change the e-mail.
+2. Click on the text box marked e-mail.
+3. Player types in the new e-mail address.
+4. Press Enter. 
+5. Once submitted, verified to be a unique e-mail address on the server and added to player profile.
+
+**Post conditions:** Profile is updated to have the new e-mail address associated with the account.
+
+**Exceptions:** 
+1. Invalid e-mail address.
+2. E-mail address is already associated with another profile.
+
+**Priority:** Medium Priority. Not essential for profile function but may add to player experience.
+
+**When available:** Available on the Edit Information page.
+
+**Frequency of use:** Low, only used when player wants to change their username.
+
+**Channel to actor:** Keyboard and mouse
+
+**Secondary actors:** Profile server
+
+**Channel to secondary actors:** New e-mail entered is searched up on the Profile server. An error is thrown if the e-mail address
+   is associated with an already created profile.
+
+**Open issues:** Limits to number of e-mail changes?
+
+
+**Use case:** Change Username
+
+**Iteration:** 1
+
+**Primary Actor:** Existing Player
+
+**Goal in context:** Change a username associated with the players current account.
+
+**Preconditions:** The program is on the Edit Information page, and ready to change the username.
+
+**Trigger:** The player initiates changing the username for the account.
+
+**Scenario:**
+1. Player selects the option to change the username.
+2. Click on the text box marked username.
+3. Player types in the new username.
+4. Press Enter.
+5. Once submitted, verified to be a unique username in the system and then added to player profile to replace old username.
+
+**Post conditions:** Profile is updated to have the new unique username attached to it.
+
+**Exceptions:**
+1. Username is already associated with another profile.
+2. Invalid username.
+
+**Priority:** Medium Priority. Not essential for profile function but may add to player experience. 
+
+**When available:** Available on the Edit Information page.
+
+**Frequency of use:** Low, only used when player wants to change their username. 
+
+**Channel to actor:** Keyboard and mouse
+
+**Secondary actors:** Profile server
+
+**Channel to secondary actors:** New username is searched on the Profile server and stored if valid. An error is thrown
+   if the username is associated with an already existing profile.
+
+**Open issues:** Limits to amount of username changes? Any restrictions to the username itself?
+
+
+**Use case:** Change Password
+
+**Iteration:** 1
+
+**Primary Actor:** Existing Player
+
+**Goal in context:** Change the password associated with the players current account.
+
+**Preconditions:** The program is on the Edit Information page, and ready to change the password.
+
+**Trigger:** The player initiates changing the password for the account.
+
+**Scenario:**
+1. Player selects the option the change the password.
+2. Click on the text box marked password.
+3. Player types in the new password.
+4. Press Enter.
+5. Once submitted, verified to be a unique username in the system and then added to player profile to replace the old password.
+
+**Post conditions:** Profile is updated to have the new password attached to it.
+
+**Exceptions:**
+1. Invalid password.
+
+**Priority:** Medium Priority. Not essential for profile function but may add to player experience. 
+
+**When available:** Available on the Edit Information page. 
+
+**Frequency of use:** Low, only used when player wants to change their password.
+
+**Channel to actor:** Keyboard and mouse
+
+**Secondary actors:** Profile server
+
+**Channel to secondary actors:** New entered password is stored on the Profile server.
+
+**Open issues:** Password confirmation step to ensure correct entry? Restrictions to the password itself?
 
 
 **Use case:** Search for Other Users
@@ -553,9 +674,9 @@ play a game together.
 
 **Primary Actor:** Player
 
-**Goal in context:**The player can go back to the instructions after starting the match.
+**Goal in context:** The player can go back to the instructions after starting the match.
 
-**Preconditions:**The player has started a match.
+**Preconditions:** The player has started a match.
 
 **Trigger:** The player presses the information button on the active game page.
 
