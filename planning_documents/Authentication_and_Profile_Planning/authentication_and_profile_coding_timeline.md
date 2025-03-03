@@ -27,8 +27,30 @@
     - updateWinLossRatio()
     - getWinLossRatio()
 
+
 - In Profile Server Database:
     - HashSet profileEmailSet (Contains all e-mails of existing Profiles)
 March 21st: P2 Due
 
 April 11: P3 Due
+
+
+
+
+
+Class Ideas:
+- Profile
+- FriendsList
+- Authentication (methods for log in, log off, account creation)
+- WinLossRatio (calculate ratio)
+- RecentGames
+
+
+Class Structure Diagram:
+
+
+Possible Sequence Diagrams:
+- log in
+- registration
+
+Confirm with GUI and LeaderBoard Teams for class organization and Button Layout, Sequence of things
