@@ -55,6 +55,11 @@ Possible Sequence Diagrams:
 - registration
 
 Confirm with GUI and LeaderBoard Teams for class organization and Button Layout, Sequence of things
+- Search box to find friends
+- Is Friends tab only in profile?
+- Layout out account registration page
+- Confirm names of sections
+- Game history only within profile or an easily accessible tab?
 
 
 
@@ -67,7 +72,8 @@ Use Case Descriptions to be done:
 - View Profile Picture
 - Change Profile Picture
 - View Recent matches
-- add Friend
+- add Friend 
+- Friend request Confirmation
 - View Friends List
 - Challenge Button to Challenge Users to Games
 - Sign In
