@@ -555,6 +555,43 @@ play a game together.
 
 **Open issues:** N/A
 
+
+**Use case:** View Bio
+
+**Iteration:** 1
+
+**Primary Actor:** Existing Player
+
+**Goal in context:** View the bio of another player.
+
+**Preconditions:** The player has searched for and selected another player's profile. 
+
+**Trigger:** The player wants to view the bio of another player
+
+**Scenario:**
+1. Player clicks into another player's profile
+2. The other player's profile loads up and their name and part of their bio is immediately visible
+3. If there is more to a player's bio than can fit in the immediately presented section of the profile, the user can click "show more" to see the other user's full bio.
+
+**Post conditions:**
+
+**Exceptions:**
+1. The other player has no bio set.
+
+**Priority:** High, because the bio is a fundamental part of player profiles. It allows users to express themselves and makes the site more social. 
+
+**When available:** When an existing player is on another existing player's profile page. 
+
+**Frequency of use:** Medium, players won't always be searching for other players but will occasionally want to look up other players to see how they're performing or to add them as friends.
+
+**Channel to actor:** Displayed on another player's Profile Page 
+
+**Secondary actors:** Profile database server
+
+**Channel to secondary actors:** Stored bio information for each user server-side
+
+**Open issues:** N/A
+
 ## GUI Team
 
 **Use case:** Allow players to customize/edit their profile.
