@@ -833,6 +833,30 @@ play a game together.
 
 **Open issues:** N/A
 
+**Use case:** Allow player to modify sound
+
+**Iteration:** 1
+
+**Primary Actor:** Player
+
+**Goal in context:** Change the volume of background music 
+
+**Preconditions:** 
+
+**Trigger:** Pressing the settings button 
+**Scenario:**
+    1.
+**Post conditions:** 
+**Exceptions:**
+    1.
+**Priority:** 
+**When available:**
+**Frequency of use:** Occasional. If the player finds the volume too loud or too quiet they can change the volume to their need.
+**Channel to actor:**
+**Secondary actors:**
+**Channel to secondary actors:**
+**Open issues:**
+
 ## Game Logic Team
 
 **Use case:** Allow Player To Voluntarily Quit The Game.
