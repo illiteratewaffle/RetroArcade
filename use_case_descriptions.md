@@ -666,6 +666,44 @@ play a game together.
 
 **Open issues:** N/A
 
+**Use case:** Change Nickname
+
+**Iteration:** 2
+
+**Primary Actor:** Existing Player
+
+**Goal in context:** Change your own profile's nickname.
+
+**Preconditions:** The player has clicked into and is on their own profile page.
+
+**Trigger:** The player wants to change their own nickname.
+
+**Scenario:**
+1. Player clicks into their own profile.
+2. Their profile loads up and their name and nickname is immediately visible.
+3. There is a button that says "Edit profile" somewhere on their profile page.
+4. They click that button and are brought to an edit profile page where they can edit their nickname.
+5. The user clicks a "save" button to save their changes.
+6. The user is kicked back to their profile page where the changes have been applied.
+
+**Post conditions:** The player has edited their nickname and saved the changes. The changes are reflected on their profile.
+
+**Exceptions:**
+1. The player has no nickname set.
+
+**Priority:** Medium, because nicknames, while a fundamental part of player profiles, are not critical to the social aspects of the website.
+
+**When available:** When a player is on their own profile page.
+
+**Frequency of use:** Low, players will not often want to change their bio after they've set it for the first time, but when things change in their life or their interests shift, they might want to reflect that on their profile page.
+
+**Channel to actor:** Displayed on a player's own profile page.
+
+**Secondary actors:** Profile database server
+
+**Channel to secondary actors:** Stored bio information for each user server-side
+
+**Open issues:** N/A
 
 ## GUI Team
 
