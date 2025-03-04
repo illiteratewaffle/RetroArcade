@@ -226,6 +226,46 @@ offensive usernames?
 to ensure it is entered correctly?
 
 
+**Use case:** Add New Profile to Profile Database 
+
+**Iteration:** 1
+
+**Primary Actor:** New (Unregistered) Player
+
+**Goal in context:** Create new player account and add it to the Profile Database.
+
+**Preconditions:** The program is on the Account Registration Page with all information entered, and ready to finalize profile.
+
+**Trigger:** The player initiates finalized registration of the account.
+
+**Scenario:**
+1. The player clicks complete to finalize account registration.
+2. The system validates the entered information.
+3. If valid, the system creates a new profile.
+4. The profile is stored in the Profile Database.
+5. The system confirms successful completion of profile.
+
+**Post conditions:** Profile is created and added to the Profile Database
+
+**Exceptions:**
+1. Any invalid fields.
+2. Server issues.
+
+**Priority:** High Priority. Essential to creating a new profile allowing players to join the server.
+
+**When available:** Available on the Account Registration page.
+
+**Frequency of use:** Once for every profile created on the server.
+
+**Channel to actor:** Keyboard and mouse
+
+**Secondary actors:** Profile server
+
+**Channel to secondary actors:** Finalized account is stored on the Profile server.
+
+**Open issues:** N/A
+
+
 **Use case:** Change E-mail Address
 
 **Iteration:** 1
@@ -325,7 +365,7 @@ to ensure it is entered correctly?
 2. Click on the text box marked password.
 3. Player types in the new password.
 4. Press Enter.
-5. Once submitted, verified to be a unique username in the system and then added to player profile to replace the old password.
+5. Once submitted, verified to be a unique password in the system and then added to player profile to replace the old password.
 
 **Post conditions:** Profile is updated to have the new password attached to it.
 
@@ -345,6 +385,92 @@ to ensure it is entered correctly?
 **Channel to secondary actors:** New entered password is stored on the Profile server.
 
 **Open issues:** Password confirmation step to ensure correct entry? Restrictions to the password itself?
+
+**Use case:** Forgot Username
+
+**Iteration:** 1
+
+**Primary Actor:** Existing Player
+
+**Goal in context:** To recover the username associated with a players account.
+
+**Preconditions:** The player has an account with an email attached to verify account owner.
+
+**Trigger:** The player selects the forgot username option on the login screen.
+
+**Scenario:**
+1. Player clicks the Forgot Username button on the login page.
+2. Clicks on the text box marked e-mail.
+2. The player enters the e-mail associated with the account.
+3. Verifies email associated with the account.
+4. If valid, displays the username associated with the e-mail.
+
+**Post conditions:** Player recovers the username associated with the account and is able to complete login.
+
+**Exceptions:**
+1. Invalid e-mail.
+2. No account matching the e-mail.
+
+**Priority:** High Priority. Essential for account recovery.
+
+**When available:** Available on the login page.
+
+**Frequency of use:** Low, only used when player forgets their username. 
+
+**Channel to actor:** Keyboard and mouse
+
+**Secondary actors:** Profile server
+
+**Channel to secondary actors:** Username is found on the profile server based on the accounts e-mail address.
+
+**Open issues:** Lock out after too many failed entries? Security issues?
+
+
+**Use case:** Forgot Password
+
+**Iteration:** 1
+
+**Primary Actor:** Existing Player
+
+**Goal in context:** To reset the password associated with a players account when attempting to log in.
+
+**Preconditions:** The player has an existing account with an email attached for verification.
+
+**Trigger:** The player selects the forgot password option on the login screen.
+
+**Scenario:**
+1. Player clicks the Forgot Password button on the login page.
+2. Clicks on the text box marked e-mail.
+3. Player enters the e-mail associated with the account.
+4. Clicks on the text box marked username.
+5. Player enters the username associated with the account.
+6. Verifies the e-mail and username entered.
+7. If valid, the system prompts the player to set a new password.
+8. Click on the text box marked password.
+9. Player types in the new password.
+10. Press Enter.
+11. Once submitted, verified to be a unique password in the system and then added to player profile to replace the old password.
+
+**Post conditions:** Players password associated with the account is changed, and player is able to log in.
+
+**Exceptions:**
+1. Invalid e-mail or username.
+2. No account matching the entries is found.
+3. Invalid new password.
+
+**Priority:** High Priority. Essential for account recovery.
+
+**When available:** Available on the login page.
+
+**Frequency of use:** Low, only used when player forgets their password.
+
+**Channel to actor:** Keyboard and mouse
+
+**Secondary actors:** Profile server
+
+**Channel to secondary actors:** E-mail and username are stored on the Profile server and are used for account verification.
+
+**Open issues:** Security issues?
 
 
 **Use case:** Search for Other Users
@@ -636,9 +762,9 @@ play a game together.
 
 **Primary Actor:** Player
 
-**Goal in context:**The player can be well informed before starting the game.
+**Goal in context:** The player can be well informed before starting the game.
 
-**Preconditions:**The player has chosen a game.
+**Preconditions:** The player has chosen a game.
 
 **Trigger:** The player presses the information button on the multiplayer pop up window.
 
@@ -660,7 +786,7 @@ play a game together.
 
 **Frequency of use:** Occasional. If it is a new player or a player needs a refresher on game rules.
 
-**Channel to actor:**In the multiplayer join match window, under the information icon “i".
+**Channel to actor:** In the multiplayer join match window, under the information icon “i".
 
 **Secondary actors:** N/A
 

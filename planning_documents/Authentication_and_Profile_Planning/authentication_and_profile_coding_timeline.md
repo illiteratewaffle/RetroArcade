@@ -64,7 +64,6 @@ Confirm with GUI and LeaderBoard Teams for class organization and Button Layout,
 
 
 Use Case Descriptions to be done:
-- Add new Profile to Profile Database
 - View Bio
 - Change Bio
 - View Nickname
@@ -77,8 +76,6 @@ Use Case Descriptions to be done:
 - View Friends List
 - Challenge Button to Challenge Users to Games
 - Sign In
-- Forgot Password
-- Forgot Username
 - Update Current Status
 - Update Rank
 - Update Win/Loss Ratio
