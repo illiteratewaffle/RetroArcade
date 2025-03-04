@@ -841,22 +841,34 @@ play a game together.
 
 **Goal in context:** Change the volume of background music 
 
-**Preconditions:** 
+**Preconditions:** The player has started a match.
 
 **Trigger:** Pressing the settings button 
 **Scenario:**
-    1.
-**Post conditions:** 
-**Exceptions:**
-    1.
-**Priority:** 
-**When available:**
-**Frequency of use:** Occasional. If the player finds the volume too loud or too quiet they can change the volume to their need.
-**Channel to actor:**
-**Secondary actors:**
-**Channel to secondary actors:**
-**Open issues:**
+    1. The player selects a game (connect 4, checkers, tic tac toe) on the game page.
+    2. The players volume is either to high or too lower
+    3. The player presses the settings button.
+    4. The player adjust the volume to their desired intensity
+    5. The player goes back to match
 
+**Post conditions:** N/A
+**Exceptions:**
+    1. The volume is lowered
+    2. The volume is intensified
+
+**Priority:** Low. Not all players will need to change the background music, it will only be for those that want it to be louder or lower.
+
+**When available:** 2nd or 3rd project iteration.
+
+**Frequency of use:** Occasional. If the player finds the volume too loud or too quiet they can change the volume to their need.
+
+**Channel to actor:** In the active game Window, under settings icon. 
+
+**Secondary actors:** N/A
+
+**Channel to secondary actors:** N/A
+
+**Open issues:** Am not sure if we will have the music throughout the whole game. Would the music also be playing while game is selected? If so there will be more than one case description for this.
 ## Game Logic Team
 
 **Use case:** Allow Player To Voluntarily Quit The Game.
