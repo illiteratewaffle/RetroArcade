@@ -743,6 +743,45 @@ play a game together.
 
 **Open issues:** N/A
 
+
+**Use case:** Obtain Game History
+
+**Iteration:** 1
+
+**Primary Actor:** Player
+
+**Goal in context:** Obtain the Game History of the requested profile to either display the Most Recent Games, or the Full Game History.
+
+**Preconditions:** The profile exists and has played at least one game.
+
+**Trigger:** The Most Recent Games of another player's profile, or the Full Game History of the player has been selected to be viewed by the player.
+
+**Scenario:**
+1. Player makes the request to view another player's profile or their own profile.
+2. Player Database is searched for profile object of player by a HashMap of Profile and the username key.
+3. A 2D ArrayList of all past games is obtained containing game name, win or loss stats, and ranking.
+4. The 2D ArrayList is used to construct lists of all Previous Games or the 3 most recent games.
+
+**Post conditions:** A List of Game History is obtained to be viewed by the player.
+
+**Exceptions:**
+1. Will return an exception if empty for information to be displayed that the profile has not played any games yet.
+
+**Priority:** High priority. Not only does this provide information for assignment requirements, it may also be useful for calculating
+rankings for implementing a proper matchmaking system.
+
+**When available:** Available when a profile exists.
+
+**Frequency of use:** Used whenever viewing another player's profile, or viewing the personal profile of the player.
+
+**Channel to actor:** Interactions with the GUI system using the mouse.
+
+**Secondary actors:** Profile Database
+
+**Channel to secondary actors:** Accessing HashMap of Profiles using the .get() method.
+
+**Open issues:** N/A
+
 ## GUI Team
 
 **Use case:** Allow players to customize/edit their profile.
@@ -766,7 +805,9 @@ play a game together.
 **Post conditions:** The player's profile is updated successfully. The changes are viewable by the player and other players.
 
 **Exceptions:**
-1. 
+1. Picture fails to upload properly, so UI re-displays fields and prompts player to re-select an image.
+2. File size is too large, so UI re-displays fields and prompts player to select an image of a smaller size.
+3. Wrong file type, so UI re-displays fields and prompts to select a png image.
 
 **Priority:** Medium. An asset to build a multiplayer community, but not detrimental to system function.
 
@@ -921,8 +962,8 @@ play a game together.
 **Trigger:** The user selects the “profile” button on the home game page
 
 **Scenario:**
-1. After player selects the profile button on the home screen, the system displays a list of past games played by the logged in player and any associated statistics 
-2. Player selects specific games played to view more specific details of a given match, such as ranking, which is displayed by the system
+1. After player selects the profile button on the home screen, the system displays a list of past games played by the logged in player and win/loss and rank statistics 
+2. Player selects specific games played to view more specific details of a given match, such as loss or win or ranking, which is displayed by the system.
 
 **Post conditions:** The player has viewed their game history
 

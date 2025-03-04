@@ -60,16 +60,17 @@ Confirm with GUI and LeaderBoard Teams for class organization and Button Layout,
 - Layout out account registration page
 - Confirm names of sections
 - Game history only within profile or an easily accessible tab?
-
+- How Game and Leaderboard will update profile variables
+- Profile Authentication mainly in main menu
 
 
 Use Case Descriptions to be done:
-- ~~View Bio~~
-- ~~Change Bio~~
-- ~~View Nickname~~
-- ~~Change Nickname~~
-- View Profile Picture
-- Change Profile Picture
+- View Bio
+- Change Bio
+- View Nickname
+- Change Nickname
+- View Profile Picture ? - Obtain Profile picture?
+- Change Profile Picture ?- GUI - Set Profile picture?
 - View Recent matches
 - add Friend 
 - Friend request Confirmation
@@ -80,6 +81,5 @@ Use Case Descriptions to be done:
 - Update Rank
 - Update Win/Loss Ratio
 - Edit Information
-- View Games Played (Total History)
 - View Player Stats
 - View Win/Loss Records
