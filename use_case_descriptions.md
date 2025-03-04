@@ -569,11 +569,11 @@ play a game together.
 **Trigger:** The player wants to view the bio of another player
 
 **Scenario:**
-1. Player clicks into another player's profile
-2. The other player's profile loads up and their name and part of their bio is immediately visible
+1. Player clicks into another player's profile.
+2. The other player's profile loads up and their name and part of their bio is immediately visible.
 3. If there is more to a player's bio than can fit in the immediately presented section of the profile, the user can click "show more" to see the other user's full bio.
 
-**Post conditions:**
+**Post conditions:** The player who wanted to see the bio of the other player is able to see the other player's bio and has extended it if they wanted to. 
 
 **Exceptions:**
 1. The other player has no bio set.
@@ -584,7 +584,46 @@ play a game together.
 
 **Frequency of use:** Medium, players won't always be searching for other players but will occasionally want to look up other players to see how they're performing or to add them as friends.
 
-**Channel to actor:** Displayed on another player's Profile Page 
+**Channel to actor:** Displayed on another player's profile page, 
+
+**Secondary actors:** Profile database server
+
+**Channel to secondary actors:** Stored bio information for each user server-side
+
+**Open issues:** N/A
+
+**Use case:** Change Bio
+
+**Iteration:** 1
+
+**Primary Actor:** Existing Player
+
+**Goal in context:** Change your own profile's bio.
+
+**Preconditions:** The player has clicked into and is on their own profile page.
+
+**Trigger:** The player wants to change their own bio.
+
+**Scenario:**
+1. Player clicks into their own profile.
+2. Their profile loads up and their name and part of their bio is immediately visible.
+3. There is a button that says "Edit profile" somewhere on their profile page.
+4. They click that button and are brought to an edit profile page where they can edit their bio's information.
+5. The user clicks a "save" button to save their changes.
+6. The user is kicked back to their profile page where the changes have been applied.
+
+**Post conditions:** The player has edited their bio and saved the changes. The changes are reflected on their profile.
+
+**Exceptions:**
+1. The player has no bio set. 
+
+**Priority:** High, because the bio is a fundamental part of player profiles. It allows users to express themselves and makes the site more social.
+
+**When available:** When a player is on their own profile page.
+
+**Frequency of use:** Low, players will not often want to change their bio after they've set it for the first time, but when things change in their life or their interests shift, they might want to reflect that on their profile page.
+
+**Channel to actor:** Displayed on a player's own profile page.
 
 **Secondary actors:** Profile database server
 
