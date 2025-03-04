@@ -65,14 +65,9 @@ Confirm with GUI and LeaderBoard Teams for class organization and Button Layout,
 
 
 Use Case Descriptions to be done:
-- View Bio
-- Change Bio
-- View Nickname
-- Change Nickname
 - View Profile Picture ? - Obtain Profile picture?
 - Change Profile Picture ?- GUI - Set Profile picture?
 - View Recent matches
-- add Friend 
 - Friend request Confirmation
 - View Friends List
 - Challenge Button to Challenge Users to Games
