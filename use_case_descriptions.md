@@ -636,9 +636,9 @@ play a game together.
 
 **Primary Actor:** Player
 
-**Goal in context:**The player can be well informed before starting the game.
+**Goal in context:** The player can be well informed before starting the game.
 
-**Preconditions:**The player has chosen a game.
+**Preconditions:** The player has chosen a game.
 
 **Trigger:** The player presses the information button on the multiplayer pop up window.
 
@@ -660,7 +660,7 @@ play a game together.
 
 **Frequency of use:** Occasional. If it is a new player or a player needs a refresher on game rules.
 
-**Channel to actor:**In the multiplayer join match window, under the information icon “i".
+**Channel to actor:** In the multiplayer join match window, under the information icon “i".
 
 **Secondary actors:** N/A
 
@@ -706,6 +706,30 @@ play a game together.
 **Channel to secondary actors:** N/A
 
 **Open issues:** N/A
+
+**Use case:** Allow player to modify sound
+
+**Iteration:** 1
+
+**Primary Actor:** Player
+
+**Goal in context:** Change the volume of background music 
+
+**Preconditions:** 
+
+**Trigger:** Pressing the settings button 
+**Scenario:**
+    1.
+**Post conditions:** 
+**Exceptions:**
+    1.
+**Priority:** 
+**When available:**
+**Frequency of use:** Occasional. If the player finds the volume too loud or too quiet they can change the volume to their need.
+**Channel to actor:**
+**Secondary actors:**
+**Channel to secondary actors:**
+**Open issues:**
 
 ## Game Logic Team
 
