@@ -846,12 +846,13 @@ play a game together.
 **Trigger:** Pressing the settings button 
 **Scenario:**
     1. The player selects a game (connect 4, checkers, tic tac toe) on the game page.
-    2. The players volume is either to high or too lower
+    2. The players volume is either to high or too low
     3. The player presses the settings button.
     4. The player adjust the volume to their desired intensity
     5. The player goes back to match
 
 **Post conditions:** N/A
+
 **Exceptions:**
     1. The volume is lowered
     2. The volume is intensified
@@ -869,6 +870,45 @@ play a game together.
 **Channel to secondary actors:** N/A
 
 **Open issues:** Am not sure if we will have the music throughout the whole game. Would the music also be playing while game is selected? If so there will be more than one case description for this.
+
+**Use case:** Allow player to modify brightness
+
+**Iteration:** 1
+
+**Primary Actor:** Player
+
+**Goal in context:** Adjust the brightness of game. 
+
+**Preconditions:** The player has started a match. 
+
+**Trigger:** Pressing the settings button 
+**Scenario:**
+    1. The player selects a game (connect 4, checkers, tic tac toe) on the game page.
+    2. The players brightness is either to high or too low
+    3. The player presses the settings button.
+    4. The player adjust the brightness to their desired intensity
+    5. The player goes back to match
+
+**Post conditions:** N/A
+
+**Exceptions:**
+    1. The brightness is intensified
+    2. The brightness is lowered
+
+**Priority:** Low. Not all players will need to change the brightness, it will only be for those that are uncomfortable with the brightness.
+
+**When available:** 2nd or 3rd project iteration.
+
+**Frequency of use:** Occasional. If the player finds the brightness is too bright or too low they can change the brightness to their need.
+
+**Channel to actor:** In the active game Window, under settings icon. 
+
+**Secondary actors:** N/A
+
+**Channel to secondary actors:** N/A
+
+**Open issues:** The brightness can be changed at any point. Therefore should we have a use case for each channel?
+
 ## Game Logic Team
 
 **Use case:** Allow Player To Voluntarily Quit The Game.
