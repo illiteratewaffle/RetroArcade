@@ -631,6 +631,42 @@ play a game together.
 
 **Open issues:** N/A
 
+**Use case:** View Nickname
+
+**Iteration:** 2
+
+**Primary Actor:** Existing Player
+
+**Goal in context:** View the nickname of another player.
+
+**Preconditions:** The player has searched for and selected another player's profile or is looking at their friends list.
+
+**Trigger:** The player wants to view the nickname of another player
+
+**Scenario:**
+1. Player clicks into another player's profile or hovers over the user in their friends list.
+2. The other player's profile loads up and their name and nickname in brackets is immediately visible if they clicked into their profile, or the other users' nickname is shown in brackets if the player hovers over the other player on their friends list.
+
+**Post conditions:** The player who wanted to see the nickname of the other player is able to see the other player's nickname.
+
+**Exceptions:**
+1. The other player has no nickname set.
+
+**Priority:** Medium, because nicknames, while a fundamental part of player profiles, are not critical to the social aspects of the website. 
+
+**When available:** When an existing player is on another existing player's profile page.
+
+**Frequency of use:** Medium, players won't always be searching for other players but will occasionally want to look up other players to see how they're performing or to add them as friends.
+
+**Channel to actor:** Displayed on another player's profile page, or on hover on their friends list.
+
+**Secondary actors:** Profile database server
+
+**Channel to secondary actors:** Stored nickname information for each user server-side
+
+**Open issues:** N/A
+
+
 ## GUI Team
 
 **Use case:** Allow players to customize/edit their profile.
