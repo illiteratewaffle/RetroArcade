@@ -857,3 +857,65 @@ multiplayer experience.
 2. How should the system handle repeated connections and disconnections from players?
 3. What security measures are in place to prevent exploitation of disconnect/reconnect logic?
 4. How long should the reconnect threshold times be, and should it depend on game type?
+
+**Use case:** Chat Message Handling (client-server model)
+
+**Iteration:** 1
+
+**Primary Actor:** Player (client)
+
+**Goal in context:** The player creates a new account by entering their details on the registration screen, their credentials are then stored on the server.
+
+The player sends a chat message using the chat box. The message is routed through the server and then sent to all other players.
+
+**Preconditions:**
+
+1. The player is logged into their account.
+2. The player is connected to the game.
+3. The client is connected to the server.
+4. The game server is online.
+5. The chat box is active
+
+**Trigger:** The player types and sends a chat message
+
+**Scenario:**
+1. The player enters the required registration details.
+2. The client sends the message to the game server.
+3. The server checks the appropriateness of the message.
+4. The server sends the chat message to the other connected players.
+5. The client receives the message and updated the chat box.
+
+**Post conditions:** All players receive the new chat message
+
+**Exceptions:**
+
+1. The server is unreachable, so the message was not sent to the server.
+2. A timeout threshold is surpassed, where either the server or client do not receive a response within a predefined time.
+3. The player's message is inappropriate
+
+**Priority:** Low priority. Messaging is secondary to the games core functions.
+
+**When available:** 2nd or 3rd iteration.
+
+**Frequency of use:** Medium. Will be used every time a wants to send a message to other players.
+
+**Channel to actor:**
+
+1. GUI interaction.
+2. Socket connection for communication with the server.
+
+**Secondary actors:**
+
+1. Game Server
+2. Other player clients
+
+**Channel to secondary actors:**
+
+1. TCP socket communication between client and server for session handling.
+
+**Open issues:**
+
+1. How to handle message moderation
+2. How to handle simultaneous messages from different players
+3. How to handle very large chat messages
+4. How to make sure the chat box is updated for all players 
