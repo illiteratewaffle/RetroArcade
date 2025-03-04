@@ -705,6 +705,44 @@ play a game together.
 
 **Open issues:** N/A
 
+**Use case:** Add Friend
+
+**Iteration:** 1
+
+**Primary Actor:** Existing Player
+
+**Goal in context:** Add another user as your friend.
+
+**Preconditions:** The player is on another users' profile page.
+
+**Trigger:** The player wants to add another user as a friend.
+
+**Scenario:**
+1. Player clicks into another users' profile.
+2. Their profile loads up and their name and there is an "add friend" button visible.
+3. The player clicks the add friend button.
+4. A friend request is sent to the other player, who can either accept or deny the request.
+
+
+**Post conditions:** The initiating player has sent a friend request to the other player who can choose to accept or deny the request.
+
+**Exceptions:**
+1. The player is already the initiating player's friend.
+
+**Priority:** High, the friend system is an integral part of the social experience of the website.
+
+**When available:** When a player is on another user's profile page.
+
+**Frequency of use:** Medium, players will want to add friends on a regular basis.
+
+**Channel to actor:** Displayed on another player's profile page.
+
+**Secondary actors:** Other players, profile database server
+
+**Channel to secondary actors:** Players' friends information stored server side, requests to other players sent to a notifications section
+
+**Open issues:** N/A
+
 ## GUI Team
 
 **Use case:** Allow players to customize/edit their profile.

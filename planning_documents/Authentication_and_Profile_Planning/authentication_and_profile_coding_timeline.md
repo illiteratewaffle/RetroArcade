@@ -64,10 +64,10 @@ Confirm with GUI and LeaderBoard Teams for class organization and Button Layout,
 
 
 Use Case Descriptions to be done:
-- View Bio
-- Change Bio
-- View Nickname
-- Change Nickname
+- ~~View Bio~~
+- ~~Change Bio~~
+- ~~View Nickname~~
+- ~~Change Nickname~~
 - View Profile Picture
 - Change Profile Picture
 - View Recent matches
