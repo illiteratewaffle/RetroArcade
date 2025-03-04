@@ -756,6 +756,8 @@ play a game together.
 **Open issues:**
 1. Other player’s have access to view some of their opponent’s game history (i.e. ranks, current status, recent matches). Should there be an option presented to users allowing them to make this information private?
 
+
+
 **Use case:** Allow players to access instructions before game has started
 
 **Iteration:** 1
@@ -793,6 +795,8 @@ play a game together.
 **Channel to secondary actors:** N/A
 
 **Open issues:**  Should the instructions be shown every time you first log into the game or just make it optional from the start ?
+
+
 
 **Use case:** Allow players to access instructions after game has started.
 
@@ -833,6 +837,8 @@ play a game together.
 
 **Open issues:** N/A
 
+
+
 **Use case:** Allow player to modify sound
 
 **Iteration:** 1
@@ -871,6 +877,8 @@ play a game together.
 
 **Open issues:** Am not sure if we will have the music throughout the whole game. Would the music also be playing while game is selected? If so there will be more than one case description for this.
 
+
+
 **Use case:** Allow player to modify brightness
 
 **Iteration:** 1
@@ -908,6 +916,99 @@ play a game together.
 **Channel to secondary actors:** N/A
 
 **Open issues:** The brightness can be changed at any point. Therefore should we have a use case for each channel?
+
+
+**Use case:** Home button: Allows people to quickly return to the home page from any other page.
+
+**Iteration:** 1
+
+**Primary Actor:** Player
+
+**Goal in context:** The player can return to the "home page" (game menu) at any point in time, to allow
+for easy backtracking when nested inside menus or other user profiles.
+
+**Preconditions:** The player has logged in, and is currently on any page other than the home page.
+
+**Trigger:** The player presses the home button available on any page other than the home page.
+
+**Scenario:**
+1. Player logs into their account.
+2. Player selects the leader board and looks at the other players stats.
+3. Player clicks on one of the other players name to open their profile.
+4. Player decides they want to start a game of checkers, so the press the home button to return to the home page.
+
+
+**Post conditions:** The player has returned to the home menu from the page they were previously on, and is now free to
+navigate from there.
+
+**Exceptions:**
+1. If the player is already on the home page this option will not be made available.
+2. If the player is in an active game, the player will still be able to press the home button, but a pop-up will show
+that prompts them to consider if they actually wish to leave the game.
+
+**Priority:** Medium, This is a convenient button to have if a player is embedded in multiple clicks of user profiles,
+and reduces the inconvenience of having to click the back button multiple times.
+
+**When available:** Any page after the login and main page. 
+
+**Frequency of use:** Often. It will often be the case that a player may want to return to the main page to quickly
+access the game menu. 
+
+**Channel to actor:** In any page that is not the login page or main page. This will be a button in the top right corner
+of the page.
+
+**Secondary actors:** N/A
+
+**Channel to secondary actors:** N/A
+
+**Open issues:** N/A
+
+
+**Use case:** Back button: Allows players to go back to the previous page visited.
+
+**Iteration:** 1
+
+**Primary Actor:** Player
+
+**Goal in context:** The player can return to the previous page visited by clicking the back button,
+this will allow players to go back one page without having to return to the home page.
+
+**Preconditions:** The player has logged in, and is currently on any page other than the home page.
+
+**Trigger:** The player presses the back button available on any page other than the home page.
+
+**Scenario:**
+1. Player logs into their account.
+2. Player selects the leader board and looks at the other players stats.
+3. Player clicks on one of the other players name to open their profile.
+4. Player decides they want to go back to the leaderboard, so the press the back button to return to leaderboard page.
+
+
+**Post conditions:** The player has returned to the previous page visited, and is now free to navigate from there.
+navigate from there.
+
+**Exceptions:**
+1. If the player is on the home page this option will not be made available, instead a logout button will be available.
+2. If the player is in an active game, the player will not be able to press the back button but will instead have the 
+option to press the home button. 
+
+**Priority:** Medium, This is a convenient button to have if the player wishes to visit a previous page that they were 
+on instead of having to press the home button.
+
+**When available:** Any page after the login and main page.
+
+**Frequency of use:** Often. It will often be the case that a player may want to return to a previous page to quickly
+access the content they had on the last page. 
+
+**Channel to actor:** In any page that is not the login page or main page. This will be a button in the top left corner
+of the page.
+
+**Secondary actors:** N/A
+
+**Channel to secondary actors:** N/A
+
+**Open issues:** N/A
+
 
 ## Game Logic Team
 
