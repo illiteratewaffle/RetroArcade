@@ -1015,6 +1015,7 @@ rankings for implementing a proper matchmaking system.
 
 **Open issues:** N/A
 
+----------------------------------------------
 **Use case:** Update Rank
 
 **Iteration:** 1
@@ -1049,7 +1050,6 @@ rankings for implementing a proper matchmaking system.
 **Channel to secondary actors:** Player profile
 
 **Open issues:** N/A
-
 
 --------------------------------------
 **Use case:** Update Player Win/Loss Records Based On The Result Of A Game
@@ -1091,17 +1091,92 @@ imperative to formulate balanced match making.
 **Open issues:** N/A
 
 ---------------------------------------------
+**Use case:** Update Rank Based On the Result Of A Game
 
-Update Rank Based On the Result Of A Game
+**Iteration:** 1
+
+**Primary Actor:** Profile server
+
+**Goal in context:** Update player rank to reflect the results of a game.
+
+**Preconditions:** Player is logged in and has completed a game.
+
+**Trigger:** Player completes a game, either winning or losing.
+
+**Scenario:**
+1. Server automatically updates the win loss record of the player's profile for the category of the game played.
+2. updateWinLossRecord() is called with a boolean input True if game was won or False if game was lost.
+3. System calculates rank based on performance and opponents rank.
+4. getRank() is called to retrieve the updated rank.
+5. Updated rank is stored on the players profile
+6. New rank is displayed to the player.
+
+**Post conditions:** The players rank now reflects the new ranking based on the game result.
+
+**Exceptions:**
+1. Game ends in a tie.
+
+**Priority:** High Priority. The rank is an important park of the leaderboard and player stats.
+
+**When available:** Available when game match concludes.
+
+**Frequency of use:** High, whenever a match ends.
+
+**Channel to actor:** Method calls to server to update profile rank.
+
+**Secondary actors:** Player
+
+**Channel to secondary actors:** Player completes a game math
+
+**Open issues:** N/A
+
 -------------------------------------------------
-Update Current Status
---------------------------------------------------
-Challenge Users to Games
+**Use case:** Challenge Users to Games
+
+**Iteration:** 1
+
+**Primary Actor:** Existing Player
+
+**Goal in context:** Allow player to challenge another player to a game.
+
+**Preconditions:** Player and player to be challenged must both have active accounts. 
+
+**Trigger:** Player initiates a challenge to another player.
+
+**Scenario:**
+1. Player selects opponent from available players.
+2. Player sends a challenge request
+3. The challenged player is notified of the request
+4. If accepted the game is initiated.
+5. If declined the player is notified of the declining.
+
+**Post conditions:** A game starts if the challenge is accepted, or player is notified of rejection if declined.
+
+**Exceptions:**
+1. Challenged player does not respond.
+2. Player cancels the challenge.
+
+**Priority:** High Priority. Allows players to challenge other players and complete matches.
+
+**When available:** Available when a player is online and viewing other players.
+
+**Frequency of use:** Medium, used whenever a player wants to challenge a specific player in a game.
+
+**Channel to actor:** Keyboard and mouse
+
+**Secondary actors:** Challenged player
+
+**Channel to secondary actors:** Server
+
+**Open issues:** Only able to challenge friends? Restrictions based on rank?
+
 -----------------------------------------
 Get Profile Picture
 -------------------------------------------------
 Sign Out
 -----------------------------------------------
+Update Current Status
+--------------------------------------------------
 
 ## GUI Team
 

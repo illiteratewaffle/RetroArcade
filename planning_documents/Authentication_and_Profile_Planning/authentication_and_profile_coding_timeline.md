@@ -67,7 +67,6 @@ Confirm with GUI and LeaderBoard Teams for class organization and Button Layout,
 Use Case Descriptions to be done:
 - View Profile Picture ? - Obtain Profile picture?
 
-- Challenge Users to Games
 - Update Current Status
 - Update Rank
 
