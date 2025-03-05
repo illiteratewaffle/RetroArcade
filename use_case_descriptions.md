@@ -62,7 +62,7 @@ to play against.
 
 **Open issues:** N/A
 
-
+-----------------------------------------
 **Use case:** Add E-mail Address
 
 **Iteration:** 1
@@ -105,7 +105,7 @@ is already associated with an already created profile.
 
 **Open issues:** N/A
 
-
+----------------------------------------------
 **Use case:** Verify E-mail Address
 
 **Iteration:** 1
@@ -145,7 +145,7 @@ updates.
 
 **Open issues:** N/A
 
-
+-----------------------------------------
 **Use case:** Create Username
 
 **Iteration:** 1
@@ -186,7 +186,7 @@ if the username is associated with an already existing profile.
 **Open issues:** Any length/character restrictions for a username (number of characters, no spaces, etc.)? Prevention of 
 offensive usernames?
 
-
+----------------------------------------------------
 **Use case:** Create Password
 
 **Iteration:** 1
@@ -225,7 +225,7 @@ offensive usernames?
 **Open issues:** Specific requirements for a password to be valid (at least 8 characters, a number, etc.)? Password confirmation step 
 to ensure it is entered correctly?
 
-
+--------------------------------------------------------------
 **Use case:** Add New Profile to Profile Database 
 
 **Iteration:** 1
@@ -265,7 +265,7 @@ to ensure it is entered correctly?
 
 **Open issues:** N/A
 
-
+------------------------------------------------
 **Use case:** Change E-mail Address
 
 **Iteration:** 1
@@ -306,7 +306,7 @@ to ensure it is entered correctly?
 
 **Open issues:** Limits to number of e-mail changes?
 
-
+-----------------------------------------
 **Use case:** Change Username
 
 **Iteration:** 1
@@ -347,7 +347,7 @@ to ensure it is entered correctly?
 
 **Open issues:** Limits to amount of username changes? Any restrictions to the username itself?
 
-
+----------------------------------------
 **Use case:** Change Password
 
 **Iteration:** 1
@@ -386,7 +386,7 @@ to ensure it is entered correctly?
 
 **Open issues:** Password confirmation step to ensure correct entry? Restrictions to the password itself?
 
-
+------------------------------------------------
 **Use case:** Forgot Username
 
 **Iteration:** 1
@@ -426,7 +426,7 @@ to ensure it is entered correctly?
 
 **Open issues:** Lock out after too many failed entries? Security issues?
 
-
+---------------------------------------------
 **Use case:** Forgot Password
 
 **Iteration:** 1
@@ -473,7 +473,7 @@ to ensure it is entered correctly?
 
 **Open issues:** Security issues?
 
-
+-------------------------------------------------
 **Use case:** Edit Information
 
 **Iteration:** 1
@@ -511,7 +511,7 @@ to ensure it is entered correctly?
 
 **Open issues:** Verification before changes?
 
-
+-------------------------------------------
 **Use case:** Search for Other Users
 
 **Iteration:** 1
@@ -552,7 +552,7 @@ profiles to play against them and see profile ranks.
 
 **Open issues:** N/A
 
-
+------------------------------------------------
 **Use case:** View Current Status
 
 **Iteration:** 1
@@ -594,7 +594,7 @@ play a game together.
 
 **Open issues:** N/A
 
-
+------------------------------------------------
 **Use case:** View Bio
 
 **Iteration:** 1
@@ -631,7 +631,7 @@ play a game together.
 
 **Open issues:** N/A
 
-
+----------------------------------------
 **Use case:** Change Bio
 
 **Iteration:** 1
@@ -671,7 +671,7 @@ play a game together.
 
 **Open issues:** N/A
 
-
+---------------------------------------
 **Use case:** View Nickname
 
 **Iteration:** 2
@@ -707,7 +707,7 @@ play a game together.
 
 **Open issues:** N/A
 
-
+-------------------------------------------
 **Use case:** Change Nickname
 
 **Iteration:** 2
@@ -747,7 +747,7 @@ play a game together.
 
 **Open issues:** N/A
 
-
+-----------------------------------------
 **Use case:** Add Friend
 
 **Iteration:** 1
@@ -785,8 +785,8 @@ play a game together.
 
 **Open issues:** N/A
 
-
-**Use case:** Accept Friend Request
+-------------------------------------------
+**Use case:** Manage Friend Requests
 
 **Iteration:** 1
 
@@ -828,7 +828,7 @@ after selecting to add a profile as a friend.
 
 **Open issues:** It may be good to have a notification pop up on a profile when a friend request is sent if time allows.
 
-
+-------------------------------------------
 **Use case:** Get Friends List
 
 **Iteration:** 1
@@ -866,7 +866,7 @@ and available to play a game with them.
 
 **Open issues:** N/A
 
-
+-----------------------------------
 **Use case:** Obtain Game History
 
 **Iteration:** 1
@@ -905,7 +905,7 @@ rankings for implementing a proper matchmaking system.
 
 **Open issues:** N/A
 
-
+----------------------------------
 **Use case:** View Player Stats
 
 **Iteration:** 2
@@ -943,7 +943,7 @@ rankings for implementing a proper matchmaking system.
 
 **Open issues:** N/A
 
-
+-------------------------------------------
 **Use case:** View Win/Loss Records
 
 **Iteration:** 2
@@ -979,7 +979,7 @@ rankings for implementing a proper matchmaking system.
 
 **Open issues:** N/A
 
-
+----------------------------------------------
 **Use case:** View Recent Matches
 
 **Iteration:** 2
@@ -1051,8 +1051,8 @@ rankings for implementing a proper matchmaking system.
 **Open issues:** N/A
 
 
-
-**Use case:** Update Win/Loss Records
+--------------------------------------
+**Use case:** Update Player Win/Loss Records Based On The Result Of A Game
 
 **Iteration:** 1
 
@@ -1089,6 +1089,19 @@ imperative to formulate balanced match making.
 **Channel to secondary actors:** Player completes a game.
 
 **Open issues:** N/A
+
+---------------------------------------------
+
+Update Rank Based On the Result Of A Game
+-------------------------------------------------
+Update Current Status
+--------------------------------------------------
+Challenge Users to Games
+-----------------------------------------
+Get Profile Picture
+-------------------------------------------------
+Sign Out
+-----------------------------------------------
 
 ## GUI Team
 
