@@ -1007,6 +1007,44 @@ rankings for implementing a proper matchmaking system.
 **Open issues:** N/A
 
 
+**Use case:** Update Win/Loss Records
+
+**Iteration:** 1
+
+**Primary Actor:** Server
+
+**Goal in context:** Update the Win/Loss Records to reflect the results of a game match.
+
+**Preconditions:** Player is logged in.
+
+**Trigger:** Player completes a game match, either winning or losing. 
+
+**Scenario:**
+1. Server automatically updates the win loss record of the player's profile for the category of the game played.
+2. updateWinLossRecord() is called with a boolean input True if game was won or False if game was lost.
+3. The Win/Loss ratio totals all wins and loses the player has obtained over the entire tracked Game History of the profile.
+4. The Win/Loss ratio updates the Win/Loss Ratio variable of the player's profile.
+
+**Post conditions:** The Win/Loss ratio now reflects the change of the ratio from the results of the completed game.
+
+**Exceptions:**
+1. Game ends in a tie, so Win/Loss ratio is not changed.
+
+**Priority:** High Priority. The Win/Loss Record is important for ranking players and displaying leaderboards. Such data is
+imperative to formulate balanced match making.
+
+**When available:** Available when game matches conclude.
+
+**Frequency of use:** Frequent. Occurs after every game match.
+
+**Channel to actor:** Method calls to server to update profile Win/Loss Record variables.
+
+**Secondary actors:** Player
+
+**Channel to secondary actors:** Player completes a game.
+
+**Open issues:** N/A
+
 ## GUI Team
 
 **Use case:** Allow players to customize/edit their profile.

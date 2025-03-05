@@ -68,7 +68,6 @@ Use Case Descriptions to be done:
 - View Profile Picture ? - Obtain Profile picture?
 - Change Profile Picture ?- GUI - Set Profile picture?
 - Challenge Button to Challenge Users to Games
-- Sign In
 - Update Current Status
 - Update Win/Loss Ratio
 - Edit Information
