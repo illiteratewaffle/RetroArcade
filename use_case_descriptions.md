@@ -705,6 +705,7 @@ play a game together.
 
 **Open issues:** N/A
 
+
 **Use case:** Add Friend
 
 **Iteration:** 1
@@ -722,7 +723,6 @@ play a game together.
 2. Their profile loads up and their name and there is an "add friend" button visible.
 3. The player clicks the add friend button.
 4. A friend request is sent to the other player, who can either accept or deny the request.
-
 
 **Post conditions:** The initiating player has sent a friend request to the other player who can choose to accept or deny the request.
 
@@ -785,6 +785,44 @@ after selecting to add a profile as a friend.
 **Channel to secondary actors:** Method calls to server.
 
 **Open issues:** It may be good to have a notification pop up on a profile when a friend request is sent if time allows.
+
+
+**Use case:** Get Friends List
+
+**Iteration:** 1
+
+**Primary Actor:** Player
+
+**Goal in context:** Obtain the player profile's FriendsList information to display the FriendsList with current Status information.
+
+**Preconditions:** Player is logged in.
+
+**Trigger:** Player selects the Friends Tab on the Main Menu.
+
+**Scenario:**
+1. Method call to obtain the Friends List associated to the player's profile.
+2. Display all Profiles contained within the list.
+3. The current status of each profile will be presented alongside the username or nickname (if provided). Profiles may be selected to view more info.
+
+**Post conditions:** The player can now view current information of profiles within their Friends List on the Friends List Menu.
+
+**Exceptions:**
+1. An empty friends list will prompt a message to explain to the player how to find profiles and add them as friends.
+
+**Priority:** High Priority. It is important for players' ease of use to find friends profiles in one list to quickly initiate games.
+
+**When available:** Available when logged in and on the Main Menu.
+
+**Frequency of use:** Often. Players will want to often easily access the Friends List to check if their friends are online
+and available to play a game with them.
+
+**Channel to actor:** Clicking menu tabs with a mouse.
+
+**Secondary actors:** Profile Database
+
+**Channel to secondary actors:** Method calls to the server.
+
+**Open issues:** N/A
 
 
 **Use case:** Obtain Game History
@@ -861,6 +899,7 @@ rankings for implementing a proper matchmaking system.
 **Channel to secondary actors:** Stores statistics for each user server-side
 
 **Open issues:** N/A
+
 
 **Use case:** View Win/Loss Records
 
@@ -1387,6 +1426,7 @@ of the page.
 **Channel to secondary actors:** N/A
 
 **Open issues:** N/A
+
 
 
 ## Game Logic Team
