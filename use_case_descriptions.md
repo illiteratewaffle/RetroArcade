@@ -20,7 +20,7 @@
 **Open issues:**
 ///////////////////////////////////////
 
-## Authentication and Profile Team
+## Authentication and Profile Team 
 **Use case:** Select Create an Account
 
 **Iteration:** 1
@@ -34,10 +34,10 @@
 **Trigger:** The new unregistered player wants to register for a new profile account to use the service.
 
 **Scenario:**
-1. The user clicks the Create a New Account Button.
-2. The user is taken to a new Account Creation Screen.
+1. The unregistered player clicks the Create a New Account Button.
+2. The unregistered player is taken to a new Account Creation Screen.
 
-**Post conditions:** The new Account Creation Screen prompts the user to fill in text boxes to input an E-mail Address,
+**Post conditions:** The new Account Creation Screen prompts the unregistered player to fill in text boxes to input an E-mail Address,
 a username, and a password. There is a button at the end to confirm and complete registration.
 
 **Exceptions:**
@@ -47,7 +47,7 @@ a username, and a password. There is a button at the end to confirm and complete
 4. The Create a New Account Button does not appear.
 
 **Priority:** High. The creation of Profiles is required to properly track players' game history, leaderboard rankings, 
-player stats and win/loss ratios for appropriate match making. Profiles also allow users to find their friends' profiles
+player stats and win/loss ratios for appropriate match making. Profiles also allow players to find their friends' profiles
 to play against.
 
 **When available:** On the Main Menu Screen near Log in when no profile is currently logged into the program currently.
@@ -73,13 +73,13 @@ to play against.
 
 **Preconditions:** The program is on the Account Registration page.
 
-**Trigger:** The user is prompted to enter an e-mail address that is not associated with any current account.
+**Trigger:** The unregistered player is prompted to enter an e-mail address that is not associated with any current account.
 
 **Scenario:**
 1. Click on text box marked e-mail.
-2. User types in e-mail address.
+2. Unregistered player types in e-mail address.
 3. Press Enter.
-4. Once submitted, verified to be a unique e-mail address on the server and added to user profile.
+4. Once submitted, verified to be a unique e-mail address on the server and added to profile.
 
 **Post conditions:** Profile has a unique e-mail associated to it.
 
@@ -106,6 +106,46 @@ is already associated with an already created profile.
 **Open issues:** N/A
 
 
+**Use case:** Verify E-mail Address
+
+**Iteration:** 1
+
+**Primary Actor:** Profile Server
+
+**Goal in context:** Check if entered e-mail already is not associated with an already existing profile.
+
+**Preconditions:** An e-mail has been submitted from either Create an Account page Add E-mail Address or from Update E-mail Address.
+
+**Trigger:** E-mail Address is submitted to server.
+
+**Scenario:**
+1. Profile Server checks HashSet profileEmailSet if it contains the requested e-mail. 
+2. Returns true if the HashSet does not contain the e-mail address, indicating a valid e-mail address allowing Player to proceed.
+3. Returns false if the HashSet already contains the e-mail address, indicating that e-mail is not valid due to the e-mail
+address being already associated with another profile.
+
+**Post conditions:** Returns back if the E-mail address is valid or invalid.
+
+**Exceptions:**
+1. An Empty string is submitted by the player.
+
+**Priority:** High priority, A profile needs to have a unique identifier through the e-mail address, so an e-mail cannot
+be used by multiple profiles.
+
+**When available:** When Adding to a new Profile or Updating an E-mail Address of an existing Profile.
+
+**Frequency of use:** Not very frequently. At least once for every created profile, with un frequent additional calls for e-mail address
+updates.
+
+**Channel to actor:** profileEmailSet HashSet
+
+**Secondary actors:** N/A
+
+**Channel to secondary actors:** N/A
+
+**Open issues:** N/A
+
+
 **Use case:** Create Username
 
 **Iteration:** 1
@@ -116,13 +156,13 @@ is already associated with an already created profile.
 
 **Preconditions:** The program is on the Account Registration page, and ready to add a username.
 
-**Trigger:** The user is prompted to enter a username that is not associated with any current account.
+**Trigger:** The player is prompted to enter a username that is not associated with any current account.
 
 **Scenario:**
 1. Click on the text box marked username.
-2. User types in the username.
+2. Player types in the username.
 3. Press Enter.
-4. Once submitted, verified to be a unique username in the system and then added to user profile.
+4. Once submitted, verified to be a unique username in the system and then added to player profile.
 
 **Post conditions:** Profile has a unique username attached to it .
 
@@ -130,7 +170,7 @@ is already associated with an already created profile.
 1. Username is already associated with another profile.
 2. Invalid username.
 
-**Priority:** High Priority. The username is the main reference to the users account and is specific to each individual account. 
+**Priority:** High Priority. The username is the main reference to the players account and is specific to each individual account. 
 
 **When available:** Available on the Register Account Information page.
 
@@ -141,7 +181,7 @@ is already associated with an already created profile.
 **Secondary actors:** Profile server
 
 **Channel to secondary actors:** Entered username is searched on the Profile server and stored if valid. An error is thrown 
-if the username is already associated with an already existing profile.
+if the username is associated with an already existing profile.
 
 **Open issues:** Any length/character restrictions for a username (number of characters, no spaces, etc.)? Prevention of 
 offensive usernames?
@@ -157,20 +197,20 @@ offensive usernames?
 
 **Preconditions:** The program is on the Account Registration page, and ready to add a password.
 
-**Trigger:** The user is prompted to create a password for the account.
+**Trigger:** The player is prompted to create a password for the account.
 
 **Scenario:**
 1. Click on the text box marked password.
-2. User types in the password.
+2. Player types in the password.
 3. Press Enter.
-4. Once submitted, the password is added to the user profile
+4. Once submitted, the password is added to the player profile
 
 **Post conditions:** Profile has a password attached to it. 
 
 **Exceptions:**
 1. Invalid password.
 
-**Priority:** High Priority. The password is needed for account security, along with signing in to a users account.
+**Priority:** High Priority. The password is needed for account security, along with signing in to a players account.
 
 **When available:** Available on the Register Account Information page.
 
@@ -184,6 +224,253 @@ offensive usernames?
 
 **Open issues:** Specific requirements for a password to be valid (at least 8 characters, a number, etc.)? Password confirmation step 
 to ensure it is entered correctly?
+
+
+**Use case:** Add New Profile to Profile Database 
+
+**Iteration:** 1
+
+**Primary Actor:** New (Unregistered) Player
+
+**Goal in context:** Create new player account and add it to the Profile Database.
+
+**Preconditions:** The program is on the Account Registration Page with all information entered, and ready to finalize profile.
+
+**Trigger:** The player initiates finalized registration of the account.
+
+**Scenario:**
+1. The player clicks complete to finalize account registration.
+2. The system validates the entered information.
+3. If valid, the system creates a new profile.
+4. The profile is stored in the Profile Database.
+5. The system confirms successful completion of profile.
+
+**Post conditions:** Profile is created and added to the Profile Database
+
+**Exceptions:**
+1. Any invalid fields.
+2. Server issues.
+
+**Priority:** High Priority. Essential to creating a new profile allowing players to join the server.
+
+**When available:** Available on the Account Registration page.
+
+**Frequency of use:** Once for every profile created on the server.
+
+**Channel to actor:** Keyboard and mouse
+
+**Secondary actors:** Profile server
+
+**Channel to secondary actors:** Finalized account is stored on the Profile server.
+
+**Open issues:** N/A
+
+
+**Use case:** Change E-mail Address
+
+**Iteration:** 1
+
+**Primary Actor:** Existing Player
+
+**Goal in context:** Change the e-mail address associated with the players current account. 
+
+**Preconditions:** The program is on the Edit Information page, and ready to change the e-mail.
+
+**Trigger:** The player initiates changing the e-mail associated with the account.
+
+**Scenario:**
+1. Player selects the option to change the e-mail.
+2. Click on the text box marked e-mail.
+3. Player types in the new e-mail address.
+4. Press Enter. 
+5. Once submitted, verified to be a unique e-mail address on the server and added to player profile.
+
+**Post conditions:** Profile is updated to have the new e-mail address associated with the account.
+
+**Exceptions:** 
+1. Invalid e-mail address.
+2. E-mail address is already associated with another profile.
+
+**Priority:** Medium Priority. Not essential for profile function but may add to player experience.
+
+**When available:** Available on the Edit Information page.
+
+**Frequency of use:** Low, only used when player wants to change their username.
+
+**Channel to actor:** Keyboard and mouse
+
+**Secondary actors:** Profile server
+
+**Channel to secondary actors:** New e-mail entered is searched up on the Profile server. An error is thrown if the e-mail address
+   is associated with an already created profile.
+
+**Open issues:** Limits to number of e-mail changes?
+
+
+**Use case:** Change Username
+
+**Iteration:** 1
+
+**Primary Actor:** Existing Player
+
+**Goal in context:** Change a username associated with the players current account.
+
+**Preconditions:** The program is on the Edit Information page, and ready to change the username.
+
+**Trigger:** The player initiates changing the username for the account.
+
+**Scenario:**
+1. Player selects the option to change the username.
+2. Click on the text box marked username.
+3. Player types in the new username.
+4. Press Enter.
+5. Once submitted, verified to be a unique username in the system and then added to player profile to replace old username.
+
+**Post conditions:** Profile is updated to have the new unique username attached to it.
+
+**Exceptions:**
+1. Username is already associated with another profile.
+2. Invalid username.
+
+**Priority:** Medium Priority. Not essential for profile function but may add to player experience. 
+
+**When available:** Available on the Edit Information page.
+
+**Frequency of use:** Low, only used when player wants to change their username. 
+
+**Channel to actor:** Keyboard and mouse
+
+**Secondary actors:** Profile server
+
+**Channel to secondary actors:** New username is searched on the Profile server and stored if valid. An error is thrown
+   if the username is associated with an already existing profile.
+
+**Open issues:** Limits to amount of username changes? Any restrictions to the username itself?
+
+
+**Use case:** Change Password
+
+**Iteration:** 1
+
+**Primary Actor:** Existing Player
+
+**Goal in context:** Change the password associated with the players current account.
+
+**Preconditions:** The program is on the Edit Information page, and ready to change the password.
+
+**Trigger:** The player initiates changing the password for the account.
+
+**Scenario:**
+1. Player selects the option the change the password.
+2. Click on the text box marked password.
+3. Player types in the new password.
+4. Press Enter.
+5. Once submitted, verified to be a unique password in the system and then added to player profile to replace the old password.
+
+**Post conditions:** Profile is updated to have the new password attached to it.
+
+**Exceptions:**
+1. Invalid password.
+
+**Priority:** Medium Priority. Not essential for profile function but may add to player experience. 
+
+**When available:** Available on the Edit Information page. 
+
+**Frequency of use:** Low, only used when player wants to change their password.
+
+**Channel to actor:** Keyboard and mouse
+
+**Secondary actors:** Profile server
+
+**Channel to secondary actors:** New entered password is stored on the Profile server.
+
+**Open issues:** Password confirmation step to ensure correct entry? Restrictions to the password itself?
+
+**Use case:** Forgot Username
+
+**Iteration:** 1
+
+**Primary Actor:** Existing Player
+
+**Goal in context:** To recover the username associated with a players account.
+
+**Preconditions:** The player has an account with an email attached to verify account owner.
+
+**Trigger:** The player selects the forgot username option on the login screen.
+
+**Scenario:**
+1. Player clicks the Forgot Username button on the login page.
+2. Clicks on the text box marked e-mail.
+2. The player enters the e-mail associated with the account.
+3. Verifies email associated with the account.
+4. If valid, displays the username associated with the e-mail.
+
+**Post conditions:** Player recovers the username associated with the account and is able to complete login.
+
+**Exceptions:**
+1. Invalid e-mail.
+2. No account matching the e-mail.
+
+**Priority:** High Priority. Essential for account recovery.
+
+**When available:** Available on the login page.
+
+**Frequency of use:** Low, only used when player forgets their username. 
+
+**Channel to actor:** Keyboard and mouse
+
+**Secondary actors:** Profile server
+
+**Channel to secondary actors:** Username is found on the profile server based on the accounts e-mail address.
+
+**Open issues:** Lock out after too many failed entries? Security issues?
+
+
+**Use case:** Forgot Password
+
+**Iteration:** 1
+
+**Primary Actor:** Existing Player
+
+**Goal in context:** To reset the password associated with a players account when attempting to log in.
+
+**Preconditions:** The player has an existing account with an email attached for verification.
+
+**Trigger:** The player selects the forgot password option on the login screen.
+
+**Scenario:**
+1. Player clicks the Forgot Password button on the login page.
+2. Clicks on the text box marked e-mail.
+3. Player enters the e-mail associated with the account.
+4. Clicks on the text box marked username.
+5. Player enters the username associated with the account.
+6. Verifies the e-mail and username entered.
+7. If valid, the system prompts the player to set a new password.
+8. Click on the text box marked password.
+9. Player types in the new password.
+10. Press Enter.
+11. Once submitted, verified to be a unique password in the system and then added to player profile to replace the old password.
+
+**Post conditions:** Players password associated with the account is changed, and player is able to log in.
+
+**Exceptions:**
+1. Invalid e-mail or username.
+2. No account matching the entries is found.
+3. Invalid new password.
+
+**Priority:** High Priority. Essential for account recovery.
+
+**When available:** Available on the login page.
+
+**Frequency of use:** Low, only used when player forgets their password.
+
+**Channel to actor:** Keyboard and mouse
+
+**Secondary actors:** Profile server
+
+**Channel to secondary actors:** E-mail and username are stored on the Profile server and are used for account verification.
+
+**Open issues:** Security issues?
 
 
 **Use case:** Search for Other Users
@@ -226,6 +513,275 @@ profiles to play against them and see profile ranks.
 
 **Open issues:** N/A
 
+
+**Use case:** View Current Status
+
+**Iteration:** 1
+
+**Primary Actor:** Player
+
+**Goal in context:** View the current status of a searched player.
+
+**Preconditions:** The player has searched for and selected a Profile.
+
+**Trigger:** The player wants to see if the player is online and available to play.
+
+**Scenario:**
+1. Player selects view status.
+2. Server checks current profile isOnline variable status
+3. If false and therefore not logged in, profile is displayed as offline.
+4. If true and therefore logged in, profile is displayed as online.
+5. If logged in, Server checks current profile currentGame variable status.
+6. If null, player is not currently in a game, profile is displayed as available.
+7. If variable contains a string of a game name, then profile displays the current game name.
+
+**Post conditions:** Current status is displayed on Profile, showing if online, offline, or what game the profile is currently playing.
+
+**Exceptions:**
+1. isOnline and currentGame variables display not up-to-date information
+
+**Priority:** High priority, because players need to know if a player is currently available to be able to invite them to 
+play a game together. 
+
+**When available:** Viewable on a Profile page or on the Friends List.
+
+**Frequency of use:** Constantly updated when on the Friends List page or on a Profile Page. 
+
+**Channel to actor:** Displayed on a Profile Page Screen, or on the Friends List Page.
+
+**Secondary actors:** Server
+
+**Channel to secondary actors:** Obtains profile of selected profile to obtain variable contents.
+
+**Open issues:** N/A
+
+
+**Use case:** View Bio
+
+**Iteration:** 1
+
+**Primary Actor:** Existing Player
+
+**Goal in context:** View the bio of another player.
+
+**Preconditions:** The player has searched for and selected another player's profile. 
+
+**Trigger:** The player wants to view the bio of another player
+
+**Scenario:**
+1. Player clicks into another player's profile.
+2. The other player's profile loads up and their name and part of their bio is immediately visible.
+3. If there is more to a player's bio than can fit in the immediately presented section of the profile, the user can click "show more" to see the other user's full bio.
+
+**Post conditions:** The player who wanted to see the bio of the other player is able to see the other player's bio and has extended it if they wanted to. 
+
+**Exceptions:**
+1. The other player has no bio set.
+
+**Priority:** High, because the bio is a fundamental part of player profiles. It allows users to express themselves and makes the site more social. 
+
+**When available:** When an existing player is on another existing player's profile page. 
+
+**Frequency of use:** Medium, players won't always be searching for other players but will occasionally want to look up other players to see how they're performing or to add them as friends.
+
+**Channel to actor:** Displayed on another player's profile page, 
+
+**Secondary actors:** Profile database server
+
+**Channel to secondary actors:** Stored bio information for each user server-side
+
+**Open issues:** N/A
+
+**Use case:** Change Bio
+
+**Iteration:** 1
+
+**Primary Actor:** Existing Player
+
+**Goal in context:** Change your own profile's bio.
+
+**Preconditions:** The player has clicked into and is on their own profile page.
+
+**Trigger:** The player wants to change their own bio.
+
+**Scenario:**
+1. Player clicks into their own profile.
+2. Their profile loads up and their name and part of their bio is immediately visible.
+3. There is a button that says "Edit profile" somewhere on their profile page.
+4. They click that button and are brought to an edit profile page where they can edit their bio's information.
+5. The user clicks a "save" button to save their changes.
+6. The user is kicked back to their profile page where the changes have been applied.
+
+**Post conditions:** The player has edited their bio and saved the changes. The changes are reflected on their profile.
+
+**Exceptions:**
+1. The player has no bio set. 
+
+**Priority:** High, because the bio is a fundamental part of player profiles. It allows users to express themselves and makes the site more social.
+
+**When available:** When a player is on their own profile page.
+
+**Frequency of use:** Low, players will not often want to change their bio after they've set it for the first time, but when things change in their life or their interests shift, they might want to reflect that on their profile page.
+
+**Channel to actor:** Displayed on a player's own profile page.
+
+**Secondary actors:** Profile database server
+
+**Channel to secondary actors:** Stored bio information for each user server-side
+
+**Open issues:** N/A
+
+**Use case:** View Nickname
+
+**Iteration:** 2
+
+**Primary Actor:** Existing Player
+
+**Goal in context:** View the nickname of another player.
+
+**Preconditions:** The player has searched for and selected another player's profile or is looking at their friends list.
+
+**Trigger:** The player wants to view the nickname of another player
+
+**Scenario:**
+1. Player clicks into another player's profile or hovers over the user in their friends list.
+2. The other player's profile loads up and their name and nickname in brackets is immediately visible if they clicked into their profile, or the other users' nickname is shown in brackets if the player hovers over the other player on their friends list.
+
+**Post conditions:** The player who wanted to see the nickname of the other player is able to see the other player's nickname.
+
+**Exceptions:**
+1. The other player has no nickname set.
+
+**Priority:** Medium, because nicknames, while a fundamental part of player profiles, are not critical to the social aspects of the website. 
+
+**When available:** When an existing player is on another existing player's profile page.
+
+**Frequency of use:** Medium, players won't always be searching for other players but will occasionally want to look up other players to see how they're performing or to add them as friends.
+
+**Channel to actor:** Displayed on another player's profile page, or on hover on their friends list.
+
+**Secondary actors:** Profile database server
+
+**Channel to secondary actors:** Stored nickname information for each user server-side
+
+**Open issues:** N/A
+
+**Use case:** Change Nickname
+
+**Iteration:** 2
+
+**Primary Actor:** Existing Player
+
+**Goal in context:** Change your own profile's nickname.
+
+**Preconditions:** The player has clicked into and is on their own profile page.
+
+**Trigger:** The player wants to change their own nickname.
+
+**Scenario:**
+1. Player clicks into their own profile.
+2. Their profile loads up and their name and nickname is immediately visible.
+3. There is a button that says "Edit profile" somewhere on their profile page.
+4. They click that button and are brought to an edit profile page where they can edit their nickname.
+5. The user clicks a "save" button to save their changes.
+6. The user is kicked back to their profile page where the changes have been applied.
+
+**Post conditions:** The player has edited their nickname and saved the changes. The changes are reflected on their profile.
+
+**Exceptions:**
+1. The player has no nickname set.
+
+**Priority:** Medium, because nicknames, while a fundamental part of player profiles, are not critical to the social aspects of the website.
+
+**When available:** When a player is on their own profile page.
+
+**Frequency of use:** Low, players will not often want to change their bio after they've set it for the first time, but when things change in their life or their interests shift, they might want to reflect that on their profile page.
+
+**Channel to actor:** Displayed on a player's own profile page.
+
+**Secondary actors:** Profile database server
+
+**Channel to secondary actors:** Stored bio information for each user server-side
+
+**Open issues:** N/A
+
+**Use case:** Add Friend
+
+**Iteration:** 1
+
+**Primary Actor:** Existing Player
+
+**Goal in context:** Add another user as your friend.
+
+**Preconditions:** The player is on another users' profile page.
+
+**Trigger:** The player wants to add another user as a friend.
+
+**Scenario:**
+1. Player clicks into another users' profile.
+2. Their profile loads up and their name and there is an "add friend" button visible.
+3. The player clicks the add friend button.
+4. A friend request is sent to the other player, who can either accept or deny the request.
+
+
+**Post conditions:** The initiating player has sent a friend request to the other player who can choose to accept or deny the request.
+
+**Exceptions:**
+1. The player is already the initiating player's friend.
+
+**Priority:** High, the friend system is an integral part of the social experience of the website.
+
+**When available:** When a player is on another user's profile page.
+
+**Frequency of use:** Medium, players will want to add friends on a regular basis.
+
+**Channel to actor:** Displayed on another player's profile page.
+
+**Secondary actors:** Other players, profile database server
+
+**Channel to secondary actors:** Players' friends information stored server side, requests to other players sent to a notifications section
+
+**Open issues:** N/A
+
+
+**Use case:** Obtain Game History
+
+**Iteration:** 1
+
+**Primary Actor:** Player
+
+**Goal in context:** Obtain the Game History of the requested profile to either display the Most Recent Games, or the Full Game History.
+
+**Preconditions:** The profile exists and has played at least one game.
+
+**Trigger:** The Most Recent Games of another player's profile, or the Full Game History of the player has been selected to be viewed by the player.
+
+**Scenario:**
+1. Player makes the request to view another player's profile or their own profile.
+2. Player Database is searched for profile object of player by a HashMap of Profile and the username key.
+3. A 2D ArrayList of all past games is obtained containing game name, win or loss stats, and ranking.
+4. The 2D ArrayList is used to construct lists of all Previous Games or the 3 most recent games.
+
+**Post conditions:** A List of Game History is obtained to be viewed by the player.
+
+**Exceptions:**
+1. Will return an exception if empty for information to be displayed that the profile has not played any games yet.
+
+**Priority:** High priority. Not only does this provide information for assignment requirements, it may also be useful for calculating
+rankings for implementing a proper matchmaking system.
+
+**When available:** Available when a profile exists.
+
+**Frequency of use:** Used whenever viewing another player's profile, or viewing the personal profile of the player.
+
+**Channel to actor:** Interactions with the GUI system using the mouse.
+
+**Secondary actors:** Profile Database
+
+**Channel to secondary actors:** Accessing HashMap of Profiles using the .get() method.
+
+**Open issues:** N/A
+
 ## GUI Team
 
 **Use case:** Allow players to customize/edit their profile.
@@ -249,7 +805,9 @@ profiles to play against them and see profile ranks.
 **Post conditions:** The player's profile is updated successfully. The changes are viewable by the player and other players.
 
 **Exceptions:**
-1. 
+1. Picture fails to upload properly, so UI re-displays fields and prompts player to re-select an image.
+2. File size is too large, so UI re-displays fields and prompts player to select an image of a smaller size.
+3. Wrong file type, so UI re-displays fields and prompts to select a png image.
 
 **Priority:** Medium. An asset to build a multiplayer community, but not detrimental to system function.
 
@@ -404,8 +962,8 @@ profiles to play against them and see profile ranks.
 **Trigger:** The user selects the “profile” button on the home game page
 
 **Scenario:**
-1. After player selects the profile button on the home screen, the system displays a list of past games played by the logged in player and any associated statistics 
-2. Player selects specific games played to view more specific details of a given match, such as ranking, which is displayed by the system
+1. After player selects the profile button on the home screen, the system displays a list of past games played by the logged in player and win/loss and rank statistics 
+2. Player selects specific games played to view more specific details of a given match, such as loss or win or ranking, which is displayed by the system.
 
 **Post conditions:** The player has viewed their game history
 
@@ -427,15 +985,17 @@ profiles to play against them and see profile ranks.
 **Open issues:**
 1. Other player’s have access to view some of their opponent’s game history (i.e. ranks, current status, recent matches). Should there be an option presented to users allowing them to make this information private?
 
+
+
 **Use case:** Allow players to access instructions before game has started
 
 **Iteration:** 1
 
 **Primary Actor:** Player
 
-**Goal in context:**The player can be well informed before starting the game.
+**Goal in context:** The player can be well informed before starting the game.
 
-**Preconditions:**The player has chosen a game.
+**Preconditions:** The player has chosen a game.
 
 **Trigger:** The player presses the information button on the multiplayer pop up window.
 
@@ -457,7 +1017,7 @@ profiles to play against them and see profile ranks.
 
 **Frequency of use:** Occasional. If it is a new player or a player needs a refresher on game rules.
 
-**Channel to actor:**In the multiplayer join match window, under the information icon “i".
+**Channel to actor:** In the multiplayer join match window, under the information icon “i".
 
 **Secondary actors:** N/A
 
@@ -465,15 +1025,17 @@ profiles to play against them and see profile ranks.
 
 **Open issues:**  Should the instructions be shown every time you first log into the game or just make it optional from the start ?
 
+
+
 **Use case:** Allow players to access instructions after game has started.
 
 **Iteration:** 1
 
 **Primary Actor:** Player
 
-**Goal in context:**The player can go back to the instructions after starting the match.
+**Goal in context:** The player can go back to the instructions after starting the match.
 
-**Preconditions:**The player has started a match.
+**Preconditions:** The player has started a match.
 
 **Trigger:** The player presses the information button on the active game page.
 
@@ -503,6 +1065,179 @@ profiles to play against them and see profile ranks.
 **Channel to secondary actors:** N/A
 
 **Open issues:** N/A
+
+
+
+**Use case:** Allow player to modify sound
+
+**Iteration:** 1
+
+**Primary Actor:** Player
+
+**Goal in context:** Change the volume of background music 
+
+**Preconditions:** The player has started a match.
+
+**Trigger:** Pressing the settings button 
+**Scenario:**
+    1. The player selects a game (connect 4, checkers, tic tac toe) on the game page.
+    2. The players volume is either to high or too low
+    3. The player presses the settings button.
+    4. The player adjust the volume to their desired intensity
+    5. The player goes back to match
+
+**Post conditions:** N/A
+
+**Exceptions:**
+    1. The volume is lowered
+    2. The volume is intensified
+
+**Priority:** Low. Not all players will need to change the background music, it will only be for those that want it to be louder or lower.
+
+**When available:** 2nd or 3rd project iteration.
+
+**Frequency of use:** Occasional. If the player finds the volume too loud or too quiet they can change the volume to their need.
+
+**Channel to actor:** In the active game Window, under settings icon. 
+
+**Secondary actors:** N/A
+
+**Channel to secondary actors:** N/A
+
+**Open issues:** Am not sure if we will have the music throughout the whole game. Would the music also be playing while game is selected? If so there will be more than one case description for this.
+
+
+
+**Use case:** Allow player to modify brightness
+
+**Iteration:** 1
+
+**Primary Actor:** Player
+
+**Goal in context:** Adjust the brightness of game. 
+
+**Preconditions:** The player has started a match. 
+
+**Trigger:** Pressing the settings button 
+**Scenario:**
+    1. The player selects a game (connect 4, checkers, tic tac toe) on the game page.
+    2. The players brightness is either to high or too low
+    3. The player presses the settings button.
+    4. The player adjust the brightness to their desired intensity
+    5. The player goes back to match
+
+**Post conditions:** N/A
+
+**Exceptions:**
+    1. The brightness is intensified
+    2. The brightness is lowered
+
+**Priority:** Low. Not all players will need to change the brightness, it will only be for those that are uncomfortable with the brightness.
+
+**When available:** 2nd or 3rd project iteration.
+
+**Frequency of use:** Occasional. If the player finds the brightness is too bright or too low they can change the brightness to their need.
+
+**Channel to actor:** In the active game Window, under settings icon. 
+
+**Secondary actors:** N/A
+
+**Channel to secondary actors:** N/A
+
+**Open issues:** The brightness can be changed at any point. Therefore should we have a use case for each channel?
+
+
+**Use case:** Home button: Allows people to quickly return to the home page from any other page.
+
+**Iteration:** 1
+
+**Primary Actor:** Player
+
+**Goal in context:** The player can return to the "home page" (game menu) at any point in time, to allow
+for easy backtracking when nested inside menus or other user profiles.
+
+**Preconditions:** The player has logged in, and is currently on any page other than the home page.
+
+**Trigger:** The player presses the home button available on any page other than the home page.
+
+**Scenario:**
+1. Player logs into their account.
+2. Player selects the leader board and looks at the other players stats.
+3. Player clicks on one of the other players name to open their profile.
+4. Player decides they want to start a game of checkers, so the press the home button to return to the home page.
+
+
+**Post conditions:** The player has returned to the home menu from the page they were previously on, and is now free to
+navigate from there.
+
+**Exceptions:**
+1. If the player is already on the home page this option will not be made available.
+2. If the player is in an active game, the player will still be able to press the home button, but a pop-up will show
+that prompts them to consider if they actually wish to leave the game.
+
+**Priority:** Medium, This is a convenient button to have if a player is embedded in multiple clicks of user profiles,
+and reduces the inconvenience of having to click the back button multiple times.
+
+**When available:** Any page after the login and main page. 
+
+**Frequency of use:** Often. It will often be the case that a player may want to return to the main page to quickly
+access the game menu. 
+
+**Channel to actor:** In any page that is not the login page or main page. This will be a button in the top right corner
+of the page.
+
+**Secondary actors:** N/A
+
+**Channel to secondary actors:** N/A
+
+**Open issues:** N/A
+
+
+**Use case:** Back button: Allows players to go back to the previous page visited.
+
+**Iteration:** 1
+
+**Primary Actor:** Player
+
+**Goal in context:** The player can return to the previous page visited by clicking the back button,
+this will allow players to go back one page without having to return to the home page.
+
+**Preconditions:** The player has logged in, and is currently on any page other than the home page.
+
+**Trigger:** The player presses the back button available on any page other than the home page.
+
+**Scenario:**
+1. Player logs into their account.
+2. Player selects the leader board and looks at the other players stats.
+3. Player clicks on one of the other players name to open their profile.
+4. Player decides they want to go back to the leaderboard, so the press the back button to return to leaderboard page.
+
+
+**Post conditions:** The player has returned to the previous page visited, and is now free to navigate from there.
+navigate from there.
+
+**Exceptions:**
+1. If the player is on the home page this option will not be made available, instead a logout button will be available.
+2. If the player is in an active game, the player will not be able to press the back button but will instead have the 
+option to press the home button. 
+
+**Priority:** Medium, This is a convenient button to have if the player wishes to visit a previous page that they were 
+on instead of having to press the home button.
+
+**When available:** Any page after the login and main page.
+
+**Frequency of use:** Often. It will often be the case that a player may want to return to a previous page to quickly
+access the content they had on the last page. 
+
+**Channel to actor:** In any page that is not the login page or main page. This will be a button in the top left corner
+of the page.
+
+**Secondary actors:** N/A
+
+**Channel to secondary actors:** N/A
+
+**Open issues:** N/A
+
 
 ## Game Logic Team
 
@@ -583,6 +1318,48 @@ profiles to play against them and see profile ranks.
 
 **Open issues:**
 1. If there are network errors or disconnects, how will we handle delayed game status updates? Must prepare for this case to ensure that the game state is appropriately updated when possible for both players.
+
+
+**Use case:** Provide user with tutorials and/or hints
+
+**Iteration:** 1
+
+**Primary Actor:** Player
+
+**Goal in context:** The player will be able to ask for a tutorial or hint at the beginning or end.
+
+**Preconditions:** The player has started one of 3 games.
+
+**Trigger:** The player clicks on the button for tutorial or hint on the screen.
+
+**Scenario:**
+1. The player selects the tutorial or hint button from the game interface.
+2. If tutorial is selected, the player is walked through the first few steps of a game and its rules.
+3. If a hint is selected, the player will receive a game-appropriate hint that does nudges them in the right direction in relation to the game.
+4. The player should be allowed to then close the tutorial/hint and continue playing.
+
+**Post conditions:** The player received a tutorial/hint and continues with the game.
+
+**Exceptions:** 
+1. If the player selects a hint but they are in a stalemate, hint may not be provided.
+
+**Priority:** Medium priority. It's not extremely necessary as these games are quite common and popular, you can find the rules anywhere, but some users may not know it well enough and would need a tutorial or hints or both.
+
+**When available:** Between 2nd and 3rd iterations
+
+**Frequency of use:** Somewhat frequent. As mentioned above, some people may need to use it and some don't.
+
+**Channel to actor:** The game's interface.
+
+**Secondary actors:** N/A
+
+**Channel to secondary actors:** N/A
+
+**Open issues:**
+1. How would the hints be generated?
+2. Should there be a limited number of hints to prevent users from exploiting it?
+
+
 
 ## Networking Team
 
@@ -702,3 +1479,65 @@ multiplayer experience.
 2. How should the system handle repeated connections and disconnections from players?
 3. What security measures are in place to prevent exploitation of disconnect/reconnect logic?
 4. How long should the reconnect threshold times be, and should it depend on game type?
+
+**Use case:** Authentication & Session Handling (Server-client model)
+
+**Iteration:** 1
+
+**Primary Actor:** Server
+
+**Goal in context:** Very player login credentials
+
+**Preconditions:** 
+
+1. The player has submitted login credentials from client side.
+2. The server is up and running, and connected to the database.
+3. The database is available and responding to query requests.
+
+**Trigger:** The server receives a login request from the player.
+
+**Scenario:**
+
+1. The player starts the game client, and enters their login credentials.
+2. The server receives the login request containing their username and password.
+3. The database searches for the username.
+4. If the username exists, the database returns the stored password hash.
+5. The server then compares the received password (after applying same hashing method) to the password stored in the database
+6. If the password is valid:
+   7. The server generates a unique token for the player
+   8. The server stores this session token linked to the player's account
+   9. The server then sends a "login successful" back to the client.
+10. If the password is invalid, or the username does not exist, then the server sends a "login failed" response back to the player.
+
+**Post conditions:** 
+
+1. On success, the player gets an active game session on the server, identified by their unique token.
+2. On failure, the player remains in the login page, and may retry login.
+
+**Exceptions:**
+
+1. Player is unable to start a game session due to server or database malfunction.
+2. Incorrect login details. Server rejects login attempt.
+
+**Priority:** High. Authentication is critical for players accessing game sessions.
+
+**When available:** 2nd iteration.
+
+**Frequency of use:** Frequent. Player's need to log in at the beginning of every session.
+
+**Channel to actor:**
+
+1. TCP socket communication between client and server.
+
+**Secondary actors:** Database
+
+**Channel to secondary actors:** 
+
+1. SQL query from server to database.
+
+**Open issues:**
+
+1. How are passwords securely stored? what kind of hashing algorithm will be used to ensure this.
+2. Should multiple failed login attempts lock the account after a certain amount of retries?
+3. How will session tokens be handled. How will they expire or be refreshed?
+4. Should tokens persist after accidental disconnect? Will the player need to re-log in to continue the session?
