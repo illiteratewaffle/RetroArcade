@@ -992,7 +992,7 @@ rankings for implementing a proper matchmaking system.
 **Post conditions:** The Win/Loss ratio now reflects the change of the ratio from the results of the completed game.
 
 **Exceptions:**
-1. 
+1. Game ends in a tie, so Win/Loss ratio is not changed.
 
 **Priority:** High Priority. The Win/Loss Record is important for ranking players and displaying leaderboards. Such data is
 imperative to formulate balanced match making.
