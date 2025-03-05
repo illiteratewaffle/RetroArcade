@@ -2,71 +2,15 @@
 
 - March 10th: Start of P2
 - March 11th: Complete Accountability Contract?
-- March 12th: Start Reviewing Other Team (Approximately 5 days)
-- Create Profile Class
-    - Boolean isOnline (True = is logged in, False = is not logged in)
-    - String currentGame variable (null, or "Tick-Tac-Toe", or "Connect Four". or "Checkers")
-    - addEmail()
-    - addUsername()
-    - addPassword()
-    - setUsername()
-    - setPassword()
-    - addNickname()
-    - addBio()
-    - addProfilePic()
-
-    - setEmail()
-    - isValidEmail()
-
-    - setRank()
-    - getRank()
-  
-    - updateRecentMatches()
-    - getRecentMatches()
-    
-    - updateWinLossRatio()
-    - getWinLossRatio()
+- March 12th: Start Reviewing Other Team 
+- March 19th: Finish creating all class files described in the class structure diagram
+- March 21st: P2 Due, no coding required at this point. Communicate with networking team to figure out how account/profile information will be stored and accessed on the server.
+- March 21st - March 28th: Meet with GUI Team at some point to discuss how profile methods will be implemented by GUI components
+- March 22nd: Start working on drivers for each class
+- March 30th: Finish initial draft of code, begin refining and creating documentation
+- April 4th: Finish final draft of code. Begin final review. 
+- April 5th: Start working on the demo. Leave time for filming videos and for integration to integrate all team videos and code components together.
+- April 11: P3 Due
 
 
-- In Profile Server Database:
-    - HashSet profileEmailSet (Contains all e-mails of existing Profiles)
-March 21st: P2 Due
-
-April 11: P3 Due
-
-
-
-
-
-Class Ideas:
-- Profile
-- FriendsList
-- Authentication (methods for log in, log off, account creation)
-- WinLossRatio (calculate ratio)
-- RecentGames
-- GameHistory (Total viewed for personal profile)
-
-
-Class Structure Diagram:
-
-
-Possible Sequence Diagrams:
-- log in
-- registration
-
-Confirm with GUI and LeaderBoard Teams for class organization and Button Layout, Sequence of things
-- Search box to find friends
-- Is Friends tab only in profile?
-- Layout out account registration page
-- Confirm names of sections
-- Game history only within profile or an easily accessible tab?
-- How Game and Leaderboard will update profile variables
-- Profile Authentication mainly in main menu
-
-
-Use Case Descriptions to be done:
-- View Profile Picture ? - Obtain Profile picture?
-
-- Update Current Status
-- Update Rank
 
