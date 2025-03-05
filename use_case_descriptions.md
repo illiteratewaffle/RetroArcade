@@ -1394,50 +1394,6 @@ of the page.
 **Open issues:** N/A
 
 
-**Use case:**  Adding friends
-
-**Iteration:** 1
-
-**Primary Actor:** Player
-
-**Goal in context:** Allow user to view and challenge friends by searching their profile
-
-**Preconditions:** The user has logged into their account on the system
-
-**Trigger:** The player selects the “friends” button on the personal profile page
-
-**Scenario:**
-After the user has navigated to the friend page, they select the “search” option displayed in the menu on this page
-The system displays a search bar through which the player will be able to enter and search for a username
-The system displays matching player profiles
-System will present user with the option to view profile, add friend, or challenge friend to a game
-If player selects “challenge friend” and the friend accepts, the system redirects the player to a private game lobby
-If the friend does not accept, the system displays a message to user that the friend was unavailable
-
-**Post conditions:** If player has challenged friend to a game and friend has accepted, player is placed in a game lobby. If friend did not accept, system has displayed message notifying user that the friend is unavailable. Otherwise, the user has successfully viewed the friend profile or sent a friend request.
-
-**Exceptions:**
-If no username is found that matches the player’s search, the system displays an error message stating this fact
-If friend is offline, player is notified of this when challenge request sent
-If challenged player does not respond to request within a given time, the challenge request expires
-
-**Priority:** Medium priority. Not required to play games but a feature that may be desired among player friends.
-
-**When available:** Second or third project iteration
-
-**Frequency of use:** Somewhat frequent. Players may occasionally search and challenge their friends to matches.
-
-**Channel to actor:** Friend profile interface and search interface (within friends profile)
-
-**Secondary actors:** Other players
-
-**Channel to secondary actors:** Challenge request handling within system
-
-**Open issues:**
-If players can block other users from sending match requests, how will this be displayed on the GUI?
-Should players receive notifications when their friends are online?
-
-
 
 ## Game Logic Team
 
