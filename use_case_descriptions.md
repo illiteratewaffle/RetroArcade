@@ -1175,7 +1175,42 @@ Get Profile Picture
 -------------------------------------------------
 Sign Out
 -----------------------------------------------
-Update Current Status
+**Use case:** Update Current Status
+
+**Iteration:** 1
+
+**Primary Actor:** Server
+
+**Goal in context:** Update the status (online, offline, away) of a player.
+
+**Preconditions:** The player who's status is being updated must be a registered user.
+
+**Trigger:** For online: Player logs in to the site. For offline: Player logs out of the site. For away: Player is AFK (has made no inputs) for 5 minutes.
+
+**Scenario:**
+1. Player logs in to the site, logs off the site, or makes no inputs for 5 minutes.
+2. Server changes the player's status accordingly.
+
+**Post conditions:** The status is reflected accurately on the player's profile and other users' friends lists.
+
+
+**Exceptions:**
+1. Status does not update correctly as a result of server conneciton issues.
+
+**Priority:** High Priority. Status is a fundamental social feature which allows other users to identify whether their friends are online or offline.
+
+**When available:** Available when a player is online and viewing other players' profiles or their friends list.
+
+**Frequency of use:** Medium, necessary for whenever a player checks their friends list which we expect to be relatively often.
+
+**Channel to actor:** Player's activity (log ins, logouts, inactivity) sent to server, change reflected client side
+
+**Secondary actors:** Existing player
+
+**Channel to secondary actors:** Keyboard and mouse inputs
+
+**Open issues:** N/A
+
 --------------------------------------------------
 
 ## GUI Team
