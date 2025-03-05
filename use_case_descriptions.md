@@ -1600,3 +1600,65 @@ multiplayer experience.
 2. What should happen if the timer threshold is exceeded? should a move be done by default? Should the player's turn be skipped?
 3. How are reconnecting player's handled if they come back midturn?
 4. Should timeouts affect a player's ranking/statistics?
+
+**Use case:** End/Delete Game Session 
+
+**Iteration:** 1
+
+**Primary Actor:** Server
+
+**Goal in context:** To terminate an active game session when the match ends, a player quits, or disconnection occurs.
+
+**Preconditions:**
+
+1. An active game session exists and managed by the game session manager.
+2. Players are connected through their respective player handlers.
+3. The game state is actively synchronized by the game state synchronizer.
+
+**Trigger:** A game ending condition is met (win, draw, player quit, or disconnection).
+
+**Scenario:**
+
+1. Game session manager detects the session should end (through game logic or player action).
+2. Game state synchronizer finalizes the last state and communicates the final result to both players.
+3. Server controller is notified the game session is complete.
+4. Network manager sends a session termination message to clients.
+5. Database stores the match result in match history and updates any affected leaderboard data.
+6. Player handlers update the current state (no session) and players are returned to a waiting, or menu screen.
+7. The game session manager deletes the session instance.
+
+**Post conditions:**
+
+1. The game session is terminated.
+2. Results from the match are stored in the database.
+3. Players are notified that the session has ended and removed from the game session.
+
+**Exceptions:**
+
+1. Either clients disconnect during the game ending process, or the server goes down.
+2. Match results cannot be stored due to database failure.
+
+**Priority:** High. Proper session termination is critical for maintaining a stable system, and accurate player records.
+
+**When available:** Iteration 2
+
+**Frequency of use:** High frequency. Occurs at the end of every match.
+
+**Channel to actor:**
+
+1. Triggered internally via the game session manager.
+
+**Secondary actors:** 
+
+1. Player handlers
+2. database connector
+
+**Channel to secondary actors:** 
+
+1. TCP socket communication with clients.
+2. SQL queries.
+
+**Open issues:**
+
+1. In the event of a server, or database failure mid-process, what should the contingency plan be?
+2. If a player disconnects unexpectedly (network failure, system crash etc.), should the game end immediately or allow a reconnection window?
