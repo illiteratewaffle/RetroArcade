@@ -584,6 +584,48 @@ profiles to play against them and see profile ranks.
 **Open issues:**
 1. If there are network errors or disconnects, how will we handle delayed game status updates? Must prepare for this case to ensure that the game state is appropriately updated when possible for both players.
 
+
+**Use case:** Provide user with tutorials and/or hints
+
+**Iteration:** 1
+
+**Primary Actor:** Player
+
+**Goal in context:** The player will be able to ask for a tutorial or hint at the beginning or end.
+
+**Preconditions:** The player has started one of 3 games.
+
+**Trigger:** The player clicks on the button for tutorial or hint on the screen.
+
+**Scenario:**
+1. The player selects the tutorial or hint button from the game interface.
+2. If tutorial is selected, the player is walked through the first few steps of a game and its rules.
+3. If a hint is selected, the player will receive a game-appropriate hint that does nudges them in the right direction in relation to the game.
+4. The player should be allowed to then close the tutorial/hint and continue playing.
+
+**Post conditions:** The player received a tutorial/hint and continues with the game.
+
+**Exceptions:** 
+1. If the player selects a hint but they are in a stalemate, hint may not be provided.
+
+**Priority:** Medium priority. It's not extremely necessary as these games are quite common and popular, you can find the rules anywhere, but some users may not know it well enough and would need a tutorial or hints or both.
+
+**When available:** Between 2nd and 3rd iterations
+
+**Frequency of use:** Somewhat frequent. As mentioned above, some people may need to use it and some don't.
+
+**Channel to actor:** The game's interface.
+
+**Secondary actors:** N/A
+
+**Channel to secondary actors:** N/A
+
+**Open issues:**
+1. How would the hints be generated?
+2. Should there be a limited number of hints to prevent users from exploiting it?
+
+
+
 ## Networking Team
 
 **Use case:** Player Joins a Multiplayer Game (client-server Model)
@@ -642,3 +684,238 @@ profiles to play against them and see profile ranks.
 **Open issues:**
 
 1. What kind of authentication mechanism should be used for verifying player join requests?
+
+**Use case:** Multiplayer Game State Update (client-server Model) 
+ 
+**Iteration:** 1 
+ 
+**Primary Actor:** Player (client) 
+ 
+**Goal in context:** The player makes an in-game action that is sent to the server. The server then updates the game state and sends the new state to all connected players. 
+ 
+**Preconditions:**  
+ 
+1. The player is logged into their account. 
+2. The player is connected to the game. 
+3. The client is connected to the server. 
+4. The game server is online and responsive. 
+ 
+**Trigger:** The player takes an action in the game 
+ 
+**Scenario:** 
+1. The player takes an action in the client. 
+2. The client sends the action to the server. 
+3. The server game session manager updates the game state. 
+4. The server game state synchronizer sends the new game state to all connected clients 
+5. The client receives the new game state and replaces the old game state with it. 
+ 
+**Post conditions:** All players receive the updated game state 
+
+**Exceptions:**  
+ 
+1. The server is unreachable, so the action is not sent to the server. 
+2. The client loses connection before the game state is synchronized. 
+3. A move is invalid or corrupted during the game state update. 
+4. A timeout threshold is surpassed, where either the server or client do not receive a response within a predefined time. 
+ 
+**Priority:** High priority. Being able to make moves that all players can see is crucial for multiplayer gameplay
+ 
+**When available:** 2nd or 3rd iteration. 
+ 
+**Frequency of use:** Very Frequent. Every time any player takes an action in a multiplayer game. 
+ 
+**Channel to actor:**  
+ 
+1. GUI interaction. 
+2. Socket connection for communication with the server. 
+ 
+**Secondary actors:**  
+ 
+1. Game Server which handles session management and player matchmaking.
+2. Other player clients 
+ 
+**Channel to secondary actors:**  
+ 
+1. TCP socket communication between client and server for session handling. 
+ 
+**Open issues:** 
+
+1. How to handle simultaneous moves from different players.
+2. How to make sure the game state is updated at the same time for all players 
+
+**Use case:** Player Creates Account (client-server Model)
+
+**Iteration:** 1
+
+**Primary Actor:** Player (client)
+
+**Goal in context:** The player creates a new account by entering their details on the registration screen, their credentials are then stored on the server.
+
+**Preconditions:**
+
+1. The client can be connected to the server.
+2. The player is on the registration screen.
+3. The game server is online and responsive.
+
+**Trigger:** The player selects the option to register a new account.
+
+**Scenario:**
+1. The player enters the required registration details.
+2. The client sends the registration information and request to the server.
+3. The server checks the validity of the submitted information.
+4. The server stores the player's registration info in its database.
+5. The server sends confirmation back to the client and connects to the player's account.
+
+**Post conditions:** The player's account is successfully created, and is connected to the server
+
+
+**Exceptions:**
+
+1. The server is unreachable, so the registration info was not sent to the server.
+2. The database is unreachable and cannot store the data.
+3. The player's registration information is invalid
+
+**Priority:** High priority. Having an account is necessary to connect to the multiplayer aspects of the game.
+
+**When available:** 2nd or 3rd iteration.
+
+**Frequency of use:** Low. Will be used when a player first begins using the multiplayer aspects of a game
+
+**Channel to actor:**
+
+1. GUI interaction.
+2. Socket connection for communication with the server.
+
+**Secondary actors:**
+
+1. Game Server
+2. Game Database
+
+**Channel to secondary actors:**
+
+1. TCP socket communication between client and server for session handling.
+
+**Open issues:**
+
+1. How to handle registration information if the server database is full
+**Use case:** Player Disconnection & Reconnection
+
+**Iteration:** 1
+
+**Primary Actor:** Player
+
+**Goal in context:** Ensure that if player disconnects from an ongoing game session, their game state is retained, allowing
+them to reconnect and resume the match if they return within a certain timeframe.
+
+**Preconditions:**
+
+1. The player is currently connected to an active multiplayer session.
+2. The server is online and managing the session.
+3. The game session is still ongoing when the disconnection occurs.
+
+**Trigger:** The player's connection is cut due to network issues, system crashes, or manual disconnection.
+
+**Scenario:**
+
+1. The player is currently within a multiplayer game session.
+2. The player disconnects unexpectedly due to internet issues, game/system crashes, or manual disconnection.
+3. The server detects the player's disconnection and marks the player a disconnected (temporarily).
+4. The server retains the player's game state (moves, scores, turn state) for a predetermined amount of time.
+5. If the player reconnects:
+   - The client sends a reconnection request to the server.
+   - The server verifies the player's identity and checks if their previous session is still available,
+   - The server restores the player's last game state and re-establishes their connection to the session.
+
+**Post conditions:** If the player successfully reconnects, they resume the game from the last known state.
+
+**Exceptions:**
+
+1. The player does not reconnect within the allocated time, and the game session is forced to continue.
+2. If the server goes down before the player reconnects, their game state may be lost.
+3. The player reconnects but fails identity verification.
+4. If the player repeatedly disconnects and reconnects, the server may impose a limit.
+
+**Priority:** High. Disconnection and reconnection handling is essential for preventing abuse of online system, and ensuring smooth
+multiplayer experience.
+
+**When available:** 2nd or 3rd iteration.
+
+**Frequency of use:** Variable. Some player's may rarely disconnect, while others may have unstable connections, or abuse the system.
+
+**Channel to actor:**
+
+1. Player interacts via the game client.
+2. Reconnection occurs via the server-client communication.
+
+**Secondary actors:** N/A
+
+**Channel to secondary actors:** N/A
+
+**Open issues:**
+
+1. How long should the server retain the player's game state before removing them from the session?
+2. How should the system handle repeated connections and disconnections from players?
+3. What security measures are in place to prevent exploitation of disconnect/reconnect logic?
+4. How long should the reconnect threshold times be, and should it depend on game type?
+
+**Use case:** Chat Message Handling (client-server model)
+
+**Iteration:** 1
+
+**Primary Actor:** Player (client)
+
+**Goal in context:** The player creates a new account by entering their details on the registration screen, their credentials are then stored on the server.
+
+The player sends a chat message using the chat box. The message is routed through the server and then sent to all other players.
+
+**Preconditions:**
+
+1. The player is logged into their account.
+2. The player is connected to the game.
+3. The client is connected to the server.
+4. The game server is online.
+5. The chat box is active
+
+**Trigger:** The player types and sends a chat message
+
+**Scenario:**
+1. The player enters the required registration details.
+2. The client sends the message to the game server.
+3. The server checks the appropriateness of the message.
+4. The server sends the chat message to the other connected players.
+5. The client receives the message and updated the chat box.
+
+**Post conditions:** All players receive the new chat message
+
+**Exceptions:**
+
+1. The server is unreachable, so the message was not sent to the server.
+2. A timeout threshold is surpassed, where either the server or client do not receive a response within a predefined time.
+3. The player's message is inappropriate
+
+**Priority:** Low priority. Messaging is secondary to the games core functions.
+
+**When available:** 2nd or 3rd iteration.
+
+**Frequency of use:** Medium. Will be used every time a wants to send a message to other players.
+
+**Channel to actor:**
+
+1. GUI interaction.
+2. Socket connection for communication with the server.
+
+**Secondary actors:**
+
+1. Game Server
+2. Other player clients
+
+**Channel to secondary actors:**
+
+1. TCP socket communication between client and server for session handling.
+
+**Open issues:**
+
+1. How to handle message moderation
+2. How to handle simultaneous messages from different players
+3. How to handle very large chat messages
+4. How to make sure the chat box is updated for all players 
