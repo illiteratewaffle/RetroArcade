@@ -70,7 +70,5 @@ Use Case Descriptions to be done:
 
 - Challenge Button to Challenge Users to Games
 - Update Current Status
-- Update Win/Loss Ratio
-- Edit Information
 - Update Rank
 
