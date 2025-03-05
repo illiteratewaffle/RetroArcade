@@ -919,3 +919,54 @@ The player sends a chat message using the chat box. The message is routed throug
 2. How to handle simultaneous messages from different players
 3. How to handle very large chat messages
 4. How to make sure the chat box is updated for all players 
+
+4
+
+**Use case:** Server Validates Action (client-server Model)
+
+**Iteration:** 1
+
+**Primary Actor:** Game Server
+
+**Goal in context:** The server verifies that each move submitted by a player is allowed before updating the game state.
+
+
+**Preconditions:**
+
+1. The client is connected to the server.
+3. The game server is online and responsive.
+
+**Trigger:** The client sends a player action to the server.
+
+**Scenario:**
+1. The server receives the move.
+2. The server checks the move against game rules and current state.
+3. If the move is valid, the server game session manager updates the game state
+
+**Post conditions:** The game state is updated and sent to all player clients.
+
+**Exceptions:**
+
+1. The player's action is invalid
+
+**Priority:** High priority. Ensuring that the game works is a necessary part of the multiplayer game.
+
+**When available:** 2nd or 3rd iteration.
+
+**Frequency of use:** High. Will be used every time a player makes a move in multiplayer
+**Channel to actor:**
+
+1. GUI interaction.
+2. Socket connection for communication with the server.
+
+**Secondary actors:**
+
+1. Game Client
+
+**Channel to secondary actors:**
+
+1. TCP socket communication between client and server for session handling.
+
+**Open issues:**
+
+1. How to manage simultaneous moves
