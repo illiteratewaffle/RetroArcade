@@ -1690,13 +1690,13 @@ of the page.
 **Trigger:** The player selects a game and requests to join a session.
 
 **Scenario:**
-1. The client and host player's select from list of board games to play.
-2. The host player creates a game server/session.
-3. The client player sends the host player a request to join the game server.
-4. The server receives the request, processes it and sends session details back to the client player.
-5. The client receives confirmation and the initial game state loads.
+1. The clients select from list of board games to play.
+2. The client sends a game session request through the NetworkManager.
+3. The ServerController receives the request and either finds an existing session or instructs the Game Session Manager to create a new session.
+4. The GameSessionManager establishes a new session and assigns the player via their PlayerHandler.
+5. The game initializes through the Game State Synchronizer, and the initial game state is shared.
 
-**Post conditions:** The player is successfully connected to a game session through a client-server socket connnection.
+**Post conditions:** The player is successfully connected to a game session through a client-server socket connection.
 
 **Exceptions:** 
 
@@ -1706,7 +1706,7 @@ of the page.
 4. The request is incorrect, or corrupted during connection phase.
 5. A timeout threshold is surpassed, where either the server or client do not receive a response within a predefined time.
 
-**Priority:** High priority. Establishing a reliable multiplayer connection is crucial for gameplay.
+**Priority:** High priority. Establishing a reliable multiplayer connection is crucial for multiplayer gameplay.
 
 **When available:** 2nd or 3rd iteration.
 
@@ -1750,12 +1750,12 @@ them to reconnect and resume the match if they return within a certain timeframe
 
 1. The player is currently within a multiplayer game session.
 2. The player disconnects unexpectedly due to internet issues, game/system crashes, or manual disconnection.
-3. The server detects the player's disconnection and marks the player a disconnected (temporarily).
-4. The server retains the player's game state (moves, scores, turn state) for a predetermined amount of time.
+3. The player’s status is updated via PlayerHandler, marking them as temporarily disconnected.
+4. The Game Session Manager keeps the session active, while Game State Synchronizer freezes the game state.
 5. If the player reconnects:
-   - The client sends a reconnection request to the server.
-   - The server verifies the player's identity and checks if their previous session is still available,
-   - The server restores the player's last game state and re-establishes their connection to the session.
+   - The client sends a reconnection request to the server - AuthHandler verifies the player.
+   - NetworkManager restores the socket connection.
+   - The GameSessionManager resumes the player’s position and state.
 
 **Post conditions:** If the player successfully reconnects, they resume the game from the last known state.
 
@@ -1795,7 +1795,7 @@ multiplayer experience.
 
 **Primary Actor:** Server
 
-**Goal in context:** Very player login credentials
+**Goal in context:** Verify player login credentials
 
 **Preconditions:** 
 
@@ -1808,13 +1808,13 @@ multiplayer experience.
 **Scenario:**
 
 1. The player starts the game client, and enters their login credentials.
-2. The server receives the login request containing their username and password.
-3. The database searches for the username.
+2. The server receives the login request containing their username and password. AuthHandler processes the request.
+3. Database Connector queries the database for matching username.
 4. If the username exists, the database returns the stored password hash.
 5. The server then compares the received password (after applying same hashing method) to the password stored in the database
 6. If the password is valid:
-   7. The server generates a unique token for the player
-   8. The server stores this session token linked to the player's account
+   7. AuthHandler generates a unique token for the player
+   8. The server stores this session token linked to the player's account - Player's PlayerHandler is created and attached.
    9. The server then sends a "login successful" back to the client.
 10. If the password is invalid, or the username does not exist, then the server sends a "login failed" response back to the player.
 
@@ -1867,9 +1867,9 @@ multiplayer experience.
 
 **Scenario:**
 
-1. The server updates the game state to indicate that it's a player's turn.
+1. The GameStateSynchronizer signals the player's turn.
 2. The server starts a countdown timer for said player.
-3. The server sends an alert to the player notifying them that it's their turn, and time limit is displayed.
+3. PlayerHandler sends an alert to the player notifying them that it's their turn, and time limit is displayed.
 4. If the player makes a valid move before the time expires:
     5. The server receives the move from the player.
     6. The move is validated and game state is updated for both players.
@@ -1920,21 +1920,21 @@ multiplayer experience.
 
 **Preconditions:**
 
-1. An active game session exists and managed by the game session manager.
-2. Players are connected through their respective player handlers.
-3. The game state is actively synchronized by the game state synchronizer.
+1. An active game session exists and managed by the GameSessionManager.
+2. Players are connected through their respective PlayerHandlers.
+3. The game state is actively synchronized by the GameStateSynchronizer.
 
 **Trigger:** A game ending condition is met (win, draw, player quit, or disconnection).
 
 **Scenario:**
 
-1. Game session manager detects the session should end (through game logic or player action).
-2. Game state synchronizer finalizes the last state and communicates the final result to both players.
-3. Server controller is notified the game session is complete.
-4. Network manager sends a session termination message to clients.
+1. GameSessionManager detects the session should end (through game logic or player action).
+2. GameStateSynchronizer finalizes the last state and communicates the final result to both players.
+3. ServerController is notified the game session is complete.
+4. NetworkManager sends a session termination message to clients.
 5. Database stores the match result in match history and updates any affected leaderboard data.
 6. Player handlers update the current state (no session) and players are returned to a waiting, or menu screen.
-7. The game session manager deletes the session instance.
+7. The GameSessionManager deletes the session instance.
 
 **Post conditions:**
 
@@ -1960,7 +1960,7 @@ multiplayer experience.
 **Secondary actors:** 
 
 1. Player handlers
-2. database connector
+2. Database connector
 
 **Channel to secondary actors:** 
 
