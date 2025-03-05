@@ -386,6 +386,7 @@ to ensure it is entered correctly?
 
 **Open issues:** Password confirmation step to ensure correct entry? Restrictions to the password itself?
 
+
 **Use case:** Forgot Username
 
 **Iteration:** 1
@@ -471,6 +472,44 @@ to ensure it is entered correctly?
 **Channel to secondary actors:** E-mail and username are stored on the Profile server and are used for account verification.
 
 **Open issues:** Security issues?
+
+
+**Use case:** Edit Information
+
+**Iteration:** 1
+
+**Primary Actor:** Existing Player
+
+**Goal in context:** To allow player to edit their information associated with their account.
+
+**Preconditions:** Player has an existing account and is on their profile.
+
+**Trigger:** The player initiates edits by entering the Edit Information page.
+
+**Scenario:**
+1. Player selects Edit Information.
+2. System displays information in editable fields.
+3. Player makes changes to desired information.
+4. If valid entries, the system updates the information.
+
+**Post conditions:** The players information is updated on their profile and in the system.
+
+**Exceptions:**
+1. Invalid entries
+
+**Priority:** Medium Priority. Not essential for profile function but may add to player experience.
+
+**When available:** Available on the players profile.
+
+**Frequency of use:** Low, only when player wants to change their information.
+
+**Channel to actor:** Keyboard and mouse
+
+**Secondary actors:** Profile server
+
+**Channel to secondary actors:** Information is stored on the Profile server and is updated when changes are made.
+
+**Open issues:** Verification before changes?
 
 
 **Use case:** Search for Other Users
@@ -592,6 +631,7 @@ play a game together.
 
 **Open issues:** N/A
 
+
 **Use case:** Change Bio
 
 **Iteration:** 1
@@ -631,6 +671,7 @@ play a game together.
 
 **Open issues:** N/A
 
+
 **Use case:** View Nickname
 
 **Iteration:** 2
@@ -665,6 +706,7 @@ play a game together.
 **Channel to secondary actors:** Stored nickname information for each user server-side
 
 **Open issues:** N/A
+
 
 **Use case:** Change Nickname
 
@@ -863,6 +905,7 @@ rankings for implementing a proper matchmaking system.
 
 **Open issues:** N/A
 
+
 **Use case:** View Player Stats
 
 **Iteration:** 2
@@ -936,6 +979,7 @@ rankings for implementing a proper matchmaking system.
 
 **Open issues:** N/A
 
+
 **Use case:** View Recent Matches
 
 **Iteration:** 2
@@ -970,6 +1014,7 @@ rankings for implementing a proper matchmaking system.
 **Channel to secondary actors:** Stores match history for each user server-side
 
 **Open issues:** N/A
+
 
 **Use case:** Update Win/Loss Records
 
