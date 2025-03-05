@@ -1756,6 +1756,46 @@ of the page.
 1. How would the hints be generated?
 2. Should there be a limited number of hints to prevent users from exploiting it?
 
+**Use case:** Rematch Request
+
+**Iteration:** 1
+
+**Primary Actor:** Player
+
+**Goal in context:** The player is able to request a new game with the same opponent with whom they have just played.
+
+**Preconditions:** The player has played at least one game with an opponent.
+
+**Trigger:** Player selects the 'Request Rematch' button in the game interface.
+
+**Scenario:**
+1. Player finishes a game and wishes to play the same opponent.
+2. Select "Request Rematch" button to notify opponent.
+3. Opponent is notified of Rematch Request.
+4. If Opponent denies the request, both players are returned to game lobby.
+5. If Opponent accepts, the same game loads once more with same players.
+
+**Post conditions:** The player and opponent are reloaded to the same game in its initial state to play again.
+
+**Exceptions:**
+1. One player breaks connection with the server before request is made.
+2. If the opponent accepts but breaks connection before the new game starts.
+
+**Priority:** medium to high priority. Rather basic functionality of a game system.
+
+**When available:** Between 2nd and 3rd iterations
+
+**Frequency of use:** Somewhat frequent. Players might wish to play the same opponent again, or they may not.
+
+**Channel to actor:** The game's interface.
+
+**Secondary actors:** Opponent
+
+**Channel to secondary actors:** The game's interface
+
+**Open issues:**
+1. What if both players send request?
+2. What if they want to switch to a new game?
 
 
 ## Networking Team
