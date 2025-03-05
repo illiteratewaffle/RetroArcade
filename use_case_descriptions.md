@@ -743,7 +743,7 @@ profiles to play against them and see profile ranks.
 1. How to handle simultaneous moves from different players.
 2. How to make sure the game state is updated at the same time for all players 
 
-**Use case:** Player Creates Account (client-server Model)
+**Use case:** Server Account Creation (client-server Model)
 
 **Iteration:** 1
 
