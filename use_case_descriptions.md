@@ -1541,3 +1541,62 @@ multiplayer experience.
 2. Should multiple failed login attempts lock the account after a certain amount of retries?
 3. How will session tokens be handled. How will they expire or be refreshed?
 4. Should tokens persist after accidental disconnect? Will the player need to re-log in to continue the session?
+
+**Use case:** Turn Timeout Handling
+
+**Iteration:** 1
+
+**Primary Actor:** Server
+
+**Goal in context:** Ensuring timely gameplay by starting a countdown timer when a player begins their turn.
+
+**Preconditions:**
+
+1. A game session is active between two connected players.
+
+**Trigger:** A player's turn begins.
+
+**Scenario:**
+
+1. The server updates the game state to indicate that it's a player's turn.
+2. The server starts a countdown timer for said player.
+3. The server sends an alert to the player notifying them that it's their turn, and time limit is displayed.
+4. If the player makes a valid move before the time expires:
+    5. The server receives the move from the player.
+    6. The move is validated and game state is updated for both players.
+    7. The timer is cancelled.
+8. If the timer expires before a valid move is received:
+    9. The server decides on a timeout event (based on game rules)
+    10. The server updates the game state to reflect those rules, and both players are notified.
+11. The server passes the turn to the next player and repeats the process.
+
+**Post conditions:**
+
+1. The game proceeds to the next player's turn.
+2. The game state is updated for both clients to reflect move choice.
+
+**Exceptions:**
+
+1. Player disconnects during their turn, connections are dropped.
+2. Network delays cause late move submissions.
+
+**Priority:** High priority. Ensures smooth, consistent gameplay.
+
+**When available:** 2nd or 3rd iteration.
+
+**Frequency of use:** Frequent. Occurs at every turn.
+
+**Channel to actor:**
+
+1. Server controlled timer with notifications sent over TCP sockets.
+
+**Secondary actors:** N/A
+
+**Channel to secondary actors:** N/A
+
+**Open issues:**
+
+1. What should the standard timeout length be? should it be different for each game?
+2. What should happen if the timer threshold is exceeded? should a move be done by default? Should the player's turn be skipped?
+3. How are reconnecting player's handled if they come back midturn?
+4. Should timeouts affect a player's ranking/statistics?
