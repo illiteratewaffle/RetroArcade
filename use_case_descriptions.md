@@ -862,6 +862,42 @@ rankings for implementing a proper matchmaking system.
 
 **Open issues:** N/A
 
+**Use case:** View Win/Loss Records
+
+**Iteration:** 2
+
+**Primary Actor:** Existing Player
+
+**Goal in context:** Check your own win/loss records.
+
+**Preconditions:** The player has clicked into and is on their own profile page.
+
+**Trigger:** The player wants to check their win/loss record.
+
+**Scenario:**
+1. Player clicks into their own profile.
+2. Their profile loads up. Their win/loss records for each game are immediately visible on the right side of the screen.
+
+**Post conditions:** The player has viewed their statistics.
+
+**Exceptions:**
+1. The player has no win/loss record (no games played).
+
+**Priority:** High, because win loss records, should be relatively simple to implement and is an important social aspect relevant for the leaderboard system.
+
+**When available:** When a player is on their own profile page.
+
+**Frequency of use:** Medium, players will see their win/loss records whenever they're on their profile page.
+
+**Channel to actor:** Displayed on a player's own profile page.
+
+**Secondary actors:** Profile database server
+
+**Channel to secondary actors:** Stores win loss records for each user server-side
+
+**Open issues:** N/A
+
+
 ## GUI Team
 
 **Use case:** Allow players to customize/edit their profile.
