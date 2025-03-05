@@ -971,6 +971,42 @@ rankings for implementing a proper matchmaking system.
 
 **Open issues:** N/A
 
+**Use case:** Update Rank
+
+**Iteration:** 1
+
+**Primary Actor:** Server
+
+**Goal in context:** Update the rank of a player that wins or loses a game.
+
+**Preconditions:** A player has won or lost a game.
+
+**Trigger:** The player's rank needs to be updated to reflect the change in their win loss record.
+
+**Scenario:**
+1. A player finishes a game and either wins or loses.
+2. The server either increases or decreases the player's elo based on if they won or loss and the elo of their opponent dictates how much elo they lose or gain.
+
+**Post conditions:** The player's rank has been updated.
+
+**Exceptions:**
+1. The player does not have a rank (placement matches?)
+
+**Priority:** High, because rank is a critical aspect relevant to the leaderboard system.
+
+**When available:** Whenever a player finishes a game.
+
+**Frequency of use:** High, players will be winning and losing games all the time.
+
+**Channel to actor:** Result sent to server, change reflected client side 
+
+**Secondary actors:** Player
+
+**Channel to secondary actors:** Player profile
+
+**Open issues:** N/A
+
+
 ## GUI Team
 
 **Use case:** Allow players to customize/edit their profile.

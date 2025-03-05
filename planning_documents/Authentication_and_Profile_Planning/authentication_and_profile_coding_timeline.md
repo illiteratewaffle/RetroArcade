@@ -67,12 +67,9 @@ Confirm with GUI and LeaderBoard Teams for class organization and Button Layout,
 Use Case Descriptions to be done:
 - View Profile Picture ? - Obtain Profile picture?
 - Change Profile Picture ?- GUI - Set Profile picture?
-- View Recent matches
 - Challenge Button to Challenge Users to Games
 - Sign In
 - Update Current Status
-- Update Rank
 - Update Win/Loss Ratio
 - Edit Information
-- View Player Stats
-- View Win/Loss Records
+
