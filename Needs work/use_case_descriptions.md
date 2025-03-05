@@ -62,7 +62,7 @@ to play against.
 
 **Open issues:** N/A
 
------------------------------------------
+
 **Use case:** Add E-mail Address
 
 **Iteration:** 1
@@ -105,7 +105,7 @@ is already associated with an already created profile.
 
 **Open issues:** N/A
 
-----------------------------------------------
+
 **Use case:** Verify E-mail Address
 
 **Iteration:** 1
@@ -145,7 +145,7 @@ updates.
 
 **Open issues:** N/A
 
------------------------------------------
+
 **Use case:** Create Username
 
 **Iteration:** 1
@@ -186,7 +186,7 @@ if the username is associated with an already existing profile.
 **Open issues:** Any length/character restrictions for a username (number of characters, no spaces, etc.)? Prevention of 
 offensive usernames?
 
-----------------------------------------------------
+
 **Use case:** Create Password
 
 **Iteration:** 1
@@ -225,7 +225,7 @@ offensive usernames?
 **Open issues:** Specific requirements for a password to be valid (at least 8 characters, a number, etc.)? Password confirmation step 
 to ensure it is entered correctly?
 
---------------------------------------------------------------
+
 **Use case:** Add New Profile to Profile Database 
 
 **Iteration:** 1
@@ -265,7 +265,7 @@ to ensure it is entered correctly?
 
 **Open issues:** N/A
 
-------------------------------------------------
+
 **Use case:** Change E-mail Address
 
 **Iteration:** 1
@@ -306,7 +306,7 @@ to ensure it is entered correctly?
 
 **Open issues:** Limits to number of e-mail changes?
 
------------------------------------------
+
 **Use case:** Change Username
 
 **Iteration:** 1
@@ -347,7 +347,7 @@ to ensure it is entered correctly?
 
 **Open issues:** Limits to amount of username changes? Any restrictions to the username itself?
 
-----------------------------------------
+
 **Use case:** Change Password
 
 **Iteration:** 1
@@ -386,7 +386,6 @@ to ensure it is entered correctly?
 
 **Open issues:** Password confirmation step to ensure correct entry? Restrictions to the password itself?
 
-------------------------------------------------
 **Use case:** Forgot Username
 
 **Iteration:** 1
@@ -426,7 +425,7 @@ to ensure it is entered correctly?
 
 **Open issues:** Lock out after too many failed entries? Security issues?
 
----------------------------------------------
+
 **Use case:** Forgot Password
 
 **Iteration:** 1
@@ -473,45 +472,7 @@ to ensure it is entered correctly?
 
 **Open issues:** Security issues?
 
--------------------------------------------------
-**Use case:** Edit Information
 
-**Iteration:** 1
-
-**Primary Actor:** Existing Player
-
-**Goal in context:** To allow player to edit their information associated with their account.
-
-**Preconditions:** Player has an existing account and is on their profile.
-
-**Trigger:** The player initiates edits by entering the Edit Information page.
-
-**Scenario:**
-1. Player selects Edit Information.
-2. System displays information in editable fields.
-3. Player makes changes to desired information.
-4. If valid entries, the system updates the information.
-
-**Post conditions:** The players information is updated on their profile and in the system.
-
-**Exceptions:**
-1. Invalid entries
-
-**Priority:** Medium Priority. Not essential for profile function but may add to player experience.
-
-**When available:** Available on the players profile.
-
-**Frequency of use:** Low, only when player wants to change their information.
-
-**Channel to actor:** Keyboard and mouse
-
-**Secondary actors:** Profile server
-
-**Channel to secondary actors:** Information is stored on the Profile server and is updated when changes are made.
-
-**Open issues:** Verification before changes?
-
--------------------------------------------
 **Use case:** Search for Other Users
 
 **Iteration:** 1
@@ -552,7 +513,7 @@ profiles to play against them and see profile ranks.
 
 **Open issues:** N/A
 
-------------------------------------------------
+
 **Use case:** View Current Status
 
 **Iteration:** 1
@@ -594,7 +555,7 @@ play a game together.
 
 **Open issues:** N/A
 
-------------------------------------------------
+
 **Use case:** View Bio
 
 **Iteration:** 1
@@ -631,7 +592,6 @@ play a game together.
 
 **Open issues:** N/A
 
-----------------------------------------
 **Use case:** Change Bio
 
 **Iteration:** 1
@@ -671,7 +631,6 @@ play a game together.
 
 **Open issues:** N/A
 
----------------------------------------
 **Use case:** View Nickname
 
 **Iteration:** 2
@@ -707,7 +666,6 @@ play a game together.
 
 **Open issues:** N/A
 
--------------------------------------------
 **Use case:** Change Nickname
 
 **Iteration:** 2
@@ -747,7 +705,6 @@ play a game together.
 
 **Open issues:** N/A
 
------------------------------------------
 **Use case:** Add Friend
 
 **Iteration:** 1
@@ -765,6 +722,7 @@ play a game together.
 2. Their profile loads up and their name and there is an "add friend" button visible.
 3. The player clicks the add friend button.
 4. A friend request is sent to the other player, who can either accept or deny the request.
+
 
 **Post conditions:** The initiating player has sent a friend request to the other player who can choose to accept or deny the request.
 
@@ -785,88 +743,7 @@ play a game together.
 
 **Open issues:** N/A
 
--------------------------------------------
-**Use case:** Manage Friend Requests
 
-**Iteration:** 1
-
-**Primary Actor:** Player
-
-**Goal in context:** Accept or Reject friend requests to complete adding a profile to the two players friends lists.
-
-**Preconditions:** A friend request has been sent to the player's profile by another player.
-
-**Trigger:** Player opens Friend Request menu to view pending friend requests.
-
-**Scenario:**
-1. Player clicks Friend Request menu.
-2. System obtains from Profile Database for friendRequest ArrayList that contains profiles that have made unhandled friend requests.
-3. Player selects to "Accept" or "Reject" each friend request.
-4. Once selected, the profile is removed from the profile's friendRequest ArrayList.
-5. If accepted, the player's profile is added to the requesting profile's FriendsList List and the requesting profile is added to the player's
-profile FriendsList List.
-
-**Post conditions:** The player's and requesting player's FriendsLists are modified to reflect the decision of the player on the 
-received friend request.
-
-**Exceptions:**
-1. The requesting profile's profile has been deleted in between sending and the player reviewing friend request.
-
-**Priority:** Medium priority. It is important for safety that players have the ability to decide for someone to have access to view their profile
-activity and send game invites. Due to time constraints, it would save development time to automatically add profiles to the FriendsList automatically
-after selecting to add a profile as a friend.
-
-**When available:** Viewing Friend requests will be available from the Personal Profile menu.
-
-**Frequency of use:** Medium. It wll be used as frequently as the Add Friend use case.
-
-**Channel to actor:** Player selects viewing Friend requests and accepting or rejecting friend requests using the mouse to click on GUI buttons.
-
-**Secondary actors:** Profile Database
-
-**Channel to secondary actors:** Method calls to server.
-
-**Open issues:** It may be good to have a notification pop up on a profile when a friend request is sent if time allows.
-
--------------------------------------------
-**Use case:** Get Friends List
-
-**Iteration:** 1
-
-**Primary Actor:** Player
-
-**Goal in context:** Obtain the player profile's FriendsList information to display the FriendsList with current Status information.
-
-**Preconditions:** Player is logged in.
-
-**Trigger:** Player selects the Friends Tab on the Main Menu.
-
-**Scenario:**
-1. Method call to obtain the Friends List associated to the player's profile.
-2. Display all Profiles contained within the list.
-3. The current status of each profile will be presented alongside the username or nickname (if provided). Profiles may be selected to view more info.
-
-**Post conditions:** The player can now view current information of profiles within their Friends List on the Friends List Menu.
-
-**Exceptions:**
-1. An empty friends list will prompt a message to explain to the player how to find profiles and add them as friends.
-
-**Priority:** High Priority. It is important for players' ease of use to find friends profiles in one list to quickly initiate games.
-
-**When available:** Available when logged in and on the Main Menu.
-
-**Frequency of use:** Often. Players will want to often easily access the Friends List to check if their friends are online
-and available to play a game with them.
-
-**Channel to actor:** Clicking menu tabs with a mouse.
-
-**Secondary actors:** Profile Database
-
-**Channel to secondary actors:** Method calls to the server.
-
-**Open issues:** N/A
-
------------------------------------
 **Use case:** Obtain Game History
 
 **Iteration:** 1
@@ -904,350 +781,6 @@ rankings for implementing a proper matchmaking system.
 **Channel to secondary actors:** Accessing HashMap of Profiles using the .get() method.
 
 **Open issues:** N/A
-
-----------------------------------
-**Use case:** View Player Stats
-
-**Iteration:** 2
-
-**Primary Actor:** Existing Player
-
-**Goal in context:** Check your own statistics (win loss ratio, games played, etc.).
-
-**Preconditions:** The player has clicked into and is on their own profile page.
-
-**Trigger:** The player wants to check their stats.
-
-**Scenario:**
-1. Player clicks into their own profile.
-2. Their profile loads up and their name and some of their stats are immediately visible.
-3. There is a button that says "See more" beneath their already displayed stats that allows players to see more detailed statistics.
-4. If they click that button, they are brought to a statistics page where they can see detailed statistics for each game on the site.
-
-**Post conditions:** The player has viewed their statistics.
-
-**Exceptions:**
-1. The player has no statistics (no games played).
-
-**Priority:** Medium, because statistics, while a fun feature of player profiles, are not required to create a minimum viable product. Will be implemented later on in development.
-
-**When available:** When a player is on their own profile page.
-
-**Frequency of use:** Low, players will not often want to check their statistics. It's only something that dedicated players would care about.
-
-**Channel to actor:** Displayed on a player's own profile page.
-
-**Secondary actors:** Profile database server
-
-**Channel to secondary actors:** Stores statistics for each user server-side
-
-**Open issues:** N/A
-
--------------------------------------------
-**Use case:** View Win/Loss Records
-
-**Iteration:** 2
-
-**Primary Actor:** Existing Player
-
-**Goal in context:** Check your own win/loss records.
-
-**Preconditions:** The player has clicked into and is on their own profile page.
-
-**Trigger:** The player wants to check their win/loss record.
-
-**Scenario:**
-1. Player clicks into their own profile.
-2. Their profile loads up. Their win/loss records for each game are immediately visible on the right side of the screen.
-
-**Post conditions:** The player has viewed their win loss record.
-
-**Exceptions:**
-1. The player has no win/loss record (no games played).
-
-**Priority:** High, because win loss records, should be relatively simple to implement and is an important social aspect relevant for the leaderboard system.
-
-**When available:** When a player is on their own profile page.
-
-**Frequency of use:** Medium, players will see their win/loss records whenever they're on their profile page.
-
-**Channel to actor:** Displayed on a player's own profile page.
-
-**Secondary actors:** Profile database server
-
-**Channel to secondary actors:** Stores win loss records for each user server-side
-
-**Open issues:** N/A
-
-----------------------------------------------
-**Use case:** View Recent Matches
-
-**Iteration:** 2
-
-**Primary Actor:** Existing Player
-
-**Goal in context:** Check the recent match history of other players.
-
-**Preconditions:** The player has clicked into and is on another player's profile page.
-
-**Trigger:** The player wants to check another players' recent matches.
-
-**Scenario:**
-1. Player clicks into another user's  profile.
-2. Another player's profile loads up. Their recent match history is immediately visible on the lower half of the screen. The player that looked for it can scroll to see more games.
-
-**Post conditions:** The player has viewed another player's match history.
-
-**Exceptions:**
-1. The player being viewed has not played any games.
-
-**Priority:** High, because match history is an important feature relevant to the leaderboard system and important for maintaining a social vibe on the site.
-
-**When available:** When a player is on another user's profile page.
-
-**Frequency of use:** Low, players will see another user's match history whenever they search for them which won't be often.
-
-**Channel to actor:** Displayed on another player's profile page.
-
-**Secondary actors:** Profile database server
-
-**Channel to secondary actors:** Stores match history for each user server-side
-
-**Open issues:** N/A
-
-----------------------------------------------
-**Use case:** Update Rank
-
-**Iteration:** 1
-
-**Primary Actor:** Server
-
-**Goal in context:** Update the rank of a player that wins or loses a game.
-
-**Preconditions:** A player has won or lost a game.
-
-**Trigger:** The player's rank needs to be updated to reflect the change in their win loss record.
-
-**Scenario:**
-1. A player finishes a game and either wins or loses.
-2. The server either increases or decreases the player's elo based on if they won or loss and the elo of their opponent dictates how much elo they lose or gain.
-
-**Post conditions:** The player's rank has been updated.
-
-**Exceptions:**
-1. The player does not have a rank (placement matches?)
-
-**Priority:** High, because rank is a critical aspect relevant to the leaderboard system.
-
-**When available:** Whenever a player finishes a game.
-
-**Frequency of use:** High, players will be winning and losing games all the time.
-
-**Channel to actor:** Result sent to server, change reflected client side 
-
-**Secondary actors:** Player
-
-**Channel to secondary actors:** Player profile
-
-**Open issues:** N/A
-
---------------------------------------
-**Use case:** Update Player Win/Loss Records Based On The Result Of A Game
-
-**Iteration:** 1
-
-**Primary Actor:** Server
-
-**Goal in context:** Update the Win/Loss Records to reflect the results of a game match.
-
-**Preconditions:** Player is logged in.
-
-**Trigger:** Player completes a game match, either winning or losing. 
-
-**Scenario:**
-1. Server automatically updates the win loss record of the player's profile for the category of the game played.
-2. updateWinLossRecord() is called with a boolean input True if game was won or False if game was lost.
-3. The Win/Loss ratio totals all wins and loses the player has obtained over the entire tracked Game History of the profile.
-4. The Win/Loss ratio updates the Win/Loss Ratio variable of the player's profile.
-
-**Post conditions:** The Win/Loss ratio now reflects the change of the ratio from the results of the completed game.
-
-**Exceptions:**
-1. Game ends in a tie, so Win/Loss ratio is not changed.
-
-**Priority:** High Priority. The Win/Loss Record is important for ranking players and displaying leaderboards. Such data is
-imperative to formulate balanced match making.
-
-**When available:** Available when game matches conclude.
-
-**Frequency of use:** Frequent. Occurs after every game match.
-
-**Channel to actor:** Method calls to server to update profile Win/Loss Record variables.
-
-**Secondary actors:** Player
-
-**Channel to secondary actors:** Player completes a game.
-
-**Open issues:** N/A
-
----------------------------------------------
-**Use case:** Update Rank Based On the Result Of A Game
-
-**Iteration:** 1
-
-**Primary Actor:** Profile server
-
-**Goal in context:** Update player rank to reflect the results of a game.
-
-**Preconditions:** Player is logged in and has completed a game.
-
-**Trigger:** Player completes a game, either winning or losing.
-
-**Scenario:**
-1. Server automatically updates the win loss record of the player's profile for the category of the game played.
-2. updateWinLossRecord() is called with a boolean input True if game was won or False if game was lost.
-3. System calculates rank based on performance and opponents rank.
-4. getRank() is called to retrieve the updated rank.
-5. Updated rank is stored on the players profile
-6. New rank is displayed to the player.
-
-**Post conditions:** The players rank now reflects the new ranking based on the game result.
-
-**Exceptions:**
-1. Game ends in a tie.
-
-**Priority:** High Priority. The rank is an important park of the leaderboard and player stats.
-
-**When available:** Available when game match concludes.
-
-**Frequency of use:** High, whenever a match ends.
-
-**Channel to actor:** Method calls to server to update profile rank.
-
-**Secondary actors:** Player
-
-**Channel to secondary actors:** Player completes a game math
-
-**Open issues:** N/A
-
--------------------------------------------------
-**Use case:** Challenge Users to Games
-
-**Iteration:** 1
-
-**Primary Actor:** Existing Player
-
-**Goal in context:** Allow player to challenge another player to a game.
-
-**Preconditions:** Player and player to be challenged must both have active accounts. 
-
-**Trigger:** Player initiates a challenge to another player.
-
-**Scenario:**
-1. Player selects opponent from available players.
-2. Player sends a challenge request
-3. The challenged player is notified of the request
-4. If accepted the game is initiated.
-5. If declined the player is notified of the declining.
-
-**Post conditions:** A game starts if the challenge is accepted, or player is notified of rejection if declined.
-
-**Exceptions:**
-1. Challenged player does not respond.
-2. Player cancels the challenge.
-
-**Priority:** High Priority. Allows players to challenge other players and complete matches.
-
-**When available:** Available when a player is online and viewing other players.
-
-**Frequency of use:** Medium, used whenever a player wants to challenge a specific player in a game.
-
-**Channel to actor:** Keyboard and mouse
-
-**Secondary actors:** Challenged player
-
-**Channel to secondary actors:** Server
-
-**Open issues:** Only able to challenge friends? Restrictions based on rank?
-
------------------------------------------
-**Use case:** Get Profile Picture
-
-**Iteration:** 1
-
-**Primary Actor:** Profile Server
-
-**Goal in context:** Obtain the image file associated with the specified profile.
-
-**Preconditions:** A profile picture image has been set for the profile.
-
-**Trigger:** Profile image is to be displayed on certain screens such as a profile page, or the Friends list. 
-
-**Scenario:**
-1. Server searches Profile Database for username of the profile.
-2. From the profile object, calls getProfilePic() on the profilePic variable to retrieve the BufferedImage datatype
-to obtain the image file to display in the GUI.
-
-**Post conditions:** Image file associated to the profile has been retrieved to be displayed.
-
-**Exceptions:**
-1. An image has not been set for the profile, so a placeholder image is used.
-
-**Priority:** Low. It is helpful for players to both quickly recognize friend profiles. It also some players with have an 
-more enjoyable experience being able to customize their profile.
-
-**When available:** Available when connected to the server 
-
-**Frequency of use:** Frequent. Multiple menus may show profile images, requiring retrieval from profile database.
-
-**Channel to actor:** Method calls to database info on the server.
-
-**Secondary actors:** N/A
-
-**Channel to secondary actors:** N/A
-
-**Open issues:** N/A
-
--------------------------------------------------
-Sign Out
------------------------------------------------
-**Use case:** Update Current Status
-
-**Iteration:** 1
-
-**Primary Actor:** Server
-
-**Goal in context:** Update the status (online, offline, away) of a player.
-
-**Preconditions:** The player who's status is being updated must be a registered user.
-
-**Trigger:** For online: Player logs in to the site. For offline: Player logs out of the site. For away: Player is AFK (has made no inputs) for 5 minutes.
-
-**Scenario:**
-1. Player logs in to the site, logs off the site, or makes no inputs for 5 minutes.
-2. Server changes the player's status accordingly.
-
-**Post conditions:** The status is reflected accurately on the player's profile and other users' friends lists.
-
-
-**Exceptions:**
-1. Status does not update correctly as a result of server conneciton issues.
-
-**Priority:** High Priority. Status is a fundamental social feature which allows other users to identify whether their friends are online or offline.
-
-**When available:** Available when a player is online and viewing other players' profiles or their friends list.
-
-**Frequency of use:** Medium, necessary for whenever a player checks their friends list which we expect to be relatively often.
-
-**Channel to actor:** Player's activity (log ins, logouts, inactivity) sent to server, change reflected client side
-
-**Secondary actors:** Existing player
-
-**Channel to secondary actors:** Keyboard and mouse inputs
-
-**Open issues:** N/A
-
---------------------------------------------------
 
 ## GUI Team
 
@@ -1706,48 +1239,6 @@ of the page.
 **Open issues:** N/A
 
 
-**Use case:**  Toggle between light and dark mode
-
-**Iteration:** 1
-
-**Primary Actor:**  Player
-
-**Goal in context:** Allow player to switch their display settings to either light or dark mode, ensuring visual comfort and accessibility
-
-**Preconditions:** The player is logged into their account
-
-**Trigger:** The player navigates to the settings menu and selects the “Appearance” button
-
-**Scenario:**
-1. From the main interface, the player selects the “Appearance” option
-2. By toggling a switch, the player selects either light mode or dark mode
-3. The player’s selection takes effect on their visual display
-4. Player saves the changes and the system applies these visual changes to the rest of the system
-5. Player may press the back button to exit settings and return to the main interface
-
-**Post conditions:** The UI has updated to the correct theme to match the user’s preferences (light or dark mode)
-
-**Exceptions:**
-If the changes made by the player are not saved, the system reverts to a default (light mode)
-
-**Priority:** Low. Not needed in order for game to function, but may improve accessibility aspect.
-
-**When available:** Second or third iteration.
-
-**Frequency of use:** Occasionally. User may decide to change light mode or dark mode based on their preferences or current lighting conditions.
-
-**Channel to actor:** GUI settings menu
-
-**Secondary actors:** N/A
-
-**Channel to secondary actors:** N/A
-
-**Open issues:**
-1. Should the user be able to set their light mode/dark mode to change automatically based on the time of day? (i.e. switch to dark mode at 8:00pm)
-
-
-
-
 ## Game Logic Team
 
 **Use case:** Allow Player To Voluntarily Quit The Game.
@@ -1868,84 +1359,7 @@ If the changes made by the player are not saved, the system reverts to a default
 1. How would the hints be generated?
 2. Should there be a limited number of hints to prevent users from exploiting it?
 
-**Use case:** Rematch Request
 
-**Iteration:** 1
-
-**Primary Actor:** Player
-
-**Goal in context:** The player is able to request a new game with the same opponent with whom they have just played.
-
-**Preconditions:** The player has played at least one game with an opponent.
-
-**Trigger:** Player selects the 'Request Rematch' button in the game interface.
-
-**Scenario:**
-1. Player finishes a game and wishes to play the same opponent.
-2. Select "Request Rematch" button to notify opponent.
-3. Opponent is notified of Rematch Request.
-4. If Opponent denies the request, both players are returned to game lobby.
-5. If Opponent accepts, the same game loads once more with same players.
-
-**Post conditions:** The player and opponent are reloaded to the same game in its initial state to play again.
-
-**Exceptions:**
-1. One player breaks connection with the server before request is made.
-2. If the opponent accepts but breaks connection before the new game starts.
-
-**Priority:** medium to high priority. Rather basic functionality of a game system.
-
-**When available:** Between 2nd and 3rd iterations
-
-**Frequency of use:** Somewhat frequent. Players might wish to play the same opponent again, or they may not.
-
-**Channel to actor:** The game's interface.
-
-**Secondary actors:** Opponent
-
-**Channel to secondary actors:** The game's interface
-
-**Open issues:**
-1. What if both players send request?
-2. What if they want to switch to a new game?
-
-**Use case:** Allow Game Logic To Determine Match Outcome
-
-**Iteration:** 1
-
-**Primary Actor:** Game Logic Software
-
-**Goal in context:** Implement functions to allow the game logic to determine the result of a match, assigning a winner or a draw.
-
-**Preconditions:** A game is ongoing between 2 different players from one of the 3 games (Tic Tac Toe, Connect 4, Checkers).
-
-**Trigger:** A player has either made a move which satisfies a winning condition, or no more legal moves are allowed to be taken from either player.
-
-**Scenario:**
-1. A game is currently ongoing between 2 players.
-2. If player 'A' makes a move which results in a winning condition to be met for 'A', go to 3.
-3. Player 'A' is awarded a win, and player 'B' is given a loss.
-4. If neither player can make any more legal moves, go to 5.
-5. Nobody is given a win or loss, and the match ends in a draw for both player 'A' and 'B'.
-
-**Post conditions:** The match outcome has been determined, and the game ends.
-
-**Exceptions:** N/A
-
-**Priority:** High priority. Essential for the standard functionality of the game logic. Also used to determine what exactly are the win conditions for each game within the software.
-
-**When available:** Between 2nd and 3rd iterations.
-
-**Frequency of use:** Always, will be used during every match.
-
-**Channel to actor:** Game Logic Java Classes
-
-**Secondary actors:** N/A
-
-**Channel to secondary actors:** N/A
-
-**Open issues:**
-1. It may be difficult or troublesome to effectively implement the different winning conditons required for each game, so we should ensure that we can find a simple and effective way to implement this functionality within the software.
 
 ## Networking Team
 
@@ -1967,13 +1381,13 @@ If the changes made by the player are not saved, the system reverts to a default
 **Trigger:** The player selects a game and requests to join a session.
 
 **Scenario:**
-1. The clients select from list of board games to play.
-2. The client sends a game session request through the NetworkManager.
-3. The ServerController receives the request and either finds an existing session or instructs the Game Session Manager to create a new session.
-4. The GameSessionManager establishes a new session and assigns the player via their PlayerHandler.
-5. The game initializes through the Game State Synchronizer, and the initial game state is shared.
+1. The client and host player's select from list of board games to play.
+2. The host player creates a game server/session.
+3. The client player sends the host player a request to join the game server.
+4. The server receives the request, processes it and sends session details back to the client player.
+5. The client receives confirmation and the initial game state loads.
 
-**Post conditions:** The player is successfully connected to a game session through a client-server socket connection.
+**Post conditions:** The player is successfully connected to a game session through a client-server socket connnection.
 
 **Exceptions:** 
 
@@ -1983,7 +1397,7 @@ If the changes made by the player are not saved, the system reverts to a default
 4. The request is incorrect, or corrupted during connection phase.
 5. A timeout threshold is surpassed, where either the server or client do not receive a response within a predefined time.
 
-**Priority:** High priority. Establishing a reliable multiplayer connection is crucial for multiplayer gameplay.
+**Priority:** High priority. Establishing a reliable multiplayer connection is crucial for gameplay.
 
 **When available:** 2nd or 3rd iteration.
 
@@ -2027,12 +1441,12 @@ them to reconnect and resume the match if they return within a certain timeframe
 
 1. The player is currently within a multiplayer game session.
 2. The player disconnects unexpectedly due to internet issues, game/system crashes, or manual disconnection.
-3. The player’s status is updated via PlayerHandler, marking them as temporarily disconnected.
-4. The Game Session Manager keeps the session active, while Game State Synchronizer freezes the game state.
+3. The server detects the player's disconnection and marks the player a disconnected (temporarily).
+4. The server retains the player's game state (moves, scores, turn state) for a predetermined amount of time.
 5. If the player reconnects:
-   - The client sends a reconnection request to the server - AuthHandler verifies the player.
-   - NetworkManager restores the socket connection.
-   - The GameSessionManager resumes the player’s position and state.
+   - The client sends a reconnection request to the server.
+   - The server verifies the player's identity and checks if their previous session is still available,
+   - The server restores the player's last game state and re-establishes their connection to the session.
 
 **Post conditions:** If the player successfully reconnects, they resume the game from the last known state.
 
@@ -2072,7 +1486,7 @@ multiplayer experience.
 
 **Primary Actor:** Server
 
-**Goal in context:** Verify player login credentials
+**Goal in context:** Very player login credentials
 
 **Preconditions:** 
 
@@ -2085,13 +1499,13 @@ multiplayer experience.
 **Scenario:**
 
 1. The player starts the game client, and enters their login credentials.
-2. The server receives the login request containing their username and password. AuthHandler processes the request.
-3. Database Connector queries the database for matching username.
+2. The server receives the login request containing their username and password.
+3. The database searches for the username.
 4. If the username exists, the database returns the stored password hash.
 5. The server then compares the received password (after applying same hashing method) to the password stored in the database
 6. If the password is valid:
-   7. AuthHandler generates a unique token for the player
-   8. The server stores this session token linked to the player's account - Player's PlayerHandler is created and attached.
+   7. The server generates a unique token for the player
+   8. The server stores this session token linked to the player's account
    9. The server then sends a "login successful" back to the client.
 10. If the password is invalid, or the username does not exist, then the server sends a "login failed" response back to the player.
 
@@ -2144,9 +1558,9 @@ multiplayer experience.
 
 **Scenario:**
 
-1. The GameStateSynchronizer signals the player's turn.
+1. The server updates the game state to indicate that it's a player's turn.
 2. The server starts a countdown timer for said player.
-3. PlayerHandler sends an alert to the player notifying them that it's their turn, and time limit is displayed.
+3. The server sends an alert to the player notifying them that it's their turn, and time limit is displayed.
 4. If the player makes a valid move before the time expires:
     5. The server receives the move from the player.
     6. The move is validated and game state is updated for both players.
@@ -2186,65 +1600,3 @@ multiplayer experience.
 2. What should happen if the timer threshold is exceeded? should a move be done by default? Should the player's turn be skipped?
 3. How are reconnecting player's handled if they come back midturn?
 4. Should timeouts affect a player's ranking/statistics?
-
-**Use case:** End/Delete Game Session 
-
-**Iteration:** 1
-
-**Primary Actor:** Server
-
-**Goal in context:** To terminate an active game session when the match ends, a player quits, or disconnection occurs.
-
-**Preconditions:**
-
-1. An active game session exists and managed by the GameSessionManager.
-2. Players are connected through their respective PlayerHandlers.
-3. The game state is actively synchronized by the GameStateSynchronizer.
-
-**Trigger:** A game ending condition is met (win, draw, player quit, or disconnection).
-
-**Scenario:**
-
-1. GameSessionManager detects the session should end (through game logic or player action).
-2. GameStateSynchronizer finalizes the last state and communicates the final result to both players.
-3. ServerController is notified the game session is complete.
-4. NetworkManager sends a session termination message to clients.
-5. Database stores the match result in match history and updates any affected leaderboard data.
-6. Player handlers update the current state (no session) and players are returned to a waiting, or menu screen.
-7. The GameSessionManager deletes the session instance.
-
-**Post conditions:**
-
-1. The game session is terminated.
-2. Results from the match are stored in the database.
-3. Players are notified that the session has ended and removed from the game session.
-
-**Exceptions:**
-
-1. Either clients disconnect during the game ending process, or the server goes down.
-2. Match results cannot be stored due to database failure.
-
-**Priority:** High. Proper session termination is critical for maintaining a stable system, and accurate player records.
-
-**When available:** Iteration 2
-
-**Frequency of use:** High frequency. Occurs at the end of every match.
-
-**Channel to actor:**
-
-1. Triggered internally via the game session manager.
-
-**Secondary actors:** 
-
-1. Player handlers
-2. Database connector
-
-**Channel to secondary actors:** 
-
-1. TCP socket communication with clients.
-2. SQL queries.
-
-**Open issues:**
-
-1. In the event of a server, or database failure mid-process, what should the contingency plan be?
-2. If a player disconnects unexpectedly (network failure, system crash etc.), should the game end immediately or allow a reconnection window?
