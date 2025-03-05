@@ -1670,6 +1670,47 @@ of the page.
 **Open issues:** N/A
 
 
+**Use case:**  Toggle between light and dark mode
+
+**Iteration:** 1
+
+**Primary Actor:**  Player
+
+**Goal in context:** Allow player to switch their display settings to either light or dark mode, ensuring visual comfort and accessibility
+
+**Preconditions:** The player is logged into their account
+
+**Trigger:** The player navigates to the settings menu and selects the “Appearance” button
+
+**Scenario:**
+1. From the main interface, the player selects the “Appearance” option
+2. By toggling a switch, the player selects either light mode or dark mode
+3. The player’s selection takes effect on their visual display
+4. Player saves the changes and the system applies these visual changes to the rest of the system
+5. Player may press the back button to exit settings and return to the main interface
+
+**Post conditions:** The UI has updated to the correct theme to match the user’s preferences (light or dark mode)
+
+**Exceptions:**
+If the changes made by the player are not saved, the system reverts to a default (light mode)
+
+**Priority:** Low. Not needed in order for game to function, but may improve accessibility aspect.
+
+**When available:** Second or third iteration.
+
+**Frequency of use:** Occasionally. User may decide to change light mode or dark mode based on their preferences or current lighting conditions.
+
+**Channel to actor:** GUI settings menu
+
+**Secondary actors:** N/A
+
+**Channel to secondary actors:** N/A
+
+**Open issues:**
+1. Should the user be able to set their light mode/dark mode to change automatically based on the time of day? (i.e. switch to dark mode at 8:00pm)
+
+
+
 
 ## Game Logic Team
 
