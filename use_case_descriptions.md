@@ -744,6 +744,49 @@ play a game together.
 **Open issues:** N/A
 
 
+**Use case:** Accept Friend Request
+
+**Iteration:** 1
+
+**Primary Actor:** Player
+
+**Goal in context:** Accept or Reject friend requests to complete adding a profile to the two players friends lists.
+
+**Preconditions:** A friend request has been sent to the player's profile by another player.
+
+**Trigger:** Player opens Friend Request menu to view pending friend requests.
+
+**Scenario:**
+1. Player clicks Friend Request menu.
+2. System obtains from Profile Database for friendRequest ArrayList that contains profiles that have made unhandled friend requests.
+3. Player selects to "Accept" or "Reject" each friend request.
+4. Once selected, the profile is removed from the profile's friendRequest ArrayList.
+5. If accepted, the player's profile is added to the requesting profile's FriendsList List and the requesting profile is added to the player's
+profile FriendsList List.
+
+**Post conditions:** The player's and requesting player's FriendsLists are modified to reflect the decision of the player on the 
+received friend request.
+
+**Exceptions:**
+1. The requesting profile's profile has been deleted in between sending and the player reviewing friend request.
+
+**Priority:** Medium priority. It is important for safety that players have the ability to decide for someone to have access to view their profile
+activity and send game invites. Due to time constraints, it would save development time to automatically add profiles to the FriendsList automatically
+after selecting to add a profile as a friend.
+
+**When available:** Viewing Friend requests will be available from the Personal Profile menu.
+
+**Frequency of use:** Medium. It wll be used as frequently as the Add Friend use case.
+
+**Channel to actor:** Player selects viewing Friend requests and accepting or rejecting friend requests using the mouse to click on GUI buttons.
+
+**Secondary actors:** Profile Database
+
+**Channel to secondary actors:** Method calls to server.
+
+**Open issues:** It may be good to have a notification pop up on a profile when a friend request is sent if time allows.
+
+
 **Use case:** Obtain Game History
 
 **Iteration:** 1
