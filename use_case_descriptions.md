@@ -878,7 +878,7 @@ rankings for implementing a proper matchmaking system.
 1. Player clicks into their own profile.
 2. Their profile loads up. Their win/loss records for each game are immediately visible on the right side of the screen.
 
-**Post conditions:** The player has viewed their statistics.
+**Post conditions:** The player has viewed their win loss record.
 
 **Exceptions:**
 1. The player has no win/loss record (no games played).
