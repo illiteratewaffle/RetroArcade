@@ -1,6 +1,6 @@
-<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/26.0.16 Chrome/132.0.6834.196 Electron/34.2.0 Safari/537.36" version="26.0.16" pages="2">
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/26.0.16 Chrome/132.0.6834.196 Electron/34.2.0 Safari/537.36" scale="1" border="0" version="26.0.16" pages="2">
   <diagram name="ClassDiagram" id="gLZLLyH_hhTVmywuRG8O">
-    <mxGraphModel dx="1964" dy="1756" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="2564" dy="2109" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -281,7 +281,7 @@
           <mxGeometry x="900" y="690" width="60" height="30" as="geometry" />
         </mxCell>
         <mxCell id="7udUEveuL7IFU7xZDEbM-11" value="&lt;b&gt;&amp;lt;&amp;lt;enummeration&amp;gt;&amp;gt;&lt;/b&gt;&lt;div&gt;&lt;b&gt;GameState&lt;/b&gt;&lt;/div&gt;" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=40;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="-585" y="1249" width="160" height="110" as="geometry" />
+          <mxGeometry x="-590" y="1234" width="160" height="110" as="geometry" />
         </mxCell>
         <mxCell id="7udUEveuL7IFU7xZDEbM-12" value="+ ONGOING (00)&lt;div&gt;+ P1WIN (01)&lt;/div&gt;&lt;div&gt;+ P2WIN (10)&lt;/div&gt;&lt;div&gt;+ TIE (11)&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="7udUEveuL7IFU7xZDEbM-11" vertex="1">
           <mxGeometry y="40" width="160" height="70" as="geometry" />
@@ -385,7 +385,7 @@
           <mxGeometry x="-80" y="-170" width="280" height="40" as="geometry" />
         </mxCell>
         <mxCell id="RWNdS7ed3jPBFDyhmDwC-1" value="&lt;div&gt;&amp;lt;&amp;lt;interface&amp;gt;&amp;gt;&lt;/div&gt;BoardGame" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="-340" y="1040" width="390" height="460" as="geometry" />
+          <mxGeometry x="-340" y="1040" width="390" height="430" as="geometry" />
         </mxCell>
         <mxCell id="RWNdS7ed3jPBFDyhmDwC-2" value="- GameStateChanged: Notifier&amp;lt;GameState&amp;gt;&lt;div&gt;- DisplayChanged: Notifier&amp;lt;LayerBitFlags&amp;gt;&lt;br&gt;&lt;div&gt;- ActivePlayerChanged: Notifier&amp;lt;int&amp;gt;&lt;/div&gt;&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="RWNdS7ed3jPBFDyhmDwC-1" vertex="1">
           <mxGeometry y="40" width="390" height="60" as="geometry" />
@@ -393,8 +393,8 @@
         <mxCell id="RWNdS7ed3jPBFDyhmDwC-3" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" parent="RWNdS7ed3jPBFDyhmDwC-1" vertex="1">
           <mxGeometry y="100" width="390" height="8" as="geometry" />
         </mxCell>
-        <mxCell id="RWNdS7ed3jPBFDyhmDwC-4" value="&lt;div&gt;// Get Visuals.&lt;/div&gt;+ GetBoardDimensions(): (int, int)&lt;div&gt;+ GetCells(Layer: LayerBitFlags): List&amp;lt;const int[][]&amp;gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;+ IsPlayer1Turn(): bool&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;// Handle Inputs.&lt;/div&gt;&lt;div&gt;+ ReceiveInputs(int, int): void&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;// Manually Handle Game States.&lt;/div&gt;&lt;div&gt;+ SetGameState(bool, bool): void&lt;/div&gt;&lt;div&gt;+ GetGameState(): GameState&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;// Register Callbacks&lt;/div&gt;&lt;div&gt;+ RegisterGameStateChangedListener(Listener&amp;lt;GameState&amp;gt;): void&lt;/div&gt;&lt;div&gt;&lt;/div&gt;+ DeregisterGameStateChangedListener(Listener&amp;lt;GameState&amp;gt;): void&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;+ RegisterDisplayChangedListener(Listener&amp;lt;LayerBitFlags&amp;gt;): void&lt;/div&gt;&lt;div&gt;+ DeregisterDisplayChangedListener(Listener&amp;lt;LayerBitFlags&amp;gt;): void&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;div&gt;+ RegisterActivePlayerChangedListener(Listener&amp;lt;int&amp;gt;): void&lt;/div&gt;&lt;div&gt;&lt;/div&gt;+ DeregisterActivePlayerChangedListener(Listener&amp;lt;int&amp;gt;): void&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="RWNdS7ed3jPBFDyhmDwC-1" vertex="1">
-          <mxGeometry y="108" width="390" height="352" as="geometry" />
+        <mxCell id="RWNdS7ed3jPBFDyhmDwC-4" value="&lt;div&gt;// Get Visuals.&lt;/div&gt;+ GetBoardDimensions(): (int, int)&lt;div&gt;+ GetCells(Layer: LayerBitFlags): List&amp;lt;const int[][]&amp;gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;// Handle Inputs.&lt;/div&gt;&lt;div&gt;+ ReceiveInputs(int, int): void&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;// Manually Handle Game States.&lt;/div&gt;&lt;div&gt;+ SetGameState(bool, bool): void&lt;/div&gt;&lt;div&gt;+ GetGameState(): GameState&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;// Register Callbacks&lt;/div&gt;&lt;div&gt;+ RegisterGameStateChangedListener(Listener&amp;lt;&amp;gt;): void&lt;/div&gt;&lt;div&gt;&lt;/div&gt;+ DeregisterGameStateChangedListener(Listener&amp;lt;&amp;gt;): void&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;+ RegisterDisplayChangedListener(Listener&amp;lt;LayerBitFlags&amp;gt;): void&lt;/div&gt;&lt;div&gt;+ DeregisterDisplayChangedListener(Listener&amp;lt;LayerBitFlags&amp;gt;): void&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;div&gt;+ RegisterActivePlayerChangedListener(Listener&amp;lt;int&amp;gt;): void&lt;/div&gt;&lt;div&gt;&lt;/div&gt;+ DeregisterActivePlayerChangedListener(Listener&amp;lt;int&amp;gt;): void&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="RWNdS7ed3jPBFDyhmDwC-1" vertex="1">
+          <mxGeometry y="108" width="390" height="322" as="geometry" />
         </mxCell>
         <mxCell id="RWNdS7ed3jPBFDyhmDwC-5" value="&lt;div&gt;&lt;span style=&quot;font-weight: normal;&quot;&gt;&lt;i&gt;&amp;lt;&amp;lt;template&amp;gt;&amp;gt;&lt;/i&gt;&lt;/span&gt;&lt;/div&gt;Notifier&amp;lt;T&amp;gt;" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="230" y="1180" width="200" height="150" as="geometry" />
@@ -433,7 +433,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="2U-yJ4iHu435Ss1_Db7c" name="ControlFlow">
-    <mxGraphModel dx="2863" dy="2187" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="1175" dy="1193" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
