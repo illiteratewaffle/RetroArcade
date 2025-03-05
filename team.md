@@ -21,4 +21,4 @@ Sylest Holzwarth, 30020534, Sylest.holzwarth@ucalgary.ca \
 Tyler Jarrett, 30210341, tyler.jarrett@ucalgary.ca \
 Vicente David, 30172781, vicente.david@ucalgary.ca \
 Yash Dhaneshwari, 30204884, yash.dhaneshwari@ucalgary.ca \
-Ahsan Tariq, 30119655, ahsan.tariq@ucalgary.ca \
+Ahsan Tariq, 30119655, ahsan.tariq@ucalgary.ca 
