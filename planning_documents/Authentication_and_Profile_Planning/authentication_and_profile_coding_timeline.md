@@ -68,8 +68,6 @@ Use Case Descriptions to be done:
 - View Profile Picture ? - Obtain Profile picture?
 - Change Profile Picture ?- GUI - Set Profile picture?
 - View Recent matches
-- Friend request Confirmation
-- View Friends List
 - Challenge Button to Challenge Users to Games
 - Sign In
 - Update Current Status
