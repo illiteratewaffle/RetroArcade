@@ -782,6 +782,43 @@ rankings for implementing a proper matchmaking system.
 
 **Open issues:** N/A
 
+**Use case:** View Player Stats
+
+**Iteration:** 2
+
+**Primary Actor:** Existing Player
+
+**Goal in context:** Check your own statistics (win loss ratio, games played, etc.).
+
+**Preconditions:** The player has clicked into and is on their own profile page.
+
+**Trigger:** The player wants to check their stats.
+
+**Scenario:**
+1. Player clicks into their own profile.
+2. Their profile loads up and their name and some of their stats are immediately visible.
+3. There is a button that says "See more" beneath their already displayed stats that allows players to see more detailed statistics.
+4. If they click that button, they are brought to a statistics page where they can see detailed statistics for each game on the site.
+
+**Post conditions:** The player has viewed their statistics.
+
+**Exceptions:**
+1. The player has no statistics (no games played).
+
+**Priority:** Medium, because statistics, while a fun feature of player profiles, are not required to create a minimum viable product. Will be implemented later on in development.
+
+**When available:** When a player is on their own profile page.
+
+**Frequency of use:** Low, players will not often want to check their statistics. It's only something that dedicated players would care about.
+
+**Channel to actor:** Displayed on a player's own profile page.
+
+**Secondary actors:** Profile database server
+
+**Channel to secondary actors:** Stores statistics for each user server-side
+
+**Open issues:** N/A
+
 ## GUI Team
 
 **Use case:** Allow players to customize/edit their profile.
