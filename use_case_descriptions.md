@@ -934,7 +934,8 @@ The player sends a chat message using the chat box. The message is routed throug
 **Preconditions:**
 
 1. The client is connected to the server.
-3. The game server is online and responsive.
+2. The game server is online and responsive.
+3. An active game is in progress
 
 **Trigger:** The client sends a player action to the server.
 
@@ -961,7 +962,7 @@ The player sends a chat message using the chat box. The message is routed throug
 
 **Secondary actors:**
 
-1. Game Client
+1. Game Clients
 
 **Channel to secondary actors:**
 
@@ -970,3 +971,53 @@ The player sends a chat message using the chat box. The message is routed throug
 **Open issues:**
 
 1. How to manage simultaneous moves
+
+**Use case:** Multiplayer Game Ends (client-server Model)
+
+**Iteration:** 1
+
+**Primary Actor:** Game Server
+
+**Goal in context:** The game server detects a game-ending condition, updates the game state, and notifies all participants that the session has concluded
+
+**Preconditions:**
+
+1. An active game is in progress.
+2. The client is connected to the server.
+3. The game server is online and responsive.
+
+**Trigger:** The client sends a player action to the server.
+
+**Scenario:**
+1. The server receives the action.
+2. The server checks if action meets a game ending condition.
+3. If the action does, the server game session manager updates the game state
+4. The server then sends a message to all connected clients that game has ended
+
+**Post conditions:** All players receive the updated game state and message
+
+**Exceptions:**
+
+1. The player's action does not end game
+
+**Priority:** High priority. Every game will have a game end state
+**When available:** 2nd or 3rd iteration.
+
+**Frequency of use:** Frequent. Every time any player takes action in a multiplayer game the end conditions will be checked.
+
+**Channel to actor:**
+
+1. GUI interaction.
+2. Socket connection for communication with the server.
+
+**Secondary actors:**
+
+1. Game Clients
+
+**Channel to secondary actors:**
+
+1. TCP socket communication between client and server for session handling.
+
+**Open issues:**
+
+1. Managing disconnects 
