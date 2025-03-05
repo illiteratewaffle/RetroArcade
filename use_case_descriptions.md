@@ -1171,7 +1171,43 @@ imperative to formulate balanced match making.
 **Open issues:** Only able to challenge friends? Restrictions based on rank?
 
 -----------------------------------------
-Get Profile Picture
+**Use case:** Get Profile Picture
+
+**Iteration:** 1
+
+**Primary Actor:** Profile Server
+
+**Goal in context:** Obtain the image file associated with the specified profile.
+
+**Preconditions:** A profile picture image has been set for the profile.
+
+**Trigger:** Profile image is to be displayed on certain screens such as a profile page, or the Friends list. 
+
+**Scenario:**
+1. Server searches Profile Database for username of the profile.
+2. From the profile object, calls getProfilePic() on the profilePic variable to retrieve the BufferedImage datatype
+to obtain the image file to display in the GUI.
+
+**Post conditions:** Image file associated to the profile has been retrieved to be displayed.
+
+**Exceptions:**
+1. An image has not been set for the profile, so a placeholder image is used.
+
+**Priority:** Low. It is helpful for players to both quickly recognize friend profiles. It also some players with have an 
+more enjoyable experience being able to customize their profile.
+
+**When available:** Available when connected to the server 
+
+**Frequency of use:** Frequent. Multiple menus may show profile images, requiring retrieval from profile database.
+
+**Channel to actor:** Method calls to database info on the server.
+
+**Secondary actors:** N/A
+
+**Channel to secondary actors:** N/A
+
+**Open issues:** N/A
+
 -------------------------------------------------
 Sign Out
 -----------------------------------------------
