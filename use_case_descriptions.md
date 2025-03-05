@@ -1479,3 +1479,65 @@ multiplayer experience.
 2. How should the system handle repeated connections and disconnections from players?
 3. What security measures are in place to prevent exploitation of disconnect/reconnect logic?
 4. How long should the reconnect threshold times be, and should it depend on game type?
+
+**Use case:** Authentication & Session Handling (Server-client model)
+
+**Iteration:** 1
+
+**Primary Actor:** Server
+
+**Goal in context:** Very player login credentials
+
+**Preconditions:** 
+
+1. The player has submitted login credentials from client side.
+2. The server is up and running, and connected to the database.
+3. The database is available and responding to query requests.
+
+**Trigger:** The server receives a login request from the player.
+
+**Scenario:**
+
+1. The player starts the game client, and enters their login credentials.
+2. The server receives the login request containing their username and password.
+3. The database searches for the username.
+4. If the username exists, the database returns the stored password hash.
+5. The server then compares the received password (after applying same hashing method) to the password stored in the database
+6. If the password is valid:
+   7. The server generates a unique token for the player
+   8. The server stores this session token linked to the player's account
+   9. The server then sends a "login successful" back to the client.
+10. If the password is invalid, or the username does not exist, then the server sends a "login failed" response back to the player.
+
+**Post conditions:** 
+
+1. On success, the player gets an active game session on the server, identified by their unique token.
+2. On failure, the player remains in the login page, and may retry login.
+
+**Exceptions:**
+
+1. Player is unable to start a game session due to server or database malfunction.
+2. Incorrect login details. Server rejects login attempt.
+
+**Priority:** High. Authentication is critical for players accessing game sessions.
+
+**When available:** 2nd iteration.
+
+**Frequency of use:** Frequent. Player's need to log in at the beginning of every session.
+
+**Channel to actor:**
+
+1. TCP socket communication between client and server.
+
+**Secondary actors:** Database
+
+**Channel to secondary actors:** 
+
+1. SQL query from server to database.
+
+**Open issues:**
+
+1. How are passwords securely stored? what kind of hashing algorithm will be used to ensure this.
+2. Should multiple failed login attempts lock the account after a certain amount of retries?
+3. How will session tokens be handled. How will they expire or be refreshed?
+4. Should tokens persist after accidental disconnect? Will the player need to re-log in to continue the session?
