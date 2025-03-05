@@ -897,6 +897,40 @@ rankings for implementing a proper matchmaking system.
 
 **Open issues:** N/A
 
+**Use case:** View Recent Matches
+
+**Iteration:** 2
+
+**Primary Actor:** Existing Player
+
+**Goal in context:** Check the recent match history of other players.
+
+**Preconditions:** The player has clicked into and is on another player's profile page.
+
+**Trigger:** The player wants to check another players' recent matches.
+
+**Scenario:**
+1. Player clicks into another user's  profile.
+2. Another player's profile loads up. Their recent match history is immediately visible on the lower half of the screen. The player that looked for it can scroll to see more games.
+
+**Post conditions:** The player has viewed another player's match history.
+
+**Exceptions:**
+1. The player being viewed has not played any games.
+
+**Priority:** High, because match history is an important feature relevant to the leaderboard system and important for maintaining a social vibe on the site.
+
+**When available:** When a player is on another user's profile page.
+
+**Frequency of use:** Low, players will see another user's match history whenever they search for them which won't be often.
+
+**Channel to actor:** Displayed on another player's profile page.
+
+**Secondary actors:** Profile database server
+
+**Channel to secondary actors:** Stores match history for each user server-side
+
+**Open issues:** N/A
 
 ## GUI Team
 
