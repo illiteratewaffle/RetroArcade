@@ -1,24 +1,5 @@
 # Use Case Descriptions
-////////////Template////////////////
-**Use case:**
-**Iteration:**
-**Primary Actor:**
-**Goal in context:**
-**Preconditions:**
-**Trigger:**
-**Scenario:**
-    1.
-**Post conditions:**
-**Exceptions:**
-    1.
-**Priority:**
-**When available:**
-**Frequency of use:**
-**Channel to actor:**
-**Secondary actors:**
-**Channel to secondary actors:**
-**Open issues:**
-///////////////////////////////////////
+
 
 ## Authentication and Profile Team 
 **Use case:** Select Create an Account
@@ -2155,6 +2136,7 @@ If the changes made by the player are not saved, the system reverts to a default
 **Open issues:**
 
 1. How to handle registration information if the server database is full
+
 **Use case:** Player Disconnection & Reconnection
 
 **Iteration:** 1
