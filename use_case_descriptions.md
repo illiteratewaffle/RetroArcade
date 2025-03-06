@@ -1209,7 +1209,43 @@ more enjoyable experience being able to customize their profile.
 **Open issues:** N/A
 
 -------------------------------------------------
-Sign Out
+**Use case:** Sign Out
+
+**Iteration:** 1
+
+**Primary Actor:** Existing Player
+
+**Goal in context:** Allow the player to sign out of their account.
+
+**Preconditions:** Player is logged in and ready to sign out of their account.
+
+**Trigger:** The player initiates signing out by selecting the Sign-Out option.
+
+**Scenario:**
+1. Player selects the Sign-Out option.
+2. System logs out the player from the account.
+3. The Player is redirected to the login page.
+
+**Post conditions:** Player is successfully logged out
+
+**Exceptions:**
+1. Connection error.
+
+**Priority:** High Priority. Necessary for the player to be able to sign out of their account.
+
+**When available:** Available in the menu.
+
+**Frequency of use:** Medium, used whenever player wants to sign out of their account.
+
+**Channel to actor:** Keyboard and mouse
+
+**Secondary actors:** Server
+
+
+**Channel to secondary actors:** Server signs out player and returns to login screen.
+
+**Open issues:** Confirm before signing out?
+
 -----------------------------------------------
 **Use case:** Update Current Status
 
