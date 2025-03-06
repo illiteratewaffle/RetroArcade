@@ -2042,6 +2042,119 @@ If the changes made by the player are not saved, the system reverts to a default
 
 1. What kind of authentication mechanism should be used for verifying player join requests?
 
+**Use case:** Multiplayer Game State Update (client-server Model) 
+ 
+**Iteration:** 1 
+ 
+**Primary Actor:** Player (client) 
+ 
+**Goal in context:** The player makes an in-game action that is sent to the server. The server then updates the game state and sends the new state to all connected players. 
+ 
+**Preconditions:**  
+ 
+1. The player is logged into their account. 
+2. The player is connected to the game. 
+3. The client is connected to the server. 
+4. The game server is online and responsive. 
+ 
+**Trigger:** The player takes an action in the game 
+ 
+**Scenario:** 
+1. The player takes an action in the client. 
+2. The client sends the action to the server. 
+3. The server game session manager updates the game state. 
+4. The server game state synchronizer sends the new game state to all connected clients 
+5. The client receives the new game state and replaces the old game state with it. 
+ 
+**Post conditions:** All players receive the updated game state 
+
+**Exceptions:**  
+ 
+1. The server is unreachable, so the action is not sent to the server. 
+2. The client loses connection before the game state is synchronized. 
+3. A move is invalid or corrupted during the game state update. 
+4. A timeout threshold is surpassed, where either the server or client do not receive a response within a predefined time. 
+ 
+**Priority:** High priority. Being able to make moves that all players can see is crucial for multiplayer gameplay
+ 
+**When available:** 2nd or 3rd iteration. 
+ 
+**Frequency of use:** Very Frequent. Every time any player takes an action in a multiplayer game. 
+ 
+**Channel to actor:**  
+ 
+1. GUI interaction. 
+2. Socket connection for communication with the server. 
+ 
+**Secondary actors:**  
+ 
+1. Game Server which handles session management and player matchmaking.
+2. Other player clients 
+ 
+**Channel to secondary actors:**  
+ 
+1. TCP socket communication between client and server for session handling. 
+ 
+**Open issues:** 
+
+1. How to handle simultaneous moves from different players.
+2. How to make sure the game state is updated at the same time for all players 
+
+**Use case:** Server Account Creation (client-server Model)
+
+**Iteration:** 1
+
+**Primary Actor:** Player (client)
+
+**Goal in context:** The player creates a new account by entering their details on the registration screen, their credentials are then stored on the server.
+
+**Preconditions:**
+
+1. The client can be connected to the server.
+2. The player is on the registration screen.
+3. The game server is online and responsive.
+
+**Trigger:** The player selects the option to register a new account.
+
+**Scenario:**
+1. The player enters the required registration details.
+2. The client sends the registration information and request to the server.
+3. The server checks the validity of the submitted information.
+4. The server stores the player's registration info in its database.
+5. The server sends confirmation back to the client and connects to the player's account.
+
+**Post conditions:** The player's account is successfully created, and is connected to the server
+
+
+**Exceptions:**
+
+1. The server is unreachable, so the registration info was not sent to the server.
+2. The database is unreachable and cannot store the data.
+3. The player's registration information is invalid
+
+**Priority:** High priority. Having an account is necessary to connect to the multiplayer aspects of the game.
+
+**When available:** 2nd or 3rd iteration.
+
+**Frequency of use:** Low. Will be used when a player first begins using the multiplayer aspects of a game
+
+**Channel to actor:**
+
+1. GUI interaction.
+2. Socket connection for communication with the server.
+
+**Secondary actors:**
+
+1. Game Server
+2. Game Database
+
+**Channel to secondary actors:**
+
+1. TCP socket communication between client and server for session handling.
+
+**Open issues:**
+
+1. How to handle registration information if the server database is full
 **Use case:** Player Disconnection & Reconnection
 
 **Iteration:** 1
@@ -2284,3 +2397,167 @@ multiplayer experience.
 
 1. In the event of a server, or database failure mid-process, what should the contingency plan be?
 2. If a player disconnects unexpectedly (network failure, system crash etc.), should the game end immediately or allow a reconnection window?
+
+**Use case:** Chat Message Handling (client-server model)
+
+**Iteration:** 1
+
+**Primary Actor:** Player (client)
+
+**Goal in context:** The player creates a new account by entering their details on the registration screen, their credentials are then stored on the server.
+
+The player sends a chat message using the chat box. The message is routed through the server and then sent to all other players.
+
+**Preconditions:**
+
+1. The player is logged into their account.
+2. The player is connected to the game.
+3. The client is connected to the server.
+4. The game server is online.
+5. The chat box is active
+
+**Trigger:** The player types and sends a chat message
+
+**Scenario:**
+1. The player enters the required registration details.
+2. The client sends the message to the game server.
+3. The server checks the appropriateness of the message.
+4. The server sends the chat message to the other connected players.
+5. The client receives the message and updated the chat box.
+
+**Post conditions:** All players receive the new chat message
+
+**Exceptions:**
+
+1. The server is unreachable, so the message was not sent to the server.
+2. A timeout threshold is surpassed, where either the server or client do not receive a response within a predefined time.
+3. The player's message is inappropriate
+
+**Priority:** Low priority. Messaging is secondary to the games core functions.
+
+**When available:** 2nd or 3rd iteration.
+
+**Frequency of use:** Medium. Will be used every time a wants to send a message to other players.
+
+**Channel to actor:**
+
+1. GUI interaction.
+2. Socket connection for communication with the server.
+
+**Secondary actors:**
+
+1. Game Server
+2. Other player clients
+
+**Channel to secondary actors:**
+
+1. TCP socket communication between client and server for session handling.
+
+**Open issues:**
+
+1. How to handle message moderation
+2. How to handle simultaneous messages from different players
+3. How to handle very large chat messages
+4. How to make sure the chat box is updated for all players 
+
+4
+
+**Use case:** Server Validates Action (client-server Model)
+
+**Iteration:** 1
+
+**Primary Actor:** Game Server
+
+**Goal in context:** The server verifies that each move submitted by a player is allowed before updating the game state.
+
+
+**Preconditions:**
+
+1. The client is connected to the server.
+2. The game server is online and responsive.
+3. An active game is in progress
+
+**Trigger:** The client sends a player action to the server.
+
+**Scenario:**
+1. The server receives the move.
+2. The server checks the move against game rules and current state.
+3. If the move is valid, the server game session manager updates the game state
+
+**Post conditions:** The game state is updated and sent to all player clients.
+
+**Exceptions:**
+
+1. The player's action is invalid
+
+**Priority:** High priority. Ensuring that the game works is a necessary part of the multiplayer game.
+
+**When available:** 2nd or 3rd iteration.
+
+**Frequency of use:** High. Will be used every time a player makes a move in multiplayer
+**Channel to actor:**
+
+1. GUI interaction.
+2. Socket connection for communication with the server.
+
+**Secondary actors:**
+
+1. Game Clients
+
+**Channel to secondary actors:**
+
+1. TCP socket communication between client and server for session handling.
+
+**Open issues:**
+
+1. How to manage simultaneous moves
+
+**Use case:** Multiplayer Game Ends (client-server Model)
+
+**Iteration:** 1
+
+**Primary Actor:** Game Server
+
+**Goal in context:** The game server detects a game-ending condition, updates the game state, and notifies all participants that the session has concluded
+
+**Preconditions:**
+
+1. An active game is in progress.
+2. The client is connected to the server.
+3. The game server is online and responsive.
+
+**Trigger:** The client sends a player action to the server.
+
+**Scenario:**
+1. The server receives the action.
+2. The server checks if action meets a game ending condition.
+3. If the action does, the server game session manager updates the game state
+4. The server then sends a message to all connected clients that game has ended
+
+**Post conditions:** All players receive the updated game state and message
+
+**Exceptions:**
+
+1. The player's action does not end game
+
+**Priority:** High priority. Every game will have a game end state
+**When available:** 2nd or 3rd iteration.
+
+**Frequency of use:** Frequent. Every time any player takes action in a multiplayer game the end conditions will be checked.
+
+**Channel to actor:**
+
+1. GUI interaction.
+2. Socket connection for communication with the server.
+
+**Secondary actors:**
+
+1. Game Clients
+
+**Channel to secondary actors:**
+
+1. TCP socket communication between client and server for session handling.
+
+**Open issues:**
+
+1. Managing disconnects 
