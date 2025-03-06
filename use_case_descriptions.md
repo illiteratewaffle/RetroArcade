@@ -2155,6 +2155,7 @@ If the changes made by the player are not saved, the system reverts to a default
 **Open issues:**
 
 1. How to handle registration information if the server database is full
+
 **Use case:** Player Disconnection & Reconnection
 
 **Iteration:** 1
