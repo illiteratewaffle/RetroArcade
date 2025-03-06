@@ -1,0 +1,24 @@
+Abigail Mullen, 30220349, abigail.mullen@ucalgary.ca \
+Aditya Mulunjkar, 30221469, aditya.mulunjkar@ucalgary.ca \
+Alessia Flaig, 30097289, alessia.flaig@ucalgary.ca \
+Ashton Giles, 30213188, ashton.giles@ucalgary.ca \
+Ava Rudrum, 30209002, ava.rudrum@ucalgary.ca \
+Brianna Balan, 30176844, brianna.balan@ucalgary.ca \
+Colby Campbell, 30208300, colby.campbell@ucalgary.ca \
+Cristian Otalora, 10137257, cristian.otalora1@ucalgary.ca \
+Devanshi Iragavarapu, 30204017, devanshi.iragavar1@ucalgary.ca \
+Emma Djukic, 30213555, emma.djukic@ucalgary.ca \
+Evan Poulson, 30208763, evan.poulson@ucalgary.ca \
+Harry Hu, 30213135, harry.hu1@ucalgary.ca \
+Jeffrey Suen, 10078303, jeff.suen@ucalgary.ca \
+Josiah Jukes, 30161649, Josiah.jukes@ucalgary.ca \
+Leo Nguyen, 30211103, leo.nguyen1@ucalgary.ca \
+Martin Mosquera, 30216099, martin.mosquera1@ucalgary.ca \
+Matias Lupick, 30216478, matias.lupick@ucalgary.ca \
+Nathania Castillo, 30152619, nathania.castillo@ucalgary.ca \
+Ryan Hashemian, 30195181, ryan.hashemiantabriz@ucalgary.ca \
+Sylest Holzwarth, 30020534, Sylest.holzwarth@ucalgary.ca \
+Tyler Jarrett, 30210341, tyler.jarrett@ucalgary.ca \
+Vicente David, 30172781, vicente.david@ucalgary.ca \
+Yash Dhaneshwari, 30204884, yash.dhaneshwari@ucalgary.ca \
+Ahsan Tariq, 30119655, ahsan.tariq@ucalgary.ca 
