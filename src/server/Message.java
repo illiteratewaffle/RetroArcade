@@ -18,9 +18,9 @@ public class Message {
     }
 
     /**
-     * Allows a thread to quickly check if they are the recipent
+     * Allows a thread to quickly check if they are the recipient
      * @param currentThread Should be the thread calling this function
-     * @return boolean of whether or not they are the designated recipent
+     * @return boolean of whether they are the designated recipient
      */
     public boolean isRecipient(Thread currentThread) {
         return currentThread.threadId() == recipient;
