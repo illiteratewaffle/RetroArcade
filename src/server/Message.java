@@ -1,4 +1,4 @@
-// Make a package?
+package server;
 
 /**
  * This class will be used as a basis for communication between threads
