@@ -12,7 +12,7 @@
     - GUI Team: Mockups finished
 - **March 10** – Finalize Contract
 - **March 12** – Game Logic Team: Set up class and file structure in code
-- **March 14** – Finish review iteration 1 files from other group
+- **March 16** – Finish review iteration 1 files from other group
 - **March 16** – Leaderboard and Matchmaking: Leaderboard class and methods, sorting logic for matchmaking
 - **March 18** – GUI Team: Finish rough draft code for all pages
 - **March 19**
