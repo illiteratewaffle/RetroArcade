@@ -8,7 +8,7 @@ import javafx.stage.Stage;
 
 public class guiController extends Application {
 
-    public static void main(String[] args) {
+    public static void mainApp(String[] args) {
         launch(args);  // Launch the JavaFX application
     }
 
