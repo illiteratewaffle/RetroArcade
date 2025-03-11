@@ -1,5 +1,6 @@
 Abigail Mullen, 30220349, abigail.mullen@ucalgary.ca \
 Aditya Mulunjkar, 30221469, aditya.mulunjkar@ucalgary.ca \
+Ahsan Tariq, 30119655, ahsan.tariq@ucalgary.ca \
 Alessia Flaig, 30097289, alessia.flaig@ucalgary.ca \
 Ashton Giles, 30213188, ashton.giles@ucalgary.ca \
 Ava Rudrum, 30209002, ava.rudrum@ucalgary.ca \
@@ -20,5 +21,4 @@ Ryan Hashemian, 30195181, ryan.hashemiantabriz@ucalgary.ca \
 Sylest Holzwarth, 30020534, Sylest.holzwarth@ucalgary.ca \
 Tyler Jarrett, 30210341, tyler.jarrett@ucalgary.ca \
 Vicente David, 30172781, vicente.david@ucalgary.ca \
-Yash Dhaneshwari, 30204884, yash.dhaneshwari@ucalgary.ca \
-Ahsan Tariq, 30119655, ahsan.tariq@ucalgary.ca 
+Yash Dhaneshwari, 30204884, yash.dhaneshwari@ucalgary.ca 
