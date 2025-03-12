@@ -1,1 +1,1 @@
-// inherits from Resources.Board.java
+// inherits from Resources.AbstractBoard.java
