@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+
+<AnchorPane id="backgroundImage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.TTTController">
+   <ImageView id="background_image" fx:id="background_image" fitHeight="600.0" fitWidth="900.0" pickOnBounds="true" preserveRatio="true" />
+   <ImageView fx:id="board_image" fitHeight="600.0" fitWidth="598.0" layoutX="148.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+         <Image url="@../../foreground.png" />
+      </image>
+   </ImageView>
+   <GridPane fx:id="gameBoard" layoutX="370.0" layoutY="244.0" prefHeight="157.0" prefWidth="161.0">
+     <columnConstraints>
+       <ColumnConstraints hgrow="SOMETIMES" maxWidth="95.3333740234375" minWidth="10.0" prefWidth="50.666646321614586" />
+       <ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="10.0" prefWidth="57.999979654947914" />
+         <ColumnConstraints hgrow="SOMETIMES" maxWidth="88.33331298828124" minWidth="10.0" prefWidth="54.666687011718736" />
+     </columnConstraints>
+     <rowConstraints>
+       <RowConstraints maxHeight="51.66668701171875" minHeight="10.0" prefHeight="51.66668701171875" vgrow="SOMETIMES" />
+       <RowConstraints maxHeight="68.33334350585938" minHeight="10.0" prefHeight="55.666656494140625" vgrow="SOMETIMES" />
+       <RowConstraints maxHeight="51.0" minHeight="10.0" prefHeight="50.333343505859375" vgrow="SOMETIMES" />
+     </rowConstraints>
+      <children>
+         <StackPane fx:id="TileBorder_0_0" prefHeight="50.0" prefWidth="50.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+            <children>
+               <ImageView fx:id="Tile_0_0" fitHeight="47.0" fitWidth="47.0" pickOnBounds="true" preserveRatio="true" />
+            </children>
+         </StackPane>
+         <StackPane fx:id="TileBorder_0_1" prefHeight="50.0" prefWidth="50.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+            <children>
+               <ImageView fx:id="Tile_0_1" fitHeight="47.0" fitWidth="47.0" pickOnBounds="true" preserveRatio="true" />
+            </children>
+         </StackPane>
+         <StackPane fx:id="TileBorder_0_2" prefHeight="50.0" prefWidth="50.0" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
+            <children>
+               <ImageView fx:id="Tile_0_2" fitHeight="47.0" fitWidth="47.0" pickOnBounds="true" preserveRatio="true" />
+            </children>
+         </StackPane>
+         <StackPane fx:id="TileBorder_1_0" prefHeight="50.0" prefWidth="50.0" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+            <children>
+               <ImageView fx:id="Tile_1_0" fitHeight="47.0" fitWidth="47.0" pickOnBounds="true" preserveRatio="true" />
+            </children>
+         </StackPane>
+         <StackPane fx:id="TileBorder_1_1" prefHeight="50.0" prefWidth="50.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+            <children>
+               <ImageView fx:id="Tile_1_1" fitHeight="47.0" fitWidth="47.0" pickOnBounds="true" preserveRatio="true" />
+            </children>
+         </StackPane>
+         <StackPane fx:id="TileBorder_1_2" prefHeight="50.0" prefWidth="50.0" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+            <children>
+               <ImageView fx:id="Tile_1_2" fitHeight="47.0" fitWidth="47.0" pickOnBounds="true" preserveRatio="true" />
+            </children>
+         </StackPane>
+         <StackPane fx:id="TileBorder_2_0" prefHeight="50.0" prefWidth="50.0" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
+            <children>
+               <ImageView fx:id="Tile_2_0" fitHeight="47.0" fitWidth="47.0" pickOnBounds="true" preserveRatio="true" />
+            </children>
+         </StackPane>
+         <StackPane fx:id="TileBorder_2_1" prefHeight="50.0" prefWidth="50.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
+            <children>
+               <ImageView fx:id="Tile_2_1" fitHeight="47.0" fitWidth="47.0" pickOnBounds="true" preserveRatio="true" />
+            </children>
+         </StackPane>
+         <StackPane fx:id="TileBorder_2_2" prefHeight="50.0" prefWidth="50.0" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
+            <children>
+               <ImageView fx:id="Tile_2_2" fitHeight="47.0" fitWidth="47.0" pickOnBounds="true" preserveRatio="true" />
+            </children>
+         </StackPane>
+      </children>
+   </GridPane>
+</AnchorPane>
