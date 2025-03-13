@@ -22,7 +22,11 @@ public class databaseConnector {
             System.err.println("Error loading database configuration: " + e.getMessage());
         }
     }
-    // Establish a connection
+
+    /**
+     * Establishes a connection to the postgres db. IF a connection already exists, it returns the existing connection.
+     * @return
+     */
     public static Connection connect() {
         if (connection == null) {
             try {
@@ -35,7 +39,9 @@ public class databaseConnector {
         return connection;
     }
 
-    // Close connection
+    /**
+     * Closes the active database connection. If no connection exists, this method does nothing.
+     */
     public static void disconnect() {
         if (connection != null) {
             try {
