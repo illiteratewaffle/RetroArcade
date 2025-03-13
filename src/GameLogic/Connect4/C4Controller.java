@@ -5,7 +5,6 @@ public class C4Controller {
     void start() {
         c4GameLogic = new C4GameLogic();
         System.out.println("A new game of connect four has started");
-
     }
     void handleInput() {
     }
