@@ -49,7 +49,7 @@ The **Server Controller** is responsible for managing the core server-side opera
 
 ## Message Flow Example
 1. **Player A connects to the server.**
-2. **Server assigns a Virtual Thread to handle Player A.**
+2. **Server assigns a Virtual Thread and a Player Handler to handle Player A.**
 3. **Player A sends a request to join a game via Player Handler.**
 4. **Network Manager receives the request and forwards it to Server Controller.**
 5. **Server Controller checks for an available opponent and creates a Game Session.**
