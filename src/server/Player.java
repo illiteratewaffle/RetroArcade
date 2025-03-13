@@ -32,6 +32,10 @@ public class Player {
         return thread;
     }
 
+    /**
+     * Returns the playerID of the player
+     * @return String that is the playerID
+     */
     public String getPlayerID() {
         return playerID;
     }
