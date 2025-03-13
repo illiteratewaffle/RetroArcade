@@ -70,8 +70,8 @@ public class TTTController implements Initializable {
      * @param imageView ImageView
      */
     private void setPiece(int row, int col, ImageView imageView){
-        Image X = new Image("file:C:\\Users\\Tyler\\IdeaProjects\\demo1\\src\\main\\X.png");
-        Image O = new Image("file:C:\\Users\\Tyler\\IdeaProjects\\demo1\\src\\main\\O.png");
+        Image X = new Image("file:src\\main\\X.png");
+        Image O = new Image("file:src\\main\\O.png");
 
         if (board[row][col].getPiece() == 'E') {
             if (flag) {
@@ -96,8 +96,8 @@ public class TTTController implements Initializable {
     }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        Image bg_image = new Image("file:C:\\Users\\Tyler\\IdeaProjects\\demo1\\src\\main\\background_retro.png");
-        Image b_image = new Image("file:C:\\Users\\Tyler\\IdeaProjects\\demo1\\src\\main\\foreground.png");
+        Image bg_image = new Image("file:src\\main\\background_retro.png");
+        Image b_image = new Image("file:src\\main\\foreground.png");
 
         // set background and foreground images
         background_image.setImage(bg_image);
