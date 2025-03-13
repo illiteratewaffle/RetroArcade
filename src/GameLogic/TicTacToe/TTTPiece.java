@@ -24,6 +24,16 @@ public enum TTTPiece {
         return value;
     }
 
-
+    /**
+     * Converts an integer to a TTTPiece.
+     * @param value the integer value (0 = EMPTY, 1 = X, 2 = O)
+     * @return corresponding TTTPiece
+     */
+    public static TTTPiece fromInt(int value) {
+        switch (value) {
+            case 1: return X;
+            case 2: return O;
+            default: return EMPTY;
+        }
     }
 }
