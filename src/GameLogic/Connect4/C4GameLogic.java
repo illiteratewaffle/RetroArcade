@@ -1,7 +1,5 @@
 package gamelogic.Connect4;
 
-import com.sun.jdi.PrimitiveValue;
-
 public class C4GameLogic {
 
     private final C4Board c4Board;
@@ -11,6 +9,7 @@ public class C4GameLogic {
 
     public C4GameLogic() {
         this.c4Board = new C4Board(6,7);
+        System.out.println("A new connect four board has been created");
     }
 
     public boolean getC4IsGameOver() {
@@ -38,5 +37,9 @@ public class C4GameLogic {
         return false;
     }
     private void c4PlacePiece(int row, int col, C4Piece piece) {
+    }
+    @Override
+    public String toString() {
+        return c4Board.toString();
     }
 }
