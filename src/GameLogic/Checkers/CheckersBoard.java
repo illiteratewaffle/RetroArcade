@@ -1,0 +1,1 @@
+// inherits from Resources.AbstractBoard.java
