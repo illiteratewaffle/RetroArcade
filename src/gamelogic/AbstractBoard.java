@@ -1,3 +1,5 @@
+package gamelogic;
+
 import package.gamelogic.*;
 
 abstract class AbstractBoard {
