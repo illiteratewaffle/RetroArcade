@@ -1,70 +1,62 @@
 package gamelogic;
 
-import package.gamelogic.*;
-
-abstract class AbstractBoard {
-
-    /**
-     * Basic variables needed for game implementation (boards).
-     */
-    private Piece[][] board;
+/**
+ * AbstractBoard class to be implemented by other GameBoard classes with standard functions that all boards should be able to do.
+ *
+ * Author: Vicente David - Game Logic Team
+ */
+public abstract class AbstractBoard {
     private int rows;
     private int cols;
+    private int[][] board;
 
     /**
-     * Basic abstract board initialization.
-     * @param rows
-     * @param cols
+     * Standard constructor to initialize AbstractBoard class.
+     * @param rows the total number of rows in the board
+     * @param cols the total number of columns in the board
+     * @param board the 2d int array representing the board and its pieces.
      */
-    public AbstractBoard(int rows, int cols) {
+    public AbstractBoard(int rows, int cols, int[][] board) {
         this.rows = rows;
         this.cols = cols;
-        this.board = new Piece[rows][cols];
-        initializeBlankBoard();
+        this.board = board;
     }
 
     /**
-     * Places a piece to the board
-     * @param row
-     * @param col
-     * @param piece
+     * setPiece function to set a spot on the board to a user-defined piece.
+     * @param row the row which the piece should be set at.
+     * @param col the column which the piece should be set at.
+     * @param piece the type of piece that should be set at the location.
      */
-    public void setPiece(int row, int col, Piece piece) {
-        if (row >= 0 && row < rows && col >= 0 && col < cols) {
-            board[row][col] = piece;
-        } else {
-            throw new IllegalArgumentException("Invalid board position");
-        }
+    public void setPiece(int row, int col, int piece) {
+        board[row][col] = piece;
     }
 
     /**
-     * Gets a piece from the board at specified row and column.
-     * @param row
-     * @param col
-     * @return a piece
+     * returns the current piece at the designated row/column location.
+     * @param row the row of the current piece to be returned.
+     * @param col the column of the current piece to be returned.
+     * @return piece at board[row][column]
      */
-    public Piece getPiece(int row, int col) {
-        if (row >= 0 && row < rows && col >= 0 && col < cols) {
-            return board[row][col];
-        }
-        throw new IllegalArgumentException("Invalid board position");
+    public int getPiece(int row, int col) {
+        return board[row][col];
     }
 
     /**
-     * @return board for the game.
+     *returns the current board as a 2d int array.
+     * @return board
      */
-    public Piece[][] getBoard() {
+    public int[][] getBoard() {
         return board;
     }
 
     /**
-     * This function initializes blank boards for new games.
-     * Setting each value in the board to null.
+     * initializes a completely blank board.
      */
     private void initBlankBoard() {
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < cols; j++) {
-                board[i][j] = null;
+        for (int row = 0; row < rows; row++) {
+            for (int col = 0; col < cols; col++) {
+                board[row][col] = 0;
             }
         }
     }
