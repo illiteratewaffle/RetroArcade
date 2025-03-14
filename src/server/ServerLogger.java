@@ -3,6 +3,8 @@ package server;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * This class will be responsible for logging all information
@@ -33,8 +35,9 @@ public class ServerLogger {
         for (int i = 0; i < args.length; i++) {
             stringArgs[i] = args[i].toString();
         }
-        // Combine the arguments ino a String
-        String string = String.join(" ", stringArgs);
+        // Combine the arguments ino a String and add a timestamp
+        String timestamp = ZonedDateTime.now(java.time.ZoneId.systemDefault()).format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+        String string = "[" + timestamp + "] " + String.join(" ", stringArgs);
         // Print the output to the console
         System.out.println(string);
 
