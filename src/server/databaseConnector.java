@@ -12,7 +12,15 @@ public class databaseConnector {
 
     // Loads database credentials from properties file
     static {
-        try (FileInputStream fis = new FileInputStream("db-config.properties")) {
+        loadConfiguration("db-config.properties"); // Default to main DB
+    }
+
+    /**
+     * Loads configuration file containing database admin details for connection to the database
+     * @param filename
+     */
+    public static void loadConfiguration(String filename) {
+        try (FileInputStream fis = new FileInputStream(filename)) {
             Properties properties = new Properties();
             properties.load(fis);
             URL = properties.getProperty("db.url");
