@@ -3,18 +3,40 @@ package gamelogic.Connect4;
 public class C4Board {
     private C4Piece[][] c4Board;
 
+    /**
+     * Creates a blank board as an initial setup of the board for users
+     * when they start or reset the game. Else simply creates a board of fixed lengths.
+     * @param rows: number of rows in the connect-4 table.
+     * @param col: number of columns in the connect-4 table.
+     */
     public C4Board(int rows, int col) {
         c4Board = new C4Piece[rows][col];
         initC4BlankBoard(); // fills board with BLANK pieces
     }
 
+    /**
+     * Place a token at a specified location (coordinates) on the board.
+     */
     void setC4Piece() {
     }
+
+    /**
+     * Get the coordinates of a placed token on the board.
+     */
     void getC4Piece() {
     }
+
+    /**
+     * Gets the current state of the game represented by a 2-D array.
+     * @return 2-D array of the board.
+     */
     C4Piece[][] getC4Board() {
         return c4Board;
     }
+
+    /**
+     * Function to create a blank board [2-D array filled with blanks].
+     */
     void initC4BlankBoard() {
         for (int i = 0; i < c4Board.length; i++) {
             for (int j = 0; j < c4Board[i].length; j++) {
@@ -23,6 +45,10 @@ public class C4Board {
         }
     }
 
+    /**
+     * Console representation of the current board state with all the pieces.
+     * @return a String version of the board.
+     */
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
