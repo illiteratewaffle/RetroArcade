@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.FXML.gameMenu">
+   <children>
+      <ImageView fitHeight="426.0" fitWidth="659.0" layoutY="-2.0">
+         <image>
+            <Image url="@../../../../../../var/folders/m6/7bs2h4w56ngd1_32vt2fjqym0000gn/T/TemporaryItems/NSIRD_screencaptureui_Vsa6MS/Screenshot%202025-03-06%20at%207.00.10%E2%80%AFPM.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="connect4Button" layoutX="383.0" layoutY="186.0" mnemonicParsing="false" onAction="#playConnect4" prefHeight="46.0" prefWidth="75.0" style="-fx-background-color: #F3909F;" text="Connect 4" textFill="#f38f9e">
+         <font>
+            <Font name="Diwan Kufi Regular" size="24.0" />
+         </font>
+      </Button>
+      <Button fx:id="TTTButton" layoutX="165.0" layoutY="186.0" mnemonicParsing="false" onAction="#playTTT" prefHeight="46.0" prefWidth="85.0" style="-fx-background-color: #E8B753;" text="Tik Tak Toe" />
+      <Button fx:id="CheckersButton" layoutX="274.0" layoutY="186.0" mnemonicParsing="false" onAction="#playCheckers" prefHeight="46.0" prefWidth="75.0" style="-fx-background-color: #3199a6;" text="Checkers" />
+      <Button fx:id="profileButton" layoutX="577.0" layoutY="14.0" mnemonicParsing="false" onAction="#visitProfile" prefHeight="46.0" prefWidth="75.0" style="-fx-background-color: #93A4C9;" text="Profile" />
+      <Button fx:id="backButton" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#Back" prefHeight="46.0" prefWidth="75.0" style="-fx-background-color: #93A4C9;" text="&lt;--" />
+      <Button fx:id="leaderBoardButton" layoutX="229.0" layoutY="380.0" mnemonicParsing="false" onAction="#visitLeaderBoard" prefHeight="30.0" prefWidth="202.0" style="-fx-background-color: #93A4C9;" text="Leader Board" />
+   </children>
+</AnchorPane>
