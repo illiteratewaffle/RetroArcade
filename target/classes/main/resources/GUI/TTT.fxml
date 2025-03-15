@@ -12,7 +12,7 @@
    <ImageView id="background_image" fx:id="background_image" fitHeight="600.0" fitWidth="900.0" pickOnBounds="true" preserveRatio="true" />
    <ImageView fx:id="board_image" fitHeight="600.0" fitWidth="598.0" layoutX="148.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true">
       <image>
-         <Image url="@../../foreground.png" />
+         <Image url="@../foreground.png" />
       </image>
    </ImageView>
    <GridPane fx:id="gameBoard" layoutX="370.0" layoutY="244.0" prefHeight="157.0" prefWidth="161.0">
@@ -74,4 +74,5 @@
          </StackPane>
       </children>
    </GridPane>
+   <ImageView fx:id="Win_Lose_Banner" fitHeight="143.0" fitWidth="358.0" layoutX="288.0" layoutY="229.0" pickOnBounds="true" preserveRatio="true" mouseTransparent="true" />
 </AnchorPane>
