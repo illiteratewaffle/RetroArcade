@@ -3,7 +3,7 @@ package server;
 import java.sql.*;
 
 public class PlayerManager {
-    private static final Connection conn = DatabaseConnector.connect();
+    private static final Connection conn = databaseConnector.connect();
 
     /**
      * Registers a player by creating a new player tuple within the player relation in the db
@@ -13,6 +13,7 @@ public class PlayerManager {
      */
     public static boolean registerPlayer(String username, String passwordHash) {
         // register player code
+        return false;
     }
 
     /**
@@ -23,6 +24,7 @@ public class PlayerManager {
      */
     public static boolean authenticatePlayer(String username, String passwordHash) {
         // Authenticate player code
+        return false;
     }
 
     /**
@@ -32,6 +34,7 @@ public class PlayerManager {
      */
     public static int getPlayerID(String username) {
         // retrieve playerID by username code
+        return 0;
     }
 
 }

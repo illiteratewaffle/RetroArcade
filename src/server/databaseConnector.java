@@ -1,20 +1,28 @@
 package server;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.sql.*;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
 
 public class databaseConnector {
-    private static final String URL;
-    private static final String USER;
-    private static final String PASSWORD;
-    private static final Connection connection;
+    private static String URL = "";
+    private static String USER = "";
+    private static String PASSWORD = "";
+    private static Connection connection = null;
 
-    // Loads database credentials from properties file
-    static {
-        try (FileInputStream fis = new FileInputStream("db-config.properties")) {
+    /**
+     * Loads configuration file containing database admin details for connection to the database
+     * @param filename
+     */
+    public static void loadConfiguration(String filename) {
+        try (InputStream input = databaseConnector.class.getClassLoader().getResourceAsStream(filename)) {
+            if (input == null) {
+                throw new FileNotFoundException("Database configuration file not found in classpath: " + filename);
+            }
             Properties properties = new Properties();
-            properties.load(fis);
+            properties.load(input);
             URL = properties.getProperty("db.url");
             USER = properties.getProperty("db.user");
             PASSWORD = properties.getProperty("db.password");
