@@ -5,10 +5,10 @@ import java.io.IOException;
 import java.util.Properties;
 
 public class databaseConnector {
-    private static final String URL;
-    private static final String USER;
-    private static final String PASSWORD;
-    private static final Connection connection;
+    private static String URL = "";
+    private static String USER = "";
+    private static String PASSWORD = "";
+    private static Connection connection = null;
 
     // Loads database credentials from properties file
     static {
