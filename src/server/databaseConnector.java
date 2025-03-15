@@ -5,14 +5,22 @@ import java.io.IOException;
 import java.util.Properties;
 
 public class databaseConnector {
-    private static final String URL;
-    private static final String USER;
-    private static final String PASSWORD;
-    private static final Connection connection;
+    private static String URL = "";
+    private static String USER = "";
+    private static String PASSWORD = "";
+    private static Connection connection = null;
 
     // Loads database credentials from properties file
     static {
-        try (FileInputStream fis = new FileInputStream("db-config.properties")) {
+        loadConfiguration("db-config.properties"); // Default to main DB
+    }
+
+    /**
+     * Loads configuration file containing database admin details for connection to the database
+     * @param filename
+     */
+    public static void loadConfiguration(String filename) {
+        try (FileInputStream fis = new FileInputStream(filename)) {
             Properties properties = new Properties();
             properties.load(fis);
             URL = properties.getProperty("db.url");

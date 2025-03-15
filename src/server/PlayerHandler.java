@@ -25,11 +25,29 @@ public class PlayerHandler {
     }
 
     /**
-     * The function that the thread runs
+     * The function that the thread runs, the output
      */
     public void run() {
+        // Start the PlayerHandlerListener thread
+        PlayerHandlerListener playerHandlerListener = new PlayerHandlerListener();
+        Thread playerHandlerListenerThread = Thread.ofVirtual().start(playerHandlerListener);
+
         while (running) {
-            // stuff goes here
+            // Output stuff goes here
+        }
+    }
+
+    /**
+     * This is the class that will run listen to client messages
+     */
+    private class PlayerHandlerListener implements Runnable {
+        /**
+         * The function that the thread runs, the input
+         */
+        public void run() {
+            while (running) {
+                // Input stuff goes here
+            }
         }
     }
 }
