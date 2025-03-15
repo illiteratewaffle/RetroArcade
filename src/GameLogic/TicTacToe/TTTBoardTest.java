@@ -1,7 +1,7 @@
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import gamelogic.TTTBoard;
+import GameLogic.TTTBoard;
 
 class TTTBoardTest {
     private TTTBoard board;

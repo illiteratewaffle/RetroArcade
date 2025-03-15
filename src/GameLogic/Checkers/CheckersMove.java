@@ -1,4 +1,4 @@
-package gamelogic.Checkers;
+package GameLogic.Checkers;
 
 public class CheckersMove {
     private int StartCord;

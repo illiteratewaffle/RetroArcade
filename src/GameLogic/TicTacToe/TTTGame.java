@@ -1,4 +1,4 @@
-package gamelogic.TicTacToe;
+package GameLogic.TicTacToe;
 
 
 public class TTTGame {

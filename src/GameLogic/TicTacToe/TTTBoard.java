@@ -1,6 +1,6 @@
-package gamelogic.TicTacToe;
+package GameLogic.TicTacToe;
 
-import gamelogic.*;
+import GameLogic.*;
 
 /**
  * Represents a Tic-Tac-Toe board.
