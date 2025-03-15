@@ -1,3 +1,6 @@
+package GameLogic;
+
+
 final public class ivec2
 {
     final public int x, y;
