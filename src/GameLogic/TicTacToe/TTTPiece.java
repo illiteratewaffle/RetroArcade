@@ -1,4 +1,4 @@
-package GameLogic;
+package gamelogic.tictactoe;
 
 /**
  * Enum representing the possible pieces in a Tic-Tac-Toe game.

@@ -1,4 +1,4 @@
-package GameLogic;
+package gamelogic.tictactoe;
 
 public class TTTGame {
     private TTTBoard board;
@@ -23,9 +23,19 @@ public class TTTGame {
         // Change currentPlayer from X to O and vice versa
     }
 
-    private boolean isGameOver() {
+    private boolean checkWin(TTTBoard board) {
+        // if winner is X or O, return true. Else, return false.
+        return board.checkWinner() == TTTPiece.X || board.checkWinner() == TTTPiece.O;
+    }
+
+    private boolean checkDraw(TTTBoard board) {
+        // if there is no winner, AND the board is full, then there is a draw.
+        return !checkWin(board) && board.isFull();
+    }
+
+    private boolean isGameOver(TTTBoard board) {
         // Check if there's a winner or if it's a draw
-        return false; // placeholder for now
+        return checkWin(board) || checkDraw(board);
     }
 
     private void printBoard() {
