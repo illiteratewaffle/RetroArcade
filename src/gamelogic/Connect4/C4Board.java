@@ -1,4 +1,4 @@
-package GameLogic.Connect4;
+package gamelogic.Connect4;
 
 public class C4Board {
     private C4Piece[][] c4Board;

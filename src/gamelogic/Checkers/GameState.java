@@ -1,4 +1,4 @@
-package GameLogic.Checkers;
+package gamelogic.Checkers;
 
 
 public enum GameState {
