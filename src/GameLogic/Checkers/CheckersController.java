@@ -1,11 +1,12 @@
 package GameLogic.Checkers;
 
-import java.util.ArrayList;
-
 
 public class CheckersController {
     private BoardGame BoardGame;
     private int[] CheckersMove = new int[2];
+
+    //checks if the player can interact with the board
+    private boolean TurnP1 = true;
 
 
 
@@ -17,9 +18,9 @@ public class CheckersController {
     void start(){
         System.out.println(" A new game of Checkers has started");
         BoardGame = new BoardGame();
-        printBoard();
+        //  printBoard();
 
-}
+    }
 
     /**
      * will handle input during the game.
@@ -30,13 +31,18 @@ public class CheckersController {
 
     }
 
+    void gameState(){
+
+    }
+
 
     /**
      * prints out how the board looks at any point (continously????)
+     * commented this out bc there was an error -ava
      */
-    void printBoard(){
+   /* void printBoard(){
         System.out.println(CheckersBoard);
-    }
+    }*/
 
     public static void main(String[] args) {}
 }
