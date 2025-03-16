@@ -25,8 +25,14 @@ public class ClientHandler  {
      * The function that the thread runs
      */
     public void run() {
-        while (running) {
-            // Implement client communication
+        try {
+            while (running) {
+                // Implement client communication handling logic
+            }
+        } catch (Exception e) {
+
+        } finally {
+            closeConnection();  // Ensure the connection is closed on error or exit
         }
     }
 
@@ -41,8 +47,13 @@ public class ClientHandler  {
      * Converts data into a JSON string.
      */
     public String ConvertToJson(Object data) {
-        // Convert recieved Function to JSON
-        return "{}";  // Placeholder
+
+        try {
+            // Convert recieved Function to JSON
+            return "{}";  // Placeholder
+        } catch (Exception e) {
+            return "{}"; // Return an empty JSON object on error
+        }
     }
 
     /**
@@ -57,7 +68,13 @@ public class ClientHandler  {
      * Sends JSON string to the associated PlayerHandler.
      */
     public void sendToPlayerHandler(String message) {
-        // Send encrypted message to PlayerHandler
+        try {
+            // Send encrypted message to PlayerHandler
+            return null;
+        } catch (Exception e) {
+            System.err.println("Error decoding JSON: " + e.getMessage());
+            return null;
+        }
     }
 
     /**
