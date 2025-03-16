@@ -1,3 +1,5 @@
+package AuthenticationAndProfile;
+
 public class ProfileDatabase {
     private ProfileEmailSet<String> profileEmailSet = new ProfileEmailSet<String>;
     private HashMap<Username, Profile> profiles = new HashMap<Username, Profile>;

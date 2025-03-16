@@ -1,3 +1,5 @@
+package AuthenticationAndProfile;
+
 public class Authentication {
     private Profile profileLoggedIn;
 

@@ -1,3 +1,7 @@
+package AuthenticationAndProfile;
+
+import java.util.HashSet;
+
 private class ProfileEmailSet {
     private HashSet<String> profileEmailSet = new HashSet<String>;
 
