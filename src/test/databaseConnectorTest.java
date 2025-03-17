@@ -1,5 +1,5 @@
 import org.junit.jupiter.api.*;
-import server.databaseConnector;
+import server.database.databaseConnector;
 
 import java.sql.Connection;
 

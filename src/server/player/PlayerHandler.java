@@ -1,6 +1,7 @@
-package server;
+package server.player;
 
-import java.io.IOException;
+import server.management.ThreadMessage;
+
 import java.net.Socket;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ConcurrentHashMap;

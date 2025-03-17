@@ -1,4 +1,7 @@
-package server;
+package server.session;
+
+import server.player.Player;
+import server.management.ThreadMessage;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ConcurrentHashMap;

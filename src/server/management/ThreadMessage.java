@@ -1,4 +1,4 @@
-package server;
+package server.management;
 
 /**
  * This class will be used as a basis for communication between threads

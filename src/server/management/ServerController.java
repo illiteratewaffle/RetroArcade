@@ -1,4 +1,4 @@
-package server;
+package server.management;
 import java.io.*;
 import java.net.*;
 import java.util.List;

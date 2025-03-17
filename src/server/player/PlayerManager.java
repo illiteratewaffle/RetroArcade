@@ -1,4 +1,6 @@
-package server;
+package server.player;
+
+import server.database.databaseConnector;
 
 import java.sql.*;
 
