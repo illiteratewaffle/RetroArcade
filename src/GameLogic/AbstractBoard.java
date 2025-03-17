@@ -24,22 +24,20 @@ public abstract class AbstractBoard {
 
     /**
      * setPiece function to set a spot on the board to a user-defined piece.
-     * @param row the row which the piece should be set at.
-     * @param col the column which the piece should be set at.
+     * @param point the coordinate point which the piece should be set at.
      * @param piece the type of piece that should be set at the location.
      */
-    public void setPiece(int row, int col, int piece) {
-        board[row][col] = piece;
+    public void setPiece(ivec2 point, int piece) {
+        board[point.x][point.y] = piece;
     }
 
     /**
      * returns the current piece at the designated row/column location.
-     * @param row the row of the current piece to be returned.
-     * @param col the column of the current piece to be returned.
+     * @param point the coordinate point of the current piece to be returned.
      * @return piece at board[row][column]
      */
-    public int getPiece(int row, int col) {
-        return board[row][col];
+    public int getPiece(ivec2 point) {
+        return board[point.x][point.y];
     }
 
     /**
