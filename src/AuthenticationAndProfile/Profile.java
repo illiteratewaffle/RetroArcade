@@ -26,6 +26,11 @@ public class Profile {
         this.username = username;
         this.id = id;
     }
+    public Profile(String email, String username, String hashedPassword){
+        this.email = email;
+        this.username = username;
+        this.hashedPassword = hashedPassword;
+    }
 
     public String getEmail() {
         return email;

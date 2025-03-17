@@ -8,17 +8,10 @@ import java.util.HashMap;
  */
 public class Authentication {
     private Profile profileLoggedIn;
-
-    /**
-     * logOut() sets the profileLoggedIn to null so that the previous profile information is no longer accessed.
-     */
-    public void logOut(){
-        profileLoggedIn = null;
-    }
-
     /**
      * logIn(String username, String password)
-     * This method takes a provided username and password from the LogIn page and authenticates the LogIn credentials
+     * This method takes a provided username and password from the LogIn page and authenticates the LogIn credentials.
+     * When successfully logged in, profile's isOnline is set to true.
      * @param username String
      * @param password String
      * @return true if login is successful. Throws exceptions for incorrect username or password if
@@ -33,8 +26,16 @@ public class Authentication {
             }
             Profile profile = ProfileDatabase.getProfile(username);
             setProfileLoggedIn(profile);
+            profile.setOnline(true);
             return true;
         }
+    }
+
+    /**
+     * logOut() sets the profileLoggedIn to null so that the previous profile information is no longer accessed.
+     */
+    public void logOut(){
+        profileLoggedIn = null;
     }
 
     /**
@@ -44,7 +45,7 @@ public class Authentication {
      * @return true if the provided username is a username of an account.
      */
     public boolean authenticateUsername(String username){
-        HashMap profiles = ProfileDatabase.getProfiles();
+        HashMap<String, Profile> profiles = ProfileDatabase.getAllProfiles();
         return profiles.containsKey(username);
     }
 
@@ -55,9 +56,9 @@ public class Authentication {
      * @return true if password is correct. Returns false if incorrect.
      */
     public boolean authenticatePassword(String username, String password){
-        HashMap profiles = ProfileDatabase.getProfiles();
+        HashMap<String, Profile> profiles = ProfileDatabase.getAllProfiles();
         Profile profile = profiles.get(username);
-        //Include hashing algorithm used in Password
+        //Include hashing algorithm used in Password Creation in ProfileCreation
         if(profile.getHashedPassword().equals(password)){
             return true;
         } else {
