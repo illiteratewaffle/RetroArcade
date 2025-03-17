@@ -1,59 +1,75 @@
-# Server Controller - Design Plan
+# Server Controller - Design Plan (Updated)
 
 ## Overview
-The **Server Controller** is responsible for managing the core server-side operations of the online multiplayer board game platform. It acts as the central hub for handling client connections and game session management. The server runs continuously, listening for incoming player connections and facilitating session creation and management.
+The **Server Controller** acts as the central hub for managing game sessions and coordinating core server operations for the online multiplayer board game platform. It handles game session creation, player assignment, disconnections, and database interactions. Importantly, connection listening is delegated to the **Connection Manager**, allowing the Server Controller to focus solely on higher-level game logic and management tasks. Additionally, the Server Controller keeps track of every virtual thread associated with player connections and game sessions to manage lifecycle events and potential cleanup.
 
 ## Responsibilities
-- Accepts incoming client connections.
-- Spawns a **Virtual Thread** for each connected client to handle communication.
-- Manages **game session creation and destruction**.
-- Assigns players to game sessions upon request.
-- Handles **player disconnections and reconnections**, ensuring players are removed from game sessions appropriately.
-- Returns players to **Network Manager** after a game session ends.
-- Communicates with the **database layer** to retrieve and update player information after receiving requests from **Network Manager**.
-- Has **no direct message routing responsibilities**, aside from database-related operations.
-- All requests to the **Server Controller** must go through **Network Manager**.
+- **Game Session Management:**
+    - Create and manage game sessions.
+    - Assign players to game sessions upon request.
+    - Remove players from sessions once the game is complete.
+    - Return players to the Network Manager after a game session ends.
+
+- **Player Disconnections & Reconnections:**
+    - Handle player disconnections by removing them from active sessions.
+    - Manage player reconnections to either resume or safely terminate sessions.
+
+- **Database Integration:**
+    - Update match history and leaderboards after games.
+    - Validate authentication and retrieve player data when requested via the Network Manager.
+
+- **Thread Management:**
+    - Keep track of every virtual thread for each player connection (via Player Handlers).
+    - Monitor and manage virtual threads running game sessions.
+
+- **Delegation and Coordination:**
+    - Collaborate with the **Connection Manager** for new client connections.
+    - Process higher-level game logic while leaving low-level I/O tasks (such as connection handling) to specialized components.
 
 ## Key Components
-### 1. Connection Handling
-- Listens for new client connections.
-- Creates a Virtual Thread for each client connection.
-- Manages a list of active connections.
-- Works with **Player Handler** for encoding and decoding messages.
+### 1. Delegation from Connection Manager
+- **Integration with Connection Manager:**  
+  The Connection Manager accepts new client connections and delegates the corresponding Player Handlers to the Server Controller.
 
 ### 2. Game Session Management
-- Receives game session requests from **Network Manager**.
-- Assigns players to **new or existing game sessions**.
-- Transfers message routing responsibility to **Game Session Manager** once a session is created.
-- Removes players from game sessions once they finish playing.
-- Returns players to **Network Manager** after a session concludes.
-- Handles disconnections by either **pausing a session** (if reconnecting soon) or **ending it**.
+- **Session Creation:**  
+  Receives requests (e.g., "JOIN_GAME") from the Network Manager or Player Handlers, and pairs players to create new game sessions.
+
+- **Session Lifecycle:**  
+  Manages active game sessions, ensuring that game state is maintained, players are assigned appropriately, and sessions are terminated correctly.
 
 ### 3. Database Integration
-- Stores **match history** and updates leaderboards after games.
-- Handles **authentication validation** by checking login credentials.
-- Saves and retrieves **player reconnection data**.
-- Only interacts with the database when a request is sent via **Network Manager**.
+- **Match History & Leaderboards:**  
+  Interacts with the Database Connector to update game results and player statistics after a session ends.
+
+- **Authentication & Reconnection Data:**  
+  Validates player credentials and manages reconnection information when needed.
+
+### 4. Thread Management
+- **Player Threads:**  
+  Maintains a list (or mapping) of virtual threads for every Player Handler. This enables coordinated shutdown, error handling, or re-assignment if needed.
+
+- **Session Threads:**  
+  Keeps track of virtual threads for active game sessions, allowing the Server Controller to monitor session lifecycles and perform cleanup after a session ends.
 
 ## Functionality Breakdown
-| Function Name       | Description |
-|--------------------|-------------|
-| `startServer()`    | Initializes the server and listens for client connections. |
-| `handleClient(Socket client)` | Assigns a Virtual Thread to each connected client and listens for messages. |
-| `createGameSession(Player p1, Player p2)` | Creates a new game session when two players match. |
-| `assignToSession(Player player, GameSession session)` | Moves a player into an active game session. |
-| `removeFromSession(Player player)` | Removes a player from their game session after it ends. |
-| `returnToNetworkManager(Player player)` | Sends a player back to Network Manager after their session ends. |
-| `handleDisconnection(Player player)` | Manages player reconnection or removes them from the game. |
-| `updateDatabaseAfterGame(GameSession session)` | Updates the database with match history and leaderboard rankings. |
+| Function Name                              | Description |
+|--------------------------------------------|-------------|
+| `createGameSession(Player p1, Player p2)`  | Creates a new game session when two players are matched and registers its virtual thread. |
+| `assignToSession(Player player, GameSession session)` | Assigns a player to an active game session and updates their Player Handler accordingly. |
+| `removeFromSession(Player player)`         | Removes a player from their game session after the session ends, and updates the corresponding thread tracking. |
+| `returnToNetworkManager(Player player)`    | Delegates the player back to the Network Manager once their session concludes. |
+| `handleDisconnection(Player player)`       | Manages player disconnections, updating thread tracking and session state as needed. |
+| `updateDatabaseAfterGame(GameSession session)` | Updates the database with match history and leaderboard data following a completed game session. |
+| `registerPlayerThread(Thread t, Player player)` | Registers the virtual thread handling a player connection for lifecycle management. |
+| `registerSessionThread(Thread t, GameSession session)` | Registers the virtual thread running a game session for monitoring and cleanup. |
 
 ## Message Flow Example
-1. **Player A connects to the server.**
-2. **Server assigns a Virtual Thread and a Player Handler to handle Player A.**
-3. **Player A sends a request to join a game via Player Handler.**
-4. **Network Manager receives the request and forwards it to Server Controller.**
-5. **Server Controller checks for an available opponent and creates a Game Session.**
-6. **Game Session Manager takes over message routing for players in the session.**
-7. **Game completes, and the Server Controller removes players from the session.**
-8. **Server Controller returns players to Network Manager.**
-9. **Server Controller updates the database with match history.**
+1. **New Connection Delegation:**  
+   The **Connection Manager** accepts a new client connection, creates a Player Handler on a Virtual Thread, registers that thread with the Server Controller, and forwards the Player Handler.
+2. **Session Assignment:**  
+   Upon receiving a Player Handler, the Server Controller processes the "JOIN_GAME" request, pairs players, and creates a game session while registering the session's thread.
+3. **Game Session Management:**  
+   The Server Controller monitors the lifecycle of both player and session threads. When a session concludes, it removes the threads from its tracking list and returns players to the Network Manager.
+4. **Database Update:**  
+   Finally, the Server Controller updates match history and leaderboard data by interacting with the Database Connector.
