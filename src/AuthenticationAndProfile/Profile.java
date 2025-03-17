@@ -67,6 +67,18 @@ public class Profile {
         isOnline = online;
     }
 
+    public void getCurrentStatus() {
+        if (isOnline) {
+            if (currentGame != null) {
+                System.out.println("Online - Currently playing: " + currentGame);
+            } else {
+                System.out.println("Online");
+            }
+        } else {
+            System.out.println("Offline");
+        }
+    }
+
     public String getCurrentGame() {
         return currentGame;
     }
