@@ -4,32 +4,39 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 
+import javax.swing.*;
+import java.awt.event.MouseEvent;
+import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class TTTController implements Initializable {
 
-    // boolean flag alternating Xs and Os
-    boolean flag = true;
-
-    // boolean variable that board events must check to be true before executing
-    boolean isPlayable = true;
-
-    // booleanProperty to listen for server input by other player
-    BooleanProperty isYourTurn = new SimpleBooleanProperty(false);
-
-    // booleanProperty to listen for gameOver message
-    BooleanProperty isGameOver = new SimpleBooleanProperty(false);
-
     // FXML declarations
+    @FXML
+    public ImageView quit_image;
+    @FXML
+    public ImageView play_again;
+    @FXML
+    public ImageView check_circle;
+    @FXML
+    public ImageView X_circle;
     @FXML
     public ImageView Win_Lose_Banner;
     @FXML
@@ -76,52 +83,21 @@ public class TTTController implements Initializable {
     @FXML
     public GridPane gameBoard;
 
+    // boolean flag alternating Xs and Os
+    boolean flag = true;
+
+    // boolean variable that board events must check to be true before executing
+    boolean isPlayable = true;
+
+    // booleanProperty to listen for server input by other player
+    BooleanProperty isYourTurn = new SimpleBooleanProperty(false);
+
+    // booleanProperty to listen for gameOver message
+    BooleanProperty isGameOver = new SimpleBooleanProperty(false);
+
     // 2D Array for tracking board status
     Tile[][] board = new Tile[3][3];
 
-    /**
-     * gets the row and column index of game tile
-     * checks to make sure tile is empty before setting its piece
-     * sets array piece char and image of tile imageView
-     * @param row int
-     * @param col int
-     * @param imageView ImageView
-     */
-    private void setTile(int row, int col, ImageView imageView){
-        Image X = new Image("X.png");
-        Image O = new Image("O.png");
-        Image YOUWIN = new Image("YOU_WIN.png");
-
-        if (isPlayable) {
-            if (board[row][col].getPiece() == '-') {
-                if (flag) {
-                    board[row][col].setPiece('X');
-                    imageView.setImage(X);
-                } else {
-                    board[row][col].setPiece('O');
-                    imageView.setImage(O);
-                }
-                flag = !flag;
-            }
-            for (Tile[] tiles: board){
-                for (Tile tile: tiles){
-                    System.out.print(tile.getPiece());
-                }
-                System.out.println();
-            }
-            System.out.println();
-        }
-        if (board[0][0].getPiece() == board[1][1].getPiece() & board[1][1].getPiece() == board[2][2].getPiece() & board[0][0].getPiece() == board[2][2].getPiece()) {
-            Win_Lose_Banner.setImage(YOUWIN);
-
-        }
-    }
-
-    private void hoverEvent(StackPane stackPane, int row, int col){
-        if (board[row][col].getPiece() == '-'){
-            stackPane.setStyle("-fx-border-color: yellow; -fx-border-width: 3px; -fx-border-radius: 5px;");
-        }
-    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -130,6 +106,7 @@ public class TTTController implements Initializable {
         // set background and foreground images
         background_image.setImage(bg_image);
         board_image.setImage(b_image);
+        quit_image.setImage(new Image("quit_x.png"));
 
         // initialize board tile chars to empty
         for (int i = 0; i < 3; i++){
@@ -137,35 +114,6 @@ public class TTTController implements Initializable {
                 board[i][j] = new Tile('-', i, j);
             }
         }
-
-        /*
-         * event listener for boolean value change in isYourTurn
-         * when changed, should check if value is now your turn
-         * if not, do nothing
-         * if isYourTurn, make board playable---
-         * *suggestion*
-         * may require a new boolean variable--isPlayable--
-         * that the board requires be true in order for any event to be executed
-         * isPlayable should be set true after isYourTurn is changed to true
-         * set to false after a move has been made locally
-         */
-        isYourTurn.addListener(new ChangeListener<Boolean>() {
-            @Override
-            public void changed(ObservableValue<? extends Boolean> observableValue, Boolean aBoolean, Boolean t1) {
-                if (isYourTurn.get()) {
-                    isPlayable = true;
-                }
-            }
-        });
-
-        isGameOver.addListener(new ChangeListener<Boolean>() {
-            @Override
-            public void changed(ObservableValue<? extends Boolean> observableValue, Boolean aBoolean, Boolean t1) {
-                if (isGameOver.get()){
-
-                }
-            }
-        });
 
 
         /*
@@ -234,5 +182,83 @@ public class TTTController implements Initializable {
         });
         Tile_2_2.setOnMouseEntered(event -> hoverEvent(TileBorder_2_2, 2, 2));
         Tile_2_2.setOnMouseExited(event -> TileBorder_2_2.setStyle("-fx-border-color: transparent;"));
+    }
+
+    /**
+     * gets the row and column index of game tile
+     * checks to make sure tile is empty before setting its piece
+     * sets array piece char and image of tile imageView
+     * @param row int
+     * @param col int
+     * @param imageView ImageView
+     */
+    private void setTile(int row, int col, ImageView imageView){
+        Image X = new Image("X.png");
+        Image O = new Image("O.png");
+        Image YOUWIN = new Image("YOU_WIN.png");
+        Image play_again_image = new Image("Play_Again.png");
+        Image check_image = new Image("check_circle.png");
+        Image X_image = new Image("X_circle.png");
+
+        if (isPlayable) {
+            if (board[row][col].getPiece() == '-') {
+                if (flag) {
+                    board[row][col].setPiece('X');
+                    imageView.setImage(X);
+                } else {
+                    board[row][col].setPiece('O');
+                    imageView.setImage(O);
+                }
+                flag = !flag;
+            }
+            for (Tile[] tiles: board){
+                for (Tile tile: tiles){
+                    System.out.print(tile.getPiece());
+                }
+                System.out.println();
+            }
+            System.out.println();
+        }
+        if (isWon(board)) {
+            Win_Lose_Banner.setImage(YOUWIN);
+            isGameOver.set(true);
+            play_again.setImage(play_again_image);
+            check_circle.setImage(check_image);
+            X_circle.setImage(X_image);
+        }
+    }
+
+    private void hoverEvent(StackPane stackPane, int row, int col){
+        if (board[row][col].getPiece() == '-'){
+            stackPane.setStyle("-fx-border-color: yellow; -fx-border-width: 3px; -fx-border-radius: 5px;");
+        }
+    }
+
+    private  boolean isWon(Tile[][] board){
+        return true;
+    }
+
+    /*
+    triggered by x button click
+    prompts for confirmation
+    returns user to game menu
+    should also forfeit active matches
+     */
+    public void quit_TTT() throws IOException {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        ButtonType yesButton = new ButtonType("Yes");
+        alert.getButtonTypes().set(0, yesButton);
+        alert.setHeaderText("Quit Game?\nYou will forfeit active matches.");
+        alert.setContentText("Click YES to quit");
+        Optional<ButtonType> result = alert.showAndWait();
+
+        if(result.isPresent() && result.get() == yesButton){
+            Parent root = FXMLLoader.load(getClass().getResource("gameMenu.fxml"));
+
+            Stage stage = (Stage) gameBoard.getScene().getWindow();
+
+            stage.setScene(new Scene(root));
+            stage.show();
+        }
     }
 }
