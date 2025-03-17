@@ -32,9 +32,10 @@ public class Authentication {
     }
 
     /**
-     * logOut() sets the profileLoggedIn to null so that the previous profile information is no longer accessed.
+     * logOut() Sets profile's isOnline to false and sets the profileLoggedIn to null so that the previous profile information is no longer accessed.
      */
     public void logOut(){
+        getProfileLoggedIn().setOnline(false);
         profileLoggedIn = null;
     }
 
