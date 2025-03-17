@@ -1,13 +1,19 @@
 package AuthenticationAndProfile;
 
 import java.util.HashMap;
-
 /**
  * Authentication Class handles Profile Login and Logout
  * @author Alessia Flaig
  */
 public class Authentication {
     private Profile profileLoggedIn;
+
+    /**
+     * Constructor to be created when program runs?
+     */
+    public Authentication() {
+
+    }
     /**
      * logIn(String username, String password)
      * This method takes a provided username and password from the LogIn page and authenticates the LogIn credentials.

@@ -8,7 +8,7 @@ import java.util.HashMap;
  * @author Alessia Flaig
  */
 public class ProfileDatabase {
-    private static ProfileEmailSet<String> profileEmailSet;
+    private static ProfileEmailSet<String> profileEmailSet = new ProfileEmailSet<>();
     private static HashMap<String, Profile> profiles = new HashMap<String, Profile>();
     private Leaderboard leaderboard = new Leaderboard();
 
@@ -36,6 +36,7 @@ public class ProfileDatabase {
     public static void removeProfile(String username){
         profileEmailSet.removeEmail(profiles.get(username).getEmail());
         profiles.remove(username);
+        //May need to handle logging off of the profile back to the main menu?
     }
 
     /**
@@ -73,16 +74,28 @@ public class ProfileDatabase {
     /**
      * Method to obtain the Leaderboard from ranks of all profiles in the database.
      */
-    public static Leaderboard viewLeaderboard() {
-
+    public static Leaderboard getLeaderboardInfo() {
+        //Need to figure out how leaderboard is stored*********
+        //Guess:
+//        for (int i = 0 ; i < leaderboard.length(); i ++){    //go through length of leaderboard, and get the profile for each rank
+//            Profile profile = getProfile(leaderboard[i]);
+//            profile.getWinLossRatio();
+//            profile.getNickname();
+//        }
     }
 
     /**
      * Method to obtain the Leaderboard consisting of only a profile's Friends List.
      * @return
      */
-    public static Leaderboard viewLeaderboard(Profile profile, FriendsList friendsList){
-
+    public static Leaderboard viewFriendLeaderboard(Profile profile, FriendsList friendsList){
+//        Leaderboard leaderboard = new Leaderboard();
+//        for (int i = 0; i < friendsList.length(); i ++) {
+//            Profile profile = getProfile(friendsList[i]);
+//            profile.getWinLossRatio();
+//            profile.getNickname();
+//              leaderboard.add(profile);
+//        }
     }
 
     /**
@@ -101,11 +114,19 @@ public class ProfileDatabase {
     }
 
     /**
+     * Removes email from profileEmailSet.
+     * @param email
+     */
+    public static void removeEmailFromDatabase(String email){
+        profileEmailSet.removeEmail(email);
+    }
+
+    /**
      * ProfileEmailSet Class for the HashSet ProfileEmailSet to access all emails currently associated with an account.
      * @author Alessia Flaig
      */
     private static class ProfileEmailSet<String> {
-        private HashSet<String> profileEmailSet = new HashSet<String>();
+        private HashSet<String> profileEmailHashSet = new HashSet<String>();
 
         public ProfileEmailSet() {
         }
@@ -117,7 +138,7 @@ public class ProfileDatabase {
          * Returns false if email is already associated with an account in the database.
          */
         public boolean isValidEmail(String email){
-            return !profileEmailSet.contains(email);
+            return !profileEmailHashSet.contains(email);
         }
 
         /**
@@ -125,7 +146,7 @@ public class ProfileDatabase {
          * @param email String
          */
         public void removeEmail(String email){
-            profileEmailSet.remove(email);
+            profileEmailHashSet.remove(email);
         }
 
         /**
@@ -133,7 +154,7 @@ public class ProfileDatabase {
          * @param email
          */
         public void addEmail(String email){
-            profileEmailSet.add(email);
+            profileEmailHashSet.add(email);
         }
     }
 }

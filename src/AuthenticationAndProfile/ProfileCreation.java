@@ -38,4 +38,14 @@ public class ProfileCreation {
 
     }
 
+    /**
+     * Method to delete the profile currently logged inm from the ProfileDatabase and then log them out.
+     * @param authenticationSession
+     */
+    private static void deleteProfile(Authentication authenticationSession){
+        ProfileDatabase.removeEmailFromDatabase(authenticationSession.getProfileLoggedIn().getEmail());
+        ProfileDatabase.removeProfile(authenticationSession.getProfileLoggedIn().getUsername());
+        authenticationSession.logOut();
+    }
+
 }
