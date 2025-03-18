@@ -24,6 +24,12 @@ public class Authentication {
      * login fails.
      */
     public boolean logIn(String username, String password) throws Exception{
+        //NEW: call databaseConnector method to find profile with matching username and password
+        //hash algorithm on password
+        //send hashedPassword with username for database querie -> returns profile with database profile info
+        //if correct logs in
+        //pull Profile object - or build with csv info?
+        //update isOnline and update database with push/profileExtraction method?
         if (!authenticateUsername(username)){
             throw new Exception("Invalid Username.");
         } else {
@@ -41,6 +47,8 @@ public class Authentication {
      * logOut() Sets profile's isOnline to false and sets the profileLoggedIn to null so that the previous profile information is no longer accessed.
      */
     public void logOut(){
+        //push update for setOnline
+        //change local profile
         getProfileLoggedIn().setOnline(false);
         profileLoggedIn = null;
     }
@@ -52,6 +60,7 @@ public class Authentication {
      * @return true if the provided username is a username of an account.
      */
     public boolean authenticateUsername(String username){
+        //might no longer be needed if queries pull entire row of profile info
         HashMap<String, Profile> profiles = ProfileDatabase.getAllProfiles();
         return profiles.containsKey(username);
     }
