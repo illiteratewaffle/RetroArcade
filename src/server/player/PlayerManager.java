@@ -9,13 +9,38 @@ public class PlayerManager {
 
     /**
      * Registers a player by creating a new player tuple within the player relation in the db
+     * @param email
+     * @param hashedPassword
+     * @param nickname
+     * @param bio
+     * @param isOnline
+     * @param currentGame
+     * @param winLossRatio
      * @param username
-     * @param passwordHash
      * @return
      */
-    public static boolean registerPlayer(String username, String passwordHash) {
-        // register player code
-        return false;
+    public static boolean registerPlayer(String email, String hashedPassword, String nickname,
+                                         String bio, boolean isOnline, String currentGame,
+                                         double winLossRatio, String username) {
+        String query = "INSERT INTO profiles (email, hashed_password, nickname, bio, is_online, current_game, win_loss_ratio, username) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+
+        try (PreparedStatement statement = conn.prepareStatement(query)) {
+            statement.setString(1, email);
+            statement.setString(2, hashedPassword);
+            statement.setString(3, nickname);
+            statement.setString(4, bio);
+            statement.setBoolean(5, isOnline);
+            statement.setString(6, currentGame);
+            statement.setDouble(7, winLossRatio);
+            statement.setString(8, username);
+
+            int rowsAffected = statement.executeUpdate();
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            System.err.println("Error inserting new player into database: " + e.getMessage());
+            return false;
+        }
     }
 
     /**
@@ -38,5 +63,4 @@ public class PlayerManager {
         // retrieve playerID by username code
         return 0;
     }
-
 }
