@@ -19,6 +19,31 @@ public class ProfileDatabase {
 
     }
 
+    public Profile obtainProfile(long id){
+        //call method to get csv for id
+
+    }
+
+
+    public FriendsList obtainFriendsList(long id){
+        //call method to get csv for id
+    }
+
+    public PlayerRanking obtainPlayerRanking(long id) {
+        //call method to get csv for id
+
+    }
+
+    public GameHistory obtainGameHistory(long id) {
+        //call method to get csv for id
+        //for loop to go through csv for attributes
+        GameHistory gameHistory = new GameHistory();
+    }
+
+
+
+
+
     /**
      * addProfile(String username, Profile profile) adds the username key and its associated profile to the HashMap of all
      * registered accounts.
