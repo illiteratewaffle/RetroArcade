@@ -21,8 +21,24 @@ public class Leaderboard {
 
     }
 
-    public ArrayList<Profile> sortPlayers() {
+    public ArrayList<Profile> sortByRating() {
+        // get the list of players from database, strip the players' rating
 
+        //sort()
+        return rankings;
+    }
+
+    public ArrayList<Profile> sortByWLR() {
+        // get the list of players from database, strip the players' rating
+
+        //sort()
+        return rankings;
+    }
+
+    public ArrayList<Profile> sortByWins() {
+        // get the list of players from database, strip the players' rating
+
+        //sort()
         return rankings;
     }
 
@@ -44,5 +60,31 @@ public class Leaderboard {
     public ArrayList<Profile> filterFriends(ArrayList<Profile> friendList){
 
         return rankings;
+    }
+
+    /**
+     * Sorts an array list of integers
+     *
+     * References:
+     * Learned how to sort a list of numbers using bubble sort from:
+     * https://www.geeksforgeeks.org/bubble-sort-algorithm/
+     *
+     * @param original
+     * @return
+     */
+    private ArrayList<Integer> sort(ArrayList<Integer> original) {
+        ArrayList<Integer> sorted = new ArrayList<Integer>();
+        int listSize = original.size();
+        for (int i = 0; i < listSize-1; i++){
+            for(int j = 0; j < listSize-i-1; j++){
+                if(original.get(j) < original.get(j+1)) {
+                    int temp = original.get(j);
+                    sorted.set(j, original.get(j+1));
+                    sorted.set(j+1, temp);
+                }
+            }
+        }
+
+        return sorted;
     }
 }
