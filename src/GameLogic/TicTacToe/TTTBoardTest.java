@@ -1,4 +1,4 @@
-package gamelogic.tictactoe;
+package GameLogic.TicTacToe;
 
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;

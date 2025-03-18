@@ -1,6 +1,6 @@
-package gamelogic.tictactoe;
+package GameLogic.TicTacToe;
 
-import gamelogic.AbstractBoard;
+import GameLogic.*;
 
 /**
  * Represents a Tic-Tac-Toe board.
@@ -12,8 +12,8 @@ public class TTTBoard extends AbstractBoard {
     /**
      * Constructor initializes a 3x3 Tic-Tac-Toe board.
      */
-    public TTTBoard() {
-        super(3, 3, new int[3][3]);  // Passes a blank 3x3 int array to AbstractBoard
+    public TTTBoard(int rows, int cols) {
+        super(rows, cols, new int[rows][cols]);  // Passes a blank 3x3 int array to AbstractBoard
     }
 
     /**

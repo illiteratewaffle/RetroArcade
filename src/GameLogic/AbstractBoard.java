@@ -1,4 +1,4 @@
-package gamelogic;
+package GameLogic;
 
 /**
  * AbstractBoard class to be implemented by other GameBoard classes with standard functions that all boards should be able to do.
