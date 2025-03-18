@@ -1,15 +1,17 @@
 package leaderboard;
 
+import AuthenticationAndProfile.Profile;
+
 import java.util.ArrayList;
 
 public class Leaderboard {
-    private ArrayList<String> rankings;
+    private ArrayList<Profile> rankings;
 
     public Leaderboard() {
 
     }
 
-    public ArrayList<String> getTopPlayers(){
+    public ArrayList<Profile> getTopPlayers(){
 
         return rankings;
     }
@@ -18,22 +20,22 @@ public class Leaderboard {
 
     }
 
-    public ArrayList<String> sortPlayers() {
+    public ArrayList<Profile> sortPlayers() {
 
         return rankings;
     }
 
-    public ArrayList<String> toggleSortOrder(){
+    public ArrayList<Profile> toggleSortOrder(){
 
         return rankings;
     }
 
-    public ArrayList<String> searchPlayer(String username){
+    public ArrayList<Profile> searchPlayer(String username){
 
         return rankings;
     }
 
-    public ArrayList<String> filterFriends(ArrayList<String> friendList){
+    public ArrayList<Profile> filterFriends(ArrayList<Profile> friendList){
 
         return rankings;
     }
