@@ -75,6 +75,7 @@ public class Leaderboard {
      * Returns the sorted array list.
      *
      * References:
+     * Never learned how to sort things so...
      * Learned how to sort a list of numbers using bubble sort from:
      * https://www.geeksforgeeks.org/bubble-sort-algorithm/
      *
