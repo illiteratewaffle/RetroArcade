@@ -12,7 +12,7 @@ class TTTBoardTest {
 
     @BeforeEach
     void setUp() {
-        board = new TTTBoard();
+        board = new TTTBoard(3, 3);
     }
 
     @Test
