@@ -23,28 +23,29 @@ public abstract class AbstractBoard {
     }
 
     /**
-     * setPiece function to set a spot on the board to a user-defined piece.
-     * @param row the row which the piece should be set at.
-     * @param col the column which the piece should be set at.
+     * sets a spot on the board represented by an xy-coordinate to a user-defined piece.
+     * x represents the horizontal component (column index) of the location.<br>
+     * y represents the vertical component (row index) of the location.
+     * @param point the coordinate point which the piece should be set at.
      * @param piece the type of piece that should be set at the location.
      */
-    public void setPiece(int row, int col, int piece) {
-        board[row][col] = piece;
+    public void setPiece(ivec2 point, int piece) {
+        board[point.y][point.x] = piece;
     }
 
     /**
-     * returns the current piece at the designated row/column location.
-     * @param row the row of the current piece to be returned.
-     * @param col the column of the current piece to be returned.
-     * @return piece at board[row][column]
+     * gets the current piece at the designated xy-coordinate.<br>
+     * x represents the horizontal component (column index) of the location.<br>
+     * y represents the vertical component (row index) of the location.
+     * @param point the coordinate point of the current piece to be returned.
+     * @return piece at board[y][x]
      */
-    public int getPiece(int row, int col) {
-        return board[row][col];
+    public int getPiece(ivec2 point) {
+        return board[point.y][point.x];
     }
 
     /**
-     *returns the current board as a 2d int array.
-     * @return board
+     * @return the current board as a 2d int array.
      */
     public int[][] getBoard() {
         return board;

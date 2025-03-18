@@ -1,7 +1,8 @@
 package GameLogic.Checkers;
+import GameLogic.ivec2;
 
 public class CheckersMove {
-    private int StartCord;
-    private int TargetCord;
-    private int CaptureCord;
+    private ivec2 StartCord;
+    private ivec2 TargetCord;
+    private ivec2 CaptureCord;
 }

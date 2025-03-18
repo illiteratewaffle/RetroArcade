@@ -1,63 +1,101 @@
 package GameLogic.Checkers;
-import GameLogic.AbstractBoard;
 
-/**
- * CheckersBoard state machine implementation
- *
- * Author: Ryan Hashemian ~ Game Logic
- */
-public class CheckersBoard extends AbstractBoard {
+import GameLogic.*;
+import java.util.HashSet;
+
+// inherits from Resources.AbstractBoard.java
+public class CheckersBoard extends AbstractBoard
+{
+    // To-do: Add comparison methods (and other basic addition operations) to ivec2.
+    private HashSet<ivec2> P1PieceLocations = new HashSet<>();
+    private HashSet<ivec2> P2PieceLocations = new HashSet<>();
+
+
+    public CheckersBoard(int rows, int cols, int[][] board)
+    {
+        super(rows, cols, board);
+        // Iterate through all the tiles and seek out the location of pieces of each player.
+        for (int x = 0; x < cols; x++)
+        {
+            for (int y = 0; y < rows; y++)
+            {
+                ivec2 point = new ivec2(x, y);
+                int PieceID = getPiece(point);
+                if (PieceID != 0)
+                {
+                    if (PieceID == CheckersPiece.P1PAWN.ordinal() || PieceID == CheckersPiece.P1KING.ordinal())
+                    {
+                        P1PieceLocations.add(point);
+                    }
+                    if (PieceID == CheckersPiece.P2PAWN.ordinal() || PieceID == CheckersPiece.P2KING.ordinal())
+                    {
+                        P2PieceLocations.add(point);
+                    }
+                }
+            }
+        }
+    }
+
 
     /**
-     * Constructor to initialize the Checkers board.
-     * @param rows the number of rows in the board
-     * @param columns the number of columns in the board
-     * @param board the 2D integer array representing the board
+     * @return A read-only set of coordinates where P1 pieces are stored at.
      */
-    public CheckersBoard(int rows, int columns, int[][] board) {
-        super(rows, columns, board); // refer to parent class
+    public final HashSet<ivec2> getP1PieceLocations()
+    {
+        return P1PieceLocations;
     }
 
     /**
-     * Sets a piece on the board.
-     * @param row the row index
-     * @param column the column index
-     * @param piece the piece to set
+     * @return A read-only set of coordinates where P2 pieces are stored at.
      */
+    public final HashSet<ivec2> getP2PieceLocations()
+    {
+        return P2PieceLocations;
+    }
+
     @Override
-    public void setPiece(int row, int column, int piece) {
-        int[][] board = this.getBoard();
-        board[row][column] = piece;
+    public void setPiece(ivec2 point, int piece)
+    {
+        int OldPieceID = getPiece(point);
+        // If the value of the tile is changed, we may need to update the location sets.
+        if (OldPieceID != piece)
+        {
+            // The tile previously holds a P1 piece, which is now removed.
+            if (OldPieceID == CheckersPiece.P1PAWN.ordinal() || OldPieceID == CheckersPiece.P1KING.ordinal())
+            {
+                P1PieceLocations.remove(point);
+            }
+            // The tile previously holds a P2 piece, which is now removed.
+            else if (OldPieceID == CheckersPiece.P2PAWN.ordinal() || OldPieceID == CheckersPiece.P2KING.ordinal())
+            {
+                P2PieceLocations.remove(point);
+            }
+
+            // A new P1 piece is added in its place.
+            if (piece == CheckersPiece.P1PAWN.ordinal() || piece == CheckersPiece.P1KING.ordinal())
+            {
+                P1PieceLocations.add(point);
+            }
+            // A new P2 piece is added in its place.
+            else if (piece == CheckersPiece.P2PAWN.ordinal() || piece == CheckersPiece.P2KING.ordinal())
+            {
+                P2PieceLocations.add(point);
+            }
+
+            // We do not consider any other situations.
+        }
+        super.setPiece(point, piece);
     }
 
-    /**
-     * Gets the piece at the specified position.
-     * @param row the row index
-     * @param column the column index
-     * @return the piece flag at the given location
-     */
-    @Override
-    public int getPiece(int row, int column) {
-        int[][] board = this.getBoard();
-        int piece = board[row][column];
-
-        return CheckersPiece.P1PAWN.ordinal(); //
-    }
 
     /**
-     * Returns the current board state.
-     * @return the 2D board array
+     * Perform a sequence of set operations that would alter the pieces on several tiles
+     * to mimic the effect of a move in checkers.
+     * @param move The move to perform.
      */
-    @Override
-    public int[][] getBoard() {
-        return new int[7][7];
-    }
-
-    /**
-     * Makes a move based on player input
-     * @param move
-     */
-    public void makeMove(CheckersMove move) {
-        // for GUI and networking???
+    public void MakeMove(CheckersMove move)
+    {
+        // Perform the relevant sets, as dictated by the move.
+        return;
     }
 }
