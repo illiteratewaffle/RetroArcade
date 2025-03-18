@@ -1,6 +1,5 @@
 package GameLogic.Checkers;
 
-
 public enum GameState {
     ONGOING,
     P1WIN,

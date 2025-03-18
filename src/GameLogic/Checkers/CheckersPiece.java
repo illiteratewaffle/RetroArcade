@@ -1,6 +1,5 @@
 package GameLogic.Checkers;
 
-
 public enum CheckersPiece {
     NONE,
     P1PAWN,
