@@ -43,7 +43,7 @@ public class CheckersController implements IBoardGameController
     private void AddPieceMoves(ivec2 PieceLocation)
     {
         // To do: add a method to convert from an integer to a checkers piece enum value.
-        int PieceID = Board.getPiece(PieceLocation.y, PieceLocation.x);
+        int PieceID = Board.getPiece(PieceLocation);
         // Hashset to temporarily store the valid moves of this piece.
         HashSet<CheckersMove> PieceValidMoves = new HashSet<>();
 

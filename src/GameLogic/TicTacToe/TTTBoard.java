@@ -18,14 +18,13 @@ public class TTTBoard extends AbstractBoard {
 
     /**
      * Places a piece on the board if the move is valid.
-     * @param row the row where the piece is placed
-     * @param col the column where the piece is placed
+     * @param point the 2D coordinate (x, y) (or (column, row)) where the piece is placed.
      * @param piece the TTTPiece to place (X or O)
      * @return true if the move was successful, false if the spot was already occupied
      */
-    public boolean placePiece(int row, int col, TTTPiece piece) {
-        if (getPiece(row, col) == 0) {  // Check if the space is empty
-            setPiece(row, col, piece.getValue());  // Convert TTTPiece to int
+    public boolean placePiece(ivec2 point, TTTPiece piece) {
+        if (getPiece(point) == 0) {  // Check if the space is empty
+            setPiece(point, piece.getValue());  // Convert TTTPiece to int
             return true;
         }
         return false;  // Spot already taken
@@ -64,9 +63,9 @@ public class TTTBoard extends AbstractBoard {
      * @return true if the board is full, false otherwise
      */
     public boolean isFull() {
-        for (int row = 0; row < 3; row++) {
-            for (int col = 0; col < 3; col++) {
-                if (getPiece(row, col) == 0) {  // If any cell is empty, board is not full
+        for (int x = 0; x < 3; x++) {
+            for (int y = 0; y < 3; y++) {
+                if (getPiece(new ivec2(x, y)) == 0) {  // If any cell is empty, board is not full
                     return false;
                 }
             }

@@ -15,20 +15,21 @@ public class CheckersBoard extends AbstractBoard
     {
         super(rows, cols, board);
         // Iterate through all the tiles and seek out the location of pieces of each player.
-        for (int r = 0; r < rows; r++)
+        for (int x = 0; x < cols; x++)
         {
-            for (int c = 0; c < cols; c++)
+            for (int y = 0; y < rows; y++)
             {
-                int PieceID = getPiece(r, c);
+                ivec2 point = new ivec2(x, y);
+                int PieceID = getPiece(point);
                 if (PieceID != 0)
                 {
                     if (PieceID == CheckersPiece.P1PAWN.ordinal() || PieceID == CheckersPiece.P1KING.ordinal())
                     {
-                        P1PieceLocations.add(new ivec2(c, r));
+                        P1PieceLocations.add(point);
                     }
                     if (PieceID == CheckersPiece.P2PAWN.ordinal() || PieceID == CheckersPiece.P2KING.ordinal())
                     {
-                        P2PieceLocations.add(new ivec2(c, r));
+                        P2PieceLocations.add(point);
                     }
                 }
             }
@@ -53,37 +54,37 @@ public class CheckersBoard extends AbstractBoard
     }
 
     @Override
-    public void setPiece(int row, int col, int piece)
+    public void setPiece(ivec2 point, int piece)
     {
-        int OldPieceID = getPiece(row, col);
+        int OldPieceID = getPiece(point);
         // If the value of the tile is changed, we may need to update the location sets.
         if (OldPieceID != piece)
         {
             // The tile previously holds a P1 piece, which is now removed.
             if (OldPieceID == CheckersPiece.P1PAWN.ordinal() || OldPieceID == CheckersPiece.P1KING.ordinal())
             {
-                P1PieceLocations.remove(new ivec2(col, row));
+                P1PieceLocations.remove(point);
             }
             // The tile previously holds a P2 piece, which is now removed.
             else if (OldPieceID == CheckersPiece.P2PAWN.ordinal() || OldPieceID == CheckersPiece.P2KING.ordinal())
             {
-                P2PieceLocations.remove(new ivec2(col, row));
+                P2PieceLocations.remove(point);
             }
 
             // A new P1 piece is added in its place.
             if (piece == CheckersPiece.P1PAWN.ordinal() || piece == CheckersPiece.P1KING.ordinal())
             {
-                P1PieceLocations.add(new ivec2(col, row));
+                P1PieceLocations.add(point);
             }
             // A new P2 piece is added in its place.
             else if (piece == CheckersPiece.P2PAWN.ordinal() || piece == CheckersPiece.P2KING.ordinal())
             {
-                P2PieceLocations.add(new ivec2(col, row));
+                P2PieceLocations.add(point);
             }
 
             // We do not consider any other situations.
         }
-        super.setPiece(row, col, piece);
+        super.setPiece(point, piece);
     }
 
 
