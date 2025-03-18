@@ -8,6 +8,14 @@ import java.util.Collections;
 public class Leaderboard {
     private ArrayList<Profile> rankings;
 
+    /**
+     * HERE FOR CODING/TEST PURPOSES ONLY. TO BE DELETED WHEN MERGING
+     * @param args
+     */
+    public static void main(String[] args) {
+
+    }
+
     public Leaderboard() {
 
     }
@@ -63,7 +71,8 @@ public class Leaderboard {
     }
 
     /**
-     * Sorts an array list of integers
+     * Sorts an array list of integers.
+     * Returns the sorted array list.
      *
      * References:
      * Learned how to sort a list of numbers using bubble sort from:
