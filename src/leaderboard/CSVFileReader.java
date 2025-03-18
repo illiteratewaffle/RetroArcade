@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class CSVFileReader {
-    private static final String FILEPATH = "profiles.csv"; //change this depending on where .csv is exported to
+    private static final String FILEPATH = "src/leaderboard/profiles.csv"; //change this depending on where .csv is exported to
 
     /*
     ID: index 0
@@ -18,6 +18,10 @@ public class CSVFileReader {
     private static final int WLR_INDEX = 11;
     private static final int RATING_INDEX = 12;
     private static final int WINS_INDEX = 14;
+
+    public static void main(String[] args) {
+        ArrayList<Object> fields = openFile();
+    }
 
     /**
      * Opens CSV file (from networking): A list of all profiles and their information
