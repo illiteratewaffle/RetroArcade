@@ -1,7 +1,7 @@
 package GameLogic.Connect4;
 
 public class C4Board {
-    private C4Piece[][] c4Board;
+    private static C4Piece[][] c4Board;
 
     /**
      * Creates a blank board as an initial setup of the board for users
@@ -30,7 +30,7 @@ public class C4Board {
      * Gets the current state of the game represented by a 2-D array.
      * @return 2-D array of the board.
      */
-    C4Piece[][] getC4Board() {
+    static C4Piece[][] getC4Board() {
         return c4Board;
     }
 

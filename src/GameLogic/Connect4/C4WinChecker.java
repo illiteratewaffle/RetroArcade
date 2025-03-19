@@ -1,6 +1,7 @@
 package GameLogic.Connect4;
 
 public class C4WinChecker {
+
     private C4WinChecker() {
     }
 
@@ -34,6 +35,21 @@ public class C4WinChecker {
      * @return true if a horizontal win is detected, false otherwise.
      */
     private static boolean checkC4Horizontal(int row, int col, C4Piece piece) {
+        if (piece == C4Piece.BLANK) return false;           // Ignores if it's a blank piece.
+
+        C4Piece[][] board = C4Board.getC4Board();           // Get the board's 2-d array.
+        int pieceCount = 0;                                 // Keeps track of the number of the piece we get in a row.
+
+        for (row = 0; row < board.length; row++) {
+            for (col = 0; col < board[0].length; col++) {   // Go through all the rows and columns.
+                if (board[row][col] == piece) {
+                    pieceCount++;                           // Add to pieceCounter if there is a piece (same) one after the other.
+                    if (pieceCount >= 4) return true;       // If there are at least 4 pieces in a row, return true.
+                } else {
+                    pieceCount = 0;                         // Otherwise reset pieceCount to 0.
+                }
+            }
+        }
         return false;
     }
 
@@ -45,6 +61,23 @@ public class C4WinChecker {
      * @return true if a vertical win is detected, false otherwise.
      */
     private static boolean checkC4Vertical(int row, int col, C4Piece piece) {
+        if (piece == C4Piece.BLANK) return false;   // Ignore blank spaces.
+
+        C4Piece[][] board = C4Board.getC4Board();   // Get board state.
+        int count = 0;
+        col = 0;
+
+        for (int r = row; r < board.length; r++) {  // Go through the rows in the board.
+            if (board[r][col] == piece) {           // Check if there is a piece at the specified column.
+                count++;                            // If there is, increment the piece counter.
+                if (count >= 4) return true;        // If there is more than 4 consecutive pieces in a column, return true.
+            } else {
+                col += 1;                           // Increment column number
+                count = 0;                          // Otherwise reset the counter to 0 because we don't want to add a counter
+                                                    // whenever there is a matching piece in a column; it has to be consecutive.
+            }
+        }
+
         return false;
     }
 
