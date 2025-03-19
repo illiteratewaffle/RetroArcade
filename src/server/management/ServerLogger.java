@@ -16,8 +16,11 @@ public class ServerLogger {
     private static PrintWriter writer;
     private static String filename = "logs_" + ZonedDateTime.now(java.time.ZoneId.systemDefault()).format(DateTimeFormatter.ISO_LOCAL_DATE);
 
-    // This could be contained in a method that starts the PrintWriter if preferred later
-    static {
+    /**
+     * Starts the ServerLogger!
+     */
+    public static void startServerLogger() {
+        updateFilename();
         createPrintWriter();
     }
 
@@ -31,7 +34,7 @@ public class ServerLogger {
             // Create the writer object
             writer = new PrintWriter(new FileWriter(DIR + "\\" + filename, true));
             // Ensures the log file is saved properly if the server crashes or closed incorrectly
-            Runtime.getRuntime().addShutdownHook(new Thread(ServerLogger::close));
+            Runtime.getRuntime().addShutdownHook(new Thread(ServerLogger::closeServerLogger));
         } catch (IOException e) {
             // This should be changed later to be more robust
             e.printStackTrace();
@@ -47,7 +50,7 @@ public class ServerLogger {
         // If the filenames do not match, update the filename, close the old log file and create a new one
         if (!filename.equals(updatedFilename)) {
             filename = updatedFilename;
-            close();
+            closeServerLogger();
             createPrintWriter();
         }
     }
@@ -69,6 +72,7 @@ public class ServerLogger {
         System.out.println(string);
 
         // Log the information in to a text file
+        updateFilename();
         if (writer != null) {
             writer.println(string);
             // Ensure immediate writing
@@ -79,11 +83,19 @@ public class ServerLogger {
     /**
      * This function closes the PrintWriter.
      */
-    public static synchronized void close() {
+    public static synchronized void closeServerLogger() {
         // Check that the writer is not null
         if (writer != null) {
             writer.close();
             writer = null;
         }
+    }
+
+    /**
+     * Get the DIR
+     * @return the directory that the logs will be in
+     */
+    public static String getDIR() {
+        return DIR;
     }
 }
