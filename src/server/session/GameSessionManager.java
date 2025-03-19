@@ -1,4 +1,7 @@
-package server;
+package server.session;
+
+import server.player.Player;
+import server.management.ThreadMessage;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ConcurrentHashMap;
@@ -10,7 +13,7 @@ public class GameSessionManager implements Runnable{
     private final Player player2; 
     
     private final IBoardGameController gameController; 
-    private final ConcurrentHashMap<Thread, BlockingQueue<ThreadMessage>> queue; 
+    private final ConcurrentHashMap<Thread, BlockingQueue<ThreadMessage>> queue;
     
 
     /**

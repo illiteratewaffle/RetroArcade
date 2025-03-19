@@ -1,4 +1,6 @@
-package server;
+package client;
+import server.player.PlayerHandler;
+
 import java.io.IOException;
 import java.net.Socket;
 

@@ -1,4 +1,4 @@
-package server;
+package server.player;
 
 /**
  * This class will be used to hold information about connected players including the Thread they are on

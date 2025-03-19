@@ -1,8 +1,7 @@
-package server;
+package server.database;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.sql.*;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
 
@@ -38,6 +37,7 @@ public class databaseConnector {
     public static Connection connect() {
         if (connection == null) {
             try {
+                databaseConnector.loadConfiguration("db-config-test.properties");
                 connection = DriverManager.getConnection(URL, USER, PASSWORD);
                 System.out.println("Connected to the database.");
             } catch (SQLException e) {
