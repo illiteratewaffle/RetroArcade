@@ -37,7 +37,7 @@ public class ServerLogger {
             Runtime.getRuntime().addShutdownHook(new Thread(ServerLogger::closeServerLogger));
         } catch (IOException e) {
             // This should be changed later to be more robust
-            e.printStackTrace();
+            System.err.println("!!! CRITICAL ERROR: ServerLogger failed to start. Logging disabled. !!!");
         }
     }
 

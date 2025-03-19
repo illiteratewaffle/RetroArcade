@@ -15,7 +15,6 @@ import static server.management.ServerLogger.*;
  * WARNING! Testing the ServerLogger log function will delete today's log text file.
  */
 class ServerLoggerTest {
-    private final PrintStream standardOut = System.out;
     private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
 
     @BeforeEach
