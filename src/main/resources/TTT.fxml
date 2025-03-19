@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 
-<AnchorPane id="backgroundImage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.TTTController">
+<AnchorPane id="backgroundImage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI_client.TTTController">
    <ImageView id="background_image" fx:id="background_image" fitHeight="600.0" fitWidth="900.0" pickOnBounds="true" preserveRatio="true" />
    <ImageView fx:id="board_image" fitHeight="600.0" fitWidth="598.0" layoutX="148.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true">
       <image>
