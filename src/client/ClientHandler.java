@@ -72,10 +72,10 @@ public class ClientHandler  {
     public void sendToPlayerHandler(String message) {
         try {
             // Send encrypted message to PlayerHandler
-            return null;
+          //  return null;
         } catch (Exception e) {
             System.err.println("Error decoding JSON: " + e.getMessage());
-            return null;
+          //  return null;
         }
     }
 
