@@ -7,20 +7,22 @@ public class Profile {
     private String bio;
     private boolean isOnline;
     private String currentGame;
-    private double winLossRatio;
+    private PlayerRanking playerRanking;
+    private FriendsList friendsList;
     private GameHistory gamesPlayed;
     private BufferedImage profilePic;
     private String username;
     private long id;
 
-    public Profile(String email, String hashedPassword, String nickname, String bio, boolean isOnline, String currentGame, double winLossRatio, GameHistory gamesPlayed, BufferedImage profilePic, String username, long id) {
+    public Profile(String email, String hashedPassword, String nickname, String bio, boolean isOnline, String currentGame, FriendsList friendsList, PlayerRanking playerRanking, GameHistory gamesPlayed, BufferedImage profilePic, String username, long id) {
         this.email = email;
         this.hashedPassword = hashedPassword;
         this.nickname = nickname;
         this.bio = bio;
         this.isOnline = isOnline;
         this.currentGame = currentGame;
-        this.winLossRatio = winLossRatio;
+        this.playerRanking = playerRanking;
+        this.friendsList = friendsList;
         this.gamesPlayed = gamesPlayed;
         this.profilePic = profilePic;
         this.username = username;

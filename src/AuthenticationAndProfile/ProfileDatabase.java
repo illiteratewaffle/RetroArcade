@@ -1,8 +1,12 @@
 package AuthenticationAndProfile;
 import leaderboard.Leaderboard;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.HashMap;
+
+import static AuthenticationAndProfile.ProfileCSVReader.openProfileFile;
+
 /**
  * ProfileDatabase is the Class containing all the information stored on the Network for all registered accounts.
  * @author Alessia Flaig
@@ -21,22 +25,77 @@ public class ProfileDatabase {
 
     public Profile obtainProfile(long id){
         //call method to get csv for id
+        String csvProfileFilePath = PlayerManager.getPlayer(id);//method to get Profile csv for id
+        ArrayList<String> profileFields = openProfileFile(csvProfileFilePath);
+
+        //from Profile ArrayList obtain the values for Profile Class variables
+        String username = profileFields.get(1);
+        String nickname = profileFields.get(2);
+        String email = profileFields.get(3);
+        String hashedPassword = profileFields.get(4);
+        String bio = profileFields.get(7);
+        String profilePicFilePath = profileFields.get(8);
+        BufferedImage profilePic = ImageIO.read(profilePicFilePath);
+        String currentGame = profileFields.get(9);
+        Boolean isOnline;
+        if (profileFields.get(10).equals("true")) {
+            isOnline = true;
+        } else {
+            isOnline = false;
+        }
+
+        //Call methods to create the FriendsList, GameHistory, and PlayerRanking objects from database attached to profile id
+        FriendsList friendsList = obtainFriendsList(id);
+        GameHistory gameHistory = obtainGameHistory(id);
+        PlayerRanking playerRanking = obtainPlayerRanking(id);
+
+        Profile profile = new Profile(email, hashedPassword, nickname, bio, isOnline, currentGame, friendsList, playerRanking, gameHistory, profilePic, username, id);
+        return profile;
 
     }
 
 
     public FriendsList obtainFriendsList(long id){
         //call method to get csv for id
+        //call method to get csv for FriendsList
+        String csvFriendsListFilePath = PlayerManager.getFriendsList(id); //method to get FriendsList csv for id
+        ArrayList<String> friendsListFields = openFriendsListFile(csvFriendsListFilePath);
+
+        //from FriendsList ArrayList obtain the values for FriendsList Class variables
+        for (int i = 1; i < friendsListFields.size(); i ++){
+
+        }
+        FriendsList friendsList = new FriendsList();
     }
 
     public PlayerRanking obtainPlayerRanking(long id) {
         //call method to get csv for id
+        //call method to gte csv for PlayerRanking
+        String csvPlayerRankingFilePath = PlayerManager.getPlayerRanking(id); //method to get PlayerRanking csv for id
+        ArrayList<String> playerRankingFields = openPlayerRankingFile(csvPlayerRankingFilePath);
+        //from PlayerRanking ArrayList obtain the values for PlayerRanking Class variables
+        for (int i = 1; i < playerRankingFields.size(); i ++){
+
+        }
+        PlayerRanking playerRanking = new PlayerRanking();
+
 
     }
 
     public GameHistory obtainGameHistory(long id) {
         //call method to get csv for id
+        //call method to get csv for GameHistory
+        String csvGameHistoryFilePath = PlayerManager.getGameHistory(id); //method to get FriendsList csv for id
+        ArrayList<String> gameHistoryFields = openGameHistoryFile(csvGameHistoryFilePath);
+
+        //call method to get csv for GameHistory
+        String csvGameHistoryFilePath = PlayerManager.getGameHistory(id); //method to get FriendsList csv for id
+        ArrayList<String> gameHistoryFields = openGameHistoryFile(csvGameHistoryFilePath);
+
         //for loop to go through csv for attributes
+        for (int i = 1; i < gameHistoryFields.size(); i ++){
+
+        }
         GameHistory gameHistory = new GameHistory();
     }
 
@@ -95,32 +154,6 @@ public class ProfileDatabase {
      */
     public static void viewProfile(Profile profile){
 
-    }
-    /**
-     * Method to obtain the Leaderboard from ranks of all profiles in the database.
-     */
-    public static Leaderboard getLeaderboardInfo() {
-        //Need to figure out how leaderboard is stored*********
-        //Guess:
-//        for (int i = 0 ; i < leaderboard.length(); i ++){    //go through length of leaderboard, and get the profile for each rank
-//            Profile profile = getProfile(leaderboard[i]);
-//            profile.getWinLossRatio();
-//            profile.getNickname();
-//        }
-    }
-
-    /**
-     * Method to obtain the Leaderboard consisting of only a profile's Friends List.
-     * @return
-     */
-    public static Leaderboard viewFriendLeaderboard(Profile profile, FriendsList friendsList){
-//        Leaderboard leaderboard = new Leaderboard();
-//        for (int i = 0; i < friendsList.length(); i ++) {
-//            Profile profile = getProfile(friendsList[i]);
-//            profile.getWinLossRatio();
-//            profile.getNickname();
-//              leaderboard.add(profile);
-//        }
     }
 
     /**
