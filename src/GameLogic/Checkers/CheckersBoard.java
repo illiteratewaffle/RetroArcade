@@ -21,13 +21,14 @@ public class CheckersBoard extends AbstractBoard
             {
                 ivec2 point = new ivec2(x, y);
                 int PieceID = getPiece(point);
-                if (PieceID != 0)
+                // If the tile contains a piece, record it to the appropriate set of pieces.
+                if (IsPiece(PieceID))
                 {
-                    if (PieceID == CheckersPiece.P1PAWN.ordinal() || PieceID == CheckersPiece.P1KING.ordinal())
+                    if (IsP1(PieceID))
                     {
                         P1PieceLocations.add(point);
                     }
-                    if (PieceID == CheckersPiece.P2PAWN.ordinal() || PieceID == CheckersPiece.P2KING.ordinal())
+                    else
                     {
                         P2PieceLocations.add(point);
                     }
@@ -60,28 +61,40 @@ public class CheckersBoard extends AbstractBoard
         // If the value of the tile is changed, we may need to update the location sets.
         if (OldPieceID != piece)
         {
-            // The tile previously holds a P1 piece, which is now removed.
-            if (OldPieceID == CheckersPiece.P1PAWN.ordinal() || OldPieceID == CheckersPiece.P1KING.ordinal())
+            // Check if we just removed a piece from the board tile.
+            if (IsPiece(OldPieceID))
             {
-                P1PieceLocations.remove(point);
-            }
-            // The tile previously holds a P2 piece, which is now removed.
-            else if (OldPieceID == CheckersPiece.P2PAWN.ordinal() || OldPieceID == CheckersPiece.P2KING.ordinal())
-            {
-                P2PieceLocations.remove(point);
-            }
-
-            // A new P1 piece is added in its place.
-            if (piece == CheckersPiece.P1PAWN.ordinal() || piece == CheckersPiece.P1KING.ordinal())
-            {
-                P1PieceLocations.add(point);
-            }
-            // A new P2 piece is added in its place.
-            else if (piece == CheckersPiece.P2PAWN.ordinal() || piece == CheckersPiece.P2KING.ordinal())
-            {
-                P2PieceLocations.add(point);
+                // The tile previously holds a P1 piece, which is now removed.
+                if (IsP1(OldPieceID))
+                {
+                    P1PieceLocations.remove(point);
+                }
+                // The tile previously holds a P2 piece, which is now removed.
+                else
+                {
+                    P2PieceLocations.remove(point);
+                }
             }
 
+            // Check if we are adding a new piece in its place.
+            if (IsPiece(piece))
+            {
+                // A new P1 piece is added in its place.
+                if (IsP1(piece))
+                {
+                    P1PieceLocations.add(point);
+                }
+                // A new P2 piece is added in its place.
+                else
+                {
+                    P2PieceLocations.add(point);
+                }
+            }
+            else
+            {
+                // Ensure that we will not set any tiles to contain an invalid piece.
+                piece = CheckersPiece.NONE.ordinal();
+            }
             // We do not consider any other situations.
         }
         super.setPiece(point, piece);
@@ -97,5 +110,26 @@ public class CheckersBoard extends AbstractBoard
     {
         // Perform the relevant sets, as dictated by the move.
         return;
+    }
+
+
+    /**
+     * @param PieceID
+     * @return True if the PieceID is that of a Checkers Piece; False otherwise.
+     */
+    private boolean IsPiece(int PieceID)
+    {
+        // Additionally check to ensure that the PieceID is not invalid.
+        CheckersPiece Piece = CheckersPiece.GetCheckersPiece(PieceID);
+        return Piece != null && Piece != CheckersPiece.NONE;
+    }
+
+    /**
+     * @param PieceID
+     * @return True if the PieceID is that of a Player 1 Checkers Piece; False otherwise.
+     */
+    private boolean IsP1(int PieceID)
+    {
+        return CheckersPiece.P1PAWN.equals(PieceID) || CheckersPiece.P1KING.equals(PieceID);
     }
 }
