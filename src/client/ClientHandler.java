@@ -1,17 +1,22 @@
 package client;
 import server.player.PlayerHandler;
 
-import java.io.IOException;
+import java.io.*;
 import java.net.Socket;
+import java.util.ArrayList;
 
 /**
  * Handles client connections and communication.
  */
-public class ClientHandler  {
-    private final Socket clientSocket;
-    private final PlayerHandler playerHandler;
+public class ClientHandler implements Runnable  {
+    private Socket clientSocket;
+    private PlayerHandler playerHandler;
     private boolean running;
 
+    public static ArrayList<ClientHandler> clientHandlers = new ArrayList<>();
+
+    private BufferedReader bufferedReader;
+    private BufferedWriter bufferedWriter;
     /**
      * Constructor for ClientHandler.
      *
@@ -19,22 +24,43 @@ public class ClientHandler  {
      * @param playerHandler The associated PlayerHandler for communication.
      */
     public ClientHandler(Socket clientSocket, PlayerHandler playerHandler) {
-        this.clientSocket = clientSocket;
-        this.playerHandler = playerHandler;
-        this.running = true;
+        try {
+            this.clientSocket = clientSocket;
+            this.playerHandler = playerHandler;
+            this.running = true;
+            this.bufferedWriter = new BufferedWriter(new OutputStreamWriter(clientSocket.getOutputStream()));
+            this.bufferedReader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+            clientHandlers.add(this);
+        }catch (IOException e) {
+            closeEverything(clientSocket, bufferedReader, bufferedWriter);
+        }
     }
       /**
      * The function that the thread runs
      */
+      @Override
     public void run() {
-        try {
-            while (running) {
-                // Implement client communication handling logic
+          String commandFromClient; // placeholder for clientFuntions
+          String messageFromServer; // placeholder for server messages
+          String message; //
+        while (clientSocket.isConnected()) {
+            try {
+                message = bufferedReader.readLine();
+                if (CheckIfJson(message) == true){
+                    messageFromServer = message;
+                    message = ConvertFromJson(messageFromServer);
+                    sendResponse(message);
+                }
+                else{
+                    commandFromClient = message;
+                    ConvertToJson(commandFromClient);
+                    message = ConvertToJson(commandFromClient);
+                    sendToPlayerHandler(message);
+                }
+            } catch (Exception e) {
+                closeEverything(clientSocket, bufferedReader, bufferedWriter);
+                break;
             }
-        } catch (Exception e) {
-
-        } finally {
-            closeConnection();  // Ensure the connection is closed on error or exit
         }
     }
 
@@ -61,21 +87,26 @@ public class ClientHandler  {
     /**
      * Converts a JSON string into a return function.
      */
-    public Object ConvertFromJson(String jsonData) {
+    public String ConvertFromJson(String jsonData) {
         // Convert JSON encoding to Function to send back
         return null;
     }
-
+    public boolean CheckIfJson(String inputData){
+        //check if message is from server or client
+        return true; //placeholder
+    }
     /**
      * Sends JSON string to the associated PlayerHandler.
      */
     public void sendToPlayerHandler(String message) {
+        for (ClientHandler clientHandler :clientHandlers){
         try {
-            // Send encrypted message to PlayerHandler
-          //  return null;
-        } catch (Exception e) {
-            System.err.println("Error decoding JSON: " + e.getMessage());
-          //  return null;
+            clientHandler.bufferedWriter.write(message);
+            clientHandler.bufferedWriter.newLine();
+            clientHandler.bufferedWriter.flush();
+        } catch (Exception e) {;
+            closeEverything(clientSocket, bufferedReader, bufferedWriter);
+        }
         }
     }
 
@@ -89,12 +120,20 @@ public class ClientHandler  {
     /**
      * Closes the client connection.
      */
-    public void closeConnection() {
+    public void closeEverything(Socket socket, BufferedReader bufferedReader, BufferedWriter bufferedWriter) {
         running = false;
         try {
-            clientSocket.close();
-        } catch (IOException e) {
-            return;
+            if (bufferedReader != null){
+                bufferedReader.close();
+            }
+            if (bufferedWriter != null){
+                bufferedWriter.close();
+            }
+            if (socket != null){
+                socket.close();
+            }
+        }catch (IOException e){
+
         }
     }
 }
