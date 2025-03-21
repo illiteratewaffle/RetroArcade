@@ -6,11 +6,12 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 public class ConnectionManager implements Runnable {
-    private final int port = 5050;
+    private final int port;
     private final ServerController serverController;
 
-    public ConnectionManager(ServerController serverController) {
+    public ConnectionManager(ServerController serverController, int port) {
         this.serverController = serverController;
+        this.port = port;
     }
 
     @Override
