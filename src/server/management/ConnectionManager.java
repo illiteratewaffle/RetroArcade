@@ -5,7 +5,12 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class ConnectionManager {
+public class ConnectionManager implements Runnable {
+    @Override
+    public void run() {
+        startListening();
+    }
+
     private final int port = 5050;
     private final ServerController serverController;
 
@@ -29,7 +34,7 @@ public class ConnectionManager {
 
     private void handleNewConnection(Socket clientSocket) {
         //Create a new player handler for the cient.
-        PlayerHandler handler = new PlayerHandler(clientSocket, serverController);
+        PlayerHandler handler = new PlayerHandler(clientSocket);
         //Delegate the new PlayerHandler to the server controller for tracking and session management.
         //serverController.registerPlayerHanlder(handler);
         //Start the process of the handler listening for client messages.

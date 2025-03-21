@@ -1,17 +1,21 @@
 package server.player;
 
 import server.management.ThreadMessage;
+import server.management.NetworkManager;
 
 import java.net.Socket;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.LinkedBlockingQueue;
 
 /**
  * This class will have a thread created whenever a new player joins
  */
 public class PlayerHandler {
     private final Socket clientSocket;
-    private final ConcurrentHashMap<Thread, BlockingQueue<ThreadMessage>> queue;
+    private final BlockingQueue<ThreadMessage> messages; //HERE
+    private final NetworkManager networkManager; //HERE
+    //private final ConcurrentHashMap<Thread, BlockingQueue<ThreadMessage>> queue;
     private boolean running;
 
     /**
@@ -19,9 +23,12 @@ public class PlayerHandler {
      * @param clientSocket the Socket that the client is connected on
      * @param queue the main message cue object that will be used to communicate between threads.
      */
-    public PlayerHandler(Socket clientSocket, ConcurrentHashMap<Thread, BlockingQueue<ThreadMessage>> queue) {
+    public PlayerHandler(Socket clientSocket) { // ConcurrentHashMap<Thread, BlockingQueue<ThreadMessage>> queue
         this.clientSocket = clientSocket;
-        this.queue = queue;
+        //Create a dedicated queue for messages related to this player's thread.
+        this.messages = new LinkedBlockingQueue<>(); //HERE
+        //Create a network manager dedicated to this player's thread.
+        this.networkManager = new NetworkManager(); //HERE
         this.running = true;
     }
 
