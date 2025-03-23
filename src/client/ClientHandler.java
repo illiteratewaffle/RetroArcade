@@ -12,6 +12,7 @@ public class ClientHandler implements Runnable  {
     private Socket clientSocket;
     private PlayerHandler playerHandler;
     private boolean running;
+    private  String PlayerID; // placeholder for the playerID
 
     public static ArrayList<ClientHandler> clientHandlers = new ArrayList<>();
 
@@ -30,9 +31,10 @@ public class ClientHandler implements Runnable  {
             this.running = true;
             this.bufferedWriter = new BufferedWriter(new OutputStreamWriter(clientSocket.getOutputStream()));
             this.bufferedReader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+            this.PlayerID = bufferedReader.readLine();
             clientHandlers.add(this);
         }catch (IOException e) {
-            closeEverything(clientSocket, bufferedReader, bufferedWriter);
+            CloseEverything(clientSocket, bufferedReader, bufferedWriter);
         }
     }
       /**
@@ -58,7 +60,7 @@ public class ClientHandler implements Runnable  {
                     sendToPlayerHandler(message);
                 }
             } catch (Exception e) {
-                closeEverything(clientSocket, bufferedReader, bufferedWriter);
+                CloseEverything(clientSocket, bufferedReader, bufferedWriter);
                 break;
             }
         }
@@ -99,29 +101,36 @@ public class ClientHandler implements Runnable  {
      * Sends JSON string to the associated PlayerHandler.
      */
     public void sendToPlayerHandler(String message) {
-        for (ClientHandler clientHandler :clientHandlers){
         try {
-            clientHandler.bufferedWriter.write(message);
-            clientHandler.bufferedWriter.newLine();
-            clientHandler.bufferedWriter.flush();
+            bufferedWriter.write(message);
+            bufferedWriter.newLine();
+            bufferedWriter.flush();
         } catch (Exception e) {;
-            closeEverything(clientSocket, bufferedReader, bufferedWriter);
-        }
+            CloseEverything(clientSocket, bufferedReader, bufferedWriter);
         }
     }
 
     /**
      * Sends a response function back to sender.
      */
-    public void sendResponse(String response) {
-        // Send response to Sender
+    public void sendResponse(String message) {
+        for (ClientHandler clientHandler :clientHandlers){
+            try {
+                clientHandler.bufferedWriter.write(message);
+                clientHandler.bufferedWriter.newLine();
+                clientHandler.bufferedWriter.flush();
+            } catch (Exception e) {;
+                CloseEverything(clientSocket, bufferedReader, bufferedWriter);
+            }
+        }
     }
 
     /**
      * Closes the client connection.
      */
-    public void closeEverything(Socket socket, BufferedReader bufferedReader, BufferedWriter bufferedWriter) {
+    public void CloseEverything(Socket socket, BufferedReader bufferedReader, BufferedWriter bufferedWriter) {
         running = false;
+
         try {
             if (bufferedReader != null){
                 bufferedReader.close();
