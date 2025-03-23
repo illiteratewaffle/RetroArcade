@@ -3,14 +3,14 @@ package GameLogic.Connect4;
 public class C4Controller {
 
 
-    private C4GameLogic c4GameLogic;
+    private GameLogic.Connect4.C4GameLogic c4GameLogic;
 
     /**
      * Starts a new game of Connect Four.
      */
     void start() {
         System.out.println("A new game of connect four has started");
-        c4GameLogic = new C4GameLogic();
+        c4GameLogic = new GameLogic.Connect4.C4GameLogic();
         printBoard();
     }
 

@@ -29,7 +29,7 @@ public abstract class AbstractBoard {
      * @param point the coordinate point which the piece should be set at.
      * @param piece the type of piece that should be set at the location.
      */
-    public void setPiece(ivec2 point, int piece) {
+    public void setPiece(GameLogic.ivec2 point, int piece) {
         board[point.y][point.x] = piece;
     }
 
@@ -40,7 +40,7 @@ public abstract class AbstractBoard {
      * @param point the coordinate point of the current piece to be returned.
      * @return piece at board[y][x]
      */
-    public int getPiece(ivec2 point) {
+    public int getPiece(GameLogic.ivec2 point) {
         return board[point.y][point.x];
     }
 
@@ -54,7 +54,7 @@ public abstract class AbstractBoard {
     /**
      * initializes a completely blank board.
      */
-    private void initBlankBoard() {
+    protected void initBlankBoard() {
         for (int row = 0; row < rows; row++) {
             for (int col = 0; col < cols; col++) {
                 board[row][col] = 0;
