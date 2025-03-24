@@ -34,10 +34,10 @@ public class C4WinChecker {
      * @param piece the piece placed.
      * @return true if a horizontal win is detected, false otherwise.
      */
-    private static boolean checkC4Horizontal(int row, int col, C4Piece piece) {
+    private static boolean checkC4Horizontal(C4Board c4Board, int row, int col, C4Piece piece) {
         if (piece == C4Piece.BLANK) return false;           // Ignores if it's a blank piece.
 
-        C4Piece[][] board = C4Board.getC4Board();           // Get the board's 2-d array.
+        C4Piece[][] board = c4Board.getC4Board();           // Get the board's 2-d array.
         int pieceCount = 0;                                 // Keeps track of the number of the piece we get in a row.
 
         for (row = 0; row < board.length; row++) {
@@ -60,10 +60,10 @@ public class C4WinChecker {
      * @param piece the piece placed.
      * @return true if a vertical win is detected, false otherwise.
      */
-    private static boolean checkC4Vertical(int row, int col, C4Piece piece) {
+    private static boolean checkC4Vertical(C4Board c4Board, int row, int col, C4Piece piece) {
         if (piece == C4Piece.BLANK) return false;   // Ignore blank spaces.
 
-        C4Piece[][] board = C4Board.getC4Board();   // Get board state.
+        C4Piece[][] board = c4Board.getC4Board();   // Get board state.
         int count = 0;
         col = 0;
 
