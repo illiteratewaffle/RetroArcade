@@ -99,6 +99,7 @@ public class ClientHandler implements Runnable  {
     }
     /**
      * Sends JSON string to the associated PlayerHandler.
+     * @param message the message the function wants to send
      */
     public void sendToPlayerHandler(String message) {
         try {
