@@ -10,7 +10,7 @@ import java.io.IOException;
 public class TTTApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(TTTApplication.class.getResource("/GUI_client/TTT.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(TTTApplication.class.getResource("/GUI_client/gameMenu.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 900, 600);
         stage.setResizable(false);
         stage.setTitle("Tic Tac Toe");
