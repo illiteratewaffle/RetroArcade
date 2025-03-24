@@ -1,7 +1,11 @@
 package GameLogic.Connect4;
 
-public class C4Controller {
+import GameLogic.IBoardGameController;
+import GameLogic.ivec2;
 
+import java.util.ArrayList;
+
+public class C4Controller implements IBoardGameController {
 
     private GameLogic.Connect4.C4GameLogic c4GameLogic;
 
@@ -15,9 +19,70 @@ public class C4Controller {
     }
 
     /**
-     * Handles user input during the game.
+     * Receives yser input during the game.
      */
-    void handleInput() {
+    @Override
+    public void ReceiveInput(ivec2 input) {
+        int col = input.x;
+        if (!c4GameLogic.getC4IsGameOver()) {
+            C4Piece currentPlayer = c4GameLogic.getC4CurrentPlayer();
+            boolean successfulPlay = c4GameLogic.c4DropPiece(col, currentPlayer);
+            if (!successfulPlay) {
+                System.out.println("Invalid move. Try again");
+            } else {
+                printBoard();
+            }
+        }
+    }
+
+    @Override
+    public void RemovePlayer(int Player) throws IndexOutOfBoundsException {
+
+    }
+
+    @Override
+    public int[] GetWinner() {
+        return new int[0];
+    }
+
+    @Override
+    public boolean GetGameOngoing() {
+        return false;
+    }
+
+    @Override
+    public ArrayList<int[][]> GetBoardCells(int LayerMask) {
+        return null;
+    }
+
+    @Override
+    public ivec2 GetBoardSize() {
+        return null;
+    }
+
+    @Override
+    public int GetCurrentPlayer() {
+        return 0;
+    }
+
+    @Override
+    public boolean GameOngoingChangedSinceLastCommand() {
+        return false;
+    }
+
+    @Override
+    public boolean WinnersChangedSinceLastCommand() {
+        return false;
+    }
+
+    @Override
+    public boolean CurrentPlayerChangedSinceLastCommand() {
+        return false;
+    }
+
+    @Override
+    public int BoardChangedSinceLastCommand() {
+        return 0;
     }
 
     /**

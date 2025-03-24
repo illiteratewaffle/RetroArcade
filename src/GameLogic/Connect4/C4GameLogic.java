@@ -6,6 +6,7 @@ public class C4GameLogic {
     private int c4PiecesPlayed;
     private boolean isC4GameOver;
     private int[] C4lastPlayedPosition = new int[2];
+    private C4Piece currentPlayer = C4Piece.RED; //red goes first
 
     /**
      * Constructs a new Connect Four game logic instance.
@@ -28,14 +29,15 @@ public class C4GameLogic {
      * @return the current player's piece.
      */
     public C4Piece getC4CurrentPlayer() {
-        return C4Piece.BLANK;
+        return currentPlayer;
     }
 
     /**
      * Get the topmost blank row in a given column.
      * @return the row index of the topmost blank space, or -1 if it's full.
      */
-    public int getC4ColTopBlank() {
+    public int getC4ColTopBlank(int col) {
+
         return -1;
     }
 
@@ -62,6 +64,10 @@ public class C4GameLogic {
      * @return true if the piece was successfully placed, false otherwise.
      */
     public boolean c4DropPiece(int col, C4Piece piece) {
+        if (isC4ColFull(col)) {
+            System.out.println(String.format("Column[%d] is full!", col));
+            return false;
+        }
         return false;
     }
 
@@ -79,7 +85,8 @@ public class C4GameLogic {
      * @return true if the column is full, false otherwise.
      */
     private boolean isC4ColFull(int col) {
-        return false;
+        C4Piece[][] board = c4Board.getC4Board();
+        return board[0][col] != C4Piece.BLANK; // checks if the top row is BLANK (empty)
     }
 
     /**
