@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class ProfileCSVReader {
-    private static final String FILEPATH = "src/AuthenticationAndProfile/profile_ID.csv"; //change this depending on where .csv is exported to
+    //private static final String FILEPATH = "src/AuthenticationAndProfile/profile_ID.csv"; //exports to this location with the id of the associated profile
 
     /*
     ID: index 0
@@ -26,12 +26,17 @@ public class ProfileCSVReader {
     private static final int NICK_INDEX = 2;
     private static final int EMAIL_INDEX = 3;
     private static final int PWD_INDEX = 4;
-    private static final int HIST_INDEX = 5;
-    public static final int FRIENDLIST_INDEX = 6;
-    public static final int BIO_INDEX = 7;
-    public static final int PIC_INDEX = 8;
-    public static final int CGAME_INDEX = 9;
-    public static final int ONLINE_INDEX = 10;
+    //private static final int HIST_INDEX = 5;
+    //public static final int FRIENDLIST_INDEX = 6;
+    //public static final int BIO_INDEX = 7;
+    public static final int BIO_INDEX = 5;
+    //public static final int PIC_INDEX = 8;
+    public static final int PIC_INDEX = 6;
+    //public static final int CGAME_INDEX = 9;
+    public static final int CGAME_INDEX = 7;
+    //public static final int ONLINE_INDEX = 10;
+    public static final int ONLINE_INDEX = 8;
+
 
 //    public static void main(String[] args) {
 //        ArrayList<String> fields = openProfileFile(FILEPATH);
@@ -60,8 +65,8 @@ public class ProfileCSVReader {
                     + ", username: " + fields.get(USER_INDEX)
                     + ", nickname: " + fields.get(NICK_INDEX)
                     + ", email: " + fields.get(EMAIL_INDEX) + ", hashedPassword: " + fields.get(PWD_INDEX)
-                    + ", GameHistory: " + fields.get(HIST_INDEX)
-                    + ", FriendsList: " + fields.get(FRIENDLIST_INDEX)
+                    //+ ", GameHistory: " + fields.get(HIST_INDEX)
+                    //+ ", FriendsList: " + fields.get(FRIENDLIST_INDEX)
                     + ", bio: " + fields.get(BIO_INDEX)
                     + ", profile pic: " + fields.get(PIC_INDEX)
                     + ", current game: " + fields.get(CGAME_INDEX)

@@ -6,6 +6,8 @@ import java.util.HashSet;
 import java.util.HashMap;
 
 import static AuthenticationAndProfile.ProfileCSVReader.openProfileFile;
+import static AuthenticationAndProfile.FriendsListCSVReader.openFriendsListFile;
+import static AuthenticationAndProfile.GameHistoryCSVReader.openGameHistoryFile;
 
 /**
  * ProfileDatabase is the Class containing all the information stored on the Network for all registered accounts.
@@ -33,12 +35,16 @@ public class ProfileDatabase {
         String nickname = profileFields.get(2);
         String email = profileFields.get(3);
         String hashedPassword = profileFields.get(4);
-        String bio = profileFields.get(7);
-        String profilePicFilePath = profileFields.get(8);
+        //String bio = profileFields.get(7);
+        String bio = profileFields.get(5);
+        //String profilePicFilePath = profileFields.get(8);
+        String profilePicFilePath = profileFields.get(6);
         BufferedImage profilePic = ImageIO.read(profilePicFilePath);
-        String currentGame = profileFields.get(9);
+        //String currentGame = profileFields.get(9);
+        String currentGame = profileFields.get(7);
         Boolean isOnline;
-        if (profileFields.get(10).equals("true")) {
+        //if (profileFields.get(10).equals("true")) {
+        if(profileFields.get(8).equals("true")) {
             isOnline = true;
         } else {
             isOnline = false;
@@ -62,9 +68,7 @@ public class ProfileDatabase {
         ArrayList<String> friendsListFields = openFriendsListFile(csvFriendsListFilePath);
 
         //from FriendsList ArrayList obtain the values for FriendsList Class variables
-        for (int i = 1; i < friendsListFields.size(); i ++){
 
-        }
         FriendsList friendsList = new FriendsList();
     }
 
@@ -74,9 +78,7 @@ public class ProfileDatabase {
         String csvPlayerRankingFilePath = PlayerManager.getPlayerRanking(id); //method to get PlayerRanking csv for id
         ArrayList<String> playerRankingFields = openPlayerRankingFile(csvPlayerRankingFilePath);
         //from PlayerRanking ArrayList obtain the values for PlayerRanking Class variables
-        for (int i = 1; i < playerRankingFields.size(); i ++){
 
-        }
         PlayerRanking playerRanking = new PlayerRanking();
 
 
@@ -88,14 +90,6 @@ public class ProfileDatabase {
         String csvGameHistoryFilePath = PlayerManager.getGameHistory(id); //method to get FriendsList csv for id
         ArrayList<String> gameHistoryFields = openGameHistoryFile(csvGameHistoryFilePath);
 
-        //call method to get csv for GameHistory
-        String csvGameHistoryFilePath = PlayerManager.getGameHistory(id); //method to get FriendsList csv for id
-        ArrayList<String> gameHistoryFields = openGameHistoryFile(csvGameHistoryFilePath);
-
-        //for loop to go through csv for attributes
-        for (int i = 1; i < gameHistoryFields.size(); i ++){
-
-        }
         GameHistory gameHistory = new GameHistory();
     }
 
