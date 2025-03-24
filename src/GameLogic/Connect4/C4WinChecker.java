@@ -24,9 +24,9 @@ public class C4WinChecker {
      * @param piece the piece placed.
      * @return true if a win condition is met, false otherwise.
      */
-    private static boolean checkC4WinCondition(int row, int col, C4Piece piece) {
-
-        return false;
+    private static boolean checkC4WinCondition(C4Board c4Board, int row, int col, C4Piece piece) {
+        return checkC4Horizontal(c4Board, row, col, piece) || checkC4Vertical(c4Board, row, col, piece) ||
+                checkC4ForwardSlash(c4Board, row, col, piece) || checkC4BackwardSlash(c4Board, row, col, piece);
     }
 
     /**
