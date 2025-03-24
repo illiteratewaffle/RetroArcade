@@ -13,6 +13,7 @@ public class C4WinChecker {
      * @return true if the move results in a win, false otherwise.
      */
     public static boolean isC4Win(int row, int col, C4Piece piece) {
+
         return false;
     }
 
@@ -24,6 +25,7 @@ public class C4WinChecker {
      * @return true if a win condition is met, false otherwise.
      */
     private static boolean checkC4WinCondition(int row, int col, C4Piece piece) {
+
         return false;
     }
 
@@ -83,12 +85,23 @@ public class C4WinChecker {
 
     /**
      * Checks for a forward slash win condition.
+     * @param c4Board the connect-4 board being checked.
      * @param row the row to check.
      * @param col the column to check.
      * @param piece the piece placed.
      * @return true if a forward slash diagonal win is detected, false otherwise.
      */
-    private static boolean checkC4ForwardSlash(int row, int col, C4Piece piece) {
+    private static boolean checkC4ForwardSlash(C4Board c4Board, int row, int col, C4Piece piece) {
+        if (piece == C4Piece.BLANK) return false;   // Ignore blank spaces.
+
+        C4Piece[][] board = c4Board.getC4Board();   // Get board state.
+
+        for (int i = 3; i < board[0].length; i++){
+            for (int j = 0; j < board.length - 3; j++){
+                if (board[i][j] == piece && board[i-1][j+1] == piece && board[i-2][j+2] == piece && board[i-3][j+3] == piece)
+                    return true;
+            }
+        }
         return false;
     }
 
@@ -99,7 +112,17 @@ public class C4WinChecker {
      * @param piece the piece placed.
      * @return true if a backward slash diagonal win is detected, false otherwise.
      */
-    private static boolean checkC4BackwardSlash(int row, int col, C4Piece piece) {
+    private static boolean checkC4BackwardSlash(C4Board c4Board, int row, int col, C4Piece piece) {
+        if (piece == C4Piece.BLANK) return false;   // Ignore blank spaces.
+
+        C4Piece[][] board = c4Board.getC4Board();   // Get board state.
+
+        for (int i = 3; i < board[0].length; i++){
+            for (int j = 3; j < board.length; j++){
+                if (board[i][j] == piece && board[i-1][j-1] == piece && board[i-2][j-2] == piece && board[i-3][j-3] == piece)
+                    return true;
+            }
+        }
         return false;
     }
 }
