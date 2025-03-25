@@ -1,5 +1,7 @@
 package client_main.java.GameLogic_Client.Connect4;
 
+import client_main.java.GameLogic_Client.ivec2;
+
 public class C4Main {
 
     /**
@@ -8,5 +10,8 @@ public class C4Main {
     public static void main(String[] args) {
         C4Controller c4Controller = new C4Controller();
         c4Controller.start();
+
+        c4Controller.ReceiveInput(new ivec2(0, 0));
+        c4Controller.ReceiveInput(new ivec2(0, 0));
     }
 }

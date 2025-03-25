@@ -1,5 +1,7 @@
 package client_main.java.GameLogic_Client.Connect4;
 
+import client_main.java.GameLogic_Client.ivec2;
+
 public class C4GameLogic {
 
     private final C4Board c4Board;
@@ -37,7 +39,13 @@ public class C4GameLogic {
      * @return the row index of the topmost blank space, or -1 if it's full.
      */
     public int getC4ColTopBlank(int col) {
+        C4Piece[][] board = c4Board.getC4Board();
 
+        for (int row = board.length-1; row >= 0; row--) {
+            if (board[row][col] == C4Piece.BLANK) {
+                return row;
+            }
+        }
         return -1;
     }
 
@@ -67,8 +75,33 @@ public class C4GameLogic {
         if (isC4ColFull(col)) {
             System.out.println(String.format("Column[%d] is full!", col));
             return false;
+        } else {
+            int row = getC4ColTopBlank(col);
+
+            // place piece
+            c4PlacePiece(row, col, piece);
+
+            // save last played coordinate
+            C4lastPlayedPosition[0] = row;
+            C4lastPlayedPosition[1] = col;
+
+            // increment piece counter
+            c4PiecesPlayed += 1;
+
+            // check for win
+            if (C4WinChecker.isC4Win(row, col, piece)) {
+                isC4GameOver = true;
+            } else {
+                // Swap player turn
+                if (currentPlayer == C4Piece.RED) {
+                    currentPlayer = C4Piece.BLUE;
+                }
+                else if (currentPlayer == C4Piece.BLUE) {
+                    currentPlayer = C4Piece.RED;
+                }
+            }
+            return true;
         }
-        return false;
     }
 
     /**
@@ -96,6 +129,8 @@ public class C4GameLogic {
      * @param piece the piece to be placed.
      */
     private void c4PlacePiece(int row, int col, C4Piece piece) {
+        ivec2 point = new ivec2(col, row);
+        c4Board.setC4Piece(point, piece);
     }
 
     /**
