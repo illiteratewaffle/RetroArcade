@@ -1,4 +1,4 @@
-package client_main.java.GameLogic_Client.TTT;
+package client_main.java.GameLogic_Client.TicTacToe;
 
 
 import static org.junit.jupiter.api.Assertions.*;
