@@ -1,7 +1,6 @@
 package client_main.java.GameLogic_Client;
 import java.util.ArrayList;
 
-
 /**
  * An Interface for the Networking Module to interact with the Game.<br><br>
  *
