@@ -2,9 +2,6 @@ package GUI_client;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -14,14 +11,19 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import javafx.scene.control.Button;
 
 import javax.swing.*;
-import java.awt.event.MouseEvent;
+import java.awt.*;
+
+import javafx.geometry.Rectangle2D;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -77,6 +79,15 @@ public class TTTController implements Initializable {
     public ImageView Tile_2_2;
 
     @FXML
+    public ImageView redButton;
+    @FXML
+    public ImageView blueButton;
+    @FXML
+    public ImageView yellowButton;
+    @FXML
+    public ImageView greenButton;
+
+    @FXML
     public ImageView background_image;
     @FXML
     public ImageView board_image;
@@ -97,6 +108,8 @@ public class TTTController implements Initializable {
 
     // 2D Array for tracking board status
     Tile[][] board = new Tile[3][3];
+
+    ArrayList<Character> EEList = new ArrayList<Character>();
 
 
     @Override
@@ -260,5 +273,23 @@ public class TTTController implements Initializable {
             stage.setScene(new Scene(root));
             stage.show();
         }
+    }
+    public void yellowPress(){
+        EEList.add('Y');
+    }
+    public void bluePress(){
+        EEList.add('B');
+    }
+    public void greenPress(){
+        if (EEList.toString().equals("[B, B, Y, Y, B, Y, B, Y]")){
+            board_image.setImage(new Image("EE.jpg"));
+        }
+    }
+    public void redPress(){
+        EEList.clear();
+        board_image.setImage(new Image("foreground.png"));
+    }
+
+    public void playAgainYes() {
     }
 }

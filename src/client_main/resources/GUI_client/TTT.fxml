@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 
@@ -74,14 +74,24 @@
             </children>
          </StackPane>
       </children>
+      <cursor>
+         <Cursor fx:constant="OPEN_HAND" />
+      </cursor>
    </GridPane>
-   <Pane layoutX="241.0" layoutY="14.0" mouseTransparent="true" prefHeight="519.0" prefWidth="420.0">
-      <children>
-         <ImageView fx:id="play_again" fitHeight="47.0" fitWidth="265.0" layoutX="78.0" layoutY="74.0" pickOnBounds="true" preserveRatio="true" />
-         <ImageView fx:id="check_circle" fitHeight="77.0" fitWidth="81.0" layoutY="64.0" pickOnBounds="true" preserveRatio="true" />
-         <ImageView fx:id="X_circle" fitHeight="77.0" fitWidth="81.0" layoutX="343.0" layoutY="64.0" pickOnBounds="true" preserveRatio="true" />
-         <ImageView fx:id="Win_Lose_Banner" fitHeight="94.0" fitWidth="247.0" layoutX="89.0" layoutY="130.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" />
-      </children>
-   </Pane>
-   <ImageView fx:id="quit_image" fitHeight="77.0" fitWidth="73.0" layoutX="14.0" layoutY="18.0" onMouseClicked="#quit_TTT" pickOnBounds="true" preserveRatio="true" />
+   <ImageView fx:id="Win_Lose_Banner" fitHeight="94.0" fitWidth="247.0" layoutX="328.0" layoutY="155.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" />
+   <ImageView fx:id="quit_image" fitHeight="77.0" fitWidth="73.0" layoutX="7.0" layoutY="7.0" onMouseClicked="#quit_TTT" pickOnBounds="true" preserveRatio="true">
+      <cursor>
+         <Cursor fx:constant="OPEN_HAND" />
+      </cursor></ImageView>
+   <ImageView fx:id="check_circle" fitHeight="77.0" fitWidth="81.0" layoutX="241.0" layoutY="77.0" onMouseClicked="#playAgainYes" pickOnBounds="true" preserveRatio="true">
+      <cursor>
+         <Cursor fx:constant="OPEN_HAND" />
+      </cursor>
+   </ImageView>
+   <ImageView fx:id="X_circle" fitHeight="77.0" fitWidth="81.0" layoutX="574.0" layoutY="81.0" pickOnBounds="true" preserveRatio="true" />
+   <ImageView fx:id="play_again" fitHeight="47.0" fitWidth="265.0" layoutX="317.0" layoutY="84.0" pickOnBounds="true" preserveRatio="true" />
+   <ImageView fx:id="blueButton" fitHeight="25.0" fitWidth="35.0" layoutX="380.0" layoutY="505.0" onMouseClicked="#bluePress" pickOnBounds="true" preserveRatio="true" />
+   <ImageView fx:id="yellowButton" fitHeight="25.0" fitWidth="35.0" layoutX="433.0" layoutY="505.0" onMouseClicked="#yellowPress" pickOnBounds="true" preserveRatio="true" />
+   <ImageView fx:id="redButton" fitHeight="25.0" fitWidth="35.0" layoutX="485.0" layoutY="505.0" onMouseClicked="#redPress" pickOnBounds="true" preserveRatio="true" />
+   <ImageView fx:id="greenButton" fitHeight="25.0" fitWidth="35.0" layoutX="539.0" layoutY="505.0" onMouseClicked="#greenPress" pickOnBounds="true" preserveRatio="true" />
 </AnchorPane>
