@@ -18,7 +18,7 @@ public interface IBoardGameController
      * Receive a 2D-Integer-Coordinate Input from the Player, and process it.
      * @param input A 2D-Integer-Coordinate Input that corresponds to a Board Cell.
      */
-    void ReceiveInput(GameLogic.ivec2 input);
+    void ReceiveInput(ivec2 input);
 
     /**
      * Remove the Player of a given Index (counting from 0) from the game.
@@ -58,7 +58,7 @@ public interface IBoardGameController
     /**
      * @return The size of the Board.
      */
-    GameLogic.ivec2 GetBoardSize();
+    ivec2 GetBoardSize();
 
     /**
      * @return The index of the current player (the player whose turn is currently ongoing).
