@@ -1,6 +1,7 @@
 package client_main.java.GameLogic_Client.Checkers;
 
-import client_main.java.GameLogic_Client.*;
+import client_main.java.GameLogic_Client.IBoardGameController;
+import client_main.java.GameLogic_Client.ivec2;
 
 import java.util.ArrayList;
 import java.util.HashMap;
