@@ -95,6 +95,7 @@ public class TTTController implements Initializable {
     public GridPane gameBoard;
 
     // boolean flag alternating Xs and Os
+    // Tyler, the TTTGame class has implementation for this, now.
     boolean flag = true;
 
     // boolean variable that board events must check to be true before executing
