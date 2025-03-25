@@ -1,5 +1,11 @@
 package AuthenticationAndProfile;
 
+import server.player.PlayerManager;
+
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 /**
  * ProfileCreation Class handles converting and verify Create Account Menu parameters to create a new Profile and Update ProfileDatabase.
  * @author Alessia Flaig
@@ -22,7 +28,10 @@ public class ProfileCreation {
                 //We might want to check that the password is a decent password?
                 String hashedPassword = hashedPassword(password);
                 Profile newProfile = new Profile(email, username, hashedPassword);
-                ProfileDatabase.addProfile(username, newProfile);
+                if (!PlayerManager.registerPlayer(username, hashedPassword)) {
+                    throw new Exception("Database could not register player. Log in Credentials are not unique.");
+                    PlayerManager.updatePlayer(newProfile);
+                }
             }
         }
     }
@@ -34,8 +43,19 @@ public class ProfileCreation {
      */
     public String hashedPassword(String unhashedPassword){
         String hashed = "";
+        //inbuilt MessageDigest class for SHA-256 hashing
+        //Source: https://www.baeldung.com/sha-256-hashing-java
+        //Convert bytes to hex Source: https://www.geeksforgeeks.org/java-program-to-convert-byte-array-to-hex-string/
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            byte[] encodedhash = digest.digest(unhashedPassword.getBytes(StandardCharsets.UTF_8));
+            for (int i = 0; i < encodedhash.length; i++) {
+                hashed += String.format("%02X", encodedhash[i]);
+            }
+        } catch (NoSuchAlgorithmException e){
+            System.out.println("No such SHA-256 algorithm");
+        }
         return hashed;
-
     }
 
     /**

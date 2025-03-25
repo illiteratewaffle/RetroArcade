@@ -97,15 +97,16 @@ public class ProfileDatabase {
 
 
 
-    /**
-     * addProfile(String username, Profile profile) adds the username key and its associated profile to the HashMap of all
-     * registered accounts.
-     * @param username
-     * @param profile
-     */
-    public static void addProfile(String username, Profile profile){
-        profiles.put(username, profile);
-    }
+//    /**
+//     * addProfile(String username, Profile profile) adds the username key and its associated profile to the HashMap of all
+//     * registered accounts.
+//     * @param username
+//     * @param profile
+//     */
+//    public static void addProfile(String username, Profile profile){
+//        profiles.put(username, profile);
+//    }
+
 
     /**
      * removeProfile(String username) takes the provided username key to remove the email from the ProfileEmailSet and the profile from the Database.
