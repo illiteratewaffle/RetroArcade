@@ -9,11 +9,6 @@ public class TTTGame {
         currentPlayer = 1; // X plays first
     }
 
-    public void startGame() {
-        // Main game loop
-
-    }
-
     public boolean makeMove(int row, int col) {
         // Place piece if valid, return true if successful
         return false; // just a placeholder for now
