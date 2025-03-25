@@ -94,14 +94,6 @@ public class Profile {
         this.currentGame = currentGame;
     }
 
-    public double getWinLossRatio() {
-        return winLossRatio;
-    }
-
-    public void setWinLossRatio(double winLossRatio) {
-        this.winLossRatio = winLossRatio;
-    }
-
     public GameHistory getGamesPlayed() {
         return gamesPlayed;
     }
