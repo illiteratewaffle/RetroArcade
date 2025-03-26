@@ -50,8 +50,17 @@ public class PlayerManager {
      * @return
      */
     public static boolean authenticatePlayer(String username, String passwordHash) {
-        // Authenticate player code
-        return false;
+        String query = "SELECT username, hashed_password FROM profiles WHERE username = ? AND hashed_password = ?";
+
+        try (PreparedStatement statement = conn.prepareStatement(query)) {
+            statement.setString(1, username);
+            statement.setString(2, passwordHash);
+            ResultSet rs = statement.executeQuery();
+            return rs.next();
+        } catch (SQLException e) {
+            System.err.println("Authentication failed: " + e.getMessage());
+            return false;
+        }
     }
 
     /**
@@ -62,5 +71,12 @@ public class PlayerManager {
     public static int getPlayerID(String username) {
         // retrieve playerID by username code
         return 0;
+    }
+
+    public static void main(String[] args) {
+        registerPlayer("example4@gmail.com", "24389472873947", "cris", "dskdn", false, null,
+                1.32, "evan2");
+        boolean playerExists = authenticatePlayer("evan", "24389472873947");
+        System.out.println(playerExists);
     }
 }
