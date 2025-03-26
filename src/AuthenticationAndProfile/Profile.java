@@ -28,6 +28,13 @@ public class Profile {
         this.username = username;
         this.id = id;
     }
+
+    /**
+     * Profile constructor.
+     * @param email the email of the player.
+     * @param username the username of the player.
+     * @param hashedPassword the hashed password of the player.
+     */
     public Profile(String email, String username, String hashedPassword){
         this.email = email;
         this.username = username;
@@ -49,6 +56,7 @@ public class Profile {
     /**
      * Sets a player's email.
      * @param id the id of the player.
+     * @param email the new email of the player.
      */
     public void setEmail(long id, String email) {
         if (id == this.id) {
@@ -70,9 +78,12 @@ public class Profile {
     /**
      * Sets a player's hashedPassword.
      * @param id the id of the player.
+     * @param hashedPassword the new hashed password of the player.
      */
     public void setHashedPassword(long id, String hashedPassword) {
-        this.hashedPassword = hashedPassword;
+        if (id == this.id) {
+            this.hashedPassword = hashedPassword;
+        }
     }
 
     /**
@@ -87,24 +98,60 @@ public class Profile {
         return null;
     }
 
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
+    /**
+     * Sets a player's nickname.
+     * @param id the id of the player.
+     * @param nickname the new nickname of the player.
+     */
+    public void setNickname(long id, String nickname) {
+        if (id == this.id) {
+            this.nickname = nickname;
+        }
     }
 
-    public String getBio() {
-        return bio;
+    /**
+     * Gets the player's bio.
+     * @param id the id of the player.
+     * @return the player's bio.
+     */
+    public String getBio(long id) {
+        if (id == this.id) {
+            return bio;
+        }
+        return null;
     }
 
-    public void setBio(String bio) {
-        this.bio = bio;
+    /**
+     * Sets a player's bio.
+     * @param id the id of the player.
+     * @param bio the new bio of the player.
+     */
+    public void setBio(long id, String bio) {
+        if (id == this.id) {
+            this.bio = bio;
+        }
     }
 
-    public boolean isOnline() {
-        return isOnline;
+    /**
+     * Gets the player's online status.
+     * @param id the id of the player.
+     * @return the player's online status.
+     */
+    public boolean isOnline(long id) {
+        if (id == this.id) {
+            return isOnline;
+        }
     }
 
-    public void setOnline(boolean online) {
-        isOnline = online;
+    /**
+     * Sets a player's online status.
+     * @param id the id of the player.
+     * @param online the new online status of the player.
+     */
+    public void setOnline(long id, boolean online) {
+        if (id == this.id) {
+            isOnline = online;
+        }
     }
 
     public void getCurrentStatus() {
