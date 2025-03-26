@@ -47,3 +47,11 @@ public class ServerController {
     }
 }
 
+/*
+notes (for colby):
+ - handler.getHandlerThread() will not be possible as you have not created the thread yet when calling this function
+    - you should probably just pass it in as a variable as you can extract it when you create the virtual thread
+ - is creating the blocking queue inside the playerHandler then passing it back through multiple classes the better option?
+    - would it not be cleaner to simply create the blocking queue then passing it into the constructor for the PlayerHandler, keeping it all contained in ConnectionManager?
+    - alternatively, since the ThreadRegistry is a static variable, the PlayerHandler could even create it.
+ */

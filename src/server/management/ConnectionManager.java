@@ -40,7 +40,12 @@ public class ConnectionManager implements Runnable {
         //Delegate the new PlayerHandler to the server controller for tracking and session management.
         serverController.registerPlayerHandler(handler);
         //Start the process of the handler listening for client messages.
-        Thread.startVirtualThread(handler::run);
+        Thread thread = Thread.startVirtualThread(handler);
     }
 }
 
+/*
+notes (for colby):
+ - why are you creating a thread that just runs the handleNewConnection, which creates another thread? you should remove the thread inception you got there
+ - you should use the log function for printing errors to the console please, the order of printing between stderr and stdout is inconsistent as well, try to avoid?
+ */
