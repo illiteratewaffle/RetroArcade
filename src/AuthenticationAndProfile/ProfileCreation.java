@@ -10,6 +10,7 @@ import java.security.NoSuchAlgorithmException;
  * ProfileCreation Class handles converting and verify Create Account Menu parameters to create a new Profile and Update ProfileDatabase.
  * @author Alessia Flaig
  */
+//Considering moving within Profile database?
 public class ProfileCreation {
     /**
      * Takes email, username, and password entered in on Create Account Menu. Checks that the entered email and username are not associated with
@@ -58,14 +59,14 @@ public class ProfileCreation {
         return hashed;
     }
 
-    /**
-     * Method to delete the profile currently logged inm from the ProfileDatabase and then log them out.
-     * @param authenticationSession
-     */
-    private static void deleteProfile(Authentication authenticationSession){
-        ProfileDatabase.removeEmailFromDatabase(authenticationSession.getProfileLoggedIn().getEmail());
-        ProfileDatabase.removeProfile(authenticationSession.getProfileLoggedIn().getUsername());
-        authenticationSession.logOut();
-    }
+//    /**
+//     * Method to delete the profile currently logged inm from the ProfileDatabase and then log them out.
+//     * @param authenticationSession
+//     */
+//    private static void deleteProfile(Authentication authenticationSession){
+//        ProfileDatabase.removeEmailFromDatabase(authenticationSession.getProfileLoggedIn().getEmail());
+//        ProfileDatabase.removeProfile(authenticationSession.getProfileLoggedIn().getUsername());
+//        authenticationSession.logOut();
+//    }
 
 }
