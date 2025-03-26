@@ -34,24 +34,57 @@ public class Profile {
         this.hashedPassword = hashedPassword;
     }
 
-    public String getEmail() {
-        return email;
+    /**
+     * Gets a player's email.
+     * @param id the id of the player.
+     * @return the current email of the player.
+     */
+    public String getEmail(long id) {
+        if (id == this.id) {
+            return email;
+        }
+        return null;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    /**
+     * Sets a player's email.
+     * @param id the id of the player.
+     */
+    public void setEmail(long id, String email) {
+        if (id == this.id) {
+            this.email = email;
+        }
     }
 
-    public String getHashedPassword() {
-        return hashedPassword;
+    /**
+     * Gets the hashed password of a player's account.
+     * @return the player's hashed password.
+     */
+    public String getHashedPassword(long id) {
+        if (id == this.id) {
+            return hashedPassword;
+        }
+        return null;
     }
 
-    public void setHashedPassword(String hashedPassword) {
+    /**
+     * Sets a player's hashedPassword.
+     * @param id the id of the player.
+     */
+    public void setHashedPassword(long id, String hashedPassword) {
         this.hashedPassword = hashedPassword;
     }
 
-    public String getNickname() {
-        return nickname;
+    /**
+     * Gets the player's nickname.
+     * @param id the id of the player.
+     * @return the player's nickname.
+     */
+    public String getNickname(long id) {
+        if (id == this.id) {
+            return nickname;
+        }
+        return null;
     }
 
     public void setNickname(String nickname) {
