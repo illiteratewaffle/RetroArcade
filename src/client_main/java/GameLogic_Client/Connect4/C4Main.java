@@ -21,6 +21,10 @@ public class C4Main {
         c4Controller.ReceiveInput(new ivec2(0, 0)); //
         c4Controller.ReceiveInput(new ivec2(0, 0));
         c4Controller.ReceiveInput(new ivec2(1, 0));
+        c4Controller.ReceiveInput(new ivec2(-1, 0));
+        c4Controller.ReceiveInput(new ivec2(7, 0));
+
+
 
     }
 }

@@ -27,9 +27,15 @@ public class C4Controller implements IBoardGameController {
         //this section gets the dimensions of the board to check against user inputs
 
         C4Piece[][] board = c4GameLogic.getC4Board().getC4Board();
-
+        int colDimension = board[0].length;
 
         int col = input.x;
+
+        if (col < 0 || col >= colDimension) {
+            System.out.println("Invalid column, out of bounds");
+            return;
+        }
+
         if (!c4GameLogic.getC4IsGameOver()) {
             C4Piece currentPlayer = c4GameLogic.getC4CurrentPlayer();
             boolean successfulPlay = c4GameLogic.c4DropPiece(col, currentPlayer);
@@ -40,6 +46,11 @@ public class C4Controller implements IBoardGameController {
             }
         }
     }
+
+    public C4Piece[][] getC4Board() {
+        return c4GameLogic.getC4Board().getC4Board();
+    }
+
 
     @Override
     public void RemovePlayer(int Player) throws IndexOutOfBoundsException {
