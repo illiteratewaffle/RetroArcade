@@ -11,7 +11,16 @@ public class C4Main {
         C4Controller c4Controller = new C4Controller();
         c4Controller.start();
 
+        // Testing a full column
         c4Controller.ReceiveInput(new ivec2(0, 0));
         c4Controller.ReceiveInput(new ivec2(0, 0));
+        c4Controller.ReceiveInput(new ivec2(0, 0));
+        c4Controller.ReceiveInput(new ivec2(0, 0));
+        c4Controller.ReceiveInput(new ivec2(0, 0));
+        c4Controller.ReceiveInput(new ivec2(0, 0));
+        c4Controller.ReceiveInput(new ivec2(0, 0)); //
+        c4Controller.ReceiveInput(new ivec2(0, 0));
+        c4Controller.ReceiveInput(new ivec2(1, 0));
+
     }
 }

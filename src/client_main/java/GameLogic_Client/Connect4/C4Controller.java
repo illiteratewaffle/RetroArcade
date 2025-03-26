@@ -23,6 +23,12 @@ public class C4Controller implements IBoardGameController {
      */
     @Override
     public void ReceiveInput(ivec2 input) {
+
+        //this section gets the dimensions of the board to check against user inputs
+
+        C4Piece[][] board = c4GameLogic.getC4Board().getC4Board();
+
+
         int col = input.x;
         if (!c4GameLogic.getC4IsGameOver()) {
             C4Piece currentPlayer = c4GameLogic.getC4CurrentPlayer();
