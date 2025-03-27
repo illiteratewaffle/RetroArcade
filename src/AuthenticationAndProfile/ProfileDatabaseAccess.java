@@ -32,7 +32,7 @@ public class ProfileDatabaseAccess {
      */
     public static Profile obtainProfile(int id){
         //call method to get csv for id
-        //try {
+        try {
             PlayerManager.getProfileTable(id); //method to get Profile csv with all attributes associated to the specified id
             String csvProfileFilePath = ""; //csv file saved to the main project directory
 
@@ -52,7 +52,7 @@ public class ProfileDatabaseAccess {
             String currentGame = profileFields.get(7);
             Boolean isOnline;
             //if (profileFields.get(10).equals("true")) {
-            if(profileFields.get(8).equals("true")) {
+            if (profileFields.get(8).equals("true")) {
                 isOnline = true;
             } else {
                 isOnline = false;
@@ -69,6 +69,9 @@ public class ProfileDatabaseAccess {
 //            System.out.println("ID does not match a profile in the database.");
 //            return null;
 //        }
+        } catch (IOException e) {
+            System.out.println("Image issue.");
+        }
     }
 
     /**

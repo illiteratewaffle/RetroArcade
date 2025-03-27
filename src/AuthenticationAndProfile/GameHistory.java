@@ -16,10 +16,10 @@ public class GameHistory{
      * Constructor that loads the game history for a specific profile
      * @param id Unique profile id
      */
-    public GameHistory(long id){
-        this.id = id;
-        loadGameHistory();
-    }
+//    public GameHistory(long id){
+//        this.id = id;
+//        loadGameHistory();
+//    }
 
     public GameHistory(List<String> gameHistory) {
         this.gameHistory = gameHistory;
