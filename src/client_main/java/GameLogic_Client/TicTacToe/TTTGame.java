@@ -47,6 +47,11 @@ public class TTTGame {
         return !checkWin(board) && board.isFull(); // No winner and board is full
     }
 
+    public TTTPiece getPiece(ivec2 point) {
+        return TTTPiece.fromInt(this.board.getPiece(point));
+    }
+
+
     public boolean isGameOver(TTTBoard board) {
         return checkWin(board) || checkDraw(board); // Check for win or draw
     }

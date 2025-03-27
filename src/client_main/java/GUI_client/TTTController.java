@@ -1,5 +1,6 @@
-package GUI_client;
+package client_main.java.GUI_client;
 
+import client_main.java.GameLogic_Client.TicTacToe.TTTGameController;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
@@ -128,6 +129,12 @@ public class TTTController implements Initializable {
                 board[i][j] = new Tile('-', i, j);
             }
         }
+
+        // initialize a TTTGameController class, this is where the game actually happens and
+        // everything is kept track of
+        //TTTGameController theGame = new TTTGameController();
+        // to access the board, you go theGame.board
+        // to access the current plater, you go theGame.currentPlayer, 1 for X, 2 for O
 
 
         /*
