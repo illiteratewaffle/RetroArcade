@@ -43,13 +43,13 @@ public class ProfileCSVReader {
 //    }
 
     /**
-     * Opens CSV file (from networking): A list of all profiles and their information
+     * Opens CSV file (from networking): A list of one profile and their information
      * Puts it into ArrayList
      * Returns said ArrayList
      *
      * @return
      */
-    public static ArrayList<String> openProfileFile(String filePath){
+    public static ArrayList<String> openSingleProfileFile(String filePath){
         ArrayList<String> fields = new ArrayList<>();
 
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
@@ -78,4 +78,34 @@ public class ProfileCSVReader {
 
         return fields;
     }
+
+
+    /**
+     * openProfilesFiles(String filePath) method used to read profile csv's that contain multiple ids.
+     * @param filePath
+     * @return
+     */
+    public static ArrayList<String> openProfilesFiles(String filePath) {
+        ArrayList<String> fields = new ArrayList<>();
+
+        try(BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            line = br.readLine();
+            while (line != null) {
+                line = br.readLine();
+                String[] fieldsList = line.split(",");
+                for (String fieldsString : fieldsList) {
+                    fields.add(fieldsString.trim());
+                }
+            }
+        }catch (IOException e){
+            e.printStackTrace();
+            System.out.println("System can't find file");
+        }
+    }
+
+//    public static void main(String[] args) {
+//        openSingleProfileFile("C:src/AuthenticationAndProfile/profile_ID.csv");
+//
+//    }
 }
