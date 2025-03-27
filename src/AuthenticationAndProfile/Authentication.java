@@ -28,16 +28,16 @@ public class Authentication {
      */
     public boolean logIn(String username, String password) throws Exception {
         String hashedPassword = ProfileCreation.hashedPassword(password);
-        try {
+        //try {
             int id = PlayerManager.authenticatePlayer(username, hashedPassword);
             Profile profile = ProfileDatabaseAccess.obtainProfile(id);
             setProfileLoggedIn(profile);
             profile.setOnlineStatus(true);
             return true;
-        } catch (IOException e) {
-            System.out.println("Wrong username or password.");
-            return false;
-        }
+//        } catch (IOException e) {
+//            System.out.println("Wrong username or password.");
+//            return false;
+//        }
     }
 
     /**

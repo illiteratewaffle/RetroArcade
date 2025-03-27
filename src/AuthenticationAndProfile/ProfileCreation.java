@@ -49,16 +49,16 @@ public class ProfileCreation {
      */
     private boolean createNewProfile(String email, String username, String password) {
         String hashedPassword = hashedPassword(password);
-        try {
+        //try {
             PlayerManager.registerPlayer(email, username, hashedPassword); //handle register player errors
             return true;
-        }catch (IOException e) {
-            System.out.println("Invalid email. Email already associated with an existing account.");
-            return false;
-        }catch (IOException f) {
-            System.out.println("Invalid username. Username already associated with an existing account.");
-            return false;
-        }
+//        }catch (IOException e) {
+//            System.out.println("Invalid email. Email already associated with an existing account.");
+//            return false;
+//        }catch (IOException f) {
+//            System.out.println("Invalid username. Username already associated with an existing account.");
+//            return false;
+//        }
     }
 
     /**
