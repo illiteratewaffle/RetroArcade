@@ -56,7 +56,7 @@ public class CheckersBoard extends AbstractBoard
         return P2PieceLocations;
     }
 
-    @Override
+    
     public void setPiece(ivec2 point, int piece)
     {
         int OldPieceID = getPiece(point);
