@@ -84,7 +84,7 @@ public class PlayerManager {
         }
     }
 
-    public static void getPlayer(int id) {
+    public static void getProfileTable(int id) {
         String query = "SELECT * FROM profiles WHERE id = ?";
         String fileName = "player_profile_" + id + ".csv";
 
@@ -124,7 +124,7 @@ public class PlayerManager {
     /**
      * Fetches all profile data from the database and writes it into a CSV file.
      */
-    public static void getPlayer() {
+    public static void getProfileTable() {
         // SQL query to fetch all rows in the profiles table
         String query = "SELECT * FROM profiles";
         // Keeps track of the number of rows exported
@@ -200,9 +200,9 @@ public class PlayerManager {
         return matchingIds;
     }
 
-    public static void main (String[] args) {
+    public static void main(String[] args) {
         System.out.println(authenticatePlayer("dannyX", "secureHASH321$$"));
-        getPlayer(3);
-        System.out.println(searchFriendsList(1, "lov"));
+        getProfileTable(3);
+        System.out.println(searchFriendsList(1, "sar"));
     }
 }
