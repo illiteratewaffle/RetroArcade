@@ -5,6 +5,8 @@ import server.database.databaseConnector;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PlayerManager {
     private static final Connection conn = databaseConnector.connect();
@@ -82,7 +84,7 @@ public class PlayerManager {
         }
     }
 
-    public static void getPlayer(int id) {
+    public static void getProfileTable(int id) {
         String query = "SELECT * FROM profiles WHERE id = ?";
         String fileName = "player_profile_" + id + ".csv";
 
@@ -122,7 +124,7 @@ public class PlayerManager {
     /**
      * Fetches all profile data from the database and writes it into a CSV file.
      */
-    public static void getPlayer() {
+    public static void getProfileTable() {
         // SQL query to fetch all rows in the profiles table
         String query = "SELECT * FROM profiles";
         // Keeps track of the number of rows exported
@@ -167,8 +169,40 @@ public class PlayerManager {
         }
     }
 
-    public static void main (String[] args) {
+    public static List<Integer> searchFriendsList(int id, String nameFragment) {
+        // SQL query that searches friends based on friend usernames that match the submitted string parameter
+        String query = """
+                SELECT id
+                FROM profiles
+                WHERE id = ANY (
+                SELECT jsonb_array_elements_text(friends)::INT
+                FROM profiles WHERE id = ?)
+                AND username ILIKE ?""";
+
+        // List containing friend Ids
+        List<Integer> matchingIds = new ArrayList<>();
+
+        // Prepare SQL query by setting search parameters and then execute
+        try(PreparedStatement statement = conn.prepareStatement(query)) {
+            statement.setInt(1, id);
+            // % signify wildcards so it searches any string containing the substring nameFragment
+            statement.setString(2, "%" + nameFragment + "%");
+            // Store the resulting table in rs
+            ResultSet rs = statement.executeQuery();
+            // rs.next moves cursor to next row in table and stores the id into matchingIds list
+            while (rs.next()) {
+                matchingIds.add(rs.getInt("id"));
+            }
+        } catch (SQLException e) {
+            System.err.println("Error searching friends by substring: " + e.getMessage());
+        }
+        // Return the friend's list that match the substring passed through
+        return matchingIds;
+    }
+
+    public static void main(String[] args) {
         System.out.println(authenticatePlayer("dannyX", "secureHASH321$$"));
-        getPlayer(3);
+        getProfileTable(3);
+        System.out.println(searchFriendsList(1, "sar"));
     }
 }
