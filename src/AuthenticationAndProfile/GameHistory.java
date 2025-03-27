@@ -21,6 +21,10 @@ public class GameHistory{
         loadGameHistory();
     }
 
+    public GameHistory(List<String> gameHistory) {
+        this.gameHistory = gameHistory;
+    }
+
     /**
      * Retrives the full game history fo the user associated with the id
      * @param id
