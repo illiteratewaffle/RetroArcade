@@ -30,18 +30,6 @@ public class Profile {
     }
 
     /**
-     * Profile constructor.
-     * @param email the email of the player.
-     * @param username the username of the player.
-     * @param hashedPassword the hashed password of the player.
-     */
-    public Profile(String email, String username, String hashedPassword){
-        this.email = email;
-        this.username = username;
-        this.hashedPassword = hashedPassword;
-    }
-
-    /**
      * Gets a player's email.
      * @param id the id of the player.
      * @return the current email of the player.
