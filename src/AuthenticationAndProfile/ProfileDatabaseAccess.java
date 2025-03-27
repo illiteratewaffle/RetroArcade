@@ -190,10 +190,13 @@ public class ProfileDatabaseAccess {
      * Method to search for Profiles with usernames similar to the searched term.
      * @param search String
      */
-    public static void searchForProfile(String search){
-
-
-
+    public static List<Profile> searchForProfile(String search) {
+        //List<Integer> usernameSearchMatchIdList = PlayerManager.searchProfileTable(search);
+        List<Profile> profilesFound = new ArrayList<Profile>();
+        //for (int i = 0; i < usernameSearchMatchIdList.size(); i ++) {
+        //profilesFound.add(usernameSearchMatchIdList[i]);
+        //}
+        return profilesFound;
     }
 
     /**
@@ -201,6 +204,13 @@ public class ProfileDatabaseAccess {
      * @param profile
      */
     public static void viewPersonalProfile(Profile profile){
+        //GameHistory.getFullGameHistory();
+        //username
+        //nickname
+        //email
+        //bio
+        //profilePic
+        //friendsList
 
     }
 
@@ -209,6 +219,14 @@ public class ProfileDatabaseAccess {
      * @param profile
      */
     public static void viewOtherProfile(Profile profile){
+        //username
+        //nickname
+        //bio
+        //profilePic
+        //currentStatus
+        //GameHistory.getRecentGames();
+        //PlayerRanking
+        //make friend request
 
     }
 
