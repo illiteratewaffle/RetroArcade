@@ -116,9 +116,24 @@ public class ProfileDatabaseAccess {
         //String csvPlayerRankingFilePath = PlayerManager.getPlayerRanking(id); //method to get PlayerRanking csv for id
         //ArrayList<String> playerRankingFields = openPlayerRankingFile(csvPlayerRankingFilePath);
         //from PlayerRanking ArrayList obtain the values for PlayerRanking Class variables
+        try {
+            PlayerManager.getProfileTable(id); //method to get Profile csv with all attributes associated to the specified id
+            String csvProfileFilePath = ""; //csv file saved to the main project directory
 
-        PlayerRanking playerRanking = new PlayerRanking();
+            ArrayList<String> profileFields = openSingleProfileFile(csvProfileFilePath);
 
+            //from Profile ArrayList obtain the values for Profile Class variables
+            double winLossRatio = Double.parseDouble(profileFields.get(9));
+            int rating = Integer.parseInt(profileFields.get(2));
+            int rank = Integer.parseInt(profileFields.get(3));
+            int wins = Integer.parseInt(profileFields.get(4));
+
+            PlayerRanking playerRanking = new PlayerRanking(winLossRatio, rating, rank, wins);
+            return playerRanking;
+        } catch (IOException e){
+            System.out.println("ID does not match a profile in the database.");
+            return null;
+        }
 
     }
 
@@ -162,7 +177,7 @@ public class ProfileDatabaseAccess {
      */
     public static ArrayList<String> getAllProfiles() {
         String csvProfileFilePath = ""; //csv is generated in the main directory of the project
-        PlayerManager.getPlayer();//method to get all profiles in database into a csv file
+        PlayerManager.getProfileTable();//method to get all profiles in database into a csv file
         ArrayList<String> profileFields = ProfileCSVReader.openProfilesFile(csvProfileFilePath);
         return profileFields;
     }
@@ -196,6 +211,6 @@ public class ProfileDatabaseAccess {
 
 
     public static void main(String[] args) {
-        PlayerManager.getPlayer();
+        PlayerManager.getProfileTable();
     }
 }
