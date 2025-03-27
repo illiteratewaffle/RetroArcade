@@ -82,10 +82,47 @@ public class PlayerManager {
         }
     }
 
+    public static void getPlayer(int id) {
+        String query = "SELECT * FROM profiles WHERE id = ?";
+        String fileName = "player_profile_" + id + ".csv";
+
+        try (PreparedStatement statement = conn.prepareStatement(query);
+             FileWriter writer = new FileWriter(fileName)
+        ) {
+            statement.setInt(1, id);
+            ResultSet rs = statement.executeQuery();
+
+            if (rs.next()) {
+                ResultSetMetaData metaData = rs.getMetaData();
+                int columnCount = metaData.getColumnCount();
+
+                // Write header
+                for (int i = 1; i <= columnCount; i++) {
+                    writer.append(metaData.getColumnName(i));
+                    if (i < columnCount) writer.append(",");
+                }
+                writer.append("\n");
+
+                // Write player row
+                for (int i = 1; i <= columnCount; i++) {
+                    writer.append(rs.getString(i));
+                    if (i < columnCount) writer.append(",");
+                }
+                writer.append("\n");
+
+                System.out.println("Player data written to: " + fileName);
+            } else {
+                System.out.println("No player found with ID: " + id);
+            }
+        } catch (SQLException | IOException e) {
+            System.err.println("Error retrieving or writing player data: " + e.getMessage());
+        }
+    }
+
     /**
      * Fetches all profile data from the database and writes it into a CSV file.
      */
-    public static void getProfile() {
+    public static void getPlayer() {
         // SQL query to fetch all rows in the profiles table
         String query = "SELECT * FROM profiles";
         // Keeps track of the number of rows exported
@@ -129,7 +166,9 @@ public class PlayerManager {
             System.err.println("Error exporting profile data: " + e.getMessage());
         }
     }
+
     public static void main (String[] args) {
         System.out.println(authenticatePlayer("dannyX", "secureHASH321$$"));
+        getPlayer(3);
     }
 }
