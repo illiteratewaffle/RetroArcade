@@ -89,7 +89,7 @@ public class C4GameLogic {
             c4PiecesPlayed += 1;
 
             // check for win
-            if (C4WinChecker.isC4Win(row, col, piece)) {
+            if (C4WinChecker.isC4Win(row, col, piece, c4Board.getC4Board())) {
                 isC4GameOver = true;
             } else {
                 // Swap player turn
