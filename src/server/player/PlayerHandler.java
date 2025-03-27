@@ -57,7 +57,7 @@ public class PlayerHandler implements Runnable {
         while (running) {
             try {
                 // Take a message from the blocking queue
-                ThreadMessage threadMessage = messages.take();
+                ThreadMessage threadMessage = queue.take();
                 // Grab the thread GameSessionManager is on for communicating back to it
                 if (gameSessionManagerThread == null) {
                     gameSessionManagerThread = threadMessage.getSender();
