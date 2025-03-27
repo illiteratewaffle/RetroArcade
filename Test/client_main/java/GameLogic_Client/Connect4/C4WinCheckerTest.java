@@ -148,4 +148,5 @@ class C4WinCheckerTest {
         assertFalse(C4WinChecker.checkC4Horizontal(winRow, 3, C4Piece.BLUE, board));
     }
 
+
 }

@@ -2,6 +2,7 @@ package client_main.java.GameLogic_Client.Connect4;
 
 public class C4WinChecker {
     private C4WinChecker() {
+
     }
 
     /**
@@ -40,14 +41,18 @@ public class C4WinChecker {
      * @return true if a horizontal win is detected, false otherwise.
      */
     public static boolean checkC4Horizontal(int row, int col, C4Piece piece, C4Piece[][] c4Board) {
+        // Validate starting position first
+        if (c4Board[row][col] != piece) {
+            return false;
+        }
         int pieceCounter = 1;
 
         // Check left.
         for (int i = col - 1; i >= 0; i--) {
             if(c4Board[row][i] != piece) {
-                break;
+                continue;
             } else {
-                pieceCounter++;             // Only increments piece counter if the same piece is consecutively placed next to current.
+                pieceCounter++;
             }
         }
 
@@ -55,7 +60,7 @@ public class C4WinChecker {
         // Other process remains the same.
         for (int j = col + 1; j < c4Board[0].length; j++) {
             if(c4Board[row][j] != piece) {
-                break;
+                continue;
             } else {
                 pieceCounter++;
             }
@@ -81,7 +86,7 @@ public class C4WinChecker {
             if(c4Board[i][col] == piece){
                 pieceCounter += 1;              // Increment piece counter if piece found.
             } else {
-                pieceCounter = 0;               // Else reset it to just 0, so it only takes consecutive pieces into account for win.
+                break;                          // Else reset it to just 0, so it only takes consecutive pieces into account for win.
             }
             if(pieceCounter >= 4) {
                 return true;                    // Returns true if there is 4 in a row consecutively.
@@ -108,7 +113,7 @@ public class C4WinChecker {
             if(c4Board[i][j] == piece) {
                 pieceCounter += 1;
             } else {
-                pieceCounter = 0;
+                break;
             }
             if(pieceCounter >= 4) {
                 return true;
@@ -120,7 +125,7 @@ public class C4WinChecker {
             if(c4Board[i][j] == piece) {
                 pieceCounter += 1;
             } else {
-                pieceCounter = 0;
+                break;
             }
             if(pieceCounter >= 4) {
                 return true;
@@ -147,7 +152,7 @@ public class C4WinChecker {
             if(c4Board[i][j] == piece) {
                 pieceCounter += 1;
             } else {
-                pieceCounter = 0;
+                break;
             }
             if(pieceCounter >= 4) {
                 return true;
@@ -159,7 +164,7 @@ public class C4WinChecker {
             if(c4Board[i][j] == piece) {
                 pieceCounter += 1;
             } else {
-                pieceCounter = 0;
+                break;
             }
             if(pieceCounter >= 4) {
                 return true;

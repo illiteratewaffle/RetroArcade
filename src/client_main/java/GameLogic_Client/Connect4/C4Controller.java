@@ -19,7 +19,7 @@ public class C4Controller implements IBoardGameController {
     }
 
     /**
-     * Receives yser input during the game.
+     * Receives user input during the game.
      */
     @Override
     public void ReceiveInput(ivec2 input) {
