@@ -172,9 +172,6 @@ public class CheckersController implements IBoardGameController
         System.out.println(CheckersBoard);
     }*/
 
-    public static void main(String[] args) {}
-
-
 
 // Interface implementation.
 
