@@ -1,11 +1,17 @@
 package AuthenticationAndProfile;
 import leaderboard.Leaderboard;
+import leaderboard.PlayerRanking;
+import server.player.PlayerManager;
 
+import javax.imageio.ImageIO;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.HashMap;
+import java.awt.image.BufferedImage;
 
-import static AuthenticationAndProfile.ProfileCSVReader.openProfileFile;
+import static AuthenticationAndProfile.ProfileCSVReader.openSingleProfileFile;
 import static AuthenticationAndProfile.FriendsListCSVReader.openFriendsListFile;
 import static AuthenticationAndProfile.GameHistoryCSVReader.openGameHistoryFile;
 
@@ -14,54 +20,69 @@ import static AuthenticationAndProfile.GameHistoryCSVReader.openGameHistoryFile;
  * @author Alessia Flaig
  */
 public class ProfileDatabase {
-    private static ProfileEmailSet<String> profileEmailSet = new ProfileEmailSet<>();
+    //private static ProfileEmailSet<String> profileEmailSet = new ProfileEmailSet<>();
     private static HashMap<String, Profile> profiles = new HashMap<String, Profile>();
     private Leaderboard leaderboard = new Leaderboard();
 
+//    /**
+//     * ProfileDatabase constructor
+//     */
+//    public ProfileDatabase() {
+//
+//    }
+
     /**
-     * ProfileDatabase constructor
+     * obtainProfile(long id) is called to recreate a Profile object for a profile from its information saved to the Database.
+     * The method calls a PlayerManager method to send a csv file for the specified id. If an error results from the id not existing
+     * in the database, an error is handled. The csv files fromthe FriendsList, GameHistory,
+     * and PlayerRanking database csv's are also read and the information put into constructors. These objects, as well as the other
+     * parameters read from the profile csv are input as parameters and a Player object is constructed and returned.
+     * @pre There are profiles registered to the Profile Database.
+     * @param id
+     * @return Profile object from data corresponding to the id from the database
      */
-    public ProfileDatabase() {
-
-    }
-
     public static Profile obtainProfile(long id){
         //call method to get csv for id
-        String csvProfileFilePath = PlayerManager.getPlayer(id);//method to get Profile csv for id
-        ArrayList<String> profileFields = openProfileFile(csvProfileFilePath);
+        try {
+            String csvProfileFilePath = PlayerManager.getPlayer(id); //method to get Profile csv for id
 
-        //from Profile ArrayList obtain the values for Profile Class variables
-        String username = profileFields.get(1);
-        String nickname = profileFields.get(2);
-        String email = profileFields.get(3);
-        String hashedPassword = profileFields.get(4);
-        //String bio = profileFields.get(7);
-        String bio = profileFields.get(5);
-        //String profilePicFilePath = profileFields.get(8);
-        String profilePicFilePath = profileFields.get(6);
-        BufferedImage profilePic = ImageIO.read(profilePicFilePath);
-        //String currentGame = profileFields.get(9);
-        String currentGame = profileFields.get(7);
-        Boolean isOnline;
-        //if (profileFields.get(10).equals("true")) {
-        if(profileFields.get(8).equals("true")) {
-            isOnline = true;
-        } else {
-            isOnline = false;
+            ArrayList<String> profileFields = openSingleProfileFile(csvProfileFilePath);
+
+            //from Profile ArrayList obtain the values for Profile Class variables
+            String username = profileFields.get(1);
+            String nickname = profileFields.get(2);
+            String email = profileFields.get(3);
+            String hashedPassword = profileFields.get(4);
+            //String bio = profileFields.get(7);
+            String bio = profileFields.get(5);
+            //String profilePicFilePath = profileFields.get(8);
+            String profilePicFilePath = profileFields.get(6);
+            BufferedImage profilePic = ImageIO.read(new File(profilePicFilePath));
+            //String currentGame = profileFields.get(9);
+            String currentGame = profileFields.get(7);
+            Boolean isOnline;
+            //if (profileFields.get(10).equals("true")) {
+            if(profileFields.get(8).equals("true")) {
+                isOnline = true;
+            } else {
+                isOnline = false;
+            }
+
+            //Call methods to create the FriendsList, GameHistory, and PlayerRanking objects from database attached to profile id
+            FriendsList friendsList = obtainFriendsList(id);
+            GameHistory gameHistory = obtainGameHistory(id);
+            PlayerRanking playerRanking = obtainPlayerRanking(id);
+
+            Profile profile = new Profile(email, hashedPassword, nickname, bio, isOnline, currentGame, friendsList, playerRanking, gameHistory, profilePic, username, id);
+            return profile;
+        } catch (IOException e) {
+            System.out.println("ID does not match a profile in the database.");
+            return null;
         }
-
-        //Call methods to create the FriendsList, GameHistory, and PlayerRanking objects from database attached to profile id
-        FriendsList friendsList = obtainFriendsList(id);
-        GameHistory gameHistory = obtainGameHistory(id);
-        PlayerRanking playerRanking = obtainPlayerRanking(id);
-
-        Profile profile = new Profile(email, hashedPassword, nickname, bio, isOnline, currentGame, friendsList, playerRanking, gameHistory, profilePic, username, id);
-        return profile;
-
     }
 
 
-    public FriendsList obtainFriendsList(long id){
+    public static FriendsList obtainFriendsList(long id){
         //call method to get csv for id
         //call method to get csv for FriendsList
         String csvFriendsListFilePath = PlayerManager.getFriendsList(id); //method to get FriendsList csv for id
@@ -72,7 +93,7 @@ public class ProfileDatabase {
         FriendsList friendsList = new FriendsList();
     }
 
-    public PlayerRanking obtainPlayerRanking(long id) {
+    public static PlayerRanking obtainPlayerRanking(long id) {
         //call method to get csv for id
         //call method to gte csv for PlayerRanking
         String csvPlayerRankingFilePath = PlayerManager.getPlayerRanking(id); //method to get PlayerRanking csv for id
@@ -84,13 +105,13 @@ public class ProfileDatabase {
 
     }
 
-    public GameHistory obtainGameHistory(long id) {
+    public static GameHistory obtainGameHistory(long id) {
         //call method to get csv for id
         //call method to get csv for GameHistory
         String csvGameHistoryFilePath = PlayerManager.getGameHistory(id); //method to get FriendsList csv for id
         ArrayList<String> gameHistoryFields = openGameHistoryFile(csvGameHistoryFilePath);
 
-        GameHistory gameHistory = new GameHistory();
+        GameHistory gameHistory = new GameHistory(id);
     }
 
 
@@ -113,8 +134,8 @@ public class ProfileDatabase {
      * @param username
      */
     public static void removeProfile(String username){
-        profileEmailSet.removeEmail(profiles.get(username).getEmail());
-        profiles.remove(username);
+        //profileEmailSet.removeEmail(profiles.get(username).getEmail());
+        //profiles.remove(username);
         //May need to handle logging off of the profile back to the main menu?
     }
 
@@ -132,7 +153,9 @@ public class ProfileDatabase {
      * @return HashMap<String, Profile>
      */
     public static HashMap<String, Profile> getAllProfiles() {
-        return profiles;
+        String csvProfileFilePath = PlayerManager.getAllProfiles();//method to get all profiles in database into a csv file
+        ArrayList<String> profileFields = openProfileFile(csvProfileFilePath);
+
     }
 
     /**
@@ -140,6 +163,8 @@ public class ProfileDatabase {
      * @param search String
      */
     public static void searchForProfile(String search){
+
+
 
     }
 
@@ -200,7 +225,7 @@ public class ProfileDatabase {
          * Returns false if email is already associated with an account in the database.
          */
         public boolean isValidEmail(String email){
-            return !profileEmailHashSet.contains(email);
+            //return !profileEmailHashSet.contains(email);
         }
 
 //        /**
