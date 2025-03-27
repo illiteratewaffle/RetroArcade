@@ -71,6 +71,7 @@ public class ProfileDatabaseAccess {
 //        }
         } catch (IOException e) {
             System.out.println("Image issue.");
+            return null;
         }
     }
 
@@ -170,7 +171,7 @@ public class ProfileDatabaseAccess {
      * @param id
      */
     public static void removeProfile(int id){
-        PlayerManager.deleteProfile(id);
+        //PlayerManager.deleteProfile(id);
         Authentication.logOut();
     }
 
