@@ -82,8 +82,9 @@ public class C4WinChecker {
     private static boolean checkC4Vertical(int row, int col, C4Piece piece, C4Piece[][] c4Board) {
         int pieceCounter = 1;
 
-        // Go above the piece placed till the start of board.
-        for(int i = row-1; i >= 0; i--){
+        // Go down of piece placed till the end of the board.
+        // Does not check for pieces above, as the pieces are stacked, so we are currently looking at the top-most piece in a column.
+        for(int i = row+1; i < c4Board.length; i++){
             if(c4Board[i][col] == piece){
                 pieceCounter += 1;              // Increment piece counter if piece found.
             } else {
@@ -91,19 +92,6 @@ public class C4WinChecker {
             }
             if(pieceCounter >= 4) {
                 return true;                    // Returns true if there is 4 in a row consecutively.
-            }
-        }
-
-        // Go down of piece placed till the end of the board.
-        // Same process as above otherwise.
-        for(int i = row+1; i < c4Board[0].length; i++){
-            if(c4Board[i][col] == piece){
-                pieceCounter += 1;
-            } else {
-                pieceCounter = 0;
-            }
-            if(pieceCounter >= 4) {
-                return true;
             }
         }
 
@@ -120,6 +108,32 @@ public class C4WinChecker {
      * @return true if a forward slash diagonal win is detected, false otherwise.
      */
     private static boolean checkC4ForwardSlash(int row, int col, C4Piece piece, C4Piece[][] c4Board) {
+        int pieceCounter = 1;
+
+        // Loop to check coordinates to the piece's top-right.
+        for (int i = row-1, j = col+1; i >= 0 && j < c4Board[0].length; i--, j++) {
+            if(c4Board[i][j] == piece) {
+                pieceCounter += 1;
+            } else {
+                pieceCounter = 0;
+            }
+            if(pieceCounter >= 4) {
+                return true;
+            }
+        }
+
+        // Loop to check coordinates to the piece's bottom-left.
+        for (int i = row+1, j = col-1; i < c4Board.length && j >=0; i++, j--) {
+            if(c4Board[i][j] == piece) {
+                pieceCounter += 1;
+            } else {
+                pieceCounter = 0;
+            }
+            if(pieceCounter >= 4) {
+                return true;
+            }
+        }
+
         return false;
     }
 
@@ -133,6 +147,32 @@ public class C4WinChecker {
      * @return true if a backward slash diagonal win is detected, false otherwise.
      */
     private static boolean checkC4BackwardSlash(int row, int col, C4Piece piece, C4Piece[][] c4Board) {
+        int pieceCounter = 1;
+
+        // Loop to check coordinates to the piece's top-left.
+        for (int i = row-1, j = col-1; i >= 0 && j >= 0; i--, j--) {
+            if(c4Board[i][j] == piece) {
+                pieceCounter += 1;
+            } else {
+                pieceCounter = 0;
+            }
+            if(pieceCounter >= 4) {
+                return true;
+            }
+        }
+
+        // Loop to check coordinates to the piece's bottom-right.
+        for (int i = row+1, j = col+1; i < c4Board.length && j < c4Board[0].length; i++, j++) {
+            if(c4Board[i][j] == piece) {
+                pieceCounter += 1;
+            } else {
+                pieceCounter = 0;
+            }
+            if(pieceCounter >= 4) {
+                return true;
+            }
+        }
+
         return false;
     }
 }
