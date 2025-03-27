@@ -1,5 +1,7 @@
 package AuthenticationAndProfile;
 
+import server.player.PlayerManager;
+
 public class Profile {
     private String email;
     private String hashedPassword;
@@ -47,8 +49,7 @@ public class Profile {
      * @param email the new email of the player.
      */
     public void setEmail(long id, String email) {
-        if (id == this.id) {
-            this.email = email;
+
         }
     }
 
@@ -121,24 +122,13 @@ public class Profile {
     }
 
     /**
-     * Gets the player's online status.
-     * @param id the id of the player.
-     * @return the player's online status.
-     */
-    public boolean isOnline(long id) {
-        if (id == this.id) {
-            return isOnline;
-        }
-    }
-
-    /**
      * Sets a player's online status.
      * @param id the id of the player.
      * @param online the new online status of the player.
      */
-    public void setOnline(long id, boolean online) {
-        if (id == this.id) {
+    public void setOnlineStatus(long id, boolean online) {
             isOnline = online;
+            // push update to database
         }
     }
 
@@ -223,26 +213,11 @@ public class Profile {
      * @param id the id of the player.
      * @param username the new username of the player.
      */
-    public void setUsername(long id, String username) {
+    public void updateUsername(long id, String newUsername) {
 
-        if (id == this.id) {
-            this.username = username;
+            this.username = username; // locally change the username
+            // call method to update username in database
         }
     }
 
-    /**
-     * Gets the player's id.
-     * @return the player's id.
-     */
-    public long getId() {
-        return id;
-    }
 
-    /**
-     * Sets a player's id.
-     * @param id the new id of the player.
-     */
-    public void setId(long id) {
-        this.id = id;
-    }
-}
