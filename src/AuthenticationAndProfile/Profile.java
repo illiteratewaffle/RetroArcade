@@ -4,6 +4,8 @@ import java.awt.image.BufferedImage;
 import leaderboard.PlayerRanking;
 import server.player.PlayerManager;
 
+import static server.player.PlayerManager.getUsername;
+
 public class Profile {
     private String email;
     private String hashedPassword;
@@ -173,8 +175,8 @@ public class Profile {
      * Gets the player's username.
      * @return the player's username.
      */
-    public String getUsername() {
-        return username;
+    public static String exportUsername(int id) {
+        return getUsername(7);
     }
 
     /**
@@ -182,6 +184,10 @@ public class Profile {
      * @param newUsername the new username of the player.
      */
     public void updateUsername(String newUsername) {
-        this.username = newUsername;
+
+    }
+
+    public static void main(String[] args) {
+        getUsername(7);
     }
 }
