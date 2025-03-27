@@ -20,6 +20,7 @@ class C4WinCheckerTest {
         }
     }
 
+    // Passes
     @Test
     void horizontalWin1() throws Exception {
         int winRow = 0;
@@ -31,6 +32,7 @@ class C4WinCheckerTest {
         assertTrue(C4WinChecker.checkC4Horizontal(winRow, 1, C4Piece.BLUE, board));
     }
 
+    // Passes
     @Test
     void horizontalWin2() throws Exception {
         int winRow = 0;
@@ -42,6 +44,7 @@ class C4WinCheckerTest {
         assertTrue(C4WinChecker.checkC4Horizontal(winRow, 3, C4Piece.BLUE, board));
     }
 
+    // Passes
     @Test
     void horizontalWin3() throws Exception {
         int winRow = 0;
@@ -56,6 +59,7 @@ class C4WinCheckerTest {
         assertTrue(C4WinChecker.checkC4Horizontal(winRow, 2, C4Piece.BLUE, board));
     }
 
+    // Passes
     @Test
     void horizontalWin4() throws Exception {
         int winRow = 0;
@@ -70,6 +74,7 @@ class C4WinCheckerTest {
         assertTrue(C4WinChecker.checkC4Horizontal(winRow, 0, C4Piece.BLUE, board));
     }
 
+    // Passes
     @Test
     void horizontalWin5() throws Exception {
         int winRow = 0;
@@ -81,6 +86,7 @@ class C4WinCheckerTest {
         assertTrue(C4WinChecker.checkC4Horizontal(winRow, 6, C4Piece.BLUE, board));
     }
 
+    // Passes
     @Test
     void horizontalWin6() throws Exception {
         int winRow = 0;
@@ -95,7 +101,7 @@ class C4WinCheckerTest {
         assertTrue(C4WinChecker.checkC4Horizontal(winRow, 4, C4Piece.BLUE, board));
     }
 
-
+    // Fails
     @Test
     void horizontalNoWin1() throws Exception {
         int winRow = 0;
@@ -108,9 +114,33 @@ class C4WinCheckerTest {
         assertFalse(C4WinChecker.checkC4Horizontal(winRow, 3, C4Piece.BLUE, board));
     }
 
+    // Passes
     @Test
     void horizontalNoWin2() throws Exception {
         int winRow = 0;
+        board[winRow][4] = C4Piece.BLUE;
+        board[winRow][5] = C4Piece.BLUE;
+        board[winRow][6] = C4Piece.BLUE;
+
+        assertFalse(C4WinChecker.checkC4Horizontal(winRow, 5, C4Piece.BLUE, board));
+    }
+
+    // Fails
+    @Test
+    void horizontalNoWin3() throws Exception {
+        int winRow = 0;
+        board[winRow][4] = C4Piece.BLUE;
+        board[winRow][5] = C4Piece.BLUE;
+        board[winRow][6] = C4Piece.BLUE;
+
+        assertFalse(C4WinChecker.checkC4Horizontal(winRow, 3, C4Piece.BLUE, board));
+    }
+
+    // Fails
+    @Test
+    void horizontalNoWin4() throws Exception {
+        int winRow = 0;
+        board[winRow][0] = C4Piece.BLUE;
         board[winRow][4] = C4Piece.BLUE;
         board[winRow][5] = C4Piece.BLUE;
         board[winRow][6] = C4Piece.BLUE;
