@@ -2,6 +2,7 @@ package server.player;
 
 import server.database.databaseConnector;
 
+import javax.xml.transform.Result;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.*;
@@ -199,6 +200,27 @@ public class PlayerManager {
         // Return the friend's list that match the substring passed through
         return matchingIds;
     }
+
+    public static String getUsername(int id) {
+        String query = "SELECT username FROM profiles WHERE id = ?";
+
+        try (PreparedStatement statement = conn.prepareStatement(query)) {
+            statement.setInt(1, id);
+            ResultSet rs = statement.executeQuery();
+
+            if (rs.next()) {
+                return rs.getString("username");
+            } else {
+                System.out.println("No user found with ID: " + id);
+                return null;
+            }
+        } catch (SQLException e) {
+            System.err.println("Error searching username: " + e.getMessage());
+            return null;
+        }
+    }
+
+    // TODO: create methods to retrieve columns of profile
 
     public static void main(String[] args) {
         System.out.println(authenticatePlayer("dannyX", "secureHASH321$$"));
