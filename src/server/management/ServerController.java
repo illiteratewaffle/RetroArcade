@@ -6,6 +6,8 @@ import server.management.ThreadMessage;
 
 public class ServerController {
 
+
+
     public ServerController() {
         ThreadRegistry.threadRegistry.put(Thread.currentThread(), new LinkedBlockingQueue<>());
     }
