@@ -17,9 +17,9 @@ public class Profile {
     private GameHistory gamesPlayed;
     private BufferedImage profilePic;
     private String username;
-    private long id;
+    private int id;
 
-    public Profile(String email, String hashedPassword, String nickname, String bio, boolean isOnline, String currentGame, FriendsList friendsList, PlayerRanking playerRanking, GameHistory gamesPlayed, BufferedImage profilePic, String username, long id) {
+    public Profile(String email, String hashedPassword, String nickname, String bio, boolean isOnline, String currentGame, FriendsList friendsList, PlayerRanking playerRanking, GameHistory gamesPlayed, BufferedImage profilePic, String username, int id) {
         this.email = email;
         this.hashedPassword = hashedPassword;
         this.nickname = nickname;
@@ -39,7 +39,7 @@ public class Profile {
      * @param id the id of the player.
      * @return the current email of the player.
      */
-    public String getEmail(long id) {
+    public String getEmail(int id) {
         if (id == this.id) {
             return email;
         }
@@ -51,7 +51,7 @@ public class Profile {
      * @param id the id of the player.
      * @param email the new email of the player.
      */
-    public void setEmail(long id, String email) {
+    public void setEmail(int id, String email) {
 
         }
 
@@ -59,7 +59,7 @@ public class Profile {
      * Gets the hashed password of a player's account.
      * @return the player's hashed password.
      */
-    public String getHashedPassword(long id) {
+    public String getHashedPassword(int id) {
         if (id == this.id) {
             return hashedPassword;
         }
@@ -71,7 +71,7 @@ public class Profile {
      * @param id the id of the player.
      * @param hashedPassword the new hashed password of the player.
      */
-    public void setHashedPassword(long id, String hashedPassword) {
+    public void setHashedPassword(int id, String hashedPassword) {
         if (id == this.id) {
             this.hashedPassword = hashedPassword;
         }
@@ -82,7 +82,7 @@ public class Profile {
      * @param id the id of the player.
      * @return the player's nickname.
      */
-    public String getNickname(long id) {
+    public String getNickname(int id) {
         if (id == this.id) {
             return nickname;
         }
@@ -94,7 +94,7 @@ public class Profile {
      * @param id the id of the player.
      * @param nickname the new nickname of the player.
      */
-    public void setNickname(long id, String nickname) {
+    public void setNickname(int id, String nickname) {
         if (id == this.id) {
             this.nickname = nickname;
         }
@@ -105,7 +105,7 @@ public class Profile {
      * @param id the id of the player.
      * @return the player's bio.
      */
-    public String getBio(long id) {
+    public String getBio(int id) {
         if (id == this.id) {
             return bio;
         }
@@ -117,7 +117,7 @@ public class Profile {
      * @param id the id of the player.
      * @param bio the new bio of the player.
      */
-    public void setBio(long id, String bio) {
+    public void setBio(int id, String bio) {
         if (id == this.id) {
             this.bio = bio;
         }
@@ -125,10 +125,9 @@ public class Profile {
 
     /**
      * Sets a player's online status.
-     * @param id the id of the player.
      * @param online the new online status of the player.
      */
-    public void setOnlineStatus(long id, boolean online) {
+    public void setOnlineStatus(boolean online) {
             isOnline = online;
             // push update to database
         }
@@ -139,7 +138,7 @@ public class Profile {
      * @param id the id of the player.
      * @return the player's current game.
      */
-    public void getCurrentStatus(long id) {
+    public void getCurrentStatus(int id) {
         if (id == this.id) {
             if (isOnline) {
                 if (currentGame != null) {
@@ -150,8 +149,7 @@ public class Profile {
             } else {
                 System.out.println("Offline");
             }
-            isOnline = online;
-
+            //isOnline = online;
         }
     }
 
@@ -172,7 +170,7 @@ public class Profile {
      * @param id the id of the player.
      * @return the player's current game.
      */
-    public String getCurrentGame(long id) {
+    public String getCurrentGame(int id) {
         if (id == this.id) {
             return currentGame;
         }
@@ -183,7 +181,7 @@ public class Profile {
      * @param id the id of the player.
      * @param currentGame the current game of the player.
      */
-    public void setCurrentGame(String currentGame) {
+    public void setCurrentGame(int id, String currentGame) {
         if (id == this.id) {
             this.currentGame = currentGame;
         }
@@ -194,7 +192,7 @@ public class Profile {
      * @param id the id of the player.
      * @return the player's played games.
      */
-    public GameHistory getGamesPlayed(long id) {
+    public GameHistory getGamesPlayed(int id) {
         if (id == this.id) {
             return gamesPlayed;
         }
@@ -217,7 +215,7 @@ public class Profile {
      * @param id the id of the player.
      * @return the player's username.
      */
-    public String getUsername(long id) {
+    public String getUsername(int id) {
         if (id == this.id) {
             return username;
         }
@@ -226,11 +224,11 @@ public class Profile {
     /**
      * Sets a player's username.
      * @param id the id of the player.
-     * @param username the new username of the player.
+     * @param newUsername the new username of the player.
      */
-    public void updateUsername(long id, String newUsername) {
+    public void updateUsername(int id, String newUsername) {
 
-            this.username = username; // locally change the username
+            this.username = newUsername; // locally change the username
             // call method to update username in database
         }
 }
