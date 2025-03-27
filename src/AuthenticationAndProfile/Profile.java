@@ -154,28 +154,57 @@ public class Profile {
         }
     }
 
-    public void getCurrentStatus() {
-        if (isOnline) {
-            if (currentGame != null) {
-                System.out.println("Online - Currently playing: " + currentGame);
+    /**
+     * Check if a player is in a game. If so, prints out the game they're playing (likely usable by GUI team).
+     * If not, prints out "Online" if the player is online. Otherwise, prints out "Offline".
+     * @param id the id of the player.
+     * @return the player's current game.
+     */
+    public void getCurrentStatus(long id) {
+        if (id == this.id) {
+            if (isOnline) {
+                if (currentGame != null) {
+                    System.out.println("Online - Currently playing: " + currentGame);
+                } else {
+                    System.out.println("Online");
+                }
             } else {
-                System.out.println("Online");
+                System.out.println("Offline");
             }
-        } else {
-            System.out.println("Offline");
         }
     }
 
-    public String getCurrentGame() {
-        return currentGame;
+    `/**
+     * Gets the player's current game.
+     * @param id the id of the player.
+     * @return the player's current game.
+     */
+    public String getCurrentGame(long id) {
+        if (id == this.id) {
+            return currentGame;
+        }
     }
 
+    /**
+     * Sets a player's current game.
+     * @param id the id of the player.
+     * @param currentGame the current game of the player.
+     */
     public void setCurrentGame(String currentGame) {
-        this.currentGame = currentGame;
+        if (id == this.id) {
+            this.currentGame = currentGame;
+        }
     }
 
-    public GameHistory getGamesPlayed() {
-        return gamesPlayed;
+    /**
+     * Gets the player's played games.
+     * @param id the id of the player.
+     * @return the player's played games.
+     */
+    public GameHistory getGamesPlayed(long id) {
+        if (id == this.id) {
+            return gamesPlayed;
+        }
     }
 
     public void setGamesPlayed(GameHistory gamesPlayed) {
@@ -190,18 +219,41 @@ public class Profile {
         this.profilePic = profilePic;
     }
 
-    public String getUsername() {
-        return username;
+    /**
+     * Gets the player's username.
+     * @param id the id of the player.
+     * @return the player's username.
+     */
+    public String getUsername(long id) {
+        if (id == this.id) {
+            return username;
+        }
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    /**
+     * Sets a player's username.
+     * @param id the id of the player.
+     * @param username the new username of the player.
+     */
+    public void setUsername(long id, String username) {
+
+        if (id == this.id) {
+            this.username = username;
+        }
     }
 
+    /**
+     * Gets the player's id.
+     * @return the player's id.
+     */
     public long getId() {
         return id;
     }
 
+    /**
+     * Sets a player's id.
+     * @param id the new id of the player.
+     */
     public void setId(long id) {
         this.id = id;
     }
