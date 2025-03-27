@@ -32,7 +32,7 @@ public class ProfileDatabaseAccess {
      */
     public static Profile obtainProfile(int id){
         //call method to get csv for id
-        try {
+        //try {
             PlayerManager.getProfileTable(id); //method to get Profile csv with all attributes associated to the specified id
             String csvProfileFilePath = ""; //csv file saved to the main project directory
 
@@ -65,10 +65,10 @@ public class ProfileDatabaseAccess {
 
             Profile profile = new Profile(email, hashedPassword, nickname, bio, isOnline, currentGame, friendsList, playerRanking, gameHistory, profilePic, username, id);
             return profile;
-        } catch (IOException e) {
-            System.out.println("ID does not match a profile in the database.");
-            return null;
-        }
+//        } catch (IOException e) {
+//            System.out.println("ID does not match a profile in the database.");
+//            return null;
+//        }
     }
 
     /**
@@ -83,7 +83,7 @@ public class ProfileDatabaseAccess {
         //ArrayList<String> friendsListFields = openFriendsListFile(csvFriendsListFilePath);
 
         //from FriendsList ArrayList obtain the values for FriendsList Class variables
-        try {
+        //try {
             PlayerManager.getProfileTable(id); //method to get Profile csv with all attributes associated to the specified id
             String csvProfileFilePath = ""; //csv file saved to the main project directory
 
@@ -103,10 +103,10 @@ public class ProfileDatabaseAccess {
             }
             FriendsList friendsList = new FriendsList(friends, friendRequests);
             return friendsList;
-        } catch (IOException e) {
-            System.out.println("ID does not match a profile in the database.");
-            return null;
-        }
+        //} catch (IOException e) {
+        //    System.out.println("ID does not match a profile in the database.");
+        //    return null;
+        //}
 
     }
 
@@ -116,7 +116,7 @@ public class ProfileDatabaseAccess {
         //String csvPlayerRankingFilePath = PlayerManager.getPlayerRanking(id); //method to get PlayerRanking csv for id
         //ArrayList<String> playerRankingFields = openPlayerRankingFile(csvPlayerRankingFilePath);
         //from PlayerRanking ArrayList obtain the values for PlayerRanking Class variables
-        try {
+        //try {
             PlayerManager.getProfileTable(id); //method to get Profile csv with all attributes associated to the specified id
             String csvProfileFilePath = ""; //csv file saved to the main project directory
 
@@ -130,10 +130,10 @@ public class ProfileDatabaseAccess {
 
             PlayerRanking playerRanking = new PlayerRanking(winLossRatio, rating, rank, wins);
             return playerRanking;
-        } catch (IOException e){
-            System.out.println("ID does not match a profile in the database.");
-            return null;
-        }
+//        } catch (IOException e){
+//            System.out.println("ID does not match a profile in the database.");
+//            return null;
+//        }
 
     }
 
@@ -142,7 +142,7 @@ public class ProfileDatabaseAccess {
         //call method to get csv for GameHistory
         //String csvGameHistoryFilePath = PlayerManager.getGameHistory(id); //method to get FriendsList csv for id
         //ArrayList<String> gameHistoryFields = openGameHistoryFile(csvGameHistoryFilePath);
-        try {
+        //try {
             PlayerManager.getProfileTable(id); //method to get Profile csv with all attributes associated to the specified id
             String csvProfileFilePath = ""; //csv file saved to the main project directory
 
@@ -156,10 +156,10 @@ public class ProfileDatabaseAccess {
 
             GameHistory gameHistoryObject = new GameHistory(gameHistory);
             return gameHistoryObject;
-        } catch (IOException e) {
-            System.out.println("ID does not match a profile in the database.");
-            return null;
-        }
+//        } catch (IOException e) {
+//            System.out.println("ID does not match a profile in the database.");
+//            return null;
+//        }
     }
 
     /**
