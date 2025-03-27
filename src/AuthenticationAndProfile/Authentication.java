@@ -33,19 +33,28 @@ public class Authentication {
         //pull Profile object - or build with csv info?
         //update isOnline and update database with push/profileExtraction method?
         String hashedpassword = ProfileCreation.hashedPassword(password);
-        PlayerManager.authenticatePlayer(username, hashedpassword)
-        if (!authenticateUsername(username)){
-            throw new Exception("Invalid Username.");
-        } else {
-            if(!authenticatePassword(username, password)){
-                throw new Exception("Incorrect password for username.");
-            }
-
+        if(!PlayerManager.authenticatePlayer(username, hashedpassword)) {
             Profile profile = ProfileDatabase.obtainProfile(id);
             setProfileLoggedIn(profile);
             profile.setOnline(true);
             return true;
+        }else {
+            return false;
         }
+
+
+//        if (!authenticateUsername(username)){
+//            throw new Exception("Invalid Username.");
+//        } else {
+//            if(!authenticatePassword(username, password)){
+//                throw new Exception("Incorrect password for username.");
+//            }
+//
+//            Profile profile = ProfileDatabase.obtainProfile(id);
+//            setProfileLoggedIn(profile);
+//            profile.setOnline(true);
+//            return true;
+//        }
     }
 
     /**
