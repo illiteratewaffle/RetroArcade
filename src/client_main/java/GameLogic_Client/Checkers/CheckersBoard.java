@@ -1,6 +1,8 @@
-package client_main.java.GameLogic_Client.Checkers;
+package GameLogic_Client.Checkers;
 
-import client_main.java.GameLogic_Client.*;
+import client_main.java.GameLogic_Client.ivec2;
+import client_main.java.GameLogic_Client.AbstractBoard;
+
 import java.util.HashSet;
 
 // inherits from Resources.AbstractBoard.java

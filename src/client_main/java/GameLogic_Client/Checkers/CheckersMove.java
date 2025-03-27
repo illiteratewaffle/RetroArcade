@@ -1,5 +1,5 @@
 // setting package to checkers
-package client_main.java.GameLogic_Client.Checkers;
+package GameLogic_Client.Checkers;
 // importing the ivec2 class from game logic package
 import client_main.java.GameLogic_Client.ivec2;
 
