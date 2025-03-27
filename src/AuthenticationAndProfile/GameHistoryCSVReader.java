@@ -4,7 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-
+//Un needed now?
 public class GameHistoryCSVReader {
         //private static final String FILEPATH = "src/AuthenticationAndProfile/GameHistory_ID.csv"; //saves with the id of the profile it belongs to
 

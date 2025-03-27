@@ -4,7 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-
+//unneeded now?
 public class FriendsListCSVReader {
     //private static final String FILEPATH = "src/AuthenticationAndProfile/friendsList_ID.csv"; //saves with the id of the profile it belongs to
 

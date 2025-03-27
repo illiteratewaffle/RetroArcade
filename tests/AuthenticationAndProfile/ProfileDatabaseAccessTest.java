@@ -1,8 +1,6 @@
 package AuthenticationAndProfile;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-class ProfileDatabaseTest {
+class ProfileDatabaseAccessTest {
 
     @org.junit.jupiter.api.Test
     void addProfile() {
