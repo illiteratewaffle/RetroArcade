@@ -122,4 +122,7 @@ public class PlayerManager {
             System.err.println("Error exporting profile data: " + e.getMessage());
         }
     }
+    public static void main (String[] args) {
+        System.out.println(authenticatePlayer("RetroReactive", "877fc8611a677b0d6956389d29faf6f7458690ba31248614e2c3fb27b90997b17"));
+    }
 }
