@@ -2,7 +2,6 @@ package AuthenticationAndProfile;
 
 import java.awt.image.BufferedImage;
 import leaderboard.PlayerRanking;
-
 import server.player.PlayerManager;
 
 public class Profile {
@@ -36,91 +35,66 @@ public class Profile {
 
     /**
      * Gets a player's email.
-     * @param id the id of the player.
      * @return the current email of the player.
      */
-    public String getEmail(int id) {
-        if (id == this.id) {
-            return email;
-        }
-        return null;
+    public String getEmail() {
+        return email;
     }
 
     /**
      * Sets a player's email.
-     * @param id the id of the player.
      * @param email the new email of the player.
      */
-    public void setEmail(int id, String email) {
-
-        }
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
     /**
      * Gets the hashed password of a player's account.
      * @return the player's hashed password.
      */
-    public String getHashedPassword(int id) {
-        if (id == this.id) {
-            return hashedPassword;
-        }
-        return null;
+    public String getHashedPassword() {
+        return hashedPassword;
     }
 
     /**
-     * Sets a player's hashedPassword.
-     * @param id the id of the player.
+     * Sets a player's hashed password.
      * @param hashedPassword the new hashed password of the player.
      */
-    public void setHashedPassword(int id, String hashedPassword) {
-        if (id == this.id) {
-            this.hashedPassword = hashedPassword;
-        }
+    public void setHashedPassword(String hashedPassword) {
+        this.hashedPassword = hashedPassword;
     }
 
     /**
      * Gets the player's nickname.
-     * @param id the id of the player.
      * @return the player's nickname.
      */
-    public String getNickname(int id) {
-        if (id == this.id) {
-            return nickname;
-        }
-        return null;
+    public String getNickname() {
+        return nickname;
     }
 
     /**
      * Sets a player's nickname.
-     * @param id the id of the player.
      * @param nickname the new nickname of the player.
      */
-    public void setNickname(int id, String nickname) {
-        if (id == this.id) {
-            this.nickname = nickname;
-        }
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 
     /**
      * Gets the player's bio.
-     * @param id the id of the player.
      * @return the player's bio.
      */
-    public String getBio(int id) {
-        if (id == this.id) {
-            return bio;
-        }
-        return null;
+    public String getBio() {
+        return bio;
     }
 
     /**
      * Sets a player's bio.
-     * @param id the id of the player.
      * @param bio the new bio of the player.
      */
-    public void setBio(int id, String bio) {
-        if (id == this.id) {
-            this.bio = bio;
-        }
+    public void setBio(String bio) {
+        this.bio = bio;
     }
 
     /**
@@ -128,31 +102,13 @@ public class Profile {
      * @param online the new online status of the player.
      */
     public void setOnlineStatus(boolean online) {
-            isOnline = online;
-            // push update to database
-        }
+        isOnline = online;
+    }
 
     /**
      * Check if a player is in a game. If so, prints out the game they're playing (likely usable by GUI team).
      * If not, prints out "Online" if the player is online. Otherwise, prints out "Offline".
-     * @param id the id of the player.
-     * @return the player's current game.
      */
-    public void getCurrentStatus(int id) {
-        if (id == this.id) {
-            if (isOnline) {
-                if (currentGame != null) {
-                    System.out.println("Online - Currently playing: " + currentGame);
-                } else {
-                    System.out.println("Online");
-                }
-            } else {
-                System.out.println("Offline");
-            }
-            //isOnline = online;
-        }
-    }
-
     public void getCurrentStatus() {
         if (isOnline) {
             if (currentGame != null) {
@@ -167,71 +123,65 @@ public class Profile {
 
     /**
      * Gets the player's current game.
-     * @param id the id of the player.
      * @return the player's current game.
      */
-    public String getCurrentGame(int id) {
-        if (id == this.id) {
-            return currentGame;
-        }
+    public String getCurrentGame() {
+        return currentGame;
     }
 
     /**
      * Sets a player's current game.
-     * @param id the id of the player.
      * @param currentGame the current game of the player.
      */
-    public void setCurrentGame(int id, String currentGame) {
-        if (id == this.id) {
-            this.currentGame = currentGame;
-        }
+    public void setCurrentGame(String currentGame) {
+        this.currentGame = currentGame;
     }
 
     /**
      * Gets the player's played games.
-     * @param id the id of the player.
      * @return the player's played games.
      */
-    public GameHistory getGamesPlayed(int id) {
-        if (id == this.id) {
-            return gamesPlayed;
-        }
+    public GameHistory getGamesPlayed() {
+        return gamesPlayed;
     }
 
+    /**
+     * Sets the player's played games.
+     * @param gamesPlayed the new played games of the player.
+     */
     public void setGamesPlayed(GameHistory gamesPlayed) {
         this.gamesPlayed = gamesPlayed;
     }
 
+    /**
+     * Gets the player's profile picture.
+     * @return the player's profile picture.
+     */
     public BufferedImage getProfilePic() {
         return profilePic;
     }
 
+    /**
+     * Sets the player's profile picture.
+     * @param profilePic the new profile picture of the player.
+     */
     public void setProfilePic(BufferedImage profilePic) {
         this.profilePic = profilePic;
     }
 
     /**
      * Gets the player's username.
-     * @param id the id of the player.
      * @return the player's username.
      */
-    public String getUsername(int id) {
-        if (id == this.id) {
-            return username;
-        }
+    public String getUsername() {
+        return username;
     }
 
     /**
      * Sets a player's username.
-     * @param id the id of the player.
      * @param newUsername the new username of the player.
      */
-    public void updateUsername(int id, String newUsername) {
-
-            this.username = newUsername; // locally change the username
-            // call method to update username in database
-        }
+    public void updateUsername(String newUsername) {
+        this.username = newUsername;
+    }
 }
-
-
-
