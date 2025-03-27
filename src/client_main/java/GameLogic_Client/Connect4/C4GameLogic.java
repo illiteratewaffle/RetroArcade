@@ -136,7 +136,7 @@ public class C4GameLogic {
     /**
      * Returns the 2D array of the board. Required for the controller class to view the board.
      */
-    public static C4Board getC4Board() {
+    public C4Board getC4Board() {
         return c4Board;
     }
 
