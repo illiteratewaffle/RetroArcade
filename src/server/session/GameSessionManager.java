@@ -11,8 +11,10 @@ import java.util.concurrent.ConcurrentHashMap;
 public class GameSessionManager implements Runnable{
     private final Player player1;
     private final Player player2; 
-    
-    private final IBoardGameController gameController; 
+
+    // TODO: a placeholder class should be created that allows code to be compiled
+    private final IBoardGameController gameController;
+    // TODO: ThreadRegistry is now used in place of the ConcurrentHashMap<Thread, BlockingQueue<ThreadMessage>>
     private final ConcurrentHashMap<Thread, BlockingQueue<ThreadMessage>> queue;
     
 
@@ -26,6 +28,7 @@ public class GameSessionManager implements Runnable{
         this.player1 = player1;
         this.player2 = player2; 
         this. queue = queue;
+        // TODO: IBoardGameController's methods should be using camel case, not pascal case
         this.gameController = new IBoardGameController(); //IBoardController is a class that is being develop by the game logic team
 
     }
@@ -36,15 +39,18 @@ public class GameSessionManager implements Runnable{
      */
     @Override
     public void run(){
+        // TODO: camel case
         while (gameController.GetGameonGoing()){ 
             Player currentPlayer = getCurrentPlayer(); //Get the player whose turn it is 
             ThreadMessage message = recieveInputFromPlayer(currentPlayer); //Wait for player input
 
             if (message != null){
+                // TODO: camel case
                 gameController.RecieveInput(message.getCoordinates()); //Process the input in the game logic 
                 GameStateToPlayers(); //Notify players of the state of the game 
             }
 
+            // TODO: camel case
             if (!gameController.GetGameonGoing()){
                 handleGameEnd(); //Handle the game if no longer on going. 
             }
@@ -57,6 +63,7 @@ public class GameSessionManager implements Runnable{
      * @return The player whose turn it is.
      */
     private Player getCurrentPlayer(){
+        // TODO: camel case
         int currentPlayerIndex = gameController.GetCurrentPlayer(); //Get the player's index
         
         //Retunr the corresponding player 
@@ -97,6 +104,7 @@ public class GameSessionManager implements Runnable{
      * @return The string format of current player, winner, and game status
      */
     private String formatGameState(){
+        // TODO: camel case
         return "Current Player: " + gameController.GetCurrentPlayer() + ", Winner: " + java.util.Arrays.toString(gameController.GetWinner()) + 
                 ", Game On Going: " + gameController.GetGameonGoing();
     }
@@ -118,6 +126,7 @@ public class GameSessionManager implements Runnable{
      * Ends the game if necessary and notifies both players
      */
     private void handleGameEnd(){
+        // TODO: camel case
         int[] winner = gameController.GetWinner(); //Get the winner of the game 
 
         String resultMessage = (winner.length > 1) ? "Game ended in a tie" : "Player " + winner[0] + " won!";

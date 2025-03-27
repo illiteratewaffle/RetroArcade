@@ -1,5 +1,6 @@
 package server.management;
 
+// TODO: This could be expanded once we determine the full range of information threads will share.
 /**
  * This class will be used as a basis for communication between threads
  */

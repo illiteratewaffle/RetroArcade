@@ -21,19 +21,24 @@ public class ConnectionManager implements Runnable {
 
     public void startListening() {
         try (ServerSocket serverSocket = new ServerSocket(port)) {
+            // TODO: log?
             System.out.println("Connection Manager: Listening on port " + port);
             while (true) {
                 Socket clientSocket = serverSocket.accept();
+                // TODO: log?
                 System.out.println("Connection Manager: Accepted connection from " + clientSocket.getRemoteSocketAddress());
                 //Create a new virtual thread for handling the new client connection.
                 Thread.startVirtualThread(() -> handleNewConnection(clientSocket));
             }
         } catch (IOException e) {
+            // TODO: log?
             System.err.println("Connection Manager encountered an error: " + e.getMessage());
+            // TODO: is a stack trace necessary if the error is properly logged?
             e.printStackTrace();
         }
     }
 
+    // TODO: why are you creating a thread that just runs handleNewConnection, which creates another thread before destroying itself? thread inception type shi
     private void handleNewConnection(Socket clientSocket) {
         //Create a new player handler for the cient.
         PlayerHandler handler = new PlayerHandler(clientSocket);
@@ -43,9 +48,3 @@ public class ConnectionManager implements Runnable {
         Thread thread = Thread.startVirtualThread(handler);
     }
 }
-
-/*
-notes (for colby):
- - why are you creating a thread that just runs the handleNewConnection, which creates another thread? you should remove the thread inception you got there
- - you should use the log function for printing errors to the console please, the order of printing between stderr and stdout is inconsistent as well, try to avoid?
- */
