@@ -43,14 +43,4 @@ public class ConnectionManager implements Runnable {
             e.printStackTrace();
         }
     }
-
-    private void handleNewConnection(Socket clientSocket) {
-
-        //Create a new player handler for the cient.
-        PlayerHandler handler = new PlayerHandler(clientSocket);
-        //Delegate the new PlayerHandler to the server controller for tracking and session management.
-        serverController.registerPlayerHandler(handler);
-        //Start the process of the handler listening for client messages.
-        Thread thread = Thread.startVirtualThread(handler);
-    }
 }

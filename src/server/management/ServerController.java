@@ -9,7 +9,7 @@ public class ServerController {
 
 
     public ServerController() {
-        ThreadRegistry.threadRegistry.put(Thread.currentThread(), new LinkedBlockingQueue<>());
+        ThreadRegistry.register(Thread.currentThread(), new LinkedBlockingQueue<>());
     }
 
     /**
