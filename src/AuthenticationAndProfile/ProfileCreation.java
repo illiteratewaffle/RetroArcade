@@ -29,7 +29,7 @@ public class ProfileCreation {
                 //We might want to check that the password is a decent password?
                 String hashedPassword = hashedPassword(password);
                 Profile newProfile = new Profile(email, username, hashedPassword);
-                if (!PlayerManager.registerPlayer(username, hashedPassword)) {
+                if (!PlayerManager.registerPlayer(username, hashedPassword)) { //handle register player errors
                     throw new Exception("Database could not register player. Log in Credentials are not unique.");
                     PlayerManager.updatePlayer(newProfile);
                 }

@@ -1,4 +1,8 @@
 package AuthenticationAndProfile;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * GameHistory Class handles operation to do with the game history
  * @author Abigail Mullen
@@ -6,7 +10,8 @@ package AuthenticationAndProfile;
 public class GameHistory{
     private List<String> gameHistory = new ArrayList<>();
     private long id;
-
+    //achievements
+    //progress of achievements
     /**
      * Constructor that loads the game history for a specific profile
      * @param id Unique profile id
@@ -43,14 +48,14 @@ public class GameHistory{
         return recentGames;
     }
 
-    public void loadGameHistory(){
-        String filePath = // insert file path (different file for each id? all ids in same file?)
-        ArrayList<String> fileContents = GameHistoryCSVReader.openGameHistoryFile(filePath);
-        String[] games = //split game history based on how stored in csv (by ',' or ';' etc)
-        for (String game : games){
-            gameHistory.add(game.trim());
-        }
-    }
+//    public void loadGameHistory(){
+//        String filePath = // insert file path (different file for each id? all ids in same file?)
+//        ArrayList<String> fileContents = GameHistoryCSVReader.openGameHistoryFile(filePath);
+//        String[] games = //split game history based on how stored in csv (by ',' or ';' etc)
+//        for (String game : games){
+//            gameHistory.add(game.trim());
+//        }
+//    }
 
     // load game history from CSV file ?
     // save game history to CSV file ?

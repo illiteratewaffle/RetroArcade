@@ -33,7 +33,7 @@ public class Authentication {
         //pull Profile object - or build with csv info?
         //update isOnline and update database with push/profileExtraction method?
         String hashedpassword = ProfileCreation.hashedPassword(password);
-        if(!PlayerManager.authenticatePlayer(username, hashedpassword)) {
+        if(!PlayerManager.authenticatePlayer(username, hashedpassword)) {   //retutn id
             Profile profile = ProfileDatabase.obtainProfile(id);
             setProfileLoggedIn(profile);
             profile.setOnline(true);
@@ -59,11 +59,11 @@ public class Authentication {
 
     /**
      * logOut() Sets profile's isOnline to false and sets the profileLoggedIn to null so that the previous profile information is no longer accessed.
-     */
+     */ //true or false if log out unsuccssful
     public void logOut(){
         //push update for setOnline
         //change local profile
-        getProfileLoggedIn().setOnline(false);
+        getProfileLoggedIn().setOnlineStatus(false);
         profileLoggedIn = null;
     }
 

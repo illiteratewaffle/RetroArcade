@@ -1,5 +1,8 @@
 package AuthenticationAndProfile;
 
+import java.awt.image.BufferedImage;
+import leaderboard.PlayerRanking;
+
 import server.player.PlayerManager;
 
 public class Profile {
@@ -149,6 +152,20 @@ public class Profile {
             } else {
                 System.out.println("Offline");
             }
+            isOnline = online;
+
+        }
+    }
+
+    public void getCurrentStatus() {
+        if (isOnline) {
+            if (currentGame != null) {
+                System.out.println("Online - Currently playing: " + currentGame);
+            } else {
+                System.out.println("Online");
+            }
+        } else {
+            System.out.println("Offline");
         }
     }
 

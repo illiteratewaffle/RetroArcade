@@ -7,7 +7,6 @@ import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.HashMap;
 import java.awt.image.BufferedImage;
 
@@ -244,4 +243,9 @@ public class ProfileDatabase {
 //            profileEmailHashSet.add(email);
 //        }
 //    }
+
+
+    public static void main(String[] args) {
+        PlayerManager.getProfile();
+    }
 }
