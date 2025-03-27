@@ -15,7 +15,7 @@ import static server.management.ServerLogger.log;
  */
 public class PlayerHandler implements Runnable {
     private final Socket clientSocket;
-    private final BlockingQueue<ThreadMessage> messages; //HERE
+    private final BlockingQueue<ThreadMessage> queue; //HERE
     private final NetworkManager networkManager; //HERE
     //private final ConcurrentHashMap<Thread, BlockingQueue<ThreadMessage>> queue;
     private boolean running;
@@ -29,10 +29,10 @@ public class PlayerHandler implements Runnable {
      * @param clientSocket the Socket that the client is connected on
      * /@param queue the main message cue object that will be used to communicate between threads.
      */
-    public PlayerHandler(Socket clientSocket) {
+    public PlayerHandler(Socket clientSocket, LinkedBlockingQueue queue) {
         this.clientSocket = clientSocket;
         //Create a dedicated queue for messages related to this player's thread.
-        this.messages = new LinkedBlockingQueue<>();
+        this.queue = queue;
         //Create a network manager dedicated to this player's thread.
         this.networkManager = new NetworkManager();
         this.running = true;
@@ -57,7 +57,7 @@ public class PlayerHandler implements Runnable {
         while (running) {
             try {
                 // Take a message from the blocking queue
-                ThreadMessage threadMessage = messages.take();
+                ThreadMessage threadMessage = queue.take();
                 // Grab the thread GameSessionManager is on for communicating back to it
                 if (gameSessionManagerThread == null) {
                     gameSessionManagerThread = threadMessage.getSender();
