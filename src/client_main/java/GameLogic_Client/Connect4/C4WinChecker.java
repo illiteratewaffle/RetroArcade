@@ -39,35 +39,28 @@ public class C4WinChecker {
      * @param c4Board the 2-d representation of the board.
      * @return true if a horizontal win is detected, false otherwise.
      */
-    private static boolean checkC4Horizontal(int row, int col, C4Piece piece, C4Piece[][] c4Board) {
+    public static boolean checkC4Horizontal(int row, int col, C4Piece piece, C4Piece[][] c4Board) {
         int pieceCounter = 1;
 
-        // Go left of piece placed till the start of board.
-        for(int i = col-1; i >= 0; i--){
-            if(c4Board[row][i] == piece){
-                pieceCounter += 1;              // Increment piece counter if piece found.
+        // Check left.
+        for (int i = col - 1; i >= 0; i--) {
+            if(c4Board[row][i] != piece) {
+                break;
             } else {
-                pieceCounter = 0;               // Else reset it to just 0, so it only takes consecutive pieces into account for win.
-            }
-            if(pieceCounter >= 4) {
-                return true;                    // Returns true if there is 4 in a row consecutively.
+                pieceCounter++;             // Only increments piece counter if the same piece is consecutively placed next to current.
             }
         }
 
-        // Go right of piece placed till the end of the board.
-        // Same process as above otherwise.
-        for(int i = col+1; i < c4Board[0].length; i++){
-            if(c4Board[row][i] == piece){
-                pieceCounter += 1;
+        // Check right.
+        // Other process remains the same.
+        for (int j = col + 1; j < c4Board[0].length; j++) {
+            if(c4Board[row][j] != piece) {
+                break;
             } else {
-                pieceCounter = 0;
-            }
-            if(pieceCounter >= 4) {
-                return true;
+                pieceCounter++;
             }
         }
-
-        return false;
+        return pieceCounter >= 4;
     }
 
     /**
