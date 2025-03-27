@@ -10,44 +10,44 @@ public class PlayerManager {
     private static final Connection conn = databaseConnector.connect();
 
     /**
-     * Registers a player by creating a new player tuple within the player relation in the db
-     * @param email Profile's associated email. Unique value enforced for email.
-     * @param hashedPassword SHA-256 encrypted password.
-     * @param nickname Profile's username.
-     * @param bio Profile's bio.
-     * @param isOnline Determines whether a profile is currently online. Stored as a boolean value.
-     * @param currentGame
-     * @param winLossRatio Profile's win/loss ratio.
-     * @param username Profile's username. Unique value enforced for username.
-     * @return Returns player registration success or error message.
+     * Registers a new player with only the required information.
+     * Optional fields like nickname, bio, current game, and stats can be updated later.
+     *
+     * @param email Profile's associated email. Must be unique.
+     * @param hashedPassword SHA-256 hashed password.
+     * @param username Unique username of the player.
+     * @return Confirmation message on success or error message on failure.
      */
-    public static String registerPlayer(String email, String hashedPassword, String nickname,
-                                        String bio, boolean isOnline, String currentGame,
-                                        double winLossRatio, String username) {
+    public static int registerPlayer(String email, String hashedPassword, String username) {
 
         // Prepare SQL query for storing profile into db. PreparedStatement is used to prevent SQL injection
-        String query = "INSERT INTO profiles (email, hashed_password, nickname, bio, is_online, current_game, " +
-                "win_loss_ratio, username) " + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO profiles (email, hashed_password, username) VALUES (?, ?, ?) RETURNING id";
 
         // Open connection to database, set profile attributes and store into SQL table.
         try (PreparedStatement statement = conn.prepareStatement(query)) {
             statement.setString(1, email);
             statement.setString(2, hashedPassword);
-            statement.setString(3, nickname);
-            statement.setString(4, bio);
-            statement.setBoolean(5, isOnline);
-            statement.setString(6, currentGame);
-            statement.setDouble(7, winLossRatio);
-            statement.setString(8, username);
+            statement.setString(3, username);
+
+            ResultSet rs = statement.executeQuery();
 
             // For logging purposes
             int rowsAffected = statement.executeUpdate();
 
+            if(rs.next()) {
+                int newPlayerID = rs.getInt("id");
+                System.out.println("Player " + newPlayerID + " Registered Successfully!");
+                return newPlayerID;
+            } else {
+                System.err.println("Registration failed: No ID returned.");
+                return -1;
+            }
+
         } catch (SQLException e) {
             // Error message notifying user of issue.
             System.err.println("Error inserting new player into database: " + e.getMessage());
+            return -1;
         }
-        return "Player Registered Successfully!";
     }
 
     /**
@@ -56,29 +56,73 @@ public class PlayerManager {
      * @param passwordHash Checks username contains matching passwordHash in database.
      * @return true if player credentials match, false otherwise.
      */
-    public static boolean authenticatePlayer(String username, String passwordHash) {
+    public static int authenticatePlayer(String username, String passwordHash) {
         // Prepare SQL query for storing profile into db. PreparedStatement is used to prevent SQL injection
-        String query = "SELECT username, hashed_password FROM profiles WHERE username = ? AND hashed_password = ?";
+        String query = "SELECT id FROM profiles WHERE username = ? AND hashed_password = ?";
 
         // Open connection to database, set reference username and passwordHash, and execute SQL query
         try (PreparedStatement statement = conn.prepareStatement(query)) {
             statement.setString(1, username);
             statement.setString(2, passwordHash);
             ResultSet rs = statement.executeQuery();
-            // If a row is returned matching player credentials, returns true
-            return rs.next();
+            // If a row is returned matching player credentials, returns player ID
+            if (rs.next()) {
+                int playerId = rs.getInt("id");
+                System.out.println("Authentication successful. Player ID: " + playerId);
+                return playerId;
+            } else {
+                System.out.println("Authentication failed: Invalid username or password.");
+                return -1;
+            }
         } catch (SQLException e) {
             // If there was an error authenticating a player, user is notified
             System.err.println("Authentication failed: " + e.getMessage());
-            // Returns false
-            return false;
+            // Returns -1
+            return -1;
+        }
+    }
+
+    public static void getPlayer(int id) {
+        String query = "SELECT * FROM profiles WHERE id = ?";
+        String fileName = "player_profile_" + id + ".csv";
+
+        try (PreparedStatement statement = conn.prepareStatement(query);
+             FileWriter writer = new FileWriter(fileName)
+        ) {
+            statement.setInt(1, id);
+            ResultSet rs = statement.executeQuery();
+
+            if (rs.next()) {
+                ResultSetMetaData metaData = rs.getMetaData();
+                int columnCount = metaData.getColumnCount();
+
+                // Write header
+                for (int i = 1; i <= columnCount; i++) {
+                    writer.append(metaData.getColumnName(i));
+                    if (i < columnCount) writer.append(",");
+                }
+                writer.append("\n");
+
+                // Write player row
+                for (int i = 1; i <= columnCount; i++) {
+                    writer.append(rs.getString(i));
+                    if (i < columnCount) writer.append(",");
+                }
+                writer.append("\n");
+
+                System.out.println("Player data written to: " + fileName);
+            } else {
+                System.out.println("No player found with ID: " + id);
+            }
+        } catch (SQLException | IOException e) {
+            System.err.println("Error retrieving or writing player data: " + e.getMessage());
         }
     }
 
     /**
      * Fetches all profile data from the database and writes it into a CSV file.
      */
-    public static void getProfile() {
+    public static void getPlayer() {
         // SQL query to fetch all rows in the profiles table
         String query = "SELECT * FROM profiles";
         // Keeps track of the number of rows exported
@@ -121,5 +165,10 @@ public class PlayerManager {
             // Exception error messages in case of SQL or file I/O issues
             System.err.println("Error exporting profile data: " + e.getMessage());
         }
+    }
+
+    public static void main (String[] args) {
+        System.out.println(authenticatePlayer("dannyX", "secureHASH321$$"));
+        getPlayer(3);
     }
 }
