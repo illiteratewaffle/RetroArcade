@@ -13,15 +13,14 @@ import java.awt.image.BufferedImage;
 import static AuthenticationAndProfile.ProfileCSVReader.openSingleProfileFile;
 import static AuthenticationAndProfile.FriendsListCSVReader.openFriendsListFile;
 import static AuthenticationAndProfile.GameHistoryCSVReader.openGameHistoryFile;
-
 /**
  * ProfileDatabase is the Class containing all the information stored on the Network for all registered accounts.
  * @author Alessia Flaig
  */
-public class ProfileDatabase {
+public class ProfileDatabaseAccess {
     //private static ProfileEmailSet<String> profileEmailSet = new ProfileEmailSet<>();
-    private static HashMap<String, Profile> profiles = new HashMap<String, Profile>();
-    private Leaderboard leaderboard = new Leaderboard();
+    //private static HashMap<String, Profile> profiles = new HashMap<String, Profile>();
+    //private Leaderboard leaderboard = new Leaderboard();
 
 //    /**
 //     * ProfileDatabase constructor

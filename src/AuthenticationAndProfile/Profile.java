@@ -54,7 +54,6 @@ public class Profile {
     public void setEmail(long id, String email) {
 
         }
-    }
 
     /**
      * Gets the hashed password of a player's account.
@@ -133,7 +132,6 @@ public class Profile {
             isOnline = online;
             // push update to database
         }
-    }
 
     /**
      * Check if a player is in a game. If so, prints out the game they're playing (likely usable by GUI team).
@@ -169,7 +167,7 @@ public class Profile {
         }
     }
 
-    `/**
+    /**
      * Gets the player's current game.
      * @param id the id of the player.
      * @return the player's current game.
@@ -235,6 +233,7 @@ public class Profile {
             this.username = username; // locally change the username
             // call method to update username in database
         }
-    }
+}
+
 
 
