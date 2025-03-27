@@ -33,7 +33,7 @@ public class ProfileDatabaseAccess {
     public static Profile obtainProfile(int id){
         //call method to get csv for id
         try {
-            PlayerManager.getPlayer(id); //method to get Profile csv with all attributes associated to the specified id
+            PlayerManager.getProfileTable(id); //method to get Profile csv with all attributes associated to the specified id
             String csvProfileFilePath = ""; //csv file saved to the main project directory
 
             ArrayList<String> profileFields = openSingleProfileFile(csvProfileFilePath);
@@ -84,31 +84,30 @@ public class ProfileDatabaseAccess {
 
         //from FriendsList ArrayList obtain the values for FriendsList Class variables
         try {
-            PlayerManager.getPlayer(id); //method to get Profile csv with all attributes associated to the specified id
+            PlayerManager.getProfileTable(id); //method to get Profile csv with all attributes associated to the specified id
             String csvProfileFilePath = ""; //csv file saved to the main project directory
 
             ArrayList<String> profileFields = openSingleProfileFile(csvProfileFilePath);
-//            List<String> friends = new ArrayList<>();
-//            String friendsString = profileFields.get(15);
-//            String[] fieldsList = friendsString.split(", ");
-//            for (int i = 0 ; i < fieldsList.length; i ++){
-//                friends.add(fieldsList[i]);
-//            }
-
-            List<String> gameHistory = new ArrayList<>();
-            String gameHistoryString = profileFields.get(13);
-            String[] fieldsList = gameHistoryString.split(", ");
+            List<String> friends = new ArrayList<>();
+            String friendsString = profileFields.get(15);
+            String[] fieldsList = friendsString.split(", ");
             for (int i = 0 ; i < fieldsList.length; i ++){
-                gameHistory.add(fieldsList[i]);
+                friends.add(fieldsList[i]);
             }
-            return GameHistory gameHistoryObject = new GameHistory(gameHistory);
 
+            List<String> friendRequests = new ArrayList<>();
+            String friendRequestString = profileFields.get(16);
+            fieldsList = friendRequestString.split(", ");
+            for (int i = 0 ; i < fieldsList.length; i ++){
+                friendRequests.add(fieldsList[i]);
+            }
+            FriendsList friendsList = new FriendsList(friends, friendRequests);
+            return friendsList;
         } catch (IOException e) {
             System.out.println("ID does not match a profile in the database.");
             return null;
         }
-        FriendsList friendsList = new FriendsList(friends, friendRequests);
-        return friendsList;
+
     }
 
     public static PlayerRanking obtainPlayerRanking(int id) {
@@ -129,33 +128,23 @@ public class ProfileDatabaseAccess {
         //String csvGameHistoryFilePath = PlayerManager.getGameHistory(id); //method to get FriendsList csv for id
         //ArrayList<String> gameHistoryFields = openGameHistoryFile(csvGameHistoryFilePath);
         try {
-            PlayerManager.getPlayer(id); //method to get Profile csv with all attributes associated to the specified id
+            PlayerManager.getProfileTable(id); //method to get Profile csv with all attributes associated to the specified id
             String csvProfileFilePath = ""; //csv file saved to the main project directory
 
             ArrayList<String> profileFields = openSingleProfileFile(csvProfileFilePath);
-            List<String> friends = new ArrayList<>();
-            String friendsString = profileFields.get(15);
-            String[] fieldsList = friendsString.split(", ");
+            List<String> gameHistory = new ArrayList<>();
+            String gameHistoryString = profileFields.get(13);
+            String[] fieldsList = gameHistoryString.split(", ");
             for (int i = 0 ; i < fieldsList.length; i ++){
-                friends.add(fieldsList[i]);
+                gameHistory.add(fieldsList[i]);
             }
 
-            List<String> friendRequests = new ArrayList<>();
-            String friendRequestString = profileFields.get(16);
-            fieldsList = friendRequestString.split(", ");
-            for (int i = 0 ; i < fieldsList.length; i ++){
-                friendRequests.add(fieldsList[i]);
-            }
-            FriendsList friendsList = new FriendsList(friends, friendRequests);
-
+            GameHistory gameHistoryObject = new GameHistory(gameHistory);
+            return gameHistoryObject;
         } catch (IOException e) {
             System.out.println("ID does not match a profile in the database.");
             return null;
         }
-        FriendsList friendsList = new FriendsList(friends, friendRequests);
-        return friendsList;
-    }
-        GameHistory gameHistory = new GameHistory(id);
     }
 
     /**
