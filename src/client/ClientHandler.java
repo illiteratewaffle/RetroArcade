@@ -77,7 +77,38 @@ public class ClientHandler implements Runnable  {
      * Converts data into a JSON string.
      */
     public String ConvertToJson(Object data) {
+/*
+        class DataObject {
+    String aPid;
+    String location;
+    String senderDomainId;
+    String timeZone;
+    String senderDomainAgentId;
+    String recipientDomainName;
+    BusinessMsg businessMsg;
 
+    @Override
+    public String toString() {
+        StringBuilder string = new StringBuilder();
+        Formatter formatter = new Formatter(string);
+        formatter.format("{%n");
+        formatter.format("\"sendParams\": {".indent(4));
+        formatter.format("\"aPid\": \"%s\",".indent(8), aPid);
+        formatter.format("\"location\": \"%s\",".indent(8), location);
+        formatter.format("\"senderDomainId\": \"%s\",".indent(8), senderDomainId);
+        formatter.format("\"timeZone\": \"%s\",".indent(8), timeZone);
+        formatter.format("\"senderDomainAgentId\": \"%s\",".indent(8), senderDomainAgentId);
+        formatter.format("\"recipientDomainName\": \"%s\",".indent(8), recipientDomainName);
+        formatter.format("\"businessMsg\": %s".indent(8), businessMsg);
+        formatter.format("}".indent(4));
+        formatter.format("}");
+        formatter.flush();
+        return string.toString();
+    }
+
+
+        }
+         */
         try {
             // Convert recieved Function to JSON
             return "{}";  // Placeholder
@@ -92,6 +123,23 @@ public class ClientHandler implements Runnable  {
     public String ConvertFromJson(String jsonData) {
         // Convert JSON encoding to Function to send back
         return null;
+        /*
+            static class BusinessMsg {
+        String id, to, from;
+
+        @Override
+        public String toString() {
+            StringBuilder string = new StringBuilder();
+            Formatter formatter = new Formatter(string);
+            formatter.format("{%n");
+            formatter.format("\"id\": \"%s\",".indent(12), id);
+            formatter.format("\"to\": \"%s\",".indent(12), to);
+            formatter.format("\"from\": \"%s\"".indent(12), from);
+            formatter.format("}".indent(8).stripTrailing());
+            formatter.flush();
+            return string.toString();
+         */
+
     }
     public boolean CheckIfJson(String inputData){
         //check if message is from server or client

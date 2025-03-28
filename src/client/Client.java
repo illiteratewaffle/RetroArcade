@@ -4,7 +4,7 @@ import java.io.*;
 import java.net.Socket;
 
 public class Client {
-
+//TODO: Turn to static
     private Socket clientSocket;
     private BufferedWriter bufferedWriter;
     private BufferedReader bufferedReader;
@@ -91,4 +91,6 @@ public class Client {
         }catch (IOException e){
         }
     }
+    //TODO: Send over Username & Password Then Recieve ID
+    // Daemon Thread, Type of thread that closes when main stops
 }
