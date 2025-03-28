@@ -12,6 +12,6 @@ module seng300.w25.project {
     requires com.almasb.fxgl.all;
     requires java.desktop;
 
-    opens GUI_client to javafx.fxml;
-    exports GUI_client;
+    opens client_main.java.GUI_client to javafx.fxml;
+    exports client_main.java.GUI_client;
 }
