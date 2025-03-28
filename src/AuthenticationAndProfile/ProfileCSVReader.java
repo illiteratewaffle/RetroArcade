@@ -5,8 +5,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class ProfileCSVReader {
-    //private static final String FILEPATH = "src/AuthenticationAndProfile/profile_ID.csv"; //exports to this location with the id of the associated profile
-
     /*
     ID: index 0
     username: index 1
@@ -53,7 +51,6 @@ public class ProfileCSVReader {
      */
     public static ArrayList<String> openSingleProfileFile(String filePath){
         ArrayList<String> fields = new ArrayList<>();
-
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             // Read and process the line
             String line;
@@ -61,7 +58,7 @@ public class ProfileCSVReader {
             // Split the line by ", " and store each field in an ArrayList<Object>
             String[] fieldsList = line.split(", ");
             for (String fieldsString : fieldsList) {
-                fields.add(fieldsString.trim());
+                fields.add(fieldsString);
             }
             System.out.println("ID: " + fields.get(ID_INDEX)
                     + ", username: " + fields.get(USER_INDEX)
@@ -94,19 +91,36 @@ public class ProfileCSVReader {
      * @param filePath
      * @return ArrayList<String> of all profiles in the database
      */
-    public static ArrayList<String> openProfilesFile(String filePath) {
-        ArrayList<String> fields = new ArrayList<>();
-
+    public static ArrayList<String[]> openProfilesFile(String filePath) {
+        ArrayList<String[]> fields = new ArrayList<>();
         try(BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+            int i = 0;
+            br.readLine();
             String line;
-            line = br.readLine();
-            while (line != null) {
-                line = br.readLine();
+            while ((line = br.readLine()) != null) {
                 String[] fieldsList = line.split(",");
-                for (String fieldsString : fieldsList) {
-                    fields.add(fieldsString.trim());
+                fields.add(fieldsList);
+
+                    System.out.println("ID: " + fields.get(i)[ID_INDEX]
+                            + ", username: " + fields.get(i)[USER_INDEX]
+                            + ", nickname: " + fields.get(i)[NICK_INDEX]
+                            + ", email: " + fields.get(i)[EMAIL_INDEX]
+                            + ", hashedPassword: " + fields.get(i)[PWD_INDEX]
+                            + ", bio: " + fields.get(i)[BIO_INDEX]
+                            + ", profile pic: " + fields.get(i)[PIC_INDEX]
+                            + ", current game: " + fields.get(i)[CGAME_INDEX]
+                            + ", isOnline: " + fields.get(i)[ONLINE_INDEX]
+                            + ", wlr: " + fields.get(i)[WLR_INDEX]
+                            + ", Rating: " + fields.get(i)[RATING_INDEX]
+                            + ", Rank: " + fields.get(i)[RANK_INDEX]
+                            + ", Wins: " + fields.get(i)[WINS_INDEX]
+                            + ", gameHistory: " + fields.get(i)[GHIST_INDEX]
+                            + ", achievementProgress: " + fields.get(i)[ACHIVPROG_INDEX]
+                            + ", friends: " + fields.get(i)[FRIENDS_INDEX]
+                            + ", friendRequests: " + fields.get(i)[FREQUEST_INDEX]
+                    );
+                    i +=1;
                 }
-            }
         }catch (IOException e){
             e.printStackTrace();
             System.out.println("System can't find file");
@@ -114,8 +128,8 @@ public class ProfileCSVReader {
         return fields;
     }
 
-//    public static void main(String[] args) {
-//        openSingleProfileFile("C:src/AuthenticationAndProfile/profile_ID.csv");
-//
-//    }
+    public static void main(String[] args) {
+        System.out.println("all profiles");
+        openProfilesFile("profiles_export.csv");
+    }
 }

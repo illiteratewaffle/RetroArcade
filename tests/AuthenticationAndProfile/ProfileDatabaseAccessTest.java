@@ -1,32 +1,71 @@
 package AuthenticationAndProfile;
 
+import org.junit.jupiter.api.*;
+
 class ProfileDatabaseAccessTest {
 
-    @org.junit.jupiter.api.Test
+    @Test
     void addProfile() {
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void removeProfile() {
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void searchForProfile() {
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void viewProfile() {
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void getProfileEmailSet() {
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void viewLeaderboard() {
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void testViewLeaderboard() {
+    }
+
+    @Test
+    void obtainProfile() {
+    }
+
+    @Test
+    void obtainFriendsList() {
+    }
+
+    @Test
+    void obtainPlayerRanking() {
+
+    }
+
+    @Test
+    void obtainGameHistory() {
+    }
+
+    @Test
+    void testRemoveProfile() {
+    }
+
+    @Test
+    void getAllProfiles() {
+    }
+
+    @Test
+    void testSearchForProfile() {
+    }
+
+    @Test
+    void viewPersonalProfile() {
+    }
+
+    @Test
+    void viewOtherProfile() {
     }
 }

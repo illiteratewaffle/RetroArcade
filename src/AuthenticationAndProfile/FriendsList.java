@@ -59,8 +59,8 @@ public class FriendsList {
      * @param username
      */
     public void acceptFriendRequest(String username){
-        if (friendRequesnts.contains(username)){
-            friendRequests.remove(usrname);
+        if (friendRequests.contains(username)){
+            friendRequests.remove(username);
             addFriend(username);
             //update the csv
         }
