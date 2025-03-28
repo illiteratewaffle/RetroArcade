@@ -45,12 +45,14 @@ public class ClientHandler implements Runnable  {
           String commandFromClient; // placeholder for clientFuntions
           String messageFromServer; // placeholder for server messages
           String message; //
+          String[][] objectArguments;
         while (clientSocket.isConnected()) {
             try {
                 message = bufferedReader.readLine();
                 if (CheckIfJson(message) == true){
                     messageFromServer = message;
-                    message = ConvertFromJson(messageFromServer);
+                    objectArguments = ConvertFromJson(messageFromServer);
+                    // TODO convert argument to object
                     sendResponse(message);
                 }
                 else{
@@ -92,10 +94,10 @@ public class ClientHandler implements Runnable  {
     /**
      * Converts a JSON string into a return function.
      */
-    public String[] ConvertFromJson(String jsonData) {
+    public String[][] ConvertFromJson(String jsonData) {
         // Convert JSON encoding to Function to send back
         String[][] array = Encoder.decodeJSON(jsonData);
-        return null;
+        return array;
 
     }
     public boolean CheckIfJson(String inputData){
