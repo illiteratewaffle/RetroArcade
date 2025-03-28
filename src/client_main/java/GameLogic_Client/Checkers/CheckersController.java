@@ -1,7 +1,7 @@
-package GameLogic_Client.Checkers;
+package client_main.java.GameLogic_Client.Checkers;
 
-import GameLogic_Client.IBoardGameController;
-import GameLogic_Client.ivec2;
+import client_main.java.GameLogic_Client.IBoardGameController;
+import client_main.java.GameLogic_Client.ivec2;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -72,15 +72,10 @@ public class CheckersController implements IBoardGameController
 // Internal State Methods. Used internally by the CheckersController to manage its state.
     /**
      * Signal the official beginning of a turn.
-     * Resets the turn-relevant flags.
-     * DOES NOT CALCULATE THE VALID MOVES (for reasons shown in EndTurn()).
+     * DOES NOT ADJUST FLAGS NOR CALCULATE THE VALID MOVES (for reasons shown in EndTurn()).
      */
     private void StartTurn()
     {
-        // Reset the flags.
-        MustCapture = false;
-        HasMovedThisTurn = false;
-        CurrentPieceLocation = null;
     }
 
 
@@ -119,24 +114,64 @@ public class CheckersController implements IBoardGameController
         if (CurrentPieceValidMoves.contains(move))
         {
             Board.MakeMove(move);
+            CurrentPieceLocation = move.getTargetCord();
             HasMovedThisTurn = true;
+
+            // Try to king the selected piece.
+            boolean HasKinged = false;
+            if (TurnP1)
+            {
+                if (CurrentPieceLocation.y == 0)
+                {
+                    Board.setPiece(CurrentPieceLocation, CheckersPiece.P1KING.ordinal());
+                    HasKinged = true;
+                }
+            }
+            else if (CurrentPieceLocation.y == GetBoardSize().y - 1)
+            {
+                Board.setPiece(CurrentPieceLocation, CheckersPiece.P2KING.ordinal());
+                HasKinged = true;
+            }
+
+            // If the selected piece has been kinged, end the turn.
+            if (HasKinged)
+            {
+                EndTurn();
+            }
+            // Otherwise, check if we can capture another piece.
+            else
+            {
+                UpdateValidMoves();
+                if (ValidMoves.isEmpty())
+                {
+                    EndTurn();
+                }
+            }
         }
     }
 
 
     /**
      * Signal the end of the turn.
+     * Resets the turn-state flags.
      * Alternates the current player between P1 and P2.
      * Provides a win-condition check, which requires updating the ValidMoves map.
      */
     private void EndTurn()
     {
+        // Clear the turn-state flags for this turn.
+        MustCapture = false;
+        HasMovedThisTurn = false;
+        CurrentPieceLocation = null;
+
         // Alternate between the 2 players' turn.
         TurnP1 = !TurnP1;
 
         // Perform the win check here.
         // A player wins if their opponent cannot make any other moves.
         // Hence, the need for this to be here.
+        // As the behaviour of UpdateValidMoves is dependent on the turn-state,
+        // This method must also manage the turn-state flags.
         UpdateValidMoves();
         if (ValidMoves.isEmpty())
         {
@@ -174,10 +209,50 @@ public class CheckersController implements IBoardGameController
 
 
 // Interface implementation.
+    protected boolean GameOngoingChanged = false;
+    protected boolean WinnersChanged = false;
+    protected boolean CurrentPlayerChanged = false;
+    protected int BoardChanged = 0;
 
     public void ReceiveInput(ivec2 input)
     {
+        // Reset the flags to help detect changes since the last input.
+        GameOngoingChanged = false;
+        WinnersChanged = false;
+        CurrentPlayerChanged = false;
+        BoardChanged = 0;
+
         // Process the input. This will contain the bulk of the code for this class.
+        // If we have a piece selected, try and process the move, or select another piece.
+        if (CurrentPieceLocation != null)
+        {
+            boolean InputIsMove = false;
+            // Check if the piece can perform that move.
+            // If it can, process the move.
+            for (CheckersMove move : ValidMoves.get(CurrentPieceLocation))
+            {
+                if (move.getTargetCord().equals(input))
+                {
+                    InputIsMove = true;
+                    ProcessMove(move);
+                    break;
+                }
+            }
+            // If the input was not a move, it must be a request to select a piece.
+            // If the player has moved this turn, force them to use this piece until the turn ends.
+            if (!InputIsMove && !HasMovedThisTurn)
+            {
+                if (ValidMoves.containsKey(input)) CurrentPieceLocation = input;
+                else CurrentPieceLocation = null;
+            }
+        }
+        // Otherwise, simply try to select another piece.
+        else
+        {
+            if (ValidMoves.containsKey(input)) CurrentPieceLocation = input;
+        }
+
+        return;
     }
 
 
@@ -239,22 +314,22 @@ public class CheckersController implements IBoardGameController
 
     public boolean GameOngoingChangedSinceLastCommand()
     {
-        return false;
+        return GameOngoingChanged;
     }
 
 
     public boolean WinnersChangedSinceLastCommand()
     {
-        return false;
+        return WinnersChanged;
     }
 
     public boolean CurrentPlayerChangedSinceLastCommand()
     {
-        return false;
+        return CurrentPlayerChanged;
     }
 
     public int BoardChangedSinceLastCommand()
     {
-        return 0;
+        return BoardChanged;
     }
 }
