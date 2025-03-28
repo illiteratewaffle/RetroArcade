@@ -1,4 +1,4 @@
-package GameLogic_Client.Checkers;
+package client_main.java.GameLogic_Client.Checkers;
 
 public enum CheckersPiece {
     NONE,

@@ -1,4 +1,4 @@
-package GUI_client;
+package client_main.java.GUI_client;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
