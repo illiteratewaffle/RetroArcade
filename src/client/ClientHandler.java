@@ -82,7 +82,7 @@ public class ClientHandler implements Runnable  {
             String ID = "null", Username = "null", action = "null", message = "null", recipient = "null";
             // Actual Code
             Boolean isActionAccepted = false;
-            String encoding = Encoder.encodeToJson(ID, Username, isActionAccepted, action, message, recipient);
+            String encoding = Encoder.encodeToJSON(ID, Username, isActionAccepted, action, message, recipient);
             return encoding;
         } catch (Exception e) {
             return "{}"; // Return an empty JSON object on error
@@ -92,25 +92,10 @@ public class ClientHandler implements Runnable  {
     /**
      * Converts a JSON string into a return function.
      */
-    public String ConvertFromJson(String jsonData) {
+    public String[] ConvertFromJson(String jsonData) {
         // Convert JSON encoding to Function to send back
+        String[][] array = Encoder.decodeJSON(jsonData);
         return null;
-        /*
-            static class BusinessMsg {
-        String id, to, from;
-
-        @Override
-        public String toString() {
-            StringBuilder string = new StringBuilder();
-            Formatter formatter = new Formatter(string);
-            formatter.format("{%n");
-            formatter.format("\"id\": \"%s\",".indent(12), id);
-            formatter.format("\"to\": \"%s\",".indent(12), to);
-            formatter.format("\"from\": \"%s\"".indent(12), from);
-            formatter.format("}".indent(8).stripTrailing());
-            formatter.flush();
-            return string.toString();
-         */
 
     }
     public boolean CheckIfJson(String inputData){

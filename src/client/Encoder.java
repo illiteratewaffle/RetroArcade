@@ -13,7 +13,7 @@ class Encoder {
     Boolean isActionAccepted;
     String Action;
     SubMessage subMessage;
-    public static String encodeToJson(String ID,String Username,Boolean isActionAccepted,String action,String message, String recipient){
+    public static String encodeToJSON(String ID,String Username,Boolean isActionAccepted,String action,String message, String recipient){
         Encoder Encoding = new Encoder();
         Encoding.ID = ID;
         Encoding.Username = Username;
@@ -26,6 +26,21 @@ class Encoder {
         Encoding.subMessage = subMessage;
         return Encoding.toString();
 
+    }
+    public static String[][] decodeJSON(String json){
+        String str = json.substring(1, json.length() - 1);
+        String[] tempArray = str.split(",");
+        int x = tempArray.length;
+        int y = 2;
+        String[][] trueArray = new String[x][y];
+        for (int i = 0; i < tempArray.length; i++){
+            String tempStr;
+            tempStr = tempArray[i].split(":")[0];
+            trueArray[i][0] = tempStr;
+            tempStr = tempArray[i].split(":")[1];
+            trueArray[i][1] = tempStr;
+        }
+        return trueArray;
     }
     @Override
     public String toString() {
