@@ -1,5 +1,0 @@
-id, username, nickname, email, hashedPassword, GameHistory object (gamesPlayed), FriendsLists object, bio, profilePic, currentGame, isOnline, winLossRatio, rating, rank, wins,
-1, alice, nickname, email, hashedPassword, GameHistory object (gamesPlayed), FriendsLists object, bio, profilePic, currentGame, isOnline, 3.25, 500, silver, 105,
-2, bob, nickname, email, hashedPassword, GameHistory object (gamesPlayed), FriendsLists object, bio, profilePic, currentGame, isOnline, 0.33, 150, bronze, 10,
-3, charlie, nickname, email, hashedPassword, GameHistory object (gamesPlayed), FriendsLists object, bio, profilePic, currentGame, isOnline, 0.11, 95, bronze, 15,
-4, dick, nickname, email, hashedPassword, GameHistory object (gamesPlayed), FriendsLists object, bio, profilePic, currentGame, isOnline, 9.50, 755, gold, 250,

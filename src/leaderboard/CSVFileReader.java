@@ -63,7 +63,7 @@ public class CSVFileReader {
             System.out.println("System can't find file");
         }
 
-        System.out.println(fields);
+        //System.out.println(fields);
         return fields;
     }
 
@@ -92,7 +92,7 @@ public class CSVFileReader {
             sortedFields.add(individual);
         }
 
-        System.out.println(sortedFields);
+        //System.out.println(sortedFields);
 
         return sortedFields;
     }
