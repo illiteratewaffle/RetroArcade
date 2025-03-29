@@ -1,19 +1,21 @@
 package server.session;
 
-import server.player.PlayerManager;
+import server.player.PlayerHandler;
 import server.management.ThreadMessage;
 import server.management.ThreadRegistry;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ConcurrentHashMap;
+import server.session.IBoardGameController;
 /**
  * 
  */
-public class GameSessionManager implements Runnable{
-    private final Player player1;
-    private final Player player2; 
 
-    // TODO: a placeholder class should be created that allows code to be compiled
+
+public class GameSessionManager implements Runnable{
+    private final PlayerHandler player1;
+    private final PlayerHandler player2; 
+
     private final IBoardGameController gameController;
     
 
@@ -23,11 +25,10 @@ public class GameSessionManager implements Runnable{
      * @param player2 Second Player
      * @param queue The shared communication between the two players 
      */
-    public GameSessionManager(Player player1, Player player2){
+    public GameSessionManager(PlayerHandler player1, PlayerHandler player2, IBoardGameController gameController){
         this.player1 = player1;
         this.player2 = player2; 
-        // TODO: IBoardGameController's methods should be using camel case, not pascal case
-        this.gameController = new IBoardGameController(); //IBoardController is a class that is being develop by the game logic team
+        this.gameController = gameController; // Temporary placeholder implementation
 
     }
 
@@ -37,15 +38,15 @@ public class GameSessionManager implements Runnable{
      */
     @Override
     public void run(){
-        while (gameController.getGameOnGoing()){ 
-            Player currentPlayer = getCurrentPlayer(); //Get the player whose turn it is 
+        while (gameController.getGameOngoing()){ 
+            PlayerHandler currentPlayer = getCurrentPlayer(); //Get the player whose turn it is 
             ThreadMessage message = recieveInputFromPlayer(currentPlayer); //Wait for player input
 
             if (message != null){
-                gameController.recieveInput(message.getContent()); //Process the input in the game logic 
+                gameController.receiveInput(message.getContent()); //Process the input in the game logic 
                 GameStateToPlayers(); //Notify players of the state of the game 
             }
-            if (!gameController.getGameonGoing()){
+            if (!gameController.getGameOngoing()){
                 handleGameEnd(); //Handle the game if no longer on going. 
             }
         }
@@ -56,7 +57,7 @@ public class GameSessionManager implements Runnable{
      * Determines the current player based on the game state. 
      * @return The player whose turn it is.
      */
-    private Player getCurrentPlayer(){
+    private PlayerHandler getCurrentPlayer(){
         int currentPlayerIndex = gameController.getCurrentPlayer(); //Get the player's index
         
         //Retunr the corresponding player 
@@ -72,9 +73,10 @@ public class GameSessionManager implements Runnable{
      *  @param player The player to recieve input from 
      *  @return The received input message 
      */ 
-    private ThreadMessage recieveInputFromPlayer(Player player){
+    private ThreadMessage recieveInputFromPlayer(PlayerHandler player){
         try {
-            BlockingQueue<ThreadMessage> playerQueue = ThreadRegistry.getQueue(player.getThread());
+            Thread handlerThread = Thread.currentThread();
+            BlockingQueue<ThreadMessage> playerQueue = ThreadRegistry.getQueue(handlerThread);
             return playerQueue.take();  // Blocking call until input received from the queue
         } catch (InterruptedException e){
             Thread.currentThread().interrupt(); //Restore interrupted state
@@ -85,7 +87,7 @@ public class GameSessionManager implements Runnable{
     /**
      * Sends the current state of the game to the players 
      */
-    private void sendGameStateToPlayers(){
+    private void GameStateToPlayers(){
         ThreadMessage gameState = new ThreadMessage(Thread.currentThread(), formatGameState()); //Sender thread reference
 
         sendToPlayer(player1, gameState); //Send state to players
@@ -107,12 +109,11 @@ public class GameSessionManager implements Runnable{
      * @param player the player send the message to 
      * @param message The message to send 
      */
-    private void sendToPlayer(Player player, ThreadMessage message){
-
-        //Add message to player's queue
-        BlockingQueue<ThreadMessage> playerQueue = ThreadRegistry.getQueue(player.getThread());
-        if (playerQueue !=null){
-            playerQueue.offer(message); 
+    private void sendToPlayer(PlayerHandler player, ThreadMessage message) {
+        Thread handlerThread = Thread.currentThread();
+        BlockingQueue<ThreadMessage> playerQueue = ThreadRegistry.getQueue(handlerThread);
+        if (playerQueue != null) {
+            playerQueue.offer(message);
         }
     }
 
