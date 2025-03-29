@@ -21,7 +21,7 @@ public class C4Main extends Application {
     }
 
     public static void main(String[] args) {
-        System.out.println("aaa");
+        System.out.println("aaa");//
         C4Controller c4Controller = new C4Controller();
         c4Controller.start();
         launch(args);
