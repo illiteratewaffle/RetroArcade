@@ -67,6 +67,13 @@ public class CSVFileReader {
         return fields;
     }
 
+    /**
+     * from 2d arraylist of all profiles, makes another 2d arraylist of only profile statistics
+     * format: [[id1, wlr1, rating1, wins1], [id2, wlr2, rating2, wins2], ...]
+     *
+     * @param fields
+     * @return
+     */
     public static ArrayList<ArrayList<String>> sortFields (ArrayList<ArrayList<String>> fields) {
         ArrayList<ArrayList<String>> sortedFields = new ArrayList<>();
 
