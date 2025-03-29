@@ -73,4 +73,8 @@ public class TTTBoard extends AbstractBoard {
         }
         return true;
     }
+
+    public boolean isEmpty(ivec2 point) {
+        return getPiece(point) == 0;
+    }
 }
