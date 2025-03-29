@@ -8,12 +8,6 @@ import java.util.ArrayList;
 public class CSVFileReader {
     //private static final String FILEPATH = "src/leaderboard/profiles.csv"; //change this depending on where .csv is exported to
 
-    /*
-    ID: index 0
-    WLR: index 9
-    Rating: index 10
-    Wins: index 12
-     */
     private static final int ID_INDEX = 0;
     private static final int WLR_INDEX = 9;
     private static final int RATING_INDEX = 10;
