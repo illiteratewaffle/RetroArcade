@@ -1,4 +1,4 @@
-package GUI_client;
+package client_main.java.GUI_client;
 
 public class Tile {
     private char piece;
