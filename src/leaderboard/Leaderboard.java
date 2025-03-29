@@ -3,10 +3,12 @@ package leaderboard;
 import server_main.AuthenticationAndProfile.Profile;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 public class Leaderboard {
-    private ArrayList<Profile> rankings;
+
+    private static final String FILEPATH = "src/leaderboard/profiles.csv";
+    private ArrayList<ArrayList<String>> rankings;
+    private String sortChoice;
 
     /**
      * HERE FOR CODING/TEST PURPOSES ONLY. TO BE DELETED WHEN MERGING
@@ -17,41 +19,44 @@ public class Leaderboard {
     }
 
     public Leaderboard() {
-
-    }
-
-    public ArrayList<Profile> getTopPlayers(){
-
-        return rankings;
+        updateLeaderboard();
     }
 
     public void updateLeaderboard(){
+        // String csvFilePath = get csv from networking()
+        // CSVFileReader.retrieveProfiles(csvFilePath);
 
+        this.rankings = CSVFileReader.retrieveProfiles(FILEPATH);
     }
 
-    public ArrayList<Profile> sortByRating() {
+    public ArrayList<ArrayList<String>> getTopPlayers(){
+
+        return rankings;
+    }
+
+    public ArrayList<ArrayList<String>> sortByRating() {
         // get the list of players from database, strip the players' rating
 
         //sort()
         return rankings;
     }
 
-    public ArrayList<Profile> sortByWLR() {
+    public ArrayList<ArrayList<String>> sortByWLR() {
         // get the list of players from database, strip the players' rating
 
         //sort()
         return rankings;
     }
 
-    public ArrayList<Profile> sortByWins() {
+    public ArrayList<ArrayList<String>> sortByWins() {
         // get the list of players from database, strip the players' rating
 
         //sort()
         return rankings;
     }
 
-    public ArrayList<Profile> toggleSortOrder(){
-        ArrayList<Profile> reversedRankingsArray = new ArrayList<Profile>();
+    public ArrayList<String> toggleSortOrder(){
+        ArrayList<String> reversedRankingsArray = new ArrayList<String>();
         int listSize = rankings.size();
         for(int i = listSize - 1; i >= 0; i--) {
             reversedRankingsArray.add(rankings.get(i));
@@ -60,12 +65,12 @@ public class Leaderboard {
         return reversedRankingsArray;
     }
 
-    public ArrayList<Profile> searchPlayer(String username){
+    public ArrayList<ArrayList<String>> searchPlayer(String username){
 
         return rankings;
     }
 
-    public ArrayList<Profile> filterFriends(ArrayList<Profile> friendList){
+    public ArrayList<ArrayList<String>> filterFriends(ArrayList<Profile> friendList){
 
         return rankings;
     }

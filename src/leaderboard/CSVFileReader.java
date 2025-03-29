@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class CSVFileReader {
-    private static final String FILEPATH = "src/leaderboard/profiles.csv"; //change this depending on where .csv is exported to
+    //private static final String FILEPATH = "src/leaderboard/profiles.csv"; //change this depending on where .csv is exported to
 
     /*
     ID: index 0
@@ -27,8 +27,8 @@ public class CSVFileReader {
      *
      * @return
      */
-    public static ArrayList<ArrayList<String>> retrieveProfiles() {
-        ArrayList<ArrayList<String>> fields = openFile();
+    public static ArrayList<ArrayList<String>> retrieveProfiles(String filePath) {
+        ArrayList<ArrayList<String>> fields = openFile(filePath);
         ArrayList<ArrayList<String>> sortedFields = sortFields(fields);
 
         return sortedFields;
@@ -41,10 +41,10 @@ public class CSVFileReader {
      *
      * @return
      */
-    public static ArrayList<ArrayList<String>> openFile(){
+    public static ArrayList<ArrayList<String>> openFile(String filePath){
         ArrayList<ArrayList<String>> fields = new ArrayList<>();
 
-        try (BufferedReader br = new BufferedReader(new FileReader(FILEPATH))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             // Read the header line
             String header = br.readLine();
             //System.out.println("Header: " + header);
