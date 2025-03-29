@@ -3,6 +3,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 public class ProfileCSVReader {
     /*
@@ -51,32 +52,51 @@ public class ProfileCSVReader {
      */
     public static ArrayList<String> openSingleProfileFile(String filePath){
         ArrayList<String> fields = new ArrayList<>();
-        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(filePath));
             // Read and process the line
             String line;
+            br.readLine();
             line = br.readLine();
-            // Split the line by ", " and store each field in an ArrayList<Object>
-            String[] fieldsList = line.split(", ");
-            for (String fieldsString : fieldsList) {
-                fields.add(fieldsString);
+            // Split the line by csv section and store each field in an ArrayList<Object>
+            String section = "";
+            boolean inSection = false;
+            for (int j = 0; j < line.length(); j ++){
+                Character c = Character.valueOf(line.charAt(j));
+                if (c == '['){
+                    inSection = true;
+                } else if (c == ',' && !inSection){
+                    fields.add(section);
+                    section = "";
+                }else if (c == ']') {
+                    inSection = false;
+                } else if (j == line.length()-1) {
+                    section = section + c;
+                    fields.add(section);
+                }else{
+                    section = section + c;
+                }
             }
+            br.close();
+
             System.out.println("ID: " + fields.get(ID_INDEX)
-                    + ", username: " + fields.get(USER_INDEX)
-                    + ", nickname: " + fields.get(NICK_INDEX)
-                    + ", email: " + fields.get(EMAIL_INDEX)
-                    + ", hashedPassword: " + fields.get(PWD_INDEX)
-                    + ", bio: " + fields.get(BIO_INDEX)
-                    + ", profile pic: " + fields.get(PIC_INDEX)
-                    + ", current game: " + fields.get(CGAME_INDEX)
-                    + ", isOnline: " + fields.get(ONLINE_INDEX)
-                    + ", wlr: " + fields.get(WLR_INDEX)
-                    + ", Rating: " + fields.get(RATING_INDEX)
-                    + ", Rank: " + fields.get(RANK_INDEX)
-                    + ", Wins: " + fields.get(WINS_INDEX)
-                    + ", gameHistory: " + fields.get(GHIST_INDEX)
-                    + ", achievemntProgress: " + fields.get(ACHIVPROG_INDEX)
-                    + ", friends: " + fields.get(FRIENDS_INDEX)
-                    + ", friendRequests: " + fields.get(FREQUEST_INDEX)
+                    + " Username: " + fields.get(USER_INDEX)
+                    + " Nickname: " + fields.get(NICK_INDEX)
+                    + " Email: " + fields.get(EMAIL_INDEX)
+                    + " HashedPassword: " + fields.get(PWD_INDEX)
+                    + " Bio: " + fields.get(BIO_INDEX)
+                    + " Profile pic: " + fields.get(PIC_INDEX)
+                    + " Current game: " + fields.get(CGAME_INDEX)
+                    + " IsOnline: " + fields.get(ONLINE_INDEX)
+                    + " WLR: " + fields.get(WLR_INDEX)
+                    + " Rating: " + fields.get(RATING_INDEX)
+                    + " Rank: " + fields.get(RANK_INDEX)
+                    + " Wins: " + fields.get(WINS_INDEX)
+                    + " GameHistory: " + fields.get(GHIST_INDEX)
+                    + " AchievementProgress: " + fields.get(ACHIVPROG_INDEX)
+                    + " Friends: " + fields.get(FRIENDS_INDEX)
+                    + " FriendRequests: " + fields.get(FREQUEST_INDEX)
+                    + " Creation Time: " + fields.get(17)
             );
         } catch (IOException e) {
             e.printStackTrace();
@@ -91,36 +111,57 @@ public class ProfileCSVReader {
      * @param filePath
      * @return ArrayList<String> of all profiles in the database
      */
-    public static ArrayList<String[]> openProfilesFile(String filePath) {
-        ArrayList<String[]> fields = new ArrayList<>();
-        try(BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+    public static ArrayList<ArrayList<String>> openProfilesFile(String filePath) {
+        ArrayList<ArrayList<String>> fields = new ArrayList<>();
+        try{
+            BufferedReader br = new BufferedReader(new FileReader(filePath));
             int i = 0;
             br.readLine();
             String line;
             while ((line = br.readLine()) != null) {
-                String[] fieldsList = line.split(",");
+                ArrayList<String> fieldsList = new ArrayList<>();
+                String section = "";
+                boolean inSection = false;
+                for (int j = 0; j < line.length(); j ++){
+                    Character c = Character.valueOf(line.charAt(j));
+                    if (c == '['){
+                        inSection = true;
+                    } else if (c == ',' && !inSection){
+                        fieldsList.add(section);
+                        section = "";
+                    }else if (c == ']') {
+                        inSection = false;
+                    } else if (j == line.length()-1) {
+                        section = section + c;
+                        fieldsList.add(section);
+                    }else{
+                        section = section + c;
+                    }
+                }
                 fields.add(fieldsList);
 
-                    System.out.println("ID: " + fields.get(i)[ID_INDEX]
-                            + ", username: " + fields.get(i)[USER_INDEX]
-                            + ", nickname: " + fields.get(i)[NICK_INDEX]
-                            + ", email: " + fields.get(i)[EMAIL_INDEX]
-                            + ", hashedPassword: " + fields.get(i)[PWD_INDEX]
-                            + ", bio: " + fields.get(i)[BIO_INDEX]
-                            + ", profile pic: " + fields.get(i)[PIC_INDEX]
-                            + ", current game: " + fields.get(i)[CGAME_INDEX]
-                            + ", isOnline: " + fields.get(i)[ONLINE_INDEX]
-                            + ", wlr: " + fields.get(i)[WLR_INDEX]
-                            + ", Rating: " + fields.get(i)[RATING_INDEX]
-                            + ", Rank: " + fields.get(i)[RANK_INDEX]
-                            + ", Wins: " + fields.get(i)[WINS_INDEX]
-                            + ", gameHistory: " + fields.get(i)[GHIST_INDEX]
-                            + ", achievementProgress: " + fields.get(i)[ACHIVPROG_INDEX]
-                            + ", friends: " + fields.get(i)[FRIENDS_INDEX]
-                            + ", friendRequests: " + fields.get(i)[FREQUEST_INDEX]
+                    System.out.println("ID: " + fields.get(i).get(ID_INDEX)
+                            + " Username: " + fields.get(i).get(USER_INDEX)
+                            + " Nickname: " + fields.get(i).get(NICK_INDEX)
+                            + " Email: " + fields.get(i).get(EMAIL_INDEX)
+                            + " HashedPassword: " + fields.get(i).get(PWD_INDEX)
+                            + " Bio: " + fields.get(i).get(BIO_INDEX)
+                            + " Profile pic: " + fields.get(i).get(PIC_INDEX)
+                            + " Current game: " + fields.get(i).get(CGAME_INDEX)
+                            + " IsOnline: " + fields.get(i).get(ONLINE_INDEX)
+                            + " WLR: " + fields.get(i).get(WLR_INDEX)
+                            + " Rating: " + fields.get(i).get(RATING_INDEX)
+                            + " Rank: " + fields.get(i).get(RANK_INDEX)
+                            + " Wins: " + fields.get(i).get(WINS_INDEX)
+                            + " GameHistory: " + fields.get(i).get(GHIST_INDEX)
+                            + " AchievementProgress: " + fields.get(i).get(ACHIVPROG_INDEX)
+                            + " Friends: " + fields.get(i).get(FRIENDS_INDEX)
+                            + " FriendRequests: " + fields.get(i).get(FREQUEST_INDEX)
+                            + " Creation Time: " + fields.get(i).get(17)
                     );
                     i +=1;
                 }
+            br.close();
         }catch (IOException e){
             e.printStackTrace();
             System.out.println("System can't find file");
@@ -131,5 +172,7 @@ public class ProfileCSVReader {
     public static void main(String[] args) {
         System.out.println("all profiles");
         openProfilesFile("profiles_export.csv");
+        System.out.println("single profile:");
+       openSingleProfileFile("profile_2_export.csv");
     }
 }

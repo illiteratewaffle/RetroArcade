@@ -156,10 +156,10 @@ public class ProfileDatabaseAccess {
      * getAllProfiles() is used to obtain the HashMap of all username keys and all Profile values.
      * @return HashMap<String, Profile>
      */
-    public static ArrayList<String[]> getAllProfiles() {
+    public static ArrayList<ArrayList<String>> getAllProfiles() {
         String csvProfileFilePath = ""; //csv is generated in the main directory of the project
         PlayerManager.getProfileTable();//method to get all profiles in database into a csv file
-        ArrayList<String[]> profileFields = ProfileCSVReader.openProfilesFile(csvProfileFilePath);
+        ArrayList<ArrayList<String>> profileFields = ProfileCSVReader.openProfilesFile(csvProfileFilePath);
         return profileFields;
     }
 
