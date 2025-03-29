@@ -1,30 +1,22 @@
 package client_main.java.GameLogic_Client.Connect4;
 
-import client_main.java.GameLogic_Client.ivec2;
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
-public class C4Main {
+public class C4Main extends Application {
 
-    /**
-     * The main method to start the Connect-4 game.
-     */
+    @Override
+    public void start(Stage stage) throws Exception {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/client_main/resources/GUI_client/connect4.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 800, 600);
+        stage.setTitle("Connect 4 - JavaFX UI");
+        stage.setScene(scene);
+        stage.show();
+    }
+
     public static void main(String[] args) {
-        C4Controller c4Controller = new C4Controller();
-        c4Controller.start();
-
-        // Testing a full column
-        c4Controller.ReceiveInput(new ivec2(0, 0));
-        c4Controller.ReceiveInput(new ivec2(0, 0));
-        c4Controller.ReceiveInput(new ivec2(0, 0));
-        c4Controller.ReceiveInput(new ivec2(0, 0));
-        c4Controller.ReceiveInput(new ivec2(0, 0));
-        c4Controller.ReceiveInput(new ivec2(0, 0));
-        c4Controller.ReceiveInput(new ivec2(0, 0)); //
-        c4Controller.ReceiveInput(new ivec2(0, 0));
-        c4Controller.ReceiveInput(new ivec2(1, 0));
-        c4Controller.ReceiveInput(new ivec2(-1, 0));
-        c4Controller.ReceiveInput(new ivec2(7, 0));
-
-
-
+        launch(args);
     }
 }
