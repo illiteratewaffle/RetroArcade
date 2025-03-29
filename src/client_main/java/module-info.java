@@ -8,3 +8,4 @@ module com.example.projectdemo3 {
     opens GameLogic_Client.Connect4 to javafx.fxml;
     exports GameLogic_Client.Connect4;
 }
+
