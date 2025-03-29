@@ -1,6 +1,5 @@
 package client_main.java.GameLogic_Client;
 
-
 final public class ivec2
 {
     final public int x, y;

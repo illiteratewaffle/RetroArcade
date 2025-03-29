@@ -51,7 +51,6 @@ public class TTTGame {
         return TTTPiece.fromInt(this.board.getPiece(point));
     }
 
-
     public boolean isGameOver(TTTBoard board) {
         return checkWin(board) || checkDraw(board); // Check for win or draw
     }

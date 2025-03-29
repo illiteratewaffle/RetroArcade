@@ -77,18 +77,18 @@ public class TTTGameController implements IBoardGameController {
     @Override
     public boolean WinnersChangedSinceLastCommand() {
         // This could be implemented to track if the winner has changed (based on game state)
-        return false;  // For now, always false (you can implement more advanced logic here)
+        return false;  // For now, always false
     }
 
     @Override
     public boolean CurrentPlayerChangedSinceLastCommand() {
         // Track if the current player has changed since the last move
-        return false;  // For simplicity, return false (you could track changes if needed)
+        return false;  // For simplicity, return false
     }
 
     @Override
     public int BoardChangedSinceLastCommand() {
         // Track if the board has changed, for now just return a simple indicator
-        return 1;  // You can add logic here for more detailed tracking
+        return 1;
     }
 }

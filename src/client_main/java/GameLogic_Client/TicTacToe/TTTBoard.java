@@ -74,6 +74,11 @@ public class TTTBoard extends AbstractBoard {
         return true;
     }
 
+    /**
+     * Checks if the coordinate on the board contains a piece or not
+     * @param point the 2D coordinate (column, row) to check if empty
+     * @return true if the point is empty, false if it is occupied
+     */
     public boolean isEmpty(ivec2 point) {
         return getPiece(point) == 0;
     }
