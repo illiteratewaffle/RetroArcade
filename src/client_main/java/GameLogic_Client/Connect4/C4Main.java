@@ -1,4 +1,4 @@
-package GameLogic_Client.Connect4;//package client_main.java.GameLogic_Client.Connect4;
+package client_main.java.GameLogic_Client.Connect4;
 
 import client_main.java.GameLogic_Client.Connect4.C4Controller;
 import client_main.java.GameLogic_Client.Connect4.C4GUIController;
@@ -11,7 +11,9 @@ public class C4Main extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        FXMLLoader fxmlLoader = new FXMLLoader(C4Main.class.getResource("connect4.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/GUI_client/connect4.fxml"));
+//        System.out.println("FXML Path: " + C4Main.class.getResource("/GUI_client/connect4.fxml"));
+
         Scene scene = new Scene(fxmlLoader.load(), 800, 600);
         C4GUIController GUIcontroller = fxmlLoader.getController();
 
