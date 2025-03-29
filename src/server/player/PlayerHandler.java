@@ -30,7 +30,7 @@ public class PlayerHandler implements Runnable {
      * @param clientSocket the Socket that the client is connected on
      * /@param queue the main message cue object that will be used to communicate between threads.
      */
-    public PlayerHandler(Socket clientSocket, LinkedBlockingQueue queue) {
+    public PlayerHandler(Socket clientSocket, BlockingQueue<ThreadMessage> queue) {
         this.clientSocket = clientSocket;
         //Create a dedicated queue for messages related to this player's thread.
         this.queue = queue;
@@ -70,7 +70,7 @@ public class PlayerHandler implements Runnable {
                 }
                 // Convert to json formatting then send it to the client
                 // THERE IS NO JSON TO STRING CONVERSION CLASS CREATED YET
-                printWriter.write(threadMessage.getContent());
+                printWriter.println(threadMessage.getContent());
             } catch (InterruptedException e) {
                 log("Failure to take message blocking queue for PlayerHandler:", e.toString());
             }

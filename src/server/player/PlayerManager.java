@@ -9,6 +9,8 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static server.management.ServerLogger.log;
+
 public class PlayerManager {
     private static final Connection conn = databaseConnector.connect();
 
@@ -36,17 +38,16 @@ public class PlayerManager {
 
             if(rs.next()) {
                 int newPlayerID = rs.getInt("id");
-                System.out.println("Player " + newPlayerID + " Registered Successfully!");
+                log("Player " + newPlayerID + " Registered Successfully!");
                 return newPlayerID;
             } else {
-                System.err.println("Registration failed: No ID returned.");
+                log("Registration failed: No ID returned.");
                 return -1;
             }
 
         } catch (SQLException e) {
             // Error message notifying user of issue.
-            System.err.println("Error inserting new player into database: " + e.getMessage());
-            e.printStackTrace();
+            log("Error inserting new player into database: " + e.getMessage());
             return -1;
         }
     }
@@ -69,10 +70,10 @@ public class PlayerManager {
             // If a row is returned matching player credentials, returns player ID
             if (rs.next()) {
                 int playerId = rs.getInt("id");
-                System.out.println("Authentication successful. Player ID: " + playerId);
+                log("Authentication successful. Player ID: " + playerId);
                 return playerId;
             } else {
-                System.out.println("Authentication failed: Invalid username or password.");
+                log("Authentication failed: Invalid username or password.");
                 return -1;
             }
         } catch (SQLException e) {
@@ -111,9 +112,9 @@ public class PlayerManager {
                 }
                 writer.append("\n");
 
-                System.out.println("Player data written to: " + fileName);
+                log("Player data written to: " + fileName);
             } else {
-                System.out.println("No player found with ID: " + id);
+                log("No player found with ID: " + id);
             }
         } catch (SQLException | IOException e) {
             System.err.println("Error retrieving or writing player data: " + e.getMessage());
@@ -161,7 +162,7 @@ public class PlayerManager {
                 rowCount++;
             }
 
-            System.out.println("Exported " + rowCount + " profile(s) to " + csvFile);
+            log("Exported " + rowCount + " profile(s) to " + csvFile);
         } catch (SQLException | IOException e) {
             // Exception error messages in case of SQL or file I/O issues
             System.err.println("Error exporting profile data: " + e.getMessage());
@@ -209,7 +210,7 @@ public class PlayerManager {
             if (rs.next()) {
                 return rs.getString("username");
             } else {
-                System.out.println("No user found with ID: " + id);
+                log("No user found with ID: " + id);
                 return null;
             }
         } catch (SQLException e) {
