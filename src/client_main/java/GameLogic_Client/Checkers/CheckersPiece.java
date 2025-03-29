@@ -30,4 +30,52 @@ public enum CheckersPiece {
         }
         return null;
     }
+
+
+    /**
+     * @param PieceID
+     * @return True if the PieceID is that of a Checkers Piece; False otherwise.
+     */
+    public static boolean IsPiece(int PieceID)
+    {
+        // Additionally check to ensure that the PieceID is not invalid.
+        CheckersPiece Piece = CheckersPiece.GetCheckersPiece(PieceID);
+        return Piece != null && Piece != CheckersPiece.NONE;
+    }
+
+    /**
+     * @param PieceID
+     * @return True if the PieceID is that of a Player 1 Checkers Piece; False otherwise.
+     */
+    public static boolean IsP1(int PieceID)
+    {
+        return CheckersPiece.P1PAWN.equals(PieceID) || CheckersPiece.P1KING.equals(PieceID);
+    }
+
+    /**
+     * @param PieceID
+     * @return True if the PieceID is that of a Player 2 Checkers Piece; False otherwise.
+     */
+    public static boolean IsP2(int PieceID)
+    {
+        return CheckersPiece.P2PAWN.equals(PieceID) || CheckersPiece.P2KING.equals(PieceID);
+    }
+
+    /**
+     * @param PieceID
+     * @return True if the PieceID is that of a King Piece; False otherwise.
+     */
+    public static boolean IsKing(int PieceID)
+    {
+        return CheckersPiece.P1KING.equals(PieceID) || CheckersPiece.P2KING.equals(PieceID);
+    }
+
+    /**
+     * @param PieceID
+     * @return True if the PieceID is that of a Pawn Piece; False otherwise.
+     */
+    public static boolean IsPawn(int PieceID)
+    {
+        return CheckersPiece.P1PAWN.equals(PieceID) || CheckersPiece.P2PAWN.equals(PieceID);
+    }
 }

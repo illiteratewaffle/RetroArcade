@@ -24,9 +24,9 @@ public class CheckersBoard extends AbstractBoard
                 ivec2 point = new ivec2(x, y);
                 int PieceID = getPiece(point);
                 // If the tile contains a piece, record it to the appropriate set of pieces.
-                if (IsPiece(PieceID))
+                if (CheckersPiece.IsPiece(PieceID))
                 {
-                    if (IsP1(PieceID))
+                    if (CheckersPiece.IsP1(PieceID))
                     {
                         P1PieceLocations.add(point);
                     }
@@ -64,10 +64,10 @@ public class CheckersBoard extends AbstractBoard
         if (OldPieceID != piece)
         {
             // Check if we just removed a piece from the board tile.
-            if (IsPiece(OldPieceID))
+            if (CheckersPiece.IsPiece(OldPieceID))
             {
                 // The tile previously holds a P1 piece, which is now removed.
-                if (IsP1(OldPieceID))
+                if (CheckersPiece.IsP1(OldPieceID))
                 {
                     P1PieceLocations.remove(point);
                 }
@@ -79,10 +79,10 @@ public class CheckersBoard extends AbstractBoard
             }
 
             // Check if we are adding a new piece in its place.
-            if (IsPiece(piece))
+            if (CheckersPiece.IsPiece(piece))
             {
                 // A new P1 piece is added in its place.
-                if (IsP1(piece))
+                if (CheckersPiece.IsP1(piece))
                 {
                     P1PieceLocations.add(point);
                 }
@@ -116,22 +116,154 @@ public class CheckersBoard extends AbstractBoard
 
 
     /**
-     * @param PieceID
-     * @return True if the PieceID is that of a Checkers Piece; False otherwise.
+     * @param TileCoord
+     * @return True if the TileCoord points to a Tile that is on the Board; False otherwise.
      */
-    private boolean IsPiece(int PieceID)
+    public boolean IsValidTile(ivec2 TileCoord)
     {
-        // Additionally check to ensure that the PieceID is not invalid.
-        CheckersPiece Piece = CheckersPiece.GetCheckersPiece(PieceID);
-        return Piece != null && Piece != CheckersPiece.NONE;
+        ivec2 BoardSize = getSize();
+        return TileCoord.x > 0 && TileCoord.x < BoardSize.x && TileCoord.y > 0 && TileCoord.y < BoardSize.y;
     }
 
     /**
-     * @param PieceID
-     * @return True if the PieceID is that of a Player 1 Checkers Piece; False otherwise.
+     * @param TileCoord
+     * @return True if there is a valid Checkers Piece at the specified TileCoord; False otherwise.
      */
-    private boolean IsP1(int PieceID)
+    public boolean IsPiece(ivec2 TileCoord)
     {
-        return CheckersPiece.P1PAWN.equals(PieceID) || CheckersPiece.P1KING.equals(PieceID);
+        return CheckersPiece.IsPiece(getPiece(TileCoord));
+    }
+
+    /**
+     * @param TileCoord
+     * @return True if the Piece at the specified TileCoord is a Player 1 Piece; False otherwise.
+     */
+    public boolean IsP1(ivec2 TileCoord)
+    {
+        return CheckersPiece.IsP1(getPiece(TileCoord));
+    }
+
+    /**
+     * @param TileCoord
+     * @return True if the Piece at the specified TileCoord is a King Piece; False otherwise.
+     */
+    public boolean IsKing(ivec2 TileCoord)
+    {
+        return CheckersPiece.IsKing(getPiece(TileCoord));
+    }
+
+
+
+    /**
+     * Convert a Pawn Piece at the specified Tile Coordinate into a King Piece.<br>
+     * The Owner of the Piece (either Player 1 or Player 2) is maintained.
+     * @param TileCoord The coordinate of the tile to perform the conversion on.
+     * @throws IllegalArgumentException If the specified tile does not contain a Pawn Piece.
+     * @throws IndexOutOfBoundsException If the tile coordinate is out of the bounds of the board.
+     */
+    public void MakeKing(ivec2 TileCoord) throws IllegalArgumentException, IndexOutOfBoundsException
+    {
+        if (IsValidTile(TileCoord))
+        {
+            int PieceID = getPiece(TileCoord);
+            if (CheckersPiece.IsPawn(PieceID))
+            {
+                if (CheckersPiece.IsP1(getPiece(TileCoord)))
+                {
+                    setPiece(TileCoord, CheckersPiece.P1KING.ordinal());
+                }
+                else
+                {
+                    setPiece(TileCoord, CheckersPiece.P2KING.ordinal());
+                }
+            }
+            else throw new IllegalArgumentException("Can only make Pawn Pieces into Kings.");
+        }
+        else throw new IndexOutOfBoundsException("Out of Bounds Tile Coordinates.");
+    }
+
+    /**
+     * Convert a King Piece at the specified Tile Coordinate into a Pawn Piece.<br>
+     * The Owner of the Piece (either Player 1 or Player 2) is maintained.
+     * @param TileCoord The coordinate of the tile to perform the conversion on.
+     * @throws IllegalArgumentException If the specified tile does not contain a King Piece.
+     * @throws IndexOutOfBoundsException If the tile coordinate is out of the bounds of the board.
+     */
+    public void MakePawn(ivec2 TileCoord) throws IllegalArgumentException, IndexOutOfBoundsException
+    {
+        if (IsValidTile(TileCoord))
+        {
+            int PieceID = getPiece(TileCoord);
+            if (CheckersPiece.IsKing(PieceID))
+            {
+                if (CheckersPiece.IsP1(getPiece(TileCoord)))
+                {
+                    setPiece(TileCoord, CheckersPiece.P1PAWN.ordinal());
+                }
+                else
+                {
+                    setPiece(TileCoord, CheckersPiece.P2PAWN.ordinal());
+                }
+            }
+            else throw new IllegalArgumentException("Can only make King Pieces into Pawns.");
+        }
+        else throw new IndexOutOfBoundsException("Out of Bounds Tile Coordinates.");
+    }
+
+    /**
+     * Convert a Player 2's Piece at the specified Tile Coordinate into a Player 1's Piece.<br>
+     * The State of the Piece as either a Pawn or a King is maintained.
+     * @param TileCoord The coordinate of the tile to perform the conversion on.
+     * @throws IllegalArgumentException If the specified tile does not contain a Player 2's Piece.
+     * @throws IndexOutOfBoundsException If the tile coordinate is out of the bounds of the board.
+     */
+    public void MakeP1(ivec2 TileCoord) throws IllegalArgumentException, IndexOutOfBoundsException
+    {
+        if (IsValidTile(TileCoord))
+        {
+            int PieceID = getPiece(TileCoord);
+            if (CheckersPiece.IsP2(PieceID))
+            {
+                if (CheckersPiece.IsPawn(getPiece(TileCoord)))
+                {
+                    setPiece(TileCoord, CheckersPiece.P1PAWN.ordinal());
+                }
+                else
+                {
+                    setPiece(TileCoord, CheckersPiece.P1KING.ordinal());
+                }
+            }
+            else throw new IllegalArgumentException("Can only make Player 2 Pieces into Player 1 Pieces.");
+        }
+        else throw new IndexOutOfBoundsException("Out of Bounds Tile Coordinates.");
+    }
+
+
+    /**
+     * Convert a Player 1's Piece at the specified Tile Coordinate into a Player 2's Piece.<br>
+     * The State of the Piece as either a Pawn or a King is maintained.
+     * @param TileCoord The coordinate of the tile to perform the conversion on.
+     * @throws IllegalArgumentException If the specified tile does not contain a Player 1's Piece.
+     * @throws IndexOutOfBoundsException If the tile coordinate is out of the bounds of the board.
+     */
+    public void MakeP2(ivec2 TileCoord) throws IllegalArgumentException, IndexOutOfBoundsException
+    {
+        if (IsValidTile(TileCoord))
+        {
+            int PieceID = getPiece(TileCoord);
+            if (CheckersPiece.IsP1(PieceID))
+            {
+                if (CheckersPiece.IsPawn(getPiece(TileCoord)))
+                {
+                    setPiece(TileCoord, CheckersPiece.P2PAWN.ordinal());
+                }
+                else
+                {
+                    setPiece(TileCoord, CheckersPiece.P2KING.ordinal());
+                }
+            }
+            else throw new IllegalArgumentException("Can only make Player 2 Pieces into Player 1 Pieces.");
+        }
+        else throw new IndexOutOfBoundsException("Out of Bounds Tile Coordinates.");
     }
 }

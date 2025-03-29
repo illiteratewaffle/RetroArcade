@@ -60,4 +60,9 @@ public abstract class AbstractBoard {
             }
         }
     }
+
+    /**
+     * @return an ivec2 containing the (width, height) of the board.
+     */
+    public ivec2 getSize() { return new ivec2(rows, cols); }
 }
