@@ -21,9 +21,17 @@ public class CSVFileReader {
     private static final int PROFILE_ROW_SIZE = 16;
     private static int numberOfProfiles = 0;
 
-    public static void main(String[] args) {
+    /**
+     * Method to open csv file and returns a 2d arraylist of only profile statistics
+     * format: [[id1, wlr1, rating1, wins1], [id2, wlr2, rating2, wins2], ...]
+     *
+     * @return
+     */
+    public static ArrayList<ArrayList<String>> retrieveProfiles() {
         ArrayList<ArrayList<String>> fields = openFile();
         ArrayList<ArrayList<String>> sortedFields = sortFields(fields);
+
+        return sortedFields;
     }
 
     /**
