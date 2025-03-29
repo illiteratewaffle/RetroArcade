@@ -9,7 +9,7 @@ public class C4Main extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/client_main/resources/GUI_client/connect4.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/GUI_client/connect4.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 800, 600);
         C4GUIController GUIcontroller = fxmlLoader.getController();
 
