@@ -1,6 +1,6 @@
 package leaderboard;
 
-import AuthenticationAndProfile.Profile;
+import server_main.AuthenticationAndProfile.Profile;
 
 import java.util.ArrayList;
 import java.util.Collections;
