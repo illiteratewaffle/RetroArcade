@@ -130,11 +130,11 @@ public class TTTController implements Initializable {
             }
         }
 
-        // initialize a TTTGameController class, this is where the game actually happens and
-        // everything is kept track of
-        //TTTGameController theGame = new TTTGameController();
-        // to access the board, you go theGame.board
-        // to access the current plater, you go theGame.currentPlayer, 1 for X, 2 for O
+         //initialize a TTTGameController class, this is where the game actually happens and
+         //everything is kept track of
+        TTTGameController theGame = new TTTGameController();
+         //to access the board, you go theGame.board
+         //to access the current plater, you go theGame.currentPlayer, 1 for X, 2 for O
 
 
         /*
