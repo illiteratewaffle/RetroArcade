@@ -111,6 +111,15 @@ public class CheckersBoard extends AbstractBoard
     public void MakeMove(CheckersMove move)
     {
         // Perform the relevant sets, as dictated by the move.
+        // Move the piece in the start position of the move to the target position.
+        setPiece(move.getTargetCord(), getPiece(move.getStartCord()));
+        // This means that the tile at the start position must be cleared.
+        setPiece(move.getStartCord(), CheckersPiece.NONE.ordinal());
+        // If there is a capture, additionally clear the tile at the capture position.
+        if (move.getCaptureCord() != null)
+        {
+            setPiece(move.getCaptureCord(), CheckersPiece.NONE.ordinal());
+        }
         return;
     }
 
@@ -124,6 +133,7 @@ public class CheckersBoard extends AbstractBoard
         ivec2 BoardSize = getSize();
         return TileCoord.x > 0 && TileCoord.x < BoardSize.x && TileCoord.y > 0 && TileCoord.y < BoardSize.y;
     }
+
 
     /**
      * @param TileCoord
@@ -145,11 +155,30 @@ public class CheckersBoard extends AbstractBoard
 
     /**
      * @param TileCoord
+     * @return True if the Piece at the specified TileCoord is a Player 1 Piece; False otherwise.
+     */
+    public boolean IsP2(ivec2 TileCoord)
+    {
+        return CheckersPiece.IsP2(getPiece(TileCoord));
+    }
+
+
+    /**
+     * @param TileCoord
      * @return True if the Piece at the specified TileCoord is a King Piece; False otherwise.
      */
     public boolean IsKing(ivec2 TileCoord)
     {
         return CheckersPiece.IsKing(getPiece(TileCoord));
+    }
+
+    /**
+     * @param TileCoord
+     * @return True if the Piece at the specified TileCoord is a Pawn Piece; False otherwise.
+     */
+    public boolean IsPawn(ivec2 TileCoord)
+    {
+        return CheckersPiece.IsPawn(getPiece(TileCoord));
     }
 
 
