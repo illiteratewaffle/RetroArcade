@@ -46,10 +46,12 @@ public class GameSessionManager implements Runnable{
 
             if (message != null){
                 // TODO: camel case
+                // TODO: ThreadMessage does not have a method getCoordinates()
                 gameController.RecieveInput(message.getCoordinates()); //Process the input in the game logic 
                 GameStateToPlayers(); //Notify players of the state of the game 
             }
-
+            // TODO: this has no purpose?
+            Thread.currentThread();
             // TODO: camel case
             if (!gameController.GetGameonGoing()){
                 handleGameEnd(); //Handle the game if no longer on going. 
