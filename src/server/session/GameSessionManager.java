@@ -1,140 +1,59 @@
 package server.session;
 
+import server.management.ThreadRegistry;
 import server.player.Player;
 import server.management.ThreadMessage;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.LinkedBlockingQueue;
+import static server.management.ServerLogger.log;
+
 /**
  * 
  */
-public class GameSessionManager implements Runnable{
-    private final Player player1;
-    private final Player player2; 
-
-    // TODO: a placeholder class should be created that allows code to be compiled
-    private final IBoardGameController gameController;
-    // TODO: ThreadRegistry is now used in place of the ConcurrentHashMap<Thread, BlockingQueue<ThreadMessage>>
+public class GameSessionManager implements Runnable {
+    final Player player1;
+    final Player player2;
     private final ConcurrentHashMap<Thread, BlockingQueue<ThreadMessage>> queue;
-    
 
-    /**
-     * Constructs the GameSessionManager with the two players and a queue
-     * @param player1 First Player
-     * @param player2 Second Player
-     * @param queue The shared communication between the two players 
-     */
-    public GameSessionManager(Player player1, Player player2, ConcurrentHashMap<Thread, BlockingQueue<ThreadMessage>> queue){
+    public GameSessionManager(Player player1, Player player2) {
         this.player1 = player1;
-        this.player2 = player2; 
-        this. queue = queue;
-        // TODO: IBoardGameController's methods should be using camel case, not pascal case
-        this.gameController = new IBoardGameController(); //IBoardController is a class that is being develop by the game logic team
-
+        this.player2 = player2;
+        this.queue = ThreadRegistry.threadRegistry;
+        // Set the players as playing
+        player1.setPlaying();
+        player2.setPlaying();
     }
 
-    /**
-     * The game continues in a loop till it ends. 
-     * It waits for the player inputs, processes the moves and updates the game state. 
-     */
     @Override
-    public void run(){
-        // TODO: camel case
-        while (gameController.GetGameonGoing()){ 
-            Player currentPlayer = getCurrentPlayer(); //Get the player whose turn it is 
-            ThreadMessage message = recieveInputFromPlayer(currentPlayer); //Wait for player input
-
-            if (message != null){
-                // TODO: camel case
-                // TODO: ThreadMessage does not have a method getCoordinates()
-                gameController.RecieveInput(message.getCoordinates()); //Process the input in the game logic 
-                GameStateToPlayers(); //Notify players of the state of the game 
+    public void run() {
+        queue.put(Thread.currentThread(), new LinkedBlockingQueue<>());
+        log("GameSessionManager created");
+        // here goes the code for running the game + communicating with the player handlers
+        queue.get(player1.getThread()).add(new ThreadMessage(Thread.currentThread(), "This is the GameSessionManager talking to you!"));
+        queue.get(player2.getThread()).add(new ThreadMessage(Thread.currentThread(), "This is the GameSessionManager talking to you!"));
+        while(true) {
+            try {
+//                // This is NASTY
+//                while (!queue.containsKey(Thread.currentThread()))
+//                    Thread.sleep(10);
+                ThreadMessage threadMessage = queue.get(Thread.currentThread()).take();
+                Thread sender = threadMessage.getSender();
+                if (sender == player1.getThread()) {
+                    log("Send message to player2!");
+                    queue.get(player2.getThread()).add(new ThreadMessage(Thread.currentThread(), threadMessage.getContent()));
+                } else
+                    log("This is the thread the server believes the player is on:", player1.getThread().toString(), "\nThis is the thread that it actually is on:", sender.toString());
+                if (sender == player2.getThread()) {
+                    log("Send message to player1!");
+                    queue.get(player1.getThread()).add(new ThreadMessage(Thread.currentThread(), threadMessage.getContent()));
+                } else {
+                    log("This is the thread the server believes the player is on:", player2.getThread().toString(), "\nThis is the thread that it actually is on:", sender.toString());
+                }
+            } catch (InterruptedException e) {
+                log("Unable to get message for GameSessionManager thread:", e.toString());
             }
-            // TODO: this has no purpose?
-            Thread.currentThread();
-            // TODO: camel case
-            if (!gameController.GetGameonGoing()){
-                handleGameEnd(); //Handle the game if no longer on going. 
-            }
         }
     }
-
-
-    /**
-     * Determines the current player based on the game state. 
-     * @return The player whose turn it is.
-     */
-    private Player getCurrentPlayer(){
-        // TODO: camel case
-        int currentPlayerIndex = gameController.GetCurrentPlayer(); //Get the player's index
-        
-        //Retunr the corresponding player 
-        if (currentPlayerIndex == 0){
-            return player1;
-        }
-        return player2; 
-    }
-
-
-    /**
-     * Waits for input from the specified player
-     *  @param player The player to recieve input from 
-     *  @return The received input message 
-     */ 
-    private ThreadMessage recieveInputFromPlayer(Player player){
-        try {
-            BlockingQueue<ThreadMessage> playerQueue = queue.get(player.getThread());
-            return playerQueue.take();  // Blocking call until input received from the queue
-        } catch (InterruptedException e){
-            Thread.currentThread().interrupt(); //Restore interrupted state
-            return null;
-        }
-    }
-
-    /**
-     * Sends the current state of the game to the players 
-     */
-    private void GameStateToPlayers(){
-        ThreadMessage gameState = new ThreadMessage(Thread.currentThread(), formatGameState()); //Sender thread reference
-
-        sendToPlayer(player1, gameState); //Send state to players
-        sendToPlayer(player2, gameState);
-    }
-
-    /**
-     * Formats the game state in a string format 
-     * @return The string format of current player, winner, and game status
-     */
-    private String formatGameState(){
-        // TODO: camel case
-        return "Current Player: " + gameController.GetCurrentPlayer() + ", Winner: " + java.util.Arrays.toString(gameController.GetWinner()) + 
-                ", Game On Going: " + gameController.GetGameonGoing();
-    }
-    /**
-     *  Sends a message to a specific player
-     * @param player the player send the message to 
-     * @param message The message to send 
-     */
-    private void sendToPlayer(Player player, ThreadMessage message){
-
-        //Add message to player's queue
-        BlockingQueue<ThreadMessage> playerQueue = queue.get(player.getThread());
-        if (playerQueue !=null){
-            playerQueue.offer(message); 
-        }
-    }
-
-    /**
-     * Ends the game if necessary and notifies both players
-     */
-    private void handleGameEnd(){
-        // TODO: camel case
-        int[] winner = gameController.GetWinner(); //Get the winner of the game 
-
-        String resultMessage = (winner.length > 1) ? "Game ended in a tie" : "Player " + winner[0] + " won!";
-        sendToPlayer(player1, new ThreadMessage(Thread.currentThread(), resultMessage)); // Notify player 1 of the result
-        sendToPlayer(player2, new ThreadMessage(Thread.currentThread(), resultMessage)); // Notify player 2 of the result
-
-    }
-
 }

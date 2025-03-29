@@ -1,5 +1,6 @@
 package server.session;
 
+import server.management.ThreadRegistry;
 import server.player.Player;
 import server.management.ThreadMessage;
 
@@ -7,18 +8,16 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-public class GameCreator {
-    private final ConcurrentHashMap<Thread, BlockingQueue<ThreadMessage>> queue;
+public class GameCreator implements Runnable {
+    // private final ConcurrentHashMap<Thread, BlockingQueue<ThreadMessage>> queue;
     private final CopyOnWriteArrayList<Player> playerList;
 
     /**
      * Constructor for the GameCreator class
-     * @param queue the main message cue object that will be used to communicate between threads.
-     * @param playerList the thread safe ArrayList that the Player objects are in
      */
-    public GameCreator(ConcurrentHashMap<Thread, BlockingQueue<ThreadMessage>> queue, CopyOnWriteArrayList<Player> playerList) {
-        this.queue = queue;
-        this.playerList = playerList;
+    public GameCreator() {
+        // this.queue = ThreadRegistry.threadRegistry;
+        this.playerList = ThreadRegistry.playerList;
     }
 
     /**
@@ -49,7 +48,7 @@ public class GameCreator {
             }
             if (player2 != null) {
                 // Create the GameSessionManager object
-                // Thread.ofVirtual().start(new GameSessionManager(player1, player2, queue));
+                Thread.ofVirtual().start(new GameSessionManager(player1, player2));
             }
         }
     }

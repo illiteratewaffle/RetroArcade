@@ -3,13 +3,16 @@ package server.management;
 import server.player.PlayerHandler;
 import java.util.concurrent.LinkedBlockingQueue;
 import server.management.ThreadMessage;
+import server.session.GameCreator;
+
+import static server.management.ServerLogger.*;
 
 public class ServerController {
 
 
 
     public ServerController() {
-        ThreadRegistry.register(Thread.currentThread(), new LinkedBlockingQueue<>());
+        ThreadRegistry.threadRegistry.put(Thread.currentThread(), new LinkedBlockingQueue<>());
     }
 
     /**
@@ -38,18 +41,12 @@ public class ServerController {
      */
     public void startServer(int port) {
         // TODO: startServer only initiates a ConnectionManager and nothing else? What about ServerLogger or the class that is responsible for creating GameSessions?
+        startServerLogger();
+        GameCreator gameCreator = new GameCreator();
+        Thread.startVirtualThread(gameCreator);
         ConnectionManager connectionManager = new ConnectionManager(this, port);
         Thread.startVirtualThread(connectionManager);
-    }
 
-    /**
-     * Main Method to start the server
-     */
-    public static void main(String[] args) {
-        // TODO: This should be contained in its own class for clarity, separation, and readability.
-        ServerController controller = new ServerController();
-        int port = 5050;
-        controller.startServer(port);
     }
 }
 
