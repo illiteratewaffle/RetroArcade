@@ -12,7 +12,7 @@ public class C4Controller implements IBoardGameController {
     /**
      * Starts a new game of Connect Four.
      */
-    void start() {
+    public void start() {
         System.out.println("A new game of connect four has started");
         c4GameLogic = new client_main.java.GameLogic_Client.Connect4.C4GameLogic();
         printBoard();
