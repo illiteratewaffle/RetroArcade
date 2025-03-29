@@ -1,6 +1,7 @@
 package client_main.java.GameLogic_Client.TicTacToe;
 
 import client_main.java.GameLogic_Client.IBoardGameController;
+import client_main.java.GameLogic_Client.TicTacToe.TTTGame;
 import client_main.java.GameLogic_Client.ivec2;
 import java.util.ArrayList;
 
@@ -11,8 +12,8 @@ import java.util.ArrayList;
  * Author: Emma Djukic ~ Game Logic
  */
 public class TTTGameController implements IBoardGameController {
-    private TTTGame game;
-    private boolean gameOngoing;
+    public TTTGame game;
+    public boolean gameOngoing;
 
     public TTTGameController() {
         this.game = new TTTGame();

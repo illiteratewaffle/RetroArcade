@@ -95,6 +95,11 @@ public class TTTController implements Initializable {
     @FXML
     public GridPane gameBoard;
 
+    TTTGameController theGame;
+
+
+
+
     // boolean flag alternating Xs and Os
     // Tyler, the TTTGame class has implementation for this, now.
     boolean flag = true;
@@ -108,8 +113,6 @@ public class TTTController implements Initializable {
     // booleanProperty to listen for gameOver message
     BooleanProperty isGameOver = new SimpleBooleanProperty(false);
 
-    // 2D Array for tracking board status
-    Tile[][] board = new Tile[3][3];
 
     ArrayList<Character> EEList = new ArrayList<Character>();
 
@@ -123,19 +126,11 @@ public class TTTController implements Initializable {
         board_image.setImage(b_image);
         quit_image.setImage(new Image("quit_x.png"));
 
-        // initialize board tile chars to empty
-        for (int i = 0; i < 3; i++){
-            for (int j = 0; j < 3; j++){
-                board[i][j] = new Tile('-', i, j);
-            }
-        }
-
         // initialize a TTTGameController class, this is where the game actually happens and
         // everything is kept track of
-        //TTTGameController theGame = new TTTGameController();
+        TTTGameController theGame = new TTTGameController();
         // to access the board, you go theGame.board
         // to access the current plater, you go theGame.currentPlayer, 1 for X, 2 for O
-
 
         /*
         mouse-click event: clears border and sets piece
@@ -221,42 +216,38 @@ public class TTTController implements Initializable {
         Image check_image = new Image("check_circle.png");
         Image X_image = new Image("X_circle.png");
 
-        if (isPlayable) {
-            if (board[row][col].getPiece() == '-') {
-                if (flag) {
-                    board[row][col].setPiece('X');
-                    imageView.setImage(X);
-                } else {
-                    board[row][col].setPiece('O');
-                    imageView.setImage(O);
-                }
-                flag = !flag;
-            }
-            for (Tile[] tiles: board){
-                for (Tile tile: tiles){
-                    System.out.print(tile.getPiece());
-                }
-                System.out.println();
-            }
-            System.out.println();
-        }
-        if (isWon(board)) {
-            Win_Lose_Banner.setImage(YOUWIN);
-            isGameOver.set(true);
-            play_again.setImage(play_again_image);
-            check_circle.setImage(check_image);
-            X_circle.setImage(X_image);
-        }
+//        if (theGame.game.makeMove(row, col)) {
+//            if (theGame.game.board[row][col].getPiece() == '-') {
+//                if (flag) {
+//                    board[row][col].setPiece('X');
+//                    imageView.setImage(X);
+//                } else {
+//                    board[row][col].setPiece('O');
+//                    imageView.setImage(O);
+//                }
+//                flag = !flag;
+//            }
+//            for (Tile[] tiles: board){
+//                for (Tile tile: tiles){
+//                    System.out.print(tile.getPiece());
+//                }
+//                System.out.println();
+//            }
+//            System.out.println();
+//        }
+//        if (isWon(board)) {
+//            Win_Lose_Banner.setImage(YOUWIN);
+//            isGameOver.set(true);
+//            play_again.setImage(play_again_image);
+//            check_circle.setImage(check_image);
+//            X_circle.setImage(X_image);
+//        }
     }
 
     private void hoverEvent(StackPane stackPane, int row, int col){
-        if (board[row][col].getPiece() == '-'){
-            stackPane.setStyle("-fx-border-color: yellow; -fx-border-width: 3px; -fx-border-radius: 5px;");
-        }
-    }
-
-    private  boolean isWon(Tile[][] board){
-        return true;
+//        if (board[row][col].getPiece() == '-'){
+//            stackPane.setStyle("-fx-border-color: yellow; -fx-border-width: 3px; -fx-border-radius: 5px;");
+//        }
     }
 
     /*
