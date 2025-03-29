@@ -1,7 +1,8 @@
 package server.session;
 
-import server.player.Player;
+import server.player.PlayerManager;
 import server.management.ThreadMessage;
+import server.management.ThreadRegistry;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ConcurrentHashMap;
@@ -14,8 +15,6 @@ public class GameSessionManager implements Runnable{
 
     // TODO: a placeholder class should be created that allows code to be compiled
     private final IBoardGameController gameController;
-    // TODO: ThreadRegistry is now used in place of the ConcurrentHashMap<Thread, BlockingQueue<ThreadMessage>>
-    private final ConcurrentHashMap<Thread, BlockingQueue<ThreadMessage>> queue;
     
 
     /**
@@ -24,10 +23,9 @@ public class GameSessionManager implements Runnable{
      * @param player2 Second Player
      * @param queue The shared communication between the two players 
      */
-    public GameSessionManager(Player player1, Player player2, ConcurrentHashMap<Thread, BlockingQueue<ThreadMessage>> queue){
+    public GameSessionManager(Player player1, Player player2){
         this.player1 = player1;
         this.player2 = player2; 
-        this. queue = queue;
         // TODO: IBoardGameController's methods should be using camel case, not pascal case
         this.gameController = new IBoardGameController(); //IBoardController is a class that is being develop by the game logic team
 
@@ -39,21 +37,15 @@ public class GameSessionManager implements Runnable{
      */
     @Override
     public void run(){
-        // TODO: camel case
-        while (gameController.GetGameonGoing()){ 
+        while (gameController.getGameOnGoing()){ 
             Player currentPlayer = getCurrentPlayer(); //Get the player whose turn it is 
             ThreadMessage message = recieveInputFromPlayer(currentPlayer); //Wait for player input
 
             if (message != null){
-                // TODO: camel case
-                // TODO: ThreadMessage does not have a method getCoordinates()
-                gameController.RecieveInput(message.getCoordinates()); //Process the input in the game logic 
+                gameController.recieveInput(message.getContent()); //Process the input in the game logic 
                 GameStateToPlayers(); //Notify players of the state of the game 
             }
-            // TODO: this has no purpose?
-            Thread.currentThread();
-            // TODO: camel case
-            if (!gameController.GetGameonGoing()){
+            if (!gameController.getGameonGoing()){
                 handleGameEnd(); //Handle the game if no longer on going. 
             }
         }
@@ -65,8 +57,7 @@ public class GameSessionManager implements Runnable{
      * @return The player whose turn it is.
      */
     private Player getCurrentPlayer(){
-        // TODO: camel case
-        int currentPlayerIndex = gameController.GetCurrentPlayer(); //Get the player's index
+        int currentPlayerIndex = gameController.getCurrentPlayer(); //Get the player's index
         
         //Retunr the corresponding player 
         if (currentPlayerIndex == 0){
@@ -83,7 +74,7 @@ public class GameSessionManager implements Runnable{
      */ 
     private ThreadMessage recieveInputFromPlayer(Player player){
         try {
-            BlockingQueue<ThreadMessage> playerQueue = queue.get(player.getThread());
+            BlockingQueue<ThreadMessage> playerQueue = ThreadRegistry.getQueue(player.getThread());
             return playerQueue.take();  // Blocking call until input received from the queue
         } catch (InterruptedException e){
             Thread.currentThread().interrupt(); //Restore interrupted state
@@ -94,7 +85,7 @@ public class GameSessionManager implements Runnable{
     /**
      * Sends the current state of the game to the players 
      */
-    private void GameStateToPlayers(){
+    private void sendGameStateToPlayers(){
         ThreadMessage gameState = new ThreadMessage(Thread.currentThread(), formatGameState()); //Sender thread reference
 
         sendToPlayer(player1, gameState); //Send state to players
@@ -105,11 +96,12 @@ public class GameSessionManager implements Runnable{
      * Formats the game state in a string format 
      * @return The string format of current player, winner, and game status
      */
-    private String formatGameState(){
-        // TODO: camel case
-        return "Current Player: " + gameController.GetCurrentPlayer() + ", Winner: " + java.util.Arrays.toString(gameController.GetWinner()) + 
-                ", Game On Going: " + gameController.GetGameonGoing();
+    private String formatGameState() {
+        return "Current Player: " + gameController.getCurrentPlayer() +
+               ", Winner: " + java.util.Arrays.toString(gameController.getWinner()) +
+               ", Game Ongoing: " + gameController.getGameOngoing();
     }
+
     /**
      *  Sends a message to a specific player
      * @param player the player send the message to 
@@ -118,7 +110,7 @@ public class GameSessionManager implements Runnable{
     private void sendToPlayer(Player player, ThreadMessage message){
 
         //Add message to player's queue
-        BlockingQueue<ThreadMessage> playerQueue = queue.get(player.getThread());
+        BlockingQueue<ThreadMessage> playerQueue = ThreadRegistry.getQueue(player.getThread());
         if (playerQueue !=null){
             playerQueue.offer(message); 
         }
@@ -128,8 +120,7 @@ public class GameSessionManager implements Runnable{
      * Ends the game if necessary and notifies both players
      */
     private void handleGameEnd(){
-        // TODO: camel case
-        int[] winner = gameController.GetWinner(); //Get the winner of the game 
+        int[] winner = gameController.getWinner(); //Get the winner of the game 
 
         String resultMessage = (winner.length > 1) ? "Game ended in a tie" : "Player " + winner[0] + " won!";
         sendToPlayer(player1, new ThreadMessage(Thread.currentThread(), resultMessage)); // Notify player 1 of the result
