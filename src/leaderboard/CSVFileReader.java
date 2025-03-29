@@ -18,9 +18,12 @@ public class CSVFileReader {
     private static final int WLR_INDEX = 9;
     private static final int RATING_INDEX = 10;
     private static final int WINS_INDEX = 12;
+    private static final int PROFILE_ROW_SIZE = 16;
+    private static int numberOfProfiles = 0;
 
     public static void main(String[] args) {
-        ArrayList<Object> fields = openFile();
+        ArrayList<ArrayList<String>> fields = openFile();
+        ArrayList<ArrayList<String>> sortedFields = sortFields(fields);
     }
 
     /**
@@ -30,28 +33,29 @@ public class CSVFileReader {
      *
      * @return
      */
-    public static ArrayList<Object> openFile(){
-        ArrayList<Object> fields = new ArrayList<>();
+    public static ArrayList<ArrayList<String>> openFile(){
+        ArrayList<ArrayList<String>> fields = new ArrayList<>();
 
         try (BufferedReader br = new BufferedReader(new FileReader(FILEPATH))) {
             // Read the header line
             String header = br.readLine();
-            System.out.println("Header: " + header);
+            //System.out.println("Header: " + header);
 
             // Read and process each subsequent line
             String line;
             while ((line = br.readLine()) != null) {
-                // Split the line by ", " and store each field in an ArrayList<Object>
+                ArrayList<String> field = new ArrayList<>();
+
+                // Split the line by ", " and store each field in an ArrayList<>
                 String[] fieldsList = line.split(",");
 
                 for (String fieldsString : fieldsList) {
-                    fields.add(fieldsString.trim());
+                    field.add(fieldsString.trim());
                 }
 
-                System.out.println("ID: " + fields.get(ID_INDEX)
-                        + ", WLR: " + fields.get(WLR_INDEX)
-                        + ", Rating: " + fields.get(RATING_INDEX)
-                        + ", Wins: " + fields.get(WINS_INDEX));
+                fields.add(field);
+
+                numberOfProfiles++;
             }
 
         } catch (IOException e) {
@@ -59,6 +63,37 @@ public class CSVFileReader {
             System.out.println("System can't find file");
         }
 
+        System.out.println(fields);
         return fields;
+    }
+
+    public static ArrayList<ArrayList<String>> sortFields (ArrayList<ArrayList<String>> fields) {
+        ArrayList<ArrayList<String>> sortedFields = new ArrayList<>();
+
+        // i_profile is number of profiles
+        // statistic represents a profile's field
+        for (int i_profile = 0; i_profile < fields.size(); i_profile++) {
+            ArrayList<String> individual = new ArrayList<String>();
+            for (int statistic = 0; statistic < PROFILE_ROW_SIZE; statistic++) {
+                if (statistic == ID_INDEX) {
+                    individual.add(fields.get(i_profile).get(statistic));
+                }
+                if (statistic == WLR_INDEX) {
+                    individual.add(fields.get(i_profile).get(statistic));
+                }
+                if (statistic == RATING_INDEX) {
+                    individual.add(fields.get(i_profile).get(statistic));
+                }
+                if (statistic == WINS_INDEX) {
+                    individual.add(fields.get(i_profile).get(statistic));
+                }
+            }
+
+            sortedFields.add(individual);
+        }
+
+        System.out.println(sortedFields);
+
+        return sortedFields;
     }
 }
