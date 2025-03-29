@@ -11,12 +11,17 @@ public class C4Main extends Application {
     public void start(Stage stage) throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/client_main/resources/GUI_client/connect4.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 800, 600);
+        C4GUIController GUIcontroller = fxmlLoader.getController();
+
         stage.setTitle("Connect 4 - JavaFX UI");
         stage.setScene(scene);
         stage.show();
     }
 
     public static void main(String[] args) {
+        C4Controller c4Controller = new C4Controller();
+        c4Controller.start();
         launch(args);
+
     }
 }
