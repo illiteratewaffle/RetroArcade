@@ -95,11 +95,6 @@ public class TTTController implements Initializable {
     @FXML
     public GridPane gameBoard;
 
-    TTTGameController theGame;
-
-
-
-
     // boolean flag alternating Xs and Os
     // Tyler, the TTTGame class has implementation for this, now.
     boolean flag = true;
@@ -113,7 +108,6 @@ public class TTTController implements Initializable {
     // booleanProperty to listen for gameOver message
     BooleanProperty isGameOver = new SimpleBooleanProperty(false);
 
-
     ArrayList<Character> EEList = new ArrayList<Character>();
 
 
@@ -126,11 +120,7 @@ public class TTTController implements Initializable {
         board_image.setImage(b_image);
         quit_image.setImage(new Image("quit_x.png"));
 
-        // initialize a TTTGameController class, this is where the game actually happens and
-        // everything is kept track of
         TTTGameController theGame = new TTTGameController();
-        // to access the board, you go theGame.board
-        // to access the current plater, you go theGame.currentPlayer, 1 for X, 2 for O
 
         /*
         mouse-click event: clears border and sets piece
