@@ -28,14 +28,11 @@ public class PlayerManager {
 
         // Open connection to database, set profile attributes and store into SQL table.
         try (PreparedStatement statement = conn.prepareStatement(query)) {
-            statement.setString(1, email);
+            statement.setString(1, username);
             statement.setString(2, hashedPassword);
-            statement.setString(3, username);
+            statement.setString(3, email);
 
             ResultSet rs = statement.executeQuery();
-
-            // For logging purposes
-            int rowsAffected = statement.executeUpdate();
 
             if(rs.next()) {
                 int newPlayerID = rs.getInt("id");
@@ -49,6 +46,7 @@ public class PlayerManager {
         } catch (SQLException e) {
             // Error message notifying user of issue.
             System.err.println("Error inserting new player into database: " + e.getMessage());
+            e.printStackTrace();
             return -1;
         }
     }
@@ -223,8 +221,6 @@ public class PlayerManager {
     // TODO: create methods to retrieve columns of profile
 
     public static void main(String[] args) {
-        System.out.println(authenticatePlayer("dannyX", "secureHASH321$$"));
-        getProfileTable(3);
-        System.out.println(searchFriendsList(1, "sar"));
+        registerPlayer("ertgdsg", "tqwe3tdfgs", "k23452345tq34");
     }
 }
