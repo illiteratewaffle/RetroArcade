@@ -357,10 +357,25 @@ public class CheckersController implements IBoardGameController
 
     public void RemovePlayer(int player) throws IndexOutOfBoundsException
     {
+        // Reset the flags to help detect changes since the last input.
+        gameOngoingChanged = false;
+        winnersChanged = false;
+        currentPlayerChanged = false;
+        boardChanged = 0;
+
         // We only have 2 players, denoted 0 and 1.
         if (player >= 0 && player <= 1)
         {
             // Declare the other player the winner.
+            if (player == 0)
+            {
+                currentGameState = GameState.P2WIN;
+            }
+            else
+            {
+                currentGameState = GameState.P1WIN;
+            }
+            winnersChanged = true;
         }
         else throw new IndexOutOfBoundsException("Players in Checkers are denoted as either 0 or 1 only.");
     }
@@ -368,13 +383,20 @@ public class CheckersController implements IBoardGameController
 
     public int[] GetWinner()
     {
-        return new int[0];
+        return switch (currentGameState)
+        {
+            case P1WIN -> new int[]{0};
+            case P2WIN -> new int[]{1};
+            case TIE -> new int[]{0, 1};
+            // By default, declare nobody as the winner.
+            default -> new int[]{};
+        };
     }
 
 
     public boolean GetGameOngoing()
     {
-        return true;
+        return currentGameState == GameState.ONGOING;
     }
 
 
@@ -399,7 +421,7 @@ public class CheckersController implements IBoardGameController
      */
     public Ivec2 GetBoardSize()
     {
-        return new Ivec2(width, height);
+        return board.getSize();
     }
 
     /**
