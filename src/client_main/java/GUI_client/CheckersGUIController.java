@@ -68,21 +68,22 @@ public class CheckersGUIController implements Initializable {
 
                 StackPane tile = tileBorderGrid[i][j]; // Store reference
 
-                // Add hover effect directly to the StackPane
+                // Store indices for use in the lambda
                 int I = i;
                 int J = j;
-                // Set what happens when mouse enters
-                tile.setOnMouseEntered(event -> {
-                    tile.setStyle("-fx-border-color: blue;"); // Change to desired color/style
-                });
 
-                // Set what happens when mouse exits
+                // Add hover effect directly to the StackPane:
+                tile.setOnMouseEntered(event -> {
+                    System.out.println("Hovering over square: " + I + ", " + J);
+                    // Optionally update the style as well
+                    tile.setStyle("-fx-border-color: blue;");
+                });
                 tile.setOnMouseExited(event -> {
                     tile.setStyle("-fx-border-color: transparent;");
                 });
 
                 // Add the StackPane to the GridPane
-                checkerBoard.add(tile, j, i); // Ensure it's added to GridPane
+                checkerBoard.add(tile, j, i);
             }
         }
 
@@ -94,7 +95,10 @@ public class CheckersGUIController implements Initializable {
 
     }
 
-
+    @FXML
+    private void handleMouseEntered(MouseEvent event) {
+        System.out.println("Hovered over tile: " + tile.getId());
+    }
     //will need a methods for handling input, updating board, and checking if a winner has been declared from game logic
 
 }
