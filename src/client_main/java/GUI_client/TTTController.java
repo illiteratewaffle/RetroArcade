@@ -194,10 +194,6 @@ public class TTTController implements Initializable {
     private void setTile(int row, int col, ImageView imageView){
         Image X = new Image("X.png");
         Image O = new Image("O.png");
-        Image YOUWIN = new Image("YOU_WIN.png");
-        Image play_again_image = new Image("Play_Again.png");
-        Image check_image = new Image("check_circle.png");
-        Image X_image = new Image("X_circle.png");
         if (theGame.gameOngoing)
             if (theGame.game.board.isEmpty(new ivec2(row, col))) {
                 if (theGame.GetCurrentPlayer() == 1){
@@ -209,19 +205,7 @@ public class TTTController implements Initializable {
                     theGame.game.makeMove(row, col);
                     theGame.game.currentPlayer = 1;
                 }
-
-                if (theGame.game.checkWin(theGame.game.board)) {
-                    Win_Lose_Banner.setImage(YOUWIN);
-                    theGame.gameOngoing = false;
-                } else if (theGame.game.checkDraw(theGame.game.board)){
-
-                    theGame.gameOngoing = false;
-                }
-                if (!theGame.gameOngoing){
-                    play_again.setImage(play_again_image);
-                    check_circle.setImage(check_image);
-                    X_circle.setImage(X_image);
-                }
+                checkWin();
             }
     }
 
@@ -275,6 +259,26 @@ public class TTTController implements Initializable {
     public void playAgainYes() {
         theGame = new TTTGameController();
         clearBoard();
+    }
+
+    public void checkWin(){
+        if (theGame.game.checkWin(theGame.game.board)) {
+            // if game is over, current player is now the loser
+            if (theGame.GetCurrentPlayer() == 2){
+                Win_Lose_Banner.setImage(new Image("X_wins.png"));
+            } else if (theGame.GetCurrentPlayer() == 1){
+                Win_Lose_Banner.setImage(new Image("O_wins.png"));
+            }
+            theGame.gameOngoing = false;
+        } else if (theGame.game.checkDraw(theGame.game.board)){
+            Win_Lose_Banner.setImage(new Image("Draw.png"));
+            theGame.gameOngoing = false;
+        }
+        if (!theGame.gameOngoing){
+            play_again.setImage(new Image("Play_Again.png"));
+            check_circle.setImage(new Image("check_circle.png"));
+            X_circle.setImage(new Image("X_circle.png"));
+        }
     }
 
     public void clearBoard(){
