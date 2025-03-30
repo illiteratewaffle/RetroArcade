@@ -6,7 +6,7 @@ CREATE TABLE profiles
     email                VARCHAR(255) UNIQUE NOT NULL,
     hashed_password      VARCHAR(255)        NOT NULL,
     bio                  TEXT,
-    profile_pic_path     TEXT, -- storing image file path as string
+    profile_pic_path     TEXT,
     current_game         VARCHAR(100),
     is_online            BOOLEAN          DEFAULT FALSE,
     win_loss_ratio       DOUBLE PRECISION DEFAULT 0.0,
