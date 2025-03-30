@@ -71,7 +71,7 @@ class ProfileTest {
     void getCurrentStatus() {
         profile.setOnlineStatus(true);
         profile.setCurrentGame("newGame");
-        profile.getCurrentStatus(); // This will print to the console, you might want to capture the output if needed
+        profile.getCurrentStatus();
     }
 
     @Test
@@ -87,31 +87,31 @@ class ProfileTest {
 
     @Test
     void getGamesPlayed() {
-        assertNotNull(profile.getGamesPlayed());
+        assertNotNull(profile.getGameHistory());
     }
 
     @Test
     void setGamesPlayed() {
         GameHistory newGamesPlayed = new GameHistory();
-        profile.setGamesPlayed(newGamesPlayed);
-        assertEquals(newGamesPlayed, profile.getGamesPlayed());
+        profile.setGameHistory(newGamesPlayed);
+        assertEquals(newGamesPlayed, profile.getGameHistory());
     }
 
     @Test
     void getProfilePic() {
-        assertNotNull(profile.getProfilePic());
+        assertNotNull(profile.getProfilePicFilePath());
     }
 
     @Test
     void setProfilePic() {
         BufferedImage newProfilePic = new BufferedImage(200, 200, BufferedImage.TYPE_INT_ARGB);
-        profile.setProfilePic(newProfilePic);
-        assertEquals(newProfilePic, profile.getProfilePic());
+        profile.setProfilePicFilePath("C:/Pictures/Pictures/profile.png");
+        assertEquals(newProfilePic, profile.getProfilePicFilePath());
     }
 
     @Test
     void exportUsername() {
-        assertEquals("username", Profile.exportUsername(1)); // Assuming getUsername(7) returns "username"
+        assertEquals("username", Profile.exportUsername(1));
     }
 
     @Test
