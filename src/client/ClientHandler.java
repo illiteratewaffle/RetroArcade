@@ -100,10 +100,10 @@ public class ClientHandler implements Runnable  {
         return array;
 
     }
-    public boolean CheckIfJson(String inputData){
-        //check if message is from server or client
-        return true; //placeholder
+    public boolean CheckIfJson(String inputData) {
+        return (inputData.startsWith("{") && inputData.endsWith("}")); // Basic JSON check
     }
+
     /**
      * Sends JSON string to the associated PlayerHandler.
      * @param message the message the function wants to send
@@ -122,6 +122,16 @@ public class ClientHandler implements Runnable  {
      * Sends a response function back to sender.
      */
     public void sendResponse(String message) {
+        try {
+            bufferedWriter.write(message);
+            bufferedWriter.newLine();
+            bufferedWriter.flush();
+        } catch (Exception e) {
+            CloseEverything(clientSocket, bufferedReader, bufferedWriter);
+        }
+    }
+
+    public void sendResponseAll(String message) {
         for (ClientHandler clientHandler :clientHandlers){
             try {
                 clientHandler.bufferedWriter.write(message);

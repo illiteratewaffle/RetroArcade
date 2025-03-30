@@ -5,10 +5,12 @@ import java.net.Socket;
 
 public class Client {
 //TODO: Turn to static
+
     private Socket clientSocket;
     private BufferedWriter bufferedWriter;
     private BufferedReader bufferedReader;
     private  String PlayerID; // placeholder for the playerID
+
 /**
      * Constructor for ClientHandler.
      *
@@ -17,6 +19,7 @@ public class Client {
      */
     public Client(Socket socket, String PlayerID){
         try {
+            this.clientSocket = socket;
             this.bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             this.bufferedWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
             this.PlayerID = PlayerID;
@@ -28,17 +31,14 @@ public class Client {
      * Sends the networking info to the associated ClientHandler.
      * @param message the message the function wants to send
      */
-    public String SendMessageToHandler(String message){
-        try{
-        bufferedWriter.write(PlayerID);
-        bufferedWriter.newLine();
-        bufferedWriter.flush();
-
-        bufferedWriter.write(message);
-        bufferedWriter.newLine();
-        bufferedWriter.flush();
-        return ReturnMessage();
-        }catch (IOException e) {
+    public String SendMessageToHandler(String message) {
+        try {
+            // Send PlayerID + Message
+            bufferedWriter.write(PlayerID + ":" + message);
+            bufferedWriter.newLine();
+            bufferedWriter.flush();
+            return ReturnMessage(); // Wait for response
+        } catch (IOException e) {
             CloseEverything(clientSocket, bufferedReader, bufferedWriter);
             return null;
         }
