@@ -11,7 +11,11 @@ public class Matchmaking {
     /***
      * Matchmake friend invitations
      */
-    public void matchFriends(){
+    public void matchFriends(Player friend, Player player ){
+    }
+
+    public sendInvite(Player target){
+
     }
 
     /***
@@ -30,7 +34,7 @@ public class Matchmaking {
      * Check if player is undergoing timeout penalty
      * @return
      */
-    public boolean checkTimeout(){
+    public boolean checkTimeout(Player player){
         return true;
     }
 }
