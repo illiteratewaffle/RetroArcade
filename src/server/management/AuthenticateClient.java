@@ -1,5 +1,6 @@
 package server.management;
 
+import client.Encoder;
 import server.player.Player;
 import server.player.PlayerHandler;
 
@@ -27,12 +28,13 @@ public class AuthenticateClient implements Runnable {
         try {
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
             PrintWriter printWriter = new PrintWriter(clientSocket.getOutputStream(), true);
+            // Check their input
+            String auth = bufferedReader.readLine();
+            String[][] thing = Encoder.decodeJSON(auth);
         } catch (IOException e){
             log("Failure to initialize AuthenticateClient BufferedReader/BufferedWriter:", e.toString());
             // TODO: close client's connection
         }
-
-        // Check their input
 
         //Create a blocking queue and player handler to handle the player connection on the server side.
         BlockingQueue<ThreadMessage> queue = new LinkedBlockingQueue<>();
