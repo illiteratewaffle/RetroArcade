@@ -52,7 +52,7 @@ public class Authentication {
      * getProfileLoggedIn() to access Profile object of the profile currently logged in.
      * @return Profile currently logged in to access profile information.
      */
-    public Profile getProfileLoggedIn(){
+    public static Profile getProfileLoggedIn(){
         return profileLoggedIn;
     }
 
@@ -64,3 +64,7 @@ public class Authentication {
         profileLoggedIn = profile;
     }
 }
+
+//public static void main(String[] args) {
+//
+//}

@@ -79,7 +79,7 @@ public class ProfileDatabaseAccess {
         //call method to get csv for id
         //try {
             PlayerManager.getProfileTable(id); //method to get Profile csv with all attributes associated to the specified id
-            String csvProfileFilePath = String.format("profile_%d_export.csv", id); //csv file saved to the main project directory
+            String csvProfileFilePath = String.format("profile_export_%d.csv", id); //csv file saved to the main project directory
 
             ArrayList<String> profileFields = openSingleProfileFile(csvProfileFilePath);
             List<String> friends = new ArrayList<>();
