@@ -64,7 +64,7 @@ class ProfileTest {
     @Test
     void setOnlineStatus() {
         profile.setOnlineStatus(false);
-        assertFalse(profile.isOnline());
+        assertFalse(profile.getOnlineStatus());
     }
 
     @Test
@@ -118,10 +118,5 @@ class ProfileTest {
     void updateUsername() {
         profile.updateUsername("newUsername");
         assertEquals("newUsername", profile.getUsername());
-    }
-
-    @Test
-    void main() {
-        Profile.main(new String[]{});
     }
 }

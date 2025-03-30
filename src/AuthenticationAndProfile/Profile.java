@@ -107,6 +107,10 @@ public class Profile {
         isOnline = online;
     }
 
+    public boolean getOnlineStatus() {
+        return isOnline;
+    }
+
     /**
      * Check if a player is in a game. If so, prints out the game they're playing (likely usable by GUI team).
      * If not, prints out "Online" if the player is online. Otherwise, prints out "Offline".
