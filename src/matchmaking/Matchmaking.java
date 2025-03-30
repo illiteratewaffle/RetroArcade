@@ -14,9 +14,6 @@ public class Matchmaking {
     public void matchFriends(Player friend, Player player ){
     }
 
-    public sendInvite(Player target){
-
-    }
 
     /***
      * Remove Player from queue upon cancellation or upon successfull matchmaking

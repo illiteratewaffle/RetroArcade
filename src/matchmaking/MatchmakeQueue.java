@@ -2,20 +2,54 @@ package matchmaking;
 
 import java.util.*;
 
-// Queue class to manage matchmaking queue
+// Queue class to manage matchmaking queue for different games
 public class MatchmakingQueue {
-    private LinkedList<Player> queue;
+    private Map<String, LinkedList<Player>> gameQueues;
 
     public MatchmakingQueue() {
-        this.queue = new LinkedList<>();
+        this.gameQueues = new HashMap<>();
     }
 
     /***
-     * Quick Sort linked list according to rank
+     * Adds player into specific gametype queue
+     * @param player Player to be added into queue
+     * @param gameType Game type for which players want to be added into queue for
      */
+    public void enqueue(Player player, String gameType) {
+        gameQueues.putIfAbsent(gameType, new LinkedList<Player>());
+        gameQueues.get(gameType).add(player);
+        quickSort(gameQueues.get(gameType));
+        //Testing purposes
+        System.out.println(player.getName() + " has joined the " + gameType + " queue.");
+    }
 
-    public void quickSort() {
-        queue = quickSortHelper(queue);
+    /***
+     * Removes player from queue upon matching players or when a player wants to be removed from queue
+     * @param gameType The queue from which the player is already in queue
+     * @return Player that has been dequeued or null if queue is empty
+     */
+    public Player dequeue(String gameType) {
+        if (gameQueues.containsKey(gameType) && !gameQueues.get(gameType).isEmpty()) {
+            Player player = gameQueues.get(gameType).poll();
+            //Testing purposes
+            System.out.println(player.getName() + " has been matched for " + gameType + ".");
+            return player;
+        }
+        //Test
+        System.out.println("No players in " + gameType + " queue.");
+        return null;
+    }
+
+    /***
+     * Sorts queue
+     * @param gameType sorts specific game queue
+     */
+    public void quickSort(String gameType) {
+
+        if (gameQueues.containsKey(gameType)) {
+            gameQueues.put(gameType, quickSortHelper(gameQueues.get(gameType)));
+        }
+
     }
 
     private LinkedList<Player> quickSortHelper(LinkedList<Player> list) {
@@ -24,9 +58,9 @@ public class MatchmakingQueue {
         }
 
         Player pivot = list.get(list.size() / 2);
-        LinkedList<Player> lesser = new LinkedList<>();
-        LinkedList<Player> greater = new LinkedList<>();
-        LinkedList<Player> equal = new LinkedList<>();
+        LinkedList<Player> lesser = new LinkedList<Player>();
+        LinkedList<Player> greater = new LinkedList<Player>();
+        LinkedList<Player> equal = new LinkedList<Player>();
 
         for (Player player : list) {
             if (player.getRank() > pivot.getRank()) {
@@ -38,32 +72,12 @@ public class MatchmakingQueue {
             }
         }
 
-        LinkedList<Player> sortedList = new LinkedList<>();
+        LinkedList<Player> sortedList = new LinkedList<Player>();
         sortedList.addAll(quickSortHelper(greater));
         sortedList.addAll(equal);
         sortedList.addAll(quickSortHelper(lesser));
 
         return sortedList;
-    }
-    /***
-     * Adds a player to the queue
-     */
-    public void enqueue(Player player) {
-        queue.add(player);
-        queue = sortQueue(queue);
-        System.out.println(player.getName() + " has joined the queue.");
-    }
-
-    /***
-     * Removes and returns the next player in queue
-     */
-    public Player dequeue() {
-        if (!queue.isEmpty()) {
-            Player player = queue.poll();   //.poll() returns head of list and bring
-            return player;
-        }
-        System.out.println("Queue is empty.");
-        return null;
     }
 
 }
