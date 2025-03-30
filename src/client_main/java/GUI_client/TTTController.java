@@ -1,6 +1,6 @@
 package GUI_client;
 
-import client_main.java.GameLogic_Client.TicTacToe.TTTGameController;
+import GameLogic_Client.TicTacToe.TTTGameController;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
@@ -94,6 +94,9 @@ public class TTTController implements Initializable {
     public ImageView board_image;
     @FXML
     public GridPane gameBoard;
+
+    TTTGameController theGame;
+
 
     // boolean flag alternating Xs and Os
     // Tyler, the TTTGame class has implementation for this, now.
@@ -235,9 +238,9 @@ public class TTTController implements Initializable {
     }
 
     private void hoverEvent(StackPane stackPane, int row, int col){
-//        if (board[row][col].getPiece() == '-'){
-//            stackPane.setStyle("-fx-border-color: yellow; -fx-border-width: 3px; -fx-border-radius: 5px;");
-//        }
+        if (theGame.game.board[row][col].getPiece() == '-'){
+            stackPane.setStyle("-fx-border-color: yellow; -fx-border-width: 3px; -fx-border-radius: 5px;");
+        }
     }
 
     /*
@@ -280,5 +283,9 @@ public class TTTController implements Initializable {
     }
 
     public void playAgainYes() {
+    }
+
+    public void clearBoard(){
+
     }
 }

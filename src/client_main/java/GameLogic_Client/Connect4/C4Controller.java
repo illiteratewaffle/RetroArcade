@@ -1,20 +1,20 @@
-package client_main.java.GameLogic_Client.Connect4;
+package GameLogic_Client.Connect4;
 
-import client_main.java.GameLogic_Client.IBoardGameController;
-import client_main.java.GameLogic_Client.ivec2;
+import GameLogic_Client.IBoardGameController;
+import GameLogic_Client.ivec2;
 
 import java.util.ArrayList;
 
 public class C4Controller implements IBoardGameController {
 
-    private client_main.java.GameLogic_Client.Connect4.C4GameLogic c4GameLogic;
+    private C4GameLogic c4GameLogic;
 
     /**
      * Starts a new game of Connect Four.
      */
     void start() {
         System.out.println("A new game of connect four has started");
-        c4GameLogic = new client_main.java.GameLogic_Client.Connect4.C4GameLogic();
+        c4GameLogic = new C4GameLogic();
         printBoard();
     }
 

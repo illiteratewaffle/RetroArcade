@@ -1,8 +1,8 @@
-package client_main.java.GameLogic_Client.TicTacToe;
+package GameLogic_Client.TicTacToe;
 
-import client_main.java.GameLogic_Client.IBoardGameController;
-import client_main.java.GameLogic_Client.TicTacToe.TTTGame;
-import client_main.java.GameLogic_Client.ivec2;
+import GameLogic_Client.IBoardGameController;
+import GameLogic_Client.TicTacToe.TTTGame;
+import GameLogic_Client.ivec2;
 import java.util.ArrayList;
 
 /**

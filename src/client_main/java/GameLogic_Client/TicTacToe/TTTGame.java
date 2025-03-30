@@ -1,6 +1,6 @@
-package client_main.java.GameLogic_Client.TicTacToe;
+package GameLogic_Client.TicTacToe;
 
-import  client_main.java.GameLogic_Client.ivec2;
+import  GameLogic_Client.ivec2;
 
 /**
  * Contains the TicTacToe methods called to run the game.
