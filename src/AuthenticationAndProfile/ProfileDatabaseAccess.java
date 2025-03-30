@@ -27,11 +27,11 @@ public class ProfileDatabaseAccess {
      * @param id
      * @return Profile object from data corresponding to the id from the database
      */
-    public static Profile obtainProfile(int id){
+    public static Profile obtainProfile(int id) {
         //call method to get csv for id
-        try {
-            PlayerManager.getProfileTable(id); //method to get Profile csv with all attributes associated to the specified id
-            String csvProfileFilePath = ""; //csv file saved to the main project directory
+//        try {
+            //PlayerManager.getProfileTable(id); //method to get Profile csv with all attributes associated to the specified id
+            String csvProfileFilePath = String.format("profile_%d_export.csv", id); //csv file saved to the main project directory
 
             ArrayList<String> profileFields = openSingleProfileFile(csvProfileFilePath);
 
@@ -42,7 +42,6 @@ public class ProfileDatabaseAccess {
             String hashedPassword = profileFields.get(4);
             String bio = profileFields.get(5);
             String profilePicFilePath = profileFields.get(6);
-            BufferedImage profilePic = ImageIO.read(new File(profilePicFilePath));
             String currentGame = profileFields.get(7);
             boolean isOnline;
             if (profileFields.get(8).equals("true")) {
@@ -56,16 +55,19 @@ public class ProfileDatabaseAccess {
             GameHistory gameHistory = obtainGameHistory(id);
             PlayerRanking playerRanking = obtainPlayerRanking(id);
 
-            Profile profile = new Profile(email, hashedPassword, nickname, bio, isOnline, currentGame, friendsList, playerRanking, gameHistory, profilePic, username, id);
+            Profile profile = new Profile(email, hashedPassword, nickname, bio, isOnline, currentGame, friendsList, playerRanking, gameHistory, profilePicFilePath, username, id);
             return profile;
 //        } catch (IOException e) {
 //            System.out.println("ID does not match a profile in the database.");
 //            return null;
 //        }
-        } catch (IOException f) {
-            System.out.println("Image issue.");
-            return null;
-        }
+//        } catch (IOException f) {
+//            System.out.println("Image issue.");
+//            return null;
+//        } catch (NullPointerException g) {
+//            System.out.println("Profile does not exist.");
+//            return null;
+//        }
     }
 
     /**
@@ -76,13 +78,13 @@ public class ProfileDatabaseAccess {
     public static FriendsList obtainFriendsList(int id){
         //call method to get csv for id
         //try {
-            PlayerManager.getProfileTable(id); //method to get Profile csv with all attributes associated to the specified id
-            String csvProfileFilePath = ""; //csv file saved to the main project directory
+            //PlayerManager.getProfileTable(id); //method to get Profile csv with all attributes associated to the specified id
+            String csvProfileFilePath = String.format("profile_%d_export.csv", id); //csv file saved to the main project directory
 
             ArrayList<String> profileFields = openSingleProfileFile(csvProfileFilePath);
             List<String> friends = new ArrayList<>();
             String friendsString = profileFields.get(15);
-            String[] fieldsList = friendsString.split(", ");
+            String[] fieldsList = friendsString.split(",");
             for (int i = 0 ; i < fieldsList.length; i ++){
                 friends.add(fieldsList[i]);
             }
@@ -103,16 +105,16 @@ public class ProfileDatabaseAccess {
     public static PlayerRanking obtainPlayerRanking(int id) {
         //call method to get csv for id
         //try {
-            PlayerManager.getProfileTable(id); //method to get Profile csv with all attributes associated to the specified id
-            String csvProfileFilePath = ""; //csv file saved to the main project directory
+            //PlayerManager.getProfileTable(id); //method to get Profile csv with all attributes associated to the specified id
+            String csvProfileFilePath = String.format("profile_%d_export.csv", id); //csv file saved to the main project directory
 
             ArrayList<String> profileFields = openSingleProfileFile(csvProfileFilePath);
 
             //from Profile ArrayList obtain the values for Profile Class variables
             double winLossRatio = Double.parseDouble(profileFields.get(9));
-            int rating = Integer.parseInt(profileFields.get(2));
-            int rank = Integer.parseInt(profileFields.get(3));
-            int wins = Integer.parseInt(profileFields.get(4));
+            int rating = Integer.parseInt(profileFields.get(10));
+            String rank = profileFields.get(11);
+            int wins = Integer.parseInt(profileFields.get(12));
 
             PlayerRanking playerRanking = new PlayerRanking(winLossRatio, rating, rank, wins);
             return playerRanking;
@@ -125,8 +127,8 @@ public class ProfileDatabaseAccess {
     public static GameHistory obtainGameHistory(int id) {
         //call method to get csv for id
         //try {
-            PlayerManager.getProfileTable(id); //method to get Profile csv with all attributes associated to the specified id
-            String csvProfileFilePath = ""; //csv file saved to the main project directory
+            //PlayerManager.getProfileTable(id); //method to get Profile csv with all attributes associated to the specified id
+            String csvProfileFilePath = String.format("profile_%d_export.csv", id); //csv file saved to the main project directory
 
             ArrayList<String> profileFields = openSingleProfileFile(csvProfileFilePath);
             List<String> gameHistory = new ArrayList<>();
@@ -206,8 +208,10 @@ public class ProfileDatabaseAccess {
     }
 
     public static void main(String[] args) {
-        PlayerRanking ranking = ProfileDatabaseAccess.obtainPlayerRanking(1);
-        System.out.println(ranking.getRank());
+        Profile saraProfile2 = obtainProfile(2);
+        System.out.println(saraProfile2.getBio());
+        System.out.println(saraProfile2.getFriendsList().getFriendRequests());
+        System.out.println(saraProfile2.getFriendsList().getFriendsList());
     }
 }
 

@@ -3,10 +3,10 @@ package leaderboard;
 public class PlayerRanking {
     private double winLossRatio;
     private int rating;
-    private int rank;
+    private String rank;
     private int wins;
 
-    public PlayerRanking(double winLossRatio, int rating, int rank, int wins) {
+    public PlayerRanking(double winLossRatio, int rating, String rank, int wins) {
         this.winLossRatio = winLossRatio;
         this.rating = rating;
         this.rank = rank;
@@ -29,11 +29,11 @@ public class PlayerRanking {
         this.rating = rating;
     }
 
-    public int getRank() {
+    public String getRank() {
         return rank;
     }
 
-    public void setRank(int rank) {
+    public void setRank(String rank) {
         this.rank = rank;
     }
 

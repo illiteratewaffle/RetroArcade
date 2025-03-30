@@ -79,25 +79,25 @@ public class ProfileCSVReader {
             }
             br.close();
 
-            System.out.println("ID: " + fields.get(ID_INDEX)
-                    + " Username: " + fields.get(USER_INDEX)
-                    + " Nickname: " + fields.get(NICK_INDEX)
-                    + " Email: " + fields.get(EMAIL_INDEX)
-                    + " HashedPassword: " + fields.get(PWD_INDEX)
-                    + " Bio: " + fields.get(BIO_INDEX)
-                    + " Profile pic: " + fields.get(PIC_INDEX)
-                    + " Current game: " + fields.get(CGAME_INDEX)
-                    + " IsOnline: " + fields.get(ONLINE_INDEX)
-                    + " WLR: " + fields.get(WLR_INDEX)
-                    + " Rating: " + fields.get(RATING_INDEX)
-                    + " Rank: " + fields.get(RANK_INDEX)
-                    + " Wins: " + fields.get(WINS_INDEX)
-                    + " GameHistory: " + fields.get(GHIST_INDEX)
-                    + " AchievementProgress: " + fields.get(ACHIVPROG_INDEX)
-                    + " Friends: " + fields.get(FRIENDS_INDEX)
-                    + " FriendRequests: " + fields.get(FREQUEST_INDEX)
-                    + " Creation Time: " + fields.get(17)
-            );
+//            System.out.println("ID: " + fields.get(ID_INDEX)
+//                    + " Username: " + fields.get(USER_INDEX)
+//                    + " Nickname: " + fields.get(NICK_INDEX)
+//                    + " Email: " + fields.get(EMAIL_INDEX)
+//                    + " HashedPassword: " + fields.get(PWD_INDEX)
+//                    + " Bio: " + fields.get(BIO_INDEX)
+//                    + " Profile pic: " + fields.get(PIC_INDEX)
+//                    + " Current game: " + fields.get(CGAME_INDEX)
+//                    + " IsOnline: " + fields.get(ONLINE_INDEX)
+//                    + " WLR: " + fields.get(WLR_INDEX)
+//                    + " Rating: " + fields.get(RATING_INDEX)
+//                    + " Rank: " + fields.get(RANK_INDEX)
+//                    + " Wins: " + fields.get(WINS_INDEX)
+//                    + " GameHistory: " + fields.get(GHIST_INDEX)
+//                    + " AchievementProgress: " + fields.get(ACHIVPROG_INDEX)
+//                    + " Friends: " + fields.get(FRIENDS_INDEX)
+//                    + " FriendRequests: " + fields.get(FREQUEST_INDEX)
+//                    + " Creation Time: " + fields.get(17)
+//            );
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("System can't find file");
@@ -140,25 +140,25 @@ public class ProfileCSVReader {
                 }
                 fields.add(fieldsList);
 
-                    System.out.println("ID: " + fields.get(i).get(ID_INDEX)
-                            + " Username: " + fields.get(i).get(USER_INDEX)
-                            + " Nickname: " + fields.get(i).get(NICK_INDEX)
-                            + " Email: " + fields.get(i).get(EMAIL_INDEX)
-                            + " HashedPassword: " + fields.get(i).get(PWD_INDEX)
-                            + " Bio: " + fields.get(i).get(BIO_INDEX)
-                            + " Profile pic: " + fields.get(i).get(PIC_INDEX)
-                            + " Current game: " + fields.get(i).get(CGAME_INDEX)
-                            + " IsOnline: " + fields.get(i).get(ONLINE_INDEX)
-                            + " WLR: " + fields.get(i).get(WLR_INDEX)
-                            + " Rating: " + fields.get(i).get(RATING_INDEX)
-                            + " Rank: " + fields.get(i).get(RANK_INDEX)
-                            + " Wins: " + fields.get(i).get(WINS_INDEX)
-                            + " GameHistory: " + fields.get(i).get(GHIST_INDEX)
-                            + " AchievementProgress: " + fields.get(i).get(ACHIVPROG_INDEX)
-                            + " Friends: " + fields.get(i).get(FRIENDS_INDEX)
-                            + " FriendRequests: " + fields.get(i).get(FREQUEST_INDEX)
-                            + " Creation Time: " + fields.get(i).get(17)
-                    );
+//                    System.out.println("ID: " + fields.get(i).get(ID_INDEX)
+//                            + " Username: " + fields.get(i).get(USER_INDEX)
+//                            + " Nickname: " + fields.get(i).get(NICK_INDEX)
+//                            + " Email: " + fields.get(i).get(EMAIL_INDEX)
+//                            + " HashedPassword: " + fields.get(i).get(PWD_INDEX)
+//                            + " Bio: " + fields.get(i).get(BIO_INDEX)
+//                            + " Profile pic: " + fields.get(i).get(PIC_INDEX)
+//                            + " Current game: " + fields.get(i).get(CGAME_INDEX)
+//                            + " IsOnline: " + fields.get(i).get(ONLINE_INDEX)
+//                            + " WLR: " + fields.get(i).get(WLR_INDEX)
+//                            + " Rating: " + fields.get(i).get(RATING_INDEX)
+//                            + " Rank: " + fields.get(i).get(RANK_INDEX)
+//                            + " Wins: " + fields.get(i).get(WINS_INDEX)
+//                            + " GameHistory: " + fields.get(i).get(GHIST_INDEX)
+//                            + " AchievementProgress: " + fields.get(i).get(ACHIVPROG_INDEX)
+//                            + " Friends: " + fields.get(i).get(FRIENDS_INDEX)
+//                            + " FriendRequests: " + fields.get(i).get(FREQUEST_INDEX)
+//                            + " Creation Time: " + fields.get(i).get(17)
+//                    );
                     i +=1;
                 }
             br.close();

@@ -16,11 +16,11 @@ public class Profile {
     private PlayerRanking playerRanking;
     private FriendsList friendsList;
     private GameHistory gamesPlayed;
-    private BufferedImage profilePic;
+    private String profilePicFilePath;
     private String username;
     private int id;
 
-    public Profile(String email, String hashedPassword, String nickname, String bio, boolean isOnline, String currentGame, FriendsList friendsList, PlayerRanking playerRanking, GameHistory gamesPlayed, BufferedImage profilePic, String username, int id) {
+    public Profile(String email, String hashedPassword, String nickname, String bio, boolean isOnline, String currentGame, FriendsList friendsList, PlayerRanking playerRanking, GameHistory gamesPlayed, String profilePicFilePath, String username, int id) {
         this.email = email;
         this.hashedPassword = hashedPassword;
         this.nickname = nickname;
@@ -30,7 +30,7 @@ public class Profile {
         this.playerRanking = playerRanking;
         this.friendsList = friendsList;
         this.gamesPlayed = gamesPlayed;
-        this.profilePic = profilePic;
+        this.profilePicFilePath = profilePicFilePath;
         this.username = username;
         this.id = id;
     }
@@ -159,16 +159,16 @@ public class Profile {
      * Gets the player's profile picture.
      * @return the player's profile picture.
      */
-    public BufferedImage getProfilePic() {
-        return profilePic;
+    public String getProfilePicFilePath() {
+        return profilePicFilePath;
     }
 
     /**
      * Sets the player's profile picture.
-     * @param profilePic the new profile picture of the player.
+     * @param profilePicFilePath the new profile picture of the player.
      */
-    public void setProfilePic(BufferedImage profilePic) {
-        this.profilePic = profilePic;
+    public void setProfilePicFilePath(String profilePicFilePath) {
+        this.profilePicFilePath = profilePicFilePath;
     }
 
     /**
@@ -185,6 +185,22 @@ public class Profile {
      */
     public void updateUsername(String newUsername) {
 
+    }
+
+    public FriendsList getFriendsList() {
+        return friendsList;
+    }
+
+    public void setFriendsList(FriendsList friendsList) {
+        this.friendsList = friendsList;
+    }
+
+    public PlayerRanking getPlayerRanking() {
+        return playerRanking;
+    }
+
+    public void setPlayerRanking(PlayerRanking playerRanking) {
+        this.playerRanking = playerRanking;
     }
 
     public static void main(String[] args) {
