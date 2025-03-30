@@ -30,8 +30,8 @@ public class ProfileDatabaseAccess {
     public static Profile obtainProfile(int id) {
         //call method to get csv for id
 //        try {
-            //PlayerManager.getProfileTable(id); //method to get Profile csv with all attributes associated to the specified id
-            String csvProfileFilePath = String.format("profile_%d_export.csv", id); //csv file saved to the main project directory
+            PlayerManager.getProfileTable(id); //method to get Profile csv with all attributes associated to the specified id
+            String csvProfileFilePath = String.format("player_profile_%d.csv", id); //csv file saved to the main project directory
 
             ArrayList<String> profileFields = openSingleProfileFile(csvProfileFilePath);
 
@@ -78,7 +78,7 @@ public class ProfileDatabaseAccess {
     public static FriendsList obtainFriendsList(int id){
         //call method to get csv for id
         //try {
-            //PlayerManager.getProfileTable(id); //method to get Profile csv with all attributes associated to the specified id
+            PlayerManager.getProfileTable(id); //method to get Profile csv with all attributes associated to the specified id
             String csvProfileFilePath = String.format("profile_%d_export.csv", id); //csv file saved to the main project directory
 
             ArrayList<String> profileFields = openSingleProfileFile(csvProfileFilePath);
@@ -208,11 +208,8 @@ public class ProfileDatabaseAccess {
     }
 
     public static void main(String[] args) {
-        Profile saraProfile2 = obtainProfile(2);
-        System.out.println(saraProfile2.getBio());
-        System.out.println(saraProfile2.getFriendsList().getFriendRequests());
-        System.out.println(saraProfile2.getFriendsList().getFriendsList());
-        System.out.println(saraProfile2.getGameHistory().getRecentGames());
+        Profile profile = obtainProfile(2);
+        System.out.println(profile.getGameHistory().getGameHistory());
     }
 }
 

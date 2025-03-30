@@ -1,4 +1,5 @@
 package server.database;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.sql.*;
@@ -16,7 +17,7 @@ public class databaseConnector {
      * @param filename
      */
     public static void loadConfiguration(String filename) {
-        try (InputStream input = databaseConnector.class.getClassLoader().getResourceAsStream(filename)) {
+        try (InputStream input = new FileInputStream("C:\\Users\\Alessia Flaig\\Documents\\School\\SENG300\\Project\\seng300-w25-project\\resources\\" + filename)) {
             if (input == null) {
                 throw new FileNotFoundException("Database configuration file not found in classpath: " + filename);
             }

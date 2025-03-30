@@ -30,7 +30,7 @@ public class GameHistory{
      * @param id
      * @return list of game history
      */
-    public List<String> getGameHistory(long id){
+    public List<String> getGameHistory(){
         return new ArrayList<>(gameHistory); // returns a copy of the game history list
     }
 
