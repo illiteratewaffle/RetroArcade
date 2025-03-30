@@ -1,7 +1,7 @@
 package client_main.java.GameLogic_Client.Connect4;
 
 import client_main.java.GameLogic_Client.IBoardGameController;
-import client_main.java.GameLogic_Client.ivec2;
+import client_main.java.GameLogic_Client.Ivec2;
 
 import java.util.ArrayList;
 
@@ -22,7 +22,7 @@ public class C4Controller implements IBoardGameController {
      * Receives yser input during the game.
      */
     @Override
-    public void ReceiveInput(ivec2 input) {
+    public void ReceiveInput(Ivec2 input) {
         int col = input.x;
         if (!c4GameLogic.getC4IsGameOver()) {
             C4Piece currentPlayer = c4GameLogic.getC4CurrentPlayer();
@@ -36,7 +36,7 @@ public class C4Controller implements IBoardGameController {
     }
 
     @Override
-    public void RemovePlayer(int Player) throws IndexOutOfBoundsException {
+    public void RemovePlayer(int player) throws IndexOutOfBoundsException {
 
     }
 
@@ -51,12 +51,12 @@ public class C4Controller implements IBoardGameController {
     }
 
     @Override
-    public ArrayList<int[][]> GetBoardCells(int LayerMask) {
+    public ArrayList<int[][]> GetBoardCells(int layerMask) {
         return null;
     }
 
     @Override
-    public ivec2 GetBoardSize() {
+    public Ivec2 GetBoardSize() {
         return null;
     }
 
