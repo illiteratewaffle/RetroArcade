@@ -8,6 +8,7 @@ import java.nio.file.Paths;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
+// TODO: this should be critiqued by someone else
 /**
  * This class will be responsible for logging all information
  */

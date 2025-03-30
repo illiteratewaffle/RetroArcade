@@ -26,6 +26,7 @@ public class databaseConnector {
             USER = properties.getProperty("db.user");
             PASSWORD = properties.getProperty("db.password");
         } catch (IOException e) {
+            // TODO: could be logged?
             System.err.println("Error loading database configuration: " + e.getMessage());
         }
     }
@@ -39,8 +40,10 @@ public class databaseConnector {
             try {
                 databaseConnector.loadConfiguration("db-config-test.properties");
                 connection = DriverManager.getConnection(URL, USER, PASSWORD);
+                // TODO: log?
                 System.out.println("Connected to the database.");
             } catch (SQLException e) {
+                // TODO: log?
                 System.err.println("Database connection failed: " + e.getMessage());
             }
         }
@@ -54,8 +57,10 @@ public class databaseConnector {
         if (connection != null) {
             try {
                 connection.close();
+                // TODO: log?
                 System.out.println("Database connection closed.");
             } catch (SQLException e) {
+                // TODO: log?
                 System.err.println("Error closing database connection: " + e.getMessage());
             }
         }
