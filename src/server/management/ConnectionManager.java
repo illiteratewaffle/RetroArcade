@@ -31,19 +31,9 @@ public class ConnectionManager implements Runnable {
                 Socket clientSocket = serverSocket.accept();
                 log("Connection Manager: Accepted connection from " + clientSocket.getRemoteSocketAddress());
 
-                //Create a blocking queue and player handler to handle the player connection on the server side.
-                BlockingQueue<ThreadMessage> queue = new LinkedBlockingQueue<>();
-                PlayerHandler playerHandler = new PlayerHandler(clientSocket, queue);
-                //Create a thread for the player and start it.
-                Thread playerThread = Thread.ofVirtual().start(playerHandler);
-                // Add the new player the ThreadRegistry
-                ThreadRegistry.threadRegistry.put(playerThread, queue);
-                // Add the new player to the playerList
-                synchronized (ThreadRegistry.playerList) {
-                    ThreadRegistry.playerList.add(new Player(playerThread, playerHandler));
-                    // log("The new player is on Thread", playerThread.threadId());
-                    ThreadRegistry.playerList.notifyAll();
-                }
+                // Authenticate the player before accepting them to the server
+                AuthenticateClient authenticateClient = new AuthenticateClient(clientSocket);
+                Thread.ofVirtual().start(authenticateClient);
 
                 //Store the players handlers thread and blocking queue on the thread registry.
             }
