@@ -73,7 +73,7 @@ public class CheckersGUIController implements Initializable {
                 int J = j;
                 // Set what happens when mouse enters
                 tile.setOnMouseEntered(event -> {
-                    tile.setStyle("-fx-border-color: blue;"); // Change to desired color/style
+                    tile.setStyle("-fx-border-color: #f0f800;"); // Change to desired color/style
                 });
 
                 // Set what happens when mouse exits
