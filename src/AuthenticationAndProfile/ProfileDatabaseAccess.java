@@ -212,6 +212,7 @@ public class ProfileDatabaseAccess {
         System.out.println(saraProfile2.getBio());
         System.out.println(saraProfile2.getFriendsList().getFriendRequests());
         System.out.println(saraProfile2.getFriendsList().getFriendsList());
+        System.out.println(saraProfile2.getGameHistory().getRecentGames());
     }
 }
 

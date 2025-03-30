@@ -15,12 +15,12 @@ public class Profile {
     private String currentGame;
     private PlayerRanking playerRanking;
     private FriendsList friendsList;
-    private GameHistory gamesPlayed;
+    private GameHistory gameHistory;
     private String profilePicFilePath;
     private String username;
     private int id;
 
-    public Profile(String email, String hashedPassword, String nickname, String bio, boolean isOnline, String currentGame, FriendsList friendsList, PlayerRanking playerRanking, GameHistory gamesPlayed, String profilePicFilePath, String username, int id) {
+    public Profile(String email, String hashedPassword, String nickname, String bio, boolean isOnline, String currentGame, FriendsList friendsList, PlayerRanking playerRanking, GameHistory gameHistory, String profilePicFilePath, String username, int id) {
         this.email = email;
         this.hashedPassword = hashedPassword;
         this.nickname = nickname;
@@ -29,7 +29,7 @@ public class Profile {
         this.currentGame = currentGame;
         this.playerRanking = playerRanking;
         this.friendsList = friendsList;
-        this.gamesPlayed = gamesPlayed;
+        this.gameHistory = gameHistory;
         this.profilePicFilePath = profilePicFilePath;
         this.username = username;
         this.id = id;
@@ -143,16 +143,16 @@ public class Profile {
      * Gets the player's played games.
      * @return the player's played games.
      */
-    public GameHistory getGamesPlayed() {
-        return gamesPlayed;
+    public GameHistory getGameHistory() {
+        return gameHistory;
     }
 
     /**
      * Sets the player's played games.
-     * @param gamesPlayed the new played games of the player.
+     * @param gameHistory the new played games of the player.
      */
-    public void setGamesPlayed(GameHistory gamesPlayed) {
-        this.gamesPlayed = gamesPlayed;
+    public void setGameHistory(GameHistory gameHistory) {
+        this.gameHistory = gameHistory;
     }
 
     /**
@@ -176,7 +176,11 @@ public class Profile {
      * @return the player's username.
      */
     public static String exportUsername(int id) {
-        return getUsername(7);
+        return PlayerManager.getUsername(7);
+    }
+
+    public String getUsername() {
+        return username;
     }
 
     /**
@@ -204,6 +208,6 @@ public class Profile {
     }
 
     public static void main(String[] args) {
-        getUsername(7);
+        PlayerManager.getUsername(7);
     }
 }
