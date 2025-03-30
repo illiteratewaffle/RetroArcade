@@ -2,7 +2,7 @@ package client_main.java.GameLogic_Client.Checkers;
 
 public enum CheckersHighlightType {
     PIECE,
-    SELECTEDPIECE,
+    SELECTED_PIECE,
     CAPTURE,
     TILE
 }

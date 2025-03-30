@@ -22,7 +22,7 @@ public enum CheckersPiece {
      * @return The CheckersPiece enum value with the same ordinal as the specified PieceID.<br>
      * If no such pieces exist, null is returned instead.
      */
-    public static CheckersPiece GetCheckersPiece(int pieceID)
+    public static CheckersPiece getCheckersPiece(int pieceID)
     {
         for (CheckersPiece piece : CheckersPiece.values())
         {
@@ -36,10 +36,10 @@ public enum CheckersPiece {
      * @param pieceID
      * @return True if the PieceID is that of a Checkers Piece; False otherwise.
      */
-    public static boolean IsPiece(int pieceID)
+    public static boolean isPiece(int pieceID)
     {
         // Additionally check to ensure that the PieceID is not invalid.
-        CheckersPiece Piece = CheckersPiece.GetCheckersPiece(pieceID);
+        CheckersPiece Piece = CheckersPiece.getCheckersPiece(pieceID);
         return Piece != null && Piece != CheckersPiece.NONE;
     }
 
@@ -47,7 +47,7 @@ public enum CheckersPiece {
      * @param pieceID
      * @return True if the PieceID is that of a Player 1 Checkers Piece; False otherwise.
      */
-    public static boolean IsP1(int pieceID)
+    public static boolean isP1(int pieceID)
     {
         return CheckersPiece.P1PAWN.equals(pieceID) || CheckersPiece.P1KING.equals(pieceID);
     }
@@ -56,7 +56,7 @@ public enum CheckersPiece {
      * @param pieceID
      * @return True if the PieceID is that of a Player 2 Checkers Piece; False otherwise.
      */
-    public static boolean IsP2(int pieceID)
+    public static boolean isP2(int pieceID)
     {
         return CheckersPiece.P2PAWN.equals(pieceID) || CheckersPiece.P2KING.equals(pieceID);
     }
@@ -65,7 +65,7 @@ public enum CheckersPiece {
      * @param pieceID
      * @return True if the PieceID is that of a King Piece; False otherwise.
      */
-    public static boolean IsKing(int pieceID)
+    public static boolean isKing(int pieceID)
     {
         return CheckersPiece.P1KING.equals(pieceID) || CheckersPiece.P2KING.equals(pieceID);
     }
@@ -74,7 +74,7 @@ public enum CheckersPiece {
      * @param pieceID
      * @return True if the PieceID is that of a Pawn Piece; False otherwise.
      */
-    public static boolean IsPawn(int pieceID)
+    public static boolean isPawn(int pieceID)
     {
         return CheckersPiece.P1PAWN.equals(pieceID) || CheckersPiece.P2PAWN.equals(pieceID);
     }

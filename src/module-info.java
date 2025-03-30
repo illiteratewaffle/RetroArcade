@@ -11,6 +11,7 @@ module seng300.w25.project {
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
     requires java.desktop;
+    requires annotations;
 
     opens client_main.java.GUI_client to javafx.fxml;
     exports client_main.java.GUI_client;

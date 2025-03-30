@@ -22,7 +22,7 @@ public class C4Controller implements IBoardGameController {
      * Receives yser input during the game.
      */
     @Override
-    public void ReceiveInput(Ivec2 input) {
+    public void receiveInput(Ivec2 input) {
         int col = input.x;
         if (!c4GameLogic.getC4IsGameOver()) {
             C4Piece currentPlayer = c4GameLogic.getC4CurrentPlayer();
@@ -36,52 +36,52 @@ public class C4Controller implements IBoardGameController {
     }
 
     @Override
-    public void RemovePlayer(int player) throws IndexOutOfBoundsException {
+    public void removePlayer(int player) throws IndexOutOfBoundsException {
 
     }
 
     @Override
-    public int[] GetWinner() {
+    public int[] getWinner() {
         return new int[0];
     }
 
     @Override
-    public boolean GetGameOngoing() {
+    public boolean getGameOngoing() {
         return false;
     }
 
     @Override
-    public ArrayList<int[][]> GetBoardCells(int layerMask) {
+    public ArrayList<int[][]> getBoardCells(int layerMask) {
         return null;
     }
 
     @Override
-    public Ivec2 GetBoardSize() {
+    public Ivec2 getBoardSize() {
         return null;
     }
 
     @Override
-    public int GetCurrentPlayer() {
+    public int getCurrentPlayer() {
         return 0;
     }
 
     @Override
-    public boolean GameOngoingChangedSinceLastCommand() {
+    public boolean gameOngoingChangedSinceLastCommand() {
         return false;
     }
 
     @Override
-    public boolean WinnersChangedSinceLastCommand() {
+    public boolean winnersChangedSinceLastCommand() {
         return false;
     }
 
     @Override
-    public boolean CurrentPlayerChangedSinceLastCommand() {
+    public boolean currentPlayerChangedSinceLastCommand() {
         return false;
     }
 
     @Override
-    public int BoardChangedSinceLastCommand() {
+    public int boardChangedSinceLastCommand() {
         return 0;
     }
 

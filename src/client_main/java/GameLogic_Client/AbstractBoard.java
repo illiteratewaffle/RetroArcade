@@ -62,7 +62,7 @@ public abstract class AbstractBoard {
     }
 
     /**
-     * @return an ivec2 containing the (width, height) of the board.
+     * @return an <code>Ivec2</code> containing the (width, height) of the board.
      */
     public Ivec2 getSize() { return new Ivec2(rows, cols); }
 }

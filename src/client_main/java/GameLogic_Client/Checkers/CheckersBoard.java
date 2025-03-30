@@ -24,9 +24,9 @@ public class CheckersBoard extends AbstractBoard
                 Ivec2 point = new Ivec2(x, y);
                 int PieceID = getPiece(point);
                 // If the tile contains a piece, record it to the appropriate set of pieces.
-                if (CheckersPiece.IsPiece(PieceID))
+                if (CheckersPiece.isPiece(PieceID))
                 {
-                    if (CheckersPiece.IsP1(PieceID))
+                    if (CheckersPiece.isP1(PieceID))
                     {
                         p1PieceLocations.add(point);
                     }
@@ -64,10 +64,10 @@ public class CheckersBoard extends AbstractBoard
         if (oldPieceID != piece)
         {
             // Check if we just removed a piece from the board tile.
-            if (CheckersPiece.IsPiece(oldPieceID))
+            if (CheckersPiece.isPiece(oldPieceID))
             {
                 // The tile previously holds a P1 piece, which is now removed.
-                if (CheckersPiece.IsP1(oldPieceID))
+                if (CheckersPiece.isP1(oldPieceID))
                 {
                     p1PieceLocations.remove(point);
                 }
@@ -79,10 +79,10 @@ public class CheckersBoard extends AbstractBoard
             }
 
             // Check if we are adding a new piece in its place.
-            if (CheckersPiece.IsPiece(piece))
+            if (CheckersPiece.isPiece(piece))
             {
                 // A new P1 piece is added in its place.
-                if (CheckersPiece.IsP1(piece))
+                if (CheckersPiece.isP1(piece))
                 {
                     p1PieceLocations.add(point);
                 }
@@ -108,17 +108,17 @@ public class CheckersBoard extends AbstractBoard
      * to mimic the effect of a move in checkers.
      * @param move The move to perform.
      */
-    public void MakeMove(CheckersMove move)
+    public void makeMove(CheckersMove move)
     {
         // Perform the relevant sets, as dictated by the move.
         // Move the piece in the start position of the move to the target position.
-        setPiece(move.getTargetCord(), getPiece(move.getStartCord()));
+        setPiece(move.getTargetCoordinate(), getPiece(move.getStartCoordinate()));
         // This means that the tile at the start position must be cleared.
-        setPiece(move.getStartCord(), CheckersPiece.NONE.ordinal());
+        setPiece(move.getStartCoordinate(), CheckersPiece.NONE.ordinal());
         // If there is a capture, additionally clear the tile at the capture position.
-        if (move.getCaptureCord() != null)
+        if (move.getCaptureCoordinate() != null)
         {
-            setPiece(move.getCaptureCord(), CheckersPiece.NONE.ordinal());
+            setPiece(move.getCaptureCoordinate(), CheckersPiece.NONE.ordinal());
         }
         return;
     }
@@ -128,10 +128,10 @@ public class CheckersBoard extends AbstractBoard
      * @param tileCoord
      * @return True if the tileCoord points to a Tile that is on the Board; False otherwise.
      */
-    public boolean IsValidTile(Ivec2 tileCoord)
+    public boolean isValidTile(Ivec2 tileCoord)
     {
-        Ivec2 BoardSize = getSize();
-        return tileCoord.x > 0 && tileCoord.x < BoardSize.x && tileCoord.y > 0 && tileCoord.y < BoardSize.y;
+        Ivec2 boardSize = getSize();
+        return tileCoord.x > 0 && tileCoord.x < boardSize.x && tileCoord.y > 0 && tileCoord.y < boardSize.y;
     }
 
 
@@ -139,27 +139,27 @@ public class CheckersBoard extends AbstractBoard
      * @param tileCoord
      * @return True if there is a valid Checkers Piece at the specified TileCoord; False otherwise.
      */
-    public boolean IsPiece(Ivec2 tileCoord)
+    public boolean isPiece(Ivec2 tileCoord)
     {
-        return CheckersPiece.IsPiece(getPiece(tileCoord));
+        return CheckersPiece.isPiece(getPiece(tileCoord));
     }
 
     /**
      * @param tileCoord
      * @return True if the Piece at the specified tileCoord is a Player 1 Piece; False otherwise.
      */
-    public boolean IsP1(Ivec2 tileCoord)
+    public boolean isP1(Ivec2 tileCoord)
     {
-        return CheckersPiece.IsP1(getPiece(tileCoord));
+        return CheckersPiece.isP1(getPiece(tileCoord));
     }
 
     /**
      * @param tileCoord
      * @return True if the Piece at the specified TileCoord is a Player 1 Piece; False otherwise.
      */
-    public boolean IsP2(Ivec2 tileCoord)
+    public boolean isP2(Ivec2 tileCoord)
     {
-        return CheckersPiece.IsP2(getPiece(tileCoord));
+        return CheckersPiece.isP2(getPiece(tileCoord));
     }
 
 
@@ -167,18 +167,18 @@ public class CheckersBoard extends AbstractBoard
      * @param tileCoord
      * @return True if the Piece at the specified TileCoord is a King Piece; False otherwise.
      */
-    public boolean IsKing(Ivec2 tileCoord)
+    public boolean isKing(Ivec2 tileCoord)
     {
-        return CheckersPiece.IsKing(getPiece(tileCoord));
+        return CheckersPiece.isKing(getPiece(tileCoord));
     }
 
     /**
      * @param tileCoord
      * @return True if the Piece at the specified tileCoord is a Pawn Piece; False otherwise.
      */
-    public boolean IsPawn(Ivec2 tileCoord)
+    public boolean isPawn(Ivec2 tileCoord)
     {
-        return CheckersPiece.IsPawn(getPiece(tileCoord));
+        return CheckersPiece.isPawn(getPiece(tileCoord));
     }
 
 
@@ -190,14 +190,14 @@ public class CheckersBoard extends AbstractBoard
      * @throws IllegalArgumentException If the specified tile does not contain a Pawn Piece.
      * @throws IndexOutOfBoundsException If the tile coordinate is out of the bounds of the board.
      */
-    public void MakeKing(Ivec2 tileCoord) throws IllegalArgumentException, IndexOutOfBoundsException
+    public void makeKing(Ivec2 tileCoord) throws IllegalArgumentException, IndexOutOfBoundsException
     {
-        if (IsValidTile(tileCoord))
+        if (isValidTile(tileCoord))
         {
             int pieceID = getPiece(tileCoord);
-            if (CheckersPiece.IsPawn(pieceID))
+            if (CheckersPiece.isPawn(pieceID))
             {
-                if (CheckersPiece.IsP1(getPiece(tileCoord)))
+                if (CheckersPiece.isP1(getPiece(tileCoord)))
                 {
                     setPiece(tileCoord, CheckersPiece.P1KING.ordinal());
                 }
@@ -218,14 +218,14 @@ public class CheckersBoard extends AbstractBoard
      * @throws IllegalArgumentException If the specified tile does not contain a King Piece.
      * @throws IndexOutOfBoundsException If the tile coordinate is out of the bounds of the board.
      */
-    public void MakePawn(Ivec2 tileCoord) throws IllegalArgumentException, IndexOutOfBoundsException
+    public void makePawn(Ivec2 tileCoord) throws IllegalArgumentException, IndexOutOfBoundsException
     {
-        if (IsValidTile(tileCoord))
+        if (isValidTile(tileCoord))
         {
             int PieceID = getPiece(tileCoord);
-            if (CheckersPiece.IsKing(PieceID))
+            if (CheckersPiece.isKing(PieceID))
             {
-                if (CheckersPiece.IsP1(getPiece(tileCoord)))
+                if (CheckersPiece.isP1(getPiece(tileCoord)))
                 {
                     setPiece(tileCoord, CheckersPiece.P1PAWN.ordinal());
                 }
@@ -246,14 +246,14 @@ public class CheckersBoard extends AbstractBoard
      * @throws IllegalArgumentException If the specified tile does not contain a Player 2's Piece.
      * @throws IndexOutOfBoundsException If the tile coordinate is out of the bounds of the board.
      */
-    public void MakeP1(Ivec2 tileCoord) throws IllegalArgumentException, IndexOutOfBoundsException
+    public void makeP1(Ivec2 tileCoord) throws IllegalArgumentException, IndexOutOfBoundsException
     {
-        if (IsValidTile(tileCoord))
+        if (isValidTile(tileCoord))
         {
-            int PieceID = getPiece(tileCoord);
-            if (CheckersPiece.IsP2(PieceID))
+            int pieceID = getPiece(tileCoord);
+            if (CheckersPiece.isP2(pieceID))
             {
-                if (CheckersPiece.IsPawn(getPiece(tileCoord)))
+                if (CheckersPiece.isPawn(getPiece(tileCoord)))
                 {
                     setPiece(tileCoord, CheckersPiece.P1PAWN.ordinal());
                 }
@@ -275,14 +275,14 @@ public class CheckersBoard extends AbstractBoard
      * @throws IllegalArgumentException If the specified tile does not contain a Player 1's Piece.
      * @throws IndexOutOfBoundsException If the tile coordinate is out of the bounds of the board.
      */
-    public void MakeP2(Ivec2 tileCoord) throws IllegalArgumentException, IndexOutOfBoundsException
+    public void makeP2(Ivec2 tileCoord) throws IllegalArgumentException, IndexOutOfBoundsException
     {
-        if (IsValidTile(tileCoord))
+        if (isValidTile(tileCoord))
         {
-            int PieceID = getPiece(tileCoord);
-            if (CheckersPiece.IsP1(PieceID))
+            int pieceID = getPiece(tileCoord);
+            if (CheckersPiece.isP1(pieceID))
             {
-                if (CheckersPiece.IsPawn(getPiece(tileCoord)))
+                if (CheckersPiece.isPawn(getPiece(tileCoord)))
                 {
                     setPiece(tileCoord, CheckersPiece.P2PAWN.ordinal());
                 }
