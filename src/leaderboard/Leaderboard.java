@@ -9,13 +9,14 @@ import java.util.Objects;
 
 public class Leaderboard {
 
-    private static final String FILEPATH = "src/leaderboard/profiles.csv";
+    private static final String FILEPATH = "src/leaderboard/profiles_export.csv";
     private ArrayList<ArrayList<String>> rankings;
     private String sortChoice = "RATING";
 
-    private static final int WLR_INDEX = 1;
-    private static final int RATING_INDEX = 2;
-    private static final int WINS_INDEX = 3;
+    private static final int USERNAME_INDEX = 1;
+    private static final int WLR_INDEX = 2;
+    private static final int RATING_INDEX = 3;
+    private static final int WINS_INDEX = 4;
     private static final String SORT_RATING = "RATING";
     private static final String SORT_WLR = "WLR";
     private static final String SORT_WINS = "WINS";

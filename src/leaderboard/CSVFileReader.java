@@ -8,7 +8,9 @@ import java.util.ArrayList;
 public class CSVFileReader {
     //private static final String FILEPATH = "src/leaderboard/profiles.csv"; //change this depending on where .csv is exported to
 
+    // INDEXES FROM CSV FILE
     private static final int ID_INDEX = 0;
+    private static final int USERNAME_INDEX = 1;
     private static final int WLR_INDEX = 9;
     private static final int RATING_INDEX = 10;
     private static final int WINS_INDEX = 12;
@@ -85,15 +87,23 @@ public class CSVFileReader {
             ArrayList<String> individual = new ArrayList<String>();
             for (int statistic = 0; statistic < PROFILE_ROW_SIZE; statistic++) {
                 if (statistic == ID_INDEX) {
+                    // add to index 0
+                    individual.add(fields.get(i_profile).get(statistic));
+                }
+                if (statistic == USERNAME_INDEX) {
+                    // add to index 1
                     individual.add(fields.get(i_profile).get(statistic));
                 }
                 if (statistic == WLR_INDEX) {
+                    // add to index 2
                     individual.add(fields.get(i_profile).get(statistic));
                 }
                 if (statistic == RATING_INDEX) {
+                    // add to index 3
                     individual.add(fields.get(i_profile).get(statistic));
                 }
                 if (statistic == WINS_INDEX) {
+                    // add to index 4
                     individual.add(fields.get(i_profile).get(statistic));
                 }
             }
