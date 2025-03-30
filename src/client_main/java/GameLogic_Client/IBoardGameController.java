@@ -18,15 +18,15 @@ public interface IBoardGameController
      * Receive a 2D-Integer-Coordinate Input from the Player, and process it.
      * @param input A 2D-Integer-Coordinate Input that corresponds to a Board Cell.
      */
-    void ReceiveInput(ivec2 input);
+    void ReceiveInput(Ivec2 input);
 
     /**
-     * Remove the Player of a given Index (counting from 0) from the game.
+     * Remove the player of a given Index (counting from 0) from the game.
      * This will not change the index of other Players.
-     * @param Player The index of the Player to remove.
+     * @param player The index of the player to remove.
      * @throws IndexOutOfBoundsException If no players with the given Index exists.
      */
-    void RemovePlayer(int Player) throws IndexOutOfBoundsException;
+    void RemovePlayer(int player) throws IndexOutOfBoundsException;
 
 //  Additional method added for completion's sake. Is non-applicable for this project.
 //  /**
@@ -50,15 +50,15 @@ public interface IBoardGameController
     boolean GetGameOngoing();
 
     /**
-     * @param LayerMask A bit-string, where the bits of all the layers to query are set to 1.
+     * @param layerMask A bit-string, where the bits of all the layers to query are set to 1.
      * @return An array list of 2D integer arrays representing the cells of the board at each of the requested layer.
      */
-    ArrayList<int[][]> GetBoardCells(int LayerMask);
+    ArrayList<int[][]> GetBoardCells(int layerMask);
 
     /**
      * @return The size of the Board.
      */
-    ivec2 GetBoardSize();
+    Ivec2 GetBoardSize();
 
     /**
      * @return The index of the current player (the player whose turn is currently ongoing).

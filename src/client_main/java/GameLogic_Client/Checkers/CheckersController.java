@@ -1,7 +1,7 @@
 package client_main.java.GameLogic_Client.Checkers;
 
 import client_main.java.GameLogic_Client.IBoardGameController;
-import client_main.java.GameLogic_Client.ivec2;
+import client_main.java.GameLogic_Client.Ivec2;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,147 +10,148 @@ import java.util.HashMap;
 public class CheckersController implements IBoardGameController
 {
     // The underlying checkers board to store the position of pieces.
-    private CheckersBoard Board;
+    private CheckersBoard board;
 
     //checks if the player can interact with the board
-    private boolean TurnP1 = true;
+    private boolean turnP1 = true;
 
     // Stores the set of valid moves that can currently be made as a hashmap.
     // The keys contain the coordinates of pieces that can move.
     // The values are the sets of moves for the respective pieces.
-    private HashMap<ivec2, HashMap<ivec2, CheckersMove>> ValidInputs;
+    private HashMap<Ivec2, HashMap<Ivec2, CheckersMove>> ValidInputs;
 
     // Internal flag to check if we should force the Player to capture a piece
     // by only considering moves that would result in a capture.
-    private boolean MustCapture = false;
+    private boolean mustCapture = false;
 
     // Internal flag to check if the current player has moved this turn.
     // If they have, their turn will end
     // as soon as they can no longer anything with the currently selected piece,
     // or if the current piece is made into a king.
     // This also allows us to restrict valid moves to those of the currently selected piece.
-    private boolean HasMovedThisTurn = false;
+    private boolean hasMovedThisTurn = false;
 
     // Internal value to keep track of the location on the board for the currently selected piece.
     // If no pieces have been selected this turn, this value is null.
-    private ivec2 CurrentPieceLocation = null;
+    private Ivec2 currentPieceLocation = null;
 
-    private GameState CurrentGameState = GameState.ONGOING;
-
+    private GameState currentGameState = GameState.ONGOING;
+    private int width = 8;
+    private int height = 8;
 
 
     // Helper methods.
-    private void AddPieceMoves(ivec2 PieceLocation)
+    private void AddPieceMoves(Ivec2 pieceLocation)
     {
-        if (Board.IsPiece(PieceLocation))
+        if (board.IsPiece(pieceLocation))
         {
             // Hashset to temporarily store the valid moves of this piece.
-            HashMap<ivec2, CheckersMove> PieceValidMoves = new HashMap<>();
+            HashMap<Ivec2, CheckersMove> pieceValidMoves = new HashMap<>();
 
-            boolean ShouldCheckTopLeft = false;
-            boolean ShouldCheckTopRight = false;
-            boolean ShouldCheckBottomLeft = false;
-            boolean ShouldCheckBottomRight = false;
+            boolean shouldCheckTopLeft = false;
+            boolean shouldCheckTopRight = false;
+            boolean shouldCheckBottomLeft = false;
+            boolean shouldCheckBottomRight = false;
             // King pieces can move in all 4 directions.
-            if (Board.IsKing(PieceLocation))
+            if (board.IsKing(pieceLocation))
             {
-                ShouldCheckTopLeft = true;
-                ShouldCheckTopRight = true;
-                ShouldCheckBottomLeft = true;
-                ShouldCheckBottomRight = true;
+                shouldCheckTopLeft = true;
+                shouldCheckTopRight = true;
+                shouldCheckBottomLeft = true;
+                shouldCheckBottomRight = true;
             }
             // Player 1 pawns can only move up.
-            else if (Board.IsP1(PieceLocation))
+            else if (board.IsP1(pieceLocation))
             {
-                ShouldCheckTopLeft = true;
-                ShouldCheckTopRight = true;
+                shouldCheckTopLeft = true;
+                shouldCheckTopRight = true;
             }
             // Player 2 pawns can only move down.
             else
             {
-                ShouldCheckBottomLeft = true;
-                ShouldCheckBottomRight = true;
+                shouldCheckBottomLeft = true;
+                shouldCheckBottomRight = true;
             }
 
-            if (ShouldCheckTopLeft)
+            if (shouldCheckTopLeft)
             {
-                AddMoveInDirection(PieceLocation, new ivec2(-1, 1), PieceValidMoves);
+                AddMoveInDirection(pieceLocation, new Ivec2(-1, 1), pieceValidMoves);
             }
-            if (ShouldCheckTopRight)
+            if (shouldCheckTopRight)
             {
-                AddMoveInDirection(PieceLocation, new ivec2(1, 1), PieceValidMoves);
+                AddMoveInDirection(pieceLocation, new Ivec2(1, 1), pieceValidMoves);
             }
-            if (ShouldCheckBottomLeft)
+            if (shouldCheckBottomLeft)
             {
-                AddMoveInDirection(PieceLocation, new ivec2(-1, -1), PieceValidMoves);
+                AddMoveInDirection(pieceLocation, new Ivec2(-1, -1), pieceValidMoves);
             }
-            if (ShouldCheckBottomRight)
+            if (shouldCheckBottomRight)
             {
-                AddMoveInDirection(PieceLocation, new ivec2(1, -1), PieceValidMoves);
+                AddMoveInDirection(pieceLocation, new Ivec2(1, -1), pieceValidMoves);
             }
 
             // Only add the piece to the map of valid moves, if it can be moved.
-            if (!PieceValidMoves.isEmpty())
+            if (!pieceValidMoves.isEmpty())
             {
-                ValidInputs.put(PieceLocation, PieceValidMoves);
+                ValidInputs.put(pieceLocation, pieceValidMoves);
             }
         }
         return;
     }
 
 
-    private void AddMoveInDirection(ivec2 PieceLocation, ivec2 Direction,
-                                    HashMap<ivec2, CheckersMove> PieceValidMoves)
+    private void AddMoveInDirection(Ivec2 pieceLocation, Ivec2 direction,
+                                    HashMap<Ivec2, CheckersMove> pieceValidMoves)
     {
-        if (MustCapture)
+        if (mustCapture)
         {
             // Check if this move can capture a piece.
-            ivec2 CaptureLocation = PieceLocation.Add(Direction);
-            if (Board.IsValidTile(CaptureLocation) &&
-                    (TurnP1 && Board.IsP2(CaptureLocation)) || (!TurnP1 && Board.IsP1(CaptureLocation)))
+            Ivec2 captureLocation = pieceLocation.Add(direction);
+            if (board.IsValidTile(captureLocation) &&
+                    (turnP1 && board.IsP2(captureLocation)) || (!turnP1 && board.IsP1(captureLocation)))
             {
                 // Check if after capturing a piece, the moving piece can get to a valid empty tile.
-                ivec2 TargetLocation = CaptureLocation.Add(Direction);
-                if (Board.IsValidTile(TargetLocation) && !Board.IsPiece(TargetLocation))
+                Ivec2 targetLocation = captureLocation.Add(direction);
+                if (board.IsValidTile(targetLocation) && !board.IsPiece(targetLocation))
                 {
-                    PieceValidMoves.put(TargetLocation,
-                            new CheckersMove(PieceLocation, TargetLocation, CaptureLocation));
+                    pieceValidMoves.put(targetLocation,
+                            new CheckersMove(pieceLocation, targetLocation, captureLocation));
                 }
             }
         }
         else
         {
-            ivec2 TargetLocation = PieceLocation.Add(Direction);
+            Ivec2 targetLocation = pieceLocation.Add(direction);
             // Check if there is a valid tile to move to.
-            if (Board.IsValidTile(TargetLocation))
+            if (board.IsValidTile(targetLocation))
             {
                 // Check if this valid tile is empty.
                 // If so, this is a normal move.
-                if (!Board.IsPiece(TargetLocation))
+                if (!board.IsPiece(targetLocation))
                 {
-                    PieceValidMoves.put(TargetLocation,
-                            new CheckersMove(PieceLocation, TargetLocation, null));
+                    pieceValidMoves.put(targetLocation,
+                            new CheckersMove(pieceLocation, targetLocation, null));
                 }
                 // If there is a piece there, check if it can be captured.
                 // This involves first checking if it belongs to the other player.
-                else if ((TurnP1 && Board.IsP2(TargetLocation)) || (!TurnP1 && Board.IsP1(TargetLocation)))
+                else if ((turnP1 && board.IsP2(targetLocation)) || (!turnP1 && board.IsP1(targetLocation)))
                 {
                     // We then set the CaptureLocation to the position of the target piece,
-                    // And move the TargetLocation of the move behind the piece.
-                    ivec2 CaptureLocation = TargetLocation;
-                    TargetLocation = TargetLocation.Add(Direction);
-                    // Check to ensure that we can jump to the TargetLocation (the tile is empty and valid).
-                    if (Board.IsValidTile(TargetLocation) && !Board.IsPiece(TargetLocation))
+                    // And move the targetLocation of the move behind the piece.
+                    Ivec2 captureLocation = targetLocation;
+                    targetLocation = targetLocation.Add(direction);
+                    // Check to ensure that we can jump to the targetLocation (the tile is empty and valid).
+                    if (board.IsValidTile(targetLocation) && !board.IsPiece(targetLocation))
                     {
                         // This move is a capture move.
                         // All the moves before this did not result in a capture, and so should be removed.
                         ValidInputs.clear();
-                        PieceValidMoves.clear();
-                        MustCapture = true;
+                        pieceValidMoves.clear();
+                        mustCapture = true;
 
                         // Add the capture move.
-                        PieceValidMoves.put(TargetLocation,
-                                new CheckersMove(PieceLocation, TargetLocation, CaptureLocation));
+                        pieceValidMoves.put(targetLocation,
+                                new CheckersMove(pieceLocation, targetLocation, captureLocation));
                     }
                 }
             }
@@ -176,20 +177,20 @@ public class CheckersController implements IBoardGameController
         // Get the current player, and add the valid moves of all of their pieces to the Valid Moves map.
 
         // If the Player has moved this turn, lock them to only using the piece they have selected.
-        if (HasMovedThisTurn) AddPieceMoves(CurrentPieceLocation);
+        if (hasMovedThisTurn) AddPieceMoves(currentPieceLocation);
             // Otherwise, add the moves of all the pieces of the current player.
         else
         {
-            if (TurnP1)
+            if (turnP1)
             {
-                for (ivec2 PieceLocation : Board.getP1PieceLocations())
+                for (Ivec2 PieceLocation : board.getP1PieceLocations())
                 {
                     AddPieceMoves(PieceLocation);
                 }
             }
             else
             {
-                for (ivec2 PieceLocation : Board.getP2PieceLocations())
+                for (Ivec2 PieceLocation : board.getP2PieceLocations())
                 {
                     AddPieceMoves(PieceLocation);
                 }
@@ -201,45 +202,45 @@ public class CheckersController implements IBoardGameController
     /**
      * Validate and (if valid) Perform a move that the CheckersController
      * has calculated from aggregating the Player's input.
-     * @param PieceCoord The coordinate of the piece making the move.
-     * @param TargetCoord The coordinate of the tile the piece will be moved to.
+     * @param pieceCoord The coordinate of the piece making the move.
+     * @param targetCoord The coordinate of the tile the piece will be moved to.
      * @return True if the Move Input is valid; False otherwise.
      */
-    private boolean ProcessMoveInput(ivec2 PieceCoord, ivec2 TargetCoord)
+    private boolean ProcessMoveInput(Ivec2 pieceCoord, Ivec2 targetCoord)
     {
         // First check if the piece at PieceCoord can be moved.
-        HashMap<ivec2, CheckersMove> PieceValidMoves = ValidInputs.get(PieceCoord);
-        if (PieceValidMoves != null)
+        HashMap<Ivec2, CheckersMove> pieceValidMoves = ValidInputs.get(pieceCoord);
+        if (pieceValidMoves != null)
         {
             // Then check if the TargetCoord is a valid position to move said piece to.
-            CheckersMove Move = PieceValidMoves.get(TargetCoord);
+            CheckersMove Move = pieceValidMoves.get(targetCoord);
             if (Move != null)
             {
-                Board.MakeMove(Move);
-                CurrentPieceLocation = TargetCoord;
-                HasMovedThisTurn = true;
+                board.MakeMove(Move);
+                currentPieceLocation = targetCoord;
+                hasMovedThisTurn = true;
 
                 // Try to king the selected piece.
-                boolean HasKinged = false;
-                if (Board.IsKing(CurrentPieceLocation))
+                boolean hasKinged = board.IsKing(targetCoord);
+                if (board.IsKing(currentPieceLocation))
                 {
-                    if (TurnP1)
+                    if (turnP1)
                     {
-                        if (CurrentPieceLocation.y == GetBoardSize().y - 1)
+                        if (currentPieceLocation.y == GetBoardSize().y - 1)
                         {
-                            Board.setPiece(CurrentPieceLocation, CheckersPiece.P1KING.ordinal());
-                            HasKinged = true;
+                            board.setPiece(currentPieceLocation, CheckersPiece.P1KING.ordinal());
+                            hasKinged = true;
                         }
                     }
-                    else if (CurrentPieceLocation.y == 0)
+                    else if (currentPieceLocation.y == 0)
                     {
-                        Board.setPiece(CurrentPieceLocation, CheckersPiece.P2KING.ordinal());
-                        HasKinged = true;
+                        board.setPiece(currentPieceLocation, CheckersPiece.P2KING.ordinal());
+                        hasKinged = true;
                     }
                 }
 
                 // If the selected piece has been kinged, or if it did not capture any pieces, end the turn.
-                if (!MustCapture || HasKinged)
+                if (!mustCapture || hasKinged)
                 {
                     EndTurn();
                 }
@@ -268,12 +269,12 @@ public class CheckersController implements IBoardGameController
     private void EndTurn()
     {
         // Clear the turn-state flags for this turn.
-        MustCapture = false;
-        HasMovedThisTurn = false;
-        CurrentPieceLocation = null;
+        mustCapture = false;
+        hasMovedThisTurn = false;
+        currentPieceLocation = null;
 
         // Alternate between the 2 players' turn.
-        TurnP1 = !TurnP1;
+        turnP1 = !turnP1;
 
         // Perform the win check here.
         // A player wins if their opponent cannot make any other moves.
@@ -284,14 +285,14 @@ public class CheckersController implements IBoardGameController
         if (ValidInputs.isEmpty())
         {
             // We perform an additional check on the current player, too, to ensure that it is not a tie.
-            TurnP1 = !TurnP1;
+            turnP1 = !turnP1;
             UpdateValidInputs();
 
             // Reset the turn to the correct person.
-            TurnP1 = !TurnP1;
+            turnP1 = !turnP1;
             if (ValidInputs.isEmpty())
             {
-                CurrentGameState = GameState.TIE;
+                currentGameState = GameState.TIE;
             }
             else
             {
@@ -299,7 +300,7 @@ public class CheckersController implements IBoardGameController
                 // Otherwise, P1 wins.
                 // This cannot be a tie since the above proves to us that
                 // 1 and only 1 of the 2 players cannot make a move.
-                CurrentGameState = TurnP1 ? GameState.P2WIN : GameState.P1WIN;
+                currentGameState = turnP1 ? GameState.P2WIN : GameState.P1WIN;
             }
         }
 
@@ -317,47 +318,47 @@ public class CheckersController implements IBoardGameController
 
 
 // Interface implementation.
-    protected boolean GameOngoingChanged = false;
-    protected boolean WinnersChanged = false;
-    protected boolean CurrentPlayerChanged = false;
-    protected int BoardChanged = 0;
+    protected boolean gameOngoingChanged = false;
+    protected boolean winnersChanged = false;
+    protected boolean currentPlayerChanged = false;
+    protected int boardChanged = 0;
 
-    public void ReceiveInput(ivec2 input)
+    public void ReceiveInput(Ivec2 input)
     {
         // Reset the flags to help detect changes since the last input.
-        GameOngoingChanged = false;
-        WinnersChanged = false;
-        CurrentPlayerChanged = false;
-        BoardChanged = 0;
+        gameOngoingChanged = false;
+        winnersChanged = false;
+        currentPlayerChanged = false;
+        boardChanged = 0;
 
         // Process the input. This will contain the bulk of the code for this class.
         // If we have a piece selected, try and process the move, or select another piece.
-        if (CurrentPieceLocation != null)
+        if (currentPieceLocation != null)
         {
             // Check if the piece can perform that move.
-            boolean ValidMoveInput = ProcessMoveInput(CurrentPieceLocation, input);
+            boolean ValidMoveInput = ProcessMoveInput(currentPieceLocation, input);
             // If the input was not a valid move, it must be a request to reselect the current piece.
             // If the player has moved this turn, force them to use this piece until the turn ends.
-            if (!ValidMoveInput && !HasMovedThisTurn)
+            if (!ValidMoveInput && !hasMovedThisTurn)
             {
-                if (ValidInputs.containsKey(input)) CurrentPieceLocation = input;
-                else CurrentPieceLocation = null;
+                if (ValidInputs.containsKey(input)) currentPieceLocation = input;
+                else currentPieceLocation = null;
             }
         }
         // Otherwise, simply try to select another piece.
         else
         {
-            if (ValidInputs.containsKey(input)) CurrentPieceLocation = input;
+            if (ValidInputs.containsKey(input)) currentPieceLocation = input;
         }
 
         return;
     }
 
 
-    public void RemovePlayer(int Player) throws IndexOutOfBoundsException
+    public void RemovePlayer(int player) throws IndexOutOfBoundsException
     {
         // We only have 2 players, denoted 0 and 1.
-        if (Player >= 0 && Player <= 1)
+        if (player >= 0 && player <= 1)
         {
             // Declare the other player the winner.
         }
@@ -377,28 +378,28 @@ public class CheckersController implements IBoardGameController
     }
 
 
-    public ArrayList<int[][]> GetBoardCells(int LayerMask)
+    public ArrayList<int[][]> GetBoardCells(int layerMask)
     {
-        ArrayList<int[][]> BoardCells = new ArrayList<>();
+        ArrayList<int[][]> boardCells = new ArrayList<>();
         // Check the first bit of the map, which represents the piece layer.
-        if ((LayerMask & 0b1) != 0)
+        if ((layerMask & 0b1) != 0)
         {
-            BoardCells.add(Board.getBoard());
+            boardCells.add(board.getBoard());
         }
         // Check the second bit of the map, which represents the hint layer.
-        if ((LayerMask & 0b10) != 0)
+        if ((layerMask & 0b10) != 0)
         {
-            // Construct a 2D int array of hints and add it to the BoardCells array list.
+            // Construct a 2D int array of hints and add it to the boardCells array list.
         }
-        return BoardCells;
+        return boardCells;
     }
 
     /**
      * @return The size of the Board.
      */
-    public ivec2 GetBoardSize()
+    public Ivec2 GetBoardSize()
     {
-        return new ivec2(0, 0);
+        return new Ivec2(width, height);
     }
 
     /**
@@ -406,28 +407,28 @@ public class CheckersController implements IBoardGameController
      */
     public int GetCurrentPlayer()
     {
-        return TurnP1 ? 0 : 1;
+        return turnP1 ? 0 : 1;
     }
 
 
     public boolean GameOngoingChangedSinceLastCommand()
     {
-        return GameOngoingChanged;
+        return gameOngoingChanged;
     }
 
 
     public boolean WinnersChangedSinceLastCommand()
     {
-        return WinnersChanged;
+        return winnersChanged;
     }
 
     public boolean CurrentPlayerChangedSinceLastCommand()
     {
-        return CurrentPlayerChanged;
+        return currentPlayerChanged;
     }
 
     public int BoardChangedSinceLastCommand()
     {
-        return BoardChanged;
+        return boardChanged;
     }
 }

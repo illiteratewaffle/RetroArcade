@@ -9,73 +9,73 @@ public enum CheckersPiece {
 
 
     /**
-     * @param PieceID
-     * @return True if the PieceID is equal to this enum's ordinal; False otherwise.
+     * @param pieceID
+     * @return True if the pieceID is equal to this enum's ordinal; False otherwise.
      */
-    public boolean equals(int PieceID)
+    public boolean equals(int pieceID)
     {
-        return PieceID == this.ordinal();
+        return pieceID == this.ordinal();
     }
 
     /**
-     * @param PieceID
+     * @param pieceID
      * @return The CheckersPiece enum value with the same ordinal as the specified PieceID.<br>
      * If no such pieces exist, null is returned instead.
      */
-    public static CheckersPiece GetCheckersPiece(int PieceID)
+    public static CheckersPiece GetCheckersPiece(int pieceID)
     {
-        for (CheckersPiece Piece : CheckersPiece.values())
+        for (CheckersPiece piece : CheckersPiece.values())
         {
-            if (Piece.ordinal() == PieceID) return Piece;
+            if (piece.ordinal() == pieceID) return piece;
         }
         return null;
     }
 
 
     /**
-     * @param PieceID
+     * @param pieceID
      * @return True if the PieceID is that of a Checkers Piece; False otherwise.
      */
-    public static boolean IsPiece(int PieceID)
+    public static boolean IsPiece(int pieceID)
     {
         // Additionally check to ensure that the PieceID is not invalid.
-        CheckersPiece Piece = CheckersPiece.GetCheckersPiece(PieceID);
+        CheckersPiece Piece = CheckersPiece.GetCheckersPiece(pieceID);
         return Piece != null && Piece != CheckersPiece.NONE;
     }
 
     /**
-     * @param PieceID
+     * @param pieceID
      * @return True if the PieceID is that of a Player 1 Checkers Piece; False otherwise.
      */
-    public static boolean IsP1(int PieceID)
+    public static boolean IsP1(int pieceID)
     {
-        return CheckersPiece.P1PAWN.equals(PieceID) || CheckersPiece.P1KING.equals(PieceID);
+        return CheckersPiece.P1PAWN.equals(pieceID) || CheckersPiece.P1KING.equals(pieceID);
     }
 
     /**
-     * @param PieceID
+     * @param pieceID
      * @return True if the PieceID is that of a Player 2 Checkers Piece; False otherwise.
      */
-    public static boolean IsP2(int PieceID)
+    public static boolean IsP2(int pieceID)
     {
-        return CheckersPiece.P2PAWN.equals(PieceID) || CheckersPiece.P2KING.equals(PieceID);
+        return CheckersPiece.P2PAWN.equals(pieceID) || CheckersPiece.P2KING.equals(pieceID);
     }
 
     /**
-     * @param PieceID
+     * @param pieceID
      * @return True if the PieceID is that of a King Piece; False otherwise.
      */
-    public static boolean IsKing(int PieceID)
+    public static boolean IsKing(int pieceID)
     {
-        return CheckersPiece.P1KING.equals(PieceID) || CheckersPiece.P2KING.equals(PieceID);
+        return CheckersPiece.P1KING.equals(pieceID) || CheckersPiece.P2KING.equals(pieceID);
     }
 
     /**
-     * @param PieceID
+     * @param pieceID
      * @return True if the PieceID is that of a Pawn Piece; False otherwise.
      */
-    public static boolean IsPawn(int PieceID)
+    public static boolean IsPawn(int pieceID)
     {
-        return CheckersPiece.P1PAWN.equals(PieceID) || CheckersPiece.P2PAWN.equals(PieceID);
+        return CheckersPiece.P1PAWN.equals(pieceID) || CheckersPiece.P2PAWN.equals(pieceID);
     }
 }
