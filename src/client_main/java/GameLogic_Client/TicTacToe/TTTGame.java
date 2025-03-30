@@ -17,7 +17,7 @@ public class TTTGame {
     }
 
     public boolean makeMove(int row, int col) {
-        ivec2 point = new ivec2(col, row); // Note: you're passing row/col, but the board uses (x, y)
+        ivec2 point = new ivec2(row, col); // Note: you're passing row/col, but the board uses (x, y)
 
         // Attempt to place the piece, return false if invalid
         if (!board.placePiece(point, TTTPiece.fromInt(currentPlayer))) {
