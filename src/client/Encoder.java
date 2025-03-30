@@ -27,6 +27,7 @@ class Encoder {
         return Encoding.toString();
 
     }
+    //decoder does not allow for "," in any of the messages other that to seperate parameters
     public static String[][] decodeJSON(String json){
         String str = json.substring(1, json.length() - 1);
         String[] tempArray = str.split(",");
@@ -36,9 +37,9 @@ class Encoder {
         for (int i = 0; i < tempArray.length; i++){
             String tempStr;
             tempStr = tempArray[i].split(":")[0];
-            trueArray[i][0] = tempStr;
+            trueArray[i][0] = tempStr.trim().replace("\"", "");
             tempStr = tempArray[i].split(":")[1];
-            trueArray[i][1] = tempStr;
+            trueArray[i][1] = tempStr.trim().replace("\"", "");
         }
         return trueArray;
     }
