@@ -28,6 +28,7 @@ public class CheckersGUIController implements Initializable {
 
     private CheckersController gameLogic;
 
+    //will use if we can initialize each piece in a for loop rather than explicitly
     private static final int BOARD_SIZE = 8;
     private StackPane[][] tileBorderGrid = new StackPane[BOARD_SIZE][BOARD_SIZE];
     private ImageView[][] tilePiece = new ImageView[BOARD_SIZE][BOARD_SIZE];
@@ -48,6 +49,9 @@ public class CheckersGUIController implements Initializable {
 
 
     }
+
+    //will need a methods for handling input, updating board, and checking if a winner has been declared from game logic
+
 }
 
 
