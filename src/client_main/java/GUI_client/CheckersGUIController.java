@@ -68,13 +68,18 @@ public class CheckersGUIController implements Initializable {
 
                 StackPane tile = tileBorderGrid[i][j]; // Store reference
 
-
-
                 // Add hover effect directly to the StackPane
                 int I = i;
                 int J = j;
-                tile.setOnMouseEntered(event );
-                tile.setOnMouseExited(event -> tile.setStyle("-fx-border-color: transparent;"));
+                // Set what happens when mouse enters
+                tile.setOnMouseEntered(event -> {
+                    tile.setStyle("-fx-border-color: blue;"); // Change to desired color/style
+                });
+
+                // Set what happens when mouse exits
+                tile.setOnMouseExited(event -> {
+                    tile.setStyle("-fx-border-color: transparent;");
+                });
 
                 // Add the StackPane to the GridPane
                 checkerBoard.add(tile, j, i); // Ensure it's added to GridPane
