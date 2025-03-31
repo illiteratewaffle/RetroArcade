@@ -96,7 +96,7 @@ public class CheckersBoard extends AbstractBoard
             else
             {
                 // Ensure that we will not set any tiles to contain an invalid piece.
-                piece = CheckersPiece.NONE.ordinal();
+                piece = CheckersPiece.NONE.getValue();
             }
             // We do not consider any other situations.
         }
@@ -115,11 +115,11 @@ public class CheckersBoard extends AbstractBoard
         // Move the piece in the start position of the move to the target position.
         setPiece(move.getTargetCoordinate(), getPiece(move.getStartCoordinate()));
         // This means that the tile at the start position must be cleared.
-        setPiece(move.getStartCoordinate(), CheckersPiece.NONE.ordinal());
+        setPiece(move.getStartCoordinate(), CheckersPiece.NONE.getValue());
         // If there is a capture, additionally clear the tile at the capture position.
         if (move.getCaptureCoordinate() != null)
         {
-            setPiece(move.getCaptureCoordinate(), CheckersPiece.NONE.ordinal());
+            setPiece(move.getCaptureCoordinate(), CheckersPiece.NONE.getValue());
         }
         return;
     }
@@ -200,11 +200,11 @@ public class CheckersBoard extends AbstractBoard
             {
                 if (CheckersPiece.isP1(getPiece(tileCoord)))
                 {
-                    setPiece(tileCoord, CheckersPiece.P1KING.ordinal());
+                    setPiece(tileCoord, CheckersPiece.P1KING.getValue());
                 }
                 else
                 {
-                    setPiece(tileCoord, CheckersPiece.P2KING.ordinal());
+                    setPiece(tileCoord, CheckersPiece.P2KING.getValue());
                 }
             }
             else throw new IllegalArgumentException("Can only make Pawn Pieces into Kings.");
@@ -228,11 +228,11 @@ public class CheckersBoard extends AbstractBoard
             {
                 if (CheckersPiece.isP1(getPiece(tileCoord)))
                 {
-                    setPiece(tileCoord, CheckersPiece.P1PAWN.ordinal());
+                    setPiece(tileCoord, CheckersPiece.P1PAWN.getValue());
                 }
                 else
                 {
-                    setPiece(tileCoord, CheckersPiece.P2PAWN.ordinal());
+                    setPiece(tileCoord, CheckersPiece.P2PAWN.getValue());
                 }
             }
             else throw new IllegalArgumentException("Can only make King Pieces into Pawns.");
@@ -256,11 +256,11 @@ public class CheckersBoard extends AbstractBoard
             {
                 if (CheckersPiece.isPawn(getPiece(tileCoord)))
                 {
-                    setPiece(tileCoord, CheckersPiece.P1PAWN.ordinal());
+                    setPiece(tileCoord, CheckersPiece.P1PAWN.getValue());
                 }
                 else
                 {
-                    setPiece(tileCoord, CheckersPiece.P1KING.ordinal());
+                    setPiece(tileCoord, CheckersPiece.P1KING.getValue());
                 }
             }
             else throw new IllegalArgumentException("Can only make Player 2 Pieces into Player 1 Pieces.");
@@ -285,11 +285,11 @@ public class CheckersBoard extends AbstractBoard
             {
                 if (CheckersPiece.isPawn(getPiece(tileCoord)))
                 {
-                    setPiece(tileCoord, CheckersPiece.P2PAWN.ordinal());
+                    setPiece(tileCoord, CheckersPiece.P2PAWN.getValue());
                 }
                 else
                 {
-                    setPiece(tileCoord, CheckersPiece.P2KING.ordinal());
+                    setPiece(tileCoord, CheckersPiece.P2KING.getValue());
                 }
             }
             else throw new IllegalArgumentException("Can only make Player 2 Pieces into Player 1 Pieces.");

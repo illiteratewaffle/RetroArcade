@@ -1,39 +1,64 @@
 package GameLogic_Client.Checkers;
 
 public enum CheckersPiece {
-    NONE,
-    P1PAWN,
-    P1KING,
-    P2PAWN,
-    P2KING;
+    NONE(0),
+    P1PAWN(1),
+    P1KING(2),
+    P2PAWN(3),
+    P2KING(4);
+
+
+    // The internal value of this enum.
+    private final int value;
 
 
     /**
-     * @param pieceID
-     * @return True if the pieceID is equal to this enum's ordinal; False otherwise.
+     * Generate a CheckersPiece enum with the given value.
+     * @param value The value for the generated enum. No 2 enums should have the same value.
+     */
+    private CheckersPiece(int value)
+    {
+        this.value = value;
+    }
+
+
+    /**
+     * @return The integer value of this enum.
+     */
+    public int getValue()
+    {
+        return value;
+    }
+
+
+
+
+    /**
+     * @param pieceID The integer ID of a piece.
+     * @return True if the pieceID is equal to this enum's value; False otherwise.
      */
     public boolean equals(int pieceID)
     {
-        return pieceID == this.ordinal();
+        return pieceID == value;
     }
 
     /**
-     * @param pieceID
-     * @return The CheckersPiece enum value with the same ordinal as the specified PieceID.<br>
+     * @param pieceID The integer ID of a piece.
+     * @return The CheckersPiece enum with the same value as the specified PieceID.<br>
      * If no such pieces exist, null is returned instead.
      */
     public static CheckersPiece getCheckersPiece(int pieceID)
     {
         for (CheckersPiece piece : CheckersPiece.values())
         {
-            if (piece.ordinal() == pieceID) return piece;
+            if (piece.equals(pieceID)) return piece;
         }
         return null;
     }
 
 
     /**
-     * @param pieceID
+     * @param pieceID The integer ID of a piece.
      * @return True if the PieceID is that of a Checkers Piece; False otherwise.
      */
     public static boolean isPiece(int pieceID)
@@ -44,7 +69,7 @@ public enum CheckersPiece {
     }
 
     /**
-     * @param pieceID
+     * @param pieceID The integer ID of a piece.
      * @return True if the PieceID is that of a Player 1 Checkers Piece; False otherwise.
      */
     public static boolean isP1(int pieceID)
@@ -53,7 +78,7 @@ public enum CheckersPiece {
     }
 
     /**
-     * @param pieceID
+     * @param pieceID The integer ID of a piece.
      * @return True if the PieceID is that of a Player 2 Checkers Piece; False otherwise.
      */
     public static boolean isP2(int pieceID)
@@ -62,7 +87,7 @@ public enum CheckersPiece {
     }
 
     /**
-     * @param pieceID
+     * @param pieceID The integer ID of a piece.
      * @return True if the PieceID is that of a King Piece; False otherwise.
      */
     public static boolean isKing(int pieceID)
@@ -71,7 +96,7 @@ public enum CheckersPiece {
     }
 
     /**
-     * @param pieceID
+     * @param pieceID The integer ID of a piece.
      * @return True if the PieceID is that of a Pawn Piece; False otherwise.
      */
     public static boolean isPawn(int pieceID)
