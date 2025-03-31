@@ -35,6 +35,7 @@ public class ConnectionManager implements Runnable {
                 Thread playerThread = Thread.ofVirtual().start(playerHandler);
 
                 //Store the players handlers thread and blocking queue on the thread registry.
+                ThreadRegistry.register(playerThread, queue);
             }
         } catch (IOException e) {
 
