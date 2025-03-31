@@ -2,11 +2,7 @@ package AuthenticationAndProfile;
 import leaderboard.PlayerRanking;
 import server.player.PlayerManager;
 
-import javax.imageio.ImageIO;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.awt.image.BufferedImage;
 import java.util.List;
 
 import static AuthenticationAndProfile.ProfileCSVReader.openSingleProfileFile;
@@ -30,7 +26,7 @@ public class ProfileDatabaseAccess {
     public static Profile obtainProfile(int id) {
         //call method to get csv for id
 //        try {
-            PlayerManager.getProfileTable(id); //method to get Profile csv with all attributes associated to the specified id
+            PlayerManager.getProfile(id); //method to get Profile csv with all attributes associated to the specified id
             String csvProfileFilePath = String.format("player_profile_%d.csv", id); //csv file saved to the main project directory
 
             ArrayList<String> profileFields = openSingleProfileFile(csvProfileFilePath);
@@ -78,7 +74,7 @@ public class ProfileDatabaseAccess {
     public static FriendsList obtainFriendsList(int id){
         //call method to get csv for id
         //try {
-            PlayerManager.getProfileTable(id); //method to get Profile csv with all attributes associated to the specified id
+            PlayerManager.getProfile(id); //method to get Profile csv with all attributes associated to the specified id
             String csvProfileFilePath = String.format("player_profile_%d.csv", id); //csv file saved to the main project directory
 
             ArrayList<String> profileFields = openSingleProfileFile(csvProfileFilePath);

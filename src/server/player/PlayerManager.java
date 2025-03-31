@@ -2,7 +2,6 @@ package server.player;
 
 import server.database.databaseConnector;
 
-import javax.xml.transform.Result;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.*;
@@ -83,7 +82,7 @@ public class PlayerManager {
         }
     }
 
-    public static void getProfileTable(int id) {
+    public static void getProfile(int id) {
         String query = "SELECT * FROM profiles WHERE id = ?";
         String fileName = "player_profile_" + id + ".csv";
 
@@ -167,7 +166,6 @@ public class PlayerManager {
             System.err.println("Error exporting profile data: " + e.getMessage());
         }
     }
-
     public static List<Integer> searchFriendsList(int id, String nameFragment) {
         // SQL query that searches friends based on friend usernames that match the submitted string parameter
         String query = """
@@ -221,9 +219,6 @@ public class PlayerManager {
     // TODO: create methods to retrieve columns of profile
 
     public static void main(String[] args) {
-        registerPlayer("Test", "tqwe3tddjsksjdhjk", "k234djsdklsdtq34");
-
-
-
+        getUsername(2);
     }
 }
