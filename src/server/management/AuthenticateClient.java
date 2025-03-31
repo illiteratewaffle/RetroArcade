@@ -24,17 +24,17 @@ public class AuthenticateClient implements Runnable {
      * This creates a thread that authenticates the player before creating a PlayerHandler thread.
      */
     public void run() {
-        // Authenticate the player before allowing them to connect
-        try {
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-            PrintWriter printWriter = new PrintWriter(clientSocket.getOutputStream(), true);
-            // Check their input
-            String auth = bufferedReader.readLine();
-            String[][] thing = Encoder.decodeJSON(auth);
-        } catch (IOException e){
-            log("Failure to initialize AuthenticateClient BufferedReader/BufferedWriter:", e.toString());
-            // TODO: close client's connection
-        }
+//        // Authenticate the player before allowing them to connect
+//        try {
+//            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+//            PrintWriter printWriter = new PrintWriter(clientSocket.getOutputStream(), true);
+//            // Check their input
+//            String auth = bufferedReader.readLine();
+//            String[][] thing = Encoder.decodeJSON(auth);
+//        } catch (IOException e){
+//            log("Failure to initialize AuthenticateClient BufferedReader/BufferedWriter:", e.toString());
+//            // TODO: close client's connection
+//        }
 
         //Create a blocking queue and player handler to handle the player connection on the server side.
         BlockingQueue<ThreadMessage> queue = new LinkedBlockingQueue<>();
