@@ -23,7 +23,6 @@ public class GameSessionManager implements Runnable{
      * Constructs the GameSessionManager with the two players and a queue
      * @param player1 First Player
      * @param player2 Second Player
-     * @param queue The shared communication between the two players 
      */
     public GameSessionManager(PlayerHandler player1, PlayerHandler player2, IBoardGameController gameController){
         this.player1 = player1;
