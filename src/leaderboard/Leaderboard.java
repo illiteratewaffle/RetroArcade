@@ -1,16 +1,18 @@
 package leaderboard;
 
 //import server_main.AuthenticationAndProfile.Profile;
+import server.player.PlayerManager;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Objects;
 
+
 public class Leaderboard {
 
-    private static final String FILEPATH = "src/leaderboard/profiles_export.csv";
-    private ArrayList<ArrayList<String>> rankings;
+    private static final String FILEPATH = "profiles_export.csv";
+    private ArrayList<ArrayList<String>> rankings; // to be deleted later
     private String sortChoice = "RATING";
 
     private static final int USERNAME_INDEX = 1;
@@ -35,8 +37,9 @@ public class Leaderboard {
     }
 
     public void updateLeaderboard(){
-        // String csvFilePath = get csv from networking()
-        // CSVFileReader.retrieveProfiles(csvFilePath);
+
+
+        PlayerManager.getProfileTable();
 
         this.rankings = CSVFileReader.retrieveProfiles(FILEPATH);
 
@@ -162,7 +165,7 @@ public class Leaderboard {
     }
 
 //    public ArrayList<ArrayList<String>> filterFriends(ArrayList<Profile> friendList){
-// b
+//
 //        return rankings;
 //    }
 
