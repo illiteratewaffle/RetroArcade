@@ -2,7 +2,6 @@ package server.player;
 
 import server.database.databaseConnector;
 
-import javax.xml.transform.Result;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.*;
@@ -83,7 +82,7 @@ public class PlayerManager {
         }
     }
 
-    public static void getProfileTable(int id) {
+    public static void getProfile(int id) {
         String query = "SELECT * FROM profiles WHERE id = ?";
         String fileName = "player_profile_" + id + ".csv";
 
