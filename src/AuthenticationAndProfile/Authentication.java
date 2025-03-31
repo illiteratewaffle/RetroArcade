@@ -26,7 +26,7 @@ public class Authentication {
      * @return true if login is successful. Throws exceptions for incorrect username or password if
      * login fails.
      */
-    public static boolean logIn(String username, String password) throws Exception {
+    public static boolean logIn(String username, String password) {
         String hashedPassword = ProfileCreation.hashedPassword(password);
         //try {
             int id = PlayerManager.authenticatePlayer(username, hashedPassword);

@@ -25,6 +25,36 @@ public class ProfileCSVReader {
     friends: index 15
     friendRequests: index 16
      */
+    /* New: With Game Rankings *********************************
+    ID: index 0
+    username: index 1
+    nickname: index 2
+    email: index 3
+    hashedPassword: index 4
+    bio: index 5
+    profilePicFilePath: index 6
+    currentGameStatus: index 7
+    isOnlineStatus: index 8
+    (TTT)
+    winLossRatio: index 9
+    rating: index 10
+    rank: index 11
+    wins: index 12
+    (Connect-4)
+     winLossRatio: index 13
+    rating: index 14
+    rank: index 15
+    wins: index 16
+    (Checkers)
+     winLossRatio: index 17
+    rating: index 18
+    rank: index 19
+    wins: index 20
+    gameHistory: index 21
+    achievementProgress: index 22
+    friends: index 23
+    friendRequests: index 24
+     */
     private static final int ID_INDEX = 0;  //id
     private static final int USER_INDEX = 1; //email
     private static final int NICK_INDEX = 2; //null

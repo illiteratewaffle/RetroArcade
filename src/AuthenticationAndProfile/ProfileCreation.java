@@ -48,7 +48,7 @@ public class ProfileCreation {
      * @param password
      * @return boolean to indicate if registration was successful
      */
-    private static boolean createNewProfile(String email, String username, String password) {
+    public static boolean createNewProfile(String email, String password, String username) {
         String hashedPassword = hashedPassword(password);
 //        try{
         int id = PlayerManager.registerPlayer(email, hashedPassword, username); //handle register player errors
@@ -101,12 +101,12 @@ public class ProfileCreation {
 //        ProfileDatabase.removeProfile(authenticationSession.getProfileLoggedIn().getUsername());
 //        authenticationSession.logOut();
 //    }
-        public static void main (String[]args){
+        //public static void main (String[]args){
 
             //int id = PlayerManager.registerPlayer("emailTest12@gmail.com", "passwordsfldkls", "username12");
             //System.out.println(ProfileDatabaseAccess.obtainProfile(id).getHashedPassword());
-ProfileCreation.createNewProfile("email@email.com", "usernameTest100", "password2");
-            System.out.println(Authentication.getProfileLoggedIn().getUsername());
+//          ProfileCreation.createNewProfile("email@email.com", "usernameTest100", "password2");
+//            System.out.println(Authentication.getProfileLoggedIn().getUsername());
 
 //            String password = "12345";
 //            System.out.println(hashedPassword((password)));
@@ -114,4 +114,4 @@ ProfileCreation.createNewProfile("email@email.com", "usernameTest100", "password
 //            System.out.println(hashedPassword(password2));
 
         }
-    }
+

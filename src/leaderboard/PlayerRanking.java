@@ -6,6 +6,15 @@ public class PlayerRanking {
     private String rank;
     private int wins;
 
+//    private String[][] playerRankings;
+//
+//    enum Integer Games {
+//        TTT, CONNECT4, CHECKERS;
+//    }
+//    public PlayerRanking(String[][] playerRankings) {
+//        this.playerRankings = playerRankings;
+//    }
+
     public PlayerRanking(double winLossRatio, int rating, String rank, int wins) {
         this.winLossRatio = winLossRatio;
         this.rating = rating;
@@ -48,6 +57,7 @@ public class PlayerRanking {
     }
 }
 
+//Abstract version test:
 //public abstract class PlayerRanking {
 //    protected double winLossRatio;
 //    protected int rating;

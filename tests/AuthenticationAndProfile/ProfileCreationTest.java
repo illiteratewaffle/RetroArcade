@@ -10,4 +10,7 @@ class ProfileCreationTest {
     void hashedPassword() {
     }
 
+    @Test
+    void createNewProfile() {
+    }
 }
