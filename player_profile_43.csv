@@ -1,0 +1,2 @@
+id,username,nickname,email,hashed_password,bio,profile_pic_path,current_game,is_online,win_loss_ratio,rating,rank,wins,games_played,achievement_progress,friends,friend_requests,created_at
+43,emailTest11@gmail.com,null,username11,03AC674216F3E15C761EE1A5E255F067953623C8B388B4459E13F978D7C846F4,null,null,null,f,0,0,unranked,0,null,null,null,null,2025-03-30 18:29:42.531423
