@@ -13,6 +13,6 @@ module seng300.w25.project {
     requires java.desktop;
     requires annotations;
 
-    opens client_main.java.GUI_client to javafx.fxml;
-    exports client_main.java.GUI_client;
+    opens GUI_client to javafx.fxml;
+    exports GUI_client;
 }

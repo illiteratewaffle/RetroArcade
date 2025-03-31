@@ -1,7 +1,7 @@
 package GameLogic_Client.Checkers;
 
-import client_main.java.GameLogic_Client.IBoardGameController;
-import client_main.java.GameLogic_Client.Ivec2;
+import GameLogic_Client.IBoardGameController;
+import GameLogic_Client.Ivec2;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

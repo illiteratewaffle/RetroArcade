@@ -1,7 +1,7 @@
 package GameLogic_Client.Checkers;
 
-import client_main.java.GameLogic_Client.Ivec2;
-import client_main.java.GameLogic_Client.AbstractBoard;
+import GameLogic_Client.Ivec2;
+import GameLogic_Client.AbstractBoard;
 
 import java.util.HashSet;
 

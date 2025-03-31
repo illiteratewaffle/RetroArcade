@@ -1,7 +1,7 @@
 package GUI_client;
 
-import client_main.java.GameLogic_Client.Checkers.CheckersController;
-import client_main.java.GameLogic_Client.Ivec2;
+import GameLogic_Client.Checkers.CheckersController;
+import GameLogic_Client.Ivec2;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;

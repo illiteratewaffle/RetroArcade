@@ -1,6 +1,6 @@
-package client_main.java.GameLogic_Client.Connect4;
+package GameLogic_Client.Connect4;
 
-import client_main.java.GameLogic_Client.AbstractBoard;
+import GameLogic_Client.AbstractBoard;
 
 public class C4Board extends AbstractBoard {
 

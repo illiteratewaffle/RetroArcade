@@ -1,8 +1,8 @@
-package client_main.java.GameLogic_Client.TicTacToe;
+package GameLogic_Client.TicTacToe;
 
 
-import client_main.java.GameLogic_Client.AbstractBoard;
-import client_main.java.GameLogic_Client.Ivec2;
+import GameLogic_Client.AbstractBoard;
+import GameLogic_Client.Ivec2;
 
 /**
  * Represents a Tic-Tac-Toe board.
