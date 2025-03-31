@@ -5,6 +5,9 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
@@ -15,10 +18,6 @@
                 <Font name="Silom" size="26.0" />
             </font>
         </Text>
-        <Button layoutX="14.0" layoutY="17.0" mnemonicParsing="false" text="Instructions">
-         <font>
-            <Font name="Silom" size="10.0" />
-         </font></Button>
         <TextField layoutX="72.0" layoutY="361.0" prefHeight="26.0" prefWidth="451.0" text="message opponent">
          <font>
             <Font name="Silom" size="12.0" />
@@ -33,9 +32,33 @@
             <Image url="@../../../../../Downloads/IMG_4348.PNG" />
          </image>
       </ImageView>
-      <ImageView fitHeight="68.0" fitWidth="73.0" layoutX="523.0" layoutY="4.0">
+      <ImageView fitHeight="102.0" fitWidth="113.0" layoutX="510.0" layoutY="-23.0">
          <image>
             <Image url="@../../../../../Downloads/IMG_4343.png" />
+         </image>
+      </ImageView>
+      <GridPane layoutX="185.0" layoutY="109.0" prefHeight="176.0" prefWidth="227.0">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="125.0" minWidth="10.0" prefWidth="34.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="125.0" minWidth="0.0" prefWidth="32.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="125.0" minWidth="3.0" prefWidth="32.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="132.0" minWidth="10.0" prefWidth="33.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="144.0" minWidth="10.0" prefWidth="32.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="132.0" minWidth="10.0" prefWidth="33.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="132.0" minWidth="10.0" prefWidth="35.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="55.0" minHeight="10.0" prefHeight="29.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="104.0" minHeight="10.0" prefHeight="28.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="119.0" minHeight="10.0" prefHeight="28.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="119.0" minHeight="10.0" prefHeight="28.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="119.0" minHeight="0.0" prefHeight="28.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="119.0" minHeight="0.0" prefHeight="35.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+      </GridPane>
+      <ImageView fitHeight="56.0" fitWidth="62.0" layoutX="1.0" layoutY="6.0">
+         <image>
+            <Image url="@../connect_4_assets/info_button.png" />
          </image>
       </ImageView>
         <Button layoutX="185.0" layoutY="109.0" mnemonicParsing="false" opacity="0.0" prefHeight="176.0" prefWidth="34.0" text="Button" />
