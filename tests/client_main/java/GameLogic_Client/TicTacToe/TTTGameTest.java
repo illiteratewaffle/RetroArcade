@@ -1,5 +1,7 @@
-package GameLogic_Client.TicTacToe;
+package client_main.java.GameLogic_Client.TicTacToe;
 
+import GameLogic_Client.TicTacToe.TTTBoard;
+import GameLogic_Client.TicTacToe.TTTGame;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
