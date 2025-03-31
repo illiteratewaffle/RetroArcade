@@ -1,4 +1,4 @@
-package client_main;
+package server_main;
 
 public class test {
 }
