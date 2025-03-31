@@ -20,16 +20,16 @@ public class PlayerManager {
      * @param username Unique username of the player.
      * @return Confirmation message on success or error message on failure.
      */
-    public static int registerPlayer(String email, String hashedPassword, String username) {
+    public static int registerPlayer(String username, String email, String hashedPassword) {
 
         // Prepare SQL query for storing profile into db. PreparedStatement is used to prevent SQL injection
-        String query = "INSERT INTO profiles (email, hashed_password, username) VALUES (?, ?, ?) RETURNING id";
+        String query = "INSERT INTO profiles (username, email, hashed_Password) VALUES (?, ?, ?) RETURNING id";
 
         // Open connection to database, set profile attributes and store into SQL table.
         try (PreparedStatement statement = conn.prepareStatement(query)) {
             statement.setString(1, username);
-            statement.setString(2, hashedPassword);
-            statement.setString(3, email);
+            statement.setString(2, email);
+            statement.setString(3, hashedPassword);
 
             ResultSet rs = statement.executeQuery();
 
