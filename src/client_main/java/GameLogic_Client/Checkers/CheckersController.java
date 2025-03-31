@@ -107,7 +107,7 @@ public class CheckersController implements IBoardGameController
 
         if (shouldCheckTopLeft)
         {
-            NewMove = GetMoveInDirection(pieceLocation, new Ivec2(-1, 1), mustCapture);
+            NewMove = getMoveInDirection(pieceLocation, new Ivec2(-1, 1), mustCapture);
             // Only add a move if it is valid.
             if (NewMove != null)
             {
@@ -119,7 +119,7 @@ public class CheckersController implements IBoardGameController
         }
         if (shouldCheckTopRight)
         {
-            NewMove = GetMoveInDirection(pieceLocation, new Ivec2(1, 1), mustCapture);
+            NewMove = getMoveInDirection(pieceLocation, new Ivec2(1, 1), mustCapture);
             if (NewMove != null)
             {
                 // If this new move would result in a capture,
@@ -136,7 +136,7 @@ public class CheckersController implements IBoardGameController
         // Same as above.
         if (shouldCheckBottomLeft)
         {
-            NewMove = GetMoveInDirection(pieceLocation, new Ivec2(-1, -1), mustCapture);
+            NewMove = getMoveInDirection(pieceLocation, new Ivec2(-1, -1), mustCapture);
             if (NewMove != null)
             {
                 if (!storedMovesAreCaptures && mustCapture[0])
@@ -150,7 +150,7 @@ public class CheckersController implements IBoardGameController
         // Same as above.
         if (shouldCheckBottomRight)
         {
-            NewMove = GetMoveInDirection(pieceLocation, new Ivec2(1, -1), mustCapture);
+            NewMove = getMoveInDirection(pieceLocation, new Ivec2(1, -1), mustCapture);
             if (NewMove != null)
             {
                 if (!storedMovesAreCaptures && mustCapture[0])
@@ -182,7 +182,7 @@ public class CheckersController implements IBoardGameController
      * A valid move must end on a valid empty tile of the board, and result in a capture if specified.
      */
     @Nullable
-    private CheckersMove GetMoveInDirection(Ivec2 pieceLocation, Ivec2 direction, boolean[] MustCapture)
+    private CheckersMove getMoveInDirection(Ivec2 pieceLocation, Ivec2 direction, boolean[] MustCapture)
     {
         // Edge case for when the pieceLocation does not refer to a valid tile with a piece on it.
         if (!(board.isValidTile(pieceLocation) && board.isPiece(pieceLocation))) return null;
@@ -448,6 +448,48 @@ public class CheckersController implements IBoardGameController
     }*/
 
 
+    /**
+     * Helper method to generate a 2D integer array of hint highlights for the <code>CheckersBoard</code>.
+     * @return A 2D integer array where each cell contains the value of a highlight type
+     * for the corresponding cell in the <code>CheckersBoard</code>.
+     */
+    private int[][] getBoardHighlight()
+    {
+        // Create a blank Board to highlight using the Ivec2 coordinates that we have.
+        Ivec2 boardSize = getBoardSize();
+        CheckersHighlightBoard highlightBoard = new CheckersHighlightBoard(
+                boardSize.y, boardSize.x, new int[boardSize.x][boardSize.y]);
+
+        // Only perform highlighting if the game is still ongoing.
+        if (currentGameState == GameState.ONGOING)
+        {
+            // Highlight all the pieces that can be selected.
+            for (Ivec2 validPieces : validInputs.keySet())
+            {
+                highlightBoard.markTile(validPieces, CheckersHighlightType.PIECE);
+            }
+
+            if (currentPieceLocation != null)
+            {
+                // The CheckersMove instances contain all information on the valid moves for the selected piece.
+                // We only need to add the captures that it can make and the locations that it can move to.
+                for (CheckersMove validMove : validInputs.get(currentPieceLocation).values())
+                {
+                    if (validMove.isCapture())
+                    {
+                        highlightBoard.markTile(validMove.getCaptureCoordinate(), CheckersHighlightType.CAPTURE);
+                    }
+                    highlightBoard.markTile(validMove.getTargetCoordinate(), CheckersHighlightType.TILE);
+                }
+                // Additionally mark the location of the selected piece.
+                highlightBoard.markTile(currentPieceLocation, CheckersHighlightType.SELECTED_PIECE);
+            }
+        }
+
+        return highlightBoard.getBoard();
+    }
+
+
 // Interface implementation.
     protected boolean gameOngoingChanged = false;
     protected boolean winnersChanged = false;
@@ -555,6 +597,7 @@ public class CheckersController implements IBoardGameController
         if ((layerMask & 0b10) != 0)
         {
             // Construct a 2D int array of hints and add it to the boardCells array list.
+            boardCells.add(getBoardHighlight());
         }
         return boardCells;
     }
