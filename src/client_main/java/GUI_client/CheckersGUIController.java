@@ -1,4 +1,4 @@
-package client_main.java.GUI_client;
+package GUI_client;
 
 import client_main.java.GameLogic_Client.Checkers.CheckersController;
 import client_main.java.GameLogic_Client.Ivec2;

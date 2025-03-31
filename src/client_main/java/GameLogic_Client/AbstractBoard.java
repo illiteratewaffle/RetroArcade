@@ -1,4 +1,4 @@
-package client_main.java.GameLogic_Client;
+package GameLogic_Client;
 /**
  * AbstractBoard class to be implemented by other GameBoard classes with standard functions that all boards should be able to do.
  *
