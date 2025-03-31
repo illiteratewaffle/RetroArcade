@@ -30,10 +30,16 @@ public class Authentication {
         String hashedPassword = ProfileCreation.hashedPassword(password);
         //try {
             int id = PlayerManager.authenticatePlayer(username, hashedPassword);
-            Profile profile = ProfileDatabaseAccess.obtainProfile(id);
-            setProfileLoggedIn(profile);
-            profile.setOnlineStatus(true);
-            return true;
+            if (id != -1) {
+                Profile profile = ProfileDatabaseAccess.obtainProfile(id);
+                setProfileLoggedIn(profile);
+                profile.setOnlineStatus(true);
+                System.out.printf("Player %d is setOnline\n", id);
+                return true;
+            } else {
+                System.out.println("Unable to Log In.");
+                return false;
+            }
 //        } catch (IOException e) {
 //            System.out.println("Wrong username or password.");
 //            return false;

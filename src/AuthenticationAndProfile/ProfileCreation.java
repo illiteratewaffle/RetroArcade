@@ -56,13 +56,17 @@ public class ProfileCreation {
             System.out.println("Invalid email or username. Credentials already associated with an existing account.");
             return false;
         }else {
+            System.out.println("Profile registered correctly. Trying to Log In.");
             try {
-                Authentication.logIn(username, password);
+                boolean logIn = Authentication.logIn(username, password);
+                return logIn;
             } catch (Exception e) {
                 System.out.println("Login Unsuccessful.");
                 return false;
             }
-            return true;
+//            Profile profile = ProfileDatabaseAccess.obtainProfile(id);
+//            Authentication.setProfileLoggedIn(profile);
+//            return true;
         }
 //        }catch () {
 //            System.out.println("Invalid email or username. Credentials already associated with an existing account.");
@@ -82,9 +86,9 @@ public class ProfileCreation {
             //Convert bytes to hex Source: https://www.geeksforgeeks.org/java-program-to-convert-byte-array-to-hex-string/
             try {
                 MessageDigest digest = MessageDigest.getInstance("SHA-256");
-                byte[] encodedhash = digest.digest(unhashedPassword.getBytes(StandardCharsets.UTF_8));
-                for (int i = 0; i < encodedhash.length; i++) {
-                    hashed += String.format("%02X", encodedhash[i]);
+                byte[] encodedHash = digest.digest(unhashedPassword.getBytes(StandardCharsets.UTF_8));
+                for (int i = 0; i < encodedHash.length; i++) {
+                    hashed += String.format("%02X", encodedHash[i]);
                 }
             } catch (NoSuchAlgorithmException e) {
                 System.out.println("No such SHA-256 algorithm");
@@ -101,17 +105,16 @@ public class ProfileCreation {
 //        ProfileDatabase.removeProfile(authenticationSession.getProfileLoggedIn().getUsername());
 //        authenticationSession.logOut();
 //    }
-        //public static void main (String[]args){
-
-            //int id = PlayerManager.registerPlayer("emailTest12@gmail.com", "passwordsfldkls", "username12");
-            //System.out.println(ProfileDatabaseAccess.obtainProfile(id).getHashedPassword());
-//          ProfileCreation.createNewProfile("email@email.com", "usernameTest100", "password2");
-//            System.out.println(Authentication.getProfileLoggedIn().getUsername());
-
-//            String password = "12345";
-//            System.out.println(hashedPassword((password)));
-//            String password2 = "12345";
-//            System.out.println(hashedPassword(password2));
-
+        public static void main (String[]args) {
+            //TODO: Test with Database
+            System.out.println(ProfileCreation.createNewProfile("EmailShould be in index 3@email.com", "hashedPasswordInIndex4", "username should be in index 1"));
+            //should print true
+            System.out.println(Authentication.getProfileLoggedIn().getEmail());
+            //Email should be: "EmailShould be in index 3@email.com"
+            System.out.println(Authentication.getProfileLoggedIn().getHashedPassword());
+            System.out.printf("HashedPassword should equal %s\n", hashedPassword("hashedPasswordInIndex4"));
+            System.out.println(Authentication.getProfileLoggedIn().getUsername());
+            //Username should be : "username should be in index 1"
+        }
         }
 
