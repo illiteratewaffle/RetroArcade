@@ -26,7 +26,7 @@ public class ClientTest {
         testBufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream));
         testSocket = new Socket();
         LinkedBlockingQueue<String> queue = new LinkedBlockingQueue<>();
-        testPlayerHandler = new PlayerHandler(testSocket, queue);
+        // testPlayerHandler = new PlayerHandler(testSocket, queue);
 
         clientHandler = new ClientHandler(testSocket, testPlayerHandler);
         client = new Client(testSocket, "TestPlayerID");
