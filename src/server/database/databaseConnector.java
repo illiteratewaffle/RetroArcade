@@ -1,4 +1,5 @@
 package server.database;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.sql.*;
@@ -16,7 +17,7 @@ public class databaseConnector {
      * @param filename
      */
     public static void loadConfiguration(String filename) {
-        try (InputStream input = databaseConnector.class.getClassLoader().getResourceAsStream(filename)) {
+        try (InputStream input = new FileInputStream("/Users/cristiano/Documents/Computer Science Degree/2nd Year/SENG 300/seng300-w25-project/resources/db-config-test.properties");) {
             if (input == null) {
                 throw new FileNotFoundException("Database configuration file not found in classpath: " + filename);
             }
@@ -38,7 +39,7 @@ public class databaseConnector {
     public static Connection connect() {
         if (connection == null) {
             try {
-                databaseConnector.loadConfiguration("db-config-test.properties");
+                loadConfiguration("db-config-test.properties");
                 connection = DriverManager.getConnection(URL, USER, PASSWORD);
                 // TODO: log?
                 System.out.println("Connected to the database.");
