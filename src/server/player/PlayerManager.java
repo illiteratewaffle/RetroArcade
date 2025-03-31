@@ -220,6 +220,6 @@ public class PlayerManager {
     // TODO: create methods to retrieve columns of profile
 
     public static void main(String[] args) {
-        registerPlayer("ertgdsg", "tqwe3tdfgs", "k23452345tq34");
+        getUsername(3);
     }
 }
