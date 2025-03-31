@@ -1,6 +1,10 @@
 package AuthenticationAndProfile;
 
 import java.awt.image.BufferedImage;
+
+//import leaderboard.TTTRanking;
+//import leaderboard.CheckersRanking;
+//import leaderboard.Connect4Ranking;
 import leaderboard.PlayerRanking;
 import server.player.PlayerManager;
 
@@ -14,6 +18,9 @@ public class Profile {
     private boolean isOnline;
     private String currentGame;
     private PlayerRanking playerRanking;
+    //private TTTRanking TTTRanking;
+    //private Connect4Ranking connect4Ranking;
+    //private CheckersRanking checkersRanking;
     private FriendsList friendsList;
     private GameHistory gameHistory;
     private String profilePicFilePath;
@@ -21,6 +28,7 @@ public class Profile {
     private int id;
 
     public Profile(String email, String hashedPassword, String nickname, String bio, boolean isOnline, String currentGame, FriendsList friendsList, PlayerRanking playerRanking, GameHistory gameHistory, String profilePicFilePath, String username, int id) {
+        //public Profile(String email, String hashedPassword, String nickname, String bio, boolean isOnline, String currentGame, FriendsList friendsList, TTTRanking TTTRanking, Connect4Ranking connect4Ranking, CheckersRanking checkersRanking, GameHistory gameHistory, String profilePicFilePath, String username, int id) {
         this.email = email;
         this.hashedPassword = hashedPassword;
         this.nickname = nickname;
@@ -28,6 +36,9 @@ public class Profile {
         this.isOnline = isOnline;
         this.currentGame = currentGame;
         this.playerRanking = playerRanking;
+        //this.TTTRanking = TTTRanking;
+        //this.connect4Ranking = connect4Ranking;
+        //this.checkersRanking = checkersRanking;
         this.friendsList = friendsList;
         this.gameHistory = gameHistory;
         this.profilePicFilePath = profilePicFilePath;
@@ -203,13 +214,29 @@ public class Profile {
         this.friendsList = friendsList;
     }
 
-    public PlayerRanking getPlayerRanking() {
-        return playerRanking;
-    }
-
-    public void setPlayerRanking(PlayerRanking playerRanking) {
-        this.playerRanking = playerRanking;
-    }
+//    public TTTRanking getTTTRanking() {
+//        return TTTRanking;
+//    }
+//
+//    public Connect4Ranking getConnect4Ranking() {
+//        return connect4Ranking;
+//    }
+//
+//    public CheckersRanking getCheckersRanking() {
+//        return checkersRanking;
+//    }
+//
+//    public void setTTTRanking(TTTRanking TTTRanking) {
+//        this.TTTRanking = TTTRanking;
+//    }
+//
+//    public void setConnect4Ranking(Connect4Ranking connect4Ranking) {
+//        this.connect4Ranking = connect4Ranking;
+//    }
+//
+//    public void setCheckersRanking(CheckersRanking checkersRanking) {
+//        this.checkersRanking = checkersRanking;
+//    }
 
     public static void main(String[] args) {
         PlayerManager.getUsername(7);

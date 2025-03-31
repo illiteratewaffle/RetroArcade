@@ -18,6 +18,10 @@ public class FriendsList {
         this.friendRequests = friendRequests;
     }
 
+    public FriendsList() {
+
+    }
+
     /**
      * getFriendsList returns the list of friends associated with the profile
      * @return

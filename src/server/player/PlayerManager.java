@@ -28,9 +28,9 @@ public class PlayerManager {
 
         // Open connection to database, set profile attributes and store into SQL table.
         try (PreparedStatement statement = conn.prepareStatement(query)) {
-            statement.setString(1, username);
-            statement.setString(2, hashedPassword);
-            statement.setString(3, email);
+            statement.setString(2, username);
+            statement.setString(3, hashedPassword);
+            statement.setString(1, email);
 
             ResultSet rs = statement.executeQuery();
 

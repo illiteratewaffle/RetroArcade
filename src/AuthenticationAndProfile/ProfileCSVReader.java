@@ -73,7 +73,7 @@ public class ProfileCSVReader {
                 } else if (j == line.length()-1) {
                     section = section + c;
                     fields.add(section);
-                }else{
+                }else if (c != '"'){
                     section = section + c;
                 }
             }
@@ -134,7 +134,7 @@ public class ProfileCSVReader {
                     } else if (j == line.length()-1) {
                         section = section + c;
                         fieldsList.add(section);
-                    }else{
+                    }else if ( c != '"'){
                         section = section + c;
                     }
                 }
