@@ -2,3 +2,6 @@
 seng300-w25-project.iml
 .gitignore
 out/
+*.iml
+*.xml
+target/

@@ -16,7 +16,7 @@ public class ProfileDatabaseAccess {
     /**
      * obtainProfile(long id) is called to recreate a Profile object for a profile from its information saved to the Database.
      * The method calls a PlayerManager method to send a csv file for the specified id. If an error results from the id not existing
-     * in the database, an error is handled. The csv files fromthe FriendsList, GameHistory,
+     * in the database, an error is handled. The csv files from the FriendsList, GameHistory,
      * and PlayerRanking database csv's are also read and the information put into constructors. These objects, as well as the other
      * parameters read from the profile csv are input as parameters and a Player object is constructed and returned.
      * @pre There are profiles registered to the Profile Database.

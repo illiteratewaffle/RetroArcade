@@ -16,7 +16,7 @@ class ProfileCSVReaderTest {
                 "Competitive and loves strategy games.","profilePic.png","null","f","4.2","640","gold","157","Connect-4," +
                         " Checkers","{0.60, WinConnect4WithPerfectMoves}","1, 7","4","2025-03-27 05:22:20.752369"));
 
-        assertEquals(expectedOutput, ProfileCSVReader.openSingleProfileFile("test_resources/profile_2_exportTest.csv"));
+        assertEquals(expectedOutput, ProfileCSVReader.openSingleProfileFile("test_resources/player_profile_2Test.csv"));
     }
 
     @Test
