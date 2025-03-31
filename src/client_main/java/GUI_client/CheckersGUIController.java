@@ -73,18 +73,30 @@ public class CheckersGUIController implements Initializable {
                     tile.setStyle("-fx-border-color: transparent;");
                 });
 
-                // Add the StackPane to the GridPane
-                if (i == 0 && j == 0) {
-                    tilePiece[i][j].setImage(blueChecker);
-                }
-
-                tile.getChildren().add(tilePiece[i][j]); // Add image to tile
-                checkerBoard.add(tile, j, i);
-            //    tileBorderGrid[0][0].getChildren().add(tilePiece[0][0]);
+                tileBorderGrid[i][j].getChildren().add(tilePiece[i][j]);
+                checkerBoard.add(tileBorderGrid[i][j], j, i);
             }
         }
 
+        setupInitialPieces();
+    }
 
+    /**
+    Sets up the initial pieces for game board
+     */
+
+    private void setupInitialPieces() {
+        for (int i = 0; i < BOARD_SIZE; i++) {
+            for (int j = 0; j < BOARD_SIZE; j++) {
+                if ((i + j) % 2 != 0) {
+                    if (i < 3) {
+                        tilePiece[i][j].setImage(orangeChecker);
+                    } else if (i > 4) {
+                        tilePiece[i][j].setImage(blueChecker);
+                    }
+                }
+            }
+        }
     }
 
     @FXML
