@@ -1,9 +1,9 @@
-package client_main.java.GameLogic_Client.Connect4;
+package GameLogic_Client.Connect4;
 
-import client_main.java.GameLogic_Client.AbstractBoard;
-import client_main.java.GameLogic_Client.ivec2;
+import GameLogic_Client.AbstractBoard;
+import GameLogic_Client.ivec2;
 
-public class C4Board extends AbstractBoard{
+public class C4Board extends AbstractBoard {
 
     /**
      * Creates a blank board as an initial setup of the board for users

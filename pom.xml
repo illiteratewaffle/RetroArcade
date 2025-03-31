@@ -114,7 +114,7 @@
                 <version>0.0.8</version>
                 <configuration>
                     <!-- Update this to your real main class -->
-                    <mainClass>client_main.java.GUI_client.TTTApplication</mainClass>
+                    <mainClass>GUI_client.TTTApplication</mainClass>
                 </configuration>
             </plugin>
         </plugins>

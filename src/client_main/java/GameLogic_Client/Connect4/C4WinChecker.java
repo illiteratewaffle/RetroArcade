@@ -1,4 +1,4 @@
-package client_main.java.GameLogic_Client.Connect4;
+package GameLogic_Client.Connect4;
 
 public class C4WinChecker {
     private C4WinChecker() {

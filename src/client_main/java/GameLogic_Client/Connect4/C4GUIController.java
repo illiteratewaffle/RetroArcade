@@ -1,6 +1,6 @@
-package client_main.java.GameLogic_Client.Connect4;
+package GameLogic_Client.Connect4;
 
-import client_main.java.GameLogic_Client.ivec2;
+import GameLogic_Client.ivec2;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import java.net.URL;
