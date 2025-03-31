@@ -43,28 +43,19 @@ public class CheckersGUIController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         gameLogic = new CheckersController();
-
-        //per component, have a 2d Array
-
-//        for(Node node : checkerBoard.getChildren()) {
-//            Integer col = GridPane.getColumnIndex(node);
-//            Integer row = GridPane.getRowIndex(node);
-//            tileBorderGrid[row][col] = null;
-//            tilePiece[row][col] = null;
-//
-//            //for every node you want to initilize component
-//            node.setOnMouseEntered(event -> hoverevent());
-//            //store the component
-//
-//
-//
-//        }
+        blueChecker = new Image("checkers_blue_piece.png");
+        orangeChecker = new Image("checkers_orange_piece.png");
+        blueKingChecker = new Image("checkers_blue_king_piece.png");
+        orangeKingChecker = new Image("checkers_orange_king_piece.png");
 
         for (int i = 0; i < BOARD_SIZE; i++) {
             for (int j = 0; j < BOARD_SIZE; j++) {
                 // Create the tile (StackPane)
                 tileBorderGrid[i][j] = new StackPane();
                 tilePiece[i][j] = new ImageView();
+                tilePiece[i][j].setFitWidth(30);
+                tilePiece[i][j].setFitHeight(30);
+                tilePiece[i][j].setPreserveRatio(true);
 
                 StackPane tile = tileBorderGrid[i][j]; // Store reference
 
@@ -83,21 +74,22 @@ public class CheckersGUIController implements Initializable {
                 });
 
                 // Add the StackPane to the GridPane
+                if (i == 0 && j == 0) {
+                    tilePiece[i][j].setImage(blueChecker);
+                }
+
+                tile.getChildren().add(tilePiece[i][j]); // Add image to tile
                 checkerBoard.add(tile, j, i);
+            //    tileBorderGrid[0][0].getChildren().add(tilePiece[0][0]);
             }
         }
-
-        blueChecker = new Image("checkers_blue_piece.png");
-        orangeChecker = new Image("checkers_orange_piece.png");
-        blueKingChecker = new Image("checkers_blue_king_piece.png");
-        orangeKingChecker = new Image("checkers_orange_king_piece.png");
 
 
     }
 
     @FXML
-    private void handleMouseEntered(MouseEvent event) {
-        System.out.println("Hovered over tile: " + tile.getId());
+    private void handleMouseEntered(javafx.scene.input.MouseEvent event) {
+        System.out.println("Hovered over tile: " + event.getTarget());
     }
     //will need a methods for handling input, updating board, and checking if a winner has been declared from game logic
 
