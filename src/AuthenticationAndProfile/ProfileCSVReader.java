@@ -25,17 +25,17 @@ public class ProfileCSVReader {
     friends: index 15
     friendRequests: index 16
      */
-    private static final int ID_INDEX = 0;
-    private static final int USER_INDEX = 1;
-    private static final int NICK_INDEX = 2;
-    private static final int EMAIL_INDEX = 3;
-    private static final int PWD_INDEX = 4;
-    public static final int BIO_INDEX = 5;
-    public static final int PIC_INDEX = 6;
-    public static final int CGAME_INDEX = 7;
-    public static final int ONLINE_INDEX = 8;
-    private static final int WLR_INDEX = 9;
-    private static final int RATING_INDEX = 10;
+    private static final int ID_INDEX = 0;  //id
+    private static final int USER_INDEX = 1; //email
+    private static final int NICK_INDEX = 2; //null
+    private static final int EMAIL_INDEX = 3; //password
+    private static final int PWD_INDEX = 4;//username
+    public static final int BIO_INDEX = 5;//null
+    public static final int PIC_INDEX = 6;//null
+    public static final int CGAME_INDEX = 7;//null
+    public static final int ONLINE_INDEX = 8; //f is online
+    private static final int WLR_INDEX = 9;//0
+    private static final int RATING_INDEX = 10;//0
     private static final int RANK_INDEX = 11;
     private static final int WINS_INDEX = 12;
     public static final int GHIST_INDEX = 13;

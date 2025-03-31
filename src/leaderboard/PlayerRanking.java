@@ -1,5 +1,5 @@
 package leaderboard;
-
+//ignore
 public class PlayerRanking {
     private double winLossRatio;
     private int rating;

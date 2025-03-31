@@ -48,16 +48,22 @@ public class ProfileCreation {
      * @param password
      * @return boolean to indicate if registration was successful
      */
-    private static Profile createNewProfile(String email, String username, String password) {
+    private static boolean createNewProfile(String email, String username, String password) {
         String hashedPassword = hashedPassword(password);
 //        try{
-        int id = PlayerManager.registerPlayer(email, username, hashedPassword); //handle register player errors
+        int id = PlayerManager.registerPlayer(email, hashedPassword, username); //handle register player errors
         if (id == -1) {
             System.out.println("Invalid email or username. Credentials already associated with an existing account.");
-            return null;
+            return false;
+        }else {
+            try {
+                Authentication.logIn(username, password);
+            } catch (Exception e) {
+                System.out.println("Login Unsuccessful.");
+                return false;
+            }
+            return true;
         }
-        Profile profile = ProfileDatabaseAccess.obtainProfile(id);
-        return profile;
 //        }catch () {
 //            System.out.println("Invalid email or username. Credentials already associated with an existing account.");
 //            return null;
@@ -96,8 +102,16 @@ public class ProfileCreation {
 //        authenticationSession.logOut();
 //    }
         public static void main (String[]args){
-            ProfileCreation.createNewProfile("emailTest@gmail.com", "userTest", "12345678");
+
+            //int id = PlayerManager.registerPlayer("emailTest12@gmail.com", "passwordsfldkls", "username12");
+            //System.out.println(ProfileDatabaseAccess.obtainProfile(id).getHashedPassword());
+ProfileCreation.createNewProfile("email@email.com", "usernameTest100", "password2");
             System.out.println(Authentication.getProfileLoggedIn().getUsername());
+
+//            String password = "12345";
+//            System.out.println(hashedPassword((password)));
+//            String password2 = "12345";
+//            System.out.println(hashedPassword(password2));
 
         }
     }

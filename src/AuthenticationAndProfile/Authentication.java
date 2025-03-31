@@ -26,7 +26,7 @@ public class Authentication {
      * @return true if login is successful. Throws exceptions for incorrect username or password if
      * login fails.
      */
-    public boolean logIn(String username, String password) throws Exception {
+    public static boolean logIn(String username, String password) throws Exception {
         String hashedPassword = ProfileCreation.hashedPassword(password);
         //try {
             int id = PlayerManager.authenticatePlayer(username, hashedPassword);
@@ -60,7 +60,7 @@ public class Authentication {
      * Sets the Profile currently logged into on the program.
      * @param profile Profile
      */
-    public void setProfileLoggedIn(Profile profile){
+    public static void setProfileLoggedIn(Profile profile){
         profileLoggedIn = profile;
     }
 }
