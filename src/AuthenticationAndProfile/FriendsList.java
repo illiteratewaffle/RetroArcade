@@ -35,14 +35,50 @@ public class FriendsList {
     }
 
     /**
+     * idFromUsername finds the id associated with a profile using the username
+     * @param username
+     * @return the id associated withe the username
+     */
+    public long idFromUsername(String username){
+        ArrayList<String[]> profiles = ProfileCSVReader.openProfilesFile("profiles_export.csv");
+        for(String[] profile : profiles){
+            if (profile.length > Profile.CSVReader.USER_INDEX){
+                String foundUsername = profile[ProfileCSVReader.USER_INDEX]; // ensures enough elements in array
+                if (foundUsername.equals(username)){ // if the username matches the username of a current profile
+                    return Long.parseLong(ProfileCSVReader.ID_INDEX]); // returns ID associated with given username
+                }
+            }
+        }
+        return -1; // if username is not found in the database
+    }
+
+    public void updateCSV() {
+        ArrayList<String[]> profiles = ProfileCSVReader.openProfilesFile("profiles_export.csv");
+
+        for (String[] profile : profiles) {
+            if (profile.length > ProfileCSVReader.ID_Index) {
+                long profileId = Long.parseLong(profile[ProfileCSVReader.ID_INDEX]); // ensures enough elements in array
+                if (profileId == id) {
+                    profile[ProfileCSVReader.FRIENDS_INDEX] = friends.toString().replace("[", "").replace("]", ""); // csv file contains comma seperated list of ids (DOUBLE CHECK)
+                    profile[ProfileCSVReader.FREQUEST_INDEX] = friendRequests.toString().replace("[", "").replace("]", "");
+                    break; // stops loop when the required profile has been updated
+                }
+            }
+        }
+        ProfileCSVReader.writeProfilesFile("profiles_export.csv", profiles);
+    }
+
+
+    /**
      * addFriends adds a profile to a users friend list based on their username
      * @param username
      */
     public void addFriend(String username){
         long id = idFromUsername(username);
-        if (!friends.contains(id)){
+        if (id != -1 && !friends.contains(id)){
             friends.add(id);
-            // update the csv
+
+            updateCSV();
         }
     }
 
@@ -53,7 +89,8 @@ public class FriendsList {
     public void removeFriend(String username){
         long id = idFromUsername(username);
         friends.remove(id);
-        //update the csv
+
+        updateCSV();
     }
 
     /**
@@ -64,31 +101,42 @@ public class FriendsList {
         long id = idFromUsername(username);
         if (friendRequests.contains(id)){
             friendRequests.remove(id);
-            addFriend(id);
-            //update the csv
+            addFriend(username);
+
+            updateCSV();
         }
 
     }
 
-    public void sendFriendRequest(String username){
-        if (!friendRequests.contains(username) && !friends.contains(username)){
-            friendRequests.add(username);
-            // update the csv
-        }
-    }
+    /**
+     *
+     * @param username
+     */
+    public void sendFriendRequest(String username){ // username is of the profile to send the request to
+        long recievingId = idFromUsername(username);
+        String sendingUsername = Profile.getUsername();
+        long sendingId = idFromUsername(sendingUsername);
 
-    public Integer idFromUsername(String username){
-        ArrayList<String[]> profiles = ProfileCSVReader.openProfilesFile("profiles_expoert.csv");
+        ArrayList<String[]> profiles = ProfileCSVReader.openProfilesFile("profiles_export.csv");
         for(String[] profile : profiles){
-            if (profile.length > Profile.CSVReader.USER_INDEX){
-                String foundUsername = profile[ProfileCSVReader.USER_INDEX]; // ensures enough elements in array
-                if (foundUsername.equals(username)){
-                    return Integer.parseInt(profileCSVReader.ID_INDEX]); // returns ID associated with given username
+            if (profile.length > ProfileCSVReader.ID_INDEX){
+                long id = Long.parseLong(profile[ProfileCSVReader.ID_INDEX]);
+                if(id == recievingId){
+                    String friendRequests = profile[ProfileCSVReader.FREQUEST_INDEX]; // get existing friend request string
+                    if (!friendRequests.contains(String.valueOf(sendingId))){
+                        if(!friendRequests.isEmpty()){
+                            friendRequests += ",";
+                        }
+                        friendRequests += sendingId;
+                        profile[ProfileCSVReader.FREQUEST_INDEX] = friendRequests;
+                    }
+                    break; // stop loop when friends list has been updated
                 }
             }
         }
-        return null; // if username is not found in the database
+        ProfileCSVReader.writeProfilesFile("profiles_export.csv", profiles);
     }
+
 
     public void setFriends(List<Long> friends) {
         this.friends = friends;
