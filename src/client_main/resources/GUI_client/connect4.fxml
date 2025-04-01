@@ -62,14 +62,14 @@
             <Image url="@../connect_4_assets/chat_bubble2.PNG" />
          </image>
       </ImageView>
-      <Button layoutX="225.0" layoutY="70.0" mnemonicParsing="false" opacity="0.0" prefHeight="161.0" prefWidth="27.0" text="Button" />
+      <Button fx:id="col1Button" layoutX="225.0" layoutY="70.0" mnemonicParsing="false" onAction="#onCol1Click" opacity="0.0" prefHeight="161.0" prefWidth="27.0" text="Button" />
       <Button layoutX="279.0" layoutY="84.0" mnemonicParsing="false" opacity="0.0" prefHeight="176.0" prefWidth="34.0" text="Button" />
-      <Button layoutX="253.0" layoutY="67.0" mnemonicParsing="false" opacity="0.0" prefHeight="161.0" prefWidth="27.0" text="Button" />
-      <Button layoutX="284.0" layoutY="76.0" mnemonicParsing="false" opacity="0.0" prefHeight="148.0" prefWidth="27.0" text="Button" />
-      <Button layoutX="313.0" layoutY="76.0" mnemonicParsing="false" opacity="0.0" prefHeight="148.0" prefWidth="28.0" text="Button" />
-      <Button layoutX="191.0" layoutY="67.0" mnemonicParsing="false" opacity="0.0" prefHeight="167.0" prefWidth="34.0" text="Button" />
-      <Button layoutX="343.0" layoutY="75.0" mnemonicParsing="false" opacity="0.0" prefHeight="148.0" prefWidth="27.0" text="Button" />
-      <Button layoutX="375.0" layoutY="75.0" mnemonicParsing="false" opacity="0.0" prefHeight="148.0" prefWidth="28.0" text="Button" />
+      <Button fx:id="col2Button" layoutX="253.0" layoutY="67.0" mnemonicParsing="false" onAction="#onCol2Click" opacity="0.0" prefHeight="161.0" prefWidth="27.0" text="Button" />
+      <Button fx:id="col3Button" layoutX="284.0" layoutY="76.0" mnemonicParsing="false" onAction="#onCol3Click" opacity="0.0" prefHeight="148.0" prefWidth="27.0" text="Button" />
+      <Button fx:id="col4Button" layoutX="313.0" layoutY="76.0" mnemonicParsing="false" onAction="#onCol4Click" opacity="0.0" prefHeight="148.0" prefWidth="28.0" text="Button" />
+      <Button fx:id="col0Button" layoutX="191.0" layoutY="67.0" mnemonicParsing="false" onAction="#onCol0Click" opacity="0.0" prefHeight="167.0" prefWidth="34.0" text="Button" />
+      <Button fx:id="col5Button" layoutX="343.0" layoutY="75.0" mnemonicParsing="false" onAction="#onCol5Click" opacity="0.0" prefHeight="148.0" prefWidth="27.0" text="Button" />
+      <Button fx:id="col6Button" layoutX="375.0" layoutY="75.0" mnemonicParsing="false" onAction="#onCol6Click" opacity="0.0" prefHeight="148.0" prefWidth="28.0" text="Button" />
         <TextField layoutX="67.0" layoutY="296.0" prefHeight="48.0" prefWidth="459.0" style="-fx-background-color: transoarent;" text="message opponent">
          <font>
             <Font name="Silom" size="12.0" />
