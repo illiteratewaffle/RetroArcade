@@ -2,6 +2,7 @@ package GameLogic_Client.Checkers;
 
 import GameLogic_Client.IBoardGameController;
 import GameLogic_Client.Ivec2;
+import net.synedra.validatorfx.Check;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -251,16 +252,80 @@ public class CheckersController implements IBoardGameController
     }
 
 
-// Internal State Methods. Used internally by the CheckersController to manage its state.
+// Default variables for starting a game.
+    final static int defaultWidth = 8;
+    final static int defaultHeight = 8;
+
+    final static Ivec2[] defaultInitLocationsP1 = new Ivec2[]
+        {
+                new Ivec2(1, 0), new Ivec2(3, 0), new Ivec2(5, 0), new Ivec2(7, 0),
+                new Ivec2(0, 1), new Ivec2(2, 1), new Ivec2(4, 1), new Ivec2(6, 1),
+                new Ivec2(1, 2), new Ivec2(3, 2), new Ivec2(5, 2), new Ivec2(7, 2)
+        };
+
+    final static Ivec2[] defaultInitLocationsP2 = new Ivec2[]
+        {
+                new Ivec2(0, 7), new Ivec2(2, 7), new Ivec2(4, 7), new Ivec2(6, 7),
+                new Ivec2(1, 6), new Ivec2(3, 6), new Ivec2(5, 6), new Ivec2(7, 6),
+                new Ivec2(0, 5), new Ivec2(2, 5), new Ivec2(4, 5), new Ivec2(6, 5)
+        };
+
+
     /**
-     * Signal the official beginning of a turn.
-     * DOES NOT ADJUST FLAGS NOR CALCULATE THE VALID MOVES (for reasons shown in EndTurn()).
+     * Create a controller that simulates the logic of a default 8x8 game of checkers.
      */
-    private void StartTurn()
+    public CheckersController()
     {
+        board = new CheckersBoard(defaultHeight, defaultWidth, new int[defaultWidth][defaultHeight]);
+        for (Ivec2 pieceLocation : defaultInitLocationsP1)
+        {
+            board.setPiece(pieceLocation, CheckersPiece.P1PAWN.getValue());
+        }
+        for (Ivec2 pieceLocation : defaultInitLocationsP2)
+        {
+            board.setPiece(pieceLocation, CheckersPiece.P2PAWN.getValue());
+        }
+        validInputs = new HashMap<Ivec2, HashMap<Ivec2, CheckersMove>>();
+        updateValidInputs();
     }
 
+    /**
+     * prints out how the board looks at any point (continously????)
+     * commented this out bc there was an error -ava
+     * <br><br>
+     * Reworked into a test method for showing the board
+     * until I figure out how to get the GUI working on my local device. - Leo
+     */
+   public void printBoard()
+   {
+       for (int y = defaultHeight - 1; y >= 0; y--)
+       {
+           int x = 0;
+           String Cell;
+           for (; x < defaultWidth - 1; x++)
+           {
+               Cell = "[ " + String.valueOf(board.getPiece(new Ivec2(x, y))) + " ]";
+               System.out.print(Cell);
+           }
+           Cell = "[ " + String.valueOf(board.getPiece(new Ivec2(x, y))) + " ]\n";
+           System.out.print(Cell);
+       }
+   }
 
+
+   public static void main(String[] args)
+   {
+       CheckersController test = new CheckersController();
+       test.receiveInput(new Ivec2(1, 2));
+       test.receiveInput(new Ivec2(1, 3));
+       test.receiveInput(new Ivec2(1, 2));
+       test.receiveInput(new Ivec2(2, 3));
+       test.printBoard();
+   }
+
+
+
+// Internal State Methods. Used internally by the CheckersController to manage its state.
     /**
      * Update the map of ValidInputs that can be made by the current player.<br>
      * This takes into account the player in charge of the turn, and whether they have moved this turn.
@@ -437,15 +502,6 @@ public class CheckersController implements IBoardGameController
         // We have swapped to the other player's turn.
         currentPlayerChanged = true;
     }
-
-
-    /**
-     * prints out how the board looks at any point (continously????)
-     * commented this out bc there was an error -ava
-     */
-   /* void printBoard(){
-        System.out.println(CheckersBoard);
-    }*/
 
 
     /**
