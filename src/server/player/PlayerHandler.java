@@ -46,6 +46,21 @@ public class PlayerHandler implements Runnable {
     }
 
     /**
+     * Method to set the gameSessionManagerThread of this player handler.
+     * @param gameSessionManagerThread The thread to set gameSessionManagerThread to.
+     */
+    public void setGameSessionManagerThread(Thread gameSessionManagerThread) {
+        this.gameSessionManagerThread = gameSessionManagerThread;
+    }
+
+    /**
+     * Method to return the gameSessionManagerThread to null.
+     */
+    public void removeGameSessionManagerThread() {
+        this.gameSessionManagerThread = null;
+    }
+
+    /**
      * The function that the thread runs, listens to the blocking queue to send information to the client
      */
     public void run() {
