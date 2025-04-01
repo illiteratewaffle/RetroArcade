@@ -36,17 +36,17 @@ public class CheckersGUIController implements Initializable {
     private ImageView[][] tilePiece = new ImageView[BOARD_SIZE][BOARD_SIZE];
 
     private Image blueChecker;
-    private Image orangeChecker;
+    private Image pinkChecker;
     private Image blueKingChecker;
-    private Image orangeKingChecker;
+    private Image pinkKingChecker;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         gameLogic = new CheckersController();
         blueChecker = new Image("checkers_blue_piece.png");
-        orangeChecker = new Image("checkers_orange_piece.png");
+        pinkChecker = new Image("checkers_blue_piece.png");
         blueKingChecker = new Image("checkers_blue_king_piece.png");
-        orangeKingChecker = new Image("checkers_orange_king_piece.png");
+        pinkKingChecker = new Image("checkers_pink_king_piece.png");
 
         for (int i = 0; i < BOARD_SIZE; i++) {
             for (int j = 0; j < BOARD_SIZE; j++) {
@@ -59,15 +59,8 @@ public class CheckersGUIController implements Initializable {
 
                 StackPane tile = tileBorderGrid[i][j]; // Store reference
 
-                // Store indices for use in the lambda
-                int I = i;
-                int J = j;
-
-                // Add hover effect directly to the StackPane:
                 tile.setOnMouseEntered(event -> {
-                    System.out.println("Hovering over square: " + I + ", " + J);
-                    // Optionally update the style as well
-                    tile.setStyle("-fx-border-color: blue;");
+                    tile.setStyle("-fx-border-color: #ffcc00; -fx-border-width: 5;");
                 });
                 tile.setOnMouseExited(event -> {
                     tile.setStyle("-fx-border-color: transparent;");
@@ -90,7 +83,7 @@ public class CheckersGUIController implements Initializable {
             for (int j = 0; j < BOARD_SIZE; j++) {
                 if ((i + j) % 2 != 0) {
                     if (i < 3) {
-                        tilePiece[i][j].setImage(orangeChecker);
+                        tilePiece[i][j].setImage(pinkChecker);
                     } else if (i > 4) {
                         tilePiece[i][j].setImage(blueChecker);
                     }
