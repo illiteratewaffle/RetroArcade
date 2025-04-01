@@ -6,6 +6,7 @@ import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import server.management.ThreadMessage;
+import server.session.GameCreator;
 
 public class ServerController {
 
@@ -18,9 +19,14 @@ public class ServerController {
     //The queue for players waiting to join a game
     Queue<PlayerHandler> gameQueue;
 
+    //The game creator that the server controller will use to create game sessions.
+    GameCreator gameCreator;
+
     public ServerController() {
         messageQueue = new LinkedBlockingQueue();
         gameQueue = new ConcurrentLinkedQueue<PlayerHandler>();
+        gameCreator = new GameCreator();
+
         ThreadRegistry.register(thread, messageQueue);
     }
 
