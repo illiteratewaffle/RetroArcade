@@ -25,4 +25,11 @@ public class GameCreator {
         return sessionThread;
     }
 
+    public void endSession(Thread sessionThread) {
+        activeSessions.remove(sessionThread);
+    }
+
+    public GameSessionManager getSession(Thread sessionThread) {
+        return activeSessions.get(sessionThread);
+    }
 }
