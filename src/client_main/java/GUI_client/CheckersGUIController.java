@@ -44,7 +44,7 @@ public class CheckersGUIController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         gameLogic = new CheckersController();
         blueChecker = new Image("checkers_blue_piece.png");
-        pinkChecker = new Image("checkers_blue_piece.png");
+        pinkChecker = new Image("checkers_pink_piece.png");
         blueKingChecker = new Image("checkers_blue_king_piece.png");
         pinkKingChecker = new Image("checkers_pink_king_piece.png");
 
