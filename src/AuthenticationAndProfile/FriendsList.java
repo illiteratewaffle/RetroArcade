@@ -1,4 +1,4 @@
-package AuthenticationAndProfile;
+package server_main.AuthenticationAndProfile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,25 +8,21 @@ import java.util.List;
  * @author Abigail Mullen
  */
 public class FriendsList {
-    private List<String> friends = new ArrayList<>();
-    private List<String> friendRequests = new ArrayList<>();
+    private List<Long> friends = new ArrayList<>(); // stores list of friends as ids
+    private List<Long> friendRequests = new ArrayList<>(); // stores list of friend requests as ids
     private long id;
     private String username;
 
-    public FriendsList(List<String> friends, List<String> friendRequests) {
+    public FriendsList(List<Long> friends, List<Long> friendRequests) {
         this.friends = friends;
         this.friendRequests = friendRequests;
-    }
-
-    public FriendsList() {
-
     }
 
     /**
      * getFriendsList returns the list of friends associated with the profile
      * @return
      */
-    public List<String> getFriendsList() {
+    public List<Long> getFriendsList() {
         return friends;
     }
 
@@ -34,7 +30,7 @@ public class FriendsList {
      * getFriendsRequests returns the list of friend requests associated with the profile
      * @return
      */
-    public List<String> getFriendRequests() {
+    public List<Long> getFriendRequests() {
         return friendRequests;
     }
 
@@ -43,8 +39,9 @@ public class FriendsList {
      * @param username
      */
     public void addFriend(String username){
-        if (!friends.contains(username)){
-            friends.add(username);
+        long id = idFromUsername(username);
+        if (!friends.contains(id)){
+            friends.add(id);
             // update the csv
         }
     }
@@ -54,7 +51,8 @@ public class FriendsList {
      * @param username
      */
     public void removeFriend(String username){
-        friends.remove(username);
+        long id = idFromUsername(username);
+        friends.remove(id);
         //update the csv
     }
 
@@ -63,22 +61,43 @@ public class FriendsList {
      * @param username
      */
     public void acceptFriendRequest(String username){
-        if (friendRequests.contains(username)){
-            friendRequests.remove(username);
-            addFriend(username);
+        long id = idFromUsername(username);
+        if (friendRequests.contains(id)){
+            friendRequests.remove(id);
+            addFriend(id);
             //update the csv
         }
 
     }
 
+    public void sendFriendRequest(String username){
+        if (!friendRequests.contains(username) && !friends.contains(username)){
+            friendRequests.add(username);
+            // update the csv
+        }
+    }
 
+    public Integer idFromUsername(String username){
+        ArrayList<String[]> profiles = ProfileCSVReader.openProfilesFile("profiles_expoert.csv");
+        for(String[] profile : profiles){
+            if (profile.length > Profile.CSVReader.USER_INDEX){
+                String foundUsername = profile[ProfileCSVReader.USER_INDEX]; // ensures enough elements in array
+                if (foundUsername.equals(username)){
+                    return Integer.parseInt(profileCSVReader.ID_INDEX]); // returns ID associated with given username
+                }
+            }
+        }
+        return null; // if username is not found in the database
+    }
 
-    public void setFriends(List<String> friends) {
+    public void setFriends(List<Long> friends) {
         this.friends = friends;
     }
 
-    public void setFriendRequests(List<String> friendRequests) {
+    public void setFriendRequests(List<Long> friendRequests) {
         this.friendRequests = friendRequests;
     }
 }
-// acceptRequest ?
+
+// String username = Profile.exportUsername(id)
+// Long id = idFromUsername(username)
