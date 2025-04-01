@@ -13,64 +13,78 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <children>
+      <GridPane layoutX="183.0" layoutY="77.0" prefHeight="148.0" prefWidth="227.0">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="125.0" minWidth="10.0" prefWidth="40.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="125.0" minWidth="0.0" prefWidth="30.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="125.0" minWidth="3.0" prefWidth="29.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="132.0" minWidth="10.0" prefWidth="31.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="144.0" minWidth="10.0" prefWidth="30.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="132.0" minWidth="10.0" prefWidth="30.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="132.0" minWidth="10.0" prefWidth="38.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="55.0" minHeight="10.0" prefHeight="22.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="104.0" minHeight="10.0" prefHeight="24.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="119.0" minHeight="10.0" prefHeight="24.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="119.0" minHeight="10.0" prefHeight="25.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="119.0" minHeight="0.0" prefHeight="27.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="119.0" minHeight="0.0" prefHeight="27.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+      </GridPane>
         <Text layoutX="179.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Connect Four" wrappingWidth="237.6044921875">
             <font>
                 <Font name="Silom" size="26.0" />
             </font>
         </Text>
-        <TextField layoutX="72.0" layoutY="361.0" prefHeight="26.0" prefWidth="451.0" text="message opponent">
+      <ImageView fitHeight="408.0" fitWidth="609.0" layoutX="-4.0" layoutY="-6.0">
+         <image>
+            <Image url="@../connect_4_assets/carpet.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="270.0" fitWidth="510.0" layoutX="45.0" layoutY="21.0">
+         <image>
+            <Image url="@../connect_4_assets/connect4_background.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="176.0" fitWidth="278.0" layoutX="161.0" layoutY="63.0">
+         <image>
+            <Image url="@../connect_4_assets/connect4_board.png" />
+         </image>
+      </ImageView>
+      <ImageView accessibleRole="BUTTON" fitHeight="48.0" fitWidth="53.0" layoutX="547.0">
+         <image>
+            <Image url="@../connect_4_assets/x_button.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="111.0" fitWidth="510.0" layoutX="41.0" layoutY="285.0">
+         <image>
+            <Image url="@../connect_4_assets/chat_bubble2.PNG" />
+         </image>
+      </ImageView>
+      <Button layoutX="225.0" layoutY="70.0" mnemonicParsing="false" opacity="0.0" prefHeight="161.0" prefWidth="27.0" text="Button" />
+      <Button layoutX="279.0" layoutY="84.0" mnemonicParsing="false" opacity="0.0" prefHeight="176.0" prefWidth="34.0" text="Button" />
+      <Button layoutX="253.0" layoutY="67.0" mnemonicParsing="false" opacity="0.0" prefHeight="161.0" prefWidth="27.0" text="Button" />
+      <Button layoutX="284.0" layoutY="76.0" mnemonicParsing="false" opacity="0.0" prefHeight="148.0" prefWidth="27.0" text="Button" />
+      <Button layoutX="313.0" layoutY="76.0" mnemonicParsing="false" opacity="0.0" prefHeight="148.0" prefWidth="28.0" text="Button" />
+      <Button layoutX="191.0" layoutY="67.0" mnemonicParsing="false" opacity="0.0" prefHeight="167.0" prefWidth="34.0" text="Button" />
+      <Button layoutX="343.0" layoutY="75.0" mnemonicParsing="false" opacity="0.0" prefHeight="148.0" prefWidth="27.0" text="Button" />
+      <Button layoutX="375.0" layoutY="75.0" mnemonicParsing="false" opacity="0.0" prefHeight="148.0" prefWidth="28.0" text="Button" />
+        <TextField layoutX="67.0" layoutY="296.0" prefHeight="48.0" prefWidth="459.0" style="-fx-background-color: transoarent;" text="message opponent">
          <font>
             <Font name="Silom" size="12.0" />
-         </font></TextField>
-      <ImageView fitHeight="450.0" fitWidth="543.0" layoutX="29.0" layoutY="-25.0">
+         </font>
+      </TextField>
+      <ImageView accessibleRole="BUTTON" fitHeight="41.0" fitWidth="67.0" layoutX="458.0" layoutY="336.0">
          <image>
-            <Image url="@../../../../../Downloads/IMG_4346.PNG" />
+            <Image url="@../connect_4_assets/send_button.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="462.0" fitWidth="531.0" layoutX="35.0" layoutY="-34.0">
-         <image>
-            <Image url="@../../../../../Downloads/IMG_4348.PNG" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="102.0" fitWidth="113.0" layoutX="510.0" layoutY="-23.0">
-         <image>
-            <Image url="@../../../../../Downloads/IMG_4343.png" />
-         </image>
-      </ImageView>
-      <GridPane layoutX="185.0" layoutY="109.0" prefHeight="176.0" prefWidth="227.0">
-        <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="125.0" minWidth="10.0" prefWidth="34.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="125.0" minWidth="0.0" prefWidth="32.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="125.0" minWidth="3.0" prefWidth="32.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="132.0" minWidth="10.0" prefWidth="33.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="144.0" minWidth="10.0" prefWidth="32.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="132.0" minWidth="10.0" prefWidth="33.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="132.0" minWidth="10.0" prefWidth="35.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints maxHeight="55.0" minHeight="10.0" prefHeight="29.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="104.0" minHeight="10.0" prefHeight="28.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="119.0" minHeight="10.0" prefHeight="28.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="119.0" minHeight="10.0" prefHeight="28.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="119.0" minHeight="0.0" prefHeight="28.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="119.0" minHeight="0.0" prefHeight="35.0" vgrow="SOMETIMES" />
-        </rowConstraints>
-      </GridPane>
-      <ImageView fitHeight="56.0" fitWidth="62.0" layoutX="1.0" layoutY="6.0">
+      <ImageView accessibleRole="BUTTON" fitHeight="48.0" fitWidth="53.0">
          <image>
             <Image url="@../connect_4_assets/info_button.png" />
          </image>
       </ImageView>
-        <Button layoutX="185.0" layoutY="109.0" mnemonicParsing="false" opacity="0.0" prefHeight="176.0" prefWidth="34.0" text="Button" />
-        <Button layoutX="477.0" layoutY="360.0" mnemonicParsing="false" text="Send">
-         <font>
-            <Font name="Silom" size="12.0" />
-         </font></Button>
-      <Button layoutX="219.0" layoutY="112.0" mnemonicParsing="false" opacity="0.0" prefHeight="176.0" prefWidth="34.0" text="Button" />
-      <Button layoutX="247.0" layoutY="109.0" mnemonicParsing="false" opacity="0.0" prefHeight="176.0" prefWidth="34.0" text="Button" />
-      <Button layoutX="281.0" layoutY="109.0" mnemonicParsing="false" opacity="0.0" prefHeight="176.0" prefWidth="34.0" text="Button" />
-      <Button layoutX="315.0" layoutY="109.0" mnemonicParsing="false" opacity="0.0" prefHeight="176.0" prefWidth="34.0" text="Button" />
-      <Button layoutX="343.0" layoutY="109.0" mnemonicParsing="false" opacity="0.0" prefHeight="176.0" prefWidth="34.0" text="Button" />
-      <Button layoutX="377.0" layoutY="109.0" mnemonicParsing="false" opacity="0.0" prefHeight="176.0" prefWidth="34.0" text="Button" />
+      <TextField layoutX="81.0" layoutY="344.0" prefHeight="25.0" prefWidth="367.0" text="u suck loser " />
     </children>
 </AnchorPane>
