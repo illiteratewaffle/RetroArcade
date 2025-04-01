@@ -38,5 +38,14 @@ public class ServerController {
         Thread.startVirtualThread(connectionManager);
     }
 
+    public void startGameFromQueue() {
+        PlayerHandler player1 = gameQueue.poll();
+        PlayerHandler player2 = gameQueue.poll();
+
+        if ((player1 != null) && (player2 != null)) {
+            gameCreator.createSession(player1, player2);
+        }
+    }
+
 }
 
