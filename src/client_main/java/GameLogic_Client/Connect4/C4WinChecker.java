@@ -43,21 +43,21 @@ public class C4WinChecker {
      * @return true if a horizontal win is detected, false otherwise.
      */
     public static boolean checkC4Horizontal(int row, int col, C4Piece piece, C4Piece[][] c4Board) {
-        int pieceCounter = 0;  // Start at 0
+        int pieceCounter = 0;
 
-        // Check left (including current position)
-        for (int i = col; i >= 0; i--) {
-            if (c4Board[row][i] != piece) break;
-            pieceCounter++;
+        // Iterate through the entire row
+        for (int j = 0; j < c4Board[0].length; j++) {
+            if (c4Board[row][j] == piece) {
+                pieceCounter++;
+                if (pieceCounter >= 4) {
+                    return true; // Found four in a row
+                }
+            } else {
+                pieceCounter = 0; // Reset counter if interrupted
+            }
         }
 
-        // Check right (excluding current position)
-        for (int j = col + 1; j < c4Board[0].length; j++) {
-            if (c4Board[row][j] != piece) break;
-            pieceCounter++;
-        }
-
-        return pieceCounter >= 4;
+        return false;
     }
 
     /**
