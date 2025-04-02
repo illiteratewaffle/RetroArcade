@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #201e42;" stylesheets="@/src/client_main/resources" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView fitHeight="400.0" fitWidth="600.0">
+         <image>
+            <Image url="@../../../../../Downloads/leaderboard_background.PNG" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="217.0" fitWidth="568.0" layoutX="14.0" layoutY="-62.0">
+         <image>
+            <Image url="@../leaderboard_assets/leaderboard.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="60.0" fitWidth="136.0" layoutX="164.0" layoutY="72.0">
+         <image>
+            <Image url="@../leaderboard_assets/simple_c4_button.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="60.0" fitWidth="115.0" layoutX="314.0" layoutY="69.0">
+         <image>
+            <Image url="@../leaderboard_assets/simple_TTT_button.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="54.0" fitWidth="116.0" layoutX="35.0" layoutY="72.0">
+         <image>
+            <Image url="@../leaderboard_assets/simple_check_button.png" />
+         </image>
+      </ImageView>
+      <TabPane layoutX="14.0" layoutY="76.0" prefHeight="309.0" prefWidth="568.0" style="-fx-background-color: transparent;" tabClosingPolicy="UNAVAILABLE" visible="false">
+         <tabs>
+            <Tab text="oooooooooooooooo">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <SplitPane layoutY="7.0" prefHeight="278.0" prefWidth="568.0" style="-fx-background-color: transparent;">
+                           <items>
+                              <TableView prefHeight="200.0" prefWidth="200.0">
+                                <columns>
+                                  <TableColumn prefWidth="75.0" text="C1" />
+                                  <TableColumn prefWidth="75.0" text="C2" />
+                                </columns>
+                              </TableView>
+                           </items>
+                        </SplitPane>
+                     </children></AnchorPane>
+               </content>
+            </Tab>
+            <Tab text="ooooooooooooooooooo">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <SplitPane prefHeight="278.0" prefWidth="568.0" style="-fx-background-color: transparent;" />
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
+            <Tab text="ooooooooooooooo">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <SplitPane prefHeight="278.0" prefWidth="568.0" style="-fx-background-color: transparent;" />
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
+         </tabs>
+         <opaqueInsets>
+            <Insets top="0.5" />
+         </opaqueInsets>
+      </TabPane>
+
+   </children>
+</AnchorPane>
