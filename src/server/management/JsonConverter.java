@@ -117,7 +117,7 @@ public class JsonConverter {
             return parseNumber(json, index);
         }
         // If none match, throw an exception
-        throw new RuntimeException("Unsupported character: " + json + ":" + String.valueOf(index.value));
+        throw new RuntimeException("Unsupported character " + c + " : " + json.substring(0, index.value) + "\t<-HERE\t" + json.substring(index.value));
     }
 
     /**
@@ -128,7 +128,7 @@ public class JsonConverter {
      */
     private static HashMap<String,Object> parseMap(String json, IntWrapper index) {
         if (json.charAt(index.value) != '{') {
-            throw new RuntimeException("Expected opening curly bracket for the HashMap: " + json + ":" + String.valueOf(index.value));
+            throw new RuntimeException("Expected opening curly bracket for the HashMap: " + json.substring(0, index.value) + "\t<-HERE\t" + json.substring(index.value));
         }
         // Skip the opening curly bracket
         index.value++;
@@ -151,7 +151,7 @@ public class JsonConverter {
             // TODO: skipWhitespace()
 
             if (index.value >= json.length() || json.charAt(index.value) != ':') {
-                throw new RuntimeException("Key missing corresponding value: " + json + ":" + String.valueOf(index.value));
+                throw new RuntimeException("Key missing corresponding value: " + json.substring(0, index.value) + "\t<-HERE\t" + json.substring(index.value));
             }
             // Move past the colon
             index.value++;
@@ -171,7 +171,7 @@ public class JsonConverter {
                 index.value++;
                 return map;
             } else {
-                throw new RuntimeException("\"Expected ',' or '}' after list item: \" + json + \":\" + String.valueOf(index.value)");
+                throw new RuntimeException("Expected ',' or '}' after hashmap item: " + json.substring(0, index.value) + "\t<-HERE\t" + json.substring(index.value));
             }
         }
         return map;
@@ -185,7 +185,7 @@ public class JsonConverter {
      */
     private static List<Object> parseList(String json, IntWrapper index) {
         if (json.charAt(index.value) != '[') {
-            throw new RuntimeException("Expected opening square bracket for the List: " + json + ":" + String.valueOf(index.value));
+            throw new RuntimeException("Expected opening square bracket for the List: " + json.substring(0, index.value) + "\t<-HERE\t" + json.substring(index.value));
         }
         // Skip the opening square bracket
         index.value++;
@@ -196,7 +196,7 @@ public class JsonConverter {
             // TODO: skipWhitespace() method that skips the whitespace?
 
             // Handle empty array
-            if (json.charAt(index.value) != ']') {
+            if (json.charAt(index.value) == ']') {
                 // Skip the closing square bracket
                 index.value++;
                 return list;
@@ -208,7 +208,7 @@ public class JsonConverter {
 
             // TODO: skipWhitespace()!
 
-            if (json.charAt(index.value) != ',') {
+            if (json.charAt(index.value) == ',') {
                 // If there is a comma, skip the comma
                 index.value++;
                 // TODO: skipWhitespace()!
@@ -218,10 +218,10 @@ public class JsonConverter {
                 return list;
             } else {
                 // If there is any other character following the object, give an error
-                throw new RuntimeException("Expected ',' or ']' after list item: " + json + ":" + String.valueOf(index.value));
+                throw new RuntimeException("Expected ',' or ']' after list item: " + json.substring(0, index.value) + "\t<-HERE\t" + json.substring(index.value));
             }
         }
-        throw new RuntimeException("Expected closing square bracket for the List: " + json + ":" + String.valueOf(index.value));
+        throw new RuntimeException("Expected closing square bracket for the List: " + json.substring(0, index.value) + "\t<-HERE\t" + json.substring(index.value));
     }
 
     /**
@@ -232,7 +232,7 @@ public class JsonConverter {
      */
     private static String parseString(String json, IntWrapper index) {
         if (json.charAt(index.value) != '"') {
-            throw new RuntimeException("Expected opening quote for the string: " + json + ":" + String.valueOf(index.value));
+            throw new RuntimeException("Expected opening quote for the string: " + json.substring(0, index.value) + "\t<-HERE\t" + json.substring(index.value));
         }
         // Skip the opening quote
         index.value++;
@@ -260,7 +260,7 @@ public class JsonConverter {
                 // Move to the next escape sequence character
                 index.value++;
                 if (index.value >= json.length()) {
-                    throw new RuntimeException("Unterminated escape sequence: " + json + ":" + String.valueOf(index.value));
+                    throw new RuntimeException("Unterminated escape sequence: " + json.substring(0, index.value) + "\t<-HERE\t" + json.substring(index.value));
                 }
                 // Get the next escape sequence character that we moved too
                 char escapeChar = json.charAt(index.value);
@@ -278,7 +278,7 @@ public class JsonConverter {
                         builder.append('\t');
                         break;
                     default:
-                        throw new RuntimeException("Unsupported escape sequence character: \\" + escapeChar);
+                        throw new RuntimeException("Unsupported escape sequence character: \\" + escapeChar + ": " + json.substring(0, index.value) + "\t<-HERE\t" + json.substring(index.value));
                 }
                 index.value++;
                 continue;
@@ -287,7 +287,7 @@ public class JsonConverter {
             builder.append(c);
             index.value++;
         }
-        throw new RuntimeException("Expected closing quote for the string: " + json + ":" + String.valueOf(index.value));
+        throw new RuntimeException("Expected closing quote for the string: " + json.substring(0, index.value) + "\t<-HERE\t" + json.substring(index.value));
     }
 
     /**
@@ -307,7 +307,7 @@ public class JsonConverter {
             index.value += 4;
             return null;
         } else {
-            throw new RuntimeException("Expected boolean or null: " + json + ":" + String.valueOf(index.value));
+            throw new RuntimeException("Expected boolean or null: " + json.substring(0, index.value) + "\t<-HERE\t" + json.substring(index.value));
         }
     }
 
@@ -325,7 +325,7 @@ public class JsonConverter {
             char c = json.charAt(index.value);
             if (c == '.') {
                 if (isFloat) {
-                    throw new RuntimeException("Number cannot contain multiple decimal points: " + json + ":" + String.valueOf(index.value));
+                    throw new RuntimeException("Number cannot contain multiple decimal points: " + json.substring(0, index.value - 1) + "\t<-HERE\t" + json.substring(index.value - 1));
                 }
                 isFloat = true;
                 index.value++;
@@ -346,7 +346,7 @@ public class JsonConverter {
                 return Integer.parseInt(number);
             }
         } catch (NumberFormatException e) {
-            throw new RuntimeException("Number format error: " + json + ":" + String.valueOf(index.value));
+            throw new RuntimeException("Number format error: " + json.substring(0, index.value) + "\t<-HERE\t" + json.substring(index.value));
         }
     }
 

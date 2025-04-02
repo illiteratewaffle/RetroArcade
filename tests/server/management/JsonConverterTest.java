@@ -37,10 +37,11 @@ class JsonConverterTest {
         ArrayList<ArrayList<String>> outerList = new ArrayList<>();
         outerList.add(innerList);
         outerList.add(innerList);
+        map.put("list", outerList);
         // Testing hashmaps
         HashMap<String, Object> innerMap = new HashMap<>();
         innerMap.put("Taylor Swift", "Our Song");
-        map.put("innerMap", innerMap);
+        map.put("hashmap", innerMap);
         String json = JsonConverter.toJson(map);
         // System.out.println(json);
         Map<String, Object> convertedJson = fromJson(json);
