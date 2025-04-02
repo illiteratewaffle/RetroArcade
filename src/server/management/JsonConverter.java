@@ -150,17 +150,70 @@ public class JsonConverter {
     }
 
     private static HashMap<String,Object> parseMap(String json, IntWrapper index) {
+        if (json.charAt(index.value) != '{') {
+            throw new RuntimeException("Expected opening curly bracket for the HashMap: " + json + ":" + String.valueOf(index.value));
+        }
+        // Skip the opening curly bracket
         index.value++;
+        // Create a new HashMap
         HashMap<String,Object> map = new HashMap<>();
         // Loop through the HashMap
+        // TODO: This has a possibility of crashing if index.value extends the size of the json string
         while (json.charAt(index.value) != '}') {
-            // parseString()
+            // First, get the key
+            String key = parseString(json, index);
+            if (json.charAt(index.value) != ':') {
+                throw new RuntimeException("Key missing corresponding value: " + json + ":" + String.valueOf(index.value));
+            }
+            // Move past the colon
+            index.value++;
+            // Get the value
+            Object value = parseObject(json, index);
+            // Add pair to the hashmap
+            map.put(key, value);
         }
-        return null;
+        return map;
     }
 
     private static List<Object> parseList(String json, IntWrapper index) {
-        return null;
+        if (json.charAt(index.value) != '[') {
+            throw new RuntimeException("Expected opening square bracket for the List: " + json + ":" + String.valueOf(index.value));
+        }
+        // Skip the opening square bracket
+        index.value++;
+        // Create a new List
+        List<Object> list = new ArrayList<>();
+        // Loop through the List
+        while (index.value < json.length()) {
+            // TODO: skipWhitespace() method that skips the whitespace?
+
+            // Handle empty array
+            if (json.charAt(index.value) != ']') {
+                // Skip the closing square bracket
+                index.value++;
+                return list;
+            }
+
+            // Get the object
+            Object item = parseObject(json, index);
+            list.add(item);
+
+            // TODO: skipWhitespace()!
+
+            if (json.charAt(index.value) != ',') {
+                // If there is a comma, skip the comma
+                index.value++;
+                // TODO: skipWhitespace()!
+            } else if (json.charAt(index.value) == ']') {
+                // If there is the closing square bracket, skip the bracket and return the list
+                index.value++;
+                return list;
+            } else {
+                // If there is any other character following the object, give an error
+                throw new RuntimeException("Expected ',' or ']' after list item: " + json + ":" + String.valueOf(index.value));
+            }
+        }
+        throw new RuntimeException("Expected closing square bracket for the List: " + json + ":" + String.valueOf(index.value));
     }
 
     private static String parseString(String json, IntWrapper index) {
@@ -247,7 +300,25 @@ public class JsonConverter {
                     throw new RuntimeException("Number cannot contain multiple decimal points: " + json + ":" + String.valueOf(index.value));
                 }
                 isFloat = true;
+                index.value++;
+            } else if (Character.isDigit(c) || c == '-' || c == '+') {
+                index.value++;
+            } else {
+                // Once it is no longer a number, break out of the while loop
+                break;
             }
+        }
+        // Now, take the substring
+        String number = json.substring(start, index.value);
+
+        try {
+            if (isFloat) {
+                return Float.parseFloat(number);
+            } else {
+                return Integer.parseInt(number);
+            }
+        } catch (NumberFormatException e) {
+            throw new RuntimeException("Number format error: " + json + ":" + String.valueOf(index.value));
         }
     }
 
