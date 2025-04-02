@@ -7,7 +7,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class leaderboardApplication extends javafx.application.Application {
+public class leaderboardApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(leaderboardApplication.class.getResource("leaderboard.fxml"));
