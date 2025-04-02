@@ -222,11 +222,33 @@ public class JsonConverter {
     }
 
     private static Boolean parseBoolean(String json, IntWrapper index) {
-        return null;
+        if (json.startsWith("true", index.value)) {
+            index.value += 4;
+            return true;
+        } else if (json.startsWith("false", index.value)) {
+            index.value += 5;
+            return false;
+        } else if (json.startsWith("null", index.value)) {
+            index.value += 4;
+            return null;
+        } else {
+            throw new RuntimeException("Expected boolean or null: " + json + ":" + String.valueOf(index.value));
+        }
     }
 
     private static Number parseNumber(String json, IntWrapper index) {
-        return null;
+        int start = index.value;
+        boolean isFloat = false;
+
+        while (index.value < json.length()) {
+            char c = json.charAt(index.value);
+            if (c == '.') {
+                if (isFloat) {
+                    throw new RuntimeException("Number cannot contain multiple decimal points: " + json + ":" + String.valueOf(index.value));
+                }
+                isFloat = true;
+            }
+        }
     }
 
     /**
