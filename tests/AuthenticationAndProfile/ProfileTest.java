@@ -38,7 +38,15 @@ class ProfileTest {
 
     @Test
     void getHashedPassword() {
-        assertEquals("hashedPassword", profile.getHashedPassword());
+
+        List<Long> friends = Arrays.asList(101L, 102L, 103L); // Example friend IDs
+        List<Long> friendRequests = Arrays.asList(201L, 202L); // Example friend request IDs
+        String password = "WhatAGoodPassword!";
+        String hashedPassword = ProfileCreation.hashedPassword(password);
+        Profile profile2 = new Profile("test@example.com", hashedPassword, "nick", "This is bio.", false, "null", new FriendsList(friends, friendRequests), new PlayerRanking(), new GameHistory(), "C:profile/pic/path.png", "username", 2);
+
+
+        assertEquals(hashedPassword, profile2.getHashedPassword());
     }
 
     @Test
