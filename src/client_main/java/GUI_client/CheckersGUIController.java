@@ -92,7 +92,8 @@ public class CheckersGUIController implements Initializable {
                 checkerBoard.add(tileBorderGrid[i][j], j, i);
             }
         }
-        setupInitialPieces();
+        refreshBoard();
+        //setupInitialPieces();
     }
 
     /**
