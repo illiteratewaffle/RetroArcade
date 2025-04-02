@@ -15,7 +15,7 @@ public class C4Controller implements IBoardGameController {
      */
     public void start() {
         System.out.println("A new game of connect four has started");
-        c4GameLogic = new GameLogic_Client.Connect4.C4GameLogic();
+        c4GameLogic = new C4GameLogic();
         printBoard();
     }
 
@@ -57,6 +57,7 @@ public class C4Controller implements IBoardGameController {
     public void RemovePlayer(int Player) throws IndexOutOfBoundsException {
 
     }
+
 
     @Override
     public int[] GetWinner() {
