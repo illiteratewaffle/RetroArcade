@@ -2,7 +2,6 @@ package GameLogic_Client.Checkers;
 
 import GameLogic_Client.IBoardGameController;
 import GameLogic_Client.Ivec2;
-import net.synedra.validatorfx.Check;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -288,7 +287,8 @@ public class CheckersController implements IBoardGameController
             board.setPiece(pieceLocation, CheckersPiece.P2PAWN.getValue());
         }
         validInputs = new HashMap<Ivec2, HashMap<Ivec2, CheckersMove>>();
-        updateValidInputs();
+        // Prepare the game controller for the next (first) turn.
+        updateNextTurnGameState();
     }
 
     /**
@@ -334,51 +334,59 @@ public class CheckersController implements IBoardGameController
      */
     private void updateValidInputs()
     {
-        // Get the current player, and add the valid moves of all of their pieces to the Valid Moves map.
+        // Invalidate the current set of valid inputs, since we will be recalculating it.
+        validInputs.clear();
 
-        // Temporarily store the set of moves that can be made by each piece.
-        HashMap<Ivec2, CheckersMove> currentPieceMoves;
 
-        // If the Player has moved this turn, lock them to only using the piece they have selected.
-        if (hasMovedThisTurn)
+        // Do not allow for further movements if the game has already ended.
+        if (currentGameState == GameState.ONGOING)
         {
-            // Successive moves after the first one in a turn must always result in a capture.
-            currentPieceMoves = getPieceMoves(currentPieceLocation, new boolean[]{true});
-            // Only add the piece if it can be moved.
-            if (!currentPieceMoves.isEmpty())
+            // Get the current player, and add the valid moves of all of their pieces to the Valid Moves map.
+
+            // Temporarily store the set of moves that can be made by each piece.
+            HashMap<Ivec2, CheckersMove> currentPieceMoves;
+
+            // If the Player has moved this turn, lock them to only using the piece they have selected.
+            if (hasMovedThisTurn)
             {
-                validInputs.put(currentPieceLocation, currentPieceMoves);
-            }
-        }
-        // Otherwise, add the moves of all the pieces of the current player.
-        else
-        {
-            // Initially, the first move in a turn does not need to result in a capture.
-            boolean[] MustCapture = new boolean[]{false};
-
-            // Keep track of whether the current set of moves would result in a capture.
-            boolean storedMovesAreCaptures = false;
-
-            // Get the set of pieces that can be moved this turn.
-            HashSet<Ivec2> PieceLocations = (turnP1 ?
-                    board.getP1PieceLocations() : board.getP2PieceLocations());
-
-            // Add all of their possible moves.
-            for (Ivec2 PieceLocation : PieceLocations)
-            {
-                currentPieceMoves = getPieceMoves(PieceLocation, MustCapture);
+                // Successive moves after the first one in a turn must always result in a capture.
+                currentPieceMoves = getPieceMoves(currentPieceLocation, new boolean[]{true});
                 // Only add the piece if it can be moved.
                 if (!currentPieceMoves.isEmpty())
                 {
-                    // If this piece is forced to capture other pieces
-                    // (that is, the current player can capture a piece in general),
-                    // all the moves that do not result in a capture must be invalidated.
-                    if (!storedMovesAreCaptures && MustCapture[0])
+                    validInputs.put(currentPieceLocation, currentPieceMoves);
+                }
+            }
+            // Otherwise, add the moves of all the pieces of the current player.
+            else
+            {
+                // Initially, the first move in a turn does not need to result in a capture.
+                boolean[] MustCapture = new boolean[]{false};
+
+                // Keep track of whether the current set of moves would result in a capture.
+                boolean storedMovesAreCaptures = false;
+
+                // Get the set of pieces that can be moved this turn.
+                HashSet<Ivec2> PieceLocations = (turnP1 ?
+                        board.getP1PieceLocations() : board.getP2PieceLocations());
+
+                // Add all of their possible moves.
+                for (Ivec2 PieceLocation : PieceLocations)
+                {
+                    currentPieceMoves = getPieceMoves(PieceLocation, MustCapture);
+                    // Only add the piece if it can be moved.
+                    if (!currentPieceMoves.isEmpty())
                     {
-                        validInputs.clear();
-                        storedMovesAreCaptures = true;
+                        // If this piece is forced to capture other pieces
+                        // (that is, the current player can capture a piece in general),
+                        // all the moves that do not result in a capture must be invalidated.
+                        if (!storedMovesAreCaptures && MustCapture[0])
+                        {
+                            validInputs.clear();
+                            storedMovesAreCaptures = true;
+                        }
+                        validInputs.put(PieceLocation, currentPieceMoves);
                     }
-                    validInputs.put(PieceLocation, currentPieceMoves);
                 }
             }
         }
@@ -454,25 +462,15 @@ public class CheckersController implements IBoardGameController
 
 
     /**
-     * Signal the end of the turn.
-     * Resets the turn-state flags.
-     * Alternates the current player between P1 and P2.
-     * Provides a win-condition check, which requires updating the ValidInputs map.
+     * Update the game state for the next turn.<br>
+     * This includes recalculating the set of valid inputs, and checking if there are any winners.<br>
+     * This method should only be called after all turn-state flags have been refreshed.
      */
-    private void endTurn()
+    private void updateNextTurnGameState()
     {
-        // Clear the turn-state flags for this turn.
-        hasMovedThisTurn = false;
-        currentPieceLocation = null;
-
-        // Alternate between the 2 players' turn.
-        turnP1 = !turnP1;
-
-        // Perform the win check here.
-        // A player wins if their opponent cannot make any other moves.
-        // Hence, the need for this to be here.
-        // As the behaviour of UpdateValidInputs is dependent on the turn-state,
-        // This method must also manage the turn-state flags.
+        // A player wins if their opponent cannot make any other moves during the latter's turn.
+        // As the behaviour of updateValidInputs is dependent on the turn-state flags,
+        // these flags must be refreshed prior to calling this method to prevent faulty behaviours.
         updateValidInputs();
         if (validInputs.isEmpty())
         {
@@ -499,10 +497,31 @@ public class CheckersController implements IBoardGameController
             // the game should be ending, with at least 1 winner determined.
             winnersChanged = true;
             gameOngoingChanged = true;
+            updateValidInputs();
         }
+    }
+
+
+    /**
+     * Signal the end of the turn.
+     * Resets the turn-state flags.
+     * Alternates the current player between P1 and P2.
+     * Provides a win-condition check, which requires updating the ValidInputs map.
+     */
+    private void endTurn()
+    {
+        // Clear the turn-state flags for this turn.
+        hasMovedThisTurn = false;
+        currentPieceLocation = null;
+
+        // Alternate between the 2 players' turn.
+        turnP1 = !turnP1;
 
         // We have swapped to the other player's turn.
         currentPlayerChanged = true;
+
+        // Update the game state for the next turn.
+        updateNextTurnGameState();
     }
 
 

@@ -132,7 +132,7 @@ public class CheckersBoard extends AbstractBoard
     public boolean isValidTile(Ivec2 tileCoord)
     {
         Ivec2 boardSize = getSize();
-        return tileCoord.x > 0 && tileCoord.x < boardSize.x && tileCoord.y > 0 && tileCoord.y < boardSize.y;
+        return tileCoord.x >= 0 && tileCoord.x < boardSize.x && tileCoord.y >= 0 && tileCoord.y < boardSize.y;
     }
 
 
