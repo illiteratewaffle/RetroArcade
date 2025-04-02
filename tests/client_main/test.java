@@ -1,4 +1,4 @@
-package client_main.java.Networking_client;
+package client_main;
 
 public class test {
 }
