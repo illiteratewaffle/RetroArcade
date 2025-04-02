@@ -1,5 +1,6 @@
-package GameLogic_Client.Connect4;
+package GUI_client;
 
+import GameLogic_Client.Connect4.C4Controller;
 import GameLogic_Client.ivec2;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
