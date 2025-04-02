@@ -66,11 +66,12 @@ public class CheckersGUIController implements Initializable {
                     tile.setStyle("-fx-border-color: transparent;");
                 });
 
+              //  tile.setOnMouseClicked(event ->sendMouseInput(row, col));
+
                 tileBorderGrid[i][j].getChildren().add(tilePiece[i][j]);
                 checkerBoard.add(tileBorderGrid[i][j], j, i);
             }
         }
-
         setupInitialPieces();
     }
 
@@ -93,10 +94,12 @@ public class CheckersGUIController implements Initializable {
     }
 
     @FXML
-    private void handleMouseEntered(javafx.scene.input.MouseEvent event) {
-        System.out.println("Hovered over tile: " + event.getTarget());
+    private void sendMouseInput(int row, int col) {
+        Ivec2 tileClicked = new Ivec2(row, col);
+        gameLogic.receiveInput(tileClicked);
+
+
     }
-    //will need a methods for handling input, updating board, and checking if a winner has been declared from game logic
 
 }
 
