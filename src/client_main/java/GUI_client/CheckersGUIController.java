@@ -40,6 +40,12 @@ public class CheckersGUIController implements Initializable {
     private Image blueKingChecker;
     private Image pinkKingChecker;
 
+    private StackPane previouslySelectedTile = null;
+
+    /**
+    Initializes the GUI board
+     */
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         gameLogic = new CheckersController();
@@ -56,17 +62,40 @@ public class CheckersGUIController implements Initializable {
                 tilePiece[i][j].setFitWidth(30);
                 tilePiece[i][j].setFitHeight(30);
                 tilePiece[i][j].setPreserveRatio(true);
+                tilePiece[i][j].setMouseTransparent(true);
 
-                StackPane tile = tileBorderGrid[i][j]; // Store reference
+                StackPane border = tileBorderGrid[i][j];
+                ImageView tile = tilePiece[i][j];
 
-                tile.setOnMouseEntered(event -> {
-                    tile.setStyle("-fx-border-color: #ffcc00; -fx-border-width: 5;");
+                final int row = i;
+                final int col = j;
+
+
+                //hover mouse feature
+                border.setOnMouseEntered(event -> {
+                    if (border.getStyle().contains("transparent")) {
+                        border.setStyle("-fx-border-color: lightgray;");
+                    }
                 });
-                tile.setOnMouseExited(event -> {
-                    tile.setStyle("-fx-border-color: transparent;");
+                border.setOnMouseExited(event -> {
+                    if (border.getStyle().contains("lightgray")) {
+                        border.setStyle("-fx-border-color: transparent;");
+                    }
                 });
 
-              //  tile.setOnMouseClicked(event ->sendMouseInput(row, col));
+                //selected piece highlight
+                border.setOnMouseClicked(event -> {
+
+                    if (previouslySelectedTile != null) {
+                        previouslySelectedTile.setStyle("-fx-border-color: transparent;");
+                    }
+
+
+                    border.setStyle("-fx-border-color: blue; -fx-border-width: 5;");
+                    previouslySelectedTile = border;
+
+                    sendMouseInput(row, col);
+                });
 
                 tileBorderGrid[i][j].getChildren().add(tilePiece[i][j]);
                 checkerBoard.add(tileBorderGrid[i][j], j, i);
@@ -93,15 +122,38 @@ public class CheckersGUIController implements Initializable {
         }
     }
 
+    /**
+     * Sends mouse click input to game logic and refreshes the board
+     * @param row
+     * @param col
+     */
+
     @FXML
     private void sendMouseInput(int row, int col) {
-        Ivec2 tileClicked = new Ivec2(row, col);
+        Ivec2 tileClicked = new Ivec2(col, row);
+
         gameLogic.receiveInput(tileClicked);
 
+        refreshBoard();
 
     }
 
+    /**
+     * Gets the board cells and updates the pieces on the board based on that
+     */
+
+    private void refreshBoard() {
+        int[][] pieceBoard = gameLogic.getBoardCells(0b1).getFirst();
+        for (int i = 0; i < BOARD_SIZE; i++) {
+            for (int j = 0; j < BOARD_SIZE; j++) {
+                switch (pieceBoard[i][j]) {
+                    case 1 -> tilePiece[i][j].setImage(pinkChecker);
+                    case 2 -> tilePiece[i][j].setImage(pinkKingChecker);
+                    case 3 -> tilePiece[i][j].setImage(blueChecker);
+                    case 4 -> tilePiece[i][j].setImage(blueKingChecker);
+                    default -> tilePiece[i][j].setImage(null);
+                }
+            }
+        }
+    }
 }
-
-
-

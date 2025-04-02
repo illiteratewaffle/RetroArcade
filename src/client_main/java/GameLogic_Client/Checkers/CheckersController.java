@@ -79,6 +79,8 @@ public class CheckersController implements IBoardGameController
         boolean shouldCheckBottomLeft = false;
         boolean shouldCheckBottomRight = false;
 
+        //To Ryan: problem?
+
         // King pieces can move in all 4 directions.
         if (board.isKing(pieceLocation))
         {
