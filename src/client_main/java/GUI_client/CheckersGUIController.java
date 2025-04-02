@@ -5,7 +5,6 @@ import GameLogic_Client.Ivec2;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
@@ -13,20 +12,12 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.image.ImageView;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.Stack;
 
 public class CheckersGUIController implements Initializable {
 
     @FXML
-    private ImageView carpetBackground;
-    @FXML
-    private ImageView danceBoard;
-    @FXML
     private GridPane checkerBoard;
 
-    @FXML private StackPane tileBorder_5_6;
-
-    @FXML private ImageView tile_5_6;
 
     private CheckersController gameLogic;
 
