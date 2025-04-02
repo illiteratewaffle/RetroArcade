@@ -1,12 +1,6 @@
 package server.management;
 
-import com.fasterxml.jackson.core.JsonParseException;
-
-import javax.script.ScriptEngine;
-import javax.script.ScriptEngineManager;
-import javax.script.ScriptException;
 import java.util.*;
-
 
 public class JsonConverter {
     /**
@@ -87,27 +81,6 @@ public class JsonConverter {
         return builder.append("]").toString();
     }
 
-    public static void main(String[] args) {
-        HashMap<String,Object> map = new HashMap<>();
-        map.put("name","John\\n");
-//        map.put("age",23);
-//        map.put("drunk",true);
-//        // test the inner hash map
-//        Map<String, Object> innerMap = new HashMap<>();
-//        innerMap.put("inner hash", "value of inner hash!");
-//        map.put("nested", innerMap);
-        // test a list
-//        List<Object> list = new ArrayList<>();
-//        list.add("first item");
-//        list.add("second item");
-//        List<Object> innerList = new ArrayList<>();
-//        innerList.add(list);
-//        innerList.add(list);
-//        map.put("list", innerList);
-//        System.out.println(toJson(map));
-        // System.out.println(toJson(map));
-    }
-
     /**
      * Converts a given json string to a HashMap
      * @param json the json string
@@ -136,15 +109,23 @@ public class JsonConverter {
             return parseMap(json, index);
         } else if (c == '[') {
             return parseList(json, index);
+        } else if (c == '"') {
+            return parseString(json, index);
         } else if (c == 't' || c == 'f' || c == 'n') {
             return parseBoolean(json, index);
         } else if (Character.isDigit(c)) {
             return parseNumber(json, index);
         }
         // If none match, throw an exception
-        throw new RuntimeException("Unsupported character: " + c);
+        throw new RuntimeException("Unsupported character: " + json + ":" + String.valueOf(index.value));
     }
 
+    /**
+     * Converts a json string to a HashMap
+     * @param json the json string
+     * @param index the current index of the string
+     * @return the corresponding HashMap
+     */
     private static HashMap<String,Object> parseMap(String json, IntWrapper index) {
         if (json.charAt(index.value) != '{') {
             throw new RuntimeException("Expected opening curly bracket for the HashMap: " + json + ":" + String.valueOf(index.value));
@@ -196,6 +177,12 @@ public class JsonConverter {
         return map;
     }
 
+    /**
+     * Converts a json string to a List
+     * @param json the json string
+     * @param index the current index of the string
+     * @return the corresponding List
+     */
     private static List<Object> parseList(String json, IntWrapper index) {
         if (json.charAt(index.value) != '[') {
             throw new RuntimeException("Expected opening square bracket for the List: " + json + ":" + String.valueOf(index.value));
@@ -237,6 +224,12 @@ public class JsonConverter {
         throw new RuntimeException("Expected closing square bracket for the List: " + json + ":" + String.valueOf(index.value));
     }
 
+    /**
+     * Converts a json string to a String
+     * @param json the json string
+     * @param index the current index of the string
+     * @return the corresponding String
+     */
     private static String parseString(String json, IntWrapper index) {
         if (json.charAt(index.value) != '"') {
             throw new RuntimeException("Expected opening quote for the string: " + json + ":" + String.valueOf(index.value));
@@ -287,6 +280,8 @@ public class JsonConverter {
                     default:
                         throw new RuntimeException("Unsupported escape sequence character: \\" + escapeChar);
                 }
+                index.value++;
+                continue;
             }
             // Append the character and move to the next one
             builder.append(c);
@@ -295,6 +290,12 @@ public class JsonConverter {
         throw new RuntimeException("Expected closing quote for the string: " + json + ":" + String.valueOf(index.value));
     }
 
+    /**
+     * Converts a json string to a Boolean or null value
+     * @param json the json string
+     * @param index the current index of the string
+     * @return the corresponding Boolean or null value
+     */
     private static Boolean parseBoolean(String json, IntWrapper index) {
         if (json.startsWith("true", index.value)) {
             index.value += 4;
@@ -310,6 +311,12 @@ public class JsonConverter {
         }
     }
 
+    /**
+     * Converts a json string to a Number (Integer or Double)
+     * @param json the json string
+     * @param index the current index of the string
+     * @return the corresponding Integer or Double
+     */
     private static Number parseNumber(String json, IntWrapper index) {
         int start = index.value;
         boolean isFloat = false;
@@ -334,7 +341,7 @@ public class JsonConverter {
 
         try {
             if (isFloat) {
-                return Float.parseFloat(number);
+                return Double.parseDouble(number);
             } else {
                 return Integer.parseInt(number);
             }
