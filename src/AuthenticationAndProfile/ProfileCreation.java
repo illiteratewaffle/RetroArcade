@@ -48,25 +48,30 @@ public class ProfileCreation {
      * @param password
      * @return boolean to indicate if registration was successful
      */
-    public static boolean createNewProfile(String email, String password, String username) {
+    public static boolean createNewProfile(String username, String email, String password) {
         String hashedPassword = hashedPassword(password);
 //        try{
-        int id = PlayerManager.registerPlayer(email, hashedPassword, username); //handle register player errors
+        int id = PlayerManager.registerPlayer(username, email, hashedPassword); //handle register player errors
+        System.out.println(id);
         if (id == -1) {
             System.out.println("Invalid email or username. Credentials already associated with an existing account.");
             return false;
         }else {
             System.out.println("Profile registered correctly. Trying to Log In.");
-            try {
+            //try {
                 boolean logIn = Authentication.logIn(username, password);
                 return logIn;
-            } catch (Exception e) {
-                System.out.println("Login Unsuccessful.");
-                return false;
-            }
+//            } catch (Exception e) {
+//                System.out.println("Login Unsuccessful.");
+//                return false;
+//            }
 //            Profile profile = ProfileDatabaseAccess.obtainProfile(id);
 //            Authentication.setProfileLoggedIn(profile);
-//            return true;
+//            if(Authentication.getProfileLoggedIn() == profile){
+//                return true;
+//            } else {
+//                return false;
+//            }
         }
 //        }catch () {
 //            System.out.println("Invalid email or username. Credentials already associated with an existing account.");
@@ -107,13 +112,13 @@ public class ProfileCreation {
 //    }
         public static void main (String[]args) {
             //TODO: Test with Database
-            System.out.println(ProfileCreation.createNewProfile("1EmailShould be in index 3@email.com", "hashedPasswordInIndex4", "1username should be in index 1"));
+            System.out.println(ProfileCreation.createNewProfile("u56ername", "newemail@emai6l.com", "12345passsword"));
             //should print true
-            System.out.println(Authentication.getProfileLoggedIn().getEmail());
+            //System.out.println(Authentication.getProfileLoggedIn().getEmail());
             //Email should be: "EmailShould be in index 3@email.com"
-            System.out.println(Authentication.getProfileLoggedIn().getHashedPassword());
-            System.out.printf("HashedPassword should equal %s\n", hashedPassword("hashedPasswordInIndex4"));
-            System.out.println(Authentication.getProfileLoggedIn().getUsername());
+            //System.out.println(Authentication.getProfileLoggedIn().getHashedPassword());
+            //System.out.printf("HashedPassword should equal %s\n", hashedPassword("hashedPasswordInIndex4"));
+            //System.out.println(Authentication.getProfileLoggedIn().getUsername());
             //Username should be : "username should be in index 1"
         }
         }

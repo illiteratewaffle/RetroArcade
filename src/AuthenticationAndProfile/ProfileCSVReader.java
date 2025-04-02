@@ -199,6 +199,11 @@ public class ProfileCSVReader {
         return fields;
     }
 
+    /**
+     * Takes an ArrayList<ArrayList<String>> of all profiles in the database and rewrites CSV for new changes to be added.
+     * @param filePath
+     * @param profiles
+     */
     public static void writeProfilesFile(String filePath, ArrayList<ArrayList<String>> profiles){
         for (int i = 0; i < profiles.size(); i ++) {
             String csvLine = "";
