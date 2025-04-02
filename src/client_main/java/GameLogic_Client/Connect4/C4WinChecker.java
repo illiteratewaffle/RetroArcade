@@ -135,7 +135,7 @@ public class C4WinChecker {
      * @param c4Board the 2-d representation of the board.
      * @return true if a backward slash diagonal win is detected, false otherwise.
      */
-    private static boolean checkC4BackwardSlash(int row, int col, C4Piece piece, C4Piece[][] c4Board) {
+    public static boolean checkC4BackwardSlash(int row, int col, C4Piece piece, C4Piece[][] c4Board) {
         int pieceCounter = 1;
 
         // Loop to check coordinates to the piece's top-left.

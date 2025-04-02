@@ -237,7 +237,7 @@ class C4WinCheckerTest {
 
 
     /***
-     * TEST CASES FOR FORWARD SLASH WIN
+     * TEST CASES FOR FORWARD SLASH WIN CONDITION
      */
     @Test
     void forwardSlashWin1() throws Exception {
@@ -326,4 +326,96 @@ class C4WinCheckerTest {
 
         assertFalse(C4WinChecker.checkC4ForwardSlash(5, 0, C4Piece.RED, board));
     }
+
+    /**
+     * TEST CASES FOR BACKWARD SLASH WIN CONDITION
+     */
+    @Test
+    void backwardSlashWin1() throws Exception {
+        board[3][5] = C4Piece.RED;
+        board[2][4] = C4Piece.RED;
+        board[1][3] = C4Piece.RED;
+        board[0][2] = C4Piece.RED;
+
+        assertTrue(C4WinChecker.checkC4BackwardSlash(3, 5, C4Piece.RED, board));
+    }
+
+    @Test
+    void backwardSlashWin2() throws Exception {
+        board[4][4] = C4Piece.RED;
+        board[3][3] = C4Piece.RED;
+        board[2][2] = C4Piece.RED;
+        board[1][1] = C4Piece.RED;
+
+        assertTrue(C4WinChecker.checkC4BackwardSlash(3, 3, C4Piece.RED, board));
+    }
+
+    @Test
+    void backwardSlashWin3() throws Exception {
+        board[5][5] = C4Piece.BLUE;
+        board[4][4] = C4Piece.BLUE;
+        board[3][3] = C4Piece.BLUE;
+        board[2][2] = C4Piece.BLUE;
+        board[1][1] = C4Piece.BLUE;
+        board[0][0] = C4Piece.BLUE;
+
+        assertTrue(C4WinChecker.checkC4BackwardSlash(3, 3, C4Piece.BLUE, board));
+    }
+
+    @Test
+    void backwardSlashWin4() throws Exception {
+        board[3][3] = C4Piece.BLUE;
+        board[2][2] = C4Piece.BLUE;
+        board[1][1] = C4Piece.BLUE;
+        board[0][0] = C4Piece.BLUE; // Top-left corner
+
+        assertTrue(C4WinChecker.checkC4BackwardSlash(2, 2, C4Piece.BLUE, board));
+    }
+
+    @Test
+    void backwardSlashWin5() throws Exception {
+        board[5][6] = C4Piece.RED;
+        board[4][5] = C4Piece.RED;
+        board[3][4] = C4Piece.RED;
+        board[2][3] = C4Piece.RED;
+
+        assertTrue(C4WinChecker.checkC4BackwardSlash(5, 6, C4Piece.RED, board));
+    }
+
+    @Test
+    void backwardSlashNoWin1() throws Exception {
+        board[5][5] = C4Piece.RED;
+        board[4][4] = C4Piece.RED;
+        board[2][2] = C4Piece.RED;
+        board[1][1] = C4Piece.RED;
+
+        assertFalse(C4WinChecker.checkC4BackwardSlash(5, 5, C4Piece.RED, board));
+    }
+
+    @Test
+    void backwardSlashNoWin2() throws Exception {
+        board[5][5] = C4Piece.RED;
+        board[4][4] = C4Piece.RED;
+        board[3][3] = C4Piece.RED; // Only three in a row
+
+        assertFalse(C4WinChecker.checkC4BackwardSlash(5, 5, C4Piece.RED, board));
+    }
+
+    @Test
+    void backwardSlashNoWin3() throws Exception {
+        assertFalse(C4WinChecker.checkC4BackwardSlash(2, 2, C4Piece.RED, board));
+    }
+
+
+    @Test
+    void backwardSlashNoWin4() throws Exception {
+        board[5][5] = C4Piece.RED;
+        board[4][4] = C4Piece.BLUE; // Different piece here breaks the streak
+        board[3][3] = C4Piece.RED;
+        board[2][2] = C4Piece.RED;
+        board[1][1] = C4Piece.RED;
+
+        assertFalse(C4WinChecker.checkC4BackwardSlash(5, 4, C4Piece.RED, board));
+    }
+
 }
