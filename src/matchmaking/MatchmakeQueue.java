@@ -28,7 +28,7 @@ public class MatchmakingQueue {
      * @param gameType The queue from which the player is already in queue
      * @return Player that has been dequeued or null if queue is empty
      */
-    public Player dequeue(String gameType) {
+    public Player dequeue(Player player, String gameType) {
         if (gameQueues.containsKey(gameType) && !gameQueues.get(gameType).isEmpty()) {
             Player player = gameQueues.get(gameType).poll();
             //Testing purposes
@@ -52,6 +52,11 @@ public class MatchmakingQueue {
 
     }
 
+    /***
+     *
+     * @param list
+     * @return
+     */
     private LinkedList<Player> quickSortHelper(LinkedList<Player> list) {
         if (list.size() <= 1) {
             return list;
