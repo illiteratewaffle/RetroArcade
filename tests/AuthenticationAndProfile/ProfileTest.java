@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -16,10 +17,13 @@ class ProfileTest {
 
     @BeforeEach
     void setUp() {
-        //profile = new Profile("test@example.com", "hashedPassword", "nickname", "bio", true, "currentGame", new FriendsList(), new PlayerRanking(), new GameHistory(), new BufferedImage(100, 100, BufferedImage.TYPE_INT_ARGB), "username", 1);
-        profile = new Profile("test@example.com", "hashedPassword", "nickname", "bio", true, "currentGame", new FriendsList(), new PlayerRanking(), new GameHistory(), "C:/Pictures/Pictures/profile.png", "username", 1);
-
+        List<Long> friends = Arrays.asList(101L, 102L, 103L); // Example friend IDs
+        List<Long> friendRequests = Arrays.asList(201L, 202L); // Example friend request IDs
+        String password = "1234567";
+        String hashedPassword = ProfileCreation.hashedPassword(password);
+        profile = new Profile("test@example.com", hashedPassword,"nick", "This is bio.", false, "null", new FriendsList(friends, friendRequests), new PlayerRanking(), new GameHistory(), "C:profile/pic/path.png", "username", 2 );
     }
+
 
     @Test
     void getEmail() {
