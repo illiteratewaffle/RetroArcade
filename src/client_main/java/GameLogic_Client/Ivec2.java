@@ -4,7 +4,17 @@ package GameLogic_Client;
 /**
  * A storage class used for representing the coordinates of tiles on the board.<br>
  * Provides some helper methods for basic mathematical operations for offsetting the coordinate.<br>
- * Notationally, the +X-axis moves from left to right, while the +Y-axis moves from down to up.
+ * <br>
+ * This class uses the following notation:
+ * <list>
+ * <li><code>(0, 0)</code> points to the <code>top left</code> corner of a board.</li>
+ * <br>
+ * <li>Moving <code>up</code> corresponds to <code>increasing</code> the <code>x</code>-component.</li>
+ * <li>Moving <code>down</code> corresponds to <code>decreasing</code> the <code>y</code>-component.</li>
+ * <br>
+ * <li>Moving <code>left</code> corresponds to <code>decreasing</code> the <code>x</code>-component.</li>
+ * <li>Moving <code>right</code> corresponds to <code>increasing</code> the <code>x</code>-component.</li>
+ * </list>
  */
 final public class Ivec2
 {
@@ -20,7 +30,7 @@ final public class Ivec2
 
 
     /**
-     * @return The Hash Code of this ivec2 object for hash-related operations.
+     * @return The Hash Code of this <code>Ivec2</code> object for hash-related operations.
      */
     @Override
     public int hashCode()
@@ -48,26 +58,29 @@ final public class Ivec2
     }
 
     /**
-     * @param steps
-     * @return A copy of this vector with its y-coordinate shifted up by a given number of steps.
+     * @param steps The number of steps to move upwards on a board.
+     * @return A copy of this vector with its <code>y</code>-coordinate
+     * shifted up (<code>subtracted</code>) by a given number of steps.
      */
     public Ivec2 moveUp(int steps)
-    {
-        return new Ivec2(x, y + steps);
-    }
-
-    /**
-     * @param steps
-     * @return A copy of this vector with its y-coordinate shifted down by a given number of steps.
-     */
-    public Ivec2 moveDown(int steps)
     {
         return new Ivec2(x, y - steps);
     }
 
     /**
-     * @param steps
-     * @return A copy of this vector with its x-coordinate shifted left by a given number of steps.
+     * @param steps The number of steps to move downwards on a board.
+     * @return A copy of this vector with its <code>y</code>-coordinate
+     * shifted down (<code>increased</code>) by a given number of steps.
+     */
+    public Ivec2 moveDown(int steps)
+    {
+        return new Ivec2(x, y + steps);
+    }
+
+    /**
+     * @param steps The number of steps to move leftwards on a board.
+     * @return A copy of this vector with its <code>x</code>-coordinate
+     * shifted left (<code>decreased</code>) by a given number of steps.
      */
     public Ivec2 moveLeft(int steps)
     {
@@ -75,8 +88,9 @@ final public class Ivec2
     }
 
     /**
-     * @param steps
-     * @return A copy of this vector with its x-coordinate shifted right by a given number of steps.
+     * @param steps The number of steps to move rightwards on a board.
+     * @return A copy of this vector with its <code>x</code>-coordinate
+     * shifted right (<code>increased</code>) by a given number of steps.
      */
     public Ivec2 moveRight(int steps)
     {

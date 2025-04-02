@@ -39,6 +39,12 @@ public class CheckersController implements IBoardGameController
 
     // Helper methods.
 
+    // Pre-calculated Ivec2 values for moving in common diagonal directions in checkers.
+    private final static Ivec2 emptyMove = new Ivec2(0, 0);
+    private final static Ivec2 topLeftMove = emptyMove.moveUp(1).moveLeft(1);
+    private final static Ivec2 topRightMove = emptyMove.moveUp(1).moveRight(1);
+    private final static Ivec2 bottomLeftMove = emptyMove.moveDown(1).moveLeft(1);
+    private final static Ivec2 bottomRightMove = emptyMove.moveDown(1).moveRight(1);
     /**
      * @param pieceLocation
      * The location of the piece on the board.<br>
@@ -109,7 +115,7 @@ public class CheckersController implements IBoardGameController
 
         if (shouldCheckTopLeft)
         {
-            NewMove = getMoveInDirection(pieceLocation, new Ivec2(-1, 1), mustCapture);
+            NewMove = getMoveInDirection(pieceLocation, topLeftMove, mustCapture);
             // Only add a move if it is valid.
             if (NewMove != null)
             {
@@ -121,7 +127,7 @@ public class CheckersController implements IBoardGameController
         }
         if (shouldCheckTopRight)
         {
-            NewMove = getMoveInDirection(pieceLocation, new Ivec2(1, 1), mustCapture);
+            NewMove = getMoveInDirection(pieceLocation, topRightMove, mustCapture);
             if (NewMove != null)
             {
                 // If this new move would result in a capture,
@@ -138,7 +144,7 @@ public class CheckersController implements IBoardGameController
         // Same as above.
         if (shouldCheckBottomLeft)
         {
-            NewMove = getMoveInDirection(pieceLocation, new Ivec2(-1, -1), mustCapture);
+            NewMove = getMoveInDirection(pieceLocation, bottomLeftMove, mustCapture);
             if (NewMove != null)
             {
                 if (!storedMovesAreCaptures && mustCapture[0])
@@ -152,7 +158,7 @@ public class CheckersController implements IBoardGameController
         // Same as above.
         if (shouldCheckBottomRight)
         {
-            NewMove = getMoveInDirection(pieceLocation, new Ivec2(1, -1), mustCapture);
+            NewMove = getMoveInDirection(pieceLocation, bottomRightMove, mustCapture);
             if (NewMove != null)
             {
                 if (!storedMovesAreCaptures && mustCapture[0])
@@ -257,18 +263,20 @@ public class CheckersController implements IBoardGameController
     final static int defaultWidth = 8;
     final static int defaultHeight = 8;
 
+    // Player 1's pieces begin at the bottom of the board, moving upwards.
     final static Ivec2[] defaultInitLocationsP1 = new Ivec2[]
         {
-                new Ivec2(1, 0), new Ivec2(3, 0), new Ivec2(5, 0), new Ivec2(7, 0),
-                new Ivec2(0, 1), new Ivec2(2, 1), new Ivec2(4, 1), new Ivec2(6, 1),
-                new Ivec2(1, 2), new Ivec2(3, 2), new Ivec2(5, 2), new Ivec2(7, 2)
+                new Ivec2(1, 7), new Ivec2(3, 7), new Ivec2(5, 7), new Ivec2(7, 7),
+                new Ivec2(0, 6), new Ivec2(2, 6), new Ivec2(4, 6), new Ivec2(6, 6),
+                new Ivec2(1, 5), new Ivec2(3, 5), new Ivec2(5, 5), new Ivec2(7, 5)
         };
 
+    // Player 2's pieces begin at the top of the board, moving downwards.
     final static Ivec2[] defaultInitLocationsP2 = new Ivec2[]
         {
-                new Ivec2(0, 7), new Ivec2(2, 7), new Ivec2(4, 7), new Ivec2(6, 7),
-                new Ivec2(1, 6), new Ivec2(3, 6), new Ivec2(5, 6), new Ivec2(7, 6),
-                new Ivec2(0, 5), new Ivec2(2, 5), new Ivec2(4, 5), new Ivec2(6, 5)
+                new Ivec2(0, 0), new Ivec2(2, 0), new Ivec2(4, 0), new Ivec2(6, 0),
+                new Ivec2(1, 1), new Ivec2(3, 1), new Ivec2(5, 1), new Ivec2(7, 1),
+                new Ivec2(0, 2), new Ivec2(2, 2), new Ivec2(4, 2), new Ivec2(6, 2)
         };
 
 
@@ -426,7 +434,7 @@ public class CheckersController implements IBoardGameController
                 // If it belongs to player 1, it must be at the top end.
                 // If it belongs to player 2, it must be at the bottom end.
                 if (board.isPawn(currentPieceLocation) &&
-                        currentPieceLocation.y == (turnP1 ? getBoardSize().y - 1 : 0))
+                        currentPieceLocation.y == (turnP1 ? 0 : getBoardSize().y - 1))
                 {
                     board.makeKing(currentPieceLocation);
                     hasKinged = true;
