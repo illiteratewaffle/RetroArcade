@@ -21,7 +21,7 @@ class ProfileTest {
         List<Long> friendRequests = Arrays.asList(201L, 202L); // Example friend request IDs
         String password = "1234567";
         String hashedPassword = ProfileCreation.hashedPassword(password);
-        profile = new Profile("test@example.com", hashedPassword,"nick", "This is bio.", false, "null", new FriendsList(friends, friendRequests), new PlayerRanking(), new GameHistory(), "C:profile/pic/path.png", "username", 2 );
+        profile = new Profile("test@example.com", hashedPassword,"nickname", "This is bio.", false, "currentGame", new FriendsList(friends, friendRequests), new PlayerRanking(), new GameHistory(), "C:profile/pic/path.png", "username", 2 );
     }
 
 
@@ -43,7 +43,7 @@ class ProfileTest {
         List<Long> friendRequests = Arrays.asList(201L, 202L); // Example friend request IDs
         String password = "WhatAGoodPassword!";
         String hashedPassword = ProfileCreation.hashedPassword(password);
-        Profile profile2 = new Profile("test@example.com", hashedPassword, "nick", "This is bio.", false, "null", new FriendsList(friends, friendRequests), new PlayerRanking(), new GameHistory(), "C:profile/pic/path.png", "username", 2);
+        Profile profile2 = new Profile("test@example.com", hashedPassword, "nick", "This is bio.", false, "currentGame", new FriendsList(friends, friendRequests), new PlayerRanking(), new GameHistory(), "C:profile/pic/path.png", "username", 2);
 
 
         assertEquals(hashedPassword, profile2.getHashedPassword());
@@ -68,7 +68,7 @@ class ProfileTest {
 
     @Test
     void getBio() {
-        assertEquals("bio", profile.getBio());
+        assertEquals("This is bio.", profile.getBio());
     }
 
     @Test
@@ -115,7 +115,7 @@ class ProfileTest {
 
     @Test
     void getProfilePic() {
-        assertNotNull(profile.getProfilePicFilePath());
+        assertEquals("C:profile/pic/path.png", profile.getProfilePicFilePath());
     }
 
 //    @Test
