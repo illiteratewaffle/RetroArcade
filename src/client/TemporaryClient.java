@@ -10,7 +10,7 @@ import java.util.Scanner;
 public class TemporaryClient {
     public static void main(String[] args) {
         // Server's address (or IP)
-        String serverAddress = "10.9.181.75";
+        String serverAddress = "localhost";
         // Server's port
         int port = 5050;
         if (args.length == 2) {
