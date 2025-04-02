@@ -135,4 +135,14 @@ class ProfileTest {
         profile.updateUsername("newUsername");
         assertEquals("newUsername", profile.getUsername());
     }
+
+    @Test
+    void setAndGetFriendsList() {
+        List<Long> friends = Arrays.asList(101L, 102L, 103L); // Example friend IDs
+        List<Long> friendRequests = Arrays.asList(201L, 202L); // Example friend request IDs
+        FriendsList friendsList = new FriendsList(friends, friendRequests);
+        profile.setFriendsList(friendsList);
+        assertEquals(friendsList, profile.getFriendsList());
+    }
+
 }
