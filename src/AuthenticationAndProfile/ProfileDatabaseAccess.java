@@ -80,15 +80,20 @@ public class ProfileDatabaseAccess {
             ArrayList<String> profileFields = openSingleProfileFile(csvProfileFilePath);
             List<Long> friends = new ArrayList<>();
             String friendsString = profileFields.get(15);
+        System.out.printf("friendsString: '%s'\n", friendsString);
+            if (!friendsString.equals("null")){
             String[] fieldsList = friendsString.split(",");
             for (int i = 0 ; i < fieldsList.length; i ++){
                 friends.add(Long.parseLong(fieldsList[i]));
             }
+            }
             List<Long> friendRequests = new ArrayList<>();
             String friendRequestString = profileFields.get(16);
-            fieldsList = friendRequestString.split(", ");
-            for (int i = 0 ; i < fieldsList.length; i ++){
-                friendRequests.add(Long.parseLong(fieldsList[i]));
+            if(!friendRequestString.equals("null")) {
+                String[] fieldsList = friendRequestString.split(", ");
+                for (int i = 0; i < fieldsList.length; i++) {
+                    friendRequests.add(Long.parseLong(fieldsList[i]));
+                }
             }
             FriendsList friendsList = new FriendsList(friends, friendRequests);
             return friendsList;
@@ -133,9 +138,11 @@ public class ProfileDatabaseAccess {
             ArrayList<String> profileFields = openSingleProfileFile(csvProfileFilePath);
             List<String> gameHistory = new ArrayList<>();
             String gameHistoryString = profileFields.get(13);
-            String[] fieldsList = gameHistoryString.split(", ");
-            for (int i = 0 ; i < fieldsList.length; i ++){
-                gameHistory.add(fieldsList[i]);
+            if(!gameHistoryString.equals("null")) {
+                String[] fieldsList = gameHistoryString.split(", ");
+                for (int i = 0; i < fieldsList.length; i++) {
+                    gameHistory.add(fieldsList[i]);
+                }
             }
             GameHistory gameHistoryObject = new GameHistory(gameHistory);
             return gameHistoryObject;

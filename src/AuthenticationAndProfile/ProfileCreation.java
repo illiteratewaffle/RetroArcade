@@ -112,7 +112,7 @@ public class ProfileCreation {
 //    }
         public static void main (String[]args) {
             //TODO: Test with Database
-            System.out.println(ProfileCreation.createNewProfile("u56ername", "newemail@emai6l.com", "12345passsword"));
+            System.out.println(ProfileCreation.createNewProfile("u566e2r6n78ame", "newe6m68a2il@ema6i6l.com", "1234586ass8sword"));
             //should print true
             //System.out.println(Authentication.getProfileLoggedIn().getEmail());
             //Email should be: "EmailShould be in index 3@email.com"
