@@ -24,7 +24,7 @@ public class Profile {
     private FriendsList friendsList;
     private GameHistory gameHistory;
     private String profilePicFilePath;
-    private String username;
+    private static String username;
     private int id;
 
     public Profile(String email, String hashedPassword, String nickname, String bio, boolean isOnline, String currentGame, FriendsList friendsList, PlayerRanking playerRanking, GameHistory gameHistory, String profilePicFilePath, String username, int id) {
@@ -194,7 +194,7 @@ public class Profile {
         return PlayerManager.getUsername(7);
     }
 
-    public String getUsername() {
+    public static String getUsername() {
         return username;
     }
 

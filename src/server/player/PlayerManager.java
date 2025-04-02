@@ -197,6 +197,37 @@ public class PlayerManager {
         return matchingIds;
     }
 
+    public static List<Integer> searchProfiles(String nameFragment) {
+        // SQL query that searches friends based on friend usernames that match the submitted string parameter
+        String query = """
+                SELECT id
+                FROM profiles
+                WHERE id = ANY (
+                SELECT * FROM profiles
+                FROM profiles WHERE id = ?)
+                AND username ILIKE ?""";
+
+        // List containing friend Ids
+        List<Integer> matchingIds = new ArrayList<>();
+
+        // Prepare SQL query by setting search parameters and then execute
+        try(PreparedStatement statement = conn.prepareStatement(query)) {
+            //statement.setInt(1, id);
+            // % signify wildcards so it searches any string containing the substring nameFragment
+            statement.setString(2, "%" + nameFragment + "%");
+            // Store the resulting table in rs
+            ResultSet rs = statement.executeQuery();
+            // rs.next moves cursor to next row in table and stores the id into matchingIds list
+            while (rs.next()) {
+                matchingIds.add(rs.getInt("id"));
+            }
+        } catch (SQLException e) {
+            System.err.println("Error searching friends by substring: " + e.getMessage());
+        }
+        // Return the friend's list that match the substring passed through
+        return matchingIds;
+    }
+
     public static String getUsername(int id) {
         String query = "SELECT username FROM profiles WHERE id = ?";
 

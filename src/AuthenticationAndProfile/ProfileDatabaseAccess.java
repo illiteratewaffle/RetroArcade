@@ -78,17 +78,17 @@ public class ProfileDatabaseAccess {
             String csvProfileFilePath = String.format("player_profile_%d.csv", id); //csv file saved to the main project directory
 
             ArrayList<String> profileFields = openSingleProfileFile(csvProfileFilePath);
-            List<String> friends = new ArrayList<>();
+            List<Long> friends = new ArrayList<>();
             String friendsString = profileFields.get(15);
             String[] fieldsList = friendsString.split(",");
             for (int i = 0 ; i < fieldsList.length; i ++){
-                friends.add(fieldsList[i]);
+                friends.add(Long.parseLong(fieldsList[i]));
             }
-            List<String> friendRequests = new ArrayList<>();
+            List<Long> friendRequests = new ArrayList<>();
             String friendRequestString = profileFields.get(16);
             fieldsList = friendRequestString.split(", ");
             for (int i = 0 ; i < fieldsList.length; i ++){
-                friendRequests.add(fieldsList[i]);
+                friendRequests.add(Long.parseLong(fieldsList[i]));
             }
             FriendsList friendsList = new FriendsList(friends, friendRequests);
             return friendsList;
@@ -170,7 +170,7 @@ public class ProfileDatabaseAccess {
      * @param search String
      */
     public static List<Profile> searchForProfile(String search) {
-        //List<Integer> usernameSearchMatchIdList = PlayerManager.searchProfileTable(search);
+        List<Integer> usernameSearchMatchIdList = PlayerManager.searchProfiles(search);
         List<Profile> profilesFound = new ArrayList<Profile>();
         //for (int i = 0; i < usernameSearchMatchIdList.size(); i ++) {
         //profilesFound.add(usernameSearchMatchIdList[i]);

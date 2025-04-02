@@ -107,7 +107,7 @@ public class ProfileCreation {
 //    }
         public static void main (String[]args) {
             //TODO: Test with Database
-            System.out.println(ProfileCreation.createNewProfile("EmailShould be in index 3@email.com", "hashedPasswordInIndex4", "username should be in index 1"));
+            System.out.println(ProfileCreation.createNewProfile("1EmailShould be in index 3@email.com", "hashedPasswordInIndex4", "1username should be in index 1"));
             //should print true
             System.out.println(Authentication.getProfileLoggedIn().getEmail());
             //Email should be: "EmailShould be in index 3@email.com"

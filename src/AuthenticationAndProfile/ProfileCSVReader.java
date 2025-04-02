@@ -55,23 +55,23 @@ public class ProfileCSVReader {
     friends: index 23
     friendRequests: index 24
      */
-    private static final int ID_INDEX = 0;  //id
-    private static final int USER_INDEX = 1; //email
-    private static final int NICK_INDEX = 2; //null
-    private static final int EMAIL_INDEX = 3; //password
-    private static final int PWD_INDEX = 4;//username
-    public static final int BIO_INDEX = 5;//null
-    public static final int PIC_INDEX = 6;//null
-    public static final int CGAME_INDEX = 7;//null
-    public static final int ONLINE_INDEX = 8; //f is online
-    private static final int WLR_INDEX = 9;//0
-    private static final int RATING_INDEX = 10;//0
-    private static final int RANK_INDEX = 11;
-    private static final int WINS_INDEX = 12;
-    public static final int GHIST_INDEX = 13;
-    public static final int ACHIVPROG_INDEX = 14;
-    public static final int FRIENDS_INDEX = 15;
-    public static final int FREQUEST_INDEX = 16;
+    protected static final int ID_INDEX = 0;  //id
+    protected static final int USER_INDEX = 1; //email
+    protected static final int NICK_INDEX = 2; //null
+    protected static final int EMAIL_INDEX = 3; //password
+    protected static final int PWD_INDEX = 4;//username
+    protected static final int BIO_INDEX = 5;//null
+    protected static final int PIC_INDEX = 6;//null
+    protected static final int CGAME_INDEX = 7;//null
+    protected static final int ONLINE_INDEX = 8; //f is online
+    protected static final int WLR_INDEX = 9;//0
+    protected static final int RATING_INDEX = 10;//0
+    protected static final int RANK_INDEX = 11;
+    protected static final int WINS_INDEX = 12;
+    protected static final int GHIST_INDEX = 13;
+    protected static final int ACHIVPROG_INDEX = 14;
+    protected static final int FRIENDS_INDEX = 15;
+    protected static final int FREQUEST_INDEX = 16;
 
     /**
      * Opens CSV file (from networking): A list of one profile and their information
@@ -197,6 +197,21 @@ public class ProfileCSVReader {
             System.out.println("System can't find file");
         }
         return fields;
+    }
+
+    public static void writeProfilesFile(String filePath, ArrayList<ArrayList<String>> profiles){
+        for (int i = 0; i < profiles.size(); i ++) {
+            String csvLine = "";
+            for (int j = 0; j < profiles.get(i).size(); j ++){
+
+            switch (j){
+                case BIO_INDEX, GHIST_INDEX, ACHIVPROG_INDEX, FRIENDS_INDEX, FREQUEST_INDEX:
+                        csvLine += "[" + profiles.get(i).get(j) + "]";
+                        break;
+                }
+                csvLine += profiles.get(i).get(j) + ",";
+            }
+        }
     }
 
     public static void main(String[] args) {
