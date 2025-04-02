@@ -1,4 +1,4 @@
-package client_main.java.GameLogic_Client;
+package GameLogic_Client;
 
 
 final public class ivec2
