@@ -1,4 +1,6 @@
-package client_main.java.GameLogic_Client;
+package GameLogic_Client;
+import GameLogic_Client.ivec2;
+
 import java.util.ArrayList;
 
 /**

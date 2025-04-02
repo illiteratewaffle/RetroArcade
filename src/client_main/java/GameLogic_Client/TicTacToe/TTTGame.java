@@ -1,4 +1,4 @@
-package client_main.java.GameLogic_Client.TicTacToe;
+package GameLogic_Client.TicTacToe;
 
 public class TTTGame {
     private TTTBoard board;

@@ -1,5 +1,5 @@
 package GameLogic_Client.Connect4;
-import client_main.java.GameLogic_Client.ivec2;
+import GameLogic_Client.ivec2;
 
 public class C4Main {
 

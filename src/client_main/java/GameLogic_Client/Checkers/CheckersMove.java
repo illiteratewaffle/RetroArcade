@@ -1,7 +1,7 @@
 // setting package to checkers
-package client_main.java.GameLogic_Client.Checkers;
+package GameLogic_Client.Checkers;
 // importing the ivec2 class from game logic package
-import client_main.java.GameLogic_Client.ivec2;
+import GameLogic_Client.ivec2;
 
 /**
  * The checkers move class allows us to distinguish between a start cord, target cord, and capture cord

@@ -1,4 +1,4 @@
-package client_main.java.GameLogic_Client.Checkers;
+package GameLogic_Client.Checkers;
 
 public enum GameState {
     ONGOING,
