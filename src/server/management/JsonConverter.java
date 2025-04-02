@@ -5,10 +5,7 @@ import com.fasterxml.jackson.core.JsonParseException;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 public class JsonConverter {
@@ -109,7 +106,6 @@ public class JsonConverter {
 //        map.put("list", innerList);
 //        System.out.println(toJson(map));
         // System.out.println(toJson(map));
-        // System.out.println(parseString("hi\"Hello World!hi\\\\\"buttwhole hehe", new IntWrapper(2)));
     }
 
     /**
@@ -159,18 +155,43 @@ public class JsonConverter {
         HashMap<String,Object> map = new HashMap<>();
         // Loop through the HashMap
         // TODO: This has a possibility of crashing if index.value extends the size of the json string
-        while (json.charAt(index.value) != '}') {
+        while (index.value < json.length()) {
+            // TODO: skipWhitespace()
+
+            // Handle empty hashmaps
+            if (json.charAt(index.value) == '}') {
+                index.value++;
+                return map;
+            }
+
             // First, get the key
             String key = parseString(json, index);
-            if (json.charAt(index.value) != ':') {
+
+            // TODO: skipWhitespace()
+
+            if (index.value >= json.length() || json.charAt(index.value) != ':') {
                 throw new RuntimeException("Key missing corresponding value: " + json + ":" + String.valueOf(index.value));
             }
             // Move past the colon
             index.value++;
-            // Get the value
+
+            // TODO: skipWhitespace()
+
+            // Get the value and add to the HashMap
             Object value = parseObject(json, index);
-            // Add pair to the hashmap
             map.put(key, value);
+
+            // TODO: skipWhitespace()
+
+            if (json.charAt(index.value) == ',') {
+                index.value++;
+                // TODO: skipWhitespace()
+            } else if (json.charAt(index.value) == '}') {
+                index.value++;
+                return map;
+            } else {
+                throw new RuntimeException("\"Expected ',' or '}' after list item: \" + json + \":\" + String.valueOf(index.value)");
+            }
         }
         return map;
     }
