@@ -17,7 +17,7 @@ public class databaseConnector {
      * @param filename
      */
     public static void loadConfiguration(String filename) {
-        try (InputStream input = new FileInputStream("/Users/cristiano/Documents/Computer Science Degree/2nd Year/SENG 300/seng300-w25-project/resources/db-config-test.properties");) {
+        try (InputStream input = new FileInputStream("resources/" + filename);) {
             if (input == null) {
                 throw new FileNotFoundException("Database configuration file not found in classpath: " + filename);
             }
