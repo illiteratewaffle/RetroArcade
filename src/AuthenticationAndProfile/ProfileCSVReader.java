@@ -64,14 +64,22 @@ public class ProfileCSVReader {
     protected static final int PIC_INDEX = 6;//null
     protected static final int CGAME_INDEX = 7;//null
     protected static final int ONLINE_INDEX = 8; //f is online
-    protected static final int WLR_INDEX = 9;//0
-    protected static final int RATING_INDEX = 10;//0
-    protected static final int RANK_INDEX = 11;
-    protected static final int WINS_INDEX = 12;
-    protected static final int GHIST_INDEX = 13;
-    protected static final int ACHIVPROG_INDEX = 14;
-    protected static final int FRIENDS_INDEX = 15;
-    protected static final int FREQUEST_INDEX = 16;
+    protected static final int WLR_TTT_INDEX = 9;//0
+    protected static final int WLR_CONNECT4_INDEX = 10;//0
+    protected static final int WLR_CHECKERS_INDEX = 11;
+    protected static final int RATING_TTT_INDEX = 12;
+    protected static final int RATING_CONNECT4_INDEX = 13;
+    protected static final int RATING_CHECKERS_INDEX = 14;
+    protected static final int RANK_TTT_INDEX = 15;
+    protected static final int RANK_CONNECT4_INDEX = 16;
+    protected static final int RANK_CHECKERS_INDEX = 17;
+    protected static final int WINS_TTT_INDEX = 18;
+    protected static final int WINS_CONNECT4_INDEX = 19;
+    protected static final int WINS_CHECKERS_INDEX = 20;
+    protected static final int GHIST_INDEX = 21;
+    protected static final int ACHIVPROG_INDEX = 22;
+    protected static final int FRIENDS_INDEX = 23;
+    protected static final int FREQUEST_INDEX = 24;
 
     /**
      * Opens CSV file (from networking): A list of one profile and their information

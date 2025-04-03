@@ -112,9 +112,9 @@ public class ProfileCreation {
 //    }
         public static void main (String[]args) {
             //TODO: Test with Database
-            System.out.println(ProfileCreation.createNewProfile("u566e2r6n78ame", "newe6m68a2il@ema6i6l.com", "1234586ass8sword"));
+            System.out.println(ProfileCreation.createNewProfile("NewDatabase3", "newdatabase3@email.com", "1234586ass8sword"));
             //should print true
-            //System.out.println(Authentication.getProfileLoggedIn().getEmail());
+            System.out.println(Authentication.getProfileLoggedIn().getPlayerRanking().getRank(0));
             //Email should be: "EmailShould be in index 3@email.com"
             //System.out.println(Authentication.getProfileLoggedIn().getHashedPassword());
             //System.out.printf("HashedPassword should equal %s\n", hashedPassword("hashedPasswordInIndex4"));

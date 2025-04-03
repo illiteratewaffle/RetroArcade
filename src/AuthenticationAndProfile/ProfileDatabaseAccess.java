@@ -32,15 +32,15 @@ public class ProfileDatabaseAccess {
             ArrayList<String> profileFields = openSingleProfileFile(csvProfileFilePath);
 
             //from Profile ArrayList obtain the values for Profile Class variables
-            String username = profileFields.get(1);
-            String nickname = profileFields.get(2);
-            String email = profileFields.get(3);
-            String hashedPassword = profileFields.get(4);
-            String bio = profileFields.get(5);
-            String profilePicFilePath = profileFields.get(6);
-            String currentGame = profileFields.get(7);
+            String username = profileFields.get(ProfileCSVReader.USER_INDEX);
+            String nickname = profileFields.get(ProfileCSVReader.NICK_INDEX);
+            String email = profileFields.get(ProfileCSVReader.EMAIL_INDEX);
+            String hashedPassword = profileFields.get(ProfileCSVReader.PWD_INDEX);
+            String bio = profileFields.get(ProfileCSVReader.BIO_INDEX);
+            String profilePicFilePath = profileFields.get(ProfileCSVReader.PIC_INDEX);
+            String currentGame = profileFields.get(ProfileCSVReader.CGAME_INDEX);
             boolean isOnline;
-            if (profileFields.get(8).equals("true")) {
+            if (profileFields.get(ProfileCSVReader.ONLINE_INDEX).equals("true")) {
                 isOnline = true;
             } else {
                 isOnline = false;
@@ -79,7 +79,7 @@ public class ProfileDatabaseAccess {
 
             ArrayList<String> profileFields = openSingleProfileFile(csvProfileFilePath);
             List<Long> friends = new ArrayList<>();
-            String friendsString = profileFields.get(15);
+            String friendsString = profileFields.get(ProfileCSVReader.FRIENDS_INDEX);
         System.out.printf("friendsString: '%s'\n", friendsString);
             if (!friendsString.equals("null")){
             String[] fieldsList = friendsString.split(",");
@@ -88,7 +88,7 @@ public class ProfileDatabaseAccess {
             }
             }
             List<Long> friendRequests = new ArrayList<>();
-            String friendRequestString = profileFields.get(16);
+            String friendRequestString = profileFields.get(ProfileCSVReader.FREQUEST_INDEX);
             if(!friendRequestString.equals("null")) {
                 String[] fieldsList = friendRequestString.split(", ");
                 for (int i = 0; i < fieldsList.length; i++) {
@@ -112,10 +112,25 @@ public class ProfileDatabaseAccess {
             ArrayList<String> profileFields = openSingleProfileFile(csvProfileFilePath);
 
             //from Profile ArrayList obtain the values for Profile Class variables
-            double winLossRatio = Double.parseDouble(profileFields.get(9));
-            int rating = Integer.parseInt(profileFields.get(10));
-            String rank = profileFields.get(11);
-            int wins = Integer.parseInt(profileFields.get(12));
+        double[] winLossRatio = new double[3];
+        int[] rating = new int[3];
+        String[] rank = new String[3];
+        int[] wins = new int[3];
+        winLossRatio[0] = Double.parseDouble(profileFields.get(ProfileCSVReader.WLR_TTT_INDEX));
+        winLossRatio[1] = Double.parseDouble(profileFields.get(ProfileCSVReader.WLR_CONNECT4_INDEX));
+        winLossRatio[2] = Double.parseDouble(profileFields.get(ProfileCSVReader.WLR_CHECKERS_INDEX));
+
+        rating[0] = Integer.parseInt(profileFields.get(ProfileCSVReader.RATING_TTT_INDEX));
+        rating[1] = Integer.parseInt(profileFields.get(ProfileCSVReader.RATING_CONNECT4_INDEX));
+        rating[2] = Integer.parseInt(profileFields.get(ProfileCSVReader.RATING_CHECKERS_INDEX));
+
+        rank[0] = profileFields.get(ProfileCSVReader.RANK_TTT_INDEX);
+        rank[1] = profileFields.get(ProfileCSVReader.RANK_CONNECT4_INDEX);
+        rank[2] = profileFields.get(ProfileCSVReader.RANK_CHECKERS_INDEX);
+
+        wins[0] = Integer.parseInt(profileFields.get(ProfileCSVReader.WINS_TTT_INDEX));
+        wins[1] = Integer.parseInt(profileFields.get(ProfileCSVReader.WINS_CONNECT4_INDEX));
+        wins[2] = Integer.parseInt(profileFields.get(ProfileCSVReader.WINS_CHECKERS_INDEX));
 
             PlayerRanking playerRanking = new PlayerRanking(winLossRatio, rating, rank, wins);
             return playerRanking;

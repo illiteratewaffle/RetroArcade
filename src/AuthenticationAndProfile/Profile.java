@@ -36,9 +36,6 @@ public class Profile {
         this.isOnline = isOnline;
         this.currentGame = currentGame;
         this.playerRanking = playerRanking;
-        //this.TTTRanking = TTTRanking;
-        //this.connect4Ranking = connect4Ranking;
-        //this.checkersRanking = checkersRanking;
         this.friendsList = friendsList;
         this.gameHistory = gameHistory;
         this.profilePicFilePath = profilePicFilePath;
@@ -214,7 +211,11 @@ public class Profile {
         this.friendsList = friendsList;
     }
 
-//    public TTTRanking getTTTRanking() {
+    public PlayerRanking getPlayerRanking() {
+        return playerRanking;
+    }
+
+    //    public TTTRanking getTTTRanking() {
 //        return TTTRanking;
 //    }
 //
