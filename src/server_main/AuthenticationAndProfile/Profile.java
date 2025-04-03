@@ -1,10 +1,10 @@
-package server_main.AuthenticationAndProfile;
+package AuthenticationAndProfile;
 
-import java.awt.image.BufferedImage;
-import leaderboard.PlayerRanking;
+//import leaderboard.TTTRanking;
+//import leaderboard.CheckersRanking;
+//import leaderboard.Connect4Ranking;
+import client_main.java.leaderboard.PlayerRanking;
 import server.player.PlayerManager;
-
-import static server.player.PlayerManager.getUsername;
 
 public class Profile {
     private String email;
@@ -14,13 +14,17 @@ public class Profile {
     private boolean isOnline;
     private String currentGame;
     private PlayerRanking playerRanking;
+    //private TTTRanking TTTRanking;
+    //private Connect4Ranking connect4Ranking;
+    //private CheckersRanking checkersRanking;
     private FriendsList friendsList;
-    private GameHistory gamesPlayed;
-    private BufferedImage profilePic;
-    private String username;
+    private GameHistory gameHistory;
+    private String profilePicFilePath;
+    private static String username;
     private int id;
 
-    public Profile(String email, String hashedPassword, String nickname, String bio, boolean isOnline, String currentGame, FriendsList friendsList, PlayerRanking playerRanking, GameHistory gamesPlayed, BufferedImage profilePic, String username, int id) {
+    public Profile(String email, String hashedPassword, String nickname, String bio, boolean isOnline, String currentGame, FriendsList friendsList, PlayerRanking playerRanking, GameHistory gameHistory, String profilePicFilePath, String username, int id) {
+        //public Profile(String email, String hashedPassword, String nickname, String bio, boolean isOnline, String currentGame, FriendsList friendsList, TTTRanking TTTRanking, Connect4Ranking connect4Ranking, CheckersRanking checkersRanking, GameHistory gameHistory, String profilePicFilePath, String username, int id) {
         this.email = email;
         this.hashedPassword = hashedPassword;
         this.nickname = nickname;
@@ -29,8 +33,8 @@ public class Profile {
         this.currentGame = currentGame;
         this.playerRanking = playerRanking;
         this.friendsList = friendsList;
-        this.gamesPlayed = gamesPlayed;
-        this.profilePic = profilePic;
+        this.gameHistory = gameHistory;
+        this.profilePicFilePath = profilePicFilePath;
         this.username = username;
         this.id = id;
     }
@@ -105,6 +109,15 @@ public class Profile {
      */
     public void setOnlineStatus(boolean online) {
         isOnline = online;
+        if (online) {
+            PlayerManager.updateAttribute(this.id, Integer.toString(ProfileCSVReader.ONLINE_INDEX), "true");
+        }else {
+            PlayerManager.updateAttribute(this.id, Integer.toString(ProfileCSVReader.ONLINE_INDEX), "false");
+        }
+    }
+
+    public boolean getOnlineStatus() {
+        return isOnline;
     }
 
     /**
@@ -143,32 +156,32 @@ public class Profile {
      * Gets the player's played games.
      * @return the player's played games.
      */
-    public GameHistory getGamesPlayed() {
-        return gamesPlayed;
+    public GameHistory getGameHistory() {
+        return gameHistory;
     }
 
     /**
      * Sets the player's played games.
-     * @param gamesPlayed the new played games of the player.
+     * @param gameHistory the new played games of the player.
      */
-    public void setGamesPlayed(GameHistory gamesPlayed) {
-        this.gamesPlayed = gamesPlayed;
+    public void setGameHistory(GameHistory gameHistory) {
+        this.gameHistory = gameHistory;
     }
 
     /**
      * Gets the player's profile picture.
      * @return the player's profile picture.
      */
-    public BufferedImage getProfilePic() {
-        return profilePic;
+    public String getProfilePicFilePath() {
+        return profilePicFilePath;
     }
 
     /**
      * Sets the player's profile picture.
-     * @param profilePic the new profile picture of the player.
+     * @param profilePicFilePath the new profile picture of the player.
      */
-    public void setProfilePic(BufferedImage profilePic) {
-        this.profilePic = profilePic;
+    public void setProfilePicFilePath(String profilePicFilePath) {
+        this.profilePicFilePath = profilePicFilePath;
     }
 
     /**
@@ -176,7 +189,11 @@ public class Profile {
      * @return the player's username.
      */
     public static String exportUsername(int id) {
-        return getUsername(7);
+        return PlayerManager.getUsername(7);
+    }
+
+    public static String getUsername() {
+        return username;
     }
 
     /**
@@ -187,7 +204,43 @@ public class Profile {
 
     }
 
+    public FriendsList getFriendsList() {
+        return friendsList;
+    }
+
+    public void setFriendsList(FriendsList friendsList) {
+        this.friendsList = friendsList;
+    }
+
+    public PlayerRanking getPlayerRanking() {
+        return playerRanking;
+    }
+
+    //    public TTTRanking getTTTRanking() {
+//        return TTTRanking;
+//    }
+//
+//    public Connect4Ranking getConnect4Ranking() {
+//        return connect4Ranking;
+//    }
+//
+//    public CheckersRanking getCheckersRanking() {
+//        return checkersRanking;
+//    }
+//
+//    public void setTTTRanking(TTTRanking TTTRanking) {
+//        this.TTTRanking = TTTRanking;
+//    }
+//
+//    public void setConnect4Ranking(Connect4Ranking connect4Ranking) {
+//        this.connect4Ranking = connect4Ranking;
+//    }
+//
+//    public void setCheckersRanking(CheckersRanking checkersRanking) {
+//        this.checkersRanking = checkersRanking;
+//    }
+
     public static void main(String[] args) {
-        getUsername(7);
+        PlayerManager.getUsername(7);
     }
 }

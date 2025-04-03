@@ -1,39 +1,19 @@
-package server_main.AuthenticationAndProfile;
+package AuthenticationAndProfile;
 
-import org.junit.jupiter.api.*;
+import client_main.java.leaderboard.PlayerRanking;
+import org.junit.jupiter.api.Test;
+import server.player.PlayerManager;
 
 class ProfileDatabaseAccessTest {
-
-    @Test
-    void addProfile() {
-    }
-
-    @Test
-    void removeProfile() {
-    }
-
-    @Test
-    void searchForProfile() {
-    }
-
-    @Test
-    void viewProfile() {
-    }
-
-    @Test
-    void getProfileEmailSet() {
-    }
-
-    @Test
-    void viewLeaderboard() {
-    }
-
-    @Test
-    void testViewLeaderboard() {
-    }
+    private int id = PlayerManager.registerPlayer("username", "email@email.com", "12345678");
 
     @Test
     void obtainProfile() {
+        String hashedPassword = ProfileCreation.hashedPassword("1234567");
+        Profile profile = new Profile("email@email.com", hashedPassword, "null", "null", false, "null", new FriendsList(), new PlayerRanking(), new GameHistory(), "null", "username", 1 );
+
+        PlayerManager.registerPlayer
+        assertEquals(, ProfileDatabaseAccess.obtainProfile(id));
     }
 
     @Test
@@ -42,7 +22,6 @@ class ProfileDatabaseAccessTest {
 
     @Test
     void obtainPlayerRanking() {
-
     }
 
     @Test
@@ -50,7 +29,7 @@ class ProfileDatabaseAccessTest {
     }
 
     @Test
-    void testRemoveProfile() {
+    void removeProfile() {
     }
 
     @Test
@@ -58,7 +37,7 @@ class ProfileDatabaseAccessTest {
     }
 
     @Test
-    void testSearchForProfile() {
+    void searchForProfile() {
     }
 
     @Test

@@ -1,4 +1,4 @@
-package server_main.AuthenticationAndProfile;
+package AuthenticationAndProfile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,13 +24,14 @@ public class GameHistory{
     public GameHistory(List<String> gameHistory) {
         this.gameHistory = gameHistory;
     }
+    public GameHistory(){};
 
     /**
      * Retrives the full game history fo the user associated with the id
      * @param id
      * @return list of game history
      */
-    public List<String> getGameHistory(long id){
+    public List<String> getGameHistory(){
         return new ArrayList<>(gameHistory); // returns a copy of the game history list
     }
 

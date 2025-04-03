@@ -1,26 +1,44 @@
-package server_main.AuthenticationAndProfile;
+package AuthenticationAndProfile;
+
+import client_main.java.leaderboard.PlayerRanking;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import server.player.PlayerManager;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class AuthenticationTest {
+    private Profile profile;
+    @BeforeEach
+    void setUp() {
+        String password = "1234567";
+        String hashedPassword = ProfileCreation.hashedPassword(password);
+        profile = new Profile("email@email.com", hashedPassword,"nick", "This is bio.", false, "null", new FriendsList(), new PlayerRanking(), new GameHistory(), "C:profile/pic/path.png", "username", 2 );
+    }
 
-    @org.junit.jupiter.api.Test
+    @Test
+    void logIn() {
+        PlayerManager.registerPlayer("email@email,com", profile.getHashedPassword(), "username");
+        assertTrue(Authentication.logIn("username", profile.getHashedPassword()));
+    }
+
+    @Test
     void logOut() {
+        Authentication.setProfileLoggedIn(profile);
+        Authentication.logOut();
+        assertNull(Authentication.getProfileLoggedIn());
     }
 
-    @org.junit.jupiter.api.Test
-    void authenticateUsername() {
-    }
-
-    @org.junit.jupiter.api.Test
-    void authenticatePassword() {
-    }
-
-    @org.junit.jupiter.api.Test
+    @Test
     void getProfileLoggedIn() {
+        Authentication.setProfileLoggedIn(profile);
+        assertEquals(profile, Authentication.getProfileLoggedIn());
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void setProfileLoggedIn() {
+        //Profile profile = new Profile("email@email.com", "46#B286734A8%367","nick", "This is bio.", false, "null", new FriendsList(), new PlayerRanking(), new GameHistory(), "C:profile/pic/path.png", "username", 2 );
+        Authentication.setProfileLoggedIn(profile);
+        assertEquals(profile, Authentication.getProfileLoggedIn());
     }
 }

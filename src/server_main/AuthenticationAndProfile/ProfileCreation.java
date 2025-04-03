@@ -1,5 +1,7 @@
-package server_main.AuthenticationAndProfile;
+package AuthenticationAndProfile;
 
+import org.postgresql.util.PSQLException;
+import server.player.Player;
 import server.player.PlayerManager;
 
 import java.io.IOException;
@@ -47,41 +49,58 @@ public class ProfileCreation {
      * @param password
      * @return boolean to indicate if registration was successful
      */
-    private boolean createNewProfile(String email, String username, String password) {
+    public static boolean createNewProfile(String username, String email, String password) {
         String hashedPassword = hashedPassword(password);
-        //try {
-            PlayerManager.registerPlayer(email, username, hashedPassword); //handle register player errors
-            return true;
-//        }catch (IOException e) {
-//            System.out.println("Invalid email. Email already associated with an existing account.");
-//            return false;
-//        }catch (IOException f) {
-//            System.out.println("Invalid username. Username already associated with an existing account.");
-//            return false;
-//        }
+//        try{
+        int id = PlayerManager.registerPlayer(username, email, hashedPassword); //handle register player errors
+        System.out.println(id);
+        if (id == -1) {
+            System.out.println("Invalid email or username. Credentials already associated with an existing account.");
+            return false;
+        }else {
+            System.out.println("Profile registered correctly. Trying to Log In.");
+            //try {
+                boolean logIn = Authentication.logIn(username, password);
+                return logIn;
+//            } catch (Exception e) {
+//                System.out.println("Login Unsuccessful.");
+//                return false;
+//            }
+//            Profile profile = ProfileDatabaseAccess.obtainProfile(id);
+//            Authentication.setProfileLoggedIn(profile);
+//            if(Authentication.getProfileLoggedIn() == profile){
+//                return true;
+//            } else {
+//                return false;
+//            }
+        }
+//        }catch () {
+//            System.out.println("Invalid email or username. Credentials already associated with an existing account.");
+//            return null;
+//    }
     }
 
-    /**
-     * Hashing Algorithm for Password. Takes the entered password and encrypts it to save profile credentials to the ProfileDatabase.
-     * @param unhashedPassword
-     * @return
-     */
-    public static String hashedPassword(String unhashedPassword){
-        String hashed = "";
-        //inbuilt MessageDigest class for SHA-256 hashing
-        //Source: https://www.baeldung.com/sha-256-hashing-java
-        //Convert bytes to hex Source: https://www.geeksforgeeks.org/java-program-to-convert-byte-array-to-hex-string/
-        try {
-            MessageDigest digest = MessageDigest.getInstance("SHA-256");
-            byte[] encodedhash = digest.digest(unhashedPassword.getBytes(StandardCharsets.UTF_8));
-            for (int i = 0; i < encodedhash.length; i++) {
-                hashed += String.format("%02X", encodedhash[i]);
+        /**
+         * Hashing Algorithm for Password. Takes the entered password and encrypts it to save profile credentials to the ProfileDatabase.
+         * @param unhashedPassword
+         * @return
+         */
+        public static String hashedPassword (String unhashedPassword){
+            String hashed = "";
+            //inbuilt MessageDigest class for SHA-256 hashing
+            //Source: https://www.baeldung.com/sha-256-hashing-java
+            //Convert bytes to hex Source: https://www.geeksforgeeks.org/java-program-to-convert-byte-array-to-hex-string/
+            try {
+                MessageDigest digest = MessageDigest.getInstance("SHA-256");
+                byte[] encodedHash = digest.digest(unhashedPassword.getBytes(StandardCharsets.UTF_8));
+                for (int i = 0; i < encodedHash.length; i++) {
+                    hashed += String.format("%02X", encodedHash[i]);
+                }
+            } catch (NoSuchAlgorithmException e) {
+                System.out.println("No such SHA-256 algorithm");
             }
-        } catch (NoSuchAlgorithmException e){
-            System.out.println("No such SHA-256 algorithm");
+            return hashed;
         }
-        return hashed;
-    }
 
 //    /**
 //     * Method to delete the profile currently logged inm from the ProfileDatabase and then log them out.
@@ -92,5 +111,18 @@ public class ProfileCreation {
 //        ProfileDatabase.removeProfile(authenticationSession.getProfileLoggedIn().getUsername());
 //        authenticationSession.logOut();
 //    }
+        public static void main (String[]args) {
+            //TODO: Test with Database
+            //System.out.println(ProfileCreation.createNewProfile("NewDatabaseWithUpdate", "newdatabaseWith update@email.com", "1234586ass8sword"));
+            //should print true
+            //System.out.println(Authentication.getProfileLoggedIn().getOnlineStatus());
+            System.out.println(ProfileDatabaseAccess.obtainProfile(5).getOnlineStatus());
 
-}
+            //Email should be: "EmailShould be in index 3@email.com"
+            //System.out.println(Authentication.getProfileLoggedIn().getHashedPassword());
+            //System.out.printf("HashedPassword should equal %s\n", hashedPassword("hashedPasswordInIndex4"));
+            //System.out.println(Authentication.getProfileLoggedIn().getUsername());
+            //Username should be : "username should be in index 1"
+        }
+        }
+

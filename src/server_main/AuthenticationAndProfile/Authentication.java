@@ -1,4 +1,4 @@
-package server_main.AuthenticationAndProfile;
+package AuthenticationAndProfile;
 
 import server.player.PlayerManager;
 
@@ -26,14 +26,20 @@ public class Authentication {
      * @return true if login is successful. Throws exceptions for incorrect username or password if
      * login fails.
      */
-    public boolean logIn(String username, String password) throws Exception {
+    public static boolean logIn(String username, String password) {
         String hashedPassword = ProfileCreation.hashedPassword(password);
         //try {
             int id = PlayerManager.authenticatePlayer(username, hashedPassword);
-            Profile profile = ProfileDatabaseAccess.obtainProfile(id);
-            setProfileLoggedIn(profile);
-            profile.setOnlineStatus(true);
-            return true;
+            if (id != -1) {
+                Profile profile = ProfileDatabaseAccess.obtainProfile(id);
+                setProfileLoggedIn(profile);
+                profile.setOnlineStatus(true);
+                System.out.printf("Player %d is setOnline\n", id);
+                return true;
+            } else {
+                System.out.println("Unable to Log In.");
+                return false;
+            }
 //        } catch (IOException e) {
 //            System.out.println("Wrong username or password.");
 //            return false;
@@ -52,7 +58,7 @@ public class Authentication {
      * getProfileLoggedIn() to access Profile object of the profile currently logged in.
      * @return Profile currently logged in to access profile information.
      */
-    public Profile getProfileLoggedIn(){
+    public static Profile getProfileLoggedIn(){
         return profileLoggedIn;
     }
 
@@ -60,7 +66,11 @@ public class Authentication {
      * Sets the Profile currently logged into on the program.
      * @param profile Profile
      */
-    public void setProfileLoggedIn(Profile profile){
+    public static void setProfileLoggedIn(Profile profile){
         profileLoggedIn = profile;
     }
 }
+
+//public static void main(String[] args) {
+//
+//}
