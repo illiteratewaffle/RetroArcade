@@ -235,18 +235,23 @@ public class PlayerManager {
     }
 
     public static String updateAttribute(int id, String attrColumn, String newValue) {
-        String query = "UPDATE profiles SET " + attrColumn + "= ? WHERE id = ?";
+        String query = "UPDATE profiles SET " + attrColumn + " = ? WHERE id = ?";
         try (PreparedStatement statement = conn.prepareStatement(query)) {
             statement.setString(1, newValue);
             statement.setInt(2, id);
-            statement.executeQuery();
-            return ("Succesfully updated");
+
+            int rowsUpdated = statement.executeUpdate();
+            if (rowsUpdated > 0) {
+                return "Attribute '" + attrColumn + "' updated for Player " + id;
+            } else {
+                return "No player found with ID: " + id;
+            }
         } catch (SQLException e) {
-            return ("issue updating");
+            return "Error updating player attribute: " + e.getMessage();
         }
     }
 
     public static void main(String[] args) {
-        updateAttribute(56, "username", "updatedUSer2" );
+        System.out.println(updateAttribute(1, "email", "newEmail@me.ca" ));
     }
 }
