@@ -39,7 +39,7 @@ public class databaseConnector {
     public static Connection connect() {
         if (connection == null) {
             try {
-                databaseConnector.loadConfiguration("db-config-test.properties");
+                loadConfiguration("db-config-test.properties");
                 connection = DriverManager.getConnection(URL, USER, PASSWORD);
                 // TODO: log?
                 System.out.println("Connected to the database.");

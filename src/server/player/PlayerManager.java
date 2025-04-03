@@ -8,6 +8,8 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static server.management.ServerLogger.log;
+
 public class PlayerManager {
     private static final Connection conn = databaseConnector.connect();
 
@@ -68,10 +70,10 @@ public class PlayerManager {
             // If a row is returned matching player credentials, returns player ID
             if (rs.next()) {
                 int playerId = rs.getInt("id");
-                System.out.println("Authentication successful. Player ID: " + playerId);
+                log("Authentication successful. Player ID: " + playerId);
                 return playerId;
             } else {
-                System.out.println("Authentication failed: Invalid username or password.");
+                log("Authentication failed: Invalid username or password.");
                 return -1;
             }
         } catch (SQLException e) {
@@ -110,9 +112,9 @@ public class PlayerManager {
                 }
                 writer.append("\n");
 
-                System.out.println("Player data written to: " + fileName);
+                log("Player data written to: " + fileName);
             } else {
-                System.out.println("No player found with ID: " + id);
+                log("No player found with ID: " + id);
             }
         } catch (SQLException | IOException e) {
             System.err.println("Error retrieving or writing player data: " + e.getMessage());
@@ -160,12 +162,13 @@ public class PlayerManager {
                 rowCount++;
             }
 
-            System.out.println("Exported " + rowCount + " profile(s) to " + csvFile);
+            log("Exported " + rowCount + " profile(s) to " + csvFile);
         } catch (SQLException | IOException e) {
             // Exception error messages in case of SQL or file I/O issues
             System.err.println("Error exporting profile data: " + e.getMessage());
         }
     }
+
     public static List<Integer> searchFriendsList(int id, String nameFragment) {
         // SQL query that searches friends based on friend usernames that match the submitted string parameter
         String query = """
@@ -197,37 +200,6 @@ public class PlayerManager {
         return matchingIds;
     }
 
-    public static List<Integer> searchProfiles(String nameFragment) {
-        // SQL query that searches friends based on friend usernames that match the submitted string parameter
-        String query = """
-                SELECT id
-                FROM profiles
-                WHERE id = ANY (
-                SELECT * FROM profiles
-                FROM profiles WHERE id = ?)
-                AND username ILIKE ?""";
-
-        // List containing friend Ids
-        List<Integer> matchingIds = new ArrayList<>();
-
-        // Prepare SQL query by setting search parameters and then execute
-        try(PreparedStatement statement = conn.prepareStatement(query)) {
-            //statement.setInt(1, id);
-            // % signify wildcards so it searches any string containing the substring nameFragment
-            statement.setString(2, "%" + nameFragment + "%");
-            // Store the resulting table in rs
-            ResultSet rs = statement.executeQuery();
-            // rs.next moves cursor to next row in table and stores the id into matchingIds list
-            while (rs.next()) {
-                matchingIds.add(rs.getInt("id"));
-            }
-        } catch (SQLException e) {
-            System.err.println("Error searching friends by substring: " + e.getMessage());
-        }
-        // Return the friend's list that match the substring passed through
-        return matchingIds;
-    }
-
     public static String getUsername(int id) {
         String query = "SELECT username FROM profiles WHERE id = ?";
 
@@ -238,7 +210,7 @@ public class PlayerManager {
             if (rs.next()) {
                 return rs.getString("username");
             } else {
-                System.out.println("No user found with ID: " + id);
+                log("No user found with ID: " + id);
                 return null;
             }
         } catch (SQLException e) {
@@ -247,10 +219,34 @@ public class PlayerManager {
         }
     }
 
-    // TODO: create methods to retrieve columns of profile
+    public static String deleteProfile(int id) {
+        String query = "DELETE FROM profiles WHERE id = ?";
+        try (PreparedStatement statement = conn.prepareStatement(query)) {
+            statement.setInt(1, id);
+            int rowsAffected = statement.executeUpdate();
+            if (rowsAffected > 0) {
+                return "Player with ID " + id + " deleted successfully.";
+            } else {
+                return "No player found with ID " + id + ".";
+            }
+        } catch (SQLException e) {
+            return "Error deleting profile: " + e.getMessage();
+        }
+    }
+
+    public static String updateAttribute(int id, String attrColumn, String newValue) {
+        String query = "UPDATE profiles SET " + attrColumn + "= ? WHERE id = ?";
+        try (PreparedStatement statement = conn.prepareStatement(query)) {
+            statement.setString(1, newValue);
+            statement.setInt(2, id);
+            statement.executeQuery();
+            return ("Succesfully updated");
+        } catch (SQLException e) {
+            return ("issue updating");
+        }
+    }
 
     public static void main(String[] args) {
-        //getProfile(43);
-        registerPlayer("testUser2", "testemail@test.com", "jhkjh234hk2jhrk23j");
+        updateAttribute(56, "username", "updatedUSer2" );
     }
 }

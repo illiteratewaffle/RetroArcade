@@ -20,16 +20,17 @@ public class PlayerHandler implements Runnable {
     //private final ConcurrentHashMap<Thread, BlockingQueue<ThreadMessage>> queue;
     private boolean running;
     private BufferedReader bufferedReader;
-    private BufferedWriter bufferedWriter;
+    private PrintWriter printWriter;
     private Thread gameSessionManagerThread = null;
     private final Object gameSessionLock = new Object();
+    private Thread mainThread = null;
 
     /**
      *
      * @param clientSocket the Socket that the client is connected on
      * /@param queue the main message cue object that will be used to communicate between threads.
      */
-    public PlayerHandler(Socket clientSocket, LinkedBlockingQueue queue) {
+    public PlayerHandler(Socket clientSocket, BlockingQueue<ThreadMessage> queue) {
         this.clientSocket = clientSocket;
         //Create a dedicated queue for messages related to this player's thread.
         this.queue = queue;
@@ -39,7 +40,7 @@ public class PlayerHandler implements Runnable {
         // Initialize the BufferedReader and BufferedWriter
         try {
             this.bufferedReader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-            this.bufferedWriter = new BufferedWriter(new OutputStreamWriter(clientSocket.getOutputStream()));
+            this.printWriter = new PrintWriter(clientSocket.getOutputStream(), true);
         } catch (IOException e){
             log("Failure to initialize PlayerHandler BufferedReader/BufferedWriter:", e.toString());
         }
@@ -49,6 +50,8 @@ public class PlayerHandler implements Runnable {
      * The function that the thread runs, listens to the blocking queue to send information to the client
      */
     public void run() {
+        // Assign the mainThread to the thread created by ConnectionManager
+        mainThread = Thread.currentThread();
         // Start the PlayerHandlerListener thread
         PlayerHandlerListener playerHandlerListener = new PlayerHandlerListener();
         Thread playerHandlerListenerThread = Thread.ofVirtual().start(playerHandlerListener);
@@ -59,17 +62,17 @@ public class PlayerHandler implements Runnable {
                 // Take a message from the blocking queue
                 ThreadMessage threadMessage = queue.take();
                 // Grab the thread GameSessionManager is on for communicating back to it
-                if (gameSessionManagerThread == null) {
-                    gameSessionManagerThread = threadMessage.getSender();
-                    gameSessionLock.notifyAll();
+                synchronized (gameSessionLock) {
+                    if (gameSessionManagerThread == null) {
+                        gameSessionManagerThread = threadMessage.getSender();
+                        gameSessionLock.notifyAll();
+                    }
                 }
                 // Convert to json formatting then send it to the client
                 // THERE IS NO JSON TO STRING CONVERSION CLASS CREATED YET
-                bufferedWriter.write(threadMessage.getContent());
+                printWriter.println(threadMessage.getContent());
             } catch (InterruptedException e) {
                 log("Failure to take message blocking queue for PlayerHandler:", e.toString());
-            } catch (IOException e) {
-                log("Failure to send a message to the client using the BufferedWriter:", e.toString());
             }
         }
     }
@@ -88,10 +91,12 @@ public class PlayerHandler implements Runnable {
                     String message = bufferedReader.readLine();
                     // Convert the json formatting and send it to the GameSessionManager
                     // THERE IS NO JSON TO STRING CONVERSION CLASS CREATED YET
-                    ThreadMessage threadMessage = new ThreadMessage(Thread.currentThread(), message);
+                    ThreadMessage threadMessage = new ThreadMessage(mainThread, message);
                     // Make sure that we have the GameSessionManagerThread before attempting to send information to it
-                    if (gameSessionManagerThread == null)
-                        gameSessionLock.wait();
+                    synchronized (gameSessionLock) {
+                        if (gameSessionManagerThread == null)
+                            gameSessionLock.wait();
+                    }
                     // Relay the message to the GameSessionManager
                     networkManager.sendMessage(gameSessionManagerThread, threadMessage);
                 } catch (IOException e) {
