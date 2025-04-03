@@ -53,10 +53,12 @@ public class Profile {
 
     /**
      * Sets a player's email.
-     * @param email the new email of the player.
+     * @param newEmail the new email of the player.
      */
-    public void setEmail(String email) {
+    public void setEmail(String newEmail) {
         this.email = email;
+        PlayerManager.updateAttribute(id, "email", newEmail);
+
     }
 
     /**
@@ -69,10 +71,12 @@ public class Profile {
 
     /**
      * Sets a player's hashed password.
-     * @param hashedPassword the new hashed password of the player.
+     * @param newHashedPassword the new hashed password of the player.
      */
-    public void setHashedPassword(String hashedPassword) {
+    public void setHashedPassword(String newHashedPassword) {
         this.hashedPassword = hashedPassword;
+        PlayerManager.updateAttribute(id, "hashed_password", newHashedPassword);
+
     }
 
     /**
@@ -85,10 +89,11 @@ public class Profile {
 
     /**
      * Sets a player's nickname.
-     * @param nickname the new nickname of the player.
+     * @param newNickname the new nickname of the player.
      */
-    public void setNickname(String nickname) {
+    public void setNickname(String newNickname) {
         this.nickname = nickname;
+        PlayerManager.updateAttribute(id, "nickname", newNickname);
     }
 
     /**
@@ -155,6 +160,7 @@ public class Profile {
      */
     public void setCurrentGame(String currentGame) {
         this.currentGame = currentGame;
+        PlayerManager.updateAttribute(id, "current_game", currentGame);
     }
 
     /**
