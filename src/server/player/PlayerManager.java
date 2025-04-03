@@ -277,6 +277,24 @@ public class PlayerManager {
         }
     }
 
+    public static String getAttribute(int id, String attrColumn) {
+        String query = "SELECT " + attrColumn + " FROM profiles WHERE id = ?";
+        try (PreparedStatement statement = conn.prepareStatement(query)) {
+            statement.setInt(1, id);
+            ResultSet rs = statement.executeQuery();
+            if (rs.next()) {
+                return rs.getString(attrColumn);
+            } else {
+                System.err.println("No player found with ID: " + id);
+                return null;
+            }
+        } catch (SQLException e) {
+            System.err.println("Error retrieving attribute '" + attrColumn + "' for player ID " + id + ": " + e.getMessage());
+            return null;
+        }
+    }
+
+
     public static void main(String[] args) {
         updateAttribute(56, "username", "updatedUSer2" );
     }
