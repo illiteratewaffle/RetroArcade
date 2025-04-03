@@ -64,7 +64,7 @@ public class C4GUIController implements Initializable {
 
     @FXML
     private void onCol6Click() {
-        handleColumnClick(7);
+        handleColumnClick(6);
     }
 
     @FXML
