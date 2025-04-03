@@ -18,10 +18,11 @@ public class CheckersGUIController implements Initializable {
     @FXML
     private GridPane checkerBoard;
 
+    @FXML
+    private ImageView screen;
 
     private CheckersController gameLogic;
 
-    //will use if we can initialize each piece in a for loop rather than explicitly
     private static final int BOARD_SIZE = 8;
     private StackPane[][] tileBorderGrid = new StackPane[BOARD_SIZE][BOARD_SIZE];
     private ImageView[][] tilePiece = new ImageView[BOARD_SIZE][BOARD_SIZE];
@@ -30,6 +31,9 @@ public class CheckersGUIController implements Initializable {
     private Image pinkChecker;
     private Image blueKingChecker;
     private Image pinkKingChecker;
+
+    private Image yourTurn;
+    private Image opponentTurn;
 
     private StackPane previouslySelectedTile = null;
 
@@ -44,6 +48,8 @@ public class CheckersGUIController implements Initializable {
         pinkChecker = new Image("checkers_pink_piece.png");
         blueKingChecker = new Image("checkers_blue_king_piece.png");
         pinkKingChecker = new Image("checkers_pink_king_piece.png");
+        yourTurn = new Image("X.png");
+        opponentTurn = new Image("O.png");
 
         for (int i = 0; i < BOARD_SIZE; i++) {
             for (int j = 0; j < BOARD_SIZE; j++) {
@@ -93,6 +99,7 @@ public class CheckersGUIController implements Initializable {
             }
         }
         refreshBoard();
+        getTurn();
         //setupInitialPieces();
     }
 
@@ -127,8 +134,23 @@ public class CheckersGUIController implements Initializable {
         gameLogic.receiveInput(tileClicked);
 
         refreshBoard();
+        getTurn();
+    }
+
+    @FXML
+    private void getTurn() {
+        int currentPlayer = gameLogic.getCurrentPlayer();
+
+        if (currentPlayer == 0) {
+            screen.setImage(yourTurn);
+        }
+        else {
+            screen.setImage(opponentTurn);
+        }
 
     }
+
+
 
     /**
      * Gets the board cells and updates the pieces on the board based on that
