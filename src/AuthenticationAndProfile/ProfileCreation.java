@@ -1,6 +1,7 @@
 package AuthenticationAndProfile;
 
 import org.postgresql.util.PSQLException;
+import server.player.Player;
 import server.player.PlayerManager;
 
 import java.io.IOException;
@@ -112,9 +113,11 @@ public class ProfileCreation {
 //    }
         public static void main (String[]args) {
             //TODO: Test with Database
-            System.out.println(ProfileCreation.createNewProfile("NewDatabase3", "newdatabase3@email.com", "1234586ass8sword"));
+            //System.out.println(ProfileCreation.createNewProfile("NewDatabaseWithUpdate", "newdatabaseWith update@email.com", "1234586ass8sword"));
             //should print true
-            System.out.println(Authentication.getProfileLoggedIn().getPlayerRanking().getRank(0));
+            //System.out.println(Authentication.getProfileLoggedIn().getOnlineStatus());
+            System.out.println(ProfileDatabaseAccess.obtainProfile(5).getOnlineStatus());
+
             //Email should be: "EmailShould be in index 3@email.com"
             //System.out.println(Authentication.getProfileLoggedIn().getHashedPassword());
             //System.out.printf("HashedPassword should equal %s\n", hashedPassword("hashedPasswordInIndex4"));

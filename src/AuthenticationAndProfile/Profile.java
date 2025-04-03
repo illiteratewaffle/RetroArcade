@@ -113,6 +113,11 @@ public class Profile {
      */
     public void setOnlineStatus(boolean online) {
         isOnline = online;
+        if (online) {
+            PlayerManager.updateAttribute(this.id, Integer.toString(ProfileCSVReader.ONLINE_INDEX), "true");
+        }else {
+            PlayerManager.updateAttribute(this.id, Integer.toString(ProfileCSVReader.ONLINE_INDEX), "false");
+        }
     }
 
     public boolean getOnlineStatus() {
