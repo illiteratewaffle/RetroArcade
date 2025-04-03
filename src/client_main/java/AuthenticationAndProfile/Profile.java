@@ -1,7 +1,14 @@
 package client_main.java.AuthenticationAndProfile;
 
+import java.awt.image.BufferedImage;
+
+//import leaderboard.TTTRanking;
+//import leaderboard.CheckersRanking;
+//import leaderboard.Connect4Ranking;
 import leaderboard.PlayerRanking;
 import server.player.PlayerManager;
+
+import static server.player.PlayerManager.getUsername;
 
 public class Profile {
     private String email;
@@ -11,6 +18,9 @@ public class Profile {
     private boolean isOnline;
     private String currentGame;
     private PlayerRanking playerRanking;
+    //private TTTRanking TTTRanking;
+    //private Connect4Ranking connect4Ranking;
+    //private CheckersRanking checkersRanking;
     private FriendsList friendsList;
     private GameHistory gameHistory;
     private String profilePicFilePath;
@@ -183,7 +193,7 @@ public class Profile {
      * @return the player's username.
      */
     public static String exportUsername(int id) {
-        return PlayerManager.getUsername(7);
+        return PlayerManager.getUsername(id);
     }
 
     public static String getUsername() {
@@ -194,7 +204,9 @@ public class Profile {
      * Sets a player's username.
      * @param newUsername the new username of the player.
      */
-    public void updateUsername(String newUsername) {
+    public void updateUsername(int id, String newUsername) {
+        this.username = newUsername;
+        PlayerManager.updateAttribute(id, "username", newUsername);
 
     }
 
@@ -235,6 +247,6 @@ public class Profile {
 //    }
 
     public static void main(String[] args) {
-        PlayerManager.getUsername(7);
+        PlayerManager.updateAttribute(6,"username","Jakeyboy");
     }
 }
