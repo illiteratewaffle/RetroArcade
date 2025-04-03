@@ -1,6 +1,7 @@
 package client_main.java.AuthenticationAndProfile;
 
 import java.awt.image.BufferedImage;
+import java.util.UUID;
 
 //import leaderboard.TTTRanking;
 //import leaderboard.CheckersRanking;
@@ -215,6 +216,33 @@ public class Profile {
         this.username = newUsername;
         PlayerManager.updateAttribute(id, "username", newUsername);
 
+    }
+
+    // ChatGPT was used to generate the original code for the following 2 methods in ProfileCreationTest.java.
+    // The prompt used was: How can I make it so every time this test is run, a new username email and password are generated and it's id is used to identify it in the assertEquals statement
+    // ChatGPT suggested using UUID.randomUUID() to generate a unique identifier for the username, email, and password.
+    // UUID.randomUUID() generates a random universally unique identifier using a strong pseudo random number generator.
+    // The identifier is then converted to a string using .toString. This ensures every time this test is ran, a unique profile is created.
+    // The rest of the code in this test case (ProfileCreation.createNewProfile and following) was written without any AI assistance.
+    // To ensure this code is efficiently reusable, I've moved the generation of usernames and passwords to their own methods in the Profile class.
+
+    /**
+     * Generates a unique username.
+     * @return a unique username.
+     */
+    public static String generateUsername() {
+        String uniqueSuffix = UUID.randomUUID().toString().substring(0, 8);
+        return "User_" + uniqueSuffix;
+    }
+
+    /**
+     * Generates a unique password.
+     * @return a unique password.
+     */
+    public static String generatePassword() {
+        String uniqueSuffix = UUID.randomUUID().toString().substring(0, 8);
+        String password = "Pass_" + uniqueSuffix;
+        return password;
     }
 
     public FriendsList getFriendsList() {
