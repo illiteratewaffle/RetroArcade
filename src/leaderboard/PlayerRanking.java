@@ -6,14 +6,9 @@ public class PlayerRanking {
     private String[] rank = new String[3];
     private int[] wins = new int[3];
 
-//    private String[][] playerRankings;
-//
-//    public enum Integer Games {
-//        TTT, CONNECT4, CHECKERS;
-//    }
-//    public PlayerRanking(String[][] playerRankings) {
-//        this.playerRankings = playerRankings;
-//    }
+    public static final int TTT_INDEX = 0;
+    public static final int CONNECT4_INDEX = 1;
+    public static final int CHECKERS_INDEX = 2;
 
     public PlayerRanking(double[] winLossRatio, int[] rating, String[] rank, int[] wins) {
         this.winLossRatio = winLossRatio;
@@ -21,8 +16,6 @@ public class PlayerRanking {
         this.rank = rank;
         this.wins = wins;
     }
-
-    public PlayerRanking(){};
 
     public double getWinLossRatio(int gameNumber) {
         return winLossRatio[gameNumber];
