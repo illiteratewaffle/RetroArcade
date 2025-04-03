@@ -11,7 +11,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI_client.C4GUIController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI_client.C4GUIController">
     <children>
         <Text layoutX="179.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Connect Four" wrappingWidth="237.6044921875">
             <font>
@@ -53,29 +53,29 @@
                 <Image url="@../connect_4_assets/info_button.png" />
             </image>
         </ImageView>
+        <GridPane fx:id="c4GUIGrid" layoutX="323.0" layoutY="108.0" prefHeight="214.0" prefWidth="263.0" style="-fx-background-color: transparent;">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="125.0" minWidth="10.0" prefWidth="38.5" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="125.0" minWidth="0.0" prefWidth="38.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="125.0" minWidth="3.0" prefWidth="39.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="132.0" minWidth="10.0" prefWidth="37.5" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="144.0" minWidth="10.0" prefWidth="37.5" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="132.0" minWidth="10.0" prefWidth="38.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="132.0" minWidth="10.0" prefWidth="34.5" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints maxHeight="55.0" minHeight="10.0" prefHeight="34.5" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="104.0" minHeight="10.0" prefHeight="36.5" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="119.0" minHeight="10.0" prefHeight="35.47523498535156" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="119.0" minHeight="10.0" prefHeight="36.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="119.0" minHeight="0.0" prefHeight="36.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="119.0" minHeight="0.0" prefHeight="36.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+        </GridPane>
         <TextField layoutX="70.0" layoutY="527.0" prefHeight="34.0" prefWidth="662.0" text="message opponent">
             <font>
                 <Font name="Silom" size="19.0" />
             </font></TextField>
-        <GridPane fx:id="c4GUIGrid" layoutX="323.0" layoutY="108.0" prefHeight="214.0" prefWidth="263.0">
-            <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="125.0" minWidth="10.0" prefWidth="36.47296142578125" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="125.0" minWidth="0.0" prefWidth="36.52703857421875" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="125.0" minWidth="3.0" prefWidth="38.605865478515625" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="132.0" minWidth="10.0" prefWidth="38.105865478515625" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="144.0" minWidth="10.0" prefWidth="37.02703857421875" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="132.0" minWidth="10.0" prefWidth="38.527008056640625" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="132.0" minWidth="10.0" prefWidth="37.02703857421875" />
-            </columnConstraints>
-            <rowConstraints>
-                <RowConstraints maxHeight="55.0" minHeight="10.0" prefHeight="33.20945739746094" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="104.0" minHeight="10.0" prefHeight="37.29054260253906" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="119.0" minHeight="10.0" prefHeight="35.47523498535156" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="119.0" minHeight="10.0" prefHeight="36.52702331542969" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="119.0" minHeight="0.0" prefHeight="35.8153076171875" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="119.0" minHeight="0.0" prefHeight="34.6846923828125" vgrow="SOMETIMES" />
-            </rowConstraints>
-        </GridPane>
         <Button fx:id="col1Button" layoutX="359.0" layoutY="106.0" mnemonicParsing="false" onAction="#onCol1Click" opacity="0.0" prefHeight="220.0" prefWidth="40.0" text="Button" />
         <Button layoutX="425.0" layoutY="136.0" mnemonicParsing="false" opacity="0.0" prefHeight="176.0" prefWidth="34.0" text="Button" />
         <Button fx:id="col2Button" layoutX="399.0" layoutY="106.0" mnemonicParsing="false" onAction="#onCol2Click" opacity="0.0" prefHeight="218.0" prefWidth="37.0" text="Button" />
