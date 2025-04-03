@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class CSVFileReader {
-    //private static final String FILEPATH = "src/leaderboard/profiles.csv"; //change this depending on where .csv is exported to
 
     // INDEXES FROM CSV FILE
     private static final int ID_INDEX = 0;
