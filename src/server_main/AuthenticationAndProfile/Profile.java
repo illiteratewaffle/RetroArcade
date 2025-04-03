@@ -3,7 +3,7 @@ package AuthenticationAndProfile;
 //import leaderboard.TTTRanking;
 //import leaderboard.CheckersRanking;
 //import leaderboard.Connect4Ranking;
-import client_main.java.leaderboard.PlayerRanking;
+import leaderboard.PlayerRanking;
 import server.player.PlayerManager;
 
 public class Profile {

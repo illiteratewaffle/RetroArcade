@@ -1,5 +1,5 @@
 package AuthenticationAndProfile;
-import client_main.java.leaderboard.PlayerRanking;
+import leaderboard.PlayerRanking;
 import server.player.PlayerManager;
 
 import java.util.ArrayList;

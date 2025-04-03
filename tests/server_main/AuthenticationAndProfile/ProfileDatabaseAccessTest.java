@@ -1,6 +1,6 @@
 package AuthenticationAndProfile;
 
-import client_main.java.leaderboard.PlayerRanking;
+import leaderboard.PlayerRanking;
 import org.junit.jupiter.api.Test;
 import server.player.PlayerManager;
 
