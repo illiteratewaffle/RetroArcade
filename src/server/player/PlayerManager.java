@@ -219,9 +219,34 @@ public class PlayerManager {
         }
     }
 
-    // TODO: create methods to retrieve columns of profile
+    public static String deleteProfile(int id) {
+        String query = "DELETE FROM profiles WHERE id = ?";
+        try (PreparedStatement statement = conn.prepareStatement(query)) {
+            statement.setInt(1, id);
+            int rowsAffected = statement.executeUpdate();
+            if (rowsAffected > 0) {
+                return "Player with ID " + id + " deleted successfully.";
+            } else {
+                return "No player found with ID " + id + ".";
+            }
+        } catch (SQLException e) {
+            return "Error deleting profile: " + e.getMessage();
+        }
+    }
+
+    public static String updateAttribute(int id, String attrColumn, String newValue) {
+        String query = "UPDATE profiles SET " + attrColumn + "= ? WHERE id = ?";
+        try (PreparedStatement statement = conn.prepareStatement(query)) {
+            statement.setString(1, newValue);
+            statement.setInt(2, id);
+            statement.executeQuery();
+            return ("Succesfully updated");
+        } catch (SQLException e) {
+            return ("issue updating");
+        }
+    }
 
     public static void main(String[] args) {
-        registerPlayer("internetTest", "internetTest@email.com", "rwerij786298374#@!");
+        updateAttribute(56, "username", "updatedUSer2" );
     }
 }
