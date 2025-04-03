@@ -1,4 +1,4 @@
-package AuthenticationAndProfile;
+package client_main.java.AuthenticationAndProfile;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;

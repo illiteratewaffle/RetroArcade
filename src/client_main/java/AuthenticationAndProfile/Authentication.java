@@ -1,4 +1,4 @@
-package AuthenticationAndProfile;
+package client_main.java.AuthenticationAndProfile;
 
 import server.player.PlayerManager;
 

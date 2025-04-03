@@ -1,4 +1,4 @@
-package AuthenticationAndProfile;
+package client_main.java.AuthenticationAndProfile;
 
 import java.util.ArrayList;
 import java.util.List;
