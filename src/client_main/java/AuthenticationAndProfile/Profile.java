@@ -101,10 +101,11 @@ public class Profile {
 
     /**
      * Sets a player's bio.
-     * @param bio the new bio of the player.
+     * @param newBio the new bio of the player.
      */
-    public void setBio(String bio) {
+    public void setBio(String newBio) {
         this.bio = bio;
+        PlayerManager.updateAttribute(id, "bio", newBio);
     }
 
     /**
