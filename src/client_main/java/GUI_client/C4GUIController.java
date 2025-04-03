@@ -34,44 +34,37 @@ public class C4GUIController implements Initializable {
 
     @FXML
     private void onCol0Click() {
-        c4Controller.ReceiveInput(new ivec2(0, 0));
-        updateBoard();
+        handleColumnClick(0);
     }
 
     @FXML
     private void onCol1Click() {
-        c4Controller.ReceiveInput(new ivec2(1, 0));
-        updateBoard();
+        handleColumnClick(1);
     }
 
     @FXML
     private void onCol2Click() {
-        c4Controller.ReceiveInput(new ivec2(2, 0));
-        updateBoard();
+        handleColumnClick(2);
     }
 
     @FXML
     private void onCol3Click() {
-        c4Controller.ReceiveInput(new ivec2(3, 0));
-        updateBoard();
+        handleColumnClick(3);
     }
 
     @FXML
     private void onCol4Click() {
-        c4Controller.ReceiveInput(new ivec2(4, 0));
-        updateBoard();
+        handleColumnClick(4);
     }
 
     @FXML
     private void onCol5Click() {
-        c4Controller.ReceiveInput(new ivec2(5, 0));
-        updateBoard();
+        handleColumnClick(5);
     }
 
     @FXML
     private void onCol6Click() {
-        c4Controller.ReceiveInput(new ivec2(6, 0));
-        updateBoard();
+        handleColumnClick(7);
     }
 
     @FXML
@@ -111,8 +104,12 @@ public class C4GUIController implements Initializable {
             updateBoard();
 
             if (c4Controller.getC4IsGameOver()) {
-                // need draw!!
-//                System.out.println("🎉 Player " + c4Controller.getC4CurrentPlayer() + " wins!");
+                C4Piece winner = c4Controller.getC4WinnerAsEnum();
+                if (winner == C4Piece.BLANK) {
+                    System.out.println("It's a draw!");
+                } else {
+                    System.out.println("Player " + winner + " wins! 🎉");
+                }
                 disableAllColumnButtons();
             }
         }

@@ -63,12 +63,21 @@ public class C4Controller implements IBoardGameController {
 
     @Override
     public int[] GetWinner() {
-        return new int[0];
+        C4Piece winner = c4GameLogic.getC4Winner();
+
+        int winnerCode;
+        switch (winner) {
+            case RED -> winnerCode = 1;
+            case BLUE -> winnerCode = 2;
+            default -> winnerCode = -1; //draw
+        }
+
+        return new int[]{winnerCode};
     }
 
     @Override
     public boolean GetGameOngoing() {
-        return false;
+        return !c4GameLogic.getC4IsGameOver();
     }
 
     @Override
@@ -104,6 +113,10 @@ public class C4Controller implements IBoardGameController {
     @Override
     public int BoardChangedSinceLastCommand() {
         return 0;
+    }
+
+    public C4Piece getC4WinnerAsEnum() {
+        return c4GameLogic.getC4Winner();
     }
 
     /**

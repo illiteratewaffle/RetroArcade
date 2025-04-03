@@ -10,6 +10,8 @@ public class C4GameLogic {
     private int[] C4lastPlayedPosition = new int[2];
     private C4Piece currentPlayer = C4Piece.RED; //red goes first
 
+    private C4Piece c4winner = C4Piece.BLANK;
+
     /**
      * Constructs a new Connect Four game logic instance.
      */
@@ -54,7 +56,7 @@ public class C4GameLogic {
      * @return the winning piece, or BLANK if no winner.
      */
     public C4Piece getC4Winner() {
-        return C4Piece.BLANK;
+        return c4winner;
     }
 
     /**
@@ -63,6 +65,10 @@ public class C4GameLogic {
      */
     public int[] getC4lastPlayedPosition() {
         return C4lastPlayedPosition;
+    }
+
+    public int getc4PiecesPlayed() {
+        return c4PiecesPlayed;
     }
 
     /**
@@ -88,9 +94,17 @@ public class C4GameLogic {
             // increment piece counter
             c4PiecesPlayed += 1;
 
+            ivec2 lastPlayed = new ivec2(col, row);
+
             // check for win
-            if (C4WinChecker.isC4Win(row, col, piece, c4Board.getC4Board())) {
+            if (C4WinCheckerO1.isC4Win(lastPlayed, piece, c4Board.getC4Board())) {
                 isC4GameOver = true;
+                c4winner = piece;
+                System.out.println(c4winner + " has won!");
+            } else if (c4PiecesPlayed == c4Board.getC4Board().length * c4Board.getC4Board()[0].length) {
+                isC4GameOver = true;
+                c4winner = C4Piece.BLANK;
+                System.out.println("Game ended in a draw!");
             } else {
                 // Swap player turn
                 if (currentPlayer == C4Piece.RED) {
