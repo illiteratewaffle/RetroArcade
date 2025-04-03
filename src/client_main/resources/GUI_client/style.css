@@ -1,0 +1,16 @@
+.tab-pane {
+    -fx-background-color: transparent;
+}
+
+.tab-header-area {
+    -fx-background-color: transparent;
+}
+
+.tab {
+    -fx-background-color: transparent;
+}
+
+.tab:selected {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
