@@ -15,8 +15,8 @@ class ProfileDatabaseAccessTest {
         String hashedPassword = ProfileCreation.hashedPassword("1234567");
         Profile profile = new Profile("email@email.com", hashedPassword, "null", "null", false, "null", new FriendsList(), new PlayerRanking(), new GameHistory(), "null", "username", 1 );
 
-        PlayerManager.registerPlayer();
-        assertEquals(, ProfileDatabaseAccess.obtainProfile(id));
+        PlayerManager.registerPlayer("username", "email@email.com", hashedPassword);
+        assertEquals(profile, ProfileDatabaseAccess.obtainProfile(id));
     }
 
     @Test

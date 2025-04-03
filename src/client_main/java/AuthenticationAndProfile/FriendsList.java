@@ -25,6 +25,10 @@ public class FriendsList {
         this.friendRequests = friendRequests;
     }
 
+    public FriendsList(){
+
+    }
+
     /**
      * Sets the list of friends for the profile
      * @param friends List of friends ids to set

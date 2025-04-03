@@ -17,6 +17,8 @@ public class PlayerRanking {
         this.wins = wins;
     }
 
+    public PlayerRanking(){}
+
     public double getWinLossRatio(int gameNumber) {
         return winLossRatio[gameNumber];
     }

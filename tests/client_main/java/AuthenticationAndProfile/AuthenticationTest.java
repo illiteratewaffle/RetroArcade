@@ -13,7 +13,7 @@ class AuthenticationTest {
     void setUp() {
         String password = "1234567";
         String hashedPassword = ProfileCreation.hashedPassword(password);
-        profile = new Profile("email@email.com", hashedPassword,"nick", "This is bio.", false, "null", new FriendsList(), new PlayerRanking(), new GameHistory(), "C:profile/pic/path.png", "username", 2 );
+        profile = new Profile("email1@email.com", hashedPassword,"nick", "This is bio.", false, "null", new FriendsList(), new PlayerRanking(), new GameHistory(), "C:profile/pic/path.png", "username", 2 );
     }
 
     @Test
