@@ -1,18 +1,11 @@
 package server.management;
 
-import client.Encoder;
 import server.player.Player;
 import server.player.PlayerHandler;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
-
-import static server.management.ServerLogger.log;
 
 public class AuthenticateClient implements Runnable {
     Socket clientSocket;

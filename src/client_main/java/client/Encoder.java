@@ -1,11 +1,6 @@
 package client;
 
-import server.management.ThreadMessage;
-
-import javax.swing.*;
 import java.util.Formatter;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.ConcurrentHashMap;
 
 public class Encoder {
     String ID;
