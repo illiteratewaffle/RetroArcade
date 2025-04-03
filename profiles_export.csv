@@ -1,27 +1,3 @@
-id,username,nickname,email,hashed_password,bio,profile_pic_path,current_game,is_online,win_loss_ratio,rating,rank,wins,games_played,achievement_progress,friends,friend_requests,created_at
-1,robert97,Rob,rob@gmail.com,h3j#h3h##45E$t$%6757,Just a chill guy who loves board games.,null,Connect-4,t,3.25,500,silver,105,["TTT", "Checkers", "Connect-4", "Connect-4 (first played ever)"],[{"progress": 0.75, "achievementName": "Have100CatsInTTT"}, {"progress": 0.00, "achievementName": "WinCheckersWithoutLosingOnePiece"}],[2, 3, 7],[8, 9],2025-03-29 01:42:56.68231
-2,sara_b,SaraB,sara@example.com,abcDEF123!@#,Competitive and loves strategy games.,null,null,f,4.2,640,gold,157,["Connect-4", "Checkers"],[{"progress": 0.60, "achievementName": "WinConnect4WithPerfectMoves"}],[1],[4],2025-03-29 01:42:56.68231
-3,dannyX,Danny,dannyx@gamezone.net,secureHASH321$$,Here for the fun!,null,Checkers,t,1.9,300,bronze,40,["TTT", "Connect-4"],[{"progress": 1.0, "achievementName": "TTTFirstWin"}],[1, 2],[],2025-03-29 01:42:56.68231
-25,KingKolta,null,student2@me,254654@4346@#546254650#,null,null,null,f,0,0,unranked,0,null,null,null,null,2025-03-29 11:09:52.146304
-26,ertgdsg,null,k23452345tq34,tqwe3tdfgs,null,null,null,f,0,0,unranked,0,null,null,null,null,2025-03-30 16:44:25.902977
-38,emailTest2@gmail.com,null,F69AE3F6DD1D2CD2FEF339A687B0018B20A4D4359A8F35D3BBCAB8DB9CEB7E3C,userTest2,null,null,null,f,0,0,unranked,0,null,null,null,null,2025-03-30 18:02:26.426323
-39,emailTest3@gmail.com,null,51EA804768C51F7AEEEFE54D7E6CE5396B0209B253AFC25A6C83A36F5CFE876C,userTest3,null,null,null,f,0,0,unranked,0,null,null,null,null,2025-03-30 18:05:42.62083
-40,emailTest5@gmail.com,null,E0C13CAE230AE104AEB1F31DFBF854C1BFCF5FF41216FCA84126C97235833A47,userTest5,null,null,null,f,0,0,unranked,0,null,null,null,null,2025-03-30 18:10:42.141316
-41,emailTest7@gmail.com,null,854540A3771693B30173D5670D039213F0CFE2E8FEE94891D65AF3109CD3EE7B,userTest7,null,null,null,f,0,0,unranked,0,null,null,null,null,2025-03-30 18:14:12.507429
-42,emailTest10@gmail.com,null,03AC674216F3E15C761EE1A5E255F067953623C8B388B4459E13F978D7C846F4,userTest10,null,null,null,f,0,0,unranked,0,null,null,null,null,2025-03-30 18:24:14.81831
-43,emailTest11@gmail.com,null,username11,03AC674216F3E15C761EE1A5E255F067953623C8B388B4459E13F978D7C846F4,null,null,null,f,0,0,unranked,0,null,null,null,null,2025-03-30 18:29:42.531423
-44,email@email.com,null,usernameTest100,6CF615D5BCAAC778352A8F1F3360D23F02F34EC182E259897FD6CE485D7870D4,null,null,null,f,0,0,unranked,0,null,null,null,null,2025-03-30 18:31:52.960145
-54,EmailShould be in index 3@email.com,null,username should be in index 1,4D38D60504A7E579AA3E5779E077393578FC127E22A0E7034A04ECF461D908BE,null,null,null,f,0,0,unranked,0,null,null,null,null,2025-03-31 11:22:41.761661
-59,internetTest,null,internetTest@email.com,rwerij786298374#@!,null,null,null,f,0,0,unranked,0,null,null,null,null,2025-04-02 01:00:06.112049
-61,1EmailShould be in index 3@email.com,null,4D38D60504A7E579AA3E5779E077393578FC127E22A0E7034A04ECF461D908BE,1username should be in index 1,null,null,null,f,0,0,unranked,0,null,null,null,null,2025-04-02 08:32:49.826179
-65,4EmailShould be in index 3@email.com,null,8ED3ED5A9B00181A3F36BB539684B6077264A5EC1374114465708C1D265CF696,4username should be in index 1,null,null,null,f,0,0,unranked,0,null,null,null,null,2025-04-02 08:51:45.751345
-68,5Email@email.com,null,2C5C2F81AC9C68E2C5FADC63F43929AA81F020FDBC53DEB0A87BA5C64CF992F9,4should be in index 1username,null,null,null,f,0,0,unranked,0,null,null,null,null,2025-04-02 08:58:35.464038
-69,u5ername,null,newemail@email.com,44BA1D49705AA418D7AF812A10C5F380D7969ABFF071886B12DE6D10CE8D8524,null,null,null,f,0,0,unranked,0,null,null,null,null,2025-04-02 09:02:26.010942
-71,u56ername,null,newemail@emai6l.com,44BA1D49705AA418D7AF812A10C5F380D7969ABFF071886B12DE6D10CE8D8524,null,null,null,f,0,0,unranked,0,null,null,null,null,2025-04-02 09:07:20.848804
-72,u566ername,null,newe6mail@emai6l.com,44BA1D49705AA418D7AF812A10C5F380D7969ABFF071886B12DE6D10CE8D8524,null,null,null,f,0,0,unranked,0,null,null,null,null,2025-04-02 09:22:56.023045
-73,u566ern7ame,null,newe6mail@ema6i6l.com,B68E46D4914C68FD51D008DDFCA7EAE0573B2A8E7153A7707B8B9CDDCBA84B93,null,null,null,f,0,0,unranked,0,null,null,null,null,2025-04-02 09:24:48.344318
-74,u566e2rn7ame,null,newe6ma2il@ema6i6l.com,B68E46D4914C68FD51D008DDFCA7EAE0573B2A8E7153A7707B8B9CDDCBA84B93,null,null,null,f,0,0,unranked,0,null,null,null,null,2025-04-02 09:26:43.765756
-75,u566e2r6n7ame,null,newe6m6a2il@ema6i6l.com,FC9997B07D62760A08D6383C0994C01113D9B60705A1501080F20B4546214B11,null,null,null,f,0,0,unranked,0,null,null,null,null,2025-04-02 09:27:43.150757
-76,u566e2r6n78ame,null,newe6m68a2il@ema6i6l.com,36BF094B11C4CC51E3E50B9174CFBC765CE04D4B43841891C6C977170E182827,null,null,null,f,0,0,unranked,0,null,null,null,null,2025-04-02 09:29:31.377822
-77,u566e2r64n78ame,null,newe6m68a2i4l@ema6i6l.com,36BF094B11C4CC51E3E50B9174CFBC765CE04D4B43841891C6C977170E182827,null,null,null,f,0,0,unranked,0,null,null,null,null,2025-04-02 09:32:00.570663
-56,updatedUSer2,null,testemail@test.com,jhkjh234hk2jhrk23j,null,null,null,f,0,0,unranked,0,null,null,null,null,2025-03-31 12:31:09.759095
+id,username,nickname,email,hashed_password,bio,profile_pic_path,current_game,is_online,win_loss_ratio_ttt,win_loss_ratio_connect4,win_loss_ratio_checkers,rating_ttt,rating_connect4,rating_checkers,rank_ttt,rank_connect4,rank_checkers,wins_ttt,wins_connect4,wins_checkers,games_played,achievement_progress,friends,friend_requests,created_at
+1,newProfilesTableTestUser,null,email@me.com,FKLJHEKWJHE#$$@#$@@$#$,null,null,null,null,0,0,0,0,0,0,unranked,unranked,unranked,0,0,0,null,null,null,null,2025-04-02 20:55:35.482058
+2,NewDatabase2,null,newdatabase2@email.com,36BF094B11C4CC51E3E50B9174CFBC765CE04D4B43841891C6C977170E182827,null,null,null,null,0,0,0,0,0,0,unranked,unranked,unranked,0,0,0,null,null,null,null,2025-04-02 20:56:12.074822

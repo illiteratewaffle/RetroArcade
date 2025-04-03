@@ -1,6 +1,0 @@
-id,username,nickname,email,hashedPassword,bio,profilePicFilePath,currentGameStatus,isOnlineStatus,winLossRatio,rating,rank,wins,gameHistory,achievementName,friendId,friendRequests,
-1,uzi,nickname,email,hashedPassword,bio,profilePicFilePath,currentGameStatus,isOnlineStatus,1.1,1300,silver,15,gameHistory,achievementName,friendId,friendRequests,
-2,carti,nickname,email,hashedPassword,bio,profilePicFilePath,currentGameStatus,isOnlineStatus,1.2,1200,silver,20,gameHistory,achievementName,friendId,friendRequests,
-3,travis,nickname,email,hashedPassword,bio,profilePicFilePath,currentGameStatus,isOnlineStatus,3,1800,gold,30,gameHistory,achievementName,friendId,friendRequests,
-4,kanye,nickname,email,hashedPassword,bio,profilePicFilePath,currentGameStatus,isOnlineStatus,2,1400,silver,35,gameHistory,achievementName,friendId,friendRequests,
-5,drake,nickname,email,hashedPassword,bio,profilePicFilePath,currentGameStatus,isOnlineStatus,0.05,50,bronze,12,gameHistory,achievementName,friendId,friendRequests,
