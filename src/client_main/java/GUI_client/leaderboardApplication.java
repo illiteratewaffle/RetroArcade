@@ -13,7 +13,7 @@ public class leaderboardApplication extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(TTTApplication.class.getResource("leaderboard.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 900, 900);
         stage.setResizable(false);
-        stage.setTitle("leaderboard");
+        stage.setTitle("src/leaderboard");
         stage.setScene(scene);
         stage.show();
     }
