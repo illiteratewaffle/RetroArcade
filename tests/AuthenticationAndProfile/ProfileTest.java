@@ -131,9 +131,9 @@ class ProfileTest {
     }
 
     @Test
-    void updateUsername() {
-        profile.updateUsername("newUsername");
-        assertEquals("newUsername", profile.getUsername());
+    void updateUsernameInDatabase() {
+        profile.updateUsername(6, "Alice");
+        assertEquals("Alice", profile.exportUsername(6));
     }
 
     @Test
@@ -144,5 +144,7 @@ class ProfileTest {
         profile.setFriendsList(friendsList);
         assertEquals(friendsList, profile.getFriendsList());
     }
+
+
 
 }
