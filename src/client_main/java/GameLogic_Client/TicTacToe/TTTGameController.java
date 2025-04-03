@@ -6,89 +6,148 @@ import GameLogic_Client.ivec2;
 import java.util.ArrayList;
 
 /**
- * The TicTacToe Game Controller class. Allows Networking and GUI to gather information about
- *  the status of the game and it's players.
+ * Controls the Tic-Tac-Toe game, facilitating interactions between the networking layer, GUI,
+ * and the game logic.
  *
  * Author: Emma Djukic ~ Game Logic
  */
 public class TTTGameController implements IBoardGameController {
+    /**
+     * The Tic-Tac-Toe game instance.
+     */
     public TTTGame game;
+
+    /**
+     * Indicates whether the game is still ongoing.
+     */
     public boolean gameOngoing;
 
+    /**
+     * Initializes the game controller, setting up a new game instance and marking the game as ongoing.
+     */
     public TTTGameController() {
         this.game = new TTTGame();
         this.gameOngoing = true;
     }
 
+    /**
+     * Processes the player's move input.
+     *
+     * @param input A 2D coordinate representing the player's move.
+     */
     @Override
     public void ReceiveInput(ivec2 input) {
-        // Process the player's move (input is a 2D coordinate)
         if (!game.makeMove(input.y, input.x)) {
             System.out.println("Invalid move, try again!");
         }
     }
 
+    /**
+     * Handles player removal (currently not implemented with functionality).
+     *
+     * @param player The index of the player to be removed (0 or 1).
+     * @throws IndexOutOfBoundsException If an invalid player index is provided.
+     */
     @Override
     public void RemovePlayer(int player) throws IndexOutOfBoundsException {
-        // Handling player removal (if needed, can be expanded)
         if (player < 0 || player > 1) {
             throw new IndexOutOfBoundsException("Invalid player index.");
         }
-        // For now, we'll assume no functionality is needed
     }
 
+    /**
+     * Determines if there is a winner.
+     *
+     * @return An array containing the winner's index (1 for X, 2 for O), or an empty array if no winner.
+     */
     @Override
     public int[] GetWinner() {
-        // Check if there's a winner
         if (game.checkWin(game.board)) {
-            return new int[] { game.currentPlayer }; // Return the winner's index (1 for X, 2 for O)
+            return new int[] { game.currentPlayer };
         }
-        return new int[0]; // No winner yet
+        return new int[0];
     }
 
+    /**
+     * Checks if the game is still ongoing.
+     *
+     * @return true if the game is ongoing, false otherwise.
+     */
     @Override
     public boolean GetGameOngoing() {
         return gameOngoing;
     }
 
+    /**
+     * Retrieves the current state of the game board.
+     *
+     * @param LayerMask A layer mask (not used in the current implementation).
+     * @return A list containing the board's current state.
+     */
     @Override
     public ArrayList<int[][]> GetBoardCells(int LayerMask) {
         ArrayList<int[][]> layers = new ArrayList<>();
         layers.add(game.board.getBoard());
-        return layers;  // Return the current board's state
+        return layers;
     }
 
+    /**
+     * Retrieves the size of the game board.
+     *
+     * @return A 2D vector representing the board size (3x3).
+     */
     @Override
     public ivec2 GetBoardSize() {
-        return new ivec2(3, 3);  // Board size is fixed to 3x3
+        return new ivec2(3, 3);
     }
 
+    /**
+     * Retrieves the current player.
+     *
+     * @return The current player (1 for X, 2 for O).
+     */
     @Override
     public int GetCurrentPlayer() {
-        return game.currentPlayer;  // Return the current player (1 for X, 2 for O)
+        return game.currentPlayer;
     }
 
+    /**
+     * Checks if the game state has changed since the last command.
+     *
+     * @return true if the game is still ongoing.
+     */
     @Override
     public boolean GameOngoingChangedSinceLastCommand() {
-        // Assuming no state change tracking, we'll just return true when the game is ongoing
         return gameOngoing;
     }
 
+    /**
+     * Determines if the winner status has changed since the last command.
+     *
+     * @return false, as winner tracking is not currently implemented.
+     */
     @Override
     public boolean WinnersChangedSinceLastCommand() {
-        // This could be implemented to track if the winner has changed (based on game state)
-        return false;  // For now, always false
+        return false;
     }
 
+    /**
+     * Determines if the current player has changed since the last command.
+     *
+     * @return false, as player change tracking is not currently implemented.
+     */
     @Override
     public boolean CurrentPlayerChangedSinceLastCommand() {
-        // Track if the current player has changed since the last move
-        return false;  // For simplicity, return false
+        return false;
     }
 
+    /**
+     * Indicates whether the board state has changed since the last command.
+     *
+     * @return 1 as a simple indicator of change.
+     */
     @Override
     public int BoardChangedSinceLastCommand() {
-        // Track if the board has changed, for now just return a simple indicator
         return 1;
     }
 }
