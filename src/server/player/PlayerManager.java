@@ -2,7 +2,6 @@ package server.player;
 
 import server.database.databaseConnector;
 
-import javax.xml.transform.Result;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.*;
@@ -23,31 +22,32 @@ public class PlayerManager {
      * @param username Unique username of the player.
      * @return Confirmation message on success or error message on failure.
      */
-    public static int registerPlayer(String email, String hashedPassword, String username) {
+    public static int registerPlayer(String username, String email, String hashedPassword) {
 
         // Prepare SQL query for storing profile into db. PreparedStatement is used to prevent SQL injection
-        String query = "INSERT INTO profiles (email, hashed_password, username) VALUES (?, ?, ?) RETURNING id";
+        String query = "INSERT INTO profiles (username, email, hashed_Password) VALUES (?, ?, ?) RETURNING id";
 
         // Open connection to database, set profile attributes and store into SQL table.
         try (PreparedStatement statement = conn.prepareStatement(query)) {
             statement.setString(1, username);
-            statement.setString(2, hashedPassword);
-            statement.setString(3, email);
+            statement.setString(2, email);
+            statement.setString(3, hashedPassword);
 
             ResultSet rs = statement.executeQuery();
 
             if(rs.next()) {
                 int newPlayerID = rs.getInt("id");
-                log("Player " + newPlayerID + " Registered Successfully!");
+                System.out.println("Player " + newPlayerID + " Registered Successfully!");
                 return newPlayerID;
             } else {
-                log("Registration failed: No ID returned.");
+                System.err.println("Registration failed: No ID returned.");
                 return -1;
             }
 
         } catch (SQLException e) {
             // Error message notifying user of issue.
-            log("Error inserting new player into database: " + e.getMessage());
+            System.err.println("Error inserting new player into database: " + e.getMessage());
+            e.printStackTrace();
             return -1;
         }
     }
@@ -84,7 +84,7 @@ public class PlayerManager {
         }
     }
 
-    public static void getProfileTable(int id) {
+    public static void getProfile(int id) {
         String query = "SELECT * FROM profiles WHERE id = ?";
         String fileName = "player_profile_" + id + ".csv";
 
@@ -219,9 +219,34 @@ public class PlayerManager {
         }
     }
 
-    // TODO: create methods to retrieve columns of profile
+    public static String deleteProfile(int id) {
+        String query = "DELETE FROM profiles WHERE id = ?";
+        try (PreparedStatement statement = conn.prepareStatement(query)) {
+            statement.setInt(1, id);
+            int rowsAffected = statement.executeUpdate();
+            if (rowsAffected > 0) {
+                return "Player with ID " + id + " deleted successfully.";
+            } else {
+                return "No player found with ID " + id + ".";
+            }
+        } catch (SQLException e) {
+            return "Error deleting profile: " + e.getMessage();
+        }
+    }
+
+    public static String updateAttribute(int id, String attrColumn, String newValue) {
+        String query = "UPDATE profiles SET " + attrColumn + "= ? WHERE id = ?";
+        try (PreparedStatement statement = conn.prepareStatement(query)) {
+            statement.setString(1, newValue);
+            statement.setInt(2, id);
+            statement.executeQuery();
+            return ("Succesfully updated");
+        } catch (SQLException e) {
+            return ("issue updating");
+        }
+    }
 
     public static void main(String[] args) {
-        registerPlayer("ertgdsg", "tqwe3tdfgs", "k23452345tq34");
+        updateAttribute(56, "username", "updatedUSer2" );
     }
 }
