@@ -256,4 +256,8 @@ public class Profile {
     public static void main(String[] args) {
         PlayerManager.updateAttribute(6,"username","Jakeyboy");
     }
+
+    public int getID() {
+        return id;
+    }
 }

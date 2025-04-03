@@ -11,7 +11,7 @@ class ProfileCreationTest {
     void validHashedPassword() {
         String password = "1234567";
         String hashedPassword = ProfileCreation.hashedPassword(password);
-        assertEquals("8BB0CF6EB9B17D0F7D22B456F121257DC1254E1F01665370476383EA776DF414", hashedPassword);
+        assertEquals("8bb0cf6eb9b17d0f7d22b456f121257dc1254e1f01665370476383ea776df414".toUpperCase(), hashedPassword);
     }
 
     @Test
