@@ -4,6 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
+    <list default="true" id="5d4afbca-ce6e-4b0f-a34c-288aa6715d51" name="Changes" comment="New banner messages for x wins/o wins/draw">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/client_main/java/GUI_client/TTTController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client_main/java/GUI_client/TTTController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/client_main/resources/GUI_client/TTT.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/client_main/resources/GUI_client/TTT.fxml" afterDir="false" />
     <list default="true" id="5d4afbca-ce6e-4b0f-a34c-288aa6715d51" name="Changes" comment="Javadoc, minor edits.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
@@ -39,6 +44,27 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.C4Main.executor": "Run",
+    "Application.TTTApplication.executor": "Run",
+    "JUnit.TTTBoardTest.executor": "Run",
+    "JUnit.TTTGameTest.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "p3__TicTacToe",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/Users/emmadjukic/SENG/seng300-w25-project/planning_documents/Game_Logic_Documents",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "reference.settings.project.maven.repository.indices",
+    "vue.rearranger.settings.migration": "true"
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;Application.C4Main.executor&quot;: &quot;Run&quot;,
@@ -350,7 +376,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Rematch Request Use Case completed for Game Logic Team" />
     <MESSAGE value="TTT UML added" />
     <MESSAGE value="Game Logic file structure initial version (subject to further revisions)" />
     <MESSAGE value="Fixed file structure for abstract classes" />
@@ -375,6 +400,7 @@
     <MESSAGE value="Added a getPiece method in TTTGame to allow the game loop in controller to access the board. needs further edits and a discussion with GUI" />
     <MESSAGE value="minor change" />
     <MESSAGE value="Javadoc, minor edits." />
-    <option name="LAST_COMMIT_MESSAGE" value="Javadoc, minor edits." />
+    <MESSAGE value="New banner messages for x wins/o wins/draw" />
+    <option name="LAST_COMMIT_MESSAGE" value="New banner messages for x wins/o wins/draw" />
   </component>
 </project>

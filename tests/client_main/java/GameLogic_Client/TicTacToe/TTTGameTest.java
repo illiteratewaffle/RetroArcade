@@ -6,6 +6,8 @@ package client_main.java.GameLogic_Client.TicTacToe;
 
 import GameLogic_Client.TicTacToe.TTTBoard;
 import GameLogic_Client.TicTacToe.TTTGame;
+import GameLogic_Client.TicTacToe.TTTPiece;
+import GameLogic_Client.ivec2;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -59,6 +61,19 @@ class TTTGameTest {
         assertTrue(game.checkDraw(game.board), "should return true as no win condition is met and all tiles are full");
     }
 
+    @Test
+    void getPiece() {
+        ivec2 point = new ivec2(0, 0);
+        assertEquals(TTTPiece.EMPTY, game.getPiece(point), "Should get the empty piece as none have been placed");
+
+        game.makeMove(0, 0);
+        assertEquals(TTTPiece.X, game.getPiece(point), "Should get 'X' in top left tile");
+
+        ivec2 point2 = new ivec2(0, 1);
+        game.makeMove(1, 0);
+        assertEquals(TTTPiece.O, game.getPiece(point2), "Should get 'O' in top middle tile");
+    }
+    
     @Test
     void isGameOver() {
         // NOTE: these tests are technically unnecessary and redundant as the isGameOver() function
