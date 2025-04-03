@@ -1,5 +1,7 @@
 package GUI_client;
 
+import GameLogic_Client.TicTacToe.TTTGameController;
+import GameLogic_Client.ivec2;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
@@ -11,20 +13,12 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-import javafx.scene.control.Button;
-
-import javax.swing.*;
-import java.awt.*;
-
-import javafx.geometry.Rectangle2D;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -94,7 +88,11 @@ public class TTTController implements Initializable {
     @FXML
     public GridPane gameBoard;
 
+    TTTGameController theGame = new TTTGameController();
+
+
     // boolean flag alternating Xs and Os
+    // Tyler, the TTTGame class has implementation for this, now.
     boolean flag = true;
 
     // boolean variable that board events must check to be true before executing
@@ -102,12 +100,6 @@ public class TTTController implements Initializable {
 
     // booleanProperty to listen for server input by other player
     BooleanProperty isYourTurn = new SimpleBooleanProperty(false);
-
-    // booleanProperty to listen for gameOver message
-    BooleanProperty isGameOver = new SimpleBooleanProperty(false);
-
-    // 2D Array for tracking board status
-    Tile[][] board = new Tile[3][3];
 
     ArrayList<Character> EEList = new ArrayList<Character>();
 
@@ -121,13 +113,7 @@ public class TTTController implements Initializable {
         board_image.setImage(b_image);
         quit_image.setImage(new Image("quit_x.png"));
 
-        // initialize board tile chars to empty
-        for (int i = 0; i < 3; i++){
-            for (int j = 0; j < 3; j++){
-                board[i][j] = new Tile('-', i, j);
-            }
-        }
-
+        TTTGameController theGame = new TTTGameController();
 
         /*
         mouse-click event: clears border and sets piece
@@ -208,47 +194,27 @@ public class TTTController implements Initializable {
     private void setTile(int row, int col, ImageView imageView){
         Image X = new Image("X.png");
         Image O = new Image("O.png");
-        Image YOUWIN = new Image("YOU_WIN.png");
-        Image play_again_image = new Image("Play_Again.png");
-        Image check_image = new Image("check_circle.png");
-        Image X_image = new Image("X_circle.png");
-
-        if (isPlayable) {
-            if (board[row][col].getPiece() == '-') {
-                if (flag) {
-                    board[row][col].setPiece('X');
+        if (theGame.gameOngoing)
+            if (theGame.game.board.isEmpty(new ivec2(row, col))) {
+                if (theGame.GetCurrentPlayer() == 1){
                     imageView.setImage(X);
+                    theGame.game.makeMove(row, col);
+                    theGame.game.currentPlayer = 2;
                 } else {
-                    board[row][col].setPiece('O');
                     imageView.setImage(O);
+                    theGame.game.makeMove(row, col);
+                    theGame.game.currentPlayer = 1;
                 }
-                flag = !flag;
+                checkWin();
             }
-            for (Tile[] tiles: board){
-                for (Tile tile: tiles){
-                    System.out.print(tile.getPiece());
-                }
-                System.out.println();
-            }
-            System.out.println();
-        }
-        if (isWon(board)) {
-            Win_Lose_Banner.setImage(YOUWIN);
-            isGameOver.set(true);
-            play_again.setImage(play_again_image);
-            check_circle.setImage(check_image);
-            X_circle.setImage(X_image);
-        }
     }
 
     private void hoverEvent(StackPane stackPane, int row, int col){
-        if (board[row][col].getPiece() == '-'){
-            stackPane.setStyle("-fx-border-color: yellow; -fx-border-width: 3px; -fx-border-radius: 5px;");
+        if (theGame.gameOngoing) {
+            if (theGame.game.board.isEmpty(new ivec2(row, col))) {
+                stackPane.setStyle("-fx-border-color: yellow; -fx-border-width: 3px; -fx-border-radius: 5px;");
+            }
         }
-    }
-
-    private  boolean isWon(Tile[][] board){
-        return true;
     }
 
     /*
@@ -291,5 +257,43 @@ public class TTTController implements Initializable {
     }
 
     public void playAgainYes() {
+        theGame = new TTTGameController();
+        clearBoard();
+    }
+
+    public void checkWin(){
+        if (theGame.game.checkWin(theGame.game.board)) {
+            // if game is over, current player is now the loser
+            if (theGame.GetCurrentPlayer() == 2){
+                Win_Lose_Banner.setImage(new Image("X_wins.png"));
+            } else if (theGame.GetCurrentPlayer() == 1){
+                Win_Lose_Banner.setImage(new Image("O_wins.png"));
+            }
+            theGame.gameOngoing = false;
+        } else if (theGame.game.checkDraw(theGame.game.board)){
+            Win_Lose_Banner.setImage(new Image("Draw.png"));
+            theGame.gameOngoing = false;
+        }
+        if (!theGame.gameOngoing){
+            play_again.setImage(new Image("Play_Again.png"));
+            check_circle.setImage(new Image("check_circle.png"));
+            X_circle.setImage(new Image("X_circle.png"));
+        }
+    }
+
+    public void clearBoard(){
+        Tile_0_0.setImage(null);
+        Tile_0_1.setImage(null);
+        Tile_0_2.setImage(null);
+        Tile_1_0.setImage(null);
+        Tile_1_1.setImage(null);
+        Tile_1_2.setImage(null);
+        Tile_2_0.setImage(null);
+        Tile_2_1.setImage(null);
+        Tile_2_2.setImage(null);
+        play_again.setImage(null);
+        check_circle.setImage(null);
+        X_circle.setImage(null);
+        Win_Lose_Banner.setImage(null);
     }
 }

@@ -1,4 +1,4 @@
-package client_main.java.GameLogic_Client.TicTacToe;
+package GameLogic_Client.TicTacToe;
 
 /**
  * Enum representing the possible pieces in a Tic-Tac-Toe game.
