@@ -1,7 +1,6 @@
-package AuthenticationAndProfile;
+package server_main.AuthenticationAndProfile;
 
 import org.postgresql.util.PSQLException;
-import server.player.Player;
 import server.player.PlayerManager;
 
 import java.io.IOException;

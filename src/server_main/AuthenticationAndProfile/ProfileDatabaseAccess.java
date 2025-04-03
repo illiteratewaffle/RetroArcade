@@ -1,11 +1,12 @@
-package AuthenticationAndProfile;
+package server_main.AuthenticationAndProfile;
 import leaderboard.PlayerRanking;
 import server.player.PlayerManager;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static AuthenticationAndProfile.ProfileCSVReader.openSingleProfileFile;
+import static server_main.AuthenticationAndProfile.ProfileCSVReader.openSingleProfileFile;
+
 
 /**
  * ProfileDatabase is the Class containing all the methods that construct the AuthenticationAndProfile Class objects based on

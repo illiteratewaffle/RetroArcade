@@ -1,4 +1,4 @@
-package AuthenticationAndProfile;
+package server_main.AuthenticationAndProfile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +14,6 @@ public class GameHistory{
     //progress of achievements
     /**
      * Constructor that loads the game history for a specific profile
-     * @param id Unique profile id
      */
 //    public GameHistory(long id){
 //        this.id = id;
@@ -28,7 +27,6 @@ public class GameHistory{
 
     /**
      * Retrives the full game history fo the user associated with the id
-     * @param id
      * @return list of game history
      */
     public List<String> getGameHistory(){

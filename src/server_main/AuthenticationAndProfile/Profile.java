@@ -1,8 +1,5 @@
-package AuthenticationAndProfile;
+package server_main.AuthenticationAndProfile;
 
-//import leaderboard.TTTRanking;
-//import leaderboard.CheckersRanking;
-//import leaderboard.Connect4Ranking;
 import leaderboard.PlayerRanking;
 import server.player.PlayerManager;
 
@@ -14,9 +11,6 @@ public class Profile {
     private boolean isOnline;
     private String currentGame;
     private PlayerRanking playerRanking;
-    //private TTTRanking TTTRanking;
-    //private Connect4Ranking connect4Ranking;
-    //private CheckersRanking checkersRanking;
     private FriendsList friendsList;
     private GameHistory gameHistory;
     private String profilePicFilePath;
