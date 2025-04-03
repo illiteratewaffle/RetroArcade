@@ -4,7 +4,6 @@ import leaderboard.PlayerRanking;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import server.player.PlayerManager;
-import AuthenticationAndProfile.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 class AuthenticationTest {

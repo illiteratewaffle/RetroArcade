@@ -5,7 +5,7 @@ import server.player.PlayerManager;
 import java.util.ArrayList;
 import java.util.List;
 
-import static AuthenticationAndProfile.ProfileCSVReader.openSingleProfileFile;
+import static client_main.java.AuthenticationAndProfile.ProfileCSVReader.openSingleProfileFile;
 
 
 /**

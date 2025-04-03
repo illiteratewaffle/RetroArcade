@@ -3,7 +3,9 @@ package client_main.java.AuthenticationAndProfile;
 import leaderboard.PlayerRanking;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import AuthenticationAndProfile.*;
+
+import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -129,9 +131,9 @@ class ProfileTest {
     }
 
     @Test
-    void updateUsername() {
-        profile.updateUsername("newUsername");
-        assertEquals("newUsername", profile.getUsername());
+    void updateUsernameInDatabase() {
+        profile.updateUsername(6, "Alice");
+        assertEquals("Alice", profile.exportUsername(6));
     }
 
     @Test
@@ -142,5 +144,7 @@ class ProfileTest {
         profile.setFriendsList(friendsList);
         assertEquals(friendsList, profile.getFriendsList());
     }
+
+
 
 }
