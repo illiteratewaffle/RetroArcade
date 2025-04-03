@@ -4,7 +4,7 @@ import server.management.ServerController;
 
 import java.util.Scanner;
 
-public class Main {
+public class ServerLauncher {
     /**
      * Main Method to start the server
      */
