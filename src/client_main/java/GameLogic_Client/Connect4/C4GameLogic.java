@@ -23,7 +23,7 @@ public class C4GameLogic {
      * @return true if the game is over, false otherwise.
      */
     public boolean getC4IsGameOver() {
-        return false;
+        return isC4GameOver;
     }
 
     /**

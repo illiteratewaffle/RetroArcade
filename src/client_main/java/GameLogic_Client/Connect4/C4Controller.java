@@ -52,6 +52,9 @@ public class C4Controller implements IBoardGameController {
         return c4GameLogic.getC4Board().getC4Board();
     }
 
+    public boolean getC4IsGameOver() {
+        return c4GameLogic.getC4IsGameOver();
+    }
 
     @Override
     public void RemovePlayer(int Player) throws IndexOutOfBoundsException {

@@ -15,62 +15,62 @@ import java.util.ResourceBundle;
 
 public class C4GUIController implements Initializable {
 
-    private C4Controller gameLogic;
+    private C4Controller c4Controller;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         assert c4GUIGrid != null : "🔥 FATAL: c4GUIGrid was NOT injected!";
         System.out.println("✅ c4GUIGrid injected successfully: " + c4GUIGrid);
-        gameLogic = new C4Controller();
-        gameLogic.start(); // This will print the board and start the game logic
+        c4Controller = new C4Controller();
+        c4Controller.start(); // This will print the board and start the game logic
         c4GUIGrid.setGridLinesVisible(true);
     }
 
     // You can wire this method to buttons later
     @FXML
     private void handleUserClick() {
-        gameLogic.ReceiveInput(new ivec2(3, 0)); // for example, drop in column 3
+        c4Controller.ReceiveInput(new ivec2(3, 0)); // for example, drop in column 3
     }
 
     @FXML
     private void onCol0Click() {
-        gameLogic.ReceiveInput(new ivec2(0, 0));
+        c4Controller.ReceiveInput(new ivec2(0, 0));
         updateBoard();
     }
 
     @FXML
     private void onCol1Click() {
-        gameLogic.ReceiveInput(new ivec2(1, 0));
+        c4Controller.ReceiveInput(new ivec2(1, 0));
         updateBoard();
     }
 
     @FXML
     private void onCol2Click() {
-        gameLogic.ReceiveInput(new ivec2(2, 0));
+        c4Controller.ReceiveInput(new ivec2(2, 0));
         updateBoard();
     }
 
     @FXML
     private void onCol3Click() {
-        gameLogic.ReceiveInput(new ivec2(3, 0));
+        c4Controller.ReceiveInput(new ivec2(3, 0));
         updateBoard();
     }
 
     @FXML
     private void onCol4Click() {
-        gameLogic.ReceiveInput(new ivec2(4, 0));
+        c4Controller.ReceiveInput(new ivec2(4, 0));
         updateBoard();
     }
 
     @FXML
     private void onCol5Click() {
-        gameLogic.ReceiveInput(new ivec2(5, 0));
+        c4Controller.ReceiveInput(new ivec2(5, 0));
         updateBoard();
     }
 
     @FXML
     private void onCol6Click() {
-        gameLogic.ReceiveInput(new ivec2(6, 0));
+        c4Controller.ReceiveInput(new ivec2(6, 0));
         updateBoard();
     }
 
@@ -79,7 +79,7 @@ public class C4GUIController implements Initializable {
 
     private void updateBoard() {
 //        C4Piece[][] board = gameLogic.getBoard().getC4Board(); // assuming getBoard() returns C4Board
-        C4Piece[][] board = gameLogic.getC4Board();;
+        C4Piece[][] board = c4Controller.getC4Board();;
 
         c4GUIGrid.getChildren().clear();
 
@@ -96,22 +96,6 @@ public class C4GUIController implements Initializable {
         }
     }
 
-//    private void addPieceToGrid(int row, int col, String imgPath) {
-//        ImageView piece = new ImageView(new Image(getClass().getResourceAsStream(imgPath)));
-//        piece.setFitWidth(30);
-//        piece.setFitHeight(30);
-//        piece.setOpacity(1.0);
-//
-//        Button btn = new Button();
-//        btn.setGraphic(piece);
-//        btn.setStyle("-fx-background-color: transparent; -fx-alignment: center;");
-//        btn.setDisable(true);
-//        btn.setPrefSize(30, 30);
-//
-//
-//        c4GUIGrid.add(btn, col, row); // ⚠️ note: GridPane uses (col, row)
-//    }
-
     private void addPieceToGrid(int row, int col, String imgPath) {
         ImageView piece = new ImageView(new Image(getClass().getResourceAsStream(imgPath)));
         piece.setFitWidth(30);
@@ -121,7 +105,28 @@ public class C4GUIController implements Initializable {
         c4GUIGrid.add(piece, col, row); // ✅ Add only the image
     }
 
+    private void handleColumnClick(int col) {
+        if (!c4Controller.getC4IsGameOver()) {
+            c4Controller.ReceiveInput(new ivec2(col, 0));
+            updateBoard();
 
+            if (c4Controller.getC4IsGameOver()) {
+                // need draw!!
+//                System.out.println("🎉 Player " + c4Controller.getC4CurrentPlayer() + " wins!");
+                disableAllColumnButtons();
+            }
+        }
+    }
 
+    @FXML private Button col0Button, col1Button, col2Button, col3Button, col4Button, col5Button, col6Button;
+    private void disableAllColumnButtons() {
+        col0Button.setDisable(true);
+        col1Button.setDisable(true);
+        col2Button.setDisable(true);
+        col3Button.setDisable(true);
+        col4Button.setDisable(true);
+        col5Button.setDisable(true);
+        col6Button.setDisable(true);
+    }
 
 }
