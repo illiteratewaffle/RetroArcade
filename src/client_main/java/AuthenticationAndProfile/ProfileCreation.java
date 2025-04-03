@@ -3,7 +3,6 @@ package client_main.java.AuthenticationAndProfile;
 //import org.postgresql.util.PSQLException;
 import server.player.PlayerManager;
 
-import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

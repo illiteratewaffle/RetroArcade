@@ -2,7 +2,7 @@ package server.management;
 
 import server.player.PlayerHandler;
 import java.util.concurrent.LinkedBlockingQueue;
-import server.management.ThreadMessage;
+
 import server.session.GameCreator;
 
 import static server.management.ServerLogger.*;

@@ -9,7 +9,6 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static server.management.ServerLogger.*;
 
 /**
  * WARNING! Testing the ServerLogger log function will delete today's log text file.

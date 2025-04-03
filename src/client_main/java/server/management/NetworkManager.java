@@ -1,6 +1,5 @@
 package server.management;
 
-import server.player.PlayerHandler;
 import java.util.concurrent.BlockingQueue;
 
 public class NetworkManager {
