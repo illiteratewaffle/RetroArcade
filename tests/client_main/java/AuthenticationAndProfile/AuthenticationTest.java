@@ -5,6 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import server.player.PlayerManager;
 import static org.junit.jupiter.api.Assertions.*;
+import AuthenticationAndProfile.*;
 
 class AuthenticationTest {
     private Profile profile;

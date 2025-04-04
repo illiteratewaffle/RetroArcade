@@ -1,11 +1,11 @@
-package client_main.java.AuthenticationAndProfile;
+package AuthenticationAndProfile;
 import leaderboard.PlayerRanking;
 import server.player.PlayerManager;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static client_main.java.AuthenticationAndProfile.ProfileCSVReader.openSingleProfileFile;
+import static AuthenticationAndProfile.ProfileCSVReader.openSingleProfileFile;
 
 
 /**
@@ -172,7 +172,7 @@ public class ProfileDatabaseAccess {
      * @param id
      */
     public static void removeProfile(int id){
-        //PlayerManager.deleteProfile(id);
+        PlayerManager.deleteProfile(id);
         Authentication.logOut();
     }
 
@@ -181,7 +181,7 @@ public class ProfileDatabaseAccess {
      * @return HashMap<String, Profile>
      */
     public static ArrayList<ArrayList<String>> getAllProfiles() {
-        String csvProfileFilePath = ""; //csv is generated in the main directory of the project
+        String csvProfileFilePath = "profiles_export.csv"; //csv is generated in the main directory of the project
         PlayerManager.getProfileTable();//method to get all profiles in database into a csv file
         ArrayList<ArrayList<String>> profileFields = ProfileCSVReader.openProfilesFile(csvProfileFilePath);
         return profileFields;
@@ -194,9 +194,9 @@ public class ProfileDatabaseAccess {
     public static List<Profile> searchForProfile(String search) {
         List<Integer> usernameSearchMatchIdList = PlayerManager.searchProfiles(search);
         List<Profile> profilesFound = new ArrayList<Profile>();
-        //for (int i = 0; i < usernameSearchMatchIdList.size(); i ++) {
-        //profilesFound.add(usernameSearchMatchIdList[i]);
-        //}
+        for (int i = 0; i < usernameSearchMatchIdList.size(); i++) {
+            profilesFound.add(obtainProfile(usernameSearchMatchIdList.get(i)));
+        }
         return profilesFound;
     }
 

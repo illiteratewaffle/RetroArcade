@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import server.player.PlayerManager;
 import java.util.UUID;
+import AuthenticationAndProfile.*;
 
 class ProfileCreationTest {
 

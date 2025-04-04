@@ -1,4 +1,4 @@
-package client_main.java.AuthenticationAndProfile;
+package AuthenticationAndProfile;
 
 //import org.postgresql.util.PSQLException;
 import server.player.PlayerManager;
@@ -110,7 +110,6 @@ public class ProfileCreation {
 //        authenticationSession.logOut();
 //    }
         public static void main (String[]args) {
-            //TODO: Test with Database
             System.out.println(ProfileCreation.createNewProfile("NewBranchDatabase", "newbranchdatabase@email.com", "1234586ass8sword"));
             //should print true
             System.out.println(Authentication.getProfileLoggedIn().getOnlineStatus());

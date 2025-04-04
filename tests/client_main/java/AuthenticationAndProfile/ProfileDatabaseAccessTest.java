@@ -3,6 +3,7 @@ package client_main.java.AuthenticationAndProfile;
 import leaderboard.PlayerRanking;
 import org.junit.jupiter.api.Test;
 import server.player.PlayerManager;
+import AuthenticationAndProfile.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

@@ -1,4 +1,4 @@
-package client_main.java.AuthenticationAndProfile;
+package AuthenticationAndProfile;
 
 import java.awt.image.BufferedImage;
 import java.util.UUID;
@@ -19,17 +19,18 @@ public class Profile {
     private boolean isOnline;
     private String currentGame;
     private PlayerRanking playerRanking;
-    //private TTTRanking TTTRanking;
-    //private Connect4Ranking connect4Ranking;
-    //private CheckersRanking checkersRanking;
     private FriendsList friendsList;
     private GameHistory gameHistory;
     private String profilePicFilePath;
     private static String username;
     private int id;
 
-    public Profile(String email, String hashedPassword, String nickname, String bio, boolean isOnline, String currentGame, FriendsList friendsList, PlayerRanking playerRanking, GameHistory gameHistory, String profilePicFilePath, String username, int id) {
-        //public Profile(String email, String hashedPassword, String nickname, String bio, boolean isOnline, String currentGame, FriendsList friendsList, TTTRanking TTTRanking, Connect4Ranking connect4Ranking, CheckersRanking checkersRanking, GameHistory gameHistory, String profilePicFilePath, String username, int id) {
+    public Profile(String email, String hashedPassword, String nickname, String bio, boolean isOnline, String currentGame,
+                   FriendsList friendsList, PlayerRanking playerRanking, GameHistory gameHistory, String profilePicFilePath,
+                   String username, int id) {
+        //public Profile(String email, String hashedPassword, String nickname, String bio, boolean isOnline, String
+        // currentGame, FriendsList friendsList, TTTRanking TTTRanking, Connect4Ranking connect4Ranking, CheckersRanking
+        // checkersRanking, GameHistory gameHistory, String profilePicFilePath, String username, int id) {
         this.email = email;
         this.hashedPassword = hashedPassword;
         this.nickname = nickname;
