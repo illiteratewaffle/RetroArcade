@@ -36,6 +36,8 @@ public class CheckersGUIController implements Initializable {
     private Image opponentTurn;
 
     private StackPane previouslySelectedTile = null;
+    private int lastClickedRow = -1;
+    private int lastClickedCol = -1;
 
     /**
     Initializes the GUI board
@@ -68,14 +70,18 @@ public class CheckersGUIController implements Initializable {
                 final int col = j;
 
 
-                //hover mouse feature
                 border.setOnMouseEntered(event -> {
-                    if (border.getStyle().contains("transparent")) {
-                        border.setStyle("-fx-border-color: lightgray;");
+                    String currentStyle = border.getStyle();
+                    if (!currentStyle.contains("#78956f") && !currentStyle.contains("#215b85")
+                            && !currentStyle.contains("#81509f") && !currentStyle.contains("#892d37") &&
+                            !currentStyle.contains("#e1c50e")) {
+                        border.setStyle("-fx-border-color: lightgray; -fx-border-width: 3;");
                     }
                 });
+
                 border.setOnMouseExited(event -> {
-                    if (border.getStyle().contains("lightgray")) {
+                    String currentStyle = border.getStyle();
+                    if (currentStyle.contains("lightgray")) {
                         border.setStyle("-fx-border-color: transparent;");
                     }
                 });
@@ -100,25 +106,6 @@ public class CheckersGUIController implements Initializable {
         }
         refreshBoard();
         getTurn();
-        //setupInitialPieces();
-    }
-
-    /**
-    Sets up the initial pieces for game board
-     */
-
-    private void setupInitialPieces() {
-        for (int i = 0; i < BOARD_SIZE; i++) {
-            for (int j = 0; j < BOARD_SIZE; j++) {
-                if ((i + j) % 2 != 0) {
-                    if (i < 3) {
-                        tilePiece[i][j].setImage(pinkChecker);
-                    } else if (i > 4) {
-                        tilePiece[i][j].setImage(blueChecker);
-                    }
-                }
-            }
-        }
     }
 
     /**
@@ -129,6 +116,9 @@ public class CheckersGUIController implements Initializable {
 
     @FXML
     private void sendMouseInput(int row, int col) {
+        lastClickedRow = row;
+        lastClickedCol = col;
+
         Ivec2 tileClicked = new Ivec2(col, row);
 
         gameLogic.receiveInput(tileClicked);
@@ -151,13 +141,13 @@ public class CheckersGUIController implements Initializable {
     }
 
 
-
     /**
      * Gets the board cells and updates the pieces on the board based on that
      */
 
     private void refreshBoard() {
         int[][] pieceBoard = gameLogic.getBoardCells(0b1).getFirst();
+        int[][] highlightBoard = gameLogic.getBoardCells(0b10).getFirst();
         for (int i = 0; i < BOARD_SIZE; i++) {
             for (int j = 0; j < BOARD_SIZE; j++) {
                 switch (pieceBoard[i][j]) {
@@ -166,8 +156,19 @@ public class CheckersGUIController implements Initializable {
                     case 3 -> tilePiece[i][j].setImage(blueChecker);
                     case 4 -> tilePiece[i][j].setImage(blueKingChecker);
                     default -> tilePiece[i][j].setImage(null);
+
                 }
+                String highlightStyle = switch (highlightBoard[i][j]) {
+                    case 1 -> "-fx-border-color: #78956f; -fx-border-width: 4;"; //selectable pieces
+                    case 3 -> "-fx-border-color: #81509f; -fx-border-width: 4;"; //valid move
+                    case 4 -> "-fx-border-color: #892d37; -fx-border-width: 4;"; //capture
+                    default -> "-fx-border-color: transparent;";
+                };
+                tileBorderGrid[i][j].setStyle(highlightStyle);
             }
+        }
+        if (lastClickedRow >= 0 && lastClickedCol >= 0) {
+            tileBorderGrid[lastClickedRow][lastClickedCol].setStyle("-fx-border-color: #e1c50e; -fx-border-width: 4;");
         }
     }
 }
