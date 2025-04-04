@@ -23,7 +23,7 @@
       </StackPane>
       <AnchorPane prefHeight="600.0" prefWidth="900.0">
          <children>
-            <ImageView fx:id="TTT_play_button" fitHeight="116.0" fitWidth="324.0" layoutX="288.0" layoutY="179.0" onMouseClicked="#play_TTT" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="TTT_play_button" fitHeight="116.0" fitWidth="324.0" layoutX="288.0" layoutY="138.0" onMouseClicked="#play_TTT" onMouseEntered="#TTTStartEntered" onMouseExited="#TTTStartExited" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../TTT_start_button.png" />
                </image>
@@ -35,6 +35,22 @@
                <cursor>
                   <Cursor fx:constant="OPEN_HAND" />
                </cursor></ImageView>
+            <ImageView fx:id="checkers_play_button" fitHeight="84.0" fitWidth="324.0" layoutX="288.0" layoutY="258.0" onMouseEntered="#checkersStartEntered" onMouseExited="#checkersStartExited" pickOnBounds="true">
+               <cursor>
+                  <Cursor fx:constant="OPEN_HAND" />
+               </cursor>
+               <image>
+                  <Image url="@../checkers_start_button.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="C4_play_button" fitHeight="84.0" fitWidth="324.0" layoutX="288.0" layoutY="378.0" onMouseEntered="#C4StartEntered" onMouseExited="#C4StartExited" pickOnBounds="true">
+               <cursor>
+                  <Cursor fx:constant="OPEN_HAND" />
+               </cursor>
+               <image>
+                  <Image url="@../C4_start_button.png" />
+               </image>
+            </ImageView>
          </children>
       </AnchorPane>
    </children>

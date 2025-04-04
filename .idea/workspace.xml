@@ -5,13 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ba5d62c9-ef67-4eb7-8775-b12157e4f5a8" name="Changes" comment="Added popup window exit controller and fxml">
-      <change afterPath="$PROJECT_DIR$/src/client_main/resources/XButtonDown.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/client_main/resources/infoButtonDown.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/client_main/resources/C4_start_button.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/client_main/resources/C4_start_button_inverted.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/client_main/resources/TTT_start_button_inverted.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/client_main/resources/checkers_start_button.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/client_main/resources/checkers_start_button_inverted.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client_main/java/GUI_client/TTTController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client_main/java/GUI_client/TTTController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/client_main/java/GUI_client/gameMenuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client_main/java/GUI_client/gameMenuController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client_main/resources/GUI_client/TTT.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/client_main/resources/GUI_client/TTT.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/client_main/resources/GUI_client/gameMenu.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/client_main/resources/GUI_client/gameMenu.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/client_main/resources/GUI_client/quitPopup.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/client_main/resources/GUI_client/quitPopup.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/client_main/resources/TTT_start_button.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/client_main/resources/TTT_start_button.png" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
