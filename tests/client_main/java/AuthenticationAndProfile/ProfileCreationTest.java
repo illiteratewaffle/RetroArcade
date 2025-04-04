@@ -1,5 +1,6 @@
 package client_main.java.AuthenticationAndProfile;
 
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import server.player.PlayerManager;
@@ -35,5 +36,6 @@ class ProfileCreationTest {
         assertEquals(username, PlayerManager.getAttribute(newProfileID, "username"));
         assertEquals(email, PlayerManager.getAttribute(newProfileID, "email"));
         assertEquals(hashedPassword, PlayerManager.getAttribute(newProfileID, "hashed_password"));
+        ProfileDatabaseAccess.removeProfile(newProfileID);
     }
 }
