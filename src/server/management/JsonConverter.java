@@ -8,7 +8,7 @@ public class JsonConverter {
      * @param map the given HashMap that you want to convert to json
      * @return the json string
      */
-    public static String toJson(HashMap<String,Object> map) {
+    public static String toJson(Map<String,Object> map) {
         // Create a new StringBuilder
         StringBuilder builder = new StringBuilder();
         // Start with a "{"
