@@ -74,7 +74,7 @@
             <Font name="Silom" size="16.0" />
          </font>
       </SplitMenuButton>
-      <ImageView fx:id="search_button" fitHeight="103.0" fitWidth="133.0" layoutX="751.0" layoutY="745.0" onMouseClicked="#send_search">
+      <ImageView fx:id="search_button" accessibleRole="BUTTON" fitHeight="103.0" fitWidth="133.0" layoutX="751.0" layoutY="745.0" onMouseClicked="#send_search">
          <image>
             <Image url="@../leaderboard_assets/search_button.PNG" />
          </image>
