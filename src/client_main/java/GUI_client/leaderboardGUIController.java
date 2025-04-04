@@ -1,12 +1,10 @@
 package GUI_client;
 
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-public class leaderboardController {
+public class leaderboardGUIController {
     //Note that I gave all attributes a fx:id name and on action names. You can change these if you want.
     @FXML
     public ImageView checkers_button; //action: checkers_stats
