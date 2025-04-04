@@ -141,7 +141,7 @@ public class CheckersGUIController implements Initializable {
         int currentPlayer = gameLogic.getCurrentPlayer();
         int winner [] = gameLogic.getWinner();
 
-        // Check if the game is ongoing before checking turns
+        // Check if the game is ongoing before checking the turns
         if (winner.length == 0) {
             // Check turns
             if (currentPlayer == 0) {
