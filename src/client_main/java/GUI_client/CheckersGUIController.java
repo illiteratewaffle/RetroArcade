@@ -141,6 +141,7 @@ public class CheckersGUIController implements Initializable {
     }
 
 
+
     /**
      * Gets the board cells and updates the pieces on the board based on that
      */
@@ -170,5 +171,29 @@ public class CheckersGUIController implements Initializable {
         if (lastClickedRow >= 0 && lastClickedCol >= 0) {
             tileBorderGrid[lastClickedRow][lastClickedCol].setStyle("-fx-border-color: #e1c50e; -fx-border-width: 4;");
         }
+        checkWinners();
+    }
+
+    /**
+     * Displays win message using getWinner method from GL code
+     */
+    private void checkWinners() {
+        // used to determine who won
+        int [] winner = gameLogic.getWinner();
+
+        // array of length one means someone one
+        // TODO: send to networking
+        // TODO: add graphics for win/lose/tie messages
+        if (winner.length == 1) {
+            if (winner[0] == 0) {
+                System.out.println("player 1 wins!");
+            } else {
+                System.out.println("player 2 wins!");
+            }
+        // array of length two means tie
+        } else if (winner.length == 2) {
+            System.out.println("Tie!");
+        }
+        // otherwise do nothing and keep playing
     }
 }
