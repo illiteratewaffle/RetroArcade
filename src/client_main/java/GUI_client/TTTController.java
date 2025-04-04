@@ -9,14 +9,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
@@ -27,6 +25,18 @@ import java.util.ResourceBundle;
 public class TTTController implements Initializable {
 
     // FXML declarations
+    @FXML
+    public ImageView info_bg;
+    @FXML
+    public ImageView info_ok_button;
+    @FXML
+    public ImageView infoButton;
+    @FXML
+    public ImageView chat_bg;
+    @FXML
+    public ImageView sendButton;
+    @FXML
+    public ScrollPane chat_pane;
     @FXML
     public TextArea chat_area;
     @FXML
@@ -101,18 +111,35 @@ public class TTTController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        Font.loadFont(getClass().getResourceAsStream("Fonts/SilomBol.ttf"), 16);
         Image bg_image = new Image("background_retro.png");
         Image b_image = new Image("foreground.png");
         // set background and foreground images
         background_image.setImage(bg_image);
         board_image.setImage(b_image);
         quit_image.setImage(new Image("quit_x.png"));
+        infoButton.setImage(new Image("info_button.png"));
 
         TTTGameController theGame = new TTTGameController();
 
+        sendButton.setImage(new Image("send_button.png"));
+        chat_bg.setImage(new Image("chat_bg.png"));
         chat_area.clear();
-        chat_area.getStyleClass().add("transparent-textarea");
+        chat_area.setStyle(
+                "-fx-background-color: transparent;" +
+                        "-fx-control-inner-background: transparent;" +
+                        "-fx-text-fill: white;" + // Optional for readability
+                        "-fx-border-color: transparent;" +
+                        "-fx-text-fill: yellow;" +
+                        "-fx-font-size: 16px;" +
+                        "-fx-font-family: 'SilomBol.ttf';"
+        );
 
+        chat_pane.setStyle(
+                "-fx-background-color: transparent;" +
+                        "-fx-background: transparent;" +
+                        "-fx-border-color: transparent;"
+        );
 
         /*
         mouse-click event: clears border and sets piece
@@ -304,5 +331,17 @@ public class TTTController implements Initializable {
             chat_area.appendText("You: " + message + "\n");
             chat_input_field.clear();
         }
+    }
+
+    public void infoButtonPress(){
+        info_bg.setImage(new Image("info_image.png"));
+        info_bg.setMouseTransparent(false);
+        info_ok_button.setMouseTransparent(false);
+    }
+
+    public void info_ok_clicked(){
+        info_bg.setImage(null);
+        info_bg.setMouseTransparent(true);
+        info_ok_button.setMouseTransparent(true);
     }
 }
