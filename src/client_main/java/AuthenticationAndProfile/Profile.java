@@ -205,7 +205,7 @@ public class Profile {
         return PlayerManager.getUsername(id);
     }
 
-    public static String getUsername() {
+    public String getUsername() {
         return username;
     }
 

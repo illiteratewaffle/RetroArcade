@@ -146,7 +146,8 @@ public class FriendsList {
      */
     public void sendFriendRequest(String username){ // username is of the profile to send the request to
         long recievingId = idFromUsername(username); // id to send the request to
-        String sendingUsername = Profile.getUsername(); // username of the user sending the request
+        String sendingUsername;
+        sendingUsername = Authentication.getProfileLoggedIn().getUsername(); // username of the user sending the request
         long sendingId = idFromUsername(sendingUsername); // id of the user sending the request
 
         ArrayList<ArrayList<String>> profiles = ProfileCSVReader.openProfilesFile("profiles_export.csv");
