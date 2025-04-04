@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="rootPane" prefHeight="196.0" prefWidth="298.0" style="-fx-background-color: transparent; -fx-padding: 20;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI_client.QuitPopupController">
+   <children>
+      <ImageView fx:id="popupImage" fitHeight="200.0" fitWidth="290.0" layoutX="27.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../quitPopup.png" />
+         </image></ImageView>
+      <ImageView fitHeight="29.0" fitWidth="57.0" layoutX="89.0" layoutY="163.0" onMouseClicked="#quitYes" pickOnBounds="true" preserveRatio="true">
+         <cursor>
+            <Cursor fx:constant="OPEN_HAND" />
+         </cursor>
+      </ImageView>
+      <ImageView fitHeight="29.0" fitWidth="57.0" layoutX="166.0" layoutY="163.0" onMouseClicked="#quitNo" pickOnBounds="true" preserveRatio="true">
+         <cursor>
+            <Cursor fx:constant="OPEN_HAND" />
+         </cursor>
+      </ImageView>
+   </children>
+</AnchorPane>

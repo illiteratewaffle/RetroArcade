@@ -9,24 +9,40 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class TTTController implements Initializable {
 
     // FXML declarations
+    @FXML
+    public ImageView turnBanner;
+    @FXML
+    public ImageView info_bg;
+    @FXML
+    public ImageView info_ok_button;
+    @FXML
+    public ImageView infoButton;
+    @FXML
+    public ImageView chat_bg;
+    @FXML
+    public ImageView sendButton;
+    @FXML
+    public ScrollPane chat_pane;
     @FXML
     public TextArea chat_area;
     @FXML
@@ -101,18 +117,36 @@ public class TTTController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        Font.loadFont(getClass().getResourceAsStream("Fonts/SilomBol.ttf"), 16);
         Image bg_image = new Image("background_retro.png");
         Image b_image = new Image("foreground.png");
         // set background and foreground images
         background_image.setImage(bg_image);
         board_image.setImage(b_image);
         quit_image.setImage(new Image("quit_x.png"));
+        infoButton.setImage(new Image("info_button.png"));
 
         TTTGameController theGame = new TTTGameController();
 
+        turnBanner.setImage(new Image("XTurn.png"));
+        sendButton.setImage(new Image("send_button.png"));
+        chat_bg.setImage(new Image("chat_bg.png"));
         chat_area.clear();
-        chat_area.getStyleClass().add("transparent-textarea");
+        chat_area.setStyle(
+                "-fx-background-color: transparent;" +
+                        "-fx-control-inner-background: transparent;" +
+                        "-fx-text-fill: white;" + // Optional for readability
+                        "-fx-border-color: transparent;" +
+                        "-fx-text-fill: yellow;" +
+                        "-fx-font-size: 16px;" +
+                        "-fx-font-family: 'SilomBol.ttf';"
+        );
 
+        chat_pane.setStyle(
+                "-fx-background-color: transparent;" +
+                        "-fx-background: transparent;" +
+                        "-fx-border-color: transparent;"
+        );
 
         /*
         mouse-click event: clears border and sets piece
@@ -197,10 +231,12 @@ public class TTTController implements Initializable {
             if (theGame.game.board.isEmpty(new ivec2(row, col))) {
                 if (theGame.GetCurrentPlayer() == 1){
                     imageView.setImage(X);
+                    turnBanner.setImage(new Image("OTurn.png"));
                     theGame.game.makeMove(row, col);
                     theGame.game.currentPlayer = 2;
                 } else {
                     imageView.setImage(O);
+                    turnBanner.setImage(new Image("XTurn.png"));
                     theGame.game.makeMove(row, col);
                     theGame.game.currentPlayer = 1;
                 }
@@ -223,19 +259,28 @@ public class TTTController implements Initializable {
     should also forfeit active matches
      */
     public void quit_TTT() throws IOException {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        ButtonType yesButton = new ButtonType("Yes");
-        alert.getButtonTypes().set(0, yesButton);
-        alert.setHeaderText("Quit Game?\nYou will forfeit active matches.");
-        alert.setContentText("Click YES to quit");
-        Optional<ButtonType> result = alert.showAndWait();
+        Stage quitPopup = new Stage();
+        Stage owner = (Stage) board_image.getScene().getWindow();
+        quitPopup.initOwner(owner);
 
-        if(result.isPresent() && result.get() == yesButton){
-            Parent root = FXMLLoader.load(getClass().getResource("gameMenu.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("quitPopup.fxml"));
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
+        QuitPopupController controller = loader.getController();
+
+        quitPopup.initStyle(StageStyle.TRANSPARENT);
+        scene.setFill(Color.TRANSPARENT);
+
+        controller.closeOwner = false;
+        quitPopup.setScene(scene);
+        quitPopup.showAndWait();
+
+        if (controller.closeYes) {
+            Parent newRoot = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("gameMenu.fxml")));
 
             Stage stage = (Stage) gameBoard.getScene().getWindow();
 
-            stage.setScene(new Scene(root));
+            stage.setScene(new Scene(newRoot));
             stage.show();
         }
     }
@@ -259,6 +304,7 @@ public class TTTController implements Initializable {
         if (!theGame.gameOngoing) {
             theGame = new TTTGameController();
             clearBoard();
+            turnBanner.setImage(new Image("XTurn.png"));
         }
     }
 
@@ -279,6 +325,7 @@ public class TTTController implements Initializable {
             play_again.setImage(new Image("Play_Again.png"));
             check_circle.setImage(new Image("check_circle.png"));
             X_circle.setImage(new Image("X_circle.png"));
+            turnBanner.setImage(null);
         }
     }
 
@@ -304,5 +351,21 @@ public class TTTController implements Initializable {
             chat_area.appendText("You: " + message + "\n");
             chat_input_field.clear();
         }
+    }
+
+    public void getMessage(String message){
+        chat_area.appendText(message);
+    }
+
+    public void infoButtonPress(){
+        info_bg.setImage(new Image("info_image.png"));
+        info_bg.setMouseTransparent(false);
+        info_ok_button.setMouseTransparent(false);
+    }
+
+    public void info_ok_clicked(){
+        info_bg.setImage(null);
+        info_bg.setMouseTransparent(true);
+        info_ok_button.setMouseTransparent(true);
     }
 }
