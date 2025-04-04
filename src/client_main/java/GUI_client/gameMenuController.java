@@ -30,6 +30,8 @@ public class gameMenuController implements Initializable {
     @FXML
     public ImageView gameMenu_bg_image;
 
+    private Stage quitPopup = new Stage();
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         quitMenu.setImage(new Image("quit_x.png"));
@@ -44,16 +46,24 @@ public class gameMenuController implements Initializable {
         stage.show();
     }
     public void quitMenuClicked() throws IOException {
-        Stage quitPopup = new Stage();
-        Stage owner = (Stage) gameMenu_bg_image.getScene().getWindow();
-        quitPopup.initOwner(owner);
+        if (!quitPopup.isShowing()) {
+            quitPopup = new Stage();
+            Stage owner = (Stage) gameMenu_bg_image.getScene().getWindow();
+            quitPopup.initOwner(owner);
 
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("quitPopup.fxml")));
-        Scene scene = new Scene(root);
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("quitPopup.fxml")));
+            Scene scene = new Scene(root);
 
-        quitPopup.initStyle(StageStyle.TRANSPARENT);
-        scene.setFill(Color.TRANSPARENT);
-        quitPopup.setScene(scene);
-        quitPopup.show();
-    };
+            quitPopup.initStyle(StageStyle.TRANSPARENT);
+            scene.setFill(Color.TRANSPARENT);
+            quitPopup.setScene(scene);
+            quitPopup.show();
+        }
+    }
+    public void XPressed(){
+        quitMenu.setImage(new Image("XButtonDown.png"));
+    }
+    public void XReleased(){
+        quitMenu.setImage(new Image("quit_x.png"));
+    }
 }

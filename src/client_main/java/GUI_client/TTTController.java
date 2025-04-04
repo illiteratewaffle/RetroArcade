@@ -112,7 +112,9 @@ public class TTTController implements Initializable {
 
     TTTGameController theGame = new TTTGameController();
 
-    ArrayList<Character> EEList = new ArrayList<Character>();
+    private ArrayList<Character> EEList = new ArrayList<Character>();
+
+    private Stage quitPopup = new Stage();
 
 
     @Override
@@ -259,29 +261,31 @@ public class TTTController implements Initializable {
     should also forfeit active matches
      */
     public void quit_TTT() throws IOException {
-        Stage quitPopup = new Stage();
-        Stage owner = (Stage) board_image.getScene().getWindow();
-        quitPopup.initOwner(owner);
+        if (!quitPopup.isShowing()) {
+            quitPopup = new Stage();
+            Stage owner = (Stage) board_image.getScene().getWindow();
+            quitPopup.initOwner(owner);
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("quitPopup.fxml"));
-        Parent root = loader.load();
-        Scene scene = new Scene(root);
-        QuitPopupController controller = loader.getController();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("quitPopup.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            QuitPopupController controller = loader.getController();
 
-        quitPopup.initStyle(StageStyle.TRANSPARENT);
-        scene.setFill(Color.TRANSPARENT);
+            quitPopup.initStyle(StageStyle.TRANSPARENT);
+            scene.setFill(Color.TRANSPARENT);
 
-        controller.closeOwner = false;
-        quitPopup.setScene(scene);
-        quitPopup.showAndWait();
+            controller.closeOwner = false;
+            quitPopup.setScene(scene);
+            quitPopup.showAndWait();
 
-        if (controller.closeYes) {
-            Parent newRoot = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("gameMenu.fxml")));
+            if (controller.closeYes) {
+                Parent newRoot = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("gameMenu.fxml")));
 
-            Stage stage = (Stage) gameBoard.getScene().getWindow();
+                Stage stage = (Stage) gameBoard.getScene().getWindow();
 
-            stage.setScene(new Scene(newRoot));
-            stage.show();
+                stage.setScene(new Scene(newRoot));
+                stage.show();
+            }
         }
     }
     public void yellowPress(){
@@ -367,5 +371,17 @@ public class TTTController implements Initializable {
         info_bg.setImage(null);
         info_bg.setMouseTransparent(true);
         info_ok_button.setMouseTransparent(true);
+    }
+    public void XPressed(){
+        quit_image.setImage(new Image("XButtonDown.png"));
+    }
+    public void XReleased(){
+        quit_image.setImage(new Image("quit_x.png"));
+    }
+    public void infoPressed(){
+        infoButton.setImage(new Image("infoButtonDown.png"));
+    }
+    public void infoReleased(){
+        infoButton.setImage(new Image("info_button.png"));
     }
 }
