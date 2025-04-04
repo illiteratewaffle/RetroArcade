@@ -84,5 +84,6 @@
         <Button fx:id="col0Button" layoutX="322.0" layoutY="104.0" mnemonicParsing="false" onAction="#onCol0Click" opacity="0.0" prefHeight="219.0" prefWidth="38.0" text="Button" />
         <Button fx:id="col4Button" layoutX="476.0" layoutY="106.0" mnemonicParsing="false" onAction="#onCol4Click" opacity="0.0" prefHeight="216.0" prefWidth="35.0" text="Button" />
         <Button fx:id="col5Button" layoutX="510.0" layoutY="109.0" mnemonicParsing="false" onAction="#onCol5Click" opacity="0.0" prefHeight="217.0" prefWidth="42.0" text="Button" />
+      <ImageView fx:id="winImage" fitHeight="331.0" fitWidth="452.0" layoutX="231.0" layoutY="54.0" pickOnBounds="true" preserveRatio="true" visible="false" />
     </children>
 </AnchorPane>

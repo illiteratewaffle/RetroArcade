@@ -20,13 +20,16 @@ public class C4GUIController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         assert c4GUIGrid != null : "🔥 FATAL: c4GUIGrid was NOT injected!";
+        assert winImage != null : "🔥 winImageView was NOT injected! Check your FXML fx:id";
         System.out.println("✅ c4GUIGrid injected successfully: " + c4GUIGrid);
         c4Controller = new C4Controller();
         c4Controller.start(); // This will print the board and start the game logic
         c4GUIGrid.setGridLinesVisible(true);
     }
 
-    // You can wire this method to buttons later
+    @FXML
+    private ImageView winImage;
+
     @FXML
     private void handleUserClick() {
         c4Controller.ReceiveInput(new ivec2(3, 0)); // for example, drop in column 3
@@ -109,10 +112,19 @@ public class C4GUIController implements Initializable {
                     System.out.println("It's a draw!");
                 } else {
                     System.out.println("Player " + winner + " wins! 🎉");
+                    showWinImage();
                 }
                 disableAllColumnButtons();
             }
         }
+    }
+
+    public void showWinImage() {
+        if (c4Controller.getC4IsGameOver()) {
+            winImage.setImage(new Image("YOU_WIN.png"));
+            winImage.setVisible(true);
+        }
+
     }
 
     @FXML private Button col0Button, col1Button, col2Button, col3Button, col4Button, col5Button, col6Button;
