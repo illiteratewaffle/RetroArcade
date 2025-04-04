@@ -14,11 +14,15 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -255,21 +259,32 @@ public class TTTController implements Initializable {
     should also forfeit active matches
      */
     public void quit_TTT() throws IOException {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        ButtonType yesButton = new ButtonType("Yes");
-        alert.getButtonTypes().set(0, yesButton);
-        alert.setTitle("Quit Match");
-        alert.setHeaderText("Quit Game?\nYou will forfeit active matches.");
-        Optional<ButtonType> result = alert.showAndWait();
+        Stage quitPopup = new Stage();
+        Stage owner = (Stage) board_image.getScene().getWindow();
+        quitPopup.initOwner(owner);
 
-        if(result.isPresent() && result.get() == yesButton){
-            Parent root = FXMLLoader.load(getClass().getResource("gameMenu.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("quitPopup.fxml"));
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
+        QuitPopupController controller = loader.getController();
+
+        quitPopup.initStyle(StageStyle.TRANSPARENT);
+        scene.setFill(Color.TRANSPARENT);
+
+        controller.closeOld = false;
+        quitPopup.setScene(scene);
+        quitPopup.showAndWait();
+
+        if(controller.close){
+            Parent newRoot = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("gameMenu.fxml")));
 
             Stage stage = (Stage) gameBoard.getScene().getWindow();
 
-            stage.setScene(new Scene(root));
+            stage.setScene(new Scene(newRoot));
             stage.show();
         }
+
+
     }
     public void yellowPress(){
         EEList.add('Y');

@@ -31,7 +31,10 @@
                   <Cursor fx:constant="OPEN_HAND" />
                </cursor>
             </ImageView>
-            <ImageView fx:id="quitMenu" fitHeight="77.0" fitWidth="94.0" layoutX="805.0" layoutY="14.0" onMouseClicked="#quitMenuClicked" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="quitMenu" fitHeight="77.0" fitWidth="94.0" layoutX="805.0" layoutY="14.0" onMouseClicked="#quitMenuClicked" pickOnBounds="true" preserveRatio="true">
+               <cursor>
+                  <Cursor fx:constant="OPEN_HAND" />
+               </cursor></ImageView>
          </children>
       </AnchorPane>
    </children>

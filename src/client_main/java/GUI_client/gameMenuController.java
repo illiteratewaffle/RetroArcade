@@ -10,10 +10,15 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
+import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -31,23 +36,24 @@ public class gameMenuController implements Initializable {
     }
 
     public void play_TTT() throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("TTT.fxml"));
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("TTT.fxml")));
 
         Stage stage = (Stage) gameMenu_bg_image.getScene().getWindow();
 
         stage.setScene(new Scene(root));
         stage.show();
     }
-    public void quitMenuClicked(){
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        ButtonType yesButton = new ButtonType("Yes");
-        alert.getButtonTypes().set(0, yesButton);
-        alert.setTitle("Quit Application");
-        alert.setHeaderText("Are you sure you want to quit?");
-        Optional<ButtonType> result = alert.showAndWait();
+    public void quitMenuClicked() throws IOException {
+        Stage quitPopup = new Stage();
+        Stage owner = (Stage) gameMenu_bg_image.getScene().getWindow();
+        quitPopup.initOwner(owner);
 
-        if(result.isPresent() && result.get() == yesButton){
-            Platform.exit();
-        }
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("quitPopup.fxml")));
+        Scene scene = new Scene(root);
+
+        quitPopup.initStyle(StageStyle.TRANSPARENT);
+        scene.setFill(Color.TRANSPARENT);
+        quitPopup.setScene(scene);
+        quitPopup.show();
     };
 }

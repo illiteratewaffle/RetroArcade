@@ -4,20 +4,27 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ba5d62c9-ef67-4eb7-8775-b12157e4f5a8" name="Changes" comment="Added info page for TTT/info button. Moved exit button to right side">
-      <change afterPath="$PROJECT_DIR$/src/client_main/resources/OTurn.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/client_main/resources/XTurn.png" afterDir="false" />
+    <list default="true" id="ba5d62c9-ef67-4eb7-8775-b12157e4f5a8" name="Changes" comment="Exit menu button, player turn banners">
+      <change afterPath="$PROJECT_DIR$/src/client_main/java/GUI_client/QuitPopupController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/client_main/resources/GUI_client/quitPopup.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/client_main/resources/quitPopup.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client_main/java/GUI_client/TTTApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client_main/java/GUI_client/TTTApplication.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/client_main/java/GUI_client/TTTController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client_main/java/GUI_client/TTTController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/client_main/java/GUI_client/gameMenuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client_main/java/GUI_client/gameMenuController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client_main/resources/GUI_client/TTT.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/client_main/resources/GUI_client/TTT.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/client_main/resources/GUI_client/gameMenu.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/client_main/resources/GUI_client/gameMenu.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="FxmlFile" />
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -69,11 +76,20 @@
       <option name="project" value="LOCAL" />
       <updated>1743749603923</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Exit menu button, player turn banners">
+      <option name="closed" value="true" />
+      <created>1743788633776</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1743788633776</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Added info page for TTT/info button. Moved exit button to right side" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added info page for TTT/info button. Moved exit button to right side" />
+    <MESSAGE value="Exit menu button, player turn banners" />
+    <option name="LAST_COMMIT_MESSAGE" value="Exit menu button, player turn banners" />
   </component>
 </project>
