@@ -11,6 +11,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
@@ -25,6 +27,10 @@ import java.util.ResourceBundle;
 public class TTTController implements Initializable {
 
     // FXML declarations
+    @FXML
+    public TextArea chat_area;
+    @FXML
+    public TextField chat_input_field;
     @FXML
     public ImageView quit_image;
     @FXML
@@ -90,17 +96,6 @@ public class TTTController implements Initializable {
 
     TTTGameController theGame = new TTTGameController();
 
-
-    // boolean flag alternating Xs and Os
-    // Tyler, the TTTGame class has implementation for this, now.
-    boolean flag = true;
-
-    // boolean variable that board events must check to be true before executing
-    boolean isPlayable = true;
-
-    // booleanProperty to listen for server input by other player
-    BooleanProperty isYourTurn = new SimpleBooleanProperty(false);
-
     ArrayList<Character> EEList = new ArrayList<Character>();
 
 
@@ -114,6 +109,10 @@ public class TTTController implements Initializable {
         quit_image.setImage(new Image("quit_x.png"));
 
         TTTGameController theGame = new TTTGameController();
+
+        chat_area.clear();
+        chat_area.getStyleClass().add("transparent-textarea");
+
 
         /*
         mouse-click event: clears border and sets piece
@@ -257,8 +256,10 @@ public class TTTController implements Initializable {
     }
 
     public void playAgainYes() {
-        theGame = new TTTGameController();
-        clearBoard();
+        if (!theGame.gameOngoing) {
+            theGame = new TTTGameController();
+            clearBoard();
+        }
     }
 
     public void checkWin(){
@@ -295,5 +296,13 @@ public class TTTController implements Initializable {
         check_circle.setImage(null);
         X_circle.setImage(null);
         Win_Lose_Banner.setImage(null);
+    }
+
+    public void sendMessage(){
+        String message = chat_input_field.getText();
+        if (!message.trim().isEmpty()){
+            chat_area.appendText("You: " + message + "\n");
+            chat_input_field.clear();
+        }
     }
 }
