@@ -103,7 +103,7 @@ public class CheckersGUIController implements Initializable {
                     }
 
 
-                    border.setStyle("-fx-border-color: blue; -fx-border-width: 5;");
+                    border.setStyle("-fx-border-color: #e1c50e; -fx-border-width: 5;");
                     previouslySelectedTile = border;
 
                     sendMouseInput(row, col);
