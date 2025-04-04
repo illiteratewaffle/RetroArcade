@@ -51,6 +51,14 @@
                   <Image url="@../C4_start_button.png" />
                </image>
             </ImageView>
+            <ImageView fx:id="muteButton" fitHeight="77.0" fitWidth="87.0" layoutX="715.0" layoutY="14.0" onMouseClicked="#muteButtonClick" pickOnBounds="true" preserveRatio="true">
+               <cursor>
+                  <Cursor fx:constant="OPEN_HAND" />
+               </cursor>
+               <image>
+                  <Image url="@../unmuteButton.png" />
+               </image>
+            </ImageView>
          </children>
       </AnchorPane>
    </children>

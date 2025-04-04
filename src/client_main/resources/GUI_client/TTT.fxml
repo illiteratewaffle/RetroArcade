@@ -122,4 +122,9 @@
          <Cursor fx:constant="OPEN_HAND" />
       </cursor></ImageView>
    <ImageView fx:id="turnBanner" fitHeight="63.0" fitWidth="192.0" layoutX="355.0" pickOnBounds="true" />
+   <ImageView fx:id="muteButton" fitHeight="75.0" fitWidth="75.0" layoutX="712.0" layoutY="14.0" onMouseClicked="#muteButtonClick" pickOnBounds="true" preserveRatio="true">
+      <cursor>
+         <Cursor fx:constant="OPEN_HAND" />
+      </cursor>
+   </ImageView>
 </AnchorPane>

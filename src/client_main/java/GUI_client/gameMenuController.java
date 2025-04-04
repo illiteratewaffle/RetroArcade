@@ -10,14 +10,18 @@ import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
-import javafx.scene.effect.Blend;
-import javafx.scene.effect.BlendMode;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
 public class gameMenuController implements Initializable {
+    @FXML
+    public ImageView muteButton;
     @FXML
     public ImageView C4_play_button;
     @FXML ImageView checkers_play_button;
@@ -29,19 +33,38 @@ public class gameMenuController implements Initializable {
     public ImageView gameMenu_bg_image;
 
     private Stage quitPopup = new Stage();
+    private MediaPlayer mediaPlayer;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         quitMenu.setImage(new Image("quit_x.png"));
+        String path = Objects.requireNonNull(getClass().getResource("/music/mainMenuTrack.mp3")).toExternalForm(); // or absolute path
+        Media sound = new Media(path);
+        AudioManager.mediaPlayer = new MediaPlayer(sound);
+        AudioManager.mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+        AudioManager.mediaPlayer.play();
+        if (AudioManager.isMuted()){
+            AudioManager.applyMute();
+            muteButton.setImage(new Image("muteButton.png"));
+        } else{
+            muteButton.setImage(new Image("unmuteButton.png"));
+        }
     }
 
     public void play_TTT() throws IOException {
+        AudioManager.mediaPlayer.stop();
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("TTT.fxml")));
 
         Stage stage = (Stage) gameMenu_bg_image.getScene().getWindow();
 
         stage.setScene(new Scene(root));
         stage.show();
+    }
+    public void play_checkers(){
+
+    }
+    public void play_C4(){
+
     }
     public void quitMenuClicked() throws IOException {
         if (!quitPopup.isShowing()) {
@@ -82,5 +105,14 @@ public class gameMenuController implements Initializable {
     }
     public void C4StartExited(){
         C4_play_button.setImage(new Image("C4_start_button.png"));
+    }
+    public void muteButtonClick(){
+        if(!AudioManager.isMuted()) {
+            muteButton.setImage(new Image("muteButton.png"));
+            AudioManager.toggleMute();
+        } else {
+            muteButton.setImage(new Image("unmuteButton.png"));
+            AudioManager.toggleMute();
+        }
     }
 }
