@@ -1,6 +1,7 @@
 package client_main.java.AuthenticationAndProfile;
 
 import leaderboard.PlayerRanking;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -9,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import AuthenticationAndProfile.*;
 
 class AuthenticationTest {
-    private Profile profile;
+    private static Profile profile;
     @BeforeEach
     void setUp() {
         String password = "1234567";
@@ -24,8 +25,9 @@ class AuthenticationTest {
 
     @Test
     void logIn() {
-        PlayerManager.registerPlayer("username1", "email@email.com", ProfileCreation.hashedPassword("1234567"));
+        int id = PlayerManager.registerPlayer("username1", "email@email.com", ProfileCreation.hashedPassword("1234567"));
         assertTrue(Authentication.logIn("username1", "1234567"));
+        ProfileDatabaseAccess.removeProfile(id);
     }
 
     @Test
