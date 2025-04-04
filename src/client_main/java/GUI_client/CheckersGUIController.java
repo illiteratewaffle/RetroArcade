@@ -75,7 +75,6 @@ public class CheckersGUIController implements Initializable {
                 tilePiece[i][j].setMouseTransparent(true);
 
                 StackPane border = tileBorderGrid[i][j];
-                ImageView tile = tilePiece[i][j];
 
                 final int row = i;
                 final int col = j;
@@ -121,11 +120,10 @@ public class CheckersGUIController implements Initializable {
 
     /**
      * Sends mouse click input to game logic and refreshes the board
-     * @param row
-     * @param col
+     * @param row of the clicked piece
+     * @param col of the clicked piece
      */
 
-    @FXML
     private void sendMouseInput(int row, int col) {
         lastClickedRow = row;
         lastClickedCol = col;
@@ -136,9 +134,13 @@ public class CheckersGUIController implements Initializable {
 
         refreshBoard();
         getTurn();
+        checkWinners();
     }
 
-    @FXML
+    /**
+    Sets the screen to show which players turn it is
+     */
+
     private void getTurn() {
         int currentPlayer = gameLogic.getCurrentPlayer();
         int winner [] = gameLogic.getWinner();
@@ -153,13 +155,12 @@ public class CheckersGUIController implements Initializable {
                 screen.setImage(opponentTurn);
             }
         }
-
     }
 
-
+    
 
     /**
-     * Gets the board cells and updates the pieces on the board based on that
+     * Gets the board cells and updates the pieces and highlights on the board based on that
      */
 
     private void refreshBoard() {
