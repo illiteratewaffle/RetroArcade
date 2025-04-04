@@ -271,11 +271,11 @@ public class TTTController implements Initializable {
         quitPopup.initStyle(StageStyle.TRANSPARENT);
         scene.setFill(Color.TRANSPARENT);
 
-        controller.closeOld = false;
+        controller.closeOwner = false;
         quitPopup.setScene(scene);
         quitPopup.showAndWait();
 
-        if(controller.close){
+        if (controller.closeYes) {
             Parent newRoot = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("gameMenu.fxml")));
 
             Stage stage = (Stage) gameBoard.getScene().getWindow();
@@ -283,8 +283,6 @@ public class TTTController implements Initializable {
             stage.setScene(new Scene(newRoot));
             stage.show();
         }
-
-
     }
     public void yellowPress(){
         EEList.add('Y');

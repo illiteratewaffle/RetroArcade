@@ -17,10 +17,10 @@ public class QuitPopupController implements Initializable {
     public ImageView popupImage;
 
     private Stage popupStage = new Stage();
-    private Stage ownerStage = new Stage();
 
-    public boolean close = false;
-    public boolean closeOld = true;
+    // closePopup is used by owner controller to check when popup is closed
+    public boolean closeYes = false;
+    public boolean closeOwner = true;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -28,15 +28,14 @@ public class QuitPopupController implements Initializable {
     }
 
     public void quitYes(){
-        close = true;
+        closeYes = true;
         popupStage = (Stage) popupImage.getScene().getWindow();
-        ownerStage = (Stage) popupStage.getOwner();
-        if (closeOld) ownerStage.close();
+        Stage ownerStage = (Stage) popupStage.getOwner();
+        if (closeOwner) ownerStage.close();
         popupStage.close();
     }
     public void quitNo(){
         popupStage = (Stage) popupImage.getScene().getWindow();
-        ownerStage = (Stage) popupStage.getOwner();
         popupStage.close();
     }
 
