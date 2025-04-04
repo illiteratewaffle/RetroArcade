@@ -295,9 +295,9 @@
                </children></StackPane>
          </children>
       </GridPane>
-      <StackPane fx:id="screenStack" layoutX="364.0" layoutY="29.0" prefHeight="118.0" prefWidth="172.0">
+      <StackPane fx:id="screenStack" layoutX="364.0" layoutY="21.0" prefHeight="118.0" prefWidth="172.0">
          <children>
-            <ImageView fx:id="screen" fitHeight="73.0" fitWidth="131.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="screen" fitHeight="78.0" fitWidth="143.0" pickOnBounds="true" preserveRatio="true" />
          </children>
       </StackPane>
    </children>
