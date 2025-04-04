@@ -9,6 +9,9 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.paint.Color;
+
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -16,6 +19,8 @@ import java.util.ResourceBundle;
 public class C4GUIController implements Initializable {
 
     private C4Controller c4Controller;
+
+    private ImageView columnHighlight;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -25,10 +30,20 @@ public class C4GUIController implements Initializable {
         c4Controller = new C4Controller();
         c4Controller.start(); // This will print the board and start the game logic
         c4GUIGrid.setGridLinesVisible(true);
+
+        setupHoverEffect(col0Button, 0);
+        setupHoverEffect(col1Button, 1);
+        setupHoverEffect(col2Button, 2);
+        setupHoverEffect(col3Button, 3);
+        setupHoverEffect(col4Button, 4);
+        setupHoverEffect(col5Button, 5);
+        setupHoverEffect(col6Button, 6);
     }
 
     @FXML
     private ImageView winImage;
+
+    @FXML GridPane c4Grid;
 
     @FXML
     private void handleUserClick() {
@@ -117,6 +132,30 @@ public class C4GUIController implements Initializable {
                 disableAllColumnButtons();
             }
         }
+    }
+
+    private void setupHoverEffect(Button button, int col) {
+        button.setOnMouseEntered(e -> highlightColumnOnHover(col, true));
+        button.setOnMouseExited(e -> highlightColumnOnHover(col, false));
+    }
+
+    private void highlightColumnOnHover(int col, boolean isHovering) {
+        for (int row = 0; row < 6; row++) {
+            Rectangle highlight = new Rectangle(38, 36);
+            highlight.setFill(Color.PINK);
+            highlight.setOpacity(0.3);
+            highlight.setMouseTransparent(true);
+            if (isHovering) {
+                c4GUIGrid.add(highlight, col, row);
+            }else{
+                c4GUIGrid.getChildren().removeIf(node -> node instanceof Rectangle &&
+                                GridPane.getColumnIndex(node) != null &&
+                                GridPane.getRowIndex(node) != null &&
+                                GridPane.getColumnIndex(node) == col);
+            }
+
+        }
+
     }
 
     public void showWinImage() {
