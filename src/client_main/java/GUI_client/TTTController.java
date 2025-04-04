@@ -26,6 +26,8 @@ public class TTTController implements Initializable {
 
     // FXML declarations
     @FXML
+    public ImageView turnBanner;
+    @FXML
     public ImageView info_bg;
     @FXML
     public ImageView info_ok_button;
@@ -122,6 +124,7 @@ public class TTTController implements Initializable {
 
         TTTGameController theGame = new TTTGameController();
 
+        turnBanner.setImage(new Image("XTurn.png"));
         sendButton.setImage(new Image("send_button.png"));
         chat_bg.setImage(new Image("chat_bg.png"));
         chat_area.clear();
@@ -224,10 +227,12 @@ public class TTTController implements Initializable {
             if (theGame.game.board.isEmpty(new ivec2(row, col))) {
                 if (theGame.GetCurrentPlayer() == 1){
                     imageView.setImage(X);
+                    turnBanner.setImage(new Image("OTurn.png"));
                     theGame.game.makeMove(row, col);
                     theGame.game.currentPlayer = 2;
                 } else {
                     imageView.setImage(O);
+                    turnBanner.setImage(new Image("XTurn.png"));
                     theGame.game.makeMove(row, col);
                     theGame.game.currentPlayer = 1;
                 }
@@ -253,8 +258,8 @@ public class TTTController implements Initializable {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         ButtonType yesButton = new ButtonType("Yes");
         alert.getButtonTypes().set(0, yesButton);
+        alert.setTitle("Quit Match");
         alert.setHeaderText("Quit Game?\nYou will forfeit active matches.");
-        alert.setContentText("Click YES to quit");
         Optional<ButtonType> result = alert.showAndWait();
 
         if(result.isPresent() && result.get() == yesButton){
@@ -286,6 +291,7 @@ public class TTTController implements Initializable {
         if (!theGame.gameOngoing) {
             theGame = new TTTGameController();
             clearBoard();
+            turnBanner.setImage(new Image("XTurn.png"));
         }
     }
 
@@ -306,6 +312,7 @@ public class TTTController implements Initializable {
             play_again.setImage(new Image("Play_Again.png"));
             check_circle.setImage(new Image("check_circle.png"));
             X_circle.setImage(new Image("X_circle.png"));
+            turnBanner.setImage(null);
         }
     }
 
@@ -331,6 +338,10 @@ public class TTTController implements Initializable {
             chat_area.appendText("You: " + message + "\n");
             chat_input_field.clear();
         }
+    }
+
+    public void getMessage(String message){
+        chat_area.appendText(message);
     }
 
     public void infoButtonPress(){

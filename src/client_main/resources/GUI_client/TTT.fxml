@@ -93,7 +93,7 @@
       </cursor>
    </ImageView>
    <ImageView fx:id="X_circle" fitHeight="77.0" fitWidth="81.0" layoutX="574.0" layoutY="81.0" pickOnBounds="true" preserveRatio="true" />
-   <ImageView fx:id="play_again" fitHeight="47.0" fitWidth="265.0" layoutX="317.0" layoutY="84.0" pickOnBounds="true" preserveRatio="true" />
+   <ImageView fx:id="play_again" fitHeight="47.0" fitWidth="265.0" layoutX="318.0" layoutY="89.0" pickOnBounds="true" preserveRatio="true" />
    <ImageView fx:id="blueButton" fitHeight="25.0" fitWidth="35.0" layoutX="380.0" layoutY="505.0" onMouseClicked="#bluePress" pickOnBounds="true" preserveRatio="true" />
    <ImageView fx:id="yellowButton" fitHeight="25.0" fitWidth="35.0" layoutX="433.0" layoutY="505.0" onMouseClicked="#yellowPress" pickOnBounds="true" preserveRatio="true" />
    <ImageView fx:id="redButton" fitHeight="25.0" fitWidth="35.0" layoutX="485.0" layoutY="505.0" onMouseClicked="#redPress" pickOnBounds="true" preserveRatio="true" />
@@ -121,4 +121,5 @@
       <cursor>
          <Cursor fx:constant="OPEN_HAND" />
       </cursor></ImageView>
+   <ImageView fx:id="turnBanner" fitHeight="63.0" fitWidth="192.0" layoutX="355.0" pickOnBounds="true" />
 </AnchorPane>
