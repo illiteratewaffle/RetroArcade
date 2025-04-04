@@ -139,12 +139,17 @@ public class CheckersGUIController implements Initializable {
     @FXML
     private void getTurn() {
         int currentPlayer = gameLogic.getCurrentPlayer();
+        int winner [] = gameLogic.getWinner();
 
-        if (currentPlayer == 0) {
-            screen.setImage(yourTurn);
-        }
-        else {
-            screen.setImage(opponentTurn);
+        // Check if the game is ongoing before checking turns
+        if (winner.length == 0) {
+            // Check turns
+            if (currentPlayer == 0) {
+                screen.setImage(yourTurn);
+            }
+            else {
+                screen.setImage(opponentTurn);
+            }
         }
 
     }
