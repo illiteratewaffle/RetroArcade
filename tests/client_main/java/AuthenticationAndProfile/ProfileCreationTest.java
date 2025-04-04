@@ -27,8 +27,12 @@ class ProfileCreationTest {
         String email = username + "@example.com";
         String password = Profile.generatePassword();
         ProfileCreation.createNewProfile(username, email, password);
+        String hashedPassword = ProfileCreation.hashedPassword(password);
         int newProfileID = Authentication.getProfileLoggedIn().getID();
 
+        assertEquals(Integer.toString(newProfileID), PlayerManager.getAttribute(newProfileID, "ID"));
         assertEquals(username, PlayerManager.getAttribute(newProfileID, "username"));
+        assertEquals(email, PlayerManager.getAttribute(newProfileID, "email"));
+        assertEquals(hashedPassword, PlayerManager.getAttribute(newProfileID, "hashed_password"));
     }
 }
