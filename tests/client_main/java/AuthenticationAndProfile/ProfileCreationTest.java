@@ -23,22 +23,16 @@ class ProfileCreationTest {
 
     @Test
     void createNewProfile() {
-        // ChatGPT was used to generate the following 4 lines of code for randomly generating usernames, emails, and passwords.
-        // The prompt used was: How can I make it so every time this test is run, a new username email and password are generated and it's id is used to identify it in the assertEquals statement
-        // ChatGPT suggested using UUID.randomUUID() to generate a unique identifier for the username, email, and password.
-        // UUID.randomUUID() generates a random universally unique identifier using a strong pseudo random number generator.
-        // The identifier is then converted to a string using .toString. This ensures every time this test is ran, a unique profile is created.
-        // The rest of the code in this test case (ProfileCreation.createNewProfile and following) was written without any AI assistance.
-
-
-        String uniqueSuffix = UUID.randomUUID().toString().substring(0, 8);
-        String username = "User_" + uniqueSuffix;
+        String username = Profile.generateUsername();
         String email = username + "@example.com";
-        String password = "Pass_" + uniqueSuffix;
-
+        String password = Profile.generatePassword();
         ProfileCreation.createNewProfile(username, email, password);
+        String hashedPassword = ProfileCreation.hashedPassword(password);
         int newProfileID = Authentication.getProfileLoggedIn().getID();
 
+        assertEquals(Integer.toString(newProfileID), PlayerManager.getAttribute(newProfileID, "ID"));
         assertEquals(username, PlayerManager.getAttribute(newProfileID, "username"));
+        assertEquals(email, PlayerManager.getAttribute(newProfileID, "email"));
+        assertEquals(hashedPassword, PlayerManager.getAttribute(newProfileID, "hashed_password"));
     }
 }
