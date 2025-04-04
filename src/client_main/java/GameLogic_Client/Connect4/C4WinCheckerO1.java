@@ -9,7 +9,7 @@ public class C4WinCheckerO1 {
             checkBackSlash(lastCoordinate, piece, board);
     }
 
-    private static boolean checkHorizontal(ivec2 last, C4Piece piece, C4Piece[][] board) {
+    public static boolean checkHorizontal(ivec2 last, C4Piece piece, C4Piece[][] board) {
         int count = 1;
 
         // Check left
