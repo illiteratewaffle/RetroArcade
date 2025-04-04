@@ -27,11 +27,13 @@ public class CheckersGUIController implements Initializable {
     private StackPane[][] tileBorderGrid = new StackPane[BOARD_SIZE][BOARD_SIZE];
     private ImageView[][] tilePiece = new ImageView[BOARD_SIZE][BOARD_SIZE];
 
+    // pieces
     private Image blueChecker;
     private Image pinkChecker;
     private Image blueKingChecker;
     private Image pinkKingChecker;
 
+    // Turn images
     private Image yourTurn;
     private Image opponentTurn;
 
@@ -49,6 +51,7 @@ public class CheckersGUIController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        // relative addresses
         gameLogic = new CheckersController();
         blueChecker = new Image("checkers_blue_piece.png");
         pinkChecker = new Image("checkers_pink_piece.png");
@@ -59,7 +62,6 @@ public class CheckersGUIController implements Initializable {
         winnerBlue = new Image("YOU_WIN_blue.png");
         winnerPink = new Image("YOU_WIN_pink.png");
         //tie = new Image("TIE.png");
-
 
 
         for (int i = 0; i < BOARD_SIZE; i++) {
@@ -77,7 +79,6 @@ public class CheckersGUIController implements Initializable {
 
                 final int row = i;
                 final int col = j;
-
 
                 border.setOnMouseEntered(event -> {
                     String currentStyle = border.getStyle();
@@ -113,6 +114,7 @@ public class CheckersGUIController implements Initializable {
                 checkerBoard.add(tileBorderGrid[i][j], j, i);
             }
         }
+        // update the board and turns
         refreshBoard();
         getTurn();
     }
@@ -163,6 +165,7 @@ public class CheckersGUIController implements Initializable {
     private void refreshBoard() {
         int[][] pieceBoard = gameLogic.getBoardCells(0b1).getFirst();
         int[][] highlightBoard = gameLogic.getBoardCells(0b10).getFirst();
+        // itterate through the board and update one by one
         for (int i = 0; i < BOARD_SIZE; i++) {
             for (int j = 0; j < BOARD_SIZE; j++) {
                 switch (pieceBoard[i][j]) {
@@ -185,6 +188,7 @@ public class CheckersGUIController implements Initializable {
         if (lastClickedRow >= 0 && lastClickedCol >= 0) {
             tileBorderGrid[lastClickedRow][lastClickedCol].setStyle("-fx-border-color: #e1c50e; -fx-border-width: 4;");
         }
+        // Check if either player has won
         checkWinners();
     }
 
