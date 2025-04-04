@@ -107,6 +107,6 @@ public class C4WinCheckerO1Test {
     void horizontalNoWin6() {
         C4Piece[][] board = emptyBoard();
         board[5][6] = P;
-        assertFalse(C4WinCheckerO1.checkHorizontal(new ivec2(5, 6), P, board));
+        assertFalse(C4WinCheckerO1.checkHorizontal(new ivec2(6, 5), P, board));
     }
 }
