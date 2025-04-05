@@ -1,18 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.Cursor?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.SplitMenuButton?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="836.0" prefWidth="900.0" style="-fx-background-color: #201e42;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI_client.leaderboardGUIController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="836.0" prefWidth="900.0" style="-fx-background-color: #201e42;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI_client.leaderboardGUIController">
     <stylesheets>@src/client_main/resources/GUI_client/style.css</stylesheets>
     <children>
       <ImageView fitHeight="748.0" fitWidth="891.0" layoutX="3.0" layoutY="9.0">
@@ -55,10 +49,10 @@
                   <TableView fx:id="C4_table" layoutX="-7.0" layoutY="-7.0" prefHeight="662.0" prefWidth="831.0" style="-fx-background-color: transparent;" stylesheets="@style.css">
                      <columns>
                         <TableColumn prefWidth="156.91883087158203" style="-fx-background-color: black;" text="Position" />
+                        <TableColumn prefWidth="180.3218994140625" style="-fx-background-color: black;" text="Username" />
                         <TableColumn prefWidth="179.1029052734375" style="-fx-background-color: black;" text="Rating" />
                         <TableColumn prefWidth="157.5306396484375" style="-fx-background-color: black;" text="Wins" />
                         <TableColumn prefWidth="155.06146240234375" style="-fx-background-color: black;" text="Win/Loss Ratio" />
-                        <TableColumn prefWidth="180.3218994140625" style="-fx-background-color: black;" text="Username" />
                      </columns>
                   </TableView>
                </children>
