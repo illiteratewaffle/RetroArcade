@@ -117,6 +117,11 @@ public class leaderboardGUIController {
                             setText(null);
                             setStyle("");
                         } else {
+                            /*
+                            https://www.reddit.com/r/answers/comments/jzy9l8/what_color_contrasts_both_black_and_white_the_most/
+
+                            Source for colours that contrast with black and white.
+                             */
                             setText(item);
                             int rowIndex = getIndex();
                             String color;
