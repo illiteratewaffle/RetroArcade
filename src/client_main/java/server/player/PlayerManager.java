@@ -299,7 +299,25 @@ public class PlayerManager {
         }
     }
 
+    public static String addToFriendsList(int id, int newFriendId) {
+        String query = "UPDATE profiles SET friends = array_append(friends, ?) WHERE id = ?";
+        try (PreparedStatement statement = conn.prepareStatement(query)) {
+            statement.setInt(1, newFriendId);
+            statement.setInt(2, id);
+
+            int rowsUpdated = statement.executeUpdate();
+            if (rowsUpdated > 0) {
+                return "added player " + newFriendId + " to player " + id + " Friend's list";
+            } else {
+                return "No player found with ID: " + id;
+            }
+        } catch (SQLException e) {
+            return "Error updating 'friends' array: " + e.getMessage();
+        }
+    }
+
     public static void main(String[] args) {
-        System.out.println(updateAttribute(1, "email", "newEmail@me.ca" ));
+        System.out.println(addToFriendsList(1, 4));
+        System.out.println(addToFriendsList(2, 4));
     }
 }
