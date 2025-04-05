@@ -20,8 +20,6 @@ public class C4GUIController implements Initializable {
 
     private C4Controller c4Controller;
 
-    private ImageView columnHighlight;
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         assert c4GUIGrid != null : "🔥 FATAL: c4GUIGrid was NOT injected!";
@@ -30,6 +28,7 @@ public class C4GUIController implements Initializable {
         c4Controller = new C4Controller();
         c4Controller.start(); // This will print the board and start the game logic
         c4GUIGrid.setGridLinesVisible(true);
+        //infoButton.setImage(new Image("C4Info.jpg"));
 
         setupHoverEffect(col0Button, 0);
         setupHoverEffect(col1Button, 1);
@@ -43,7 +42,14 @@ public class C4GUIController implements Initializable {
     @FXML
     private ImageView winImage;
 
-    @FXML GridPane c4Grid;
+    @FXML
+    public ImageView infoButton;
+
+    @FXML
+    public ImageView infoImage;
+
+    @FXML
+    public Button info_ok_button;
 
     @FXML
     private void handleUserClick() {
@@ -143,7 +149,7 @@ public class C4GUIController implements Initializable {
         for (int row = 0; row < 6; row++) {
             Rectangle highlight = new Rectangle(38, 36);
             highlight.setFill(Color.PINK);
-            highlight.setOpacity(0.3);
+            highlight.setOpacity(0.4);
             highlight.setMouseTransparent(true);
             if (isHovering) {
                 c4GUIGrid.add(highlight, col, row);
@@ -158,9 +164,23 @@ public class C4GUIController implements Initializable {
 
     }
 
+    public void clickInfoButton(){
+        infoImage.setImage(new Image("C4info.jpg"));
+        infoImage.setVisible(true);
+        infoImage.setMouseTransparent(false);
+        info_ok_button.setMouseTransparent(false);
+    }
+
+    public void clickInfoOkButton(){
+        infoImage.setVisible(false);
+        infoImage.setMouseTransparent(true);
+        info_ok_button.setMouseTransparent(true);
+    }
+
+
     public void showWinImage() {
         if (c4Controller.getC4IsGameOver()) {
-            winImage.setImage(new Image("YOU_WIN.png"));
+            winImage.setImage(new Image("win_image.png"));
             winImage.setVisible(true);
         }
 
