@@ -20,7 +20,7 @@
             <Image url="@../leaderboard_assets/leaderboard_background.PNG" />
          </image>
       </ImageView>
-      <ImageView fitHeight="269.0" fitWidth="850.0" layoutX="29.0" layoutY="-42.0">
+      <ImageView fitHeight="269.0" fitWidth="850.0" layoutX="28.0" layoutY="-34.0">
          <image>
             <Image url="@../leaderboard_assets/leaderboard.png" />
          </image>
@@ -101,6 +101,11 @@
       <ImageView fx:id="C4_button" accessibleRole="BUTTON" fitHeight="101.0" fitWidth="232.0" layoutX="617.0" layoutY="110.0" onMouseClicked="#C4_stats">
          <image>
             <Image url="@../leaderboard_assets/simple_c4_button.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="72.0" fitWidth="80.0" layoutX="2.0">
+         <image>
+            <Image url="@../GUI_buttons/back_button%20copy.png" />
          </image>
       </ImageView>
 
