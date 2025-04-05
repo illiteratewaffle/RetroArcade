@@ -83,7 +83,7 @@ public class CSVFileReader {
      * @param fields
      * @return
      */
-    public static ArrayList<ArrayList<String>> sortFields (ArrayList<ArrayList<String>> fields) {
+    public static ArrayList<ArrayList<String>> sortFields(ArrayList<ArrayList<String>> fields) {
         ArrayList<ArrayList<String>> sortedFields = new ArrayList<>();
 
         // i_profile is number of profiles

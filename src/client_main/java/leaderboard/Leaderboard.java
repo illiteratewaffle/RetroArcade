@@ -29,8 +29,6 @@ public class Leaderboard {
     private static final int WINS_C4_INDEX = 9;
     private static final int WINS_CHECKERS_INDEX = 10;
 
-
-
     private static final String GAME_CHECKERS = "CHECKERS";
     private static final String GAME_TTT = "TTT";
     private static final String GAME_C4 = "C4";
@@ -38,21 +36,29 @@ public class Leaderboard {
     private static final String SORT_WLR = "WLR";
     private static final String SORT_WINS = "WINS";
 
-
     /**
-     * HERE FOR CODING/TEST PURPOSES ONLY. TO BE DELETED WHEN MERGING
-     * @param args
+     * Constructor. creates a new Leaderboard with the specified sorting criterion and game selection.
+     *
+     * @param selectedSort
+     * @param selectedGame
      */
-    public static void main(String[] args) {
-        Leaderboard leaderboard = new Leaderboard();
-    }
+    public Leaderboard(String selectedSort, String selectedGame) {
 
-    public Leaderboard() {
+        sortChoice = selectedSort;
+        sortGame = selectedGame;
+
+        if (sortChoice == null) {
+            sortChoice = "RATING";
+        }
+
         updateLeaderboard();
     }
 
+    /**
+     * Updates the leaderboard by retrieving player profiles, sorting them, and toggling the sort order.
+     * To be triggered everytime leaderboardGUIController() is triggered
+     */
     public void updateLeaderboard() {
-
 
         //PlayerManager.getProfileTable(); BRING BACK WHEN COMPLETELY DONE LEADERBOARD
 
@@ -64,21 +70,28 @@ public class Leaderboard {
         System.out.println("toggled " + rankings);
     }
 
+    /**
+     * This method sorts the existing player rankings based on the provided sort choice
+     *
+     * @param sortChoice
+     * @param sortGame
+     * @return
+     */
     public ArrayList<ArrayList<String>> getTopPlayers(String sortChoice, String sortGame) {
 
         if (Objects.equals(sortChoice, SORT_RATING)) {
 
-            rankings = sortByRating(rankings, sortGame);
+            rankings = strip(sortByRating(rankings, sortGame), sortGame);
             System.out.println(rankings);
 
         } else if (Objects.equals(sortChoice, SORT_WLR)) {
 
-            rankings = sortByWLR(rankings, sortGame);
+            rankings = strip(sortByWLR(rankings, sortGame), sortGame);
             System.out.println(rankings);
 
         } else if (Objects.equals(sortChoice, SORT_WINS)) {
 
-            rankings = sortByWins(rankings, sortGame);
+            rankings = strip(sortByWins(rankings, sortGame), sortGame);
             System.out.println(rankings);
 
         } else {
@@ -86,10 +99,6 @@ public class Leaderboard {
         }
 
         return rankings;
-    }
-
-    private void sort(String sortChoice, String sortGame) {
-
     }
 
     /**
@@ -255,6 +264,68 @@ public class Leaderboard {
         }
 
         return profiles;
+    }
+
+    /**
+     * This method processes a list of user profiles and extracts only the relevant leaderboard data
+     * based on the provided game identifier. Each profile is expected to be a list of strings containing
+     * various user data (such as user ID, username, and game-specific statistics). Depending on the game,
+     * it extracts the win-loss ratio, rating, and wins from the corresponding indices and returns a new list
+     * of profiles containing only these fields.
+     *
+     * @param profiles
+     * @param game
+     * @return
+     */
+    private ArrayList<ArrayList<String>> strip(ArrayList<ArrayList<String>> profiles, String game) {
+
+        ArrayList<ArrayList<String>> strippedLeaderboardStatistics = new ArrayList<ArrayList<String>>();
+
+        if (Objects.equals(game, GAME_C4)) {
+
+            addRelevantGameStatistics(profiles, strippedLeaderboardStatistics, WLR_C4_INDEX, RATING_C4_INDEX, WINS_C4_INDEX);
+
+        } else if (Objects.equals(game, GAME_CHECKERS)) {
+
+            addRelevantGameStatistics(profiles, strippedLeaderboardStatistics, WLR_CHECKERS_INDEX, RATING_CHECKERS_INDEX, WINS_CHECKERS_INDEX);
+
+        } else if (Objects.equals(game, GAME_TTT)) {
+
+            addRelevantGameStatistics(profiles, strippedLeaderboardStatistics, WLR_TTT_INDEX, RATING_TTT_INDEX, WINS_TTT_INDEX);
+
+        }
+
+        return strippedLeaderboardStatistics;
+    }
+
+    /**
+     *
+     * For every profile in the provided list, this method creates a new list containing the user's ID,
+     * username, and game-specific statistics extracted from the indices provided.
+     * The extracted statistics include the win-loss ratio, rating, and wins count.
+     * Inserts leaderboard positioning.
+     *
+     * See strip()
+     *
+     * @param profiles
+     * @param strippedLeaderboardStatistics
+     * @param wlrC4Index
+     * @param ratingC4Index
+     * @param winsC4Index
+     */
+    private void addRelevantGameStatistics(ArrayList<ArrayList<String>> profiles, ArrayList<ArrayList<String>> strippedLeaderboardStatistics, int wlrC4Index, int ratingC4Index, int winsC4Index) {
+        for (int i_profiles = 0; i_profiles < profiles.size(); i_profiles++) {
+            ArrayList<String> individual = new ArrayList<>();
+
+            individual.add(String.valueOf(i_profiles + 1));
+            individual.add(profiles.get(i_profiles).get(ID_INDEX));
+            individual.add(profiles.get(i_profiles).get(USERNAME_INDEX));
+            individual.add(profiles.get(i_profiles).get(wlrC4Index));
+            individual.add(profiles.get(i_profiles).get(ratingC4Index));
+            individual.add(profiles.get(i_profiles).get(winsC4Index));
+
+            strippedLeaderboardStatistics.add(individual);
+        }
     }
 
     /**
