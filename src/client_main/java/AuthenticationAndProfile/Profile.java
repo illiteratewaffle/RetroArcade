@@ -72,10 +72,11 @@ public class Profile {
     }
 
     /**
-     * Sets a player's hashed password.
-     * @param newHashedPassword the new hashed password of the player.
+     * Sets a player's hashed password. Takes the inputted password, hashed it, then saves to profile.
+     * @param newPassword the new password of the player.
      */
-    public void setHashedPassword(String newHashedPassword) {
+    public void setHashedPassword(String newPassword) {
+        String newHashedPassword = ProfileCreation.hashedPassword(newPassword);
         this.hashedPassword = hashedPassword;
         PlayerManager.updateAttribute(id, "hashed_password", newHashedPassword);
 
