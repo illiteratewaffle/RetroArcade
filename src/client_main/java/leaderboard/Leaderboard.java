@@ -39,7 +39,7 @@ public class Leaderboard {
     public void updateLeaderboard(){
 
 
-        PlayerManager.getProfileTable();
+        //PlayerManager.getProfileTable(); BRING BACK WHEN COMPLETELY DONE LEADERBOARD
 
         this.rankings = CSVFileReader.retrieveProfiles(FILEPATH);
 
