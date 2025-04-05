@@ -92,4 +92,13 @@ public class CheckersMoveTest {
         // check if the value of set cord equals the return from the associated getter method
         assertEquals(setCord, checkersMove.getCaptureCoordinate());
     }
+
+    /**
+     * this test checks the return boolean of the is capture method
+     */
+    @Test
+    public void testIsCaptureMethod1() {
+        // if the method returns true test passes
+        assertTrue(checkersMove.isCapture());
+    }
 }
