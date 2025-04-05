@@ -1,16 +1,20 @@
-.tab-pane {
+/* Change scrollbar background */
+.scroll-bar {
     -fx-background-color: transparent;
 }
 
-.tab-header-area {
-    -fx-background-color: transparent;
+/* Change scrollbar track (the area behind the thumb) */
+.scroll-bar .track {
+    -fx-background-color: #cccccc; /* Light grey track */
 }
 
-.tab {
-    -fx-background-color: transparent;
+/* Change scrollbar thumb (the draggable part) */
+.scroll-bar .thumb {
+    -fx-background-color: #007bff; /* Blue thumb */
+    -fx-background-radius: 5px; /* Make it rounded */
 }
 
-.tab:selected {
-    -fx-background-color: transparent;
-    -fx-border-color: transparent;
+/* Change scrollbar thumb when hovered */
+.scroll-bar .thumb:hover {
+    -fx-background-color: #0056b3; /* Darker blue when hovered */
 }
