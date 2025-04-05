@@ -23,8 +23,8 @@ CREATE TABLE profiles_new
     wins_checkers           INT              DEFAULT 0,
     games_played            JSONB,
     achievement_progress    JSONB,
-    friends                 JSONB,
-    friend_requests         JSONB,
+    friends                 INT[],
+    friend_requests         INT[],
     created_at              TIMESTAMP        DEFAULT CURRENT_TIMESTAMP
 );
 
