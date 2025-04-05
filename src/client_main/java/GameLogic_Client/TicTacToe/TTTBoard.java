@@ -1,8 +1,8 @@
 package GameLogic_Client.TicTacToe;
 
+
 import GameLogic_Client.AbstractBoard;
-import GameLogic_Client.TicTacToe.TTTPiece;
-import GameLogic_Client.ivec2;
+import GameLogic_Client.Ivec2;
 
 /**
  * Represents a Tic-Tac-Toe board.
@@ -14,19 +14,19 @@ public class TTTBoard extends AbstractBoard {
     /**
      * Constructor initializes a 3x3 Tic-Tac-Toe board.
      */
-    public TTTBoard() {
-        super(3, 3, new int[3][3]);  // Default 3x3 board
+    public TTTBoard(int rows, int cols) {
+        super(rows, cols, new int[rows][cols]);  // Passes a blank 3x3 int array to AbstractBoard
     }
 
     /**
      * Places a piece on the board if the move is valid.
-     * @param point The 2D coordinate (column, row) where the piece is placed.
-     * @param piece The TTTPiece to place (X or O).
-     * @return true if the move was successful, false if the spot was already occupied.
+     * @param point the 2D coordinate (x, y) (or (column, row)) where the piece is placed.
+     * @param piece the TTTPiece to place (X or O)
+     * @return true if the move was successful, false if the spot was already occupied
      */
-    public boolean placePiece(ivec2 point, TTTPiece piece) {
+    public boolean placePiece(Ivec2 point, TTTPiece piece) {
         if (getPiece(point) == 0) {  // Check if the space is empty
-            setPiece(point, piece.getValue());  // Place the piece
+            setPiece(point, piece.getValue());  // Convert TTTPiece to int
             return true;
         }
         return false;  // Spot already taken
@@ -34,10 +34,10 @@ public class TTTBoard extends AbstractBoard {
 
     /**
      * Checks if a player has won the game.
-     * @return The winning TTTPiece (X or O), or EMPTY if no winner yet.
+     * @return the winning TTTPiece (X or O), or EMPTY if no winner yet
      */
     public TTTPiece checkWinner() {
-        int[][] board = getBoard();
+        int[][] board = getBoard();  // Get the board state
 
         // Check rows and columns
         for (int i = 0; i < 3; i++) {
@@ -62,25 +62,16 @@ public class TTTBoard extends AbstractBoard {
 
     /**
      * Checks if the board is full (no more moves possible).
-     * @return true if the board is full, false otherwise.
+     * @return true if the board is full, false otherwise
      */
     public boolean isFull() {
         for (int x = 0; x < 3; x++) {
             for (int y = 0; y < 3; y++) {
-                if (getPiece(new ivec2(x, y)) == 0) {
-                    return false;  // Empty space found
+                if (getPiece(new Ivec2(x, y)) == 0) {  // If any cell is empty, board is not full
+                    return false;
                 }
             }
         }
         return true;
-    }
-
-    /**
-     * Checks if the coordinate on the board contains a piece or not
-     * @param point the 2D coordinate (column, row) to check if empty
-     * @return true if the point is empty, false if it is occupied
-     */
-    public boolean isEmpty(ivec2 point) {
-        return getPiece(point) == 0;
     }
 }
