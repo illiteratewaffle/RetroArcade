@@ -4,17 +4,34 @@ import GameLogic_Client.Checkers.CheckersController;
 import GameLogic_Client.Ivec2;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 
 import javafx.scene.image.ImageView;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.paint.Color;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+
+import java.io.IOException;
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class CheckersGUIController implements Initializable {
 
+    @FXML
+    public ImageView quitButton;
+    @FXML
+    public ImageView infoButton;
+    @FXML
+    public ImageView muteButton;
     @FXML
     private GridPane checkerBoard;
 
@@ -22,6 +39,7 @@ public class CheckersGUIController implements Initializable {
     private ImageView screen;
 
     private CheckersController gameLogic;
+    private Stage quitPopup = new Stage();
 
     private static final int BOARD_SIZE = 8;
     private StackPane[][] tileBorderGrid = new StackPane[BOARD_SIZE][BOARD_SIZE];
@@ -61,6 +79,21 @@ public class CheckersGUIController implements Initializable {
         opponentTurn = new Image("checkers_blue_piece.png");
         winnerBlue = new Image("YOU_WIN_blue.png");
         winnerPink = new Image("YOU_WIN_pink.png");
+        quitButton.setImage(new Image("quit_x.png"));
+        infoButton.setImage(new Image("info_button.png"));
+
+        // setup audio and mute status
+        String path = Objects.requireNonNull(getClass().getResource("/music/checkersTrack.mp3")).toExternalForm(); // or absolute path
+        Media sound = new Media(path);
+        AudioManager.mediaPlayer = new MediaPlayer(sound);
+        AudioManager.mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+        AudioManager.mediaPlayer.play();
+        if (AudioManager.isMuted()){
+            AudioManager.applyMute();
+            muteButton.setImage(new Image("muteButton.png"));
+        } else {
+            muteButton.setImage(new Image("unmuteButton.png"));
+        }
         //tie = new Image("TIE.png");
 
 
@@ -214,5 +247,55 @@ public class CheckersGUIController implements Initializable {
            // screen.setImage(tie);
         }
         // otherwise do nothing and keep playing
+    }
+    public void XPressed(){
+        quitButton.setImage(new Image("XButtonDown.png"));
+    }
+    public void XReleased(){
+        quitButton.setImage(new Image("quit_x.png"));
+    }
+    public void infoPressed(){
+        infoButton.setImage(new Image("infoButtonDown.png"));
+    }
+    public void infoReleased(){
+        infoButton.setImage(new Image("info_button.png"));
+    }
+    public void muteButtonClick(){
+        if(!AudioManager.isMuted()) {
+            muteButton.setImage(new Image("muteButton.png"));
+            AudioManager.toggleMute();
+        } else {
+            muteButton.setImage(new Image("unmuteButton.png"));
+            AudioManager.toggleMute();
+        }
+    }
+    public void quitCheckers() throws IOException {
+        if (!quitPopup.isShowing()) {
+            quitPopup = new Stage();
+            Stage owner = (Stage) checkerBoard.getScene().getWindow();
+            quitPopup.initOwner(owner);
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("quitPopup.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            QuitPopupController controller = loader.getController();
+
+            quitPopup.initStyle(StageStyle.TRANSPARENT);
+            scene.setFill(Color.TRANSPARENT);
+
+            controller.closeOwner = false;
+            quitPopup.setScene(scene);
+            quitPopup.showAndWait();
+
+            if (controller.closeYes) {
+                AudioManager.mediaPlayer.stop();
+                Parent newRoot = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("gameMenu.fxml")));
+
+                Stage stage = (Stage) checkerBoard.getScene().getWindow();
+
+                stage.setScene(new Scene(newRoot));
+                stage.show();
+            }
+        }
     }
 }

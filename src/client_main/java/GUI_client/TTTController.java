@@ -131,7 +131,6 @@ public class TTTController implements Initializable {
         quit_image.setImage(new Image("quit_x.png"));
         infoButton.setImage(new Image("info_button.png"));
 
-        muteButton.setImage(new Image("unmuteButton.png"));
         String path = Objects.requireNonNull(getClass().getResource("/music/TTTTrack.mp3")).toExternalForm(); // or absolute path
         Media sound = new Media(path);
         AudioManager.mediaPlayer = new MediaPlayer(sound);

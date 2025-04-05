@@ -31,11 +31,11 @@
                   <Cursor fx:constant="OPEN_HAND" />
                </cursor>
             </ImageView>
-            <ImageView fx:id="quitMenu" fitHeight="77.0" fitWidth="94.0" layoutX="805.0" layoutY="14.0" onMouseClicked="#quitMenuClicked" onMousePressed="#XPressed" onMouseReleased="#XReleased" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="quitMenu" fitHeight="80.0" fitWidth="80.0" layoutX="805.0" layoutY="14.0" onMouseClicked="#quitMenuClicked" onMousePressed="#XPressed" onMouseReleased="#XReleased" pickOnBounds="true" preserveRatio="true">
                <cursor>
                   <Cursor fx:constant="OPEN_HAND" />
                </cursor></ImageView>
-            <ImageView fx:id="checkers_play_button" fitHeight="84.0" fitWidth="324.0" layoutX="288.0" layoutY="258.0" onMouseEntered="#checkersStartEntered" onMouseExited="#checkersStartExited" pickOnBounds="true">
+            <ImageView fx:id="checkers_play_button" fitHeight="84.0" fitWidth="324.0" layoutX="288.0" layoutY="258.0" onMouseClicked="#play_checkers" onMouseEntered="#checkersStartEntered" onMouseExited="#checkersStartExited" pickOnBounds="true">
                <cursor>
                   <Cursor fx:constant="OPEN_HAND" />
                </cursor>
@@ -51,7 +51,7 @@
                   <Image url="@../C4_start_button.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="muteButton" fitHeight="77.0" fitWidth="87.0" layoutX="715.0" layoutY="14.0" onMouseClicked="#muteButtonClick" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="muteButton" fitHeight="80.0" fitWidth="80.0" layoutX="715.0" layoutY="14.0" onMouseClicked="#muteButtonClick" pickOnBounds="true" preserveRatio="true">
                <cursor>
                   <Cursor fx:constant="OPEN_HAND" />
                </cursor>
