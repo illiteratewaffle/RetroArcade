@@ -1,7 +1,5 @@
 package GameLogic_Client.TicTacToe;
-import GameLogic_Client.ivec2;
-
-import  GameLogic_Client.Ivec2;
+import GameLogic_Client.Ivec2;
 
 /**
  * Represents the Tic-Tac-Toe game logic, including game state management and move handling.
@@ -40,8 +38,7 @@ public class TTTGame {
      * @return true if the move was successful, false if the move was invalid.
      */
     public boolean makeMove(int row, int col) {
-        ivec2 point = new ivec2(row, col);
-        Ivec2 point = new Ivec2(row, col); // Note: you're passing row/col, but the board uses (x, y)
+        Ivec2 point = new Ivec2(row, col);
 
         if (!board.placePiece(point, TTTPiece.fromInt(currentPlayer))) {
             return false;
@@ -89,7 +86,6 @@ public class TTTGame {
      * @param point The position on the board.
      * @return The piece at the specified position.
      */
-    public TTTPiece getPiece(ivec2 point) {
     public TTTPiece getPiece(Ivec2 point) {
         return TTTPiece.fromInt(this.board.getPiece(point));
     }

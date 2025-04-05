@@ -2,7 +2,7 @@ package GameLogic_Client.TicTacToe;
 
 import GameLogic_Client.IBoardGameController;
 import GameLogic_Client.TicTacToe.TTTGame;
-import GameLogic_Client.ivec2;
+import GameLogic_Client.Ivec2;
 import java.util.ArrayList;
 
 /**
@@ -36,7 +36,7 @@ public class TTTGameController implements IBoardGameController {
      * @param input A 2D coordinate representing the player's move.
      */
     @Override
-    public void ReceiveInput(ivec2 input) {
+    public void ReceiveInput(Ivec2 input) {
         if (!game.makeMove(input.y, input.x)) {
             System.out.println("Invalid move, try again!");
         }
@@ -97,8 +97,8 @@ public class TTTGameController implements IBoardGameController {
      * @return A 2D vector representing the board size (3x3).
      */
     @Override
-    public ivec2 GetBoardSize() {
-        return new ivec2(3, 3);
+    public Ivec2 GetBoardSize() {
+        return new Ivec2(3, 3);
     }
 
     /**
