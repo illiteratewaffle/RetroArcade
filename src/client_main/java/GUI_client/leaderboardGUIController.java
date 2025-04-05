@@ -79,6 +79,12 @@ public class leaderboardGUIController {
 
     public void search(ActionEvent actionEvent) {
     }
+
+    public void sort(ActionEvent actionEvent) {
+    }
+
+    public void order(ActionEvent actionEvent) {
+    }
 }
 
 

@@ -12,10 +12,10 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="836.0" prefWidth="900.0" style="-fx-background-color: #201e42;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI_client.leaderboardGUIController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="900.0" style="-fx-background-color: #201e42;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI_client.leaderboardGUIController">
     <stylesheets>@src/client_main/resources/GUI_client/style.css</stylesheets>
     <children>
-      <ImageView fitHeight="748.0" fitWidth="891.0" layoutX="3.0" layoutY="9.0">
+      <ImageView fitHeight="723.0" fitWidth="891.0" layoutX="3.0" layoutY="9.0">
          <image>
             <Image url="@../leaderboard_assets/leaderboard_background.PNG" />
          </image>
@@ -27,14 +27,14 @@
       </ImageView>
       <ScrollPane layoutX="39.0" layoutY="177.0" prefHeight="543.0" prefWidth="827.0" style="-fx-background-color: transparent;">
          <content>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="656.0" prefWidth="825.0" style="-fx-background-color: black;">
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="549.0" prefWidth="825.0" style="-fx-background-color: black;">
                <children>
-                  <ImageView fitHeight="659.0" fitWidth="850.0" layoutX="-9.0">
+                  <ImageView fitHeight="543.0" fitWidth="850.0" layoutX="-9.0">
                      <image>
                         <Image url="@../leaderboard_assets/star_background.PNG" />
                      </image>
                   </ImageView>
-                  <TableView fx:id="C4_table" layoutX="-7.0" layoutY="-7.0" prefHeight="662.0" prefWidth="831.0" style="-fx-background-color: transparent;" stylesheets="@style.css">
+                  <TableView fx:id="C4_table" layoutX="-7.0" layoutY="5.0" prefHeight="531.0" prefWidth="831.0" style="-fx-background-color: transparent;" stylesheets="@style.css">
                      <columns>
                         <TableColumn fx:id="position" prefWidth="156.91883087158203" style="-fx-background-color: black;" text="Position" />
                         <TableColumn fx:id="username" prefWidth="180.3218994140625" style="-fx-background-color: black;" text="Username" />
@@ -47,7 +47,7 @@
             </AnchorPane>
          </content>
       </ScrollPane>
-      <SplitMenuButton fx:id="filter_stats" layoutX="51.0" layoutY="773.0" mnemonicParsing="false" onAction="#filter" prefHeight="44.0" prefWidth="296.0" style="-fx-background-color: black;" text="Filter by">
+      <SplitMenuButton fx:id="filter_stats" layoutX="56.0" layoutY="751.0" mnemonicParsing="false" onAction="#filter" prefHeight="32.0" prefWidth="324.0" style="-fx-background-color: black;" text="Filter by">
         <items>
           <MenuItem mnemonicParsing="false" text="Friends" />
           <MenuItem mnemonicParsing="false" text="Anyone" />
@@ -56,16 +56,35 @@
             <Font name="Silom" size="16.0" />
          </font>
       </SplitMenuButton>
-      <ImageView fx:id="search_button" accessibleRole="BUTTON" fitHeight="103.0" fitWidth="133.0" layoutX="751.0" layoutY="745.0" onMouseClicked="#send_search">
-         <image>
-            <Image url="@../leaderboard_assets/search_button.PNG" />
-         </image>
-      </ImageView>
-      <TextField fx:id="friend_search" layoutX="395.0" layoutY="760.0" onAction="#search" prefHeight="60.0" prefWidth="352.0" promptText="Search for Friends" style="-fx-background-color: transparent;">
+      <SplitMenuButton fx:id="sort_stats" layoutX="56.0" layoutY="793.0" mnemonicParsing="false" onAction="#sort" prefHeight="32.0" prefWidth="324.0" style="-fx-background-color: black;" text="Sort by">
+         <items>
+            <MenuItem mnemonicParsing="false" text="Wins" />
+            <MenuItem mnemonicParsing="false" text="Win/Loss Ratio" />
+            <MenuItem mnemonicParsing="false" text="Rating" />
+         </items>
+         <font>
+            <Font name="Silom" size="16.0" />
+         </font>
+      </SplitMenuButton>
+      <SplitMenuButton fx:id="order_stats" layoutX="56.0" layoutY="836.0" mnemonicParsing="false" onAction="#order" prefHeight="32.0" prefWidth="324.0" style="-fx-background-color: black;" text="Sort order">
+         <items>
+            <MenuItem mnemonicParsing="false" text="High to Low" />
+            <MenuItem mnemonicParsing="false" text="Low to High" />
+         </items>
+         <font>
+            <Font name="Silom" size="16.0" />
+         </font>
+      </SplitMenuButton>
+      <TextField fx:id="friend_search" layoutX="440.0" layoutY="770.0" onAction="#search" prefHeight="45.0" prefWidth="300.0" promptText="Search for Friends" style="-fx-background-color: transparent;">
          <font>
             <Font name="Silom" size="25.0" />
          </font>
       </TextField>
+      <ImageView fx:id="search_button" accessibleRole="BUTTON" fitHeight="107.0" fitWidth="129.0" layoutX="751.0" layoutY="745.0" onMouseClicked="#send_search">
+         <image>
+            <Image url="@../leaderboard_assets/search_button.PNG" />
+         </image>
+      </ImageView>
       <ImageView fx:id="checkers_button" accessibleRole="BUTTON" fitHeight="79.0" fitWidth="227.0" layoutX="62.0" layoutY="120.0" onMouseClicked="#checkers_stats">
          <image>
             <Image url="@../leaderboard_assets/simple_check_button.png" />
