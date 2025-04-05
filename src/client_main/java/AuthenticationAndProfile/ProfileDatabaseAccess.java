@@ -90,7 +90,7 @@ public class ProfileDatabaseAccess {
             List<Integer> friendRequests = new ArrayList<>();
             String friendRequestString = profileFields.get(ProfileCSVReader.FREQUEST_INDEX);
             if(!friendRequestString.equals("null")) {
-                String[] fieldsList = friendRequestString.split(", ");
+                String[] fieldsList = friendRequestString.split(",");
                 for (int i = 0; i < fieldsList.length; i++) {
                     friendRequests.add(Integer.parseInt(fieldsList[i]));
                 }

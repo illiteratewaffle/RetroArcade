@@ -21,8 +21,9 @@ public class Main {
 //            if (sc.nextLine().equalsIgnoreCase("exit"))
 //                running = false;
 //        }
-        for (int i = 0; i < 150; i++) {
+        for (int i = 0; i < 200; i++) {
             PlayerManager.deleteProfile(i);
+            ProfileDatabaseAccess.getAllProfiles();
         }
     }
 }

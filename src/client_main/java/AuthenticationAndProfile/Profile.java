@@ -283,7 +283,9 @@ public class Profile {
 //    }
 
     public static void main(String[] args) {
-        PlayerManager.updateAttribute(6,"username","Jakeyboy");
+        //int id = PlayerManager.registerPlayer("jake2", "jake2@email.com", "1263876");
+        System.out.println(PlayerManager.updateAttribute(158,"friends","[1]"));
+        System.out.println(ProfileDatabaseAccess.obtainProfile(158).getFriendsList().getFriends());
     }
 
     public int getID() {
