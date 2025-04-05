@@ -1,6 +1,6 @@
 package GameLogic_Client.TicTacToe;
 
-import  GameLogic_Client.ivec2;
+import  GameLogic_Client.Ivec2;
 
 /**
  * Contains the TicTacToe methods called to run the game.
@@ -17,7 +17,7 @@ public class TTTGame {
     }
 
     public boolean makeMove(int row, int col) {
-        ivec2 point = new ivec2(row, col); // Note: you're passing row/col, but the board uses (x, y)
+        Ivec2 point = new Ivec2(row, col); // Note: you're passing row/col, but the board uses (x, y)
 
         // Attempt to place the piece, return false if invalid
         if (!board.placePiece(point, TTTPiece.fromInt(currentPlayer))) {
@@ -47,7 +47,7 @@ public class TTTGame {
         return !checkWin(board) && board.isFull(); // No winner and board is full
     }
 
-    public TTTPiece getPiece(ivec2 point) {
+    public TTTPiece getPiece(Ivec2 point) {
         return TTTPiece.fromInt(this.board.getPiece(point));
     }
 

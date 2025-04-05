@@ -1,7 +1,7 @@
 package GUI_client;
 
 import GameLogic_Client.TicTacToe.TTTGameController;
-import GameLogic_Client.ivec2;
+import GameLogic_Client.Ivec2;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
@@ -195,7 +195,7 @@ public class TTTController implements Initializable {
         Image X = new Image("X.png");
         Image O = new Image("O.png");
         if (theGame.gameOngoing)
-            if (theGame.game.board.isEmpty(new ivec2(row, col))) {
+            if (theGame.game.board.isEmpty(new Ivec2(row, col))) {
                 if (theGame.GetCurrentPlayer() == 1){
                     imageView.setImage(X);
                     theGame.game.makeMove(row, col);
@@ -211,7 +211,7 @@ public class TTTController implements Initializable {
 
     private void hoverEvent(StackPane stackPane, int row, int col){
         if (theGame.gameOngoing) {
-            if (theGame.game.board.isEmpty(new ivec2(row, col))) {
+            if (theGame.game.board.isEmpty(new Ivec2(row, col))) {
                 stackPane.setStyle("-fx-border-color: yellow; -fx-border-width: 3px; -fx-border-radius: 5px;");
             }
         }
