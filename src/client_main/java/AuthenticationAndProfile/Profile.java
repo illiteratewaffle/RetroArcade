@@ -284,8 +284,8 @@ public class Profile {
 
     public static void main(String[] args) {
         //int id = PlayerManager.registerPlayer("jake2", "jake2@email.com", "1263876");
-        System.out.println(PlayerManager.updateAttribute(158,"friends","[1]"));
-        System.out.println(ProfileDatabaseAccess.obtainProfile(158).getFriendsList().getFriends());
+        System.out.println(PlayerManager.updateAttribute(158,"wins_checkers","10"));
+        System.out.println(ProfileDatabaseAccess.obtainProfile(158).getPlayerRanking().getWins(PlayerRanking.CHECKERS_INDEX));
     }
 
     public int getID() {
