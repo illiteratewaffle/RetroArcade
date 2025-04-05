@@ -32,6 +32,17 @@ public class leaderboardGUIController {
     @FXML
     public TextField friend_search; //action: search
 
+    @FXML
+    public TableColumn position;
+    @FXML
+    public TableColumn username;
+    @FXML
+    public TableColumn rating;
+    @FXML
+    public TableColumn wins;
+    @FXML
+    public TableColumn wlr;
+
     //I am not sure if we will need 3 separate tables, or if we can simply refresh the table content based on the game button clicked.
     @FXML
     public TableView C4_table; //no action created.
@@ -50,7 +61,7 @@ public class leaderboardGUIController {
         displayLeaderboard(this.selectedSort, this.selectedGame);
     }
 
-    public void checkers_stats(ContextMenuEvent contextMenuEvent) {
+    public void checkers_stats(MouseEvent mouseEvent) {
         this.selectedGame = GAME_CHECKERS;
         displayLeaderboard(this.selectedSort, this.selectedGame);
     }

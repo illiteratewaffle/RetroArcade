@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.SplitMenuButton?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="836.0" prefWidth="900.0" style="-fx-background-color: #201e42;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI_client.leaderboardGUIController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="836.0" prefWidth="900.0" style="-fx-background-color: #201e42;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI_client.leaderboardGUIController">
     <stylesheets>@src/client_main/resources/GUI_client/style.css</stylesheets>
     <children>
       <ImageView fitHeight="748.0" fitWidth="891.0" layoutX="3.0" layoutY="9.0">
@@ -17,24 +23,6 @@
       <ImageView fitHeight="269.0" fitWidth="850.0" layoutX="29.0" layoutY="-42.0">
          <image>
             <Image url="@../leaderboard_assets/leaderboard.png" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="C4_button" accessibleRole="BUTTON" fitHeight="101.0" fitWidth="232.0" layoutX="617.0" layoutY="110.0" onMouseClicked="#C4_stats">
-         <image>
-            <Image url="@../leaderboard_assets/simple_c4_button.png" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="checkers_button" accessibleRole="BUTTON" fitHeight="79.0" fitWidth="227.0" layoutX="62.0" layoutY="120.0" onContextMenuRequested="#checkers_stats">
-         <image>
-            <Image url="@../leaderboard_assets/simple_check_button.png" />
-         </image>
-         <cursor>
-            <Cursor fx:constant="SE_RESIZE" />
-         </cursor>
-      </ImageView>
-      <ImageView fx:id="TTT_button" accessibleRole="BUTTON" fitHeight="96.0" fitWidth="228.0" layoutX="337.0" layoutY="113.0" onMouseClicked="#TTT_stats">
-         <image>
-            <Image url="@../leaderboard_assets/simple_TTT_button.png" />
          </image>
       </ImageView>
       <ScrollPane layoutX="39.0" layoutY="177.0" prefHeight="543.0" prefWidth="827.0" style="-fx-background-color: transparent;">
@@ -48,11 +36,11 @@
                   </ImageView>
                   <TableView fx:id="C4_table" layoutX="-7.0" layoutY="-7.0" prefHeight="662.0" prefWidth="831.0" style="-fx-background-color: transparent;" stylesheets="@style.css">
                      <columns>
-                        <TableColumn prefWidth="156.91883087158203" style="-fx-background-color: black;" text="Position" />
-                        <TableColumn prefWidth="180.3218994140625" style="-fx-background-color: black;" text="Username" />
-                        <TableColumn prefWidth="179.1029052734375" style="-fx-background-color: black;" text="Rating" />
-                        <TableColumn prefWidth="157.5306396484375" style="-fx-background-color: black;" text="Wins" />
-                        <TableColumn prefWidth="155.06146240234375" style="-fx-background-color: black;" text="Win/Loss Ratio" />
+                        <TableColumn fx:id="position" prefWidth="156.91883087158203" style="-fx-background-color: black;" text="Position" />
+                        <TableColumn fx:id="username" prefWidth="180.3218994140625" style="-fx-background-color: black;" text="Username" />
+                        <TableColumn fx:id="rating" prefWidth="179.1029052734375" style="-fx-background-color: black;" text="Rating" />
+                        <TableColumn fx:id="wins" prefWidth="157.5306396484375" style="-fx-background-color: black;" text="Wins" />
+                        <TableColumn fx:id="wlr" prefWidth="155.06146240234375" style="-fx-background-color: black;" text="Win/Loss Ratio" />
                      </columns>
                   </TableView>
                </children>
@@ -78,6 +66,24 @@
             <Font name="Silom" size="25.0" />
          </font>
       </TextField>
+      <ImageView fx:id="checkers_button" accessibleRole="BUTTON" fitHeight="79.0" fitWidth="227.0" layoutX="62.0" layoutY="120.0" onMouseClicked="#checkers_stats">
+         <image>
+            <Image url="@../leaderboard_assets/simple_check_button.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="SE_RESIZE" />
+         </cursor>
+      </ImageView>
+      <ImageView fx:id="TTT_button" accessibleRole="BUTTON" fitHeight="96.0" fitWidth="228.0" layoutX="337.0" layoutY="113.0" onMouseClicked="#TTT_stats">
+         <image>
+            <Image url="@../leaderboard_assets/simple_TTT_button.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="C4_button" accessibleRole="BUTTON" fitHeight="101.0" fitWidth="232.0" layoutX="617.0" layoutY="110.0" onMouseClicked="#C4_stats">
+         <image>
+            <Image url="@../leaderboard_assets/simple_c4_button.png" />
+         </image>
+      </ImageView>
 
          </children>
 </AnchorPane>
