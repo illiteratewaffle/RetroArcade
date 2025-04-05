@@ -1,7 +1,15 @@
 package AuthenticationAndProfile;
 
+import java.awt.image.BufferedImage;
+import java.util.UUID;
+
+//import leaderboard.TTTRanking;
+//import leaderboard.CheckersRanking;
+//import leaderboard.Connect4Ranking;
 import leaderboard.PlayerRanking;
 import server.player.PlayerManager;
+
+import static server.player.PlayerManager.getUsername;
 
 public class Profile {
     private String email;
@@ -17,8 +25,12 @@ public class Profile {
     private static String username;
     private int id;
 
-    public Profile(String email, String hashedPassword, String nickname, String bio, boolean isOnline, String currentGame, FriendsList friendsList, PlayerRanking playerRanking, GameHistory gameHistory, String profilePicFilePath, String username, int id) {
-        //public Profile(String email, String hashedPassword, String nickname, String bio, boolean isOnline, String currentGame, FriendsList friendsList, TTTRanking TTTRanking, Connect4Ranking connect4Ranking, CheckersRanking checkersRanking, GameHistory gameHistory, String profilePicFilePath, String username, int id) {
+    public Profile(String email, String hashedPassword, String nickname, String bio, boolean isOnline, String currentGame,
+                   FriendsList friendsList, PlayerRanking playerRanking, GameHistory gameHistory, String profilePicFilePath,
+                   String username, int id) {
+        //public Profile(String email, String hashedPassword, String nickname, String bio, boolean isOnline, String
+        // currentGame, FriendsList friendsList, TTTRanking TTTRanking, Connect4Ranking connect4Ranking, CheckersRanking
+        // checkersRanking, GameHistory gameHistory, String profilePicFilePath, String username, int id) {
         this.email = email;
         this.hashedPassword = hashedPassword;
         this.nickname = nickname;
@@ -43,10 +55,12 @@ public class Profile {
 
     /**
      * Sets a player's email.
-     * @param email the new email of the player.
+     * @param newEmail the new email of the player.
      */
-    public void setEmail(String email) {
+    public void setEmail(String newEmail) {
         this.email = email;
+        PlayerManager.updateAttribute(id, "email", newEmail);
+
     }
 
     /**
@@ -59,10 +73,12 @@ public class Profile {
 
     /**
      * Sets a player's hashed password.
-     * @param hashedPassword the new hashed password of the player.
+     * @param newHashedPassword the new hashed password of the player.
      */
-    public void setHashedPassword(String hashedPassword) {
+    public void setHashedPassword(String newHashedPassword) {
         this.hashedPassword = hashedPassword;
+        PlayerManager.updateAttribute(id, "hashed_password", newHashedPassword);
+
     }
 
     /**
@@ -75,10 +91,11 @@ public class Profile {
 
     /**
      * Sets a player's nickname.
-     * @param nickname the new nickname of the player.
+     * @param newNickname the new nickname of the player.
      */
-    public void setNickname(String nickname) {
+    public void setNickname(String newNickname) {
         this.nickname = nickname;
+        PlayerManager.updateAttribute(id, "nickname", newNickname);
     }
 
     /**
@@ -91,10 +108,11 @@ public class Profile {
 
     /**
      * Sets a player's bio.
-     * @param bio the new bio of the player.
+     * @param newBio the new bio of the player.
      */
-    public void setBio(String bio) {
+    public void setBio(String newBio) {
         this.bio = bio;
+        PlayerManager.updateAttribute(id, "bio", newBio);
     }
 
     /**
@@ -144,6 +162,7 @@ public class Profile {
      */
     public void setCurrentGame(String currentGame) {
         this.currentGame = currentGame;
+        PlayerManager.updateAttribute(id, "current_game", currentGame);
     }
 
     /**
@@ -183,10 +202,10 @@ public class Profile {
      * @return the player's username.
      */
     public static String exportUsername(int id) {
-        return PlayerManager.getUsername(7);
+        return PlayerManager.getUsername(id);
     }
 
-    public static String getUsername() {
+    public String getUsername() {
         return username;
     }
 
@@ -194,8 +213,37 @@ public class Profile {
      * Sets a player's username.
      * @param newUsername the new username of the player.
      */
-    public void updateUsername(String newUsername) {
+    public void updateUsername(int id, String newUsername) {
+        this.username = newUsername;
+        PlayerManager.updateAttribute(id, "username", newUsername);
 
+    }
+
+    // ChatGPT was used to generate the original code for the following 2 methods in ProfileCreationTest.java.
+    // The prompt used was: How can I make it so every time this test is run, a new username email and password are generated and it's id is used to identify it in the assertEquals statement
+    // ChatGPT suggested using UUID.randomUUID() to generate a unique identifier for the username, email, and password.
+    // UUID.randomUUID() generates a random universally unique identifier using a strong pseudo random number generator.
+    // The identifier is then converted to a string using .toString. This ensures every time this test is ran, a unique profile is created.
+    // The rest of the code in this test case (ProfileCreation.createNewProfile and following) was written without any AI assistance.
+    // To ensure this code is efficiently reusable, I've moved the generation of usernames and passwords to their own methods in the Profile class.
+
+    /**
+     * Generates a unique username.
+     * @return a unique username.
+     */
+    public static String generateUsername() {
+        String uniqueSuffix = UUID.randomUUID().toString().substring(0, 8);
+        return "User_" + uniqueSuffix;
+    }
+
+    /**
+     * Generates a unique password.
+     * @return a unique password.
+     */
+    public static String generatePassword() {
+        String uniqueSuffix = UUID.randomUUID().toString().substring(0, 8);
+        String password = "Pass_" + uniqueSuffix;
+        return password;
     }
 
     public FriendsList getFriendsList() {
@@ -235,6 +283,12 @@ public class Profile {
 //    }
 
     public static void main(String[] args) {
-        PlayerManager.getUsername(7);
+        //int id = PlayerManager.registerPlayer("jake2", "jake2@email.com", "1263876");
+        System.out.println(PlayerManager.updateAttribute(158,"friends","[1]"));
+        System.out.println(ProfileDatabaseAccess.obtainProfile(158).getFriendsList().getFriends());
+    }
+
+    public int getID() {
+        return id;
     }
 }

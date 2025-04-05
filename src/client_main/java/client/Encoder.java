@@ -1,11 +1,6 @@
 package client;
 
-import server.management.ThreadMessage;
-
-import javax.swing.*;
 import java.util.Formatter;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.ConcurrentHashMap;
 
 public class Encoder {
     String ID;
@@ -19,7 +14,7 @@ public class Encoder {
         Encoding.Username = Username;
         Encoding.isActionAccepted = isActionAccepted;
         Encoding.Action = action;
-        SubMessage subMessage = new SubMessage();
+        Encoder.SubMessage subMessage = new Encoder.SubMessage();
         subMessage.message = message;
         subMessage.to = recipient;
         subMessage.from = Username;

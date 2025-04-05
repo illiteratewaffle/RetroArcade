@@ -3,7 +3,6 @@ package AuthenticationAndProfile;
 //import org.postgresql.util.PSQLException;
 import server.player.PlayerManager;
 
-import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -111,7 +110,6 @@ public class ProfileCreation {
 //        authenticationSession.logOut();
 //    }
         public static void main (String[]args) {
-            //TODO: Test with Database
             System.out.println(ProfileCreation.createNewProfile("NewBranchDatabase", "newbranchdatabase@email.com", "1234586ass8sword"));
             //should print true
             System.out.println(Authentication.getProfileLoggedIn().getOnlineStatus());

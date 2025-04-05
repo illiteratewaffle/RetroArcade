@@ -1,8 +1,6 @@
 package AuthenticationAndProfile;
 
 import server.player.PlayerManager;
-
-import java.io.IOException;
 //import java.util.HashMap;
 /**
  * Authentication Class handles Profile Login and Logout

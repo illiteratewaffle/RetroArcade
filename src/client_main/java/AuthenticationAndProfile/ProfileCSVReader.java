@@ -6,25 +6,6 @@ import java.util.ArrayList;
 import java.util.regex.Pattern;
 
 public class ProfileCSVReader {
-    /*
-    ID: index 0
-    username: index 1
-    nickname: index 2
-    email: index 3
-    hashedPassword: index 4
-    bio: index 5
-    profilePicFilePath: index 6
-    currentGameStatus: index 7
-    isOnlineStatus: index 8
-    winLossRatio: index 9
-    rating: index 10
-    rank: index 11
-    wins: index 12
-    gameHistory: index 13
-    achievementProgress: index 14
-    friends: index 15
-    friendRequests: index 16
-     */
     /* New: With Game Rankings *********************************
     ID: index 0
     username: index 1

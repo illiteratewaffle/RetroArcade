@@ -2,14 +2,12 @@ package server.management;
 
 import org.junit.jupiter.api.Test;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static server.management.JsonConverter.fromJson;
-import static server.management.ServerLogger.*;
 
 class JsonConverterTest {
 

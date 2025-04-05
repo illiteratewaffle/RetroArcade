@@ -1,14 +1,16 @@
 package client_main.java.AuthenticationAndProfile;
 
 import leaderboard.PlayerRanking;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import server.player.PlayerManager;
-import AuthenticationAndProfile.*;
 import static org.junit.jupiter.api.Assertions.*;
+import AuthenticationAndProfile.*;
 
 class AuthenticationTest {
-    private Profile profile;
+    private static Profile profile;
     @BeforeEach
     void setUp() {
         String password = "1234567";
@@ -16,10 +18,16 @@ class AuthenticationTest {
         profile = new Profile("email1@email.com", hashedPassword,"nick", "This is bio.", false, "null", new FriendsList(), new PlayerRanking(), new GameHistory(), "C:profile/pic/path.png", "username", 2 );
     }
 
+    @AfterEach
+    void tearDown() {
+        PlayerManager.deleteProfile(profile.getID());
+    }
+
     @Test
     void logIn() {
-        PlayerManager.registerPlayer("email@email,com", profile.getHashedPassword(), "username");
-        assertTrue(Authentication.logIn("username", profile.getHashedPassword()));
+        int id = PlayerManager.registerPlayer("username1", "email@email.com", ProfileCreation.hashedPassword("1234567"));
+        assertTrue(Authentication.logIn("username1", "1234567"));
+        ProfileDatabaseAccess.removeProfile(id);
     }
 
     @Test
