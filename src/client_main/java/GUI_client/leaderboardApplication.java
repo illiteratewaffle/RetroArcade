@@ -10,7 +10,7 @@ import java.io.IOException;
 public class leaderboardApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(TTTApplication.class.getResource("leaderboard.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(leaderboardApplication.class.getResource("leaderboard.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 900, 600);
         stage.setResizable(false);
         stage.setTitle("src/leaderboard");

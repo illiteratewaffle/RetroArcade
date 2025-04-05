@@ -36,7 +36,7 @@ public class TTTGameController implements IBoardGameController {
      * @param input A 2D coordinate representing the player's move.
      */
     @Override
-    public void ReceiveInput(Ivec2 input) {
+    public void receiveInput(Ivec2 input) {
         if (!game.makeMove(input.y, input.x)) {
             System.out.println("Invalid move, try again!");
         }
@@ -49,7 +49,7 @@ public class TTTGameController implements IBoardGameController {
      * @throws IndexOutOfBoundsException If an invalid player index is provided.
      */
     @Override
-    public void RemovePlayer(int player) throws IndexOutOfBoundsException {
+    public void removePlayer(int player) throws IndexOutOfBoundsException {
         if (player < 0 || player > 1) {
             throw new IndexOutOfBoundsException("Invalid player index.");
         }
@@ -61,7 +61,7 @@ public class TTTGameController implements IBoardGameController {
      * @return An array containing the winner's index (1 for X, 2 for O), or an empty array if no winner.
      */
     @Override
-    public int[] GetWinner() {
+    public int[] getWinner() {
         if (game.checkWin(game.board)) {
             return new int[] { game.currentPlayer };
         }
@@ -74,7 +74,7 @@ public class TTTGameController implements IBoardGameController {
      * @return true if the game is ongoing, false otherwise.
      */
     @Override
-    public boolean GetGameOngoing() {
+    public boolean getGameOngoing() {
         return gameOngoing;
     }
 
@@ -85,7 +85,7 @@ public class TTTGameController implements IBoardGameController {
      * @return A list containing the board's current state.
      */
     @Override
-    public ArrayList<int[][]> GetBoardCells(int LayerMask) {
+    public ArrayList<int[][]> getBoardCells(int LayerMask) {
         ArrayList<int[][]> layers = new ArrayList<>();
         layers.add(game.board.getBoard());
         return layers;
@@ -97,7 +97,7 @@ public class TTTGameController implements IBoardGameController {
      * @return A 2D vector representing the board size (3x3).
      */
     @Override
-    public Ivec2 GetBoardSize() {
+    public Ivec2 getBoardSize() {
         return new Ivec2(3, 3);
     }
 
@@ -107,7 +107,7 @@ public class TTTGameController implements IBoardGameController {
      * @return The current player (1 for X, 2 for O).
      */
     @Override
-    public int GetCurrentPlayer() {
+    public int getCurrentPlayer() {
         return game.currentPlayer;
     }
 
@@ -117,7 +117,7 @@ public class TTTGameController implements IBoardGameController {
      * @return true if the game is still ongoing.
      */
     @Override
-    public boolean GameOngoingChangedSinceLastCommand() {
+    public boolean gameOngoingChangedSinceLastCommand() {
         return gameOngoing;
     }
 
@@ -127,7 +127,7 @@ public class TTTGameController implements IBoardGameController {
      * @return false, as winner tracking is not currently implemented.
      */
     @Override
-    public boolean WinnersChangedSinceLastCommand() {
+    public boolean winnersChangedSinceLastCommand() {
         return false;
     }
 
@@ -137,7 +137,7 @@ public class TTTGameController implements IBoardGameController {
      * @return false, as player change tracking is not currently implemented.
      */
     @Override
-    public boolean CurrentPlayerChangedSinceLastCommand() {
+    public boolean currentPlayerChangedSinceLastCommand() {
         return false;
     }
 
@@ -147,7 +147,7 @@ public class TTTGameController implements IBoardGameController {
      * @return 1 as a simple indicator of change.
      */
     @Override
-    public int BoardChangedSinceLastCommand() {
+    public int boardChangedSinceLastCommand() {
         return 1;
     }
 }
