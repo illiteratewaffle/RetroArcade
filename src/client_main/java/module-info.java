@@ -3,9 +3,8 @@ module seng300.w25.project {
     requires javafx.fxml;
     requires java.desktop;
     requires org.junit.jupiter.api;
-    requires java.sql;
 
 
-    opens GUI_client to javafx.fxml;
+    opens  GUI_client to javafx.fxml;
     exports GUI_client;
 }
