@@ -52,11 +52,13 @@ public class MatchmakingQueue {
 
     }
 
-    /***
-     *
-     * @param list
-     * @return
+    /**
+     * Sorts a list of Players in descending order by rank using QuickSort.
+     * Recursively partitions the list around a pivot.
+     * @param list list of Player objects to sort
+     * @return sorted LinkedList of Players
      */
+
     private LinkedList<Player> quickSortHelper(LinkedList<Player> list) {
         if (list.size() <= 1) {
             return list;
