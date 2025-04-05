@@ -10,10 +10,16 @@ public class CSVFileReader {
     // INDEXES FROM CSV FILE
     private static final int ID_INDEX = 0;
     private static final int USERNAME_INDEX = 1;
-    private static final int WLR_INDEX = 9;
-    private static final int RATING_INDEX = 10;
-    private static final int WINS_INDEX = 12;
-    private static final int PROFILE_ROW_SIZE = 16;
+    private static final int WLR_CHECKERS_INDEX = 11;
+    private static final int WLR_TTT_INDEX = 9;
+    private static final int WLR_C4_INDEX = 10;
+    private static final int RATING_CHECKERS_INDEX = 14;
+    private static final int RATING_TTT_INDEX = 12;
+    private static final int RATING_C4_INDEX = 13;
+    private static final int WINS_CHECKERS_INDEX = 20;
+    private static final int WINS_TTT_INDEX = 18;
+    private static final int WINS_C4_INDEX = 19;
+    private static final int PROFILE_ROW_SIZE = 26;
     private static int numberOfProfiles = 0;
 
     /**
@@ -72,7 +78,7 @@ public class CSVFileReader {
 
     /**
      * from 2d arraylist of all profiles, makes another 2d arraylist of only profile statistics
-     * format: [[id1, wlr1, rating1, wins1], [id2, wlr2, rating2, wins2], ...]
+     * format: [[id, username, rating ttt, rating c4, rating checkers, wins tt, wins c4, wins checkers, wlr ttt, wlr c4, wlr checkers], ...]
      *
      * @param fields
      * @return
@@ -85,25 +91,11 @@ public class CSVFileReader {
         for (int i_profile = 0; i_profile < fields.size(); i_profile++) {
             ArrayList<String> individual = new ArrayList<String>();
             for (int statistic = 0; statistic < PROFILE_ROW_SIZE; statistic++) {
-                if (statistic == ID_INDEX) {
-                    // add to index 0
-                    individual.add(fields.get(i_profile).get(statistic));
-                }
-                if (statistic == USERNAME_INDEX) {
-                    // add to index 1
-                    individual.add(fields.get(i_profile).get(statistic));
-                }
-                if (statistic == WLR_INDEX) {
-                    // add to index 2
-                    individual.add(fields.get(i_profile).get(statistic));
-                }
-                if (statistic == RATING_INDEX) {
-                    // add to index 3
-                    individual.add(fields.get(i_profile).get(statistic));
-                }
-                if (statistic == WINS_INDEX) {
-                    // add to index 4
-                    individual.add(fields.get(i_profile).get(statistic));
+                toNewList(fields, i_profile, individual, statistic, ID_INDEX, USERNAME_INDEX, RATING_TTT_INDEX, RATING_C4_INDEX, RATING_CHECKERS_INDEX);
+                toNewList(fields, i_profile, individual, statistic, WINS_TTT_INDEX, WINS_C4_INDEX, WINS_CHECKERS_INDEX, WLR_TTT_INDEX, WLR_C4_INDEX);
+                if (statistic == WLR_CHECKERS_INDEX) {
+                    // add to index 10
+                    individual.add(fields.get(i_profile).get(WLR_CHECKERS_INDEX));
                 }
             }
 
@@ -113,5 +105,28 @@ public class CSVFileReader {
         //System.out.println(sortedFields);
 
         return sortedFields;
+    }
+
+    private static void toNewList(ArrayList<ArrayList<String>> fields, int i_profile, ArrayList<String> individual, int statistic, int idIndex, int usernameIndex, int ratingTttIndex, int ratingC4Index, int ratingCheckersIndex) {
+        if (statistic == idIndex) {
+
+            individual.add(fields.get(i_profile).get(idIndex));
+        }
+        if (statistic == usernameIndex) {
+
+            individual.add(fields.get(i_profile).get(usernameIndex));
+        }
+        if (statistic == ratingTttIndex) {
+
+            individual.add(fields.get(i_profile).get(ratingTttIndex));
+        }
+        if (statistic == ratingC4Index) {
+
+            individual.add(fields.get(i_profile).get(ratingC4Index));
+        }
+        if (statistic == ratingCheckersIndex) {
+
+            individual.add(fields.get(i_profile).get(ratingCheckersIndex));
+        }
     }
 }
