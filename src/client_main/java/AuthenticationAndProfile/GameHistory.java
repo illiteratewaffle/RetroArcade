@@ -1,6 +1,7 @@
 package AuthenticationAndProfile;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -9,6 +10,7 @@ import java.util.List;
  */
 public class GameHistory{
     private List<String> gameHistory = new ArrayList<>();
+    private HashMap<String, Double> achievementProgress = new HashMap<String, Double>();
     private long id;
     //achievements
     //progress of achievements
@@ -20,10 +22,14 @@ public class GameHistory{
 //        loadGameHistory();
 //    }
 
-    public GameHistory(List<String> gameHistory) {
+    public GameHistory(List<String> gameHistory, HashMap<String, Double> achievementProgress) {
         this.gameHistory = gameHistory;
+        this.achievementProgress = achievementProgress;
     }
-    public GameHistory(){};
+
+    public GameHistory(List<String> gameHistory){};
+
+
 
     /**
      * Retrives the full game history fo the user associated with the id
@@ -62,4 +68,13 @@ public class GameHistory{
 
     // load game history from CSV file ?
     // save game history to CSV file ?
+
+
+    public HashMap<String, Double> getAchievementProgress() {
+        return achievementProgress;
+    }
+
+    public void setAchievementProgress(HashMap<String, Double> achievementProgress) {
+        this.achievementProgress = achievementProgress;
+    }
 }
