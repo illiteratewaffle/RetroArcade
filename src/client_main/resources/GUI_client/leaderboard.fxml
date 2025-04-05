@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="900.0" style="-fx-background-color: #201e42;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI_client.leaderboardGUIController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="900.0" style="-fx-background-color: #201e42;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI_client.leaderboardGUIController">
     <stylesheets>@src/client_main/resources/GUI_client/style.css</stylesheets>
     <children>
       <ImageView fitHeight="723.0" fitWidth="891.0" layoutX="3.0" layoutY="9.0">
@@ -25,7 +25,7 @@
             <Image url="@../leaderboard_assets/leaderboard.png" />
          </image>
       </ImageView>
-      <ScrollPane layoutX="39.0" layoutY="177.0" prefHeight="543.0" prefWidth="827.0" style="-fx-background-color: transparent;">
+      <ScrollPane fitToWidth="true" hbarPolicy="NEVER" layoutX="39.0" layoutY="177.0" prefHeight="543.0" prefWidth="827.0" style="-fx-background-color: transparent;" vbarPolicy="NEVER">
          <content>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="549.0" prefWidth="825.0" style="-fx-background-color: black;">
                <children>
@@ -34,13 +34,13 @@
                         <Image url="@../leaderboard_assets/star_background.PNG" />
                      </image>
                   </ImageView>
-                  <TableView fx:id="C4_table" layoutX="-7.0" layoutY="5.0" prefHeight="531.0" prefWidth="831.0" style="-fx-background-color: transparent;" stylesheets="@style.css">
+                  <TableView fx:id="C4_table" layoutX="2.0" layoutY="5.0" prefHeight="531.0" prefWidth="818.0" style="-fx-background-color: transparent;" stylesheets="@style.css">
                      <columns>
-                        <TableColumn fx:id="position" prefWidth="156.91883087158203" style="-fx-background-color: black;" text="Position" />
-                        <TableColumn fx:id="username" prefWidth="180.3218994140625" style="-fx-background-color: black;" text="Username" />
-                        <TableColumn fx:id="rating" prefWidth="179.1029052734375" style="-fx-background-color: black;" text="Rating" />
-                        <TableColumn fx:id="wins" prefWidth="157.5306396484375" style="-fx-background-color: black;" text="Wins" />
-                        <TableColumn fx:id="wlr" prefWidth="155.06146240234375" style="-fx-background-color: black;" text="Win/Loss Ratio" />
+                        <TableColumn fx:id="position" prefWidth="156.91883087158203" sortable="false" style="-fx-background-color: black;" text="Position" />
+                        <TableColumn fx:id="username" prefWidth="180.3218994140625" sortable="false" style="-fx-background-color: black;" text="Username" />
+                        <TableColumn fx:id="rating" prefWidth="179.1029052734375" sortable="false" style="-fx-background-color: black;" text="Rating" />
+                        <TableColumn fx:id="wins" prefWidth="157.5306396484375" sortable="false" style="-fx-background-color: black;" text="Wins" />
+                        <TableColumn fx:id="wlr" prefWidth="155.06146240234375" sortable="false" style="-fx-background-color: black;" text="Win/Loss Ratio" />
                      </columns>
                   </TableView>
                </children>

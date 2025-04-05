@@ -66,8 +66,12 @@ public class Leaderboard {
 
         this.rankings = getTopPlayers(sortChoice, sortGame);
 
-        rankings = toggleSortOrder(rankings);
-        System.out.println("toggled " + rankings);
+        //rankings = toggleSortOrder(rankings);
+        //System.out.println("toggled " + rankings);
+    }
+
+    public ArrayList<ArrayList<String>> getRankings() {
+        return rankings;
     }
 
     /**
