@@ -27,7 +27,9 @@ public class GameHistory{
         this.achievementProgress = achievementProgress;
     }
 
-    public GameHistory(){};
+    public GameHistory(List<String> gameHistory){};
+
+
 
     /**
      * Retrives the full game history fo the user associated with the id

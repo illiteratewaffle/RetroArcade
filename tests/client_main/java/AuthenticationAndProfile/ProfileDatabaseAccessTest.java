@@ -30,9 +30,11 @@ class ProfileDatabaseAccessTest {
 
     @Test
     void obtainProfile() {
+        HashMap<String, Double> achievementProgress = new HashMap<>();
+        List<String> gameHistory = new ArrayList<>();
         //String hashedPassword = ProfileCreation.hashedPassword("1234567");
         Profile profile1 = new Profile("email1@email.com", "12345678910", "null", "null",
-                false, "null", new FriendsList(), new PlayerRanking(), new GameHistory(), "null", "username1", 1);
+                false, "null", new FriendsList(), new PlayerRanking(), new GameHistory(gameHistory, achievementProgress), "null", "username1", 1);
 
         int id1 = PlayerManager.registerPlayer("username1", "email1@email.com", "12345678910");
         assertEquals(profile1.getEmail(), ProfileDatabaseAccess.obtainProfile(id1).getEmail());

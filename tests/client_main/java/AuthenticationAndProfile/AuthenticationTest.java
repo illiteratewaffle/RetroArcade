@@ -9,13 +9,19 @@ import server.player.PlayerManager;
 import static org.junit.jupiter.api.Assertions.*;
 import AuthenticationAndProfile.*;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 class AuthenticationTest {
     private static Profile profile;
     @BeforeEach
     void setUp() {
+        HashMap<String, Double> achievementProgress = new HashMap<>();
+        List<String> gameHistory = new ArrayList<>();
         String password = "1234567";
         String hashedPassword = ProfileCreation.hashedPassword(password);
-        profile = new Profile("email1@email.com", hashedPassword,"nick", "This is bio.", false, "null", new FriendsList(), new PlayerRanking(), new GameHistory(), "C:profile/pic/path.png", "username", 2 );
+        profile = new Profile("email1@email.com", hashedPassword,"nick", "This is bio.", false, "null", new FriendsList(), new PlayerRanking(), new GameHistory(gameHistory, achievementProgress), "C:profile/pic/path.png", "username", 2 );
     }
 
     @AfterEach
