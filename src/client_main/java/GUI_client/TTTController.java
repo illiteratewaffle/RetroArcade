@@ -245,7 +245,7 @@ public class TTTController implements Initializable {
         Image O = new Image("O.png");
         if (theGame.gameOngoing)
             if (theGame.game.board.isEmpty(new Ivec2(row, col))) {
-                if (theGame.GetCurrentPlayer() == 1){
+                if (theGame.getCurrentPlayer() == 1){
                     imageView.setImage(X);
                     turnBanner.setImage(new Image("OTurn.png"));
                     theGame.game.makeMove(row, col);
@@ -334,9 +334,9 @@ public class TTTController implements Initializable {
     public void checkWin(){
         if (theGame.game.checkWin(theGame.game.board)) {
             // if game is over, current player is now the loser
-            if (theGame.GetCurrentPlayer() == 2){
+            if (theGame.getCurrentPlayer() == 2){
                 Win_Lose_Banner.setImage(new Image("X_wins.png"));
-            } else if (theGame.GetCurrentPlayer() == 1){
+            } else if (theGame.getCurrentPlayer() == 1){
                 Win_Lose_Banner.setImage(new Image("O_wins.png"));
             }
             theGame.gameOngoing = false;

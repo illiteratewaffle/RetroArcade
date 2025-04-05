@@ -4,13 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ba5d62c9-ef67-4eb7-8775-b12157e4f5a8" name="Changes" comment="Mute button and Audio controlller to monitor muted status between controllers">
-      <change afterPath="$PROJECT_DIR$/src/client_main/resources/opponentTurnImage.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/client_main/resources/yourTurnImage.png" afterDir="false" />
+    <list default="true" id="ba5d62c9-ef67-4eb7-8775-b12157e4f5a8" name="Changes" comment="Merged into p3_gui">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client_main/java/GUI_client/TTTApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client_main/java/GUI_client/MainApplication.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/client_main/java/GUI_client/TTTController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client_main/java/GUI_client/TTTController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client_main/java/GameLogic_Client/TicTacToe/TTTGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client_main/java/GameLogic_Client/TicTacToe/TTTGame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/client_main/java/GameLogic_Client/TicTacToe/TTTGameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client_main/java/GameLogic_Client/TicTacToe/TTTGameController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,7 +43,7 @@
     &quot;Application.TTTApplication.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;p3__TicTacToe&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;p3__GUI&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/Tyler/IdeaProjects/seng300-w25-project/src/client_main/resources&quot;
   }
@@ -122,7 +119,15 @@
       <option name="project" value="LOCAL" />
       <updated>1743810451019</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Merged into p3_gui">
+      <option name="closed" value="true" />
+      <created>1743879927199</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1743879927199</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -131,6 +136,7 @@
     <MESSAGE value="Added popup window exit controller and fxml" />
     <MESSAGE value="Set new play buttons for game menu + hover events." />
     <MESSAGE value="Mute button and Audio controlller to monitor muted status between controllers" />
-    <option name="LAST_COMMIT_MESSAGE" value="Mute button and Audio controlller to monitor muted status between controllers" />
+    <MESSAGE value="Merged into p3_gui" />
+    <option name="LAST_COMMIT_MESSAGE" value="Merged into p3_gui" />
   </component>
 </project>
