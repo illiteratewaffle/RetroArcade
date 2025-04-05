@@ -18,10 +18,10 @@ class ProfileDatabaseAccessTest {
         id = PlayerManager.registerPlayer("username", "email@email.com", "12345678");
     }
 
-//    @AfterAll
-//    static void tearDown() {
-//        PlayerManager.deleteProfile(id);
-//    }
+    @AfterAll
+    static void tearDown() {
+        PlayerManager.deleteProfile(id);
+    }
 
     @Test
     void obtainProfile() {
@@ -38,6 +38,8 @@ class ProfileDatabaseAccessTest {
 
     @Test
     void obtainFriendsList() {
+
+        FriendsList friendsList = new FriendsList()
     }
 
     @Test

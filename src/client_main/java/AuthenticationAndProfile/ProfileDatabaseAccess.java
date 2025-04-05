@@ -79,20 +79,20 @@ public class ProfileDatabaseAccess {
             String csvProfileFilePath = String.format("player_profile_%d.csv", id); //csv file saved to the main project directory
 
             ArrayList<String> profileFields = openSingleProfileFile(csvProfileFilePath);
-            List<Long> friends = new ArrayList<>();
+            List<Integer> friends = new ArrayList<>();
             String friendsString = profileFields.get(ProfileCSVReader.FRIENDS_INDEX);
             if (!friendsString.equals("null")){
             String[] fieldsList = friendsString.split(",");
             for (int i = 0 ; i < fieldsList.length; i ++){
-                friends.add(Long.parseLong(fieldsList[i]));
+                friends.add(Integer.parseInt(fieldsList[i]));
             }
             }
-            List<Long> friendRequests = new ArrayList<>();
+            List<Integer> friendRequests = new ArrayList<>();
             String friendRequestString = profileFields.get(ProfileCSVReader.FREQUEST_INDEX);
             if(!friendRequestString.equals("null")) {
                 String[] fieldsList = friendRequestString.split(", ");
                 for (int i = 0; i < fieldsList.length; i++) {
-                    friendRequests.add(Long.parseLong(fieldsList[i]));
+                    friendRequests.add(Integer.parseInt(fieldsList[i]));
                 }
             }
             FriendsList friendsList = new FriendsList(friends, friendRequests);

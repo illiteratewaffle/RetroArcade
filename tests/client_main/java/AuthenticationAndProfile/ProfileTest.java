@@ -18,8 +18,8 @@ class ProfileTest {
 
     @BeforeEach
     void setUp() {
-        List<Long> friends = Arrays.asList(101L, 102L, 103L); // Example friend IDs
-        List<Long> friendRequests = Arrays.asList(201L, 202L); // Example friend request IDs
+        List<Integer> friends = Arrays.asList(101, 102, 103); // Example friend IDs
+        List<Integer> friendRequests = Arrays.asList(201, 202); // Example friend request IDs
         String password = "1234567";
         String hashedPassword = ProfileCreation.hashedPassword(password);
         profile = new Profile("test@example.com", hashedPassword,"nickname", "This is bio.", false, "currentGame", new FriendsList(friends, friendRequests), new PlayerRanking(), new GameHistory(), "C:profile/pic/path.png", "username", 2 );
@@ -40,8 +40,8 @@ class ProfileTest {
     @Test
     void getHashedPassword() {
 
-        List<Long> friends = Arrays.asList(101L, 102L, 103L); // Example friend IDs
-        List<Long> friendRequests = Arrays.asList(201L, 202L); // Example friend request IDs
+        List<Integer> friends = Arrays.asList(101, 102, 103); // Example friend IDs
+        List<Integer> friendRequests = Arrays.asList(201, 202); // Example friend request IDs
         String password = "WhatAGoodPassword!";
         String hashedPassword = ProfileCreation.hashedPassword(password);
         Profile profile2 = new Profile("test@example.com", hashedPassword, "nick", "This is bio.", false, "currentGame", new FriendsList(friends, friendRequests), new PlayerRanking(), new GameHistory(), "C:profile/pic/path.png", "username", 2);
@@ -139,8 +139,8 @@ class ProfileTest {
 
     @Test
     void setAndGetFriendsList() {
-        List<Long> friends = Arrays.asList(101L, 102L, 103L); // Example friend IDs
-        List<Long> friendRequests = Arrays.asList(201L, 202L); // Example friend request IDs
+        List<Integer> friends = Arrays.asList(101, 102); // Example friend IDs
+        List<Integer> friendRequests = Arrays.asList(201, 202); // Example friend request IDs
         FriendsList friendsList = new FriendsList(friends, friendRequests);
         profile.setFriendsList(friendsList);
         assertEquals(friendsList, profile.getFriendsList());
