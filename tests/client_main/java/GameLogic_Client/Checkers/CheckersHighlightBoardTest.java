@@ -85,7 +85,7 @@ public class CheckersHighlightBoardTest {
     }
 
     /**
-     * this test checks if the highlight type of the vector is null
+     * this test checks if the highlight type of the vector is Null
      */
     @Test
     public void testMarkTile_withNullHighlight() {
