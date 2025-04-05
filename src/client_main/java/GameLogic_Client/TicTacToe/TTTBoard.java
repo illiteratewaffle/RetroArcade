@@ -2,7 +2,7 @@ package GameLogic_Client.TicTacToe;
 
 import GameLogic_Client.AbstractBoard;
 import GameLogic_Client.TicTacToe.TTTPiece;
-import GameLogic_Client.ivec2;
+import GameLogic_Client.Ivec2;
 
 /**
  * Represents a Tic-Tac-Toe board.
@@ -24,7 +24,7 @@ public class TTTBoard extends AbstractBoard {
      * @param piece The TTTPiece to place (X or O).
      * @return true if the move was successful, false if the spot was already occupied.
      */
-    public boolean placePiece(ivec2 point, TTTPiece piece) {
+    public boolean placePiece(Ivec2 point, TTTPiece piece) {
         if (getPiece(point) == 0) {  // Check if the space is empty
             setPiece(point, piece.getValue());  // Place the piece
             return true;
@@ -67,7 +67,7 @@ public class TTTBoard extends AbstractBoard {
     public boolean isFull() {
         for (int x = 0; x < 3; x++) {
             for (int y = 0; y < 3; y++) {
-                if (getPiece(new ivec2(x, y)) == 0) {
+                if (getPiece(new Ivec2(x, y)) == 0) {
                     return false;  // Empty space found
                 }
             }
@@ -80,7 +80,7 @@ public class TTTBoard extends AbstractBoard {
      * @param point the 2D coordinate (column, row) to check if empty
      * @return true if the point is empty, false if it is occupied
      */
-    public boolean isEmpty(ivec2 point) {
+    public boolean isEmpty(Ivec2 point) {
         return getPiece(point) == 0;
     }
 }

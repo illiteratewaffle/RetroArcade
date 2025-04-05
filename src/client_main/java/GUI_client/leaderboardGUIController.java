@@ -1,13 +1,19 @@
 package GUI_client;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.MouseEvent;
-
+import javafx.scene.layout.Background;
+import javafx.util.Callback;
 import leaderboard.Leaderboard;
+
+import java.util.ArrayList;
 
 public class leaderboardGUIController {
 
@@ -15,48 +21,157 @@ public class leaderboardGUIController {
     private static final String GAME_TTT = "TTT";
     private static final String GAME_C4 = "C4";
 
-    private String selectedSort;
+    private String selectedSort = "RATING"; // default sort if needed
     private String selectedGame;
-
-    //Note that I gave all attributes a fx:id name and on action names. You can change these if you want.
-    @FXML
-    public ImageView checkers_button; //action: checkers_stats
-    @FXML
-    public ImageView TTT_button; //action: TTT_stats
-    @FXML
-    public ImageView C4_button; //action: C4_stats
-    @FXML
-    public ImageView search_button; //action: send_search
-    @FXML
-    public SplitMenuButton filter_stats; //action: filter
-    @FXML
-    public TextField friend_search; //action: search
+    private Leaderboard leaderboard;
 
     @FXML
-    public TableColumn position;
+    public ImageView checkers_button; // action: checkers_stats
     @FXML
-    public TableColumn username;
+    public ImageView TTT_button;      // action: TTT_stats
     @FXML
-    public TableColumn rating;
+    public ImageView C4_button;       // action: C4_stats
     @FXML
-    public TableColumn wins;
+    public ImageView search_button;   // action: send_search
     @FXML
-    public TableColumn wlr;
+    public SplitMenuButton filter_stats; // action: filter
+    @FXML
+    public SplitMenuButton sort_stats; // sort by specifications
+    @FXML
+    public SplitMenuButton order_stats; // sort ordering
+    @FXML
+    public TextField friend_search;   // action: search
+    @FXML
+    public Button toggleOrder; // action: toggleOrder()
+    @FXML
+    public MenuItem sortByWins;
+    @FXML
+    public MenuItem sortByWLR;
+    @FXML
+    public MenuItem sortByRating;
 
-    //I am not sure if we will need 3 separate tables, or if we can simply refresh the table content based on the game button clicked.
     @FXML
-    public TableView C4_table; //no action created.
-//    @FXML
-//    public TableView TTT_table; //no action created.
-//    @FXML
-//    public TableView checkers_table; //no action created.
+    public TableColumn<ObservableList<String>, String> position;
+    @FXML
+    public TableColumn<ObservableList<String>, String> username;
+    @FXML
+    public TableColumn<ObservableList<String>, String> rating;
+    @FXML
+    public TableColumn<ObservableList<String>, String> wins;
+    @FXML
+    public TableColumn<ObservableList<String>, String> wlr;
 
-    public void displayLeaderboard(String selectedSort, String selectedGame) {
-        Leaderboard leaderboard = new Leaderboard(selectedSort, selectedGame);
+    @FXML
+    public TableView<ObservableList<String>> C4_table;
 
+    /**
+     * Sets up variable row for profiles
+     */
+    @FXML
+    public void initialize() {
+        // Make the TableView background transparent
+        C4_table.setBackground(Background.EMPTY);
+        C4_table.setStyle(
+                "-fx-background-color: transparent;" +
+                        "-fx-control-inner-background: transparent;" +
+                        "-fx-control-inner-background-alt: transparent;" +
+                        "-fx-table-cell-border-color: transparent;" +
+                        "-fx-table-header-border-color: transparent;"
+        );
+
+        // Disable row highlighting
+        C4_table.setSelectionModel(null);
+
+        final String cellStyle = "-fx-background-color: transparent; -fx-text-fill: #00d8ff; -fx-font-weight: bold;";
+
+        // Set up each column using the helper method
+        setupTableColumn(position, 0);
+        setupTableColumn(username, 2);
+        setupTableColumn(wlr, 3);
+        setupTableColumn(rating, 4);
+        setupTableColumn(wins, 5);
+
+        // Prevent horizontal scrolling by forcing columns to fill the available width
+        C4_table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
     }
 
-    public void C4_stats(javafx.scene.input.MouseEvent mouseEvent) {
+    // method to set up a TableColumn
+    private void setupTableColumn(TableColumn<ObservableList<String>, String> column, final int index) {
+        // extract the value at the specified index
+        column.setCellValueFactory(new Callback<>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<ObservableList<String>, String> param) {
+                return new SimpleStringProperty(param.getValue().get(index));
+            }
+        });
+
+        // apply the common style
+        column.setCellFactory(new Callback<TableColumn<ObservableList<String>, String>, TableCell<ObservableList<String>, String>>() {
+            @Override
+            public TableCell<ObservableList<String>, String> call(TableColumn<ObservableList<String>, String> param) {
+                return new TableCell<ObservableList<String>, String>() {
+                    @Override
+                    protected void updateItem(String item, boolean empty) {
+
+                        super.updateItem(item, empty);
+                        setAlignment(javafx.geometry.Pos.CENTER);
+
+                        if (empty || item == null) {
+                            setText(null);
+                            setStyle("");
+                        } else {
+                            /*
+                            https://www.reddit.com/r/answers/comments/jzy9l8/what_color_contrasts_both_black_and_white_the_most/
+
+                            Source for colours that contrast with black and white.
+                             */
+                            setText(item);
+                            int rowIndex = getIndex();
+                            String color;
+                            if (rowIndex % 4 == 0) {
+                                color = "#6cff04";
+                            } else if (rowIndex % 4 == 1) {
+                                color = "#ffa200";
+                            } else if (rowIndex % 4 == 2) {
+                                color = "#faed27";
+                            } else { // rowIndex % 4 == 3
+                                color = "#00d8ff";
+                            }
+                            setStyle("-fx-background-color: transparent; -fx-text-fill: " + color + "; -fx-font-weight: bold;");
+
+                        }
+                    }
+                };
+            }
+        });
+    }
+
+    /**
+     * displays leaderboard based on selected game and selected sorting specifications
+     *
+     * @param selectedSort
+     * @param selectedGame
+     */
+    public void displayLeaderboard(String selectedSort, String selectedGame) {
+        leaderboard = new Leaderboard(selectedSort, selectedGame);
+        ArrayList<ArrayList<String>> rankingData = leaderboard.getRankings();
+
+        // Recalculate leaderboard positions (1-indexed)
+        for (int i = 0; i < rankingData.size(); i++) {
+            rankingData.get(i).set(0, String.valueOf(i + 1));
+        }
+
+        // Convert the data into an ObservableList for the TableView
+        ObservableList<ObservableList<String>> tableData = FXCollections.observableArrayList();
+        for (ArrayList<String> row : rankingData) {
+            ObservableList<String> observableRow = FXCollections.observableArrayList(row);
+            tableData.add(observableRow);
+        }
+
+        C4_table.setItems(tableData);
+    }
+
+    public void C4_stats(MouseEvent mouseEvent) {
         this.selectedGame = GAME_C4;
         displayLeaderboard(this.selectedSort, this.selectedGame);
     }
@@ -71,15 +186,61 @@ public class leaderboardGUIController {
         displayLeaderboard(this.selectedSort, this.selectedGame);
     }
 
-    public void filter(ActionEvent actionEvent) {
+    /**
+     * Triggers when "Toggle Sort Order" button is pressed
+     *
+     * @param actionEvent
+     */
+    public void toggleOrder(ActionEvent actionEvent) {
+        // Ensure the leaderboard instance exists
+        if (leaderboard != null) {
+            // Get rankings
+            ArrayList<ArrayList<String>> rankingData = leaderboard.getRankings();
+
+            // Toggle the order on the existing leaderboard instance
+            leaderboard.toggleSortOrder(rankingData);
+            rankingData = leaderboard.getRankings();
+
+            // Recalculate leaderboard positions (1-indexed)
+            for (int i = 0; i < rankingData.size(); i++) {
+                rankingData.get(i).set(0, String.valueOf(i + 1));
+            }
+
+            // Convert the data into an ObservableList for the TableView
+            ObservableList<ObservableList<String>> tableData = FXCollections.observableArrayList();
+            for (ArrayList<String> row : rankingData) {
+                ObservableList<String> observableRow = FXCollections.observableArrayList(row);
+                tableData.add(observableRow);
+            }
+
+            // Update the TableView with the NEW ordering
+            C4_table.setItems(tableData);
+        }
     }
 
-    public void send_search(MouseEvent mouseEvent) {
+    public void sortByWins(ActionEvent actionEvent) {
+        this.selectedSort = "WINS";
+        displayLeaderboard(this.selectedSort, this.selectedGame);
+    }
+    public void sortByWLR(ActionEvent actionEvent) {
+        this.selectedSort = "WLR";
+        displayLeaderboard(this.selectedSort, this.selectedGame);
+    }
+    public void sortByRating(ActionEvent actionEvent) {
+        this.selectedSort = "RATING";
+        displayLeaderboard(this.selectedSort, this.selectedGame);
+    }
+
+    public void filter(ActionEvent actionEvent) {
+        // Implement filter functionality as needed.
+    }
+
+    public void sort(ActionEvent actionEvent) {
     }
 
     public void search(ActionEvent actionEvent) {
     }
+
+    public void send_search(MouseEvent mouseEvent) {
+    }
 }
-
-
-

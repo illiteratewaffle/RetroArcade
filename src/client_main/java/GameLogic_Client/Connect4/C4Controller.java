@@ -1,20 +1,20 @@
 package GameLogic_Client.Connect4;
 
 import GameLogic_Client.IBoardGameController;
-import GameLogic_Client.ivec2;
+import GameLogic_Client.Ivec2;
 
 import java.util.ArrayList;
 
 public class C4Controller implements IBoardGameController {
 
-    private C4GameLogic c4GameLogic;
+    private GameLogic_Client.Connect4.C4GameLogic c4GameLogic;
 
     /**
      * Starts a new game of Connect Four.
      */
     void start() {
         System.out.println("A new game of connect four has started");
-        c4GameLogic = new C4GameLogic();
+        c4GameLogic = new GameLogic_Client.Connect4.C4GameLogic();
         printBoard();
     }
 
@@ -22,7 +22,7 @@ public class C4Controller implements IBoardGameController {
      * Receives yser input during the game.
      */
     @Override
-    public void ReceiveInput(ivec2 input) {
+    public void receiveInput(Ivec2 input) {
         int col = input.x;
         if (!c4GameLogic.getC4IsGameOver()) {
             C4Piece currentPlayer = c4GameLogic.getC4CurrentPlayer();
@@ -36,52 +36,52 @@ public class C4Controller implements IBoardGameController {
     }
 
     @Override
-    public void RemovePlayer(int Player) throws IndexOutOfBoundsException {
+    public void removePlayer(int player) throws IndexOutOfBoundsException {
 
     }
 
     @Override
-    public int[] GetWinner() {
+    public int[] getWinner() {
         return new int[0];
     }
 
     @Override
-    public boolean GetGameOngoing() {
+    public boolean getGameOngoing() {
         return false;
     }
 
     @Override
-    public ArrayList<int[][]> GetBoardCells(int LayerMask) {
+    public ArrayList<int[][]> getBoardCells(int layerMask) {
         return null;
     }
 
     @Override
-    public ivec2 GetBoardSize() {
+    public Ivec2 getBoardSize() {
         return null;
     }
 
     @Override
-    public int GetCurrentPlayer() {
+    public int getCurrentPlayer() {
         return 0;
     }
 
     @Override
-    public boolean GameOngoingChangedSinceLastCommand() {
+    public boolean gameOngoingChangedSinceLastCommand() {
         return false;
     }
 
     @Override
-    public boolean WinnersChangedSinceLastCommand() {
+    public boolean winnersChangedSinceLastCommand() {
         return false;
     }
 
     @Override
-    public boolean CurrentPlayerChangedSinceLastCommand() {
+    public boolean currentPlayerChangedSinceLastCommand() {
         return false;
     }
 
     @Override
-    public int BoardChangedSinceLastCommand() {
+    public int boardChangedSinceLastCommand() {
         return 0;
     }
 
