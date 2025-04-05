@@ -112,7 +112,10 @@ public class leaderboardGUIController {
                 return new TableCell<ObservableList<String>, String>() {
                     @Override
                     protected void updateItem(String item, boolean empty) {
+
                         super.updateItem(item, empty);
+                        setAlignment(javafx.geometry.Pos.CENTER);
+
                         if (empty || item == null) {
                             setText(null);
                             setStyle("");
