@@ -1,7 +1,7 @@
 package GUI_client;
 
 import GameLogic_Client.TicTacToe.TTTGameController;
-import GameLogic_Client.ivec2;
+import GameLogic_Client.Ivec2;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
@@ -9,22 +9,47 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Optional;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class TTTController implements Initializable {
 
     // FXML declarations
+    @FXML
+    public ImageView muteButton;
+    @FXML
+    public ImageView turnBanner;
+    @FXML
+    public ImageView info_bg;
+    @FXML
+    public ImageView info_ok_button;
+    @FXML
+    public ImageView infoButton;
+    @FXML
+    public ImageView chat_bg;
+    @FXML
+    public ImageView sendButton;
+    @FXML
+    public ScrollPane chat_pane;
+    @FXML
+    public TextArea chat_area;
+    @FXML
+    public TextField chat_input_field;
     @FXML
     public ImageView quit_image;
     @FXML
@@ -90,30 +115,54 @@ public class TTTController implements Initializable {
 
     TTTGameController theGame = new TTTGameController();
 
+    private final ArrayList<Character> EEList = new ArrayList<Character>();
 
-    // boolean flag alternating Xs and Os
-    // Tyler, the TTTGame class has implementation for this, now.
-    boolean flag = true;
-
-    // boolean variable that board events must check to be true before executing
-    boolean isPlayable = true;
-
-    // booleanProperty to listen for server input by other player
-    BooleanProperty isYourTurn = new SimpleBooleanProperty(false);
-
-    ArrayList<Character> EEList = new ArrayList<Character>();
+    private Stage quitPopup = new Stage();
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        Font.loadFont(getClass().getResourceAsStream("Fonts/SilomBol.ttf"), 16);
         Image bg_image = new Image("background_retro.png");
         Image b_image = new Image("foreground.png");
         // set background and foreground images
         background_image.setImage(bg_image);
         board_image.setImage(b_image);
         quit_image.setImage(new Image("quit_x.png"));
+        infoButton.setImage(new Image("info_button.png"));
 
-        TTTGameController theGame = new TTTGameController();
+        muteButton.setImage(new Image("unmuteButton.png"));
+        String path = Objects.requireNonNull(getClass().getResource("/music/TTTTrack.mp3")).toExternalForm(); // or absolute path
+        Media sound = new Media(path);
+        AudioManager.mediaPlayer = new MediaPlayer(sound);
+        AudioManager.mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+        AudioManager.mediaPlayer.play();
+        if (AudioManager.isMuted()){
+            AudioManager.applyMute();
+            muteButton.setImage(new Image("muteButton.png"));
+        } else {
+            muteButton.setImage(new Image("unmuteButton.png"));
+        }
+
+        turnBanner.setImage(new Image("XTurn.png"));
+        sendButton.setImage(new Image("send_button.png"));
+        chat_bg.setImage(new Image("chat_bg.png"));
+        chat_area.clear();
+        chat_area.setStyle(
+                "-fx-background-color: transparent;" +
+                        "-fx-control-inner-background: transparent;" +
+                        "-fx-text-fill: white;" + // Optional for readability
+                        "-fx-border-color: transparent;" +
+                        "-fx-text-fill: yellow;" +
+                        "-fx-font-size: 16px;" +
+                        "-fx-font-family: 'SilomBol.ttf';"
+        );
+
+        chat_pane.setStyle(
+                "-fx-background-color: transparent;" +
+                        "-fx-background: transparent;" +
+                        "-fx-border-color: transparent;"
+        );
 
         /*
         mouse-click event: clears border and sets piece
@@ -195,13 +244,15 @@ public class TTTController implements Initializable {
         Image X = new Image("X.png");
         Image O = new Image("O.png");
         if (theGame.gameOngoing)
-            if (theGame.game.board.isEmpty(new ivec2(row, col))) {
+            if (theGame.game.board.isEmpty(new Ivec2(row, col))) {
                 if (theGame.GetCurrentPlayer() == 1){
                     imageView.setImage(X);
+                    turnBanner.setImage(new Image("OTurn.png"));
                     theGame.game.makeMove(row, col);
                     theGame.game.currentPlayer = 2;
                 } else {
                     imageView.setImage(O);
+                    turnBanner.setImage(new Image("XTurn.png"));
                     theGame.game.makeMove(row, col);
                     theGame.game.currentPlayer = 1;
                 }
@@ -211,7 +262,7 @@ public class TTTController implements Initializable {
 
     private void hoverEvent(StackPane stackPane, int row, int col){
         if (theGame.gameOngoing) {
-            if (theGame.game.board.isEmpty(new ivec2(row, col))) {
+            if (theGame.game.board.isEmpty(new Ivec2(row, col))) {
                 stackPane.setStyle("-fx-border-color: yellow; -fx-border-width: 3px; -fx-border-radius: 5px;");
             }
         }
@@ -224,20 +275,32 @@ public class TTTController implements Initializable {
     should also forfeit active matches
      */
     public void quit_TTT() throws IOException {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        ButtonType yesButton = new ButtonType("Yes");
-        alert.getButtonTypes().set(0, yesButton);
-        alert.setHeaderText("Quit Game?\nYou will forfeit active matches.");
-        alert.setContentText("Click YES to quit");
-        Optional<ButtonType> result = alert.showAndWait();
+        if (!quitPopup.isShowing()) {
+            quitPopup = new Stage();
+            Stage owner = (Stage) board_image.getScene().getWindow();
+            quitPopup.initOwner(owner);
 
-        if(result.isPresent() && result.get() == yesButton){
-            Parent root = FXMLLoader.load(getClass().getResource("gameMenu.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("quitPopup.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            QuitPopupController controller = loader.getController();
 
-            Stage stage = (Stage) gameBoard.getScene().getWindow();
+            quitPopup.initStyle(StageStyle.TRANSPARENT);
+            scene.setFill(Color.TRANSPARENT);
 
-            stage.setScene(new Scene(root));
-            stage.show();
+            controller.closeOwner = false;
+            quitPopup.setScene(scene);
+            quitPopup.showAndWait();
+
+            if (controller.closeYes) {
+                AudioManager.mediaPlayer.stop();
+                Parent newRoot = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("gameMenu.fxml")));
+
+                Stage stage = (Stage) gameBoard.getScene().getWindow();
+
+                stage.setScene(new Scene(newRoot));
+                stage.show();
+            }
         }
     }
     public void yellowPress(){
@@ -249,6 +312,10 @@ public class TTTController implements Initializable {
     public void greenPress(){
         if (EEList.toString().equals("[B, B, Y, Y, B, Y, B, Y]")){
             board_image.setImage(new Image("EE.jpg"));
+            String path = Objects.requireNonNull(getClass().getResource("/music/EESFX.mp3")).toExternalForm(); // or absolute path
+            Media sound = new Media(path);
+            MediaPlayer EE_SFX = new MediaPlayer(sound);
+            EE_SFX.play();
         }
     }
     public void redPress(){
@@ -257,8 +324,11 @@ public class TTTController implements Initializable {
     }
 
     public void playAgainYes() {
-        theGame = new TTTGameController();
-        clearBoard();
+        if (!theGame.gameOngoing) {
+            theGame = new TTTGameController();
+            clearBoard();
+            turnBanner.setImage(new Image("XTurn.png"));
+        }
     }
 
     public void checkWin(){
@@ -278,6 +348,7 @@ public class TTTController implements Initializable {
             play_again.setImage(new Image("Play_Again.png"));
             check_circle.setImage(new Image("check_circle.png"));
             X_circle.setImage(new Image("X_circle.png"));
+            turnBanner.setImage(null);
         }
     }
 
@@ -295,5 +366,50 @@ public class TTTController implements Initializable {
         check_circle.setImage(null);
         X_circle.setImage(null);
         Win_Lose_Banner.setImage(null);
+    }
+
+    public void sendMessage(){
+        String message = chat_input_field.getText();
+        if (!message.trim().isEmpty()){
+            chat_area.appendText("You: " + message + "\n");
+            chat_input_field.clear();
+        }
+    }
+
+    public void getMessage(String message){
+        chat_area.appendText(message);
+    }
+
+    public void infoButtonPress(){
+        info_bg.setImage(new Image("info_image.png"));
+        info_bg.setMouseTransparent(false);
+        info_ok_button.setMouseTransparent(false);
+    }
+
+    public void info_ok_clicked(){
+        info_bg.setImage(null);
+        info_bg.setMouseTransparent(true);
+        info_ok_button.setMouseTransparent(true);
+    }
+    public void XPressed(){
+        quit_image.setImage(new Image("XButtonDown.png"));
+    }
+    public void XReleased(){
+        quit_image.setImage(new Image("quit_x.png"));
+    }
+    public void infoPressed(){
+        infoButton.setImage(new Image("infoButtonDown.png"));
+    }
+    public void infoReleased(){
+        infoButton.setImage(new Image("info_button.png"));
+    }
+    public void muteButtonClick(){
+        if(!AudioManager.isMuted()) {
+            muteButton.setImage(new Image("muteButton.png"));
+            AudioManager.toggleMute();
+        } else {
+            muteButton.setImage(new Image("unmuteButton.png"));
+            AudioManager.toggleMute();
+        }
     }
 }

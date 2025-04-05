@@ -18,15 +18,15 @@ public interface IBoardGameController
      * Receive a 2D-Integer-Coordinate Input from the Player, and process it.
      * @param input A 2D-Integer-Coordinate Input that corresponds to a Board Cell.
      */
-    void ReceiveInput(ivec2 input);
+    void receiveInput(Ivec2 input);
 
     /**
-     * Remove the Player of a given Index (counting from 0) from the game.
+     * Remove the player of a given Index (counting from 0) from the game.
      * This will not change the index of other Players.
-     * @param Player The index of the Player to remove.
+     * @param player The index of the player to remove.
      * @throws IndexOutOfBoundsException If no players with the given Index exists.
      */
-    void RemovePlayer(int Player) throws IndexOutOfBoundsException;
+    void removePlayer(int player) throws IndexOutOfBoundsException;
 
 //  Additional method added for completion's sake. Is non-applicable for this project.
 //  /**
@@ -42,28 +42,29 @@ public interface IBoardGameController
      * @return An array of integers containing the Index of the winners of the game.
      * If there are multiple winners, the game may be interpreted as a tie between said winners.
      */
-    int[] GetWinner();
+    int[] getWinner();
 
     /**
-     * @return True if the game is still ongoing.
+     * @return <code>True</code> if the game is still ongoing; <code>False</code> otherwise.
      */
-    boolean GetGameOngoing();
+    boolean getGameOngoing();
 
     /**
-     * @param LayerMask A bit-string, where the bits of all the layers to query are set to 1.
-     * @return An array list of 2D integer arrays representing the cells of the board at each of the requested layer.
+     * @param layerMask A bit-string, where the bits of all the layers to query are set to 1.
+     * @return
+     * An array list of 2D integer arrays representing the cells of the board at each of the requested layer.
      */
-    ArrayList<int[][]> GetBoardCells(int LayerMask);
+    ArrayList<int[][]> getBoardCells(int layerMask);
 
     /**
      * @return The size of the Board.
      */
-    ivec2 GetBoardSize();
+    Ivec2 getBoardSize();
 
     /**
      * @return The index of the current player (the player whose turn is currently ongoing).
      */
-    int GetCurrentPlayer();
+    int getCurrentPlayer();
 
 
 // Methods to check if any Changes had occurred after the use of the above Interface Methods.
@@ -71,25 +72,25 @@ public interface IBoardGameController
 
     /**
      * @return True if the Game Ongoing has been changed
-     * since the last call to ReceiveInput or RemovePlayer.
+     * since the last call to <code>receiveInput</code> or <code>removePlayer</code>.
      */
-    boolean GameOngoingChangedSinceLastCommand();
+    boolean gameOngoingChangedSinceLastCommand();
 
     /**
      * @return True if the List of Winners has been changed
-     * since the last call to ReceiveInput or RemovePlayer.
+     * since the last call to <code>receiveInput</code> or <code>removePlayer</code>.
      */
-    boolean WinnersChangedSinceLastCommand();
+    boolean winnersChangedSinceLastCommand();
 
     /**
      * @return True if the Current Player has been changed
-     * since the last call to ReceiveInput or RemovePlayer.
+     * since the last call to <code>receiveInput</code> or <code>removePlayer</code>.
      */
-    boolean CurrentPlayerChangedSinceLastCommand();
+    boolean currentPlayerChangedSinceLastCommand();
 
     /**
      * @return The bit-mask for all the Layers that has been changed
-     * since the last call to ReceiveInput or RemovePlayer.
+     * since the last call to <code>receiveInput</code> or <code>removePlayer</code>.
      */
-    int BoardChangedSinceLastCommand();
+    int boardChangedSinceLastCommand();
 }
