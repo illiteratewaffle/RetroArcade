@@ -42,7 +42,13 @@ public class leaderboardGUIController {
     @FXML
     public TextField friend_search;   // action: search
     @FXML
-    public Button toggleOrder;
+    public Button toggleOrder; // action: toggleOrder()
+    @FXML
+    public MenuItem sortByWins;
+    @FXML
+    public MenuItem sortByWLR;
+    @FXML
+    public MenuItem sortByRating;
 
     @FXML
     public TableColumn<ObservableList<String>, String> position;
@@ -112,7 +118,19 @@ public class leaderboardGUIController {
                             setStyle("");
                         } else {
                             setText(item);
-                            setStyle("-fx-background-color: transparent; -fx-text-fill: #00d8ff; -fx-font-weight: bold;");
+                            int rowIndex = getIndex();
+                            String color;
+                            if (rowIndex % 4 == 0) {
+                                color = "#6cff04";
+                            } else if (rowIndex % 4 == 1) {
+                                color = "#ffa200";
+                            } else if (rowIndex % 4 == 2) {
+                                color = "#faed27";
+                            } else { // rowIndex % 4 == 3
+                                color = "#00d8ff";
+                            }
+                            setStyle("-fx-background-color: transparent; -fx-text-fill: " + color + "; -fx-font-weight: bold;");
+
                         }
                     }
                 };
@@ -192,21 +210,29 @@ public class leaderboardGUIController {
         }
     }
 
+    public void sortByWins(ActionEvent actionEvent) {
+        this.selectedSort = "WINS";
+        displayLeaderboard(this.selectedSort, this.selectedGame);
+    }
+    public void sortByWLR(ActionEvent actionEvent) {
+        this.selectedSort = "WLR";
+        displayLeaderboard(this.selectedSort, this.selectedGame);
+    }
+    public void sortByRating(ActionEvent actionEvent) {
+        this.selectedSort = "RATING";
+        displayLeaderboard(this.selectedSort, this.selectedGame);
+    }
 
     public void filter(ActionEvent actionEvent) {
         // Implement filter functionality as needed.
     }
 
-    public void send_search(MouseEvent mouseEvent) {
-        // Implement search button click action.
+    public void sort(ActionEvent actionEvent) {
     }
 
     public void search(ActionEvent actionEvent) {
-        // Implement search field action.
     }
 
-    public void sort(ActionEvent actionEvent) {
-        // Implement sorting functionality as needed.
+    public void send_search(MouseEvent mouseEvent) {
     }
-
 }

@@ -48,7 +48,7 @@
             </AnchorPane>
          </content>
       </ScrollPane>
-      <SplitMenuButton fx:id="filter_stats" layoutX="56.0" layoutY="751.0" mnemonicParsing="false" onAction="#filter" prefHeight="32.0" prefWidth="324.0" style="-fx-background-color: black;" text="Filter by">
+      <SplitMenuButton fx:id="filter_stats" layoutX="56.0" layoutY="751.0" mnemonicParsing="false" onAction="#filter" prefHeight="32.0" prefWidth="324.0" style="-fx-background-color: black;" text="Choose Player Filtering Options">
         <items>
           <MenuItem mnemonicParsing="false" text="Friends" />
           <MenuItem mnemonicParsing="false" text="Anyone" />
@@ -57,11 +57,11 @@
             <Font name="Silom" size="16.0" />
          </font>
       </SplitMenuButton>
-      <SplitMenuButton fx:id="sort_stats" layoutX="56.0" layoutY="793.0" mnemonicParsing="false" onAction="#sort" prefHeight="32.0" prefWidth="324.0" style="-fx-background-color: black;" text="Sort by">
+      <SplitMenuButton fx:id="sort_stats" layoutX="56.0" layoutY="793.0" mnemonicParsing="false" onAction="#sort" prefHeight="32.0" prefWidth="324.0" style="-fx-background-color: black;" text="Choose Statistics Sorting Option">
          <items>
-            <MenuItem mnemonicParsing="false" text="Wins" />
-            <MenuItem mnemonicParsing="false" text="Win/Loss Ratio" />
-            <MenuItem mnemonicParsing="false" text="Rating" />
+            <MenuItem fx:id="sortByWins" mnemonicParsing="false" onAction="#sortByWins" text="Wins" />
+            <MenuItem fx:id="sortByWLR" mnemonicParsing="false" onAction="#sortByWLR" text="Win/Loss Ratio" />
+            <MenuItem fx:id="sortByRating" mnemonicParsing="false" onAction="#sortByRating" text="Rating" />
          </items>
          <font>
             <Font name="Silom" size="16.0" />
