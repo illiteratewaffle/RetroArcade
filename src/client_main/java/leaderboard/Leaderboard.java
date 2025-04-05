@@ -66,8 +66,19 @@ public class Leaderboard {
 
         this.rankings = getTopPlayers(sortChoice, sortGame);
 
-        //rankings = toggleSortOrder(rankings);
-        //System.out.println("toggled " + rankings);
+        // toggleSortOrder(rankings);
+        // System.out.println("toggled " + rankings);
+    }
+
+    public void GUIToggleSortOrder() {
+        //PlayerManager.getProfileTable(); BRING BACK WHEN COMPLETELY DONE LEADERBOARD
+
+        this.rankings = CSVFileReader.retrieveProfiles(FILEPATH);
+
+        this.rankings = getTopPlayers(sortChoice, sortGame);
+
+        toggleSortOrder(rankings);
+        // System.out.println("toggled " + rankings);
     }
 
     public ArrayList<ArrayList<String>> getRankings() {
@@ -335,20 +346,18 @@ public class Leaderboard {
     /**
      * Reverses the order of player profiles in the list. This method creates a new list
      * by iterating through the given list of profiles in reverse order and adding each
-     * profile to the new list. The original list remains unchanged, and the method
-     * returns a new list with the profiles in reverse order.
+     * profile to the new list.
      *
      * @param profiles The list of player profiles, where each profile is an ArrayList<String> containing profile data.
-     * @return A new ArrayList containing the profiles in reverse order of the original list.
      */
-    public ArrayList<ArrayList<String>> toggleSortOrder(ArrayList<ArrayList<String>> profiles){
+    public void toggleSortOrder(ArrayList<ArrayList<String>> profiles){
         ArrayList<ArrayList<String>> reversedRankingsArray = new ArrayList<ArrayList<String>>();
         int listSize = profiles.size();
         for(int i = listSize - 1; i >= 0; i--) {
             reversedRankingsArray.add(profiles.get(i));
         }
 
-        return reversedRankingsArray;
+        this.rankings = reversedRankingsArray;
     }
 
     public ArrayList<ArrayList<String>> searchPlayer(String username){

@@ -6,11 +6,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.SplitMenuButton;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
@@ -27,6 +23,7 @@ public class leaderboardGUIController {
 
     private String selectedSort = "RATING"; // default sort if needed
     private String selectedGame;
+    private Leaderboard leaderboard;
 
     @FXML
     public ImageView checkers_button; // action: checkers_stats
@@ -39,7 +36,13 @@ public class leaderboardGUIController {
     @FXML
     public SplitMenuButton filter_stats; // action: filter
     @FXML
+    public SplitMenuButton sort_stats; // sort by specifications
+    @FXML
+    public SplitMenuButton order_stats; // sort ordering
+    @FXML
     public TextField friend_search;   // action: search
+    @FXML
+    public Button toggleOrder;
 
     @FXML
     public TableColumn<ObservableList<String>, String> position;
@@ -124,7 +127,7 @@ public class leaderboardGUIController {
      * @param selectedGame
      */
     public void displayLeaderboard(String selectedSort, String selectedGame) {
-        Leaderboard leaderboard = new Leaderboard(selectedSort, selectedGame);
+        leaderboard = new Leaderboard(selectedSort, selectedGame);
         ArrayList<ArrayList<String>> rankingData = leaderboard.getRankings();
 
         // Recalculate leaderboard positions (1-indexed)
@@ -138,6 +141,7 @@ public class leaderboardGUIController {
             ObservableList<String> observableRow = FXCollections.observableArrayList(row);
             tableData.add(observableRow);
         }
+
         C4_table.setItems(tableData);
     }
 
@@ -156,6 +160,39 @@ public class leaderboardGUIController {
         displayLeaderboard(this.selectedSort, this.selectedGame);
     }
 
+    /**
+     * Triggers when "Toggle Sort Order" button is pressed
+     *
+     * @param actionEvent
+     */
+    public void toggleOrder(ActionEvent actionEvent) {
+        // Ensure the leaderboard instance exists
+        if (leaderboard != null) {
+            // Get rankings
+            ArrayList<ArrayList<String>> rankingData = leaderboard.getRankings();
+
+            // Toggle the order on the existing leaderboard instance
+            leaderboard.toggleSortOrder(rankingData);
+            rankingData = leaderboard.getRankings();
+
+            // Recalculate leaderboard positions (1-indexed)
+            for (int i = 0; i < rankingData.size(); i++) {
+                rankingData.get(i).set(0, String.valueOf(i + 1));
+            }
+
+            // Convert the data into an ObservableList for the TableView
+            ObservableList<ObservableList<String>> tableData = FXCollections.observableArrayList();
+            for (ArrayList<String> row : rankingData) {
+                ObservableList<String> observableRow = FXCollections.observableArrayList(row);
+                tableData.add(observableRow);
+            }
+
+            // Update the TableView with the NEW ordering
+            C4_table.setItems(tableData);
+        }
+    }
+
+
     public void filter(ActionEvent actionEvent) {
         // Implement filter functionality as needed.
     }
@@ -172,7 +209,4 @@ public class leaderboardGUIController {
         // Implement sorting functionality as needed.
     }
 
-    public void order(ActionEvent actionEvent) {
-        // Implement sort order functionality as needed.
-    }
 }
