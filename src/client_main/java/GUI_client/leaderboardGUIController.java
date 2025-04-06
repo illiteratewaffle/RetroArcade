@@ -294,6 +294,7 @@ public class leaderboardGUIController {
         }
     }
 
+    // filter(), sort(), search() must be here dont delete
     public void filter(ActionEvent actionEvent) {
         // Implement filter functionality as needed.
     }
@@ -304,6 +305,7 @@ public class leaderboardGUIController {
     public void search(ActionEvent actionEvent) {
     }
 
+    // stub for back button
     public void back(MouseEvent mouseEvent) {
         // BACK BUTTON FUNCTIONALITY
     }
