@@ -359,6 +359,19 @@ public class Leaderboard {
         this.rankings = reversedRankingsArray;
     }
 
+    /**
+     * Searches for a player's profile in the leaderboard rankings based on the specified username.
+     *
+     * This method iterates through the stripped list of player profiles stored in the rankings field.
+     * Each profile is represented as an ArrayList<String> with the username expected to be at index 2.
+     * When a profile with a matching username is found, it is added to a result list, printed to the console,
+     * and the search terminates, returning the result list containing the first matching profile.
+     * If no matching profile is found, a message "player not found" is printed and an empty list is returned.
+     *
+     *
+     * @param username
+     * @return
+     */
     public ArrayList<ArrayList<String>> searchPlayer(String username) {
         ArrayList<ArrayList<String>> result = new ArrayList<>();
         boolean found = false;
