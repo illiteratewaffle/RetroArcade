@@ -58,7 +58,7 @@ public class Profile {
      * @param newEmail the new email of the player.
      */
     public void setEmail(String newEmail) {
-        this.email = email;
+        this.email = newEmail;
         PlayerManager.updateAttribute(id, "email", newEmail);
 
     }
@@ -77,7 +77,7 @@ public class Profile {
      */
     public void setHashedPassword(String newPassword) {
         String newHashedPassword = ProfileCreation.hashedPassword(newPassword);
-        this.hashedPassword = hashedPassword;
+        this.hashedPassword = newHashedPassword;
         PlayerManager.updateAttribute(id, "hashed_password", newHashedPassword);
 
     }
@@ -95,7 +95,7 @@ public class Profile {
      * @param newNickname the new nickname of the player.
      */
     public void setNickname(String newNickname) {
-        this.nickname = nickname;
+        this.nickname = newNickname;
         PlayerManager.updateAttribute(id, "nickname", newNickname);
     }
 

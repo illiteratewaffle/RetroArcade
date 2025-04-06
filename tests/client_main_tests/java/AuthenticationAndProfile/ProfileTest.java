@@ -56,7 +56,7 @@ class ProfileTest {
     @Test
     void setHashedPassword() {
         profile.setHashedPassword("newHashedPassword");
-        assertEquals("newHashedPassword", profile.getHashedPassword());
+        assertEquals(ProfileCreation.hashedPassword("newHashedPassword"), profile.getHashedPassword());
     }
 
     @Test
