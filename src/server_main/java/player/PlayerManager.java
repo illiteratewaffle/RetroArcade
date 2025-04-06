@@ -264,6 +264,23 @@ public class PlayerManager {
         }
     }
 
+    public static String addToFriendsList(int id, int newFriendId) {
+        String query = "UPDATE profiles SET friends = array_append(friends, ?) WHERE id = ?";
+        try (PreparedStatement statement = conn.prepareStatement(query)) {
+            statement.setInt(1, newFriendId);
+            statement.setInt(2, id);
+
+            int rowsUpdated = statement.executeUpdate();
+            if (rowsUpdated > 0) {
+                return "added player " + newFriendId + " to player " + id + " Friend's list";
+            } else {
+                return "No player found with ID: " + id;
+            }
+        } catch (SQLException e) {
+            return "Error updating 'friends' array: " + e.getMessage();
+        }
+    }
+
     public static String addToFriendRequestList(int id, int newFriendId) {
         String query = "UPDATE profiles SET friends = array_append(friend_requests, ?) WHERE id = ?";
         try (PreparedStatement statement = conn.prepareStatement(query)) {
