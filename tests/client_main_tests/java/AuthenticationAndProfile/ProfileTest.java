@@ -5,6 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import AuthenticationAndProfile.*;
 
@@ -16,11 +17,13 @@ class ProfileTest {
 
     @BeforeEach
     void setUp() {
-        List<Long> friends = Arrays.asList(101L, 102L, 103L); // Example friend IDs
-        List<Long> friendRequests = Arrays.asList(201L, 202L); // Example friend request IDs
+        HashMap<String, Double> achievementProgress = new HashMap<>();
+        List<String> gameHistory = new ArrayList<>();
+        List<Integer> friends = Arrays.asList(101, 102, 103);
+        List<Integer> friendRequests = Arrays.asList(201, 202);
         String password = "1234567";
         String hashedPassword = ProfileCreation.hashedPassword(password);
-        profile = new Profile("test@example.com", hashedPassword,"nickname", "This is bio.", false, "currentGame", new FriendsList(friends, friendRequests), new PlayerRanking(), new GameHistory(), "C:profile/pic/path.png", "username", 2 );
+        profile = new Profile("test@example.com", hashedPassword,"nickname", "This is bio.", false, "currentGame", new FriendsList(friends, friendRequests), new PlayerRanking(), new GameHistory(gameHistory, achievementProgress), "C:profile/pic/path.png", "username", 2 );
     }
 
 
@@ -37,12 +40,13 @@ class ProfileTest {
 
     @Test
     void getHashedPassword() {
-
-        List<Long> friends = Arrays.asList(101L, 102L, 103L); // Example friend IDs
-        List<Long> friendRequests = Arrays.asList(201L, 202L); // Example friend request IDs
+        HashMap<String, Double> achievementProgress = new HashMap<>();
+        List<String> gameHistory = new ArrayList<>();
+        List<Integer> friends = Arrays.asList(101, 102, 103);
+        List<Integer> friendRequests = Arrays.asList(201, 202);
         String password = "WhatAGoodPassword!";
         String hashedPassword = ProfileCreation.hashedPassword(password);
-        Profile profile2 = new Profile("test@example.com", hashedPassword, "nick", "This is bio.", false, "currentGame", new FriendsList(friends, friendRequests), new PlayerRanking(), new GameHistory(), "C:profile/pic/path.png", "username", 2);
+        Profile profile2 = new Profile("test@example.com", hashedPassword, "nick", "This is bio.", false, "currentGame", new FriendsList(friends, friendRequests), new PlayerRanking(), new GameHistory(gameHistory, achievementProgress), "C:profile/pic/path.png", "username", 2);
 
 
         assertEquals(hashedPassword, profile2.getHashedPassword());
@@ -107,7 +111,8 @@ class ProfileTest {
 
     @Test
     void setGamesPlayed() {
-        GameHistory newGamesPlayed = new GameHistory();
+        List<String> gameHistory = new ArrayList<>();
+        GameHistory newGamesPlayed = new GameHistory(gameHistory);
         profile.setGameHistory(newGamesPlayed);
         assertEquals(newGamesPlayed, profile.getGameHistory());
     }
@@ -126,19 +131,33 @@ class ProfileTest {
 
     @Test
     void exportUsername() {
-        assertEquals("username", Profile.exportUsername(1));
+        String username = Profile.generateUsername();
+        String email = username + "@example.com";
+        String password = Profile.generatePassword();
+        ProfileCreation.createNewProfile(username, email, password);
+        String hashedPassword = ProfileCreation.hashedPassword(password);
+        int newProfileID = Authentication.getProfileLoggedIn().getID();
+        assertEquals(username, Profile.exportUsername(newProfileID));
     }
 
     @Test
     void updateUsernameInDatabase() {
-        profile.updateUsername(6, "Alice");
-        assertEquals("Alice", profile.exportUsername(6));
+        String username = Profile.generateUsername();
+        String newUsername = Profile.generateUsername();
+        String email = username + "@example.com";
+        String password = Profile.generatePassword();
+        ProfileCreation.createNewProfile(username, email, password);
+        String hashedPassword = ProfileCreation.hashedPassword(password);
+        int newProfileID = Authentication.getProfileLoggedIn().getID();
+        assertEquals(username, Profile.exportUsername(newProfileID));
+        profile.updateUsername(newProfileID, newUsername);
+        assertEquals(newUsername, profile.exportUsername(newProfileID));
     }
 
     @Test
     void setAndGetFriendsList() {
-        List<Long> friends = Arrays.asList(101L, 102L, 103L); // Example friend IDs
-        List<Long> friendRequests = Arrays.asList(201L, 202L); // Example friend request IDs
+        List<Integer> friends = Arrays.asList(101, 102);
+        List<Integer> friendRequests = Arrays.asList(201, 202);
         FriendsList friendsList = new FriendsList(friends, friendRequests);
         profile.setFriendsList(friendsList);
         assertEquals(friendsList, profile.getFriendsList());

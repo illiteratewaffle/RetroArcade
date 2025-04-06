@@ -80,15 +80,20 @@ public class ProfileCSVReader {
             // Split the line by csv section and store each field in an ArrayList<Object>
             String section = "";
             boolean inSection = false;
+            boolean inSection2 = false;
             for (int j = 0; j < line.length(); j ++){
                 Character c = Character.valueOf(line.charAt(j));
-                if (c == '['){
+                if (c == '[') {
                     inSection = true;
-                } else if (c == ',' && !inSection){
+                }else if ( c == '{' && !inSection){
+                    inSection2 = true;
+                } else if (c == ',' && !inSection || c == ',' && !inSection2) {
                     fields.add(section);
                     section = "";
                 }else if (c == ']') {
                     inSection = false;
+                }else if ( c == '}' && inSection2){
+                    inSection2 = false;
                 } else if (j == line.length()-1) {
                     section = section + c;
                     fields.add(section);

@@ -6,7 +6,7 @@ package client_main_tests.java.GameLogic_Client.TicTacToe;
 
 import GameLogic_Client.TicTacToe.TTTGame;
 import GameLogic_Client.TicTacToe.TTTPiece;
-import GameLogic_Client.ivec2;
+import GameLogic_Client.Ivec2;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -62,13 +62,13 @@ class TTTGameTest {
 
     @Test
     void getPiece() {
-        ivec2 point = new ivec2(0, 0);
+        Ivec2 point = new Ivec2(0, 0);
         assertEquals(TTTPiece.EMPTY, game.getPiece(point), "Should get the empty piece as none have been placed");
 
         game.makeMove(0, 0);
         assertEquals(TTTPiece.X, game.getPiece(point), "Should get 'X' in top left tile");
 
-        ivec2 point2 = new ivec2(0, 1);
+        Ivec2 point2 = new Ivec2(0, 1);
         game.makeMove(1, 0);
         assertEquals(TTTPiece.O, game.getPiece(point2), "Should get 'O' in top middle tile");
     }

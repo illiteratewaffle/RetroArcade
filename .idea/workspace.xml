@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="0fb4edcb-a013-42ce-af41-d722ae3d60c2" name="Changes" comment="fixed workspace.xml">
+      <change beforePath="$PROJECT_DIR$/out/production/seng300-w25-project/client/Client.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/seng300-w25-project/client/ClientHandler.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/seng300-w25-project/client/TemporaryClient.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/seng300-w25-project/db-config-test.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/seng300-w25-project/db-config.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/seng300-w25-project/server/Main.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/seng300-w25-project/server/database/databaseConnector.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/seng300-w25-project/server/management/ConnectionManager.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/seng300-w25-project/server/management/NetworkManager.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/seng300-w25-project/server/management/ServerController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/seng300-w25-project/server/management/ServerLogger.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/seng300-w25-project/server/management/ThreadMessage.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/seng300-w25-project/server/management/ThreadRegistry.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/seng300-w25-project/server/player/Player$PlayerStatus.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/seng300-w25-project/server/player/Player.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/seng300-w25-project/server/player/PlayerHandler$PlayerHandlerListener.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/seng300-w25-project/server/player/PlayerHandler.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/seng300-w25-project/server/player/PlayerManager.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/seng300-w25-project/server/session/GameCreator.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/seng300-w25-project/server/session/GameSessionManager.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/test/seng300-w25-project/DatabaseConnectorTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/client_main/java/AuthenticationAndProfile/Profile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client_main/java/AuthenticationAndProfile/Profile.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "JUnit.ProfileCreationTest.createNewProfile.executor": "Run",
+    "JUnit.ProfileTest.getBio.executor": "Run",
+    "JUnit.ProfileTest.getHashedPassword.executor": "Run",
+    "JUnit.ProfileTest.setBio.executor": "Run",
+    "JUnit.ProfileTest.setNickname.executor": "Run",
+    "git-widget-placeholder": "mainIt2__AuthenticationAndProfile__Leaderboard__Testing"
+  }
+}]]></component>
+  <component name="RunManager" selected="JUnit.ProfileTest.setBio">
+    <configuration name="ProfileCreationTest.createNewProfile" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="SENGProj-iteration3" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="client_main.java.AuthenticationAndProfile.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="client_main.java.AuthenticationAndProfile" />
+      <option name="MAIN_CLASS_NAME" value="client_main.java.AuthenticationAndProfile.ProfileCreationTest" />
+      <option name="METHOD_NAME" value="createNewProfile" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ProfileTest.getBio" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="SENGProj-iteration3" />
+      <useClassPathOnly />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="client_main.java.AuthenticationAndProfile.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="client_main.java.AuthenticationAndProfile" />
+      <option name="MAIN_CLASS_NAME" value="client_main.java.AuthenticationAndProfile.ProfileTest" />
+      <option name="METHOD_NAME" value="getBio" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ProfileTest.getHashedPassword" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="SENGProj-iteration3" />
+      <useClassPathOnly />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="client_main.java.AuthenticationAndProfile.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="client_main.java.AuthenticationAndProfile" />
+      <option name="MAIN_CLASS_NAME" value="client_main.java.AuthenticationAndProfile.ProfileTest" />
+      <option name="METHOD_NAME" value="getHashedPassword" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ProfileTest.setBio" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="SENGProj-iteration3" />
+      <useClassPathOnly />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="client_main.java.AuthenticationAndProfile.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="client_main.java.AuthenticationAndProfile" />
+      <option name="MAIN_CLASS_NAME" value="client_main.java.AuthenticationAndProfile.ProfileTest" />
+      <option name="METHOD_NAME" value="setBio" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ProfileTest.setNickname" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="SENGProj-iteration3" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="client_main.java.AuthenticationAndProfile.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="client_main.java.AuthenticationAndProfile" />
+      <option name="MAIN_CLASS_NAME" value="client_main.java.AuthenticationAndProfile.ProfileTest" />
+      <option name="METHOD_NAME" value="setNickname" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="JUnit" factoryName="JUnit">
+      <module name="SENGProj-iteration3" />
+      <useClassPathOnly />
+      <option name="MAIN_CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="JUnit.ProfileTest.getBio" />
+      <item itemvalue="JUnit.ProfileTest.setBio" />
+      <item itemvalue="JUnit.ProfileTest.setNickname" />
+      <item itemvalue="JUnit.ProfileCreationTest.createNewProfile" />
+      <item itemvalue="JUnit.ProfileTest.getHashedPassword" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.ProfileTest.setBio" />
+        <item itemvalue="JUnit.ProfileTest.getBio" />
+        <item itemvalue="JUnit.ProfileTest.setNickname" />
+        <item itemvalue="JUnit.ProfileTest.getHashedPassword" />
+        <item itemvalue="JUnit.ProfileCreationTest.createNewProfile" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="TaskManager">
+    <task id="LOCAL-00001" summary="fixed workspace.xml">
+      <option name="closed" value="true" />
+      <created>1743897966866</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1743897966866</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
+    <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Created new branch with Leaderboard's code merged into mainIt2 authentication code, seems to work" />
+    <MESSAGE value="fixed workspace.xml" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed workspace.xml" />
+  </component>
+</project>

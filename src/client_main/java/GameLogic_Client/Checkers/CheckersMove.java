@@ -1,73 +1,79 @@
 // setting package to checkers
 package GameLogic_Client.Checkers;
-// importing the ivec2 class from game logic package
-import GameLogic_Client.ivec2;
+// importing the Ivec2 class from game logic package
+import GameLogic_Client.Ivec2;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * The checkers move class allows us to distinguish between a start cord, target cord, and capture cord
  */
 public class CheckersMove {
-    // private ivec2 fields for start, target, and capture cord
-    private ivec2 StartCord;
-    private ivec2 TargetCord;
-    private ivec2 CaptureCord;
+    // private Ivec2 fields for start, target, and capture coordinates
+    private Ivec2 startCoordinate;
+    private Ivec2 targetCoordinate;
+    private Ivec2 captureCoordinate;
 
     /**
-     * The constructor for the move object takes in three values the start, target, and capture cord values which are ivec2 objects
-     * @param startCord the start cord vector
-     * @param targetCord the target cord vector
-     * @param captureCord the capture cord vector
+     * The constructor for the move object takes in three values:
+     * the start, target, and capture coordinate values which are <code>Ivec2</code> objects
+     * @param startCoordinate the start cord vector
+     * @param targetCoordinate the target cord vector
+     * @param captureCoordinate the capture cord vector
      */
-    public CheckersMove(ivec2 startCord, ivec2 targetCord, ivec2 captureCord) {
-        this.StartCord = startCord;
-        this.TargetCord = targetCord;
-        this.CaptureCord = captureCord;
+    public CheckersMove(Ivec2 startCoordinate, Ivec2 targetCoordinate, Ivec2 captureCoordinate) {
+        this.startCoordinate = startCoordinate;
+        this.targetCoordinate = targetCoordinate;
+        this.captureCoordinate = captureCoordinate;
     }
     /**
-     * gets the start cord and returns it
-     * @return the start cord ivec2
+     * @return The start coordinate <code>Ivec2</code> of the movey.<br>
+     * (Where the piece will be moved from.)
      */
-    public ivec2 getStartCord() {
-        return StartCord;
-    }
-
-    /**
-     * takes in a value for the start cord and sets the start cord for the current move object
-     * @param startCord the value that will be set as the new start cord
-     */
-    public void setStartCord(ivec2 startCord) {
-        this.StartCord = startCord;
+    public Ivec2 getStartCoordinate() {
+        return startCoordinate;
     }
 
     /**
-     * gets the target cord and returns it
-     * @return the target cord ivec2
+     * @param startCoordinate The value that will be set as the new start coordinate of this move.
      */
-    public ivec2 getTargetCord() {
-        return TargetCord;
+    public void setStartCoordinate(Ivec2 startCoordinate) {
+        this.startCoordinate = startCoordinate;
     }
 
     /**
-     * takes in a value for the target cord and sets the target cord for the current move object
-     * @param targetCord the value that will be set as the new target cord
+     * @return the target coordinate <code>Ivec2</code> of the move.<br>
+     * (Where the piece will be moved to.)
      */
-    public void setTargetCord(ivec2 targetCord) {
-        this.TargetCord = targetCord;
+    public Ivec2 getTargetCoordinate() {
+        return targetCoordinate;
     }
 
     /**
-     * gets the capture cord and returns it
-     * @return the capture cord ivec2
+     * @param targetCoordinate The value that will be set as the new target coordinate of this move.
      */
-    public ivec2 getCaptureCord() {
-        return CaptureCord;
+    public void setTargetCoordinate(Ivec2 targetCoordinate) {
+        this.targetCoordinate = targetCoordinate;
     }
 
     /**
-     * takes in a value for the capture cord and sets the target cord for the capture move object
-     * @param captureCord the value that will be set as the new capture cord
+     * @return the capture coordinate <code>Ivec2</code> of the move.<br>
+     * (The coordinate from where a piece will be removed during the execution of this move.)
+     * If this value is <code>null</code>, no pieces will be removed by this move.
      */
-    public void setCaptureCord(ivec2 captureCord) {
-        this.CaptureCord = captureCord;
+    @Nullable
+    public Ivec2 getCaptureCoordinate() {
+        return captureCoordinate;
     }
+
+    /**
+     * @param captureCoordinate The value that will be set as the new capture coordinate for this move.
+     */
+    public void setCaptureCoordinate(Ivec2 captureCoordinate) {
+        this.captureCoordinate = captureCoordinate;
+    }
+
+    /**
+     * @return <code>True</code> if this move will result in a capture; <code>False</code> otherwise.
+     */
+    public boolean isCapture() { return captureCoordinate != null; }
 }

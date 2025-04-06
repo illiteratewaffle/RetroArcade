@@ -3,6 +3,7 @@ import leaderboard.PlayerRanking;
 import server.player.PlayerManager;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import static AuthenticationAndProfile.ProfileCSVReader.openSingleProfileFile;
@@ -79,22 +80,22 @@ public class ProfileDatabaseAccess {
             String csvProfileFilePath = String.format("player_profile_%d.csv", id); //csv file saved to the main project directory
 
             ArrayList<String> profileFields = openSingleProfileFile(csvProfileFilePath);
-            List<Long> friends = new ArrayList<>();
+            List<Integer> friends = new ArrayList<>();
             String friendsString = profileFields.get(ProfileCSVReader.FRIENDS_INDEX);
             if (!friendsString.equals("null")){
             String[] fieldsList = friendsString.split(",");
             for (int i = 0 ; i < fieldsList.length; i ++){
-                friends.add(Long.parseLong(fieldsList[i]));
-            }
-            }
-            List<Long> friendRequests = new ArrayList<>();
-            String friendRequestString = profileFields.get(ProfileCSVReader.FREQUEST_INDEX);
-            if(!friendRequestString.equals("null")) {
-                String[] fieldsList = friendRequestString.split(", ");
-                for (int i = 0; i < fieldsList.length; i++) {
-                    friendRequests.add(Long.parseLong(fieldsList[i]));
+                    friends.add(Integer.parseInt(fieldsList[i]));
                 }
             }
+            List<Integer> friendRequests = new ArrayList<>();
+            String friendRequestString = profileFields.get(ProfileCSVReader.FREQUEST_INDEX);
+            if(!friendRequestString.equals("null")) {
+                String[] fieldsList = friendRequestString.split(",");
+                for (int i = 0; i < fieldsList.length; i++) {
+                        friendRequests.add(Integer.parseInt(fieldsList[i]));
+                    }
+                }
             FriendsList friendsList = new FriendsList(friends, friendRequests);
             return friendsList;
         //} catch (IOException e) {
@@ -138,33 +139,58 @@ public class ProfileDatabaseAccess {
 //            System.out.println("ID does not match a profile in the database.");
 //            return null;
 //        }
-
-
-
-
     }
 
     public static GameHistory obtainGameHistory(int id) {
         //call method to get csv for id
         //try {
-            //PlayerManager.getProfileTable(id); //method to get Profile csv with all attributes associated to the specified id
-            String csvProfileFilePath = String.format("player_profile_%d.csv", id); //csv file saved to the main project directory
+        //PlayerManager.getProfileTable(id); //method to get Profile csv with all attributes associated to the specified id
+        String csvProfileFilePath = String.format("player_profile_%d.csv", id); //csv file saved to the main project directory
 
-            ArrayList<String> profileFields = openSingleProfileFile(csvProfileFilePath);
-            List<String> gameHistory = new ArrayList<>();
-            String gameHistoryString = profileFields.get(13);
-            if(!gameHistoryString.equals("null")) {
-                String[] fieldsList = gameHistoryString.split(", ");
-                for (int i = 0; i < fieldsList.length; i++) {
-                    gameHistory.add(fieldsList[i]);
+        ArrayList<String> profileFields = openSingleProfileFile(csvProfileFilePath);
+        List<String> gameHistory = new ArrayList<>();
+        String gameHistoryString = profileFields.get(ProfileCSVReader.GHIST_INDEX);
+        if (!gameHistoryString.equals("null")) {
+            String[] fieldsList = gameHistoryString.split(", ");
+            for (int i = 0; i < fieldsList.length; i++) {
+                gameHistory.add(fieldsList[i]);
+            }
+        }
+        HashMap<String, Double> achievementProgress = new HashMap<>();
+        String achievementProgressString = profileFields.get(ProfileCSVReader.ACHIVPROG_INDEX);
+        if (!achievementProgressString.equals("null")) {
+            String section = "";
+            boolean inSection = false;
+            for (int j = 0; j < achievementProgressString.length(); j++) {
+                Character c = Character.valueOf(achievementProgressString.charAt(j));
+                if (c == '{') {
+                    inSection = true;
+                } else if (c == ',' && !inSection) {
+                    String[] entry = section.split(",");
+                    String key = entry[0];
+                    Double value = Double.parseDouble(entry[1]);
+                    achievementProgress.put(key, value);
+                    section = "";
+                } else if (c == '}') {
+                    inSection = false;
+                } else if (j == achievementProgressString.length() - 1) {
+                    section = section + c;
+                    String[] entry = section.split(",");
+                    String key = entry[0];
+                    Double value = Double.parseDouble(entry[1]);
+                    achievementProgress.put(key, value);
+                } else if (c != '"') {
+                    section = section + c;
                 }
             }
-            GameHistory gameHistoryObject = new GameHistory(gameHistory);
+        }
+            GameHistory gameHistoryObject = new GameHistory(gameHistory, achievementProgress);
             return gameHistoryObject;
 //        } catch (IOException e) {
 //            System.out.println("ID does not match a profile in the database.");
 //            return null;
 //        }
+
     }
 
     /**
