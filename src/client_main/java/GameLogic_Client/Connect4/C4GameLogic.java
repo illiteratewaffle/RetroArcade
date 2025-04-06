@@ -161,4 +161,84 @@ public class C4GameLogic {
     public String toString() {
         return c4Board.toString();
     }
+
+    /**
+     * Makes a copy of the current board. Used for the hint method
+     * @return a copy of a 2D array of the board.
+     */
+    public C4Piece[][] copyC4Board() {
+        C4Piece[][] original = this.getC4Board().getC4Board();
+        C4Piece[][] copy = new C4Piece[original.length][original[0].length];
+
+        for (int row = 0; row < original.length; row++) {
+            System.arraycopy(original[row], 0, copy[row], 0, original[0].length);
+        }
+        return copy;
+    }
+
+    /**
+     * Suggests a column for the current player to play based on immediate win.
+     * @return the column index of a winning move if available, or the first non-full column.
+     */
+    public int getC4HintColumn () {
+        System.out.println("Hint requested");
+        C4Piece[][] simulatedBoard = copyC4Board();
+        int colHinted = -1;
+
+        //test for win condition
+        for (int col = 0; col < simulatedBoard[0].length; col++) {
+            int row = getC4ColTopBlank(col);
+            if (row == -1) continue;
+
+            //simulate move
+            simulatedBoard[row][col] = currentPlayer;
+
+            if (C4WinCheckerO1.isC4Win(new ivec2(col, row), currentPlayer, simulatedBoard)) {
+                colHinted = col;
+                System.out.println("Place piece in " + col+1 + " to win");
+            }
+
+            //undo simulated move
+            simulatedBoard[row][col] = C4Piece.BLANK;
+        }
+
+        //if win condition no found, test to see if opponent has win move. Then block it
+        if (colHinted == -1) {
+            //find opponent's piece
+            C4Piece opponentPiece = C4Piece.BLANK;
+            if (currentPlayer == C4Piece.RED) {
+                opponentPiece = C4Piece.BLUE;
+            } else if (currentPlayer == C4Piece.BLUE) {
+                opponentPiece = C4Piece.RED;
+            }
+
+            for (int col = 0; col < simulatedBoard[0].length; col++) {
+                int row = getC4ColTopBlank(col);
+                if (row == -1) continue;
+
+                //simulate move
+                simulatedBoard[row][col] = opponentPiece;
+
+                if (C4WinCheckerO1.isC4Win(new ivec2(col, row), opponentPiece, simulatedBoard)) {
+                    colHinted = col;
+                    System.out.println("Place piece in " + col+1 + " to block opponent");
+                }
+
+                //undo simulated move
+                simulatedBoard[row][col] = C4Piece.BLANK;
+            }
+        }
+
+        //return first move by default can be utilized but gives player false sense of a correct move
+//        for (int col = 0; col < simulatedBoard[0].length; col++) {
+//            if (!isC4ColFull(col)) return col;
+//        }
+        if (colHinted == -1) {
+            System.out.println("No winning moves detected. Please use best judgement.");
+        }
+
+        return colHinted;
+    }
+
+
 }
