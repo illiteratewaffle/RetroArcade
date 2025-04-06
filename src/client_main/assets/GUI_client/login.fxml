@@ -13,7 +13,7 @@
       </ImageView>
       <ImageView fitHeight="343.0" fitWidth="401.0" layoutX="96.0" layoutY="104.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@login_background.png" />
+            <Image url="@../login_background.png" />
          </image>
       </ImageView>
       <VBox layoutX="208.0" layoutY="175.0" prefHeight="66.0" prefWidth="165.0" spacing="15.0">
@@ -24,12 +24,12 @@
       </VBox>
       <ImageView accessibleRole="BUTTON" fitHeight="60.0" fitWidth="60.0" layoutX="300.0" layoutY="241.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@login_button.png" />
+            <Image url="@../login_button.png" />
          </image>
       </ImageView>
       <ImageView accessibleRole="BUTTON" fitHeight="60.0" fitWidth="76.0" layoutX="220.0" layoutY="241.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@signup_button.png" />
+            <Image url="@../signup_button.png" />
          </image>
       </ImageView>
    </children>
