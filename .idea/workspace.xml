@@ -4,13 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ba5d62c9-ef67-4eb7-8775-b12157e4f5a8" name="Changes" comment="change prompt text in TextField from &quot;search for friends&quot; to &quot;search username&quot;">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client_main/assets/GUI_client/leaderboard.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/client_main/assets/GUI_client/leaderboard.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client_main/java/GUI_client/leaderboardGUIController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client_main/java/GUI_client/leaderboardGUIController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client_main/java/leaderboard/CSVFileReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client_main/java/leaderboard/CSVFileReader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client_main/java/leaderboard/Leaderboard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client_main/java/leaderboard/Leaderboard.java" afterDir="false" />
-    </list>
+    <list default="true" id="ba5d62c9-ef67-4eb7-8775-b12157e4f5a8" name="Changes" comment="prepare for display friend's list on leaderboard feature. initiate code on Leaderboard.java and leaderboardGUIController.java" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -258,7 +252,15 @@
       <option name="project" value="LOCAL" />
       <updated>1743909833195</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="prepare for display friend's list on leaderboard feature. initiate code on Leaderboard.java and leaderboardGUIController.java">
+      <option name="closed" value="true" />
+      <created>1743910990600</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1743910990600</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -275,6 +277,7 @@
     <MESSAGE value="add javadoc" />
     <MESSAGE value="change csv reader style and algorithm" />
     <MESSAGE value="change prompt text in TextField from &quot;search for friends&quot; to &quot;search username&quot;" />
-    <option name="LAST_COMMIT_MESSAGE" value="change prompt text in TextField from &quot;search for friends&quot; to &quot;search username&quot;" />
+    <MESSAGE value="prepare for display friend's list on leaderboard feature. initiate code on Leaderboard.java and leaderboardGUIController.java" />
+    <option name="LAST_COMMIT_MESSAGE" value="prepare for display friend's list on leaderboard feature. initiate code on Leaderboard.java and leaderboardGUIController.java" />
   </component>
 </project>

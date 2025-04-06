@@ -1,11 +1,9 @@
 package leaderboard;
 
+import AuthenticationAndProfile.FriendsList;
 import server.player.PlayerManager;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Objects;
+import java.util.*;
 
 
 public class Leaderboard {
@@ -396,7 +394,15 @@ public class Leaderboard {
         return result;
     }
 
-    public ArrayList<ArrayList<String>> filterFriends(ArrayList<ArrayList<String>> friendList){
+    public ArrayList<ArrayList<String>> filterFriends(){
+
+        FriendsList friendsList = new FriendsList();
+        List<Integer> friendsID = friendsList.getFriends();
+
+        // using IDs, search for Player's friends in rankings
+        // in rankings, isolate Player's friends
+        // make a NEW 2d list of friends
+        // send list to gui controller
 
         return rankings;
     }
