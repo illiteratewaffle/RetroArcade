@@ -12,7 +12,7 @@ import java.util.List;
 public class FriendsList {
     private List<Integer> friends = new ArrayList<>(); // stores list of friends as ids
     private List<Integer> friendRequests = new ArrayList<>(); // stores list of friend requests as ids
-    private long id;
+    private int id;
     private String username;
 
     /**
@@ -20,9 +20,10 @@ public class FriendsList {
      * @param friends
      * @param friendRequests
      */
-    public FriendsList(List<Integer> friends, List<Integer> friendRequests) {
+    public FriendsList(List<Integer> friends, List<Integer> friendRequests, int id) {
         this.friends = friends;
         this.friendRequests = friendRequests;
+        this.id = id;
     }
 
     public FriendsList(){
@@ -147,7 +148,7 @@ public class FriendsList {
     public void sendFriendRequest(String username){ // username is of the profile to send the request to
         int recievingId = idFromUsername(username); // id to send the request to
         String sendingUsername;
-        sendingUsername = Authentication.getProfileLoggedIn().getUsername(); // username of the user sending the request
+        sendingUsername = ProfileDatabaseAccess.obtainProfile(this.id).getUsername(); // username of the user sending the request
         int sendingId = idFromUsername(sendingUsername); // id of the user sending the request
 
         ArrayList<ArrayList<String>> profiles = ProfileCSVReader.openProfilesFile("profiles_export.csv");

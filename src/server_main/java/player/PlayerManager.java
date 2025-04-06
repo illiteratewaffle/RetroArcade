@@ -83,7 +83,7 @@ public class PlayerManager {
         }
     }
 
-    public static void getProfile(int id) throws SQLException, IOException {
+    public static void getProfile(int id) throws SQLException {
         String query = "SELECT * FROM profiles WHERE id = ?";
         String fileName = "player_profile_" + id + ".csv";
 

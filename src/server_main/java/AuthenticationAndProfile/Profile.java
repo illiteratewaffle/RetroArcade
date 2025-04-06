@@ -77,9 +77,14 @@ public class Profile {
      * Sets a player's hashed password. Takes the inputted password, hashed it, then saves to profile.
      * @param newPassword the new password of the player.
      */
-    public void setHashedPassword(String newPassword) {
+    public void setHashedPassword(String newPassword) throws SQLException{
         String newHashedPassword = ProfileCreation.hashedPassword(newPassword);
         this.hashedPassword = newHashedPassword;
+        try {
+            PlayerManager.updateAttribute(id, "hashed_password", newHashedPassword);
+        } catch (SQLException s) {
+            throw new SQLException(s.getMessage());
+        }
         try {
             PlayerManager.updateAttribute(id, "hashed_password", newHashedPassword);
         } catch (SQLException e) {
@@ -100,8 +105,13 @@ public class Profile {
      * Sets a player's nickname.
      * @param newNickname the new nickname of the player.
      */
-    public void setNickname(String newNickname) {
+    public void setNickname(String newNickname) throws SQLException{
         this.nickname = newNickname;
+        try {
+            PlayerManager.updateAttribute(id, "nickname", newNickname);
+        } catch (SQLException s) {
+            throw new SQLException(s.getMessage());
+        }
         try {
             PlayerManager.updateAttribute(id, "nickname", newNickname);
         } catch (SQLException e) {
@@ -121,8 +131,13 @@ public class Profile {
      * Sets a player's bio.
      * @param newBio the new bio of the player.
      */
-    public void setBio(String newBio) {
+    public void setBio(String newBio) throws SQLException{
         this.bio = newBio;
+        try {
+            PlayerManager.updateAttribute(id, "bio", newBio);
+        }catch (SQLException s) {
+            throw new SQLException(s.getMessage());
+        }
         try {
             PlayerManager.updateAttribute(id, "bio", newBio);
         } catch (SQLException e) {
@@ -134,12 +149,17 @@ public class Profile {
      * Sets a player's online status.
      * @param online the new online status of the player.
      */
+    public void setOnlineStatus(boolean online) throws SQLException{
     public void setOnlineStatus(boolean online) throws SQLException {
         isOnline = online;
-        if (online) {
-            PlayerManager.updateAttribute(this.id, Integer.toString(ProfileCSVReader.ONLINE_INDEX), "true");
-        }else {
-            PlayerManager.updateAttribute(this.id, Integer.toString(ProfileCSVReader.ONLINE_INDEX), "false");
+        try {
+            if (online) {
+                PlayerManager.updateAttribute(this.id, Integer.toString(ProfileCSVReader.ONLINE_INDEX), "true");
+            } else {
+                PlayerManager.updateAttribute(this.id, Integer.toString(ProfileCSVReader.ONLINE_INDEX), "false");
+            }
+        } catch (SQLException s) {
+            throw new SQLException(s.getMessage());
         }
     }
 
@@ -175,8 +195,13 @@ public class Profile {
      * Sets a player's current game.
      * @param currentGame the current game of the player.
      */
-    public void setCurrentGame(String currentGame) {
+    public void setCurrentGame(String currentGame) throws SQLException {
         this.currentGame = currentGame;
+        try {
+            PlayerManager.updateAttribute(id, "current_game", currentGame);
+        } catch (SQLException s) {
+            throw new SQLException(s.getMessage());
+        }
         try {
             PlayerManager.updateAttribute(id, "current_game", currentGame);
         } catch (SQLException e) {
@@ -220,6 +245,12 @@ public class Profile {
      * Gets the player's username.
      * @return the player's username.
      */
+    public static String exportUsername(int id) throws SQLException {
+        try {
+            return PlayerManager.getUsername(id);
+        } catch (SQLException s) {
+            throw new SQLException(s.getMessage());
+        }
     public static String exportUsername(int id) {
         try {
             return PlayerManager.getUsername(id);
@@ -236,8 +267,13 @@ public class Profile {
      * Sets a player's username.
      * @param newUsername the new username of the player.
      */
-    public void updateUsername(int id, String newUsername) {
+    public void updateUsername(int id, String newUsername) throws SQLException{
         this.username = newUsername;
+        try {
+            PlayerManager.updateAttribute(id, "username", newUsername);
+        } catch (SQLException s) {
+            throw new RuntimeException(s.getMessage());
+        }
         try {
             PlayerManager.updateAttribute(id, "username", newUsername);
         } catch (SQLException e) {

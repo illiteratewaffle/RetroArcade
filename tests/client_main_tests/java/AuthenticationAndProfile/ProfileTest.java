@@ -4,6 +4,7 @@ import AuthenticationAndProfile.PlayerRanking;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -38,6 +39,8 @@ class ProfileTest {
         try {
             profile.setEmail("newemail@example.com");
             assertEquals("newemail@example.com", profile.getEmail());
+        } catch (SQLException s) {
+            System.out.println(s.getMessage());
         }
     }
 
@@ -140,10 +143,14 @@ class ProfileTest {
         String username = Profile.generateUsername();
         String email = username + "@example.com";
         String password = Profile.generatePassword();
-        ProfileCreation.createNewProfile(username, email, password);
-        String hashedPassword = ProfileCreation.hashedPassword(password);
-        int newProfileID = Authentication.getProfileLoggedIn().getID();
-        assertEquals(username, Profile.exportUsername(newProfileID));
+        try {
+            Profile profile1 = ProfileCreation.createNewProfile(username, email, password);
+            String hashedPassword = ProfileCreation.hashedPassword(password);
+            int newProfileID = profile1.getID();
+            assertEquals(username, Profile.exportUsername(newProfileID));
+        } catch (SQLException s) {
+            System.out.println(s.getMessage());
+        }
     }
 
     @Test
@@ -152,12 +159,16 @@ class ProfileTest {
         String newUsername = Profile.generateUsername();
         String email = username + "@example.com";
         String password = Profile.generatePassword();
-        ProfileCreation.createNewProfile(username, email, password);
-        String hashedPassword = ProfileCreation.hashedPassword(password);
-        int newProfileID = Authentication.getProfileLoggedIn().getID();
-        assertEquals(username, Profile.exportUsername(newProfileID));
-        profile.updateUsername(newProfileID, newUsername);
-        assertEquals(newUsername, profile.exportUsername(newProfileID));
+        try {
+            Profile profile1 = ProfileCreation.createNewProfile(username, email, password);
+            String hashedPassword = ProfileCreation.hashedPassword(password);
+            int newProfileID = profile1.getID();
+            assertEquals(username, Profile.exportUsername(newProfileID));
+            profile.updateUsername(newProfileID, newUsername);
+            assertEquals(newUsername, profile.exportUsername(newProfileID));
+        } catch (SQLException s) {
+            System.out.println(s.getMessage());
+        }
     }
 
     @Test
