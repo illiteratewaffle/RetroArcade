@@ -4,34 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0fb4edcb-a013-42ce-af41-d722ae3d60c2" name="Changes" comment="fixed workspace.xml">
-      <change beforePath="$PROJECT_DIR$/out/production/seng300-w25-project/client/Client.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/seng300-w25-project/client/ClientHandler.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/seng300-w25-project/client/TemporaryClient.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/seng300-w25-project/db-config-test.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/seng300-w25-project/db-config.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/seng300-w25-project/server/Main.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/seng300-w25-project/server/database/databaseConnector.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/seng300-w25-project/server/management/ConnectionManager.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/seng300-w25-project/server/management/NetworkManager.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/seng300-w25-project/server/management/ServerController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/seng300-w25-project/server/management/ServerLogger.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/seng300-w25-project/server/management/ThreadMessage.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/seng300-w25-project/server/management/ThreadRegistry.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/seng300-w25-project/server/player/Player$PlayerStatus.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/seng300-w25-project/server/player/Player.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/seng300-w25-project/server/player/PlayerHandler$PlayerHandlerListener.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/seng300-w25-project/server/player/PlayerHandler.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/seng300-w25-project/server/player/PlayerManager.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/seng300-w25-project/server/session/GameCreator.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/seng300-w25-project/server/session/GameSessionManager.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/test/seng300-w25-project/DatabaseConnectorTest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client_main/java/AuthenticationAndProfile/Profile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client_main/java/AuthenticationAndProfile/Profile.java" afterDir="false" />
+    <list default="true" id="0fb4edcb-a013-42ce-af41-d722ae3d60c2" name="Changes" comment="Created module info for tests">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/client_main_tests/java/AuthenticationAndProfile/ProfileDatabaseAccessTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/tests/client_main_tests/java/AuthenticationAndProfile/ProfileDatabaseAccessTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="1" id="Add" />
@@ -43,26 +26,11 @@
     "JUnit.ProfileTest.getHashedPassword.executor": "Run",
     "JUnit.ProfileTest.setBio.executor": "Run",
     "JUnit.ProfileTest.setNickname.executor": "Run",
-    "git-widget-placeholder": "mainIt2__AuthenticationAndProfile__Leaderboard__Testing"
+    "JUnit.tests in SENGProj-iteration3.executor": "Run",
+    "git-widget-placeholder": "mainIt2__AuthenticationAndProfile"
   }
 }]]></component>
-  <component name="RunManager" selected="JUnit.ProfileTest.setBio">
-    <configuration name="ProfileCreationTest.createNewProfile" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="SENGProj-iteration3" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="client_main.java.AuthenticationAndProfile.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="client_main.java.AuthenticationAndProfile" />
-      <option name="MAIN_CLASS_NAME" value="client_main.java.AuthenticationAndProfile.ProfileCreationTest" />
-      <option name="METHOD_NAME" value="createNewProfile" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager" selected="JUnit.tests in SENGProj-iteration3">
     <configuration name="ProfileTest.getBio" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="SENGProj-iteration3" />
       <useClassPathOnly />
@@ -140,20 +108,42 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="tests in SENGProj-iteration3" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="SENGProj-iteration3" />
+      <useClassPathOnly />
+      <option name="MAIN_CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="TEST_OBJECT" value="directory" />
+      <dir value="$PROJECT_DIR$/tests" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="SENGProj-iteration3" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="SENGProj-iteration3" />
+      <option name="filePath" />
+      <method v="2" />
+    </configuration>
     <list>
+      <item itemvalue="JUnit.tests in SENGProj-iteration3" />
       <item itemvalue="JUnit.ProfileTest.getBio" />
       <item itemvalue="JUnit.ProfileTest.setBio" />
       <item itemvalue="JUnit.ProfileTest.setNickname" />
-      <item itemvalue="JUnit.ProfileCreationTest.createNewProfile" />
       <item itemvalue="JUnit.ProfileTest.getHashedPassword" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.tests in SENGProj-iteration3" />
         <item itemvalue="JUnit.ProfileTest.setBio" />
         <item itemvalue="JUnit.ProfileTest.getBio" />
         <item itemvalue="JUnit.ProfileTest.setNickname" />
         <item itemvalue="JUnit.ProfileTest.getHashedPassword" />
-        <item itemvalue="JUnit.ProfileCreationTest.createNewProfile" />
       </list>
     </recent_temporary>
   </component>
@@ -172,6 +162,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Created new branch with Leaderboard's code merged into mainIt2 authentication code, seems to work" />
     <MESSAGE value="fixed workspace.xml" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed workspace.xml" />
+    <MESSAGE value="Created module info for tests" />
+    <option name="LAST_COMMIT_MESSAGE" value="Created module info for tests" />
   </component>
 </project>

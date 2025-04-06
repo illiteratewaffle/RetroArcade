@@ -1,6 +1,7 @@
 package client_main_tests.java.AuthenticationAndProfile;
 
 import leaderboard.PlayerRanking;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import server.player.PlayerManager;
