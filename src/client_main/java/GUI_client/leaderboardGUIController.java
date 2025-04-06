@@ -14,6 +14,7 @@ import javafx.util.Callback;
 import leaderboard.Leaderboard;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class leaderboardGUIController {
 
@@ -105,7 +106,6 @@ public class leaderboardGUIController {
             }
         });
 
-        // apply the common style
         column.setCellFactory(new Callback<TableColumn<ObservableList<String>, String>, TableCell<ObservableList<String>, String>>() {
             @Override
             public TableCell<ObservableList<String>, String> call(TableColumn<ObservableList<String>, String> param) {
@@ -242,5 +242,35 @@ public class leaderboardGUIController {
     }
 
     public void send_search(MouseEvent mouseEvent) {
+        String searchText = friend_search.getText();
+
+        if (Objects.equals(searchText, "")) { // if nothing is typed in
+
+            System.out.println("Enter a username to be searched");
+
+        } else { // a username is typed
+
+            System.out.println("Search text: " + searchText);
+
+            // Ensure the leaderboard instance exists
+            if (leaderboard != null) {
+                // Get searched username
+                ArrayList<ArrayList<String>> result = leaderboard.searchPlayer(searchText);
+
+                if (result.isEmpty()) {
+                    System.out.println("player not found");
+                    return;
+                }
+
+                ObservableList<ObservableList<String>> tableData = FXCollections.observableArrayList();
+                ObservableList<String> observableRow = FXCollections.observableArrayList(result.get(0));
+
+                tableData.add(observableRow);
+
+                // Update the TableView with the search result
+                C4_table.setItems(tableData);
+            }
+        }
     }
+
 }

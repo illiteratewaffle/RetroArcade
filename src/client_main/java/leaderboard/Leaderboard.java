@@ -1,6 +1,5 @@
 package leaderboard;
 
-//import server_main.AuthenticationAndProfile.Profile;
 import server.player.PlayerManager;
 
 import java.util.ArrayList;
@@ -360,10 +359,31 @@ public class Leaderboard {
         this.rankings = reversedRankingsArray;
     }
 
-    public ArrayList<ArrayList<String>> searchPlayer(String username){
+    public ArrayList<ArrayList<String>> searchPlayer(String username) {
+        ArrayList<ArrayList<String>> result = new ArrayList<>();
+        boolean found = false;
 
-        return rankings;
+        for (ArrayList<String> profile : rankings) {
+            // Ensure the profile has a username at index 2
+            // uses stripped - strip() - rankings
+            if (profile.size() > 2 && profile.get(2).equals(username)) {
+                result.add(profile);
+                found = true;
+
+                System.out.println(result);
+
+                break; //for returning the first matching profile
+            }
+        }
+
+        if (!found) {
+            System.out.println("player not found");
+        }
+
+        return result;
     }
+
+
 
 //    public ArrayList<ArrayList<String>> filterFriends(ArrayList<Profile> friendList){
 //
