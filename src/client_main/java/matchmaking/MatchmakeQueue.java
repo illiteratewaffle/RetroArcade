@@ -8,7 +8,7 @@ public class MatchmakingQueue {
 
     public MatchmakingQueue() {
         this.gameQueues = new HashMap<>();
-    }
+    } //Fix This
 
     public LinkedList<Profile> getQueue(String gameType) {
         if (gameQueues.get(gameType) != null){
