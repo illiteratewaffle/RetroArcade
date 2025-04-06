@@ -1,52 +1,51 @@
 package server.management;
 
 import server.player.PlayerHandler;
+
+import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.LinkedBlockingQueue;
-
+import server.management.ThreadMessage;
 import server.session.GameCreator;
-
-import static server.management.ServerLogger.*;
 
 public class ServerController {
 
+    //The thread the server controller is on.
+    Thread thread = Thread.currentThread();
 
+    //This is the message queue for incoming messages to the server controller.
+    LinkedBlockingQueue messageQueue;
+
+    //The queue for players waiting to join a game
+    Queue<PlayerHandler> gameQueue;
+
+    //The game creator that the server controller will use to create game sessions.
+    GameCreator gameCreator;
 
     public ServerController() {
-        ThreadRegistry.threadRegistry.put(Thread.currentThread(), new LinkedBlockingQueue<>());
-    }
+        messageQueue = new LinkedBlockingQueue();
+        gameQueue = new ConcurrentLinkedQueue<PlayerHandler>();
+        gameCreator = new GameCreator();
 
-    /**
-     * Registers a new player handler in the list of active players.
-     * @param handler The Player Handler to register.
-     */
-    public void registerPlayerHandler(PlayerHandler handler) {
-        // TODO: is creating the BlockingQueue inside of the PlayerHandler, then passing it back through multiple classes the better option in this case?
-        // TODO: handler.getHandlerThread() method will not be possible as the thread has not been created yet when calling this function.
-        //  The function should instead have it passed in as a parameter as you can get the Thread object when you create the virtual thread.
-        //Thread playerThread = handler.getHandlerThread();
-        //ThreadRegistry.threadRegistry.put(playerThread, handler.getMessages());
-    }
-
-    /**
-     * Handles player disconnection by removing the player's thread from the thread registry.
-     * @param handler The player handler of the player to be disconnected.
-     */
-    public synchronized void handleDisconnection(PlayerHandler handler) {
-        //Thread playerThread = handler.getHandlerThread();
-        //ThreadRegistry.threadRegistry.remove(playerThread);
+        ThreadRegistry.register(thread, messageQueue);
     }
 
     /**
      * Starts the server by instantiating a ConnectionManager.
      */
     public void startServer(int port) {
-        // TODO: startServer only initiates a ConnectionManager and nothing else? What about ServerLogger or the class that is responsible for creating GameSessions?
-        startServerLogger();
-        GameCreator gameCreator = new GameCreator();
-        Thread.startVirtualThread(gameCreator);
         ConnectionManager connectionManager = new ConnectionManager(this, port);
         Thread.startVirtualThread(connectionManager);
-
     }
+
+    public void startGameFromQueue() {
+        PlayerHandler player1 = gameQueue.poll();
+        PlayerHandler player2 = gameQueue.poll();
+
+        if ((player1 != null) && (player2 != null)) {
+            //gameCreator.createSession(player1, player2);
+        }
+    }
+
 }
 
