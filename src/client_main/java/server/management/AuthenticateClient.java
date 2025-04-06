@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.BlockingQueue;
@@ -76,12 +77,11 @@ public class AuthenticateClient implements Runnable {
                     String username = (String) authData.get("username");
                     String password = (String) authData.get("password");
                     // login logic
-                    int playerId = PlayerManager.authenticatePlayer(username, password);
-                    if (playerId == -1) {
+                    try {
+                        return PlayerManager.authenticatePlayer(username, password);
+                    } catch (SQLException e) {
                         sendError(printWriter, clientSocket, "Login failed, invalid username or password");
-                        return -1;
                     }
-                    return playerId;
                 } else {
                     sendError(printWriter, clientSocket, "missing or invalid fields");
                     return -1;
