@@ -96,6 +96,8 @@ public class AuthenticateClient implements Runnable {
                     String email = (String) authData.get("email");
                     // registration logic
                     try {
+                        // check boolean on ProfileCreation.createNewProfile(username, email, password)
+                        // something?
                         return PlayerManager.registerPlayer(username, email, password);
                     } catch (SQLException e) {
                         sendError(printWriter, clientSocket, e.toString());

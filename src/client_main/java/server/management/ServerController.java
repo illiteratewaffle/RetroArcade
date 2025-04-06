@@ -3,6 +3,7 @@ package server.management;
 import server.player.PlayerHandler;
 
 import java.util.Queue;
+import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import server.management.ThreadMessage;
@@ -14,7 +15,7 @@ public class ServerController {
     Thread thread = Thread.currentThread();
 
     //This is the message queue for incoming messages to the server controller.
-    LinkedBlockingQueue messageQueue;
+    BlockingQueue<ThreadMessage> messageQueue;
 
     //The queue for players waiting to join a game
     Queue<PlayerHandler> gameQueue;
@@ -23,7 +24,7 @@ public class ServerController {
     GameCreator gameCreator;
 
     public ServerController() {
-        messageQueue = new LinkedBlockingQueue();
+        messageQueue = new LinkedBlockingQueue<>();
         gameQueue = new ConcurrentLinkedQueue<PlayerHandler>();
         gameCreator = new GameCreator();
 
@@ -34,6 +35,7 @@ public class ServerController {
      * Starts the server by instantiating a ConnectionManager.
      */
     public void startServer(int port) {
+        ServerLogger.startServerLogger();
         ConnectionManager connectionManager = new ConnectionManager(this, port);
         Thread.startVirtualThread(connectionManager);
     }
