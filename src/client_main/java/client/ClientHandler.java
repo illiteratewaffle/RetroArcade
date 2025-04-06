@@ -1,4 +1,4 @@
-package client;
+package client_main.java.client;
 import server.player.PlayerHandler;
 
 import java.io.*;
