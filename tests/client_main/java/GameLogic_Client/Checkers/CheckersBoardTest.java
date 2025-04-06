@@ -374,6 +374,8 @@ public class CheckersBoardTest {
 
         // asserting that there is a piece at that location
         assertTrue(checkersBoard.isPiece(position));
+        // assert the piece is p1
+        assertFalse(checkersBoard.isP1(position));
     }
 
     /**
@@ -390,6 +392,8 @@ public class CheckersBoardTest {
 
         // asserting that there is a piece at that location
         assertTrue(checkersBoard.isPiece(position));
+        // assert the piece is p2
+        assertFalse(checkersBoard.isP2(position));
     }
 
     /**
@@ -406,6 +410,8 @@ public class CheckersBoardTest {
 
         // asserting that there is a piece at that location
         assertTrue(checkersBoard.isPiece(position));
+        // assert the piece is p1
+        assertFalse(checkersBoard.isP1(position));
     }
 
     /**
@@ -422,6 +428,8 @@ public class CheckersBoardTest {
 
         // asserting that there is a piece at that location
         assertTrue(checkersBoard.isPiece(position));
+        // assert the piece is p2
+        assertFalse(checkersBoard.isP2(position));
     }
 
     /**
@@ -437,6 +445,8 @@ public class CheckersBoardTest {
         checkersBoard.setPiece(position, p1Piece);
         // assert that the piece at position is a king
         assertTrue(checkersBoard.isKing(position));
+        // assert the piece is p1
+        assertFalse(checkersBoard.isP1(position));
     }
 
     /**
@@ -452,6 +462,8 @@ public class CheckersBoardTest {
         checkersBoard.setPiece(position, p2Piece);
         // assert that the piece at position is a king
         assertTrue(checkersBoard.isKing(position));
+        // assert the piece is p2
+        assertFalse(checkersBoard.isP2(position));
     }
 
     /**
@@ -467,6 +479,8 @@ public class CheckersBoardTest {
         checkersBoard.setPiece(position, p1Piece);
         // assert that the piece is not a king
         assertFalse(checkersBoard.isKing(position));
+        // assert the piece is p1
+        assertFalse(checkersBoard.isP1(position));
     }
 
     /**
@@ -482,6 +496,8 @@ public class CheckersBoardTest {
         checkersBoard.setPiece(position, p2Piece);
         // assert that the piece is not a king
         assertFalse(checkersBoard.isKing(position));
+        // assert the piece is p2
+        assertFalse(checkersBoard.isP2(position));
     }
 
     /**
@@ -497,6 +513,8 @@ public class CheckersBoardTest {
         checkersBoard.setPiece(position, p1Piece);
         // assert that the piece is a pawn
         assertTrue(checkersBoard.isPawn(position));
+        // assert the piece is p1
+        assertFalse(checkersBoard.isP2(position));
     }
 
     /**
@@ -512,6 +530,8 @@ public class CheckersBoardTest {
         checkersBoard.setPiece(position, p2Piece);
         // assert that the piece is a pawn
         assertTrue(checkersBoard.isPawn(position));
+        // assert the piece is p2
+        assertFalse(checkersBoard.isP2(position));
     }
 
     /**
@@ -527,6 +547,8 @@ public class CheckersBoardTest {
         checkersBoard.setPiece(position, p1Piece);
         // assert that the piece is not a pawn
         assertFalse(checkersBoard.isPawn(position));
+        // assert the piece is p1
+        assertFalse(checkersBoard.isP1(position));
     }
 
     /**
@@ -542,7 +564,10 @@ public class CheckersBoardTest {
         checkersBoard.setPiece(position, p2Piece);
         // assert that the piece is not a pawn
         assertFalse(checkersBoard.isPawn(position));
+        // assert the piece is p2
+        assertFalse(checkersBoard.isP2(position));
     }
+
 
     @Test
     public void testMakePawnKing()
