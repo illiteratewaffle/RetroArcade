@@ -10,7 +10,7 @@ public class PlayerRanking {
     public static final int CONNECT4_INDEX = 1;
     public static final int CHECKERS_INDEX = 2;
 
-    public PlayerRanking(double[] winLossRatio, int[] rating, String[] rank, int[] wins) {
+    public PlayerRanking(int id, double[] winLossRatio, int[] rating, String[] rank, int[] wins) {
         this.winLossRatio = winLossRatio;
         this.rating = rating;
         this.rank = rank;
@@ -19,35 +19,47 @@ public class PlayerRanking {
 
     public PlayerRanking(){}
 
-    public double getWinLossRatio(int gameNumber) {
+    public double getWinLossRatio(int id, int gameNumber) {
         return winLossRatio[gameNumber];
     }
 
-    public void setWinLossRatio(double winLossRatio, int gameNumber) {
+    public void setWinLossRatio(int id, double winLossRatio, int gameNumber) {
         this.winLossRatio[gameNumber] = winLossRatio;
     }
 
-    public int getRating(int gameNumber) {
+    public int getRating(int id, int gameNumber) {
         return rating[gameNumber];
     }
 
-    public void setRating(int rating, int gameNumber) {
+    public void setRating(int id, int rating, int gameNumber) {
         this.rating[gameNumber] = rating;
     }
 
-    public String getRank(int gameNumber) {
-        return rank[gameNumber];
+    public String getRank(int id, int rating) {
+        if (rating < 500) {
+            return "Bronze";
+        } else if (rating < 1000) {
+            return "Silver";
+        } else if (rating < 1500) {
+            return "Gold";
+        } else if (rating < 2000) {
+            return "Platinum";
+        } else {
+            return "Diamond";
+        }
     }
 
-    public void setRank(String rank, int gameNumber) {
+
+    public void setRank(int id, String rank, int gameNumber) {
         this.rank[gameNumber] = rank;
     }
 
-    public int getWins(int gameNumber) {
+    public int getWins(int id, int gameNumber) {
         return wins[gameNumber];
     }
 
-    public void setWins(int wins, int gameNumber) {
+    public void setWins(int id, int wins, int gameNumber) {
+
         this.wins[gameNumber] = wins;
     }
 }
