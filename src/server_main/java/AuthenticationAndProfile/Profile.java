@@ -6,7 +6,8 @@ import java.util.UUID;
 //import leaderboard.TTTRanking;
 //import leaderboard.CheckersRanking;
 //import leaderboard.Connect4Ranking;
-//import AuthenticationAndProfile.PlayerRanking;
+//import leaderboard.PlayerRanking;
+import leaderboard.PlayerRanking;
 import leaderboard.PlayerRanking;
 import player.PlayerManager;
 
@@ -149,113 +150,115 @@ public class Profile {
      * Sets a player's online status.
      * @param online the new online status of the player.
      */
-    public void setOnlineStatus(boolean online) throws SQLException{
     public void setOnlineStatus(boolean online) throws SQLException {
-        isOnline = online;
-        try {
-            if (online) {
-                PlayerManager.updateAttribute(this.id, Integer.toString(ProfileCSVReader.ONLINE_INDEX), "true");
-            } else {
-                PlayerManager.updateAttribute(this.id, Integer.toString(ProfileCSVReader.ONLINE_INDEX), "false");
+        public void setOnlineStatus ( boolean online) throws SQLException {
+            isOnline = online;
+            try {
+                if (online) {
+                    PlayerManager.updateAttribute(this.id, Integer.toString(ProfileCSVReader.ONLINE_INDEX), "true");
+                } else {
+                    PlayerManager.updateAttribute(this.id, Integer.toString(ProfileCSVReader.ONLINE_INDEX), "false");
+                }
+            } catch (SQLException s) {
+                throw new SQLException(s.getMessage());
             }
-        } catch (SQLException s) {
-            throw new SQLException(s.getMessage());
         }
-    }
 
-    public boolean getOnlineStatus() {
-        return isOnline;
-    }
+        public boolean getOnlineStatus () {
+            return isOnline;
+        }
 
-    /**
-     * Check if a player is in a game. If so, prints out the game they're playing (likely usable by GUI team).
-     * If not, prints out "Online" if the player is online. Otherwise, prints out "Offline".
-     */
-    public void getCurrentStatus() {
-        if (isOnline) {
-            if (currentGame != null) {
-                System.out.println("Online - Currently playing: " + currentGame);
+        /**
+         * Check if a player is in a game. If so, prints out the game they're playing (likely usable by GUI team).
+         * If not, prints out "Online" if the player is online. Otherwise, prints out "Offline".
+         */
+        public void getCurrentStatus () {
+            if (isOnline) {
+                if (currentGame != null) {
+                    System.out.println("Online - Currently playing: " + currentGame);
+                } else {
+                    System.out.println("Online");
+                }
             } else {
-                System.out.println("Online");
+                System.out.println("Offline");
             }
-        } else {
-            System.out.println("Offline");
         }
-    }
 
-    /**
-     * Gets the player's current game.
-     * @return the player's current game.
-     */
-    public String getCurrentGame() {
-        return currentGame;
-    }
-
-    /**
-     * Sets a player's current game.
-     * @param currentGame the current game of the player.
-     */
-    public void setCurrentGame(String currentGame) throws SQLException {
-        this.currentGame = currentGame;
-        try {
-            PlayerManager.updateAttribute(id, "current_game", currentGame);
-        } catch (SQLException s) {
-            throw new SQLException(s.getMessage());
+        /**
+         * Gets the player's current game.
+         * @return the player's current game.
+         */
+        public String getCurrentGame () {
+            return currentGame;
         }
-        try {
-            PlayerManager.updateAttribute(id, "current_game", currentGame);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+
+        /**
+         * Sets a player's current game.
+         * @param currentGame the current game of the player.
+         */
+        public void setCurrentGame (String currentGame) throws SQLException {
+            this.currentGame = currentGame;
+            try {
+                PlayerManager.updateAttribute(id, "current_game", currentGame);
+            } catch (SQLException s) {
+                throw new SQLException(s.getMessage());
+            }
+            try {
+                PlayerManager.updateAttribute(id, "current_game", currentGame);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
         }
-    }
 
-    /**
-     * Gets the player's played games.
-     * @return the player's played games.
-     */
-    public GameHistory getGameHistory() {
-        return gameHistory;
-    }
-
-    /**
-     * Sets the player's played games.
-     * @param gameHistory the new played games of the player.
-     */
-    public void setGameHistory(GameHistory gameHistory) {
-        this.gameHistory = gameHistory;
-    }
-
-    /**
-     * Gets the player's profile picture.
-     * @return the player's profile picture.
-     */
-    public String getProfilePicFilePath() {
-        return profilePicFilePath;
-    }
-
-    /**
-     * Sets the player's profile picture.
-     * @param profilePicFilePath the new profile picture of the player.
-     */
-    public void setProfilePicFilePath(String profilePicFilePath) {
-        this.profilePicFilePath = profilePicFilePath;
-    }
-
-    /**
-     * Gets the player's username.
-     * @return the player's username.
-     */
-    public static String exportUsername(int id) throws SQLException {
-        try {
-            return PlayerManager.getUsername(id);
-        } catch (SQLException s) {
-            throw new SQLException(s.getMessage());
+        /**
+         * Gets the player's played games.
+         * @return the player's played games.
+         */
+        public GameHistory getGameHistory () {
+            return gameHistory;
         }
-    public static String exportUsername(int id) {
-        try {
-            return PlayerManager.getUsername(id);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+
+        /**
+         * Sets the player's played games.
+         * @param gameHistory the new played games of the player.
+         */
+        public void setGameHistory (GameHistory gameHistory){
+            this.gameHistory = gameHistory;
+        }
+
+        /**
+         * Gets the player's profile picture.
+         * @return the player's profile picture.
+         */
+        public String getProfilePicFilePath () {
+            return profilePicFilePath;
+        }
+
+        /**
+         * Sets the player's profile picture.
+         * @param profilePicFilePath the new profile picture of the player.
+         */
+        public void setProfilePicFilePath (String profilePicFilePath){
+            this.profilePicFilePath = profilePicFilePath;
+        }
+
+        /**
+         * Gets the player's username.
+         * @return the player's username.
+         */
+        public static String exportUsername ( int id) throws SQLException {
+            try {
+                return PlayerManager.getUsername(id);
+            } catch (SQLException s) {
+                throw new SQLException(s.getMessage());
+            }
+            public static String exportUsername ( int id){
+                try {
+                    return PlayerManager.getUsername(id);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
         }
     }
 
