@@ -1,4 +1,4 @@
-package server.management;
+package management;
 
 import player.PlayerHandler;
 import player.PlayerManager;
