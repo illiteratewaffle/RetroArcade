@@ -1,4 +1,4 @@
-package AuthenticationAndProfile;
+package leaderboard;
 
 import player.PlayerManager;
 
@@ -22,7 +22,7 @@ public class PlayerRanking {
     }
 
     public void endOfMatchMethod(int gameNumber, int result) {
-        String gameName;
+        String gameName = null;
         if (gameNumber == TTT_INDEX) {
             gameName = "ttt";
         } else if (gameNumber == CONNECT4_INDEX) {
