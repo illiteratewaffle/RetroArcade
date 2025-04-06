@@ -4,11 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ba5d62c9-ef67-4eb7-8775-b12157e4f5a8" name="Changes" comment="resize scene">
+    <list default="true" id="ba5d62c9-ef67-4eb7-8775-b12157e4f5a8" name="Changes" comment="Added a call to the hashing method in setHashedPassword.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client_main/java/GUI_client/TTTController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client_main/java/GUI_client/TTTController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client_main/java/GUI_client/leaderboardApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client_main/java/GUI_client/leaderboardApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client_main/java/GameLogic_Client/TicTacToe/TTTGameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client_main/java/GameLogic_Client/TicTacToe/TTTGameController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/client_main/java/AuthenticationAndProfile/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client_main/java/AuthenticationAndProfile/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/client_main/java/AuthenticationAndProfile/ProfileCSVReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client_main/java/AuthenticationAndProfile/ProfileCSVReader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/client_main/java/AuthenticationAndProfile/ProfileDatabaseAccess.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client_main/java/AuthenticationAndProfile/ProfileDatabaseAccess.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/client_main/java/server/player/PlayerManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client_main/java/server/player/PlayerManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/client_main/java/AuthenticationAndProfile/ProfileDatabaseAccessTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/tests/client_main/java/AuthenticationAndProfile/ProfileDatabaseAccessTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/client_main/java/GameLogic_Client/TicTacToe/TTTBoardTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/tests/client_main/java/GameLogic_Client/TicTacToe/TTTBoardTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/client_main/java/GameLogic_Client/TicTacToe/TTTGameTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/tests/client_main/java/GameLogic_Client/TicTacToe/TTTGameTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,9 +49,12 @@
     "Application.MainApplication.executor": "Run",
     "Application.TTTApplication.executor": "Run",
     "Application.leaderboardApplication.executor": "Run",
+    "JUnit.AuthenticationTest.executor": "Run",
+    "JUnit.TTTBoardTest.executor": "Run",
+    "JUnit.TTTGameTest.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "Leaderboard2",
+    "git-widget-placeholder": "mainIt2__AuthenticationAndProfile",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/Tyler/IdeaProjects/seng300-w25-project/src/client_main/resources",
     "node.js.selected.package.tslint": "(autodetect)"
@@ -62,7 +69,51 @@
       <recent name="C:\Users\Tyler\IdeaProjects\seng300-w25-project\src\client_main\resources" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="JUnit.AuthenticationTest">
+    <configuration name="AuthenticationTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="SENGProj-iteration3" />
+      <useClassPathOnly />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="client_main.java.AuthenticationAndProfile.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="client_main.java.AuthenticationAndProfile" />
+      <option name="MAIN_CLASS_NAME" value="client_main.java.AuthenticationAndProfile.AuthenticationTest" />
+      <option name="METHOD_NAME" value="" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ProfileCSVReaderTest.openSingleProfileFile" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="SENGProj-iteration3" />
+      <useClassPathOnly />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="client_main.java.AuthenticationAndProfile.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="client_main.java.AuthenticationAndProfile" />
+      <option name="MAIN_CLASS_NAME" value="client_main.java.AuthenticationAndProfile.ProfileCSVReaderTest" />
+      <option name="METHOD_NAME" value="openSingleProfileFile" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="JUnit" factoryName="JUnit">
+      <module name="SENGProj-iteration3" />
+      <useClassPathOnly />
+      <option name="MAIN_CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration default="true" type="JetRunConfigurationType">
       <module name="seng300-w25-project" />
       <method v="2">
@@ -74,6 +125,12 @@
       <option name="filePath" />
       <method v="2" />
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.AuthenticationTest" />
+        <item itemvalue="JUnit.ProfileCSVReaderTest.openSingleProfileFile" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -134,6 +191,7 @@
     <MESSAGE value="Set new play buttons for game menu + hover events." />
     <MESSAGE value="Mute button and Audio controlller to monitor muted status between controllers" />
     <MESSAGE value="resize scene" />
-    <option name="LAST_COMMIT_MESSAGE" value="resize scene" />
+    <MESSAGE value="Added a call to the hashing method in setHashedPassword." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added a call to the hashing method in setHashedPassword." />
   </component>
 </project>

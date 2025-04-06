@@ -1,5 +1,6 @@
 package server.player;
 
+import AuthenticationAndProfile.ProfileDatabaseAccess;
 import server.database.databaseConnector;
 
 import java.io.FileWriter;
@@ -316,8 +317,27 @@ public class PlayerManager {
         }
     }
 
+    public static String addToFriendRequestList(int id, int newFriendId) {
+        String query = "UPDATE profiles SET friends = array_append(friend_requests, ?) WHERE id = ?";
+        try (PreparedStatement statement = conn.prepareStatement(query)) {
+            statement.setInt(1, newFriendId);
+            statement.setInt(2, id);
+
+            int rowsUpdated = statement.executeUpdate();
+            if (rowsUpdated > 0) {
+                return "added player " + newFriendId + " to player " + id + " Friend Request list";
+            } else {
+                return "No player found with ID: " + id;
+            }
+        } catch (SQLException e) {
+            return "Error updating 'friend_requests' array: " + e.getMessage();
+        }
+    }
+
     public static void main(String[] args) {
         System.out.println(addToFriendsList(1, 4));
         System.out.println(addToFriendsList(2, 4));
+        System.out.println("P1: " + ProfileDatabaseAccess.obtainProfile(1).getFriendsList().getFriends());
+        System.out.println("P2: " + ProfileDatabaseAccess.obtainProfile(2).getFriendsList().getFriends());
     }
 }
