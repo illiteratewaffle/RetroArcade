@@ -41,8 +41,8 @@ class ProfileTest {
 
     @Test
     void getHashedPassword() {
-        HashMap<String, Double> achievementProgress = new HashMap<>();
         List<String> gameHistory = new ArrayList<>();
+        HashMap<String, Double> achievementProgress = new HashMap<>();
         List<Integer> friends = Arrays.asList(101, 102, 103);
         List<Integer> friendRequests = Arrays.asList(201, 202);
         String password = "WhatAGoodPassword!";
@@ -113,7 +113,10 @@ class ProfileTest {
     @Test
     void setGamesPlayed() {
         List<String> gameHistory = new ArrayList<>();
-        GameHistory newGamesPlayed = new GameHistory(gameHistory);
+        HashMap<String, Double> achievementProgress = new HashMap<>();
+        achievementProgress.put("Win_Streak", 0.75);
+        achievementProgress.put("Matches_Played", 0.50);
+        GameHistory newGamesPlayed = new GameHistory(gameHistory, achievementProgress);
         profile.setGameHistory(newGamesPlayed);
         assertEquals(newGamesPlayed, profile.getGameHistory());
     }
