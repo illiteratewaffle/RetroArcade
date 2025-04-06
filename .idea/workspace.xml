@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ba5d62c9-ef67-4eb7-8775-b12157e4f5a8" name="Changes" comment="commit">
+    <list default="true" id="ba5d62c9-ef67-4eb7-8775-b12157e4f5a8" name="Changes" comment="Add search username feature implemented">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client_main/java/GUI_client/leaderboardGUIController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client_main/java/GUI_client/leaderboardGUIController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client_main/java/leaderboard/Leaderboard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client_main/java/leaderboard/Leaderboard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/client_main/assets/GUI_client/leaderboard.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/client_main/assets/GUI_client/leaderboard.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -216,7 +215,15 @@
       <option name="project" value="LOCAL" />
       <updated>1743898175641</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Add search username feature implemented">
+      <option name="closed" value="true" />
+      <created>1743907424246</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1743907424247</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -228,6 +235,7 @@
     <MESSAGE value="Mute button and Audio controlller to monitor muted status between controllers" />
     <MESSAGE value="resize scene" />
     <MESSAGE value="commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="commit" />
+    <MESSAGE value="Add search username feature implemented" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add search username feature implemented" />
   </component>
 </project>
