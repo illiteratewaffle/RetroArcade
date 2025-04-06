@@ -1,7 +1,5 @@
-package client_main.java.server.management;
+package server.management;
 
-import client.Encoder;
-import server.player.Player;
 import server.player.PlayerHandler;
 import server.player.PlayerManager;
 
@@ -47,15 +45,12 @@ public class AuthenticateClient implements Runnable {
                 BlockingQueue<ThreadMessage> queue = new LinkedBlockingQueue<>();
                 PlayerHandler playerHandler = new PlayerHandler(clientSocket, queue);
                 //Create a thread for the player and start it.
+                // TODO: Custom thread name
                 Thread playerThread = Thread.ofVirtual().start(playerHandler);
                 // Add the new player the ThreadRegistry
-                ThreadRegistry.threadRegistry.put(playerThread, queue);
+                ThreadRegistry.register(playerThread, queue);
                 // Add the new player to the playerList
-                synchronized (ThreadRegistry.playerList) {
-                    ThreadRegistry.playerList.add(new Player(playerThread, playerHandler, playerId));
-                    // log("The new player is on Thread", playerThread.threadId());
-                    ThreadRegistry.playerList.notifyAll();
-                }
+                ThreadRegistry.registerPlayer(playerId, playerHandler);
             }
 
         } catch (IOException e) {
@@ -80,7 +75,7 @@ public class AuthenticateClient implements Runnable {
                         && authData.get("username") instanceof String && authData.get("password") instanceof String) {
                     String username = (String) authData.get("username");
                     String password = (String) authData.get("password");
-                    // TODO: Implement login logic here
+                    // login logic
                     int playerId = PlayerManager.authenticatePlayer(username, password);
                     if (playerId == -1) {
                         sendError(printWriter, clientSocket, "Login failed, invalid username or password");
@@ -98,7 +93,7 @@ public class AuthenticateClient implements Runnable {
                     String username = (String) authData.get("username");
                     String password = (String) authData.get("password");
                     String email = (String) authData.get("email");
-                    // TODO: Implement registration logic here
+                    // Registration logic
                     int playerId = PlayerManager.registerPlayer(username, email, password);
                     if (playerId == -1) {
                         sendError(printWriter, clientSocket, "Registration failed, account already exists");

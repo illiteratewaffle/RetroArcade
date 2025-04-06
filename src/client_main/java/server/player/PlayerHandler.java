@@ -7,6 +7,8 @@ import java.io.*;
 import java.net.Socket;
 import java.util.concurrent.BlockingQueue;
 
+import static server.management.JsonConverter.fromJson;
+import static server.management.JsonConverter.toJson;
 import static server.management.ServerLogger.log;
 
 /**
@@ -25,9 +27,30 @@ public class PlayerHandler implements Runnable {
     private Thread mainThread = null;
 
     /**
+     * Get the Thread that the PlayerHandler is on
      *
+     * @return the mainThread for the PlayerHandler
+     */
+    public synchronized Thread getThread() {
+        return mainThread;
+    }
+
+    /**
+     * Set the Thread of the GameSessionManager
+     *
+     * @param thread the new GameSessionManagerThread
+     */
+    public synchronized void setThread(Thread thread) {
+        synchronized (gameSessionLock) {
+            // Update the gameSessionManagerThread then notify gameSessionLock
+            gameSessionManagerThread = thread;
+            gameSessionLock.notifyAll();
+        }
+    }
+
+    /**
      * @param clientSocket the Socket that the client is connected on
-     * /@param queue the main message cue object that will be used to communicate between threads.
+     *                     /@param queue the main message cue object that will be used to communicate between threads.
      */
     public PlayerHandler(Socket clientSocket, BlockingQueue<ThreadMessage> queue) {
         this.clientSocket = clientSocket;
@@ -40,7 +63,7 @@ public class PlayerHandler implements Runnable {
         try {
             this.bufferedReader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
             this.printWriter = new PrintWriter(clientSocket.getOutputStream(), true);
-        } catch (IOException e){
+        } catch (IOException e) {
             log("Failure to initialize PlayerHandler BufferedReader/BufferedWriter:", e.toString());
         }
     }
@@ -54,24 +77,15 @@ public class PlayerHandler implements Runnable {
         // Start the PlayerHandlerListener thread
         PlayerHandlerListener playerHandlerListener = new PlayerHandlerListener();
         Thread playerHandlerListenerThread = Thread.ofVirtual().start(playerHandlerListener);
-
         //
         while (running) {
             try {
                 // Take a message from the blocking queue
                 ThreadMessage threadMessage = queue.take();
-                // Grab the thread GameSessionManager is on for communicating back to it
-                synchronized (gameSessionLock) {
-                    if (gameSessionManagerThread == null) {
-                        gameSessionManagerThread = threadMessage.getSender();
-                        gameSessionLock.notifyAll();
-                    }
-                }
                 // Convert to json formatting then send it to the client
-                // THERE IS NO JSON TO STRING CONVERSION CLASS CREATED YET
-                printWriter.println(threadMessage.getContent());
+                printWriter.println(toJson(threadMessage.getContent()));
             } catch (InterruptedException e) {
-                log("Failure to take message blocking queue for PlayerHandler:", e.toString());
+                log("PlayerHandler: Failure to take message blocking queue for PlayerHandler:", e.toString());
             }
         }
     }
@@ -90,7 +104,7 @@ public class PlayerHandler implements Runnable {
                     String message = bufferedReader.readLine();
                     // Convert the json formatting and send it to the GameSessionManager
                     // THERE IS NO JSON TO STRING CONVERSION CLASS CREATED YET
-                    ThreadMessage threadMessage = new ThreadMessage(mainThread, message);
+                    ThreadMessage threadMessage = new ThreadMessage(mainThread, fromJson(message));
                     // Make sure that we have the GameSessionManagerThread before attempting to send information to it
                     synchronized (gameSessionLock) {
                         if (gameSessionManagerThread == null)
@@ -99,24 +113,12 @@ public class PlayerHandler implements Runnable {
                     // Relay the message to the GameSessionManager
                     networkManager.sendMessage(gameSessionManagerThread, threadMessage);
                 } catch (IOException e) {
-                    log("Failure to read a message from the client using the BufferedReader:", e.toString());
+                    log("PlayerHandler: Failure to read a message from the client using the BufferedReader:", e.toString());
                 } catch (InterruptedException e) {
                     // just gotta say this should be passed in through some way man, maybe a function? idk doesn't matter
-                    log("Never received the thread for the GameSessionManager:", e.toString());
+                    log("PlayerHandler: Never received the thread for the GameSessionManager:", e.toString());
                 }
             }
         }
     }
 }
-
-/*
-List of things to remember yuh:
- - Should use the virtual thread builder to name the thread and specify what should happen if a thread fails (logging it)
- - We have no proper system for the playerHandler knowing what thread the GameSessionManager is on
-    - Therefore, I am simply waiting until I get a message from the blockingQueue to copy their thread.
-    - However, this system to put it simply, sucks fucking ass
- - Alright why does PlayerHandler create a LinkedBlockingQueue? How does it share its own blocking queue to the main queue? bruh.
-    - I know see but think it could be improved to be more straightforward
- - ClientHandler seems to act as if it is on the server side and is trying to be a PlayerHandler and ClientHandler? very confused.
- - Why do we not have a static class responsible for converting json to classes and vice versa?
- */

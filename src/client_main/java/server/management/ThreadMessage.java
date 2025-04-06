@@ -1,19 +1,22 @@
 package server.management;
 
 // TODO: This could be expanded once we determine the full range of information threads will share.
+
+import java.util.Map;
+
 /**
  * This class will be used as a basis for communication between threads
  */
 public class ThreadMessage {
     private final Thread sender;
-    private final String content;
+    private final Map<String, Object> content;
 
     /**
      * Constructor for the Message class
      * @param sender The thread is sending the given information
      * @param content The information that you want to send to that thread
      */
-    public ThreadMessage(Thread sender, String content) {
+    public ThreadMessage(Thread sender, Map<String, Object> content) {
         this.sender = sender;
         this.content = content;
     }
@@ -30,7 +33,7 @@ public class ThreadMessage {
      * Get the content of the message
      * @return a String that is the content of the message
      */
-    public String getContent() {
+    public Map<String, Object> getContent() {
         return content;
     }
 }
