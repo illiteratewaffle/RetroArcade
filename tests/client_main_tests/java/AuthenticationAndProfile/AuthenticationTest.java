@@ -1,13 +1,14 @@
 package client_main_tests.java.AuthenticationAndProfile;
 
-import AuthenticationAndProfile.PlayerRanking;
+import AuthenticationAndProfile.*;
 import org.junit.jupiter.api.AfterEach;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import player.PlayerManager;
+
 import static org.junit.jupiter.api.Assertions.*;
-import AuthenticationAndProfile.*;
+
 
 import java.sql.SQLException;
 import java.util.ArrayList;

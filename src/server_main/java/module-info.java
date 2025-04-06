@@ -18,12 +18,13 @@ module seng300.w25.project {
     //requires org.junit.jupiter.api;
 
 
-    opens GUI_client to javafx.fxml;
+    //opens GUI_client to javafx.fxml;
 
     exports database;
     exports player;
     exports AuthenticationAndProfile;
-    exports GameLogic_Client.TicTacToe;
-    exports GameLogic_Client;
+    //exports GameLogic_Client.TicTacToe;
+    //exports GameLogic_Client;
     exports management;
+    exports launcher;
 }

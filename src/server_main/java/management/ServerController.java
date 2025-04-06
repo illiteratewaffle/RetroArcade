@@ -26,7 +26,8 @@ public class ServerController {
     public ServerController() {
         messageQueue = new LinkedBlockingQueue<>();
         gameQueue = new ConcurrentLinkedQueue<PlayerHandler>();
-        gameCreator = new GameCreator();
+        gameCreator = new GameCreator(gameQueue);
+        Thread.ofVirtual().start(gameCreator);
 
         ThreadRegistry.register(thread, messageQueue);
     }
@@ -40,12 +41,16 @@ public class ServerController {
         Thread.startVirtualThread(connectionManager);
     }
 
+    public void enqueuePlayer(PlayerHandler player) {
+        gameQueue.add(player);
+    }
+
     public void startGameFromQueue() {
         PlayerHandler player1 = gameQueue.poll();
         PlayerHandler player2 = gameQueue.poll();
 
         if ((player1 != null) && (player2 != null)) {
-            //gameCreator.createSession(player1, player2);
+            gameCreator.createSession(player1, player2);
         }
     }
 

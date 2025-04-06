@@ -30,35 +30,36 @@ public class Authentication {
     //return profile object
     public static Profile logIn(String username, String password) throws SQLException {
         String hashedPassword = ProfileCreation.hashedPassword(password);
-        //try {
-        int id = PlayerManager.authenticatePlayer(username, hashedPassword);
-        if (id != -1) {
-            Profile profile = ProfileDatabaseAccess.obtainProfile(id);
+        Profile profile;
+        try {
+            int id = PlayerManager.authenticatePlayer(username, hashedPassword);
+            //if (id != -1) {
+            profile = ProfileDatabaseAccess.obtainProfile(id);
             //setProfileLoggedIn(profile);
             profile.setOnlineStatus(true);
             System.out.printf("Player %d is setOnline\n", id);
             return profile;
-        } else {
-            System.out.println("Unable to Log In.");
-            //throw exception
-        }
-//        } catch (IOException e) {
-//            System.out.println("Wrong username or password.");
-//            return false;
+//        } else {
+//            System.out.println("Unable to Log In.");
+//
 //        }
+        } catch (SQLException s) {
+            throw new SQLException(s.getMessage());
+        }
     }
 
     /**
      * logOut() Sets profile's isOnline to false and sets the profileLoggedIn to null so that the previous profile information is no longer accessed.
      */
-    public static void logOut(int id) {
+    public static void logOut(int id) throws SQLException {
         try {
             ProfileDatabaseAccess.obtainProfile(id).setOnlineStatus(false);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+            //profileLoggedIn = null;
+        } catch (SQLException s) {
+            throw new SQLException(s.getMessage());
         }
-        //profileLoggedIn = null;
-    }
+
+        }
 }
 
 //    /**
@@ -71,7 +72,7 @@ public class Authentication {
 //
 //    /**
 //     * Sets the Profile currently logged into on the program.
-//     * @param profile Profile
+//     * @param profile = Profile
 //     */
 //    public static void setProfileLoggedIn(Profile profile){
 //        profileLoggedIn = profile;

@@ -1,8 +1,9 @@
 package AuthenticationAndProfile;
-//import AuthenticationAndProfile.PlayerRanking;
-import leaderboard.PlayerRanking;
+//import leaderboard.PlayerRanking;
 import player.PlayerManager;
 
+import java.io.IOException;
+import java.sql.SQLException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,9 +28,9 @@ public class ProfileDatabaseAccess {
      * @param id
      * @return Profile object from data corresponding to the id from the database
      */
-    public static Profile obtainProfile(int id) {
+    public static Profile obtainProfile(int id) throws SQLException{
         //call method to get csv for id
-//        try {
+        try {
             PlayerManager.getProfile(id); //method to get Profile csv with all attributes associated to the specified id
             String csvProfileFilePath = String.format("player_profile_%d.csv", id); //csv file saved to the main project directory
 
@@ -57,9 +58,9 @@ public class ProfileDatabaseAccess {
 
             Profile profile = new Profile(email, hashedPassword, nickname, bio, isOnline, currentGame, friendsList, playerRanking, gameHistory, profilePicFilePath, username, id);
             return profile;
-//        } catch (IOException e) {
-//            System.out.println("ID does not match a profile in the database.");
-//            return null;
+        } catch (SQLException s) {
+            throw new SQLException(s.getMessage());
+        }
 //        }
 //        } catch (IOException f) {
 //            System.out.println("Image issue.");
@@ -75,10 +76,13 @@ public class ProfileDatabaseAccess {
      * @param id
      * @return FriendsList object reflecting an up to date FriendsList that composes the profile saved in the database.
      */
-    public static FriendsList obtainFriendsList(int id){
+    public static FriendsList obtainFriendsList(int id) throws SQLException{
         //call method to get csv for id
-        //try {
+        try {
             PlayerManager.getProfile(id); //method to get Profile csv with all attributes associated to the specified id
+        } catch (SQLException s){
+            throw new SQLException(s.getMessage());
+            }
             String csvProfileFilePath = String.format("player_profile_%d.csv", id); //csv file saved to the main project directory
 
             ArrayList<String> profileFields = openSingleProfileFile(csvProfileFilePath);
@@ -99,12 +103,8 @@ public class ProfileDatabaseAccess {
                         friendRequests.add(Integer.parseInt(fieldsList[i]));
                     }
                 }
-            FriendsList friendsList = new FriendsList(friends, friendRequests);
+            FriendsList friendsList = new FriendsList(friends, friendRequests, id);
             return friendsList;
-        //} catch (IOException e) {
-        //    System.out.println("ID does not match a profile in the database.");
-        //    return null;
-        //}
     }
 
     public static PlayerRanking obtainPlayerRanking(int id) {
@@ -200,41 +200,45 @@ public class ProfileDatabaseAccess {
      * removeProfile(long id) removes all profile information associated from the Database and logs the account out.
      * @param id
      */
-    public static void removeProfile(int id){
+    public static void removeProfile(int id) throws SQLException {
         try {
             PlayerManager.deleteProfile(id);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+            Authentication.logOut(id);
+        } catch (SQLException s) {
+            throw new SQLException(s.getMessage());
         }
-        Authentication.logOut();
     }
-
     /**
      * getAllProfiles() is used to obtain the HashMap of all username keys and all Profile values.
      * @return HashMap<String, Profile>
      */
-    public static ArrayList<ArrayList<String>> getAllProfiles() {
-        String csvProfileFilePath = "profiles_export.csv"; //csv is generated in the main directory of the project
-        try {
-            PlayerManager.getProfileTable();//method to get all profiles in database into a csv file
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+    public static ArrayList<ArrayList<String>> getAllProfiles() throws SQLException {
+            String csvProfileFilePath = "profiles_export.csv"; //csv is generated in the main directory of the project
+            try {
+                PlayerManager.getProfileTable();//method to get all profiles in database into a csv file
+                ArrayList<ArrayList<String>> profileFields = ProfileCSVReader.openProfilesFile(csvProfileFilePath);
+                return profileFields;
+            } catch (SQLException s) {
+                throw new SQLException(s.getMessage());
+            }
         }
-        ArrayList<ArrayList<String>> profileFields = ProfileCSVReader.openProfilesFile(csvProfileFilePath);
-        return profileFields;
-    }
 
     /**
      * Method to search for Profiles with usernames similar to the searched term.
      * @param search String
      */
-    public static List<Profile> searchForProfile(String search) {
-        List<Integer> usernameSearchMatchIdList = PlayerManager.searchProfiles(search);
-        List<Profile> profilesFound = new ArrayList<Profile>();
-        for (int i = 0; i < usernameSearchMatchIdList.size(); i++) {
-            profilesFound.add(obtainProfile(usernameSearchMatchIdList.get(i)));
+    //TODO: search profile method in Player Manager
+    public static List<Profile> searchForProfile(String search) throws SQLException{
+        try {
+            List<Integer> usernameSearchMatchIdList = PlayerManager.searchProfiles(search);
+            List<Profile> profilesFound = new ArrayList<Profile>();
+            for (int i = 0; i < usernameSearchMatchIdList.size(); i++) {
+                profilesFound.add(obtainProfile(usernameSearchMatchIdList.get(i)));
+            }
+            return profilesFound;
+        } catch (SQLException s){
+            throw new SQLException(s.getMessage());
         }
-        return profilesFound;
     }
 
     /**
@@ -267,8 +271,12 @@ public class ProfileDatabaseAccess {
     }
 
     public static void main(String[] args) {
-        Profile profile = obtainProfile(2);
-        System.out.println(profile.getGameHistory().getGameHistory());
+        try {
+            Profile profile = ProfileCreation.createNewProfile("username6", "email6@email.com", "jdfksdhfksj");
+            System.out.println(profile.getGameHistory().getGameHistory());
+        } catch (SQLException s){
+            System.out.println(s.getMessage());
+        }
     }
 }
 

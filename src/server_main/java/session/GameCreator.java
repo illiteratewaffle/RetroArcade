@@ -3,17 +3,25 @@ package session;
 import management.ThreadRegistry;
 import player.PlayerHandler;
 
+import java.util.Queue;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
-public class GameCreator {
+public class GameCreator implements Runnable {
+
+    Queue<PlayerHandler> gameQueue;
+
+    public GameCreator(Queue<PlayerHandler> gameQueue) {
+        this.gameQueue = gameQueue;
+    }
 
     //Concurrent hash map that stores a list of all currently active game sessions
     private final ConcurrentHashMap<Thread, GameSessionManager> activeSessions = new ConcurrentHashMap<>();
-    /**
+
      public void createSession(PlayerHandler player1, PlayerHandler player2) {
 
      //Create the game session manager for the game session being created
-     GameSessionManager session = new GameSessionManager(player1, player2, new BoardGameController());
+     GameSessionManager session = new GameSessionManager(player1, player2, "tictactoe");
 
      //Start the game session manager thread
      Thread sessionThread = Thread.startVirtualThread(session);
@@ -25,7 +33,7 @@ public class GameCreator {
      //Update the gameSessionManagerThreads within the player handlers
      player1.setGameSessionManagerThread(sessionThread);
      player2.setGameSessionManagerThread(sessionThread);
-     } **/
+     }
 
     public void endSession(Thread sessionThread) {
         activeSessions.remove(sessionThread);
@@ -33,5 +41,21 @@ public class GameCreator {
 
     public GameSessionManager getSession(Thread sessionThread) {
         return activeSessions.get(sessionThread);
+    }
+
+    public void startGameFromQueue() {
+        PlayerHandler player1 = gameQueue.poll();
+        PlayerHandler player2 = gameQueue.poll();
+
+        if ((player1 != null) && (player2 != null)) {
+            createSession(player1, player2);
+        }
+    }
+
+    @Override
+    public void run() {
+        while (true) {
+            startGameFromQueue();
+        }
     }
 }

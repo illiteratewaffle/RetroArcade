@@ -2,7 +2,6 @@ package player;
 
 import database.databaseConnector;
 
-import javax.sql.rowset.spi.SyncProviderException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.*;
@@ -83,7 +82,7 @@ public class PlayerManager {
         }
     }
 
-    public static void getProfile(int id) throws SQLException, IOException {
+    public static void getProfile(int id) throws SQLException {
         String query = "SELECT * FROM profiles WHERE id = ?";
         String fileName = "player_profile_" + id + ".csv";
 
@@ -196,6 +195,12 @@ public class PlayerManager {
             throw new SQLException("Error searching friends by substring: " + e.getMessage());
         }
         // Return the friend's list that match the substring passed through
+        return matchingIds;
+    }
+    //TODO: Search usernames to find all ids of profiles that have usernames that match search terms
+    public static List<Integer> searchProfiles(String nameFragment) throws SQLException {
+        // List containing friend Ids
+        List<Integer> matchingIds = new ArrayList<>();
         return matchingIds;
     }
 
@@ -319,7 +324,28 @@ public class PlayerManager {
         }
     }
 
+    public static String deleteFriendRequest(int playerId, int friendId) throws SQLException {
+        // array_remove will remove 'friendId' from the 'friend_requests' INT[] column for the row matching userId
+        String query = "UPDATE profiles SET friend_requests = array_remove(friend_requests, ?) WHERE id = ?";
+
+        try (PreparedStatement statement = conn.prepareStatement(query)) {
+            // Bind parameters
+            statement.setInt(1, friendId);
+            statement.setInt(2, playerId);
+
+            int rowsUpdated = statement.executeUpdate();
+            if (rowsUpdated > 0) {
+                // Successfully removed friendId from friend_requests
+                return "Friend request from ID " + friendId + " removed for user " + playerId;
+            } else {
+                throw new SQLException("No player found with ID: " + playerId);
+            }
+        } catch (SQLException e) {
+            throw new SQLException("No player found with ID: " + e.getMessage(), e);
+        }
+    }
+
     public static void main(String[] args) throws SQLException {
-        getAttribute(22, "nickname");
+        System.out.println(deleteFriendRequest(12, 3));
     }
 }

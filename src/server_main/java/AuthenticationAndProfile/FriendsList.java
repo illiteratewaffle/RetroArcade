@@ -1,6 +1,7 @@
 package AuthenticationAndProfile;
 
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,25 +13,28 @@ import java.util.List;
 public class FriendsList {
     private List<Integer> friends = new ArrayList<>(); // stores list of friends as ids
     private List<Integer> friendRequests = new ArrayList<>(); // stores list of friend requests as ids
-    private long id;
+    private int id;
     private String username;
 
     /**
      * Constructor initializing the friends and friend request lists
+     *
      * @param friends
      * @param friendRequests
      */
-    public FriendsList(List<Integer> friends, List<Integer> friendRequests) {
+    public FriendsList(List<Integer> friends, List<Integer> friendRequests, int id) {
         this.friends = friends;
         this.friendRequests = friendRequests;
+        this.id = id;
     }
 
-    public FriendsList(){
+    public FriendsList() {
 
     }
 
     /**
      * Sets the list of friends for the profile
+     *
      * @param friends List of friends ids to set
      */
     public void setFriends(List<Integer> friends) {
@@ -39,6 +43,7 @@ public class FriendsList {
 
     /**
      * Sets the list of friend requests for this profile
+     *
      * @param friendRequests List of the friend request ids to set
      */
     public void setFriendRequests(List<Integer> friendRequests) {
@@ -47,6 +52,7 @@ public class FriendsList {
 
     /**
      * Retrieves the list of friends associated with the profile
+     *
      * @return A list of the friends id numbers
      */
     public List<Integer> getFriends() {
@@ -55,6 +61,7 @@ public class FriendsList {
 
     /**
      * Retrieves the list of friend requests associated with the profile
+     *
      * @return A list of the friend request id numbers
      */
     public List<Integer> getFriendRequests() {
@@ -63,15 +70,16 @@ public class FriendsList {
 
     /**
      * Finds and returns the id associated with a profile using the username
+     *
      * @param username The username used to search
      * @return The id associated with the username or -1 if not found
      */
-    public int idFromUsername(String username){
+    public int idFromUsername(String username) {
         ArrayList<ArrayList<String>> profiles = ProfileCSVReader.openProfilesFile("profiles_export.csv");
-        for(ArrayList<String> profile : profiles){
-            if (profile.size() > ProfileCSVReader.USER_INDEX){
+        for (ArrayList<String> profile : profiles) {
+            if (profile.size() > ProfileCSVReader.USER_INDEX) {
                 String foundUsername = profile.get(ProfileCSVReader.USER_INDEX); // ensures enough elements in array
-                if (foundUsername.equals(username)){ // if the username matches the username of a current profile
+                if (foundUsername.equals(username)) { // if the username matches the username of a current profile
                     return Integer.parseInt(profile.get(ProfileCSVReader.ID_INDEX)); // returns ID associated with given username
                 }
             }
@@ -102,11 +110,12 @@ public class FriendsList {
 
     /**
      * Adds a profile to the users friend list based on the provided username
+     *
      * @param username The username of the profile to add as a friend
      */
-    public void addFriend(String username){
+    public void addFriend(String username) {
         int id = idFromUsername(username);
-        if (id != -1 && !friends.contains(id)){
+        if (id != -1 && !friends.contains(id)) {
             friends.add(id); // adds the id to the list of friends
 
             updateCSV(); // updates the CSV to reflect changes
@@ -115,9 +124,10 @@ public class FriendsList {
 
     /**
      * Removes a profile from the users friend list based on the provided username
+     *
      * @param username The username of the profile to remove as a friend
      */
-    public void removeFriend(String username){
+    public void removeFriend(String username) {
         int id = idFromUsername(username);
         friends.remove(id); // removes the id from the list of friends
 
@@ -127,11 +137,12 @@ public class FriendsList {
     /**
      * Accept a friend request from a user and adds them to the friends list
      * The request is removes from the friend request list
+     *
      * @param username The username of the user sending the friend request
      */
-    public void acceptFriendRequest(String username){
+    public void acceptFriendRequest(String username) {
         int id = idFromUsername(username);
-        if (friendRequests.contains(id)){
+        if (friendRequests.contains(id)) {
             friendRequests.remove(id); // removes the id from the friend request list
             addFriend(username); // adds the friend to the friend list
 
@@ -142,32 +153,37 @@ public class FriendsList {
 
     /**
      * Sends a friend request to the profile specified by the username
+     *
      * @param username The username of the profile to send the request to
      */
-    public void sendFriendRequest(String username){ // username is of the profile to send the request to
+    public void sendFriendRequest(String username) throws SQLException { // username is of the profile to send the request to
         int recievingId = idFromUsername(username); // id to send the request to
         String sendingUsername;
-        sendingUsername = Authentication.getProfileLoggedIn().getUsername(); // username of the user sending the request
-        int sendingId = idFromUsername(sendingUsername); // id of the user sending the request
+        try {
+            sendingUsername = ProfileDatabaseAccess.obtainProfile(this.id).getUsername(); // username of the user sending the request
+            int sendingId = idFromUsername(sendingUsername); // id of the user sending the request
 
-        ArrayList<ArrayList<String>> profiles = ProfileCSVReader.openProfilesFile("profiles_export.csv");
-        for (ArrayList<String> profile : profiles){
-            if (profile.size() > ProfileCSVReader.ID_INDEX){
-                int id = Integer.parseInt(profile.get(ProfileCSVReader.ID_INDEX));
-                if (id == recievingId){
-                    String friendRequests = profile.get(ProfileCSVReader.FREQUEST_INDEX); // get existing friend request string
-                    if (!friendRequests.contains(String.valueOf(sendingId))){
-                        if (!friendRequests.isEmpty()){
-                            friendRequests += ","; // adds a comma if the list is not empty
+            ArrayList<ArrayList<String>> profiles = ProfileCSVReader.openProfilesFile("profiles_export.csv");
+            for (ArrayList<String> profile : profiles) {
+                if (profile.size() > ProfileCSVReader.ID_INDEX) {
+                    int id = Integer.parseInt(profile.get(ProfileCSVReader.ID_INDEX));
+                    if (id == recievingId) {
+                        String friendRequests = profile.get(ProfileCSVReader.FREQUEST_INDEX); // get existing friend request string
+                        if (!friendRequests.contains(String.valueOf(sendingId))) {
+                            if (!friendRequests.isEmpty()) {
+                                friendRequests += ","; // adds a comma if the list is not empty
+                            }
+                            friendRequests += sendingId; // adds the id of the sender to the friend request list of the recieving user
+                            profile.set(ProfileCSVReader.FREQUEST_INDEX, friendRequests); // update the friend request list in the profile
                         }
-                        friendRequests += sendingId; // adds the id of the sender to the friend request list of the recieving user
-                        profile.set(ProfileCSVReader.FREQUEST_INDEX, friendRequests); // update the friend request list in the profile
+                        break; // stop loop when friends list has been updated
                     }
-                    break; // stop loop when friends list has been updated
                 }
             }
+            ProfileCSVReader.writeProfilesFile("profiles_export.csv", profiles); // write the updates back to the CSV
+        } catch (SQLException s) {
+            throw new SQLException(s.getMessage());
         }
-        ProfileCSVReader.writeProfilesFile("profiles_export.csv", profiles); // write the updates back to the CSV
     }
 }
 

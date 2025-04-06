@@ -28,10 +28,9 @@ public class ConnectionManager implements Runnable {
                 log("ConnectionManager: Accepted connection from " + clientSocket.getRemoteSocketAddress());
 
                 // Authenticate the player before accepting them to the server
-                AuthenticateClient authenticateClient = new AuthenticateClient(clientSocket);
+                AuthenticateClient authenticateClient = new AuthenticateClient(clientSocket, serverController);
                 Thread.ofVirtual().start(authenticateClient);
 
-                //Store the players handlers thread and blocking queue on the thread registry.
             }
         } catch (IOException e) {
             //Throw a message to the console and print a stack trace if there is an error.

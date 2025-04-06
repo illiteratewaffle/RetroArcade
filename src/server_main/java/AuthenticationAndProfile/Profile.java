@@ -6,8 +6,9 @@ import java.util.UUID;
 //import leaderboard.TTTRanking;
 //import leaderboard.CheckersRanking;
 //import leaderboard.Connect4Ranking;
-//import AuthenticationAndProfile.PlayerRanking;
-import leaderboard.PlayerRanking;
+//import leaderboard.PlayerRanking;
+//import leaderboard.PlayerRanking;
+//import leaderboard.PlayerRanking;
 import player.PlayerManager;
 
 public class Profile {
@@ -46,6 +47,7 @@ public class Profile {
 
     /**
      * Gets a player's email.
+     *
      * @return the current email of the player.
      */
     public String getEmail() {
@@ -54,19 +56,21 @@ public class Profile {
 
     /**
      * Sets a player's email.
+     *
      * @param newEmail the new email of the player.
      */
-    public void setEmail(String newEmail) throws SQLException{
+    public void setEmail(String newEmail) throws SQLException {
         this.email = newEmail;
         try {
             PlayerManager.updateAttribute(id, "email", newEmail);
-        } catch (SQLException s){
+        } catch (SQLException s) {
             throw new SQLException(s.getMessage());
         }
     }
 
     /**
      * Gets the hashed password of a player's account.
+     *
      * @return the player's hashed password.
      */
     public String getHashedPassword() {
@@ -75,11 +79,17 @@ public class Profile {
 
     /**
      * Sets a player's hashed password. Takes the inputted password, hashed it, then saves to profile.
+     *
      * @param newPassword the new password of the player.
      */
-    public void setHashedPassword(String newPassword) {
+    public void setHashedPassword(String newPassword) throws SQLException {
         String newHashedPassword = ProfileCreation.hashedPassword(newPassword);
         this.hashedPassword = newHashedPassword;
+        try {
+            PlayerManager.updateAttribute(id, "hashed_password", newHashedPassword);
+        } catch (SQLException s) {
+            throw new SQLException(s.getMessage());
+        }
         try {
             PlayerManager.updateAttribute(id, "hashed_password", newHashedPassword);
         } catch (SQLException e) {
@@ -90,6 +100,7 @@ public class Profile {
 
     /**
      * Gets the player's nickname.
+     *
      * @return the player's nickname.
      */
     public String getNickname() {
@@ -98,10 +109,16 @@ public class Profile {
 
     /**
      * Sets a player's nickname.
+     *
      * @param newNickname the new nickname of the player.
      */
-    public void setNickname(String newNickname) {
+    public void setNickname(String newNickname) throws SQLException {
         this.nickname = newNickname;
+        try {
+            PlayerManager.updateAttribute(id, "nickname", newNickname);
+        } catch (SQLException s) {
+            throw new SQLException(s.getMessage());
+        }
         try {
             PlayerManager.updateAttribute(id, "nickname", newNickname);
         } catch (SQLException e) {
@@ -111,6 +128,7 @@ public class Profile {
 
     /**
      * Gets the player's bio.
+     *
      * @return the player's bio.
      */
     public String getBio() {
@@ -119,10 +137,16 @@ public class Profile {
 
     /**
      * Sets a player's bio.
+     *
      * @param newBio the new bio of the player.
      */
-    public void setBio(String newBio) {
+    public void setBio(String newBio) throws SQLException {
         this.bio = newBio;
+        try {
+            PlayerManager.updateAttribute(id, "bio", newBio);
+        } catch (SQLException s) {
+            throw new SQLException(s.getMessage());
+        }
         try {
             PlayerManager.updateAttribute(id, "bio", newBio);
         } catch (SQLException e) {
@@ -132,14 +156,19 @@ public class Profile {
 
     /**
      * Sets a player's online status.
+     *
      * @param online the new online status of the player.
      */
     public void setOnlineStatus(boolean online) throws SQLException {
         isOnline = online;
-        if (online) {
-            PlayerManager.updateAttribute(this.id, Integer.toString(ProfileCSVReader.ONLINE_INDEX), "true");
-        }else {
-            PlayerManager.updateAttribute(this.id, Integer.toString(ProfileCSVReader.ONLINE_INDEX), "false");
+        try {
+            if (online) {
+                PlayerManager.updateAttribute(this.id, Integer.toString(ProfileCSVReader.ONLINE_INDEX), "true");
+            } else {
+                PlayerManager.updateAttribute(this.id, Integer.toString(ProfileCSVReader.ONLINE_INDEX), "false");
+            }
+        } catch (SQLException s) {
+            throw new SQLException(s.getMessage());
         }
     }
 
@@ -165,6 +194,7 @@ public class Profile {
 
     /**
      * Gets the player's current game.
+     *
      * @return the player's current game.
      */
     public String getCurrentGame() {
@@ -173,10 +203,16 @@ public class Profile {
 
     /**
      * Sets a player's current game.
+     *
      * @param currentGame the current game of the player.
      */
-    public void setCurrentGame(String currentGame) {
+    public void setCurrentGame(String currentGame) throws SQLException {
         this.currentGame = currentGame;
+        try {
+            PlayerManager.updateAttribute(id, "current_game", currentGame);
+        } catch (SQLException s) {
+            throw new SQLException(s.getMessage());
+        }
         try {
             PlayerManager.updateAttribute(id, "current_game", currentGame);
         } catch (SQLException e) {
@@ -186,6 +222,7 @@ public class Profile {
 
     /**
      * Gets the player's played games.
+     *
      * @return the player's played games.
      */
     public GameHistory getGameHistory() {
@@ -194,6 +231,7 @@ public class Profile {
 
     /**
      * Sets the player's played games.
+     *
      * @param gameHistory the new played games of the player.
      */
     public void setGameHistory(GameHistory gameHistory) {
@@ -202,6 +240,7 @@ public class Profile {
 
     /**
      * Gets the player's profile picture.
+     *
      * @return the player's profile picture.
      */
     public String getProfilePicFilePath() {
@@ -210,6 +249,7 @@ public class Profile {
 
     /**
      * Sets the player's profile picture.
+     *
      * @param profilePicFilePath the new profile picture of the player.
      */
     public void setProfilePicFilePath(String profilePicFilePath) {
@@ -218,13 +258,14 @@ public class Profile {
 
     /**
      * Gets the player's username.
+     *
      * @return the player's username.
      */
-    public static String exportUsername(int id) {
+    public static String exportUsername(int id) throws SQLException {
         try {
             return PlayerManager.getUsername(id);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+        } catch (SQLException s) {
+            throw new SQLException(s.getMessage());
         }
     }
 
@@ -232,30 +273,29 @@ public class Profile {
         return username;
     }
 
+
     /**
      * Sets a player's username.
+     *
      * @param newUsername the new username of the player.
      */
-    public void updateUsername(int id, String newUsername) {
+    public void updateUsername(int id, String newUsername) throws SQLException {
         this.username = newUsername;
+        try {
+            PlayerManager.updateAttribute(id, "username", newUsername);
+        } catch (SQLException s) {
+            throw new RuntimeException(s.getMessage());
+        }
         try {
             PlayerManager.updateAttribute(id, "username", newUsername);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
     }
-
-    // ChatGPT was used to generate the original code for the following 2 methods in ProfileCreationTest.java.
-    // The prompt used was: How can I make it so every time this test is run, a new username email and password are generated and it's id is used to identify it in the assertEquals statement
-    // ChatGPT suggested using UUID.randomUUID() to generate a unique identifier for the username, email, and password.
-    // UUID.randomUUID() generates a random universally unique identifier using a strong pseudo random number generator.
-    // The identifier is then converted to a string using .toString. This ensures every time this test is ran, a unique profile is created.
-    // The rest of the code in this test case (ProfileCreation.createNewProfile and following) was written without any AI assistance.
-    // To ensure this code is efficiently reusable, I've moved the generation of usernames and passwords to their own methods in the Profile class.
 
     /**
      * Generates a unique username.
+     *
      * @return a unique username.
      */
     public static String generateUsername() {
@@ -265,6 +305,7 @@ public class Profile {
 
     /**
      * Generates a unique password.
+     *
      * @return a unique password.
      */
     public static String generatePassword() {
@@ -285,7 +326,29 @@ public class Profile {
         return playerRanking;
     }
 
-    //    public TTTRanking getTTTRanking() {
+
+    public static void main(String[] args) {
+        //int id = PlayerManager.registerPlayer("jake2", "jake2@email.com", "1263876");
+//        System.out.println(PlayerManager.updateAttribute(158,"wins_checkers","10"));
+//        System.out.println(ProfileDatabaseAccess.obtainProfile(158).getPlayerRanking().getWins(PlayerRanking.CHECKERS_INDEX));
+    }
+
+    public int getID() {
+        return id;
+    }
+}
+
+
+// ChatGPT was used to generate the original code for the following 2 methods in ProfileCreationTest.java.
+// The prompt used was: How can I make it so every time this test is run, a new username email and password are generated and it's id is used to identify it in the assertEquals statement
+// ChatGPT suggested using UUID.randomUUID() to generate a unique identifier for the username, email, and password.
+// UUID.randomUUID() generates a random universally unique identifier using a strong pseudo random number generator.
+// The identifier is then converted to a string using .toString. This ensures every time this test is ran, a unique profile is created.
+// The rest of the code in this test case (ProfileCreation.createNewProfile and following) was written without any AI assistance.
+// To ensure this code is efficiently reusable, I've moved the generation of usernames and passwords to their own methods in the Profile class.
+
+
+//    public TTTRanking getTTTRanking() {
 //        return TTTRanking;
 //    }
 //
@@ -308,14 +371,3 @@ public class Profile {
 //    public void setCheckersRanking(CheckersRanking checkersRanking) {
 //        this.checkersRanking = checkersRanking;
 //    }
-
-    public static void main(String[] args) {
-        //int id = PlayerManager.registerPlayer("jake2", "jake2@email.com", "1263876");
-//        System.out.println(PlayerManager.updateAttribute(158,"wins_checkers","10"));
-//        System.out.println(ProfileDatabaseAccess.obtainProfile(158).getPlayerRanking().getWins(PlayerRanking.CHECKERS_INDEX));
-    }
-
-    public int getID() {
-        return id;
-    }
-}
