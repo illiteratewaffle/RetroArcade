@@ -231,10 +231,10 @@ public class PlayerManager {
         }
     }
 
-    public static String updateAttribute(int id, String attrColumn, String newValue) throws SQLException {
+    public static String updateAttribute(int id, String attrColumn, Object newValue) throws SQLException {
         String query = "UPDATE profiles SET " + attrColumn + " = ? WHERE id = ?";
         try (PreparedStatement statement = conn.prepareStatement(query)) {
-            statement.setString(1, newValue);
+            statement.setObject(1, newValue);
             statement.setInt(2, id);
 
             int rowsUpdated = statement.executeUpdate();
