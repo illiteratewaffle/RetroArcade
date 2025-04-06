@@ -72,7 +72,7 @@
             <Font size="16.0" />
          </font>
       </Button>
-        <TextField fx:id="friend_search" layoutX="415.0" layoutY="506.0" onAction="#search" prefHeight="45.0" prefWidth="300.0" promptText="Search for Friends" style="-fx-background-color: transparent; -fx-text-fill: #ffa200; -fx-prompt-text-fill: rgba(255, 162, 0, 0.75); -fx-border-color: #ffa200; -fx-border-width: 2px;">
+        <TextField fx:id="friend_search" layoutX="415.0" layoutY="506.0" onAction="#search" prefHeight="45.0" prefWidth="300.0" promptText="Search Username" style="-fx-background-color: transparent; -fx-text-fill: #ffa200; -fx-prompt-text-fill: rgba(255, 162, 0, 0.75); -fx-border-color: #ffa200; -fx-border-width: 2px;">
             <font>
                 <Font name="Silom" size="25.0" />
             </font>
