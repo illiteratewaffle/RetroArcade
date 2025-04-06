@@ -1,4 +1,4 @@
-package client_main.java.AuthenticationAndProfile;
+package server_main.java.AuthenticationAndProfile;
 
 class FriendsListTest {
 
