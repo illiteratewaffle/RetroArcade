@@ -27,7 +27,8 @@ import java.util.ResourceBundle;
 
 public class C4GUIController implements Initializable {
 
-    private C4Controller c4Controller;
+    private C4Controller c4Controller = new C4Controller();
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -160,10 +161,12 @@ public class C4GUIController implements Initializable {
             if (c4Controller.getC4IsGameOver()) {
                 C4Piece winner = c4Controller.getC4WinnerAsEnum();
                 if (winner == C4Piece.BLANK) {
+                    c4Controller.c4GameLogic.updateGameState();
                     System.out.println("It's a draw!");
                 } else {
                     System.out.println("Player " + winner + " wins! 🎉");
                     showWinImage();
+                    c4Controller.c4GameLogic.updateGameState();
                 }
                 disableAllColumnButtons();
             }

@@ -12,6 +12,9 @@ target/
 *.iws
 *.iml
 *.ipr
+out
+
+out/
 
 ### Eclipse ###
 .apt_generated
@@ -39,6 +42,7 @@ build/
 ### Mac OS ###
 .DS_Store
 /.idea/
-
-.idea/workspace.xml
-.idea/misc.xml
+out/
+*.xml
+*.iml
+.idea/

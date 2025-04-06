@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.SplitMenuButton?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #201e42;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI_client.leaderboardGUIController">
+    <children>
+      <ImageView fitHeight="463.0" fitWidth="891.0" layoutX="3.0" layoutY="9.0">
+         <image>
+            <Image url="@../leaderboard_assets/leaderboard_background.PNG" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="269.0" fitWidth="850.0" layoutX="28.0" layoutY="-34.0">
+         <image>
+            <Image url="@../leaderboard_assets/leaderboard.png" />
+         </image>
+      </ImageView>
+      <ScrollPane fitToWidth="true" hbarPolicy="NEVER" layoutX="39.0" layoutY="177.0" prefHeight="296.0" prefWidth="827.0" style="-fx-background-color: transparent;" vbarPolicy="NEVER">
+         <content>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="295.0" prefWidth="825.0" style="-fx-background-color: black;">
+               <children>
+                  <ImageView fitHeight="295.0" fitWidth="850.0" layoutX="-9.0">
+                     <image>
+                        <Image url="@../leaderboard_assets/star_background.PNG" />
+                     </image>
+                  </ImageView>
+                  <TableView fx:id="C4_table" layoutX="2.0" layoutY="5.0" prefHeight="295.0" prefWidth="818.0" style="-fx-background-color: transparent;" stylesheets="@style.css">
+                     <columns>
+                        <TableColumn fx:id="position" prefWidth="156.91883087158203" sortable="false" style="-fx-background-color: black;" text="Position" />
+                        <TableColumn fx:id="username" prefWidth="180.3218994140625" sortable="false" style="-fx-background-color: black;" text="Username" />
+                        <TableColumn fx:id="rating" prefWidth="179.1029052734375" sortable="false" style="-fx-background-color: black;" text="Rating" />
+                        <TableColumn fx:id="wins" prefWidth="157.5306396484375" sortable="false" style="-fx-background-color: black;" text="Wins" />
+                        <TableColumn fx:id="wlr" prefWidth="155.06146240234375" sortable="false" style="-fx-background-color: black;" text="Win/Loss Ratio" />
+                     </columns>
+                  </TableView>
+               </children>
+            </AnchorPane>
+         </content>
+      </ScrollPane>
+      <SplitMenuButton fx:id="filter_stats" layoutX="14.0" layoutY="483.0" mnemonicParsing="false" onAction="#filter" prefHeight="35.0" prefWidth="284.0" style="-fx-background-color: black;" text="Choose Player Filtering Options">
+        <items>
+          <MenuItem mnemonicParsing="false" onAction="#searchFriends" text="Friends" />
+          <MenuItem mnemonicParsing="false" onAction="#searchAnyone" text="Anyone" />
+        </items>
+         <font>
+            <Font name="Silom" size="16.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </SplitMenuButton>
+      <SplitMenuButton fx:id="sort_stats" layoutX="602.0" layoutY="483.0" mnemonicParsing="false" onAction="#sort" prefHeight="35.0" prefWidth="284.0" style="-fx-background-color: black;" text="Choose Statistics Sorting Option">
+         <items>
+            <MenuItem fx:id="sortByWins" mnemonicParsing="false" onAction="#sortByWins" text="Wins" />
+            <MenuItem fx:id="sortByWLR" mnemonicParsing="false" onAction="#sortByWLR" text="Win/Loss Ratio" />
+            <MenuItem fx:id="sortByRating" mnemonicParsing="false" onAction="#sortByRating" text="Rating" />
+         </items>
+         <font>
+            <Font name="Silom" size="16.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </SplitMenuButton>
+      <Button fx:id="toggleOrder" layoutX="309.0" layoutY="483.0" mnemonicParsing="false" onAction="#toggleOrder" prefHeight="35.0" prefWidth="284.0" text="Toggle Sort Order">
+         <font>
+            <Font size="16.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+        <TextField fx:id="friend_search" layoutX="187.0" layoutY="530.0" onAction="#search" prefHeight="49.0" prefWidth="284.0" promptText="Search Username" style="-fx-background-color: transparent; -fx-text-fill: #ffa200; -fx-prompt-text-fill: rgba(255, 162, 0, 0.75); -fx-border-color: #ffa200; -fx-border-width: 2px;">
+            <font>
+                <Font name="Silom" size="25.0" />
+            </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+        </TextField>
+      <ImageView fx:id="search_button" accessibleRole="BUTTON" fitHeight="96.0" fitWidth="121.0" layoutX="523.0" layoutY="514.0" onMouseClicked="#send_search" onMousePressed="#searchPressed" onMouseReleased="#searchReleased">
+         <image>
+            <Image url="@../leaderboard_assets/search_button.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="OPEN_HAND" />
+         </cursor>
+      </ImageView>
+      <ImageView fx:id="backButton" fitHeight="80.0" fitWidth="80.0" layoutX="807.0" layoutY="15.0" onMouseClicked="#backButtonClicked" onMousePressed="#backButtonPressed" onMouseReleased="#backButtonReleased">
+         <image>
+            <Image url="@../home_button.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="OPEN_HAND" />
+         </cursor>
+      </ImageView>
+      <ImageView fx:id="checkers_button" accessibleRole="BUTTON" fitHeight="79.0" fitWidth="227.0" layoutX="62.0" layoutY="120.0" onMouseClicked="#checkers_stats" pickOnBounds="true">
+         <image>
+            <Image url="@../leaderboard_assets/simple_check_button.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="OPEN_HAND" />
+         </cursor>
+      </ImageView>
+      <ImageView fx:id="TTT_button" accessibleRole="BUTTON" fitHeight="96.0" fitWidth="228.0" layoutX="337.0" layoutY="113.0" onMouseClicked="#TTT_stats" pickOnBounds="true">
+         <image>
+            <Image url="@../leaderboard_assets/simple_TTT_button.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="OPEN_HAND" />
+         </cursor>
+      </ImageView>
+      <ImageView fx:id="C4_button" accessibleRole="BUTTON" fitHeight="101.0" fitWidth="232.0" layoutX="617.0" layoutY="110.0" onMouseClicked="#C4_stats" pickOnBounds="true">
+         <image>
+            <Image url="@../leaderboard_assets/simple_c4_button.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="OPEN_HAND" />
+         </cursor>
+      </ImageView>
+      <ImageView fx:id="muteButton" fitHeight="80.0" fitWidth="80.0" layoutX="717.0" layoutY="15.0" onMouseClicked="#muteButtonClicked" pickOnBounds="true" preserveRatio="true">
+         <cursor>
+            <Cursor fx:constant="OPEN_HAND" />
+         </cursor></ImageView>
+
+         </children>
+</AnchorPane>

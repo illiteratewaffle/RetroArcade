@@ -18,7 +18,10 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-
+import javafx.scene.control.TextField;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.paint.Color;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
@@ -34,9 +37,18 @@ public class CheckersGUIController implements Initializable {
     public ImageView muteButton;
     @FXML
     private GridPane checkerBoard;
+    @FXML
+    private ScrollPane checkerChatPane;
+    @FXML
+    private TextField checkerChatInput;
+    @FXML
+    private TextArea checkerChatArea;
 
     @FXML
     private ImageView screen;
+
+    @FXML
+    private ImageView checkerChatBg;
 
     private CheckersController gameLogic;
     private Stage quitPopup = new Stage();
@@ -50,6 +62,7 @@ public class CheckersGUIController implements Initializable {
     private Image pinkChecker;
     private Image blueKingChecker;
     private Image pinkKingChecker;
+
 
     // Turn images
     private Image yourTurn;
@@ -81,6 +94,7 @@ public class CheckersGUIController implements Initializable {
         winnerPink = new Image("YOU_WIN_pink.png");
         quitButton.setImage(new Image("home_button.png"));
         infoButton.setImage(new Image("info_button.png"));
+        checkerChatBg.setImage(new Image("chat_bg.png"));
 
         // setup audio and mute status
         String path = Objects.requireNonNull(getClass().getResource("/music/checkersTrack.mp3")).toExternalForm(); // or absolute path
@@ -94,8 +108,23 @@ public class CheckersGUIController implements Initializable {
         } else {
             muteButton.setImage(new Image("unmuteButton.png"));
         }
-        //tie = new Image("TIE.png");
 
+        checkerChatArea.clear();
+        checkerChatArea.setStyle(
+                "-fx-background-color: transparent;" +
+                        "-fx-control-inner-background: transparent;" +
+                        "-fx-text-fill: white;" +
+                        "-fx-border-color: transparent;" +
+                        "-fx-text-fill: yellow;" +
+                        "-fx-font-size: 16px;" +
+                        "-fx-font-family: 'SilomBol.ttf';"
+        );
+        checkerChatPane.setStyle(
+                "-fx-background-color: transparent;" +
+                        "-fx-background: transparent;" +
+                        "-fx-border-color: transparent;"
+        );
+        //tie = new Image("TIE.png");
 
         for (int i = 0; i < BOARD_SIZE; i++) {
             for (int j = 0; j < BOARD_SIZE; j++) {
@@ -146,6 +175,7 @@ public class CheckersGUIController implements Initializable {
                 checkerBoard.add(tileBorderGrid[i][j], j, i);
             }
         }
+
         // update the board and turns
         refreshBoard();
         getTurn();
@@ -297,5 +327,23 @@ public class CheckersGUIController implements Initializable {
                 stage.show();
             }
         }
+    }
+    /**
+     * gets a string from chat text field and appends it to chat area
+     */
+    public void sendMessage(){
+        String message = checkerChatInput.getText();
+        if (!message.trim().isEmpty()){
+            checkerChatArea.appendText("You: " + message + "\n");
+            checkerChatInput.clear();
+        }
+    }
+
+    /**
+     * function for networking to get string messages from opponents and update chat
+     * @param message
+     */
+    public void getMessage(String message){
+        checkerChatArea.appendText(message);
     }
 }
