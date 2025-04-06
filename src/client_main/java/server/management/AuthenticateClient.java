@@ -80,7 +80,8 @@ public class AuthenticateClient implements Runnable {
                     try {
                         return PlayerManager.authenticatePlayer(username, password);
                     } catch (SQLException e) {
-                        sendError(printWriter, clientSocket, "Login failed, invalid username or password");
+                        sendError(printWriter, clientSocket, e.toString());
+                        return -1;
                     }
                 } else {
                     sendError(printWriter, clientSocket, "missing or invalid fields");
@@ -93,13 +94,13 @@ public class AuthenticateClient implements Runnable {
                     String username = (String) authData.get("username");
                     String password = (String) authData.get("password");
                     String email = (String) authData.get("email");
-                    // Registration logic
-                    int playerId = PlayerManager.registerPlayer(username, email, password);
-                    if (playerId == -1) {
-                        sendError(printWriter, clientSocket, "Registration failed, account already exists");
+                    // registration logic
+                    try {
+                        return PlayerManager.registerPlayer(username, email, password);
+                    } catch (SQLException e) {
+                        sendError(printWriter, clientSocket, e.toString());
                         return -1;
                     }
-                    return playerId;
                 } else {
                     sendError(printWriter, clientSocket, "Registration failed, missing or invalid fields");
                     return -1;
