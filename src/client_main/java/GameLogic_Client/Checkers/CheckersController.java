@@ -300,6 +300,18 @@ public class CheckersController implements IBoardGameController
     }
 
     /**
+     * Create a controller that simulates the logic of a game of checkers on the specified board.
+     * @param board The CheckersBoard containing the initial piece layout of the game.
+     */
+    public CheckersController(CheckersBoard board)
+    {
+        this.board = board;
+        validInputs = new HashMap<Ivec2, HashMap<Ivec2, CheckersMove>>();
+        // Prepare the game controller for the next (first) turn.
+        updateNextTurnGameState();
+    }
+
+    /**
      * prints out how the board looks at any point (continously????)
      * commented this out bc there was an error -ava
      * <br><br>
