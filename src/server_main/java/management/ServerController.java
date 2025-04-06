@@ -18,7 +18,7 @@ public class ServerController {
     BlockingQueue<ThreadMessage> messageQueue;
 
     //The queue for players waiting to join a game
-    Queue<PlayerHandler> gameQueue;
+    ConcurrentLinkedQueue<PlayerHandler> gameQueue;
 
     //The game creator that the server controller will use to create game sessions.
     GameCreator gameCreator;
@@ -27,7 +27,6 @@ public class ServerController {
         messageQueue = new LinkedBlockingQueue<>();
         gameQueue = new ConcurrentLinkedQueue<PlayerHandler>();
         gameCreator = new GameCreator(gameQueue);
-        Thread.ofVirtual().start(gameCreator);
 
         ThreadRegistry.register(thread, messageQueue);
     }
@@ -38,7 +37,9 @@ public class ServerController {
     public void startServer(int port) {
         ServerLogger.startServerLogger();
         ConnectionManager connectionManager = new ConnectionManager(this, port);
+
         Thread.startVirtualThread(connectionManager);
+        Thread.startVirtualThread(gameCreator);
     }
 
     public void enqueuePlayer(PlayerHandler player) {

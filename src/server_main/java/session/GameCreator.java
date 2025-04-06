@@ -9,9 +9,9 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class GameCreator implements Runnable {
 
-    Queue<PlayerHandler> gameQueue;
+    ConcurrentLinkedQueue<PlayerHandler> gameQueue;
 
-    public GameCreator(Queue<PlayerHandler> gameQueue) {
+    public GameCreator(ConcurrentLinkedQueue<PlayerHandler> gameQueue) {
         this.gameQueue = gameQueue;
     }
 
@@ -33,6 +33,7 @@ public class GameCreator implements Runnable {
      //Update the gameSessionManagerThreads within the player handlers
      player1.setGameSessionManagerThread(sessionThread);
      player2.setGameSessionManagerThread(sessionThread);
+     System.out.println("Game session made");
      }
 
     public void endSession(Thread sessionThread) {

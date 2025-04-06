@@ -59,6 +59,7 @@ public class AuthenticateClient implements Runnable {
                 ThreadRegistry.registerPlayer(playerId, playerHandler);
 
                 serverController.enqueuePlayer(playerHandler);
+                System.out.println("Player enqueued.");
             }
 
         } catch (IOException e) {
