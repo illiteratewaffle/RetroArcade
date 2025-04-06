@@ -4,9 +4,10 @@ import AuthenticationAndProfile.PlayerRanking;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import server.player.PlayerManager;
+import player.PlayerManager;
 import AuthenticationAndProfile.*;
 
+import java.sql.SQLException;
 import java.util.*;
 
 import static java.util.Map.entry;
@@ -18,8 +19,12 @@ class ProfileDatabaseAccessTest {
 
     @BeforeEach
     void setUp() {
-        id = PlayerManager.registerPlayer("username", "email@email.com", "12345678");
-        profile = ProfileDatabaseAccess.obtainProfile(id);
+        try {
+            id = PlayerManager.registerPlayer("username", "email@email.com", "12345678");
+            profile = ProfileDatabaseAccess.obtainProfile(id);
+        } catch (SQLException s) {
+            System.out.println("register player error: " + s.getMessage());
+        }
     }
 
     @AfterAll

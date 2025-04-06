@@ -6,6 +6,7 @@ import player.PlayerManager;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.sql.SQLException;
 
 /**
  * ProfileCreation Class handles converting and verify Create Account Menu parameters to create a new Profile and Update ProfileDatabase.
@@ -47,23 +48,23 @@ public class ProfileCreation {
      * @param password
      * @return boolean to indicate if registration was successful
      */
-    public static boolean createNewProfile(String username, String email, String password) {
+    public static Profile createNewProfile(String username, String email, String password) throws SQLException {
         String hashedPassword = hashedPassword(password);
-//        try{
-        int id = PlayerManager.registerPlayer(username, email, hashedPassword); //handle register player errors
-        System.out.println(id);
-        if (id == -1) {
-            System.out.println("Invalid email or username. Credentials already associated with an existing account.");
-            return false;
-        }else {
-            System.out.println("Profile registered correctly. Trying to Log In.");
-            //try {
-                boolean logIn = Authentication.logIn(username, password);
-                return logIn;
-//            } catch (Exception e) {
-//                System.out.println("Login Unsuccessful.");
+        try {
+            int id = PlayerManager.registerPlayer(username, email, hashedPassword); //handle register player errors
+            System.out.println(id);
+//            if (id == -1) {
+//                System.out.println("Invalid email or username. Credentials already associated with an existing account.");
 //                return false;
-//            }
+//            } else {
+                System.out.println("Profile registered correctly. Trying to Log In.");
+                Profile loggedInProfile = Authentication.logIn(username, password);
+                return loggedInProfile;
+            //}
+            } catch(SQLException s){
+                throw new SQLException("Login Unsuccessful: " + s.getMessage());
+            }
+    }
 //            Profile profile = ProfileDatabaseAccess.obtainProfile(id);
 //            Authentication.setProfileLoggedIn(profile);
 //            if(Authentication.getProfileLoggedIn() == profile){
@@ -71,12 +72,10 @@ public class ProfileCreation {
 //            } else {
 //                return false;
 //            }
-        }
 //        }catch () {
 //            System.out.println("Invalid email or username. Credentials already associated with an existing account.");
 //            return null;
 //    }
-    }
 
         /**
          * Hashing Algorithm for Password. Takes the entered password and encrypts it to save profile credentials to the ProfileDatabase.
@@ -100,6 +99,7 @@ public class ProfileCreation {
             return hashed;
         }
 
+
 //    /**
 //     * Method to delete the profile currently logged inm from the ProfileDatabase and then log them out.
 //     * @param authenticationSession
@@ -110,16 +110,21 @@ public class ProfileCreation {
 //        authenticationSession.logOut();
 //    }
         public static void main (String[]args) {
-            System.out.println(ProfileCreation.createNewProfile("NewBranchDatabase", "newbranchdatabase@email.com", "1234586ass8sword"));
-            //should print true
-            System.out.println(Authentication.getProfileLoggedIn().getOnlineStatus());
-            System.out.println(ProfileDatabaseAccess.obtainProfile(5).getOnlineStatus());
+            try {
+                Profile profile = ProfileCreation.createNewProfile("NewBranchDatabase", "newbranchdatabase@email.com", "1234586ass8sword");
+                System.out.println(profile.getID());
+                //should print true
+                System.out.println(profile.getOnlineStatus());
+                //System.out.println(ProfileDatabaseAccess.obtainProfile(5).getOnlineStatus());
+            }catch (SQLException s) {
+                System.out.println(s.getMessage());
 
             //Email should be: "EmailShould be in index 3@email.com"
             //System.out.println(Authentication.getProfileLoggedIn().getHashedPassword());
             //System.out.printf("HashedPassword should equal %s\n", hashedPassword("hashedPasswordInIndex4"));
             //System.out.println(Authentication.getProfileLoggedIn().getUsername());
             //Username should be : "username should be in index 1"
+        }
         }
         }
 

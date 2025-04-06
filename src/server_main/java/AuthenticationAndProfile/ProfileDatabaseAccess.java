@@ -1,5 +1,5 @@
 package AuthenticationAndProfile;
-//import leaderboard.PlayerRanking;
+//import AuthenticationAndProfile.PlayerRanking;
 import player.PlayerManager;
 
 import java.util.ArrayList;

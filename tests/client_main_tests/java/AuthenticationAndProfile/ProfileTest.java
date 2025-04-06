@@ -35,8 +35,10 @@ class ProfileTest {
 
     @Test
     void setEmail() {
-        profile.setEmail("newemail@example.com");
-        assertEquals("newemail@example.com", profile.getEmail());
+        try {
+            profile.setEmail("newemail@example.com");
+            assertEquals("newemail@example.com", profile.getEmail());
+        }
     }
 
     @Test

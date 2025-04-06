@@ -1,16 +1,17 @@
-package server_main.java.server.session;
+package session;
 
-import server.player.PlayerHandler;
-import server.management.ThreadMessage;
-import server_main.java.server.management.ThreadRegistry;
-import GameLogic_Client.ivec2;
+import player.PlayerHandler;
+import management.ThreadMessage;
+import management.ThreadRegistry;
+import GameLogic_Client.IBoardGameController;
+import GameLogic_Client.Ivec2;
 
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.IntBinaryOperator;
 
-import server.session.IBoardGameController;
+import session.IBoardGameController;
 /**
  *
  */
@@ -80,7 +81,7 @@ public class GameSessionManager implements Runnable{
 
                 if (msg.getSender() == currentPlayerThread) {
                     String inputStr = (String) msg.getContent().get("move");  // Expecting key "move"
-                    ivec2 move = parseInput(inputStr);
+                    Ivec2 move = parseInput(inputStr);
 
                     gameController.ReceiveInput(move);
                     broadcastGameState();
@@ -190,11 +191,11 @@ public class GameSessionManager implements Runnable{
         //End session
     }
 
-    private ivec2 parseInput(String inputStr) {
+    private Ivec2 parseInput(String inputStr) {
         String[] parts = inputStr.split(",");
         int x = Integer.parseInt(parts[0].trim());
         int y = Integer.parseInt(parts[1].trim());
-        return new ivec2(x, y);
+        return new Ivec2(x, y);
     }
 
 }

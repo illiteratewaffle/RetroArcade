@@ -281,7 +281,7 @@ public class PlayerManager {
         }
     }
 
-    public static String addToFriendRequestList(int id, int newFriendId) {
+    public static String addToFriendRequests(int id, int newFriendId) {
         String query = "UPDATE profiles SET friends = array_append(friend_requests, ?) WHERE id = ?";
         try (PreparedStatement statement = conn.prepareStatement(query)) {
             statement.setInt(1, newFriendId);

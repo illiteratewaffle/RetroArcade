@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+import static management.ServerLogger.log;
+
 public class ConnectionManager implements Runnable {
     private final int port;
     private final ServerController serverController;
@@ -18,12 +20,12 @@ public class ConnectionManager implements Runnable {
     public void run() {
         try (ServerSocket serverSocket = new ServerSocket(port)) {
 
-            ServerLogger.log("Connection Manager: Listening on port " + port);
+            log("ConnectionManager: Listening on port " + port);
             //Start a loop that constantly listens for clients to accept.
             while (true) {
 
                 Socket clientSocket = serverSocket.accept();
-                ServerLogger.log("Connection Manager: Accepted connection from " + clientSocket.getRemoteSocketAddress());
+                log("ConnectionManager: Accepted connection from " + clientSocket.getRemoteSocketAddress());
 
                 // Authenticate the player before accepting them to the server
                 AuthenticateClient authenticateClient = new AuthenticateClient(clientSocket);
@@ -33,7 +35,7 @@ public class ConnectionManager implements Runnable {
             }
         } catch (IOException e) {
             //Throw a message to the console and print a stack trace if there is an error.
-            ServerLogger.log("Connection Manager encountered an error: " + e.getMessage());
+            log("ConnectionManager: encountered an error: " + e.getMessage());
         }
     }
 }
