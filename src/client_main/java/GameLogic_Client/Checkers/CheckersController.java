@@ -171,6 +171,17 @@ public class CheckersController implements IBoardGameController
         return pieceValidMoves;
     }
 
+    /**
+     * A public version of getPieceMoves for testing purposes
+     *
+     * @param pieceLocation
+     * @param mustCapture
+     * @return
+     */
+    public HashMap<Ivec2, CheckersMove> getPieceMovesPublic(Ivec2 pieceLocation, boolean[] mustCapture)
+    {
+        return getPieceMoves(pieceLocation, mustCapture);
+    }
 
     /**
      * @param pieceLocation
@@ -400,6 +411,10 @@ public class CheckersController implements IBoardGameController
                 }
             }
         }
+    }
+
+    public void updateValidInputsPublic(){
+        updateValidInputs();
     }
 
 

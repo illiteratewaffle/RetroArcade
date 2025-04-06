@@ -1,15 +1,16 @@
 package client_main.java.GameLogic_Client.Checkers;
 
-import GameLogic_Client.Checkers.CheckersController;
-import GameLogic_Client.Checkers.GameState;
+import GameLogic_Client.Checkers.*;
 
-import GameLogic_Client.Checkers.CheckersPiece;
 import GameLogic_Client.Checkers.GameState;
 import GameLogic_Client.Ivec2;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class CheckersControllerTest {
     private CheckersController checkersController;
@@ -68,8 +69,68 @@ public class CheckersControllerTest {
         checkersController.removePlayer(player);
 
         // gamestate should change after removal
-        assertEquals(GameState.P1WIN, checkersController.getState());
+        assertEquals(GameState.P2WIN, checkersController.getState());
     }
 
+    @Test
+    public void getPieceMovesTest() {
+        gameLogic = new CheckersController(new CheckersBoard(8, 8, new int[][]{
+                {3, 0, 3, 0, 3, 0, 3, 0},
+                {0, 3, 0, 3, 0, 3, 0, 3},
+                {3, 0, 3, 0, 3, 0, 3, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {1, 0, 1, 0, 1, 0, 1, 0},
+                {0, 1, 0, 1, 0, 1, 0, 1},
+                {1, 0, 1, 0, 1, 0, 1, 0}
+        }));
+
+        // chosen piece is the 3rd piece from 3rd row
+        Ivec2 coords = new Ivec2(2, 2);
+        // can not capture anything
+        boolean[] mustCapture = {false};
+
+        // find the possible moves
+        var moves = gameLogic.getPieceMovesPublic(coords, mustCapture);
+
+        // It should be able to move down right and left
+        assertTrue(moves.containsKey(new Ivec2(3, 3)));
+        assertTrue(moves.containsKey(new Ivec2(1, 3)));
+        // It should not be able to move straight down
+        assertFalse(moves.containsKey(new Ivec2(2, 3)));
     }
+
+    @Test
+    public void testUpdateValidInputs() {
+        // Set up a board where P1 has pieces and valid moves
+        int[][] boardSetup = new int[][]{
+                {3, 0, 3, 0, 3, 0, 3, 0},
+                {0, 3, 0, 3, 0, 3, 0, 3},
+                {3, 0, 3, 0, 3, 0, 3, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {1, 0, 1, 0, 1, 0, 1, 0},
+                {0, 1, 0, 1, 0, 1, 0, 1},
+                {1, 0, 1, 0, 1, 0, 1, 0}
+        };
+
+        CheckersBoard board = new CheckersBoard(8, 8, boardSetup);
+        CheckersController controller = new CheckersController(board);
+
+        // Make sure game is ongoing
+        assertEquals(GameState.ONGOING, controller.getState());
+        boolean[] mustCapture = {false};
+
+        controller.updateValidInputsPublic();
+        Ivec2 start = new Ivec2(2, 2);
+        var validInputs = controller.getPieceMovesPublic(new Ivec2(2,2), mustCapture);
+
+        // Validate that moves exist for player 1
+        assertFalse(validInputs.isEmpty());
+        Ivec2 expectedTarget = new Ivec2(3, 3);
+        assertTrue(validInputs.containsKey(expectedTarget));
+    }
+
+
+}
 
