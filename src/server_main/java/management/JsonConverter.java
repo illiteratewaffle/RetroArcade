@@ -8,7 +8,7 @@ public class JsonConverter {
      * @param map the given HashMap that you want to convert to json
      * @return the json string
      */
-    public static String toJson(HashMap<String,Object> map) {
+    public static String toJson(Map<String,Object> map) throws IllegalArgumentException {
         // Create a new StringBuilder
         StringBuilder builder = new StringBuilder();
         // Start with a "{"
@@ -35,7 +35,7 @@ public class JsonConverter {
      * @param object the given Object that you want to convert to json
      * @return the json string
      */
-    private static String serializeObject(Object object) {
+    private static String serializeObject(Object object) throws IllegalArgumentException {
         if (object == null) {
             return "null";
         } else if (object instanceof String) {
@@ -51,7 +51,7 @@ public class JsonConverter {
             return serializeList((List<Object>) object);
         } else {
             // A fallback prolly isn't a good idea
-            throw new RuntimeException("Unsupported type: " + object.getClass());
+            throw new IllegalArgumentException("Unsupported type: " + object.getClass());
         }
     }
 
@@ -60,7 +60,7 @@ public class JsonConverter {
      * @param list the given List that you want to convert to json
      * @return the json string
      */
-    private static String serializeList(List<Object> list) {
+    private static String serializeList(List<Object> list) throws IllegalArgumentException {
         // Create a new StringBuilder
         StringBuilder builder = new StringBuilder();
         // Start the list with a "["
@@ -86,14 +86,14 @@ public class JsonConverter {
      * @param json the json string
      * @return the converted HashMap
      */
-    public static Map<String, Object> fromJson(String json) {
+    public static Map<String, Object> fromJson(String json) throws IllegalArgumentException {
         // Create a IntWrapper that will be used to track the index.
         IntWrapper index = new IntWrapper(0);
         String jsonStripped = json.strip();
         // If the first character of the json string is not a curley bracket, throw an exception
         if (jsonStripped.charAt(index.value) != '{')
             // TODO: create my own exception type?
-            throw new RuntimeException("Json string must start with a curly bracket.");
+            throw new IllegalArgumentException("Json string must start with a curly bracket.");
         return parseMap(jsonStripped, index);
     }
 
@@ -103,7 +103,7 @@ public class JsonConverter {
      * @param index the current index of the string
      * @return the corresponding Object
      */
-    private static Object parseObject(String json, IntWrapper index) {
+    private static Object parseObject(String json, IntWrapper index) throws IllegalArgumentException {
         char c = json.charAt(index.value);
         if (c == '{') {
             return parseMap(json, index);
@@ -117,7 +117,7 @@ public class JsonConverter {
             return parseNumber(json, index);
         }
         // If none match, throw an exception
-        throw new RuntimeException("Unsupported character " + c + " : " + json.substring(0, index.value) + "\t<-HERE\t" + json.substring(index.value));
+        throw new IllegalArgumentException("Unsupported character " + c + " : " + json.substring(0, index.value) + "\t<-HERE\t" + json.substring(index.value));
     }
 
     /**
@@ -126,9 +126,9 @@ public class JsonConverter {
      * @param index the current index of the string
      * @return the corresponding HashMap
      */
-    private static HashMap<String,Object> parseMap(String json, IntWrapper index) {
+    private static Map<String,Object> parseMap(String json, IntWrapper index) throws IllegalArgumentException {
         if (json.charAt(index.value) != '{') {
-            throw new RuntimeException("Expected opening curly bracket for the HashMap: " + json.substring(0, index.value) + "\t<-HERE\t" + json.substring(index.value));
+            throw new IllegalArgumentException("Expected opening curly bracket for the HashMap: " + json.substring(0, index.value) + "\t<-HERE\t" + json.substring(index.value));
         }
         // Skip the opening curly bracket
         index.value++;
@@ -151,7 +151,7 @@ public class JsonConverter {
             // TODO: skipWhitespace()
 
             if (index.value >= json.length() || json.charAt(index.value) != ':') {
-                throw new RuntimeException("Key missing corresponding value: " + json.substring(0, index.value) + "\t<-HERE\t" + json.substring(index.value));
+                throw new IllegalArgumentException("Key missing corresponding value: " + json.substring(0, index.value) + "\t<-HERE\t" + json.substring(index.value));
             }
             // Move past the colon
             index.value++;
@@ -171,7 +171,7 @@ public class JsonConverter {
                 index.value++;
                 return map;
             } else {
-                throw new RuntimeException("Expected ',' or '}' after hashmap item: " + json.substring(0, index.value) + "\t<-HERE\t" + json.substring(index.value));
+                throw new IllegalArgumentException("Expected ',' or '}' after hashmap item: " + json.substring(0, index.value) + "\t<-HERE\t" + json.substring(index.value));
             }
         }
         return map;
@@ -183,9 +183,9 @@ public class JsonConverter {
      * @param index the current index of the string
      * @return the corresponding List
      */
-    private static List<Object> parseList(String json, IntWrapper index) {
+    private static List<Object> parseList(String json, IntWrapper index) throws IllegalArgumentException {
         if (json.charAt(index.value) != '[') {
-            throw new RuntimeException("Expected opening square bracket for the List: " + json.substring(0, index.value) + "\t<-HERE\t" + json.substring(index.value));
+            throw new IllegalArgumentException("Expected opening square bracket for the List: " + json.substring(0, index.value) + "\t<-HERE\t" + json.substring(index.value));
         }
         // Skip the opening square bracket
         index.value++;
@@ -218,10 +218,10 @@ public class JsonConverter {
                 return list;
             } else {
                 // If there is any other character following the object, give an error
-                throw new RuntimeException("Expected ',' or ']' after list item: " + json.substring(0, index.value) + "\t<-HERE\t" + json.substring(index.value));
+                throw new IllegalArgumentException("Expected ',' or ']' after list item: " + json.substring(0, index.value) + "\t<-HERE\t" + json.substring(index.value));
             }
         }
-        throw new RuntimeException("Expected closing square bracket for the List: " + json.substring(0, index.value) + "\t<-HERE\t" + json.substring(index.value));
+        throw new IllegalArgumentException("Expected closing square bracket for the List: " + json.substring(0, index.value) + "\t<-HERE\t" + json.substring(index.value));
     }
 
     /**
@@ -230,9 +230,9 @@ public class JsonConverter {
      * @param index the current index of the string
      * @return the corresponding String
      */
-    private static String parseString(String json, IntWrapper index) {
+    private static String parseString(String json, IntWrapper index) throws IllegalArgumentException {
         if (json.charAt(index.value) != '"') {
-            throw new RuntimeException("Expected opening quote for the string: " + json.substring(0, index.value) + "\t<-HERE\t" + json.substring(index.value));
+            throw new IllegalArgumentException("Expected opening quote for the string: " + json.substring(0, index.value) + "\t<-HERE\t" + json.substring(index.value));
         }
         // Skip the opening quote
         index.value++;
@@ -260,7 +260,7 @@ public class JsonConverter {
                 // Move to the next escape sequence character
                 index.value++;
                 if (index.value >= json.length()) {
-                    throw new RuntimeException("Unterminated escape sequence: " + json.substring(0, index.value) + "\t<-HERE\t" + json.substring(index.value));
+                    throw new IllegalArgumentException("Unterminated escape sequence: " + json.substring(0, index.value) + "\t<-HERE\t" + json.substring(index.value));
                 }
                 // Get the next escape sequence character that we moved too
                 char escapeChar = json.charAt(index.value);
@@ -278,7 +278,7 @@ public class JsonConverter {
                         builder.append('\t');
                         break;
                     default:
-                        throw new RuntimeException("Unsupported escape sequence character: \\" + escapeChar + ": " + json.substring(0, index.value) + "\t<-HERE\t" + json.substring(index.value));
+                        throw new IllegalArgumentException("Unsupported escape sequence character: \\" + escapeChar + ": " + json.substring(0, index.value) + "\t<-HERE\t" + json.substring(index.value));
                 }
                 index.value++;
                 continue;
@@ -287,7 +287,7 @@ public class JsonConverter {
             builder.append(c);
             index.value++;
         }
-        throw new RuntimeException("Expected closing quote for the string: " + json.substring(0, index.value) + "\t<-HERE\t" + json.substring(index.value));
+        throw new IllegalArgumentException("Expected closing quote for the string: " + json.substring(0, index.value) + "\t<-HERE\t" + json.substring(index.value));
     }
 
     /**
@@ -296,7 +296,7 @@ public class JsonConverter {
      * @param index the current index of the string
      * @return the corresponding Boolean or null value
      */
-    private static Boolean parseBoolean(String json, IntWrapper index) {
+    private static Boolean parseBoolean(String json, IntWrapper index) throws IllegalArgumentException {
         if (json.startsWith("true", index.value)) {
             index.value += 4;
             return true;
@@ -307,7 +307,7 @@ public class JsonConverter {
             index.value += 4;
             return null;
         } else {
-            throw new RuntimeException("Expected boolean or null: " + json.substring(0, index.value) + "\t<-HERE\t" + json.substring(index.value));
+            throw new IllegalArgumentException("Expected boolean or null: " + json.substring(0, index.value) + "\t<-HERE\t" + json.substring(index.value));
         }
     }
 
@@ -317,7 +317,7 @@ public class JsonConverter {
      * @param index the current index of the string
      * @return the corresponding Integer or Double
      */
-    private static Number parseNumber(String json, IntWrapper index) {
+    private static Number parseNumber(String json, IntWrapper index) throws IllegalArgumentException {
         int start = index.value;
         boolean isFloat = false;
 
@@ -325,7 +325,7 @@ public class JsonConverter {
             char c = json.charAt(index.value);
             if (c == '.') {
                 if (isFloat) {
-                    throw new RuntimeException("Number cannot contain multiple decimal points: " + json.substring(0, index.value - 1) + "\t<-HERE\t" + json.substring(index.value - 1));
+                    throw new IllegalArgumentException("Number cannot contain multiple decimal points: " + json.substring(0, index.value - 1) + "\t<-HERE\t" + json.substring(index.value - 1));
                 }
                 isFloat = true;
                 index.value++;
@@ -346,7 +346,7 @@ public class JsonConverter {
                 return Integer.parseInt(number);
             }
         } catch (NumberFormatException e) {
-            throw new RuntimeException("Number format error: " + json.substring(0, index.value) + "\t<-HERE\t" + json.substring(index.value));
+            throw new IllegalArgumentException("Number format error: " + json.substring(0, index.value) + "\t<-HERE\t" + json.substring(index.value));
         }
     }
 

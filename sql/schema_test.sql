@@ -9,9 +9,9 @@ CREATE TABLE profiles_new
     profile_pic_path        TEXT,
     current_game            VARCHAR(100),
     is_online               BOOLEAN,
-    win_loss_ratio_TTT      DOUBLE PRECISION DEFAULT 0.0,
-    win_loss_ratio_connect4 DOUBLE PRECISION DEFAULT 0.0,
-    win_loss_ratio_checkers DOUBLE PRECISION DEFAULT 0.0,
+    win_loss_ratio_TTT      DOUBLE PRECISION DEFAULT 0.00,
+    win_loss_ratio_connect4 DOUBLE PRECISION DEFAULT 0.00,
+    win_loss_ratio_checkers DOUBLE PRECISION DEFAULT 0.00,
     rating_TTT              INT              DEFAULT 0,
     rating_connect4         INT              DEFAULT 0,
     rating_checkers         INT              DEFAULT 0,
@@ -25,6 +25,12 @@ CREATE TABLE profiles_new
     achievement_progress    JSONB,
     friends                 INT[],
     friend_requests         INT[],
+    losses_TTT              INT              DEFAULT 0,
+    losses_connect4         INT              DEFAULT 0,
+    losses_checkers         INT              DEFAULT 0,
+    total_TTT               INT              DEFAULT 0,
+    total_connect4          INT              DEFAULT 0,
+    total_checkers          INT              DEFAULT 0,
     created_at              TIMESTAMP        DEFAULT CURRENT_TIMESTAMP
 );
 
