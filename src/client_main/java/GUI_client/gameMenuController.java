@@ -69,15 +69,15 @@ public class gameMenuController implements Initializable {
         stage.setScene(new Scene(root));
         stage.show();
     }
-//    public void play_C4() throws IOException {
-//        AudioManager.mediaPlayer.stop();
-//        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("checkers.fxml")));
-//
-//        Stage stage = (Stage) gameMenu_bg_image.getScene().getWindow();
-//
-//        stage.setScene(new Scene(root));
-//        stage.show();
-//    }
+    public void play_C4() throws IOException {
+        AudioManager.mediaPlayer.stop();
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("connect4.fxml")));
+
+        Stage stage = (Stage) gameMenu_bg_image.getScene().getWindow();
+
+        stage.setScene(new Scene(root));
+        stage.show();
+    }
     public void quitMenuClicked() throws IOException {
         if (!quitPopup.isShowing()) {
             quitPopup = new Stage();

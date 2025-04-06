@@ -4,16 +4,25 @@ import GameLogic_Client.Connect4.C4Controller;
 import GameLogic_Client.Connect4.C4Piece;
 import GameLogic_Client.Ivec2;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 
+import java.io.IOException;
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class C4GUIController implements Initializable {
@@ -37,7 +46,23 @@ public class C4GUIController implements Initializable {
         setupHoverEffect(col4Button, 4);
         setupHoverEffect(col5Button, 5);
         setupHoverEffect(col6Button, 6);
+
+        String path = Objects.requireNonNull(getClass().getResource("/music/C4Track.mp4")).toExternalForm(); // or absolute path
+        Media sound = new Media(path);
+        AudioManager.mediaPlayer = new MediaPlayer(sound);
+        AudioManager.mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+        AudioManager.mediaPlayer.play();
+        if (AudioManager.isMuted()){
+            AudioManager.applyMute();
+            muteButton.setImage(new Image("muteButton.png"));
+        } else {
+            muteButton.setImage(new Image("unmuteButton.png"));
+        }
+
+        homeButton.setImage(new Image("home_button.png"));
     }
+    @FXML
+    public ImageView muteButton;
 
     @FXML
     private ImageView winImage;
@@ -50,6 +75,9 @@ public class C4GUIController implements Initializable {
 
     @FXML
     public Button info_ok_button;
+
+    @FXML
+    public ImageView homeButton;
 
     @FXML
     private void handleUserClick() {
@@ -91,6 +119,8 @@ public class C4GUIController implements Initializable {
         handleColumnClick(6);
     }
 
+    private Stage quitPopup = new Stage();
+
     @FXML
     private GridPane c4GUIGrid;
 
@@ -114,7 +144,7 @@ public class C4GUIController implements Initializable {
     }
 
     private void addPieceToGrid(int row, int col, String imgPath) {
-        ImageView piece = new ImageView(new Image(getClass().getResourceAsStream(imgPath)));
+        ImageView piece = new ImageView(new Image(Objects.requireNonNull(getClass().getResourceAsStream(imgPath))));
         piece.setFitWidth(30);
         piece.setFitHeight(30);
         piece.setOpacity(1.0);
@@ -164,7 +194,7 @@ public class C4GUIController implements Initializable {
 
     }
 
-    public void clickInfoButton(){
+    public void infoButtonClicked(){
         infoImage.setImage(new Image("C4info.jpg"));
         infoImage.setVisible(true);
         infoImage.setMouseTransparent(false);
@@ -197,4 +227,52 @@ public class C4GUIController implements Initializable {
         col6Button.setDisable(true);
     }
 
+    public void homeButtonClicked() throws IOException {
+        if (!quitPopup.isShowing()) {
+            quitPopup = new Stage();
+            Stage owner = (Stage) homeButton.getScene().getWindow();
+            quitPopup.initOwner(owner);
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("quitPopup.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            QuitPopupController controller = loader.getController();
+
+            quitPopup.initStyle(StageStyle.TRANSPARENT);
+            scene.setFill(Color.TRANSPARENT);
+
+            controller.closeOwner = false;
+            quitPopup.setScene(scene);
+            quitPopup.showAndWait();
+
+            if (controller.closeYes) {
+                AudioManager.mediaPlayer.stop();
+                Parent newRoot = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("gameMenu.fxml")));
+
+                Stage stage = (Stage) homeButton.getScene().getWindow();
+
+                stage.setScene(new Scene(newRoot));
+                stage.show();
+            }
+        }
+    }
+    public void homeButtonPressed(){
+        homeButton.setImage(new Image("home_button_pressed.png"));
+    }
+    public void homeButtonReleased(){ homeButton.setImage(new Image("home_button.png"));}
+    public void infoButtonPressed(){
+        infoButton.setImage(new Image("infoButtonDown.png"));
+    }
+    public void infoButtonReleased(){
+        infoButton.setImage(new Image("info_button.png"));
+    }
+    public void muteButtonClicked(){
+        if(!AudioManager.isMuted()) {
+            muteButton.setImage(new Image("muteButton.png"));
+            AudioManager.toggleMute();
+        } else {
+            muteButton.setImage(new Image("unmuteButton.png"));
+            AudioManager.toggleMute();
+        }
+    }
 }

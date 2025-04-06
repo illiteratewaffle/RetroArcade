@@ -4,14 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ba5d62c9-ef67-4eb7-8775-b12157e4f5a8" name="Changes" comment="Fixed errors">
+    <list default="true" id="ba5d62c9-ef67-4eb7-8775-b12157e4f5a8" name="Changes" comment="checkers Gui integrated into mainApplication">
+      <change afterPath="$PROJECT_DIR$/src/client_main/resources/GUI_buttons/home_button.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/client_main/resources/GUI_buttons/pressed/home_button_pressed.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/client_main/resources/home_button.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/client_main/resources/home_button_pressed.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/client_main/resources/music/C4Track.mp4" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/client_main/java/GUI_client/C4GUIController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client_main/java/GUI_client/C4GUIController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client_main/java/GameLogic_Client/Connect4/C4Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client_main/java/GameLogic_Client/Connect4/C4Board.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client_main/java/GameLogic_Client/Connect4/C4Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client_main/java/GameLogic_Client/Connect4/C4Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client_main/java/GameLogic_Client/Connect4/C4WinCheckerO1.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client_main/java/GameLogic_Client/Connect4/C4WinCheckerO1.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client_main/java/GameLogic_Client/Ivec2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client_main/java/GameLogic_Client/Ivec2.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client_main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client_main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/client_main/java/GUI_client/CheckersGUIController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client_main/java/GUI_client/CheckersGUIController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/client_main/java/GUI_client/TTTController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client_main/java/GUI_client/TTTController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/client_main/java/GUI_client/gameMenuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client_main/java/GUI_client/gameMenuController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/client_main/resources/GUI_client/TTT.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/client_main/resources/GUI_client/TTT.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/client_main/resources/GUI_client/checkers.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/client_main/resources/GUI_client/checkers.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/client_main/resources/GUI_client/connect4.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/client_main/resources/GUI_client/connect4.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/client_main/resources/GUI_client/gameMenu.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/client_main/resources/GUI_client/gameMenu.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,22 +44,22 @@
   <component name="GitLabDefaultAccount">
     <option name="defaultAccountId" value="f9fd431d-83e7-48e5-b416-bb8ae1ab5f40" />
   </component>
-  <component name="GitLabMergeRequestFiltersHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPENED",
-    "assignee": {
-      "type": "org.jetbrains.plugins.gitlab.mergerequest.ui.filters.GitLabMergeRequestsFiltersValue.MergeRequestsMemberFilterValue.MergeRequestsAssigneeFilterValue",
-      "username": "project_7148_bot_e76b94ef433e06eb7def30ffc4962933",
-      "fullname": "seng300-assignment-1"
+  <component name="GitLabMergeRequestFiltersHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPENED&quot;,
+    &quot;assignee&quot;: {
+      &quot;type&quot;: &quot;org.jetbrains.plugins.gitlab.mergerequest.ui.filters.GitLabMergeRequestsFiltersValue.MergeRequestsMemberFilterValue.MergeRequestsAssigneeFilterValue&quot;,
+      &quot;username&quot;: &quot;project_7148_bot_e76b94ef433e06eb7def30ffc4962933&quot;,
+      &quot;fullname&quot;: &quot;seng300-assignment-1&quot;
     }
   }
-}]]></component>
-  <component name="GitLabMergeRequestsSettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "first": "git@csgit.ucalgary.ca:ryan.hashemiantabriz/seng300-w25-project.git",
-    "second": "39e2ddf0-b747-4969-907b-987f1786dd46"
+}</component>
+  <component name="GitLabMergeRequestsSettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;first&quot;: &quot;git@csgit.ucalgary.ca:ryan.hashemiantabriz/seng300-w25-project.git&quot;,
+    &quot;second&quot;: &quot;39e2ddf0-b747-4969-907b-987f1786dd46&quot;
   }
-}]]></component>
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 8
 }</component>
@@ -75,15 +82,18 @@
     "last_opened_file_path": "C:/Users/Tyler/IdeaProjects/seng300-w25-project/src/client_main/resources/music",
     "node.js.detected.package.eslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)"
+    "node.js.selected.package.tslint": "(autodetect)",
+    "settings.editor.selected.configurable": "preferences.pluginManager"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Tyler\IdeaProjects\seng300-w25-project\src\client_main\resources\music" />
       <recent name="C:\Users\Tyler\IdeaProjects\seng300-w25-project\src\client_main\resources" />
+      <recent name="C:\Users\Tyler\IdeaProjects\seng300-w25-project\src\client_main\resources\GUI_buttons" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Tyler\IdeaProjects\seng300-w25-project\src\client_main\resources\GUI_buttons\pressed" />
       <recent name="C:\Users\Tyler\IdeaProjects\seng300-w25-project\src\client_main\resources" />
     </key>
   </component>
@@ -173,13 +183,13 @@
       <option name="project" value="LOCAL" />
       <updated>1743883312686</updated>
     </task>
-    <task id="LOCAL-00008" summary="Fixed errors">
+    <task id="LOCAL-00008" summary="checkers Gui integrated into mainApplication">
       <option name="closed" value="true" />
-      <created>1743903634191</created>
+      <created>1743885740044</created>
       <option name="number" value="00008" />
       <option name="presentableId" value="LOCAL-00008" />
       <option name="project" value="LOCAL" />
-      <updated>1743903634191</updated>
+      <updated>1743885740044</updated>
     </task>
     <option name="localTasksCounter" value="9" />
     <servers />
@@ -207,6 +217,7 @@
     <MESSAGE value="Merged into p3_gui" />
     <MESSAGE value="Fixed compiling errors" />
     <MESSAGE value="Fixed errors" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed errors" />
+    <MESSAGE value="checkers Gui integrated into mainApplication" />
+    <option name="LAST_COMMIT_MESSAGE" value="checkers Gui integrated into mainApplication" />
   </component>
 </project>

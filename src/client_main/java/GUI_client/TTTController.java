@@ -117,7 +117,6 @@ public class TTTController implements Initializable {
 
     private Stage quitPopup = new Stage();
 
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Font.loadFont(getClass().getResourceAsStream("Fonts/SilomBol.ttf"), 16);
@@ -126,7 +125,7 @@ public class TTTController implements Initializable {
         // set background and foreground images
         background_image.setImage(bg_image);
         board_image.setImage(b_image);
-        quit_image.setImage(new Image("quit_x.png"));
+        quit_image.setImage(new Image("home_button.png"));
         infoButton.setImage(new Image("info_button.png"));
 
         String path = Objects.requireNonNull(getClass().getResource("/music/TTTTrack.mp3")).toExternalForm(); // or absolute path
@@ -389,10 +388,10 @@ public class TTTController implements Initializable {
         info_ok_button.setMouseTransparent(true);
     }
     public void XPressed(){
-        quit_image.setImage(new Image("XButtonDown.png"));
+        quit_image.setImage(new Image("home_button_pressed.png"));
     }
     public void XReleased(){
-        quit_image.setImage(new Image("quit_x.png"));
+        quit_image.setImage(new Image("home_button.png"));
     }
     public void infoPressed(){
         infoButton.setImage(new Image("infoButtonDown.png"));

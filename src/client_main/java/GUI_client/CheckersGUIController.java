@@ -79,7 +79,7 @@ public class CheckersGUIController implements Initializable {
         opponentTurn = new Image("checkers_blue_piece.png");
         winnerBlue = new Image("YOU_WIN_blue.png");
         winnerPink = new Image("YOU_WIN_pink.png");
-        quitButton.setImage(new Image("quit_x.png"));
+        quitButton.setImage(new Image("home_button.png"));
         infoButton.setImage(new Image("info_button.png"));
 
         // setup audio and mute status
@@ -249,10 +249,10 @@ public class CheckersGUIController implements Initializable {
         // otherwise do nothing and keep playing
     }
     public void XPressed(){
-        quitButton.setImage(new Image("XButtonDown.png"));
+        quitButton.setImage(new Image("home_button_pressed.png"));
     }
     public void XReleased(){
-        quitButton.setImage(new Image("quit_x.png"));
+        quitButton.setImage(new Image("home_button.png"));
     }
     public void infoPressed(){
         infoButton.setImage(new Image("infoButtonDown.png"));

@@ -317,11 +317,11 @@
       <ScrollPane layoutX="730.0" layoutY="168.0" prefHeight="317.0" prefWidth="164.0" vbarPolicy="ALWAYS" />
       <TextField layoutX="732.0" layoutY="492.0" prefHeight="20.0" prefWidth="119.0" promptText="send to chat" />
       <ImageView fitHeight="36.0" fitWidth="36.0" layoutX="855.0" layoutY="487.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="quitButton" fitHeight="80.0" fitWidth="80.0" layoutX="799.0" layoutY="14.0" onMouseClicked="#quitCheckers" onMousePressed="#XPressed" onMouseReleased="#XReleased" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="quitButton" fitHeight="80.0" fitWidth="80.0" layoutX="807.0" layoutY="15.0" onMouseClicked="#quitCheckers" onMousePressed="#XPressed" onMouseReleased="#XReleased" pickOnBounds="true" preserveRatio="true">
          <cursor>
             <Cursor fx:constant="OPEN_HAND" />
          </cursor></ImageView>
-      <ImageView fx:id="muteButton" fitHeight="80.0" fitWidth="80.0" layoutX="712.0" layoutY="14.0" onMouseClicked="#muteButtonClick" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="muteButton" fitHeight="80.0" fitWidth="80.0" layoutX="717.0" layoutY="15.0" onMouseClicked="#muteButtonClick" pickOnBounds="true" preserveRatio="true">
          <cursor>
             <Cursor fx:constant="OPEN_HAND" />
          </cursor></ImageView>
