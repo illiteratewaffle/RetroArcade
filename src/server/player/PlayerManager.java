@@ -1,6 +1,6 @@
 package server.player;
 
-import server.database.databaseConnector;
+import server.database.DatabaseConnector;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -11,7 +11,7 @@ import java.util.List;
 import static server.management.ServerLogger.log;
 
 public class PlayerManager {
-    private static final Connection conn = databaseConnector.connect();
+    private static final Connection conn = DatabaseConnector.connect();
 
     /**
      * Registers a new player with only the required information.
@@ -37,16 +37,16 @@ public class PlayerManager {
 
             if(rs.next()) {
                 int newPlayerID = rs.getInt("id");
-                System.out.println("Player " + newPlayerID + " Registered Successfully!");
+                log("PlayerManager: Player " + newPlayerID + " Registered Successfully!");
                 return newPlayerID;
             } else {
-                System.err.println("Registration failed: No ID returned.");
+                log("PlayerManager: Registration failed: No ID returned.");
                 return -1;
             }
 
         } catch (SQLException e) {
             // Error message notifying user of issue.
-            System.err.println("Error inserting new player into database: " + e.getMessage());
+            log("PlayerManager: Error inserting new player into database: " + e.getMessage());
             e.printStackTrace();
             return -1;
         }
@@ -70,15 +70,15 @@ public class PlayerManager {
             // If a row is returned matching player credentials, returns player ID
             if (rs.next()) {
                 int playerId = rs.getInt("id");
-                log("Authentication successful. Player ID: " + playerId);
+                log("PlayerManager: Authentication successful. Player ID: " + playerId);
                 return playerId;
             } else {
-                log("Authentication failed: Invalid username or password.");
+                log("PlayerManager: Authentication failed. Invalid username or password.");
                 return -1;
             }
         } catch (SQLException e) {
             // If there was an error authenticating a player, user is notified
-            System.err.println("Authentication failed: " + e.getMessage());
+            log("PlayerManager: PlayerManager. Authentication failed: " + e.getMessage());
             // Returns -1
             return -1;
         }
@@ -112,12 +112,12 @@ public class PlayerManager {
                 }
                 writer.append("\n");
 
-                log("Player data written to: " + fileName);
+                log("PlayerManager: Player data written to: " + fileName);
             } else {
-                log("No player found with ID: " + id);
+                log("PlayerManager: No player found with ID: " + id);
             }
         } catch (SQLException | IOException e) {
-            System.err.println("Error retrieving or writing player data: " + e.getMessage());
+            log("PlayerManager: PlayerManager: Error retrieving or writing player data: " + e.getMessage());
         }
     }
 
@@ -165,7 +165,7 @@ public class PlayerManager {
             log("Exported " + rowCount + " profile(s) to " + csvFile);
         } catch (SQLException | IOException e) {
             // Exception error messages in case of SQL or file I/O issues
-            System.err.println("Error exporting profile data: " + e.getMessage());
+            log("PlayerManager: Error exporting profile data: " + e.getMessage());
         }
     }
 
@@ -194,7 +194,7 @@ public class PlayerManager {
                 matchingIds.add(rs.getInt("id"));
             }
         } catch (SQLException e) {
-            System.err.println("Error searching friends by substring: " + e.getMessage());
+            log("PlayerManager: Error searching friends by substring: " + e.getMessage());
         }
         // Return the friend's list that match the substring passed through
         return matchingIds;
@@ -214,7 +214,7 @@ public class PlayerManager {
                 return null;
             }
         } catch (SQLException e) {
-            System.err.println("Error searching username: " + e.getMessage());
+            log("PlayerManager: Error searching username: " + e.getMessage());
             return null;
         }
     }
@@ -247,6 +247,8 @@ public class PlayerManager {
     }
 
     public static void main(String[] args) {
-        updateAttribute(56, "username", "updatedUSer2" );
+        // updateAttribute(56, "username", "updatedUSer2" );
+        getProfileTable();
+        deleteProfile(94);
     }
 }

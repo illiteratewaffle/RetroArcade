@@ -35,11 +35,13 @@ public class AuthenticateClient implements Runnable {
             PrintWriter printWriter = new PrintWriter(clientSocket.getOutputStream(), true);
             // Check their input
             String auth = bufferedReader.readLine();
+            // TODO: Make it so it doesn't crash
             Map<String, Object> authData = fromJson(auth);
             // Make sure the json contains the type, username, and password.
             int playerId = authenticate(authData, printWriter, clientSocket);
             // If the authentication was successful, create a PlayerHandler
-            if (playerId == -1) {
+            if (playerId != -1) {
+                log("AuthenticateClient: Player " + playerId + " authenticated.");
                 //Create a blocking queue and player handler to handle the player connection on the server side.
                 BlockingQueue<ThreadMessage> queue = new LinkedBlockingQueue<>();
                 PlayerHandler playerHandler = new PlayerHandler(clientSocket, queue);
@@ -49,15 +51,20 @@ public class AuthenticateClient implements Runnable {
                 ThreadRegistry.threadRegistry.put(playerThread, queue);
                 // Add the new player to the playerList
                 synchronized (ThreadRegistry.playerList) {
-                    ThreadRegistry.playerList.add(new Player(playerThread, playerHandler));
+                    ThreadRegistry.playerList.add(new Player(playerThread, playerHandler, playerId));
                     // log("The new player is on Thread", playerThread.threadId());
                     ThreadRegistry.playerList.notifyAll();
                 }
             }
 
         } catch (IOException e){
-            log("Failure to initialize AuthenticateClient BufferedReader/BufferedWriter: ", e.toString());
-            // TODO: close client's connection
+            log("AuthenticateClient: Failure to initialize BufferedReader/BufferedWriter: ", e.toString());
+            // Close the client's socket
+            try {
+                clientSocket.close();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
         }
     }
 
@@ -68,15 +75,22 @@ public class AuthenticateClient implements Runnable {
      * @param errorMessage the error message for the client and log command
      */
     private void sendError(PrintWriter printWriter, Socket clientSocket, String errorMessage) {
-        log("Authenticate Client:", errorMessage, clientSocket.getRemoteSocketAddress());
+        log("AuthenticateClient:", errorMessage, clientSocket.getRemoteSocketAddress());
         HashMap<String, Object> response = new HashMap<>();
         response.put("type", "error");
         response.put("message", errorMessage);
         printWriter.println(toJson(response));
+        printWriter.flush();
+        log("AuthenticateClient: Sent: " + toJson(response));
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException ex) {
+            throw new RuntimeException(ex);
+        }
         try {
             clientSocket.close();
         } catch (IOException e) {
-            log("Failure to close socket: ", clientSocket.getRemoteSocketAddress());
+            log("AuthenticateClient: Failure to close socket: ", clientSocket.getRemoteSocketAddress());
         }
     }
 
@@ -93,7 +107,7 @@ public class AuthenticateClient implements Runnable {
                     String password = (String) authData.get("password");
                     // TODO: Implement login logic here
                     int playerId = PlayerManager.authenticatePlayer(username, password);
-                    if (playerId != -1) {
+                    if (playerId == -1) {
                         sendError(printWriter, clientSocket, "Login failed, invalid username or password");
                         return -1;
                     }
@@ -110,7 +124,7 @@ public class AuthenticateClient implements Runnable {
                     String password = (String) authData.get("password");
                     String email = (String) authData.get("email");
                     // TODO: Implement registration logic here
-                    int playerId = PlayerManager.registerPlayer(username, password, email);
+                    int playerId = PlayerManager.registerPlayer(username, email, password);
                     if (playerId == -1) {
                         sendError(printWriter, clientSocket, "Registration failed, account already exists");
                         return -1;

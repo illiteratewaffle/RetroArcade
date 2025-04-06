@@ -8,6 +8,9 @@ import java.net.Socket;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.LinkedBlockingQueue;
+
+import static server.management.JsonConverter.fromJson;
+import static server.management.JsonConverter.toJson;
 import static server.management.ServerLogger.log;
 
 /**
@@ -42,7 +45,7 @@ public class PlayerHandler implements Runnable {
             this.bufferedReader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
             this.printWriter = new PrintWriter(clientSocket.getOutputStream(), true);
         } catch (IOException e){
-            log("Failure to initialize PlayerHandler BufferedReader/BufferedWriter:", e.toString());
+            log("PlayerHandler: Failure to initialize PlayerHandler BufferedReader/BufferedWriter:", e.toString());
         }
     }
 
@@ -55,7 +58,6 @@ public class PlayerHandler implements Runnable {
         // Start the PlayerHandlerListener thread
         PlayerHandlerListener playerHandlerListener = new PlayerHandlerListener();
         Thread playerHandlerListenerThread = Thread.ofVirtual().start(playerHandlerListener);
-
         //
         while (running) {
             try {
@@ -63,16 +65,17 @@ public class PlayerHandler implements Runnable {
                 ThreadMessage threadMessage = queue.take();
                 // Grab the thread GameSessionManager is on for communicating back to it
                 synchronized (gameSessionLock) {
-                    if (gameSessionManagerThread == null) {
+                    if (gameSessionManagerThread == null && threadMessage.getContent().get("type").equals("game-link")) {
                         gameSessionManagerThread = threadMessage.getSender();
                         gameSessionLock.notifyAll();
+                        // Don't send this command to the client
+                        continue;
                     }
                 }
                 // Convert to json formatting then send it to the client
-                // THERE IS NO JSON TO STRING CONVERSION CLASS CREATED YET
-                printWriter.println(threadMessage.getContent());
+                printWriter.println(toJson(threadMessage.getContent()));
             } catch (InterruptedException e) {
-                log("Failure to take message blocking queue for PlayerHandler:", e.toString());
+                log("PlayerHandler: Failure to take message blocking queue for PlayerHandler:", e.toString());
             }
         }
     }
@@ -91,7 +94,7 @@ public class PlayerHandler implements Runnable {
                     String message = bufferedReader.readLine();
                     // Convert the json formatting and send it to the GameSessionManager
                     // THERE IS NO JSON TO STRING CONVERSION CLASS CREATED YET
-                    ThreadMessage threadMessage = new ThreadMessage(mainThread, message);
+                    ThreadMessage threadMessage = new ThreadMessage(mainThread, fromJson(message));
                     // Make sure that we have the GameSessionManagerThread before attempting to send information to it
                     synchronized (gameSessionLock) {
                         if (gameSessionManagerThread == null)
@@ -100,10 +103,10 @@ public class PlayerHandler implements Runnable {
                     // Relay the message to the GameSessionManager
                     networkManager.sendMessage(gameSessionManagerThread, threadMessage);
                 } catch (IOException e) {
-                    log("Failure to read a message from the client using the BufferedReader:", e.toString());
+                    log("PlayerHandler: Failure to read a message from the client using the BufferedReader:", e.toString());
                 } catch (InterruptedException e) {
                     // just gotta say this should be passed in through some way man, maybe a function? idk doesn't matter
-                    log("Never received the thread for the GameSessionManager:", e.toString());
+                    log("PlayerHandler: Never received the thread for the GameSessionManager:", e.toString());
                 }
             }
         }

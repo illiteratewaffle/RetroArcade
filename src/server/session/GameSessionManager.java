@@ -4,6 +4,7 @@ import server.management.ThreadRegistry;
 import server.player.Player;
 import server.management.ThreadMessage;
 
+import java.util.HashMap;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -31,8 +32,10 @@ public class GameSessionManager implements Runnable {
         queue.put(Thread.currentThread(), new LinkedBlockingQueue<>());
         log("GameSessionManager created");
         // here goes the code for running the game + communicating with the player handlers
-        queue.get(player1.getThread()).add(new ThreadMessage(Thread.currentThread(), "This is the GameSessionManager talking to you!"));
-        queue.get(player2.getThread()).add(new ThreadMessage(Thread.currentThread(), "This is the GameSessionManager talking to you!"));
+        HashMap<String, Object> message = new HashMap<>();
+        message.put("type", "game-link");
+        queue.get(player1.getThread()).add(new ThreadMessage(Thread.currentThread(), message));
+        queue.get(player2.getThread()).add(new ThreadMessage(Thread.currentThread(), message));
         while (true) {
             try {
 //                // This is NASTY
@@ -41,9 +44,17 @@ public class GameSessionManager implements Runnable {
                 ThreadMessage threadMessage = queue.get(Thread.currentThread()).take();
                 Thread sender = threadMessage.getSender();
                 if (sender == player1.getThread()) {
-                    queue.get(player2.getThread()).add(new ThreadMessage(Thread.currentThread(), threadMessage.getContent()));
+                    HashMap<String, Object> message2 = new HashMap<>();
+                    message2.put("type", "message");
+                    message2.put("sender", player1.getUsername());
+                    message2.put("message", threadMessage.getContent().get("message"));
+                    queue.get(player2.getThread()).add(new ThreadMessage(Thread.currentThread(), message2));
                 } else if (sender == player2.getThread()) {
-                    queue.get(player1.getThread()).add(new ThreadMessage(Thread.currentThread(), threadMessage.getContent()));
+                    HashMap<String, Object> message2 = new HashMap<>();
+                    message2.put("type", "message");
+                    message2.put("sender", player2.getUsername());
+                    message2.put("message", threadMessage.getContent().get("message"));
+                    queue.get(player1.getThread()).add(new ThreadMessage(Thread.currentThread(), message2));
                 } else {
                     log("The player's message failed to route correctly.");
                 }

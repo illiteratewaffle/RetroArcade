@@ -6,7 +6,9 @@ import java.sql.*;
 import java.io.IOException;
 import java.util.Properties;
 
-public class databaseConnector {
+import static server.management.ServerLogger.log;
+
+public class DatabaseConnector {
     private static String URL = "";
     private static String USER = "";
     private static String PASSWORD = "";
@@ -14,7 +16,7 @@ public class databaseConnector {
 
     /**
      * Loads configuration file containing database admin details for connection to the database
-     * @param filename
+     * @param filename the filename
      */
     public static void loadConfiguration(String filename) {
         try (InputStream input = new FileInputStream("resources/" + filename);) {
@@ -28,7 +30,7 @@ public class databaseConnector {
             PASSWORD = properties.getProperty("db.password");
         } catch (IOException e) {
             // TODO: could be logged?
-            System.err.println("Error loading database configuration: " + e.getMessage());
+            log("DatabaseConnector: Error loading database configuration: " + e.getMessage());
         }
     }
 
@@ -42,10 +44,10 @@ public class databaseConnector {
                 loadConfiguration("db-config-test.properties");
                 connection = DriverManager.getConnection(URL, USER, PASSWORD);
                 // TODO: log?
-                System.out.println("Connected to the database.");
+                log("DatabaseConnector: Connected to the database.");
             } catch (SQLException e) {
                 // TODO: log?
-                System.err.println("Database connection failed: " + e.getMessage());
+                log("DatabaseConnector: Database connection failed: " + e.getMessage());
             }
         }
         return connection;
@@ -59,10 +61,10 @@ public class databaseConnector {
             try {
                 connection.close();
                 // TODO: log?
-                System.out.println("Database connection closed.");
+                log("DatabaseConnector: Database connection closed.");
             } catch (SQLException e) {
                 // TODO: log?
-                System.err.println("Error closing database connection: " + e.getMessage());
+                log("DatabaseConnector: Error closing database connection: " + e.getMessage());
             }
         }
     }
