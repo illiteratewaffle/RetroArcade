@@ -22,7 +22,7 @@ public class PlayerManager {
      * @param username Unique username of the player.
      * @return Confirmation message on success or error message on failure.
      */
-    public static int registerPlayer(String username, String email, String hashedPassword) {
+    public static int registerPlayer(String username, String email, String hashedPassword) throws SQLException {
 
         // Prepare SQL query for storing profile into db. PreparedStatement is used to prevent SQL injection
         String query = "INSERT INTO profiles (username, email, hashed_Password) VALUES (?, ?, ?) RETURNING id";
@@ -45,10 +45,8 @@ public class PlayerManager {
             }
 
         } catch (SQLException e) {
-            // Error message notifying user of issue.
-            System.err.println("Error inserting new player into database: " + e.getMessage());
-            e.printStackTrace();
-            return -1;
+            // Possibly do some logging
+            throw new SQLException("Failed to register player: " + e.getMessage(), e);
         }
     }
 
@@ -58,7 +56,7 @@ public class PlayerManager {
      * @param passwordHash Checks username contains matching passwordHash in database.
      * @return true if player credentials match, false otherwise.
      */
-    public static int authenticatePlayer(String username, String passwordHash) {
+    public static int authenticatePlayer(String username, String passwordHash) throws SQLException {
         // Prepare SQL query for storing profile into db. PreparedStatement is used to prevent SQL injection
         String query = "SELECT id FROM profiles WHERE username = ? AND hashed_password = ?";
 
@@ -80,11 +78,11 @@ public class PlayerManager {
             // If there was an error authenticating a player, user is notified
             System.err.println("Authentication failed: " + e.getMessage());
             // Returns -1
-            return -1;
+            throw new SQLException("Failed to authenticate player: " + e.getMessage(), e);
         }
     }
 
-    public static void getProfile(int id) {
+    public static void getProfile(int id) throws SQLException, IOException {
         String query = "SELECT * FROM profiles WHERE id = ?";
         String fileName = "player_profile_" + id + ".csv";
 
@@ -117,14 +115,14 @@ public class PlayerManager {
                 log("No player found with ID: " + id);
             }
         } catch (SQLException | IOException e) {
-            System.err.println("Error retrieving or writing player data: " + e.getMessage());
+            throw new SQLException("Error retrieving or writing player data: " + e.getMessage(), e);
         }
     }
 
     /**
      * Fetches all profile data from the database and writes it into a CSV file.
      */
-    public static void getProfileTable() {
+    public static void getProfileTable() throws SQLException {
         // SQL query to fetch all rows in the profiles table
         String query = "SELECT * FROM profiles";
         // Keeps track of the number of rows exported
@@ -165,11 +163,11 @@ public class PlayerManager {
             log("Exported " + rowCount + " profile(s) to " + csvFile);
         } catch (SQLException | IOException e) {
             // Exception error messages in case of SQL or file I/O issues
-            System.err.println("Error exporting profile data: " + e.getMessage());
+            throw new SQLException("Error exporting profile data: " + e.getMessage());
         }
     }
 
-    public static List<Integer> searchFriendsList(int id, String nameFragment) {
+    public static List<Integer> searchFriendsList(int id, String nameFragment) throws SQLException {
         // SQL query that searches friends based on friend usernames that match the submitted string parameter
         String query = """
                 SELECT id
@@ -194,13 +192,13 @@ public class PlayerManager {
                 matchingIds.add(rs.getInt("id"));
             }
         } catch (SQLException e) {
-            System.err.println("Error searching friends by substring: " + e.getMessage());
+            throw new SQLException("Error searching friends by substring: " + e.getMessage());
         }
         // Return the friend's list that match the substring passed through
         return matchingIds;
     }
 
-    public static String getUsername(int id) {
+    public static String getUsername(int id) throws SQLException {
         String query = "SELECT username FROM profiles WHERE id = ?";
 
         try (PreparedStatement statement = conn.prepareStatement(query)) {
@@ -214,12 +212,11 @@ public class PlayerManager {
                 return null;
             }
         } catch (SQLException e) {
-            System.err.println("Error searching username: " + e.getMessage());
-            return null;
+            throw new SQLException("Error searching username: " + e.getMessage(), e);
         }
     }
 
-    public static String deleteProfile(int id) {
+    public static String deleteProfile(int id) throws SQLException {
         String query = "DELETE FROM profiles WHERE id = ?";
         try (PreparedStatement statement = conn.prepareStatement(query)) {
             statement.setInt(1, id);
@@ -230,11 +227,11 @@ public class PlayerManager {
                 return "No player found with ID " + id + ".";
             }
         } catch (SQLException e) {
-            return "Error deleting profile: " + e.getMessage();
+            throw new SQLException("Error deleting profile: " + e.getMessage(), e);
         }
     }
 
-    public static String updateAttribute(int id, String attrColumn, String newValue) {
+    public static String updateAttribute(int id, String attrColumn, String newValue) throws SQLException {
         String query = "UPDATE profiles SET " + attrColumn + " = ? WHERE id = ?";
         try (PreparedStatement statement = conn.prepareStatement(query)) {
             statement.setString(1, newValue);
@@ -247,11 +244,11 @@ public class PlayerManager {
                 return "No player found with ID: " + id;
             }
         } catch (SQLException e) {
-            return "Error updating player attribute: " + e.getMessage();
+            throw new SQLException("Error updating player attribute: " + e.getMessage(), e);
         }
     }
 
-    public static String getAttribute(int id, String attrColumn) {
+    public static String getAttribute(int id, String attrColumn) throws SQLException {
         String query = "SELECT " + attrColumn + " FROM profiles WHERE id = ?";
         try (PreparedStatement statement = conn.prepareStatement(query)) {
             statement.setInt(1, id);
@@ -263,12 +260,11 @@ public class PlayerManager {
                 return null;
             }
         } catch (SQLException e) {
-            System.err.println("Error retrieving attribute '" + attrColumn + "' for player ID " + id + ": " + e.getMessage());
-            return null;
+            throw new SQLException("Error retrieving attribute '" + attrColumn + "' for player ID " + id + ": " + e.getMessage(), e);
         }
     }
 
-    public static void main(String[] args) {
-        System.out.println(updateAttribute(1, "email", "newEmail@me.ca" ));
+    public static void main(String[] args) throws SQLException {
+        getAttribute(22, "nickname");
     }
 }
