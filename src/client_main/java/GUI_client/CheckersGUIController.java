@@ -108,6 +108,22 @@ public class CheckersGUIController implements Initializable {
         } else {
             muteButton.setImage(new Image("unmuteButton.png"));
         }
+
+        checkerChatArea.clear();
+        checkerChatArea.setStyle(
+                "-fx-background-color: transparent;" +
+                        "-fx-control-inner-background: transparent;" +
+                        "-fx-text-fill: white;" +
+                        "-fx-border-color: transparent;" +
+                        "-fx-text-fill: yellow;" +
+                        "-fx-font-size: 16px;" +
+                        "-fx-font-family: 'SilomBol.ttf';"
+        );
+        checkerChatPane.setStyle(
+                "-fx-background-color: transparent;" +
+                        "-fx-background: transparent;" +
+                        "-fx-border-color: transparent;"
+        );
         //tie = new Image("TIE.png");
 
         for (int i = 0; i < BOARD_SIZE; i++) {
@@ -159,21 +175,7 @@ public class CheckersGUIController implements Initializable {
                 checkerBoard.add(tileBorderGrid[i][j], j, i);
             }
         }
-        checkerChatArea.clear();
-        checkerChatArea.setStyle(
-                "-fx-background-color: transparent;" +
-                        "-fx-control-inner-background: transparent;" +
-                        "-fx-text-fill: white;" +
-                        "-fx-border-color: transparent;" +
-                        "-fx-text-fill: yellow;" +
-                        "-fx-font-size: 16px;" +
-                        "-fx-font-family: 'SilomBol.ttf';"
-        );
-        checkerChatPane.setStyle(
-                "-fx-background-color: transparent;" +
-                        "-fx-background: transparent;" +
-                        "-fx-border-color: transparent;"
-        );
+
         // update the board and turns
         refreshBoard();
         getTurn();
