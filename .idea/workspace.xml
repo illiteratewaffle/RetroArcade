@@ -4,8 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ba5d62c9-ef67-4eb7-8775-b12157e4f5a8" name="Changes" comment="removed unneccessary applications">
-      <change afterPath="$PROJECT_DIR$/src/client_main/resources/GUI_client/checkers.fxml" afterDir="false" />
+    <list default="true" id="ba5d62c9-ef67-4eb7-8775-b12157e4f5a8" name="Changes" comment="readded fxml files">
+      <change beforePath="$PROJECT_DIR$/src/client_main/java/GUI_client/QuitPopupController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client_main/java/GUI_client/QuitPopupController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/client_main/java/GUI_client/TTTController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client_main/java/GUI_client/TTTController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/client_main/java/GUI_client/gameMenuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client_main/java/GUI_client/gameMenuController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,23 +58,23 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.C4Application.executor": "Run",
-    "Application.CheckersApplication.executor": "Run",
-    "Application.MainApplication.executor": "Run",
-    "Application.TTTApplication.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "p3__GUI",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/Tyler/IdeaProjects/seng300-w25-project/src/client_main/resources/music",
-    "node.js.detected.package.eslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "settings.editor.selected.configurable": "preferences.pluginManager"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.C4Application.executor&quot;: &quot;Run&quot;,
+    &quot;Application.CheckersApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Application.MainApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Application.TTTApplication.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;p3__GUI&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Tyler/IdeaProjects/seng300-w25-project/src/client_main/resources/music&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Tyler\IdeaProjects\seng300-w25-project\src\client_main\resources\music" />
@@ -202,7 +204,15 @@
       <option name="project" value="LOCAL" />
       <updated>1743913105435</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="readded fxml files">
+      <option name="closed" value="true" />
+      <created>1743913285897</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1743913285897</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -231,6 +241,7 @@
     <MESSAGE value="checkers Gui integrated into mainApplication" />
     <MESSAGE value="integrated C4 into gamemenu" />
     <MESSAGE value="removed unneccessary applications" />
-    <option name="LAST_COMMIT_MESSAGE" value="removed unneccessary applications" />
+    <MESSAGE value="readded fxml files" />
+    <option name="LAST_COMMIT_MESSAGE" value="readded fxml files" />
   </component>
 </project>

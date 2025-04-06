@@ -18,8 +18,9 @@ public class QuitPopupController implements Initializable {
 
     private Stage popupStage = new Stage();
 
-    // closePopup is used by owner controller to check when popup is closed
+    // closeYes used by caller to see if popup is closed
     public boolean closeYes = false;
+    // closeOwner checks if the popup caller wants to close the caller stage or not
     public boolean closeOwner = true;
 
     @Override
@@ -27,13 +28,21 @@ public class QuitPopupController implements Initializable {
         popupImage.setImage(new Image("quitPopup.png"));
     }
 
+    /**
+     * yes button was pressed
+     */
     public void quitYes(){
+        // update that popup is closed
         closeYes = true;
         popupStage = (Stage) popupImage.getScene().getWindow();
         Stage ownerStage = (Stage) popupStage.getOwner();
         if (closeOwner) ownerStage.close();
         popupStage.close();
     }
+
+    /**
+     * no button was pressed
+     */
     public void quitNo(){
         popupStage = (Stage) popupImage.getScene().getWindow();
         popupStage.close();
