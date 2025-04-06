@@ -94,20 +94,21 @@ public class Leaderboard {
         if (Objects.equals(sortChoice, SORT_RATING)) {
 
             rankings = strip(sortByRating(rankings, sortGame), sortGame);
-            System.out.println(rankings);
+            //System.out.println(rankings);
 
         } else if (Objects.equals(sortChoice, SORT_WLR)) {
 
             rankings = strip(sortByWLR(rankings, sortGame), sortGame);
-            System.out.println(rankings);
+            //System.out.println(rankings);
 
         } else if (Objects.equals(sortChoice, SORT_WINS)) {
 
             rankings = strip(sortByWins(rankings, sortGame), sortGame);
-            System.out.println(rankings);
+            //System.out.println(rankings);
 
         } else {
-            System.out.println("select a valid sorting option: rating, win/loss ratio, wins");
+            //
+            //System.out.println("select a valid sorting option: rating, win/loss ratio, wins");
         }
 
         return rankings;
@@ -381,7 +382,7 @@ public class Leaderboard {
                 result.add(profile);
                 found = true;
 
-                System.out.println(result);
+                //System.out.println(result);
 
                 break; //for returning the first matching profile
             }
