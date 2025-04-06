@@ -45,3 +45,4 @@ out/
 *.xml
 *.iml
 .idea/
+/logs/

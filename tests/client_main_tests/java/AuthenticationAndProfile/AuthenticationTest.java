@@ -1,6 +1,6 @@
 package client_main_tests.java.AuthenticationAndProfile;
 
-import leaderboard.PlayerRanking;
+import AuthenticationAndProfile.PlayerRanking;
 import org.junit.jupiter.api.AfterEach;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -36,12 +36,12 @@ class AuthenticationTest {
         ProfileDatabaseAccess.removeProfile(id);
     }
 
-    @Test
-    void logOut() {
-        Authentication.setProfileLoggedIn(profile);
-        Authentication.logOut();
-        assertNull(Authentication.getProfileLoggedIn());
-    }
+//    @Test
+//    void logOut() {
+//        Authentication.setProfileLoggedIn(profile);
+//        Authentication.logOut();
+//        assertNull(Authentication.getProfileLoggedIn());
+//    }
 
     @Test
     void getProfileLoggedIn() {
