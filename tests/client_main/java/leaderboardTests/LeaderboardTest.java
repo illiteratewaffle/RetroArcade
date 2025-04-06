@@ -1,7 +1,8 @@
-package leaderboard;
+package client_main.java.leaderboardTests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import leaderboard.Leaderboard;
 import org.junit.jupiter.api.*;
 
 import java.io.File;
