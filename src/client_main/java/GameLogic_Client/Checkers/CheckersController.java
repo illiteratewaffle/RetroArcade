@@ -1,5 +1,6 @@
 package GameLogic_Client.Checkers;
 
+import GameLogic_Client.GameState;
 import GameLogic_Client.IBoardGameController;
 import GameLogic_Client.Ivec2;
 import org.jetbrains.annotations.NotNull;
