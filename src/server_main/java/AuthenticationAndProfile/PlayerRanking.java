@@ -1,4 +1,4 @@
-package leaderboard;
+package AuthenticationAndProfile;
 
 import player.PlayerManager;
 
