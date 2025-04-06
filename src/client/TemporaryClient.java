@@ -5,7 +5,12 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
+
+import static server.management.JsonConverter.fromJson;
+import static server.management.JsonConverter.toJson;
 
 public class TemporaryClient {
     public static void main(String[] args) {
@@ -34,12 +39,21 @@ public class TemporaryClient {
             while (true) {
                 // Read response from the server
                 String response = input.readLine();
-                System.out.println("Server response: " + response);
+                if (response != null) {
+                    // Check what type of message it is
+                    Map<String, Object> data = fromJson(response);
+                    if (data.containsKey("type") && data.get("type").equals("error")) {
+                        // if it is an error, print the error
+                        System.err.println("Error: " + data.get("message"));
+                    } else if (data.containsKey("type") && data.get("type").equals("message")) {
+                        System.out.println(data.get("sender") + ": " + data.get("message"));
+                    } else {
+                        System.out.println(response);
+                    }
+                }
                 // System.out.println(response);
             }
-
-
-
+            // System.out.println("Disconnected from the server.");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -50,15 +64,55 @@ public class TemporaryClient {
         try {
             PrintWriter output = new PrintWriter(socket.getOutputStream(), true);
 
+            // Ask for the information to log in
+            Map<String, Object> authData = getAuthData();
+            output.println(toJson(authData));
+
             while (true) {
                 // Send a message to the server
                 Scanner scanner = new Scanner(System.in);
                 String message = scanner.nextLine();
-                output.println(message);
+
+                Map<String, Object> data = new HashMap<>();
+                data.put("type", "message");
+                data.put("message", message);
+                output.println(toJson(data));
                 // System.out.println("Sent to server: " + message);
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static Map<String, Object> getAuthData() {
+        Scanner scanner = new Scanner(System.in);
+        Map<String, Object> authData = new HashMap<>();
+
+        String type;
+        while (true) {
+            System.out.print("Are you logging in or registering? (login/register): ");
+            type = scanner.nextLine().trim().toLowerCase();
+
+            if (!type.equals("login") && !type.equals("register")) {
+                System.out.println("Invalid input. Must be 'login' or 'register'.");
+            } else {
+                break;
+            }
+        }
+
+        authData.put("type", type);
+
+        System.out.print("Enter username: ");
+        authData.put("username", scanner.nextLine().trim());
+
+        System.out.print("Enter password: ");
+        authData.put("password", scanner.nextLine().trim());
+
+        if (type.equals("register")) {
+            System.out.print("Enter email: ");
+            authData.put("email", scanner.nextLine().trim());
+        }
+
+        return authData;
     }
 }
