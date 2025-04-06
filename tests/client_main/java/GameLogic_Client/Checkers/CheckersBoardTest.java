@@ -759,7 +759,6 @@ public class CheckersBoardTest {
     }
 
     /**TODO
-     * test makeKing method
      * test makeP1 method
      * test makeP2 method
      */
