@@ -2,6 +2,8 @@ package AuthenticationAndProfile;
 
 import player.PlayerManager;
 
+import java.sql.SQLException;
+
 public class PlayerRanking {
     private final int id;
     private double[] winLossRatio = new double[3];
@@ -21,7 +23,7 @@ public class PlayerRanking {
         this.wins = wins;
     }
 
-    public void endOfMatchMethod(int gameNumber, int result) {
+    public void endOfMatchMethod(int gameNumber, int result) throws SQLException{
         String gameName = null;
         if (gameNumber == TTT_INDEX) {
             gameName = "ttt";
@@ -30,56 +32,65 @@ public class PlayerRanking {
         } else if (gameNumber == CHECKERS_INDEX) {
             gameName = "checkers";
         }
-        int currentRating = Integer.parseInt(PlayerManager.getAttribute(id, "rating_" + gameName));
-        int currentWins = Integer.parseInt(PlayerManager.getAttribute(id, "wins_" + gameName));
-        double currentWinLossRatio = Double.parseDouble(PlayerManager.getAttribute(id, "win_loss_ratio_" + gameName));
-        int currentGamesPlayed = Integer.parseInt(PlayerManager.getAttribute(id, "total_" + gameName));
+        try {
+            int currentRating = Integer.parseInt(PlayerManager.getAttribute(id, "rating_" + gameName));
+            int currentWins = Integer.parseInt(PlayerManager.getAttribute(id, "wins_" + gameName));
+            double currentWinLossRatio = Double.parseDouble(PlayerManager.getAttribute(id, "win_loss_ratio_" + gameName));
+            int currentGamesPlayed = Integer.parseInt(PlayerManager.getAttribute(id, "total_" + gameName));
 
-        if (result == 1) {
-            currentRating += 50;
-            currentWins += 1;
-            currentGamesPlayed += 1;
+            if (result == 1) {
+                currentRating += 50;
+                currentWins += 1;
+                currentGamesPlayed += 1;
 
-            // Rounding method looked up from StackOverflow:
-            // https://stackoverflow.com/questions/11701399/round-up-to-2-decimal-places-in-java
-            currentWinLossRatio = Math.round(((double) currentWins / currentGamesPlayed) * 100.0 / 100.0);
-        } else if (result == 0) {
-            currentRating -= 50;
-            currentGamesPlayed += 1;
-            currentWinLossRatio = Math.round(((double) currentWins / currentGamesPlayed) * 100.0 / 100.0);
-        }
+                // Rounding method looked up from StackOverflow:
+                // https://stackoverflow.com/questions/11701399/round-up-to-2-decimal-places-in-java
+                currentWinLossRatio = Math.round(((double) currentWins / currentGamesPlayed) * 100.0 / 100.0);
+            } else if (result == 0) {
+                currentRating -= 50;
+                currentGamesPlayed += 1;
+                currentWinLossRatio = Math.round(((double) currentWins / currentGamesPlayed) * 100.0 / 100.0);
+            }
 
-        String newRank = getRank(currentRating);
+            String newRank = getRank(currentRating);
 
-        if (gameNumber == 0) {
-            PlayerManager.updateAttribute(id, "rating_ttt", currentRating);
-            PlayerManager.updateAttribute(id, "wins_ttt", currentWins);
-            PlayerManager.updateAttribute(id, "win_loss_ratio_ttt", currentWinLossRatio);
-            PlayerManager.updateAttribute(id, "rank_ttt", newRank);
-        } else if (gameNumber == 1) {
-            PlayerManager.updateAttribute(id, "rating_connect4", currentRating);
-            PlayerManager.updateAttribute(id, "wins_connect4", currentWins);
-            PlayerManager.updateAttribute(id, "win_loss_ratio_connect4", currentWinLossRatio);
-            PlayerManager.updateAttribute(id, "rank_connect4", newRank);
-        } else if (gameNumber == 2) {
-            PlayerManager.updateAttribute(id, "rating_checkers", currentRating);
-            PlayerManager.updateAttribute(id, "wins_checkers", currentWins);
-            PlayerManager.updateAttribute(id, "win_loss_ratio_checkers", currentWinLossRatio);
-            PlayerManager.updateAttribute(id, "rank_checkers", newRank);
+            if (gameNumber == 0) {
+                PlayerManager.updateAttribute(id, "rating_ttt", currentRating);
+                PlayerManager.updateAttribute(id, "wins_ttt", currentWins);
+                PlayerManager.updateAttribute(id, "win_loss_ratio_ttt", currentWinLossRatio);
+                PlayerManager.updateAttribute(id, "rank_ttt", newRank);
+            } else if (gameNumber == 1) {
+                PlayerManager.updateAttribute(id, "rating_connect4", currentRating);
+                PlayerManager.updateAttribute(id, "wins_connect4", currentWins);
+                PlayerManager.updateAttribute(id, "win_loss_ratio_connect4", currentWinLossRatio);
+                PlayerManager.updateAttribute(id, "rank_connect4", newRank);
+            } else if (gameNumber == 2) {
+                PlayerManager.updateAttribute(id, "rating_checkers", currentRating);
+                PlayerManager.updateAttribute(id, "wins_checkers", currentWins);
+                PlayerManager.updateAttribute(id, "win_loss_ratio_checkers", currentWinLossRatio);
+                PlayerManager.updateAttribute(id, "rank_checkers", newRank);
+            }
+        } catch (SQLException s) {
+            throw new SQLException(s.getMessage());
         }
     }
+
     public double getWinLossRatio(int gameNumber) {
         return winLossRatio[gameNumber];
     }
 
-    public void setWinLossRatio(double winLossRatio, int gameNumber) {
-        this.winLossRatio[gameNumber] = winLossRatio;
-        if (gameNumber == 0) {
-            PlayerManager.updateAttribute(id, "win_loss_ratio_ttt", winLossRatio);
-        } else if (gameNumber == 1) {
-            PlayerManager.updateAttribute(id, "win_loss_ratio_connect4", winLossRatio);
-        } else if (gameNumber == 2) {
-            PlayerManager.updateAttribute(id, "win_loss_ratio_checkers", winLossRatio);
+    public void setWinLossRatio(double winLossRatio, int gameNumber) throws SQLException{
+        try {
+            this.winLossRatio[gameNumber] = winLossRatio;
+            if (gameNumber == 0) {
+                PlayerManager.updateAttribute(id, "win_loss_ratio_ttt", winLossRatio);
+            } else if (gameNumber == 1) {
+                PlayerManager.updateAttribute(id, "win_loss_ratio_connect4", winLossRatio);
+            } else if (gameNumber == 2) {
+                PlayerManager.updateAttribute(id, "win_loss_ratio_checkers", winLossRatio);
+            }
+        } catch (SQLException s) {
+            throw new SQLException(s.getMessage());
         }
     }
 
@@ -87,14 +98,18 @@ public class PlayerRanking {
         return rating[gameNumber];
     }
 
-    public void setRating(int rating, int gameNumber) {
+    public void setRating(int rating, int gameNumber) throws SQLException{
         this.rating[gameNumber] = rating;
-        if (gameNumber == 0) {
-            PlayerManager.updateAttribute(id, "rating_ttt", rating);
-        } else if (gameNumber == 1) {
-            PlayerManager.updateAttribute(id, "rating_connect4", rating);
-        } else if (gameNumber == 2) {
-            PlayerManager.updateAttribute(id, "rating_checkers", rating);
+        try {
+            if (gameNumber == 0) {
+                PlayerManager.updateAttribute(id, "rating_ttt", rating);
+            } else if (gameNumber == 1) {
+                PlayerManager.updateAttribute(id, "rating_connect4", rating);
+            } else if (gameNumber == 2) {
+                PlayerManager.updateAttribute(id, "rating_checkers", rating);
+            }
+        } catch (SQLException s) {
+            throw new SQLException(s.getMessage());
         }
     }
 
@@ -114,14 +129,18 @@ public class PlayerRanking {
     }
 
 
-    public void setRank(String rank, int gameNumber) {
+    public void setRank(String rank, int gameNumber) throws SQLException{
         this.rank[gameNumber] = rank;
-        if (gameNumber == 0) {
-            PlayerManager.updateAttribute(id, "rank_ttt", rank);
-        } else if (gameNumber == 1) {
-            PlayerManager.updateAttribute(id, "rank_connect4", rank);
-        } else if (gameNumber == 2) {
-            PlayerManager.updateAttribute(id, "rank_checkers", rank);
+        try {
+            if (gameNumber == 0) {
+                PlayerManager.updateAttribute(id, "rank_ttt", rank);
+            } else if (gameNumber == 1) {
+                PlayerManager.updateAttribute(id, "rank_connect4", rank);
+            } else if (gameNumber == 2) {
+                PlayerManager.updateAttribute(id, "rank_checkers", rank);
+            }
+        } catch (SQLException s) {
+            throw new SQLException(s.getMessage());
         }
     }
 
@@ -130,15 +149,18 @@ public class PlayerRanking {
     }
 
 
-
-    public void setWins(int wins, int gameNumber) {
+    public void setWins(int wins, int gameNumber) throws SQLException{
         this.wins[gameNumber] = wins;
-        if (gameNumber == 0) {
-            PlayerManager.updateAttribute(id, "wins_ttt", wins);
-        } else if (gameNumber == 1) {
-            PlayerManager.updateAttribute(id, "wins_connect4", wins);
-        } else if (gameNumber == 2) {
-            PlayerManager.updateAttribute(id, "wins_checkers", wins);
+        try {
+            if (gameNumber == 0) {
+                PlayerManager.updateAttribute(id, "wins_ttt", wins);
+            } else if (gameNumber == 1) {
+                PlayerManager.updateAttribute(id, "wins_connect4", wins);
+            } else if (gameNumber == 2) {
+                PlayerManager.updateAttribute(id, "wins_checkers", wins);
+            }
+        } catch (SQLException s) {
+            throw new SQLException(s.getMessage());
         }
     }
 }

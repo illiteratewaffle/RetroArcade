@@ -197,6 +197,12 @@ public class PlayerManager {
         // Return the friend's list that match the substring passed through
         return matchingIds;
     }
+    //TODO: Search usernames to find all ids of profiles that have usernames that match search terms
+    public static List<Integer> searchProfiles(String nameFragment) throws SQLException {
+        // List containing friend Ids
+        List<Integer> matchingIds = new ArrayList<>();
+        return matchingIds;
+    }
 
     public static String getUsername(int id) throws SQLException {
         String query = "SELECT username FROM profiles WHERE id = ?";

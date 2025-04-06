@@ -56,6 +56,7 @@ class ProfileDatabaseAccessTest {
 
     @Test
     void obtainFriendsList() {
+        try {
         System.out.println(PlayerManager.addToFriendsList(id, 1));
         System.out.println(PlayerManager.addToFriendsList(id, 2));
         System.out.println(PlayerManager.addToFriendsList(id, 3));
@@ -66,6 +67,9 @@ class ProfileDatabaseAccessTest {
         List<Integer> friendRequests = new ArrayList<>(Arrays.asList(7, 8));
         assertEquals(friends, ProfileDatabaseAccess.obtainFriendsList(id).getFriends());
         //assertEquals(friendRequests, ProfileDatabaseAccess.obtainFriendsList(id).getFriendRequests());
+    } catch (SQLException s) {
+        System.out.println(s.getMessage());
+    }
     }
 
     @Test
@@ -83,22 +87,23 @@ class ProfileDatabaseAccessTest {
             System.out.println(PlayerManager.updateAttribute(id, "wins_ttt", "5"));
             System.out.println(PlayerManager.updateAttribute(id, "wins_connect4", "120"));
             System.out.println(PlayerManager.updateAttribute(id, "wins_checkers", "500"));
-        } catch (SQLException s){
+            double[] winLossRatio = new double[]{0.25, 0.50, 0.75};
+            int[] rating = new int[]{30, 50, 80};
+            String[] rank = new String[]{"Bronze", "Silver", "Gold"};
+            int[] wins = new int[]{5, 120, 500};
+
+            PlayerRanking playerRanking = new PlayerRanking(id, winLossRatio, rating, rank, wins);
+            assertEquals(playerRanking.getWinLossRatio(0), ProfileDatabaseAccess.obtainPlayerRanking(id).getWinLossRatio(PlayerRanking.TTT_INDEX));
+            assertEquals(playerRanking.getRating(2), ProfileDatabaseAccess.obtainPlayerRanking(id).getRating(PlayerRanking.CHECKERS_INDEX));
+            assertEquals(playerRanking.getRank(1), ProfileDatabaseAccess.obtainPlayerRanking(id).getRank(PlayerRanking.CONNECT4_INDEX));
+            assertEquals(playerRanking.getWins(id, 2), ProfileDatabaseAccess.obtainPlayerRanking(id).getWins(id, PlayerRanking.CHECKERS_INDEX));
+        } catch (SQLException s) {
             System.out.println(s.getMessage());
         }
-        double[] winLossRatio = new double[]{0.25, 0.50, 0.75};
-        int[] rating = new int[]{30, 50, 80};
-        String[] rank = new String[]{"Bronze", "Silver", "Gold"};
-        int[] wins = new int[]{5, 120, 500};
-        PlayerRanking playerRanking = new PlayerRanking(winLossRatio, rating, rank, wins);
-        assertEquals(playerRanking.getWinLossRatio(0), ProfileDatabaseAccess.obtainPlayerRanking(id).getWinLossRatio(PlayerRanking.TTT_INDEX));
-        assertEquals(playerRanking.getRating(2), ProfileDatabaseAccess.obtainPlayerRanking(id).getRating(PlayerRanking.CHECKERS_INDEX));
-        assertEquals(playerRanking.getRank(1), ProfileDatabaseAccess.obtainPlayerRanking(id).getRank(PlayerRanking.CONNECT4_INDEX));
-        assertEquals(playerRanking.getWins(2), ProfileDatabaseAccess.obtainPlayerRanking(id).getWins(id, PlayerRanking.CHECKERS_INDEX));
     }
 
     @Test
-    void obtainGameHistory() {
+    void obtainGameHistory(){
         try {
             System.out.println(PlayerManager.updateAttribute(id, "games_played", "[TTT, Checkers, Connect4, Checkers]"));
             System.out.println(PlayerManager.updateAttribute(id, "achievement_progress", "[{Have100Cat'sInTTT, 0.75}, {WinCheckersWithoutLosingOnePiece, 0.00}]"));

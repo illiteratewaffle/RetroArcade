@@ -1,6 +1,5 @@
 package AuthenticationAndProfile;
 //import AuthenticationAndProfile.PlayerRanking;
-import leaderboard.PlayerRanking;
 import player.PlayerManager;
 
 import java.io.IOException;
@@ -272,8 +271,12 @@ public class ProfileDatabaseAccess {
     }
 
     public static void main(String[] args) {
-        Profile profile = obtainProfile(2);
-        System.out.println(profile.getGameHistory().getGameHistory());
+        try {
+            Profile profile = obtainProfile(2);
+            System.out.println(profile.getGameHistory().getGameHistory());
+        } catch (SQLException s){
+            System.out.println(s.getMessage());
+        }
     }
 }
 
