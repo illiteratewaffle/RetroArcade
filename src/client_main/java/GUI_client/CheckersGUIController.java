@@ -21,7 +21,6 @@ import javafx.stage.StageStyle;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.paint.Color;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
@@ -33,6 +32,10 @@ public class CheckersGUIController implements Initializable {
     public ImageView quitButton;
     @FXML
     public ImageView infoButton;
+    @FXML
+    public ImageView infoOkButton;
+    @FXML
+    public ImageView infoBg;
     @FXML
     public ImageView muteButton;
     @FXML
@@ -46,7 +49,6 @@ public class CheckersGUIController implements Initializable {
 
     @FXML
     private ImageView screen;
-
     @FXML
     private ImageView checkerChatBg;
 
@@ -276,7 +278,11 @@ public class CheckersGUIController implements Initializable {
         } else if (winner.length == 2) {
            // screen.setImage(tie);
         }
-        // otherwise do nothing and keep playing
+       /* if (!gameLogic.getGameOngoing()){
+            play_again.setImage(new Image("Play_Again.png"));
+            check_circle.setImage(new Image("check_circle.png"));
+            X_circle.setImage(new Image("X_circle.png"));
+        }*/
     }
     public void XPressed(){
         quitButton.setImage(new Image("home_button_pressed.png"));
@@ -290,6 +296,18 @@ public class CheckersGUIController implements Initializable {
     public void infoReleased(){
         infoButton.setImage(new Image("info_button.png"));
     }
+
+    public void infoButtonPress(){
+        infoBg.setImage(new Image("checkers_info.png"));
+        infoBg.setMouseTransparent(false);
+        infoOkButton.setMouseTransparent(false);
+    }
+    public void info_ok_clicked(){
+        infoBg.setImage(null);
+        infoBg.setMouseTransparent(true);
+        infoOkButton.setMouseTransparent(true);
+    }
+
     public void muteButtonClick(){
         if(!AudioManager.isMuted()) {
             muteButton.setImage(new Image("muteButton.png"));
@@ -328,6 +346,7 @@ public class CheckersGUIController implements Initializable {
             }
         }
     }
+
     /**
      * gets a string from chat text field and appends it to chat area
      */
