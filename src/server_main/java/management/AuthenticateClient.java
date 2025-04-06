@@ -1,5 +1,8 @@
 package management;
 
+import AuthenticationAndProfile.Authentication;
+import AuthenticationAndProfile.Profile;
+import AuthenticationAndProfile.ProfileCreation;
 import management.ThreadMessage;
 import management.ThreadRegistry;
 import management.ServerController;
@@ -43,20 +46,20 @@ public class AuthenticateClient implements Runnable {
             // TODO: Make it so it doesn't crash
             Map<String, Object> authData = fromJson(auth);
             // Make sure the json contains the type, username, and password.
-            int playerId = authenticate(authData, printWriter, clientSocket);
+            Profile profile = authenticate(authData, printWriter, clientSocket);
             // If the authentication was successful, create a PlayerHandler
-            if (playerId != -1) {
-                log("AuthenticateClient: Player " + playerId + " authenticated.");
+            if (profile != null) {
+                log("AuthenticateClient: Player " + profile.getUsername() + ":" + profile.getID() + " authenticated.");
                 //Create a blocking queue and player handler to handle the player connection on the server side.
                 BlockingQueue<ThreadMessage> queue = new LinkedBlockingQueue<>();
-                PlayerHandler playerHandler = new PlayerHandler(clientSocket, queue);
+                PlayerHandler playerHandler = new PlayerHandler(clientSocket, queue, profile);
                 //Create a thread for the player and start it.
                 // TODO: Custom thread name
                 Thread playerThread = Thread.ofVirtual().start(playerHandler);
                 // Add the new player the ThreadRegistry
                 ThreadRegistry.register(playerThread, queue);
                 // Add the new player to the playerList
-                ThreadRegistry.registerPlayer(playerId, playerHandler);
+                ThreadRegistry.registerPlayer(profile.getID(), playerHandler);
 
                 //TODO: Temporary Matchmaking
                 //serverController.enqueuePlayer(playerHandler);
@@ -74,7 +77,7 @@ public class AuthenticateClient implements Runnable {
         }
     }
 
-    private int authenticate(Map<String, Object> authData, PrintWriter printWriter, Socket clientSocket) {
+    private Profile authenticate(Map<String, Object> authData, PrintWriter printWriter, Socket clientSocket) {
         if (authData.containsKey("type")) {
             // Safely extract the "type" field as a String; default to empty string if it's missing or not a String
             String type = (authData.get("type") instanceof String) ? (String) authData.get("type") : "";
@@ -87,14 +90,15 @@ public class AuthenticateClient implements Runnable {
                     String password = (String) authData.get("password");
                     // login logic
                     try {
-                        return PlayerManager.authenticatePlayer(username, password);
+                        return Authentication.logIn(username, password);
+                        // return PlayerManager.authenticatePlayer(username, password);
                     } catch (SQLException e) {
                         sendError(printWriter, clientSocket, e.toString());
-                        return -1;
+                        return null;
                     }
                 } else {
                     sendError(printWriter, clientSocket, "missing or invalid fields");
-                    return -1;
+                    return null;
                 }
             } else if (type.equals("register")) {
                 if (authData.containsKey("username") && authData.containsKey("password") && authData.containsKey("email")
@@ -107,22 +111,22 @@ public class AuthenticateClient implements Runnable {
                     try {
                         // check boolean on ProfileCreation.createNewProfile(username, email, password)
                         // something?
-                        return PlayerManager.registerPlayer(username, email, password);
+                        return ProfileCreation.createNewProfile(username, email, password);
                     } catch (SQLException e) {
                         sendError(printWriter, clientSocket, e.toString());
-                        return -1;
+                        return null;
                     }
                 } else {
                     sendError(printWriter, clientSocket, "Registration failed, missing or invalid fields");
-                    return -1;
+                    return null;
                 }
             } else {
                 sendError(printWriter, clientSocket, "Authentication failed, invalid json hashmap value for \"type\"");
-                return -1;
+                return null;
             }
         } else {
             sendError(printWriter, clientSocket, "Authentication failed, missing json hashmap key \"type\"");
-            return -1;
+            return null;
         }
     }
 

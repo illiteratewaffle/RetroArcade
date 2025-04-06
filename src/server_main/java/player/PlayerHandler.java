@@ -1,5 +1,6 @@
 package player;
 
+import AuthenticationAndProfile.Profile;
 import management.ThreadMessage;
 import management.NetworkManager;
 
@@ -18,6 +19,7 @@ public class PlayerHandler implements Runnable {
     private final Socket clientSocket;
     private final BlockingQueue<ThreadMessage> queue; //HERE
     private final NetworkManager networkManager; //HERE
+    private final Profile profile;
     //private final ConcurrentHashMap<Thread, BlockingQueue<ThreadMessage>> queue;
     private boolean running;
     private BufferedReader bufferedReader;
@@ -28,7 +30,6 @@ public class PlayerHandler implements Runnable {
 
     /**
      * Get the Thread that the PlayerHandler is on
-     *
      * @return the mainThread for the PlayerHandler
      */
     public synchronized Thread getThread() {
@@ -37,7 +38,6 @@ public class PlayerHandler implements Runnable {
 
     /**
      * Set the Thread of the GameSessionManager
-     *
      * @param thread the new GameSessionManagerThread
      */
     public synchronized void setGameSessionManagerThread(Thread thread) {
@@ -49,13 +49,22 @@ public class PlayerHandler implements Runnable {
     }
 
     /**
+     * Get the Profile for the player
+     * @return the Profile object for the player
+     */
+    public synchronized Profile getProfile() {
+        return profile;
+    }
+
+    /**
      * @param clientSocket the Socket that the client is connected on
      *                     /@param queue the main message cue object that will be used to communicate between threads.
      */
-    public PlayerHandler(Socket clientSocket, BlockingQueue<ThreadMessage> queue) {
+    public PlayerHandler(Socket clientSocket, BlockingQueue<ThreadMessage> queue, Profile profile) {
         this.clientSocket = clientSocket;
         //Create a dedicated queue for messages related to this player's thread.
         this.queue = queue;
+        this.profile = profile;
         //Create a network manager dedicated to this player's thread.
         this.networkManager = new NetworkManager();
         this.running = true;
