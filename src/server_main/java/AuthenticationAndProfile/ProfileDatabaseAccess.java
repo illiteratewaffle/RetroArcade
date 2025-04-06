@@ -1,7 +1,9 @@
 package AuthenticationAndProfile;
 //import AuthenticationAndProfile.PlayerRanking;
+import leaderboard.PlayerRanking;
 import player.PlayerManager;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -134,7 +136,7 @@ public class ProfileDatabaseAccess {
         wins[1] = Integer.parseInt(profileFields.get(ProfileCSVReader.WINS_CONNECT4_INDEX));
         wins[2] = Integer.parseInt(profileFields.get(ProfileCSVReader.WINS_CHECKERS_INDEX));
 
-            PlayerRanking playerRanking = new PlayerRanking(winLossRatio, rating, rank, wins);
+            PlayerRanking playerRanking = new PlayerRanking(id,winLossRatio, rating, rank, wins);
             return playerRanking;
 //        } catch (IOException e){
 //            System.out.println("ID does not match a profile in the database.");
@@ -199,7 +201,11 @@ public class ProfileDatabaseAccess {
      * @param id
      */
     public static void removeProfile(int id){
-        PlayerManager.deleteProfile(id);
+        try {
+            PlayerManager.deleteProfile(id);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         Authentication.logOut();
     }
 
@@ -209,7 +215,11 @@ public class ProfileDatabaseAccess {
      */
     public static ArrayList<ArrayList<String>> getAllProfiles() {
         String csvProfileFilePath = "profiles_export.csv"; //csv is generated in the main directory of the project
-        PlayerManager.getProfileTable();//method to get all profiles in database into a csv file
+        try {
+            PlayerManager.getProfileTable();//method to get all profiles in database into a csv file
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         ArrayList<ArrayList<String>> profileFields = ProfileCSVReader.openProfilesFile(csvProfileFilePath);
         return profileFields;
     }
