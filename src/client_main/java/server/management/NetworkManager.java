@@ -1,5 +1,6 @@
 package server.management;
 
+import server.player.PlayerHandler;
 import java.util.concurrent.BlockingQueue;
 
 public class NetworkManager {
@@ -15,7 +16,7 @@ public class NetworkManager {
     public void sendMessage(Thread targetThread, ThreadMessage message) {
 
         //Obtain the queue of the thread we are trying to message.
-        BlockingQueue<ThreadMessage> queue = ThreadRegistry.threadRegistry.get(targetThread);
+        BlockingQueue<ThreadMessage> queue = ThreadRegistry.getQueue(targetThread);
 
         //Check if the queue actually exists, and if it doesn't throw some errors.
         if (queue != null) {
