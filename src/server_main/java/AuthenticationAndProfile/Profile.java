@@ -333,6 +333,9 @@ public class Profile {
 //        System.out.println(ProfileDatabaseAccess.obtainProfile(158).getPlayerRanking().getWins(PlayerRanking.CHECKERS_INDEX));
     }
 
+    public int getID() {
+        return id;
+    }
 }
 
 
