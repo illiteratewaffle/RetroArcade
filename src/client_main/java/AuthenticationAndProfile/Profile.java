@@ -112,7 +112,7 @@ public class Profile {
      * @param newBio the new bio of the player.
      */
     public void setBio(String newBio) {
-        this.bio = bio;
+        this.bio = newBio;
         PlayerManager.updateAttribute(id, "bio", newBio);
     }
 

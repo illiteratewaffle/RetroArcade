@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0fb4edcb-a013-42ce-af41-d722ae3d60c2" name="Changes" comment="Created new branch with Leaderboard's code merged into mainIt2 authentication code, seems to work">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="0fb4edcb-a013-42ce-af41-d722ae3d60c2" name="Changes" comment="fixed workspace.xml">
       <change beforePath="$PROJECT_DIR$/out/production/seng300-w25-project/client/Client.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/seng300-w25-project/client/ClientHandler.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/seng300-w25-project/client/TemporaryClient.class" beforeDir="false" />
@@ -28,6 +26,7 @@
       <change beforePath="$PROJECT_DIR$/out/production/seng300-w25-project/server/session/GameCreator.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/seng300-w25-project/server/session/GameSessionManager.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/test/seng300-w25-project/DatabaseConnectorTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/client_main/java/AuthenticationAndProfile/Profile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client_main/java/AuthenticationAndProfile/Profile.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,7 +39,9 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "JUnit.ProfileCreationTest.createNewProfile.executor": "Run",
+    "JUnit.ProfileTest.getBio.executor": "Run",
     "JUnit.ProfileTest.getHashedPassword.executor": "Run",
+    "JUnit.ProfileTest.setBio.executor": "Run",
     "JUnit.ProfileTest.setNickname.executor": "Run",
     "git-widget-placeholder": "mainIt2__AuthenticationAndProfile__Leaderboard__Testing"
   }
@@ -157,10 +158,20 @@
     </recent_temporary>
   </component>
   <component name="TaskManager">
+    <task id="LOCAL-00001" summary="fixed workspace.xml">
+      <option name="closed" value="true" />
+      <created>1743897966866</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1743897966866</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Created new branch with Leaderboard's code merged into mainIt2 authentication code, seems to work" />
-    <option name="LAST_COMMIT_MESSAGE" value="Created new branch with Leaderboard's code merged into mainIt2 authentication code, seems to work" />
+    <MESSAGE value="fixed workspace.xml" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed workspace.xml" />
   </component>
 </project>
