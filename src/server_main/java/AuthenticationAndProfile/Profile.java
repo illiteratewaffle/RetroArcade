@@ -79,7 +79,11 @@ public class Profile {
     public void setHashedPassword(String newPassword) {
         String newHashedPassword = ProfileCreation.hashedPassword(newPassword);
         this.hashedPassword = newHashedPassword;
-        PlayerManager.updateAttribute(id, "hashed_password", newHashedPassword);
+        try {
+            PlayerManager.updateAttribute(id, "hashed_password", newHashedPassword);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 
@@ -97,7 +101,11 @@ public class Profile {
      */
     public void setNickname(String newNickname) {
         this.nickname = newNickname;
-        PlayerManager.updateAttribute(id, "nickname", newNickname);
+        try {
+            PlayerManager.updateAttribute(id, "nickname", newNickname);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**
@@ -121,7 +129,7 @@ public class Profile {
      * Sets a player's online status.
      * @param online the new online status of the player.
      */
-    public void setOnlineStatus(boolean online) {
+    public void setOnlineStatus(boolean online) throws SQLException {
         isOnline = online;
         if (online) {
             PlayerManager.updateAttribute(this.id, Integer.toString(ProfileCSVReader.ONLINE_INDEX), "true");
@@ -164,7 +172,11 @@ public class Profile {
      */
     public void setCurrentGame(String currentGame) {
         this.currentGame = currentGame;
-        PlayerManager.updateAttribute(id, "current_game", currentGame);
+        try {
+            PlayerManager.updateAttribute(id, "current_game", currentGame);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**
@@ -204,7 +216,11 @@ public class Profile {
      * @return the player's username.
      */
     public static String exportUsername(int id) {
-        return PlayerManager.getUsername(id);
+        try {
+            return PlayerManager.getUsername(id);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public String getUsername() {

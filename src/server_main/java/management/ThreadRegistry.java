@@ -7,7 +7,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class ThreadRegistry {
     //A centralized registry of all threads accessible by all network managers and server controller.
-    private static final ConcurrentHashMap<Thread, BlockingQueue<ThreadMessage>> threadRegistry = new ConcurrentHashMap<>();
+    public static final ConcurrentHashMap<Thread, BlockingQueue<ThreadMessage>> threadRegistry = new ConcurrentHashMap<>();
 
     //A centralized registry of all players active containing their player ids, and the thread their player handler is on.
     private static final ConcurrentHashMap<Integer, PlayerHandler> playerList = new ConcurrentHashMap<>();

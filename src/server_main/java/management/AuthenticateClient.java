@@ -1,5 +1,7 @@
 package server.management;
 
+import management.ThreadMessage;
+import management.ThreadRegistry;
 import player.PlayerHandler;
 import player.PlayerManager;
 

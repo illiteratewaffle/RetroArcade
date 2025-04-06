@@ -7,15 +7,19 @@ import GameLogic_Client.IBoardGameController;
 import GameLogic_Client.Ivec2;
 
 
+import java.util.HashMap;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.LinkedBlockingQueue;
 import java.util.function.IntBinaryOperator;
 
-import session.IBoardGameController;
+import GameLogic_Client.IBoardGameController;
 /**
  *
  */
 
+
+import static management.ServerLogger.log;
 
 public class GameSessionManager implements Runnable{
     private final PlayerHandler player1;
@@ -34,11 +38,6 @@ public class GameSessionManager implements Runnable{
         this.player1 = player1;
         this.player2 = player2;
         this.gameController = getController(gameType);
-        
-        player1.setPlaying();
-        player2.setPlaying();
-        
-        
     }
 // GameSessionManager manager = new GameSessionManager(player1, player2, getController(gameType));
     public IBoardGameController getController(String gameType){
