@@ -24,8 +24,7 @@ public class CheckersControllerTest {
     }
 
     @Test
-    public void testDefaultGameStateSetUp()
-    {
+    public void testDefaultGameStateSetUp() {
         CheckersController checkersController = new CheckersController();
 
         // The game should start from player 1's turn.
@@ -37,12 +36,12 @@ public class CheckersControllerTest {
     }
 
     @Test
-    public void testDefaultBoardSetUp()
-    {
+    public void testDefaultBoardSetUp() {
         CheckersController checkersController = new CheckersController();
 
         int emptyValue = CheckersPiece.NONE.getValue();
         int p1PawnValue = CheckersPiece.P1PAWN.getValue();
         int p2PawnValue = CheckersPiece.P2PAWN.getValue();
 
+    }
 }
