@@ -2,6 +2,7 @@ package player;
 
 import database.databaseConnector;
 
+import javax.sql.rowset.spi.SyncProviderException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.*;
@@ -231,10 +232,10 @@ public class PlayerManager {
         }
     }
 
-    public static String updateAttribute(int id, String attrColumn, String newValue) throws SQLException {
+    public static String updateAttribute(int id, String attrColumn, Object newValue) throws SQLException {
         String query = "UPDATE profiles SET " + attrColumn + " = ? WHERE id = ?";
         try (PreparedStatement statement = conn.prepareStatement(query)) {
-            statement.setString(1, newValue);
+            statement.setObject(1, newValue);
             statement.setInt(2, id);
 
             int rowsUpdated = statement.executeUpdate();
@@ -264,7 +265,7 @@ public class PlayerManager {
         }
     }
 
-    public static String addToFriendsList(int id, int newFriendId) {
+    public static String addToFriendsList(int id, int newFriendId) throws SQLException {
         String query = "UPDATE profiles SET friends = array_append(friends, ?) WHERE id = ?";
         try (PreparedStatement statement = conn.prepareStatement(query)) {
             statement.setInt(1, newFriendId);
@@ -277,11 +278,11 @@ public class PlayerManager {
                 return "No player found with ID: " + id;
             }
         } catch (SQLException e) {
-            return "Error updating 'friends' array: " + e.getMessage();
+            throw new SQLException("Error updating 'friends' array: " + e.getMessage(), e);
         }
     }
 
-    public static String addToFriendRequests(int id, int newFriendId) {
+    public static String addToFriendRequests(int id, int newFriendId) throws SQLException {
         String query = "UPDATE profiles SET friends = array_append(friend_requests, ?) WHERE id = ?";
         try (PreparedStatement statement = conn.prepareStatement(query)) {
             statement.setInt(1, newFriendId);
@@ -294,7 +295,27 @@ public class PlayerManager {
                 return "No player found with ID: " + id;
             }
         } catch (SQLException e) {
-            return "Error updating 'friend_requests' array: " + e.getMessage();
+            throw new SQLException("Error updating 'friend_requests' array: " + e.getMessage(), e);
+        }
+    }
+
+    public static int getProfileID(String username) throws SQLException {
+        String query = "SELECT id FROM profiles WHERE username = ?";
+        try (PreparedStatement statement = conn.prepareStatement(query)) {
+            // Bind the username parameter
+            statement.setString(1, username);
+
+            // Execute the query
+            ResultSet rs = statement.executeQuery();
+
+            // If we get a row, return its "id"
+            if (rs.next()) {
+                return rs.getInt("id");
+            } else {
+                throw new SQLException("Error retrieving profile ID");
+            }
+        } catch (SQLException e) {
+            throw new SQLException("Error retrieving profile ID: " + e.getMessage(), e);
         }
     }
 
