@@ -387,5 +387,12 @@ public class CheckersBoardTest {
         assertTrue(checkersBoard.isPiece(position));
     }
 
-    // need test for the following methods
+    /**TODO
+     * test isKing method
+     * test isPawn method
+     * test makePawn method
+     * test makeKing method
+     * test makeP1 method
+     * test makeP2 method
+     */
 }
