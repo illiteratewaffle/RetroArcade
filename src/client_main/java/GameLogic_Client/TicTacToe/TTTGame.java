@@ -1,4 +1,5 @@
 package GameLogic_Client.TicTacToe;
+
 import GameLogic_Client.Ivec2;
 
 /**

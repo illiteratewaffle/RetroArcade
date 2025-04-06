@@ -1,9 +1,7 @@
 package GUI_client;
 
-import GameLogic_Client.TicTacToe.TTTGameController;
 import GameLogic_Client.Ivec2;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
+import GameLogic_Client.TicTacToe.TTTGameController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
