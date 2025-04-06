@@ -273,7 +273,6 @@ public class TTTController implements Initializable {
     should also forfeit active matches
      */
     public void quit_TTT() throws IOException {
-        AudioManager.mediaPlayer.stop();
         if (!quitPopup.isShowing()) {
             quitPopup = new Stage();
             Stage owner = (Stage) board_image.getScene().getWindow();
@@ -292,6 +291,7 @@ public class TTTController implements Initializable {
             quitPopup.showAndWait();
 
             if (controller.closeYes) {
+                AudioManager.mediaPlayer.stop();
                 Parent newRoot = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("gameMenu.fxml")));
 
                 Stage stage = (Stage) gameBoard.getScene().getWindow();
