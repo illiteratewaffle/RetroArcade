@@ -46,6 +46,8 @@ public class leaderboardGUIController {
     @FXML
     public Button toggleOrder; // action: toggleOrder()
     @FXML
+    public ImageView back;
+    @FXML
     public MenuItem sortByWins;
     @FXML
     public MenuItem sortByWLR;
@@ -300,6 +302,10 @@ public class leaderboardGUIController {
     }
 
     public void search(ActionEvent actionEvent) {
+    }
+
+    public void back(MouseEvent mouseEvent) {
+        // BACK BUTTON FUNCTIONALITY
     }
 
 }
