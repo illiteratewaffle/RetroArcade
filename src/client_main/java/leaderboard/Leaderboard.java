@@ -396,11 +396,9 @@ public class Leaderboard {
         return result;
     }
 
+    public ArrayList<ArrayList<String>> filterFriends(ArrayList<ArrayList<String>> friendList){
 
-
-//    public ArrayList<ArrayList<String>> filterFriends(ArrayList<Profile> friendList){
-//
-//        return rankings;
-//    }
+        return rankings;
+    }
 
 }

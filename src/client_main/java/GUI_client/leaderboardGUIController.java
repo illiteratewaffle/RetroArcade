@@ -25,6 +25,7 @@ public class leaderboardGUIController {
     private String selectedSort = "RATING"; // default sort if needed
     private String selectedGame;
     private Leaderboard leaderboard;
+    private boolean friendSearch = false;
 
     @FXML
     public ImageView checkers_button; // action: checkers_stats
@@ -231,14 +232,16 @@ public class leaderboardGUIController {
         displayLeaderboard(this.selectedSort, this.selectedGame);
     }
 
-    public void filter(ActionEvent actionEvent) {
-        // Implement filter functionality as needed.
+    public void searchFriends(ActionEvent actionEvent) {
+        this.friendSearch = true;
+
+        // Code to get a new leaderboard based on player's friend's list.
+
     }
 
-    public void sort(ActionEvent actionEvent) {
-    }
-
-    public void search(ActionEvent actionEvent) {
+    public void searchAnyone(ActionEvent actionEvent) {
+        this.friendSearch = false;
+        displayLeaderboard(this.selectedSort, this.selectedGame);
     }
 
     public void send_search(MouseEvent mouseEvent) {
@@ -271,6 +274,16 @@ public class leaderboardGUIController {
                 C4_table.setItems(tableData);
             }
         }
+    }
+
+    public void filter(ActionEvent actionEvent) {
+        // Implement filter functionality as needed.
+    }
+
+    public void sort(ActionEvent actionEvent) {
+    }
+
+    public void search(ActionEvent actionEvent) {
     }
 
 }

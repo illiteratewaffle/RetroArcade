@@ -107,7 +107,7 @@ public class CSVFileReader {
     }
 
     /**
-     * from 2d arraylist of all profiles, makes another 2d arraylist of only profile statistics
+     * from 2d arraylist of all profiles, makes another 2d arraylist of ONLY PROFILE STATISTICS
      * format: [[id, username, rating ttt, rating c4, rating checkers, wins tt, wins c4, wins checkers, wlr ttt, wlr c4, wlr checkers], ...]
      *
      * @param fields

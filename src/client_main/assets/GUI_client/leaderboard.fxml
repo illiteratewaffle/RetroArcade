@@ -50,8 +50,8 @@
       </ScrollPane>
       <SplitMenuButton fx:id="filter_stats" layoutX="56.0" layoutY="479.0" mnemonicParsing="false" onAction="#filter" prefHeight="35.0" prefWidth="300.0" style="-fx-background-color: black;" text="Choose Player Filtering Options">
         <items>
-          <MenuItem mnemonicParsing="false" text="Friends" />
-          <MenuItem mnemonicParsing="false" text="Anyone" />
+          <MenuItem mnemonicParsing="false" onAction="#searchFriends" text="Friends" />
+          <MenuItem mnemonicParsing="false" onAction="#searchAnyone" text="Anyone" />
         </items>
          <font>
             <Font name="Silom" size="16.0" />
