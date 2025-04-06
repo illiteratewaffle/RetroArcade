@@ -1,6 +1,5 @@
 package client_main_tests.java.AuthenticationAndProfile;
 
-import AuthenticationAndProfile.PlayerRanking;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -14,7 +13,7 @@ import AuthenticationAndProfile.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ProfileTest {
-/*
+
     private Profile profile;
 
     @BeforeEach
@@ -25,7 +24,8 @@ class ProfileTest {
         List<Integer> friendRequests = Arrays.asList(201, 202);
         String password = "1234567";
         String hashedPassword = ProfileCreation.hashedPassword(password);
-        profile = new Profile("test@example.com", hashedPassword,"nickname", "This is bio.", false, "currentGame", new FriendsList(friends, friendRequests), new PlayerRanking(), new GameHistory(gameHistory, achievementProgress), "C:profile/pic/path.png", "username", 2 );
+        int id = 0;
+        profile = new Profile("test@example.com", hashedPassword,"nickname", "This is bio.", false, "currentGame", new FriendsList(friends, friendRequests, id), new PlayerRanking(), new GameHistory(gameHistory, achievementProgress), "C:profile/pic/path.png", "username", 2 );
     }
 
 
@@ -52,7 +52,8 @@ class ProfileTest {
         List<Integer> friendRequests = Arrays.asList(201, 202);
         String password = "WhatAGoodPassword!";
         String hashedPassword = ProfileCreation.hashedPassword(password);
-        Profile profile2 = new Profile("test@example.com", hashedPassword, "nick", "This is bio.", false, "currentGame", new FriendsList(friends, friendRequests), new PlayerRanking(), new GameHistory(gameHistory, achievementProgress), "C:profile/pic/path.png", "username", 2);
+        int id = 0;
+        Profile profile2 = new Profile("test@example.com", hashedPassword, "nick", "This is bio.", false, "currentGame", new FriendsList(friends, friendRequests, id), new PlayerRanking(), new GameHistory(gameHistory, achievementProgress), "C:profile/pic/path.png", "username", 2);
 
 
         assertEquals(hashedPassword, profile2.getHashedPassword());
@@ -60,8 +61,12 @@ class ProfileTest {
 
     @Test
     void setHashedPassword() {
-        profile.setHashedPassword("newHashedPassword");
-        assertEquals(ProfileCreation.hashedPassword("newHashedPassword"), profile.getHashedPassword());
+        try {
+            profile.setHashedPassword("newHashedPassword");
+            assertEquals(ProfileCreation.hashedPassword("newHashedPassword"), profile.getHashedPassword());
+        } catch (SQLException s) {
+            System.out.println(s.getMessage());
+        }
     }
 
     @Test
@@ -71,8 +76,12 @@ class ProfileTest {
 
     @Test
     void setNickname() {
-        profile.setNickname("newNickname");
-        assertEquals("newNickname", profile.getNickname());
+        try {
+            profile.setNickname("newNickname");
+            assertEquals("newNickname", profile.getNickname());
+        } catch (SQLException s) {
+            System.out.println(s.getMessage());
+        }
     }
 
     @Test
@@ -82,21 +91,33 @@ class ProfileTest {
 
     @Test
     void setBio() {
-        profile.setBio("newBio");
-        assertEquals("newBio", profile.getBio());
+        try {
+            profile.setBio("newBio");
+            assertEquals("newBio", profile.getBio());
+        } catch (SQLException s) {
+            System.out.println(s.getMessage());
+        }
     }
 
     @Test
     void setOnlineStatus() {
-        profile.setOnlineStatus(false);
-        assertFalse(profile.getOnlineStatus());
+        try {
+            profile.setOnlineStatus(false);
+            assertFalse(profile.getOnlineStatus());
+        } catch (SQLException s) {
+            System.out.println(s.getMessage());
+        }
     }
 
     @Test
     void getCurrentStatus() {
-        profile.setOnlineStatus(true);
-        profile.setCurrentGame("newGame");
-        profile.getCurrentStatus();
+        try {
+            profile.setOnlineStatus(true);
+            profile.setCurrentGame("newGame");
+            profile.getCurrentStatus();
+        } catch (SQLException s) {
+            System.out.println(s.getMessage());
+        }
     }
 
     @Test
@@ -106,8 +127,12 @@ class ProfileTest {
 
     @Test
     void setCurrentGame() {
-        profile.setCurrentGame("newGame");
-        assertEquals("newGame", profile.getCurrentGame());
+        try {
+            profile.setCurrentGame("newGame");
+            assertEquals("newGame", profile.getCurrentGame());
+        } catch (SQLException s) {
+            System.out.println(s.getMessage());
+        }
     }
 
     @Test
@@ -175,11 +200,12 @@ class ProfileTest {
     void setAndGetFriendsList() {
         List<Integer> friends = Arrays.asList(101, 102);
         List<Integer> friendRequests = Arrays.asList(201, 202);
-        FriendsList friendsList = new FriendsList(friends, friendRequests);
+        int id = 1;
+        FriendsList friendsList = new FriendsList(friends, friendRequests, id);
         profile.setFriendsList(friendsList);
         assertEquals(friendsList, profile.getFriendsList());
-    }*/
+    }
 
 
- //
+
 }

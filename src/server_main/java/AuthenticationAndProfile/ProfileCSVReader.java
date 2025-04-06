@@ -114,39 +114,40 @@ public class ProfileCSVReader {
                     inSection = false;
                 } else if (j == line.length() - 1) {
                     section = section + c;
+                    fields.add(section);
                 } else if ( c != '"') {
                     section = section + c;
                 }
             }
             br.close();
 
-            System.out.println("ID: " + fields.get(ID_INDEX)
-                    + " Username: " + fields.get(USER_INDEX)
-                    + " Nickname: " + fields.get(NICK_INDEX)
-                    + " Email: " + fields.get(EMAIL_INDEX)
-                    + " HashedPassword: " + fields.get(PWD_INDEX)
-                    + " Bio: " + fields.get(BIO_INDEX)
-                    + " Profile pic: " + fields.get(PIC_INDEX)
-                    + " Current game: " + fields.get(CGAME_INDEX)
-                    + " IsOnline: " + fields.get(ONLINE_INDEX)
-                    + " WLR TTT: " + fields.get(WLR_TTT_INDEX)
-                    + "WLR C4:" + fields.get(WLR_CONNECT4_INDEX)
-                    + "WLR C4:" + fields.get(WLR_CHECKERS_INDEX)
-                    + " Rating: " + fields.get(RATING_TTT_INDEX)
-                    + " Rating: " + fields.get(RATING_CONNECT4_INDEX)
-                    + " Rating: " + fields.get(RATING_CHECKERS_INDEX)
-                    + " Rank: " + fields.get(RANK_TTT_INDEX)
-                    + " Rank: " + fields.get(RANK_CONNECT4_INDEX)
-                    + " Rank: " + fields.get(RANK_CHECKERS_INDEX)
-                    + " Wins: " + fields.get(WINS_TTT_INDEX)
-                    + " Wins: " + fields.get(WINS_CONNECT4_INDEX)
-                    + " Wins: " + fields.get(WINS_CHECKERS_INDEX)
-                    + " GameHistory: " + fields.get(GHIST_INDEX)
-                    + " AchievementProgress: " + fields.get(ACHIVPROG_INDEX)
-                    + " Friends: " + fields.get(FRIENDS_INDEX)
-                    + " FriendRequests: " + fields.get(FREQUEST_INDEX)
-                    + " Creation Time: " + fields.get(FREQUEST_INDEX + 1)
-            );
+//            System.out.println("ID: " + fields.get(ID_INDEX)
+//                    + " Username: " + fields.get(USER_INDEX)
+//                    + " Nickname: " + fields.get(NICK_INDEX)
+//                    + " Email: " + fields.get(EMAIL_INDEX)
+//                    + " HashedPassword: " + fields.get(PWD_INDEX)
+//                    + " Bio: " + fields.get(BIO_INDEX)
+//                    + " Profile pic: " + fields.get(PIC_INDEX)
+//                    + " Current game: " + fields.get(CGAME_INDEX)
+//                    + " IsOnline: " + fields.get(ONLINE_INDEX)
+//                    + " WLR TTT: " + fields.get(WLR_TTT_INDEX)
+//                    + "WLR C4:" + fields.get(WLR_CONNECT4_INDEX)
+//                    + "WLR C4:" + fields.get(WLR_CHECKERS_INDEX)
+//                    + " Rating: " + fields.get(RATING_TTT_INDEX)
+//                    + " Rating: " + fields.get(RATING_CONNECT4_INDEX)
+//                    + " Rating: " + fields.get(RATING_CHECKERS_INDEX)
+//                    + " Rank: " + fields.get(RANK_TTT_INDEX)
+//                    + " Rank: " + fields.get(RANK_CONNECT4_INDEX)
+//                    + " Rank: " + fields.get(RANK_CHECKERS_INDEX)
+//                    + " Wins: " + fields.get(WINS_TTT_INDEX)
+//                    + " Wins: " + fields.get(WINS_CONNECT4_INDEX)
+//                    + " Wins: " + fields.get(WINS_CHECKERS_INDEX)
+//                    + " GameHistory: " + fields.get(GHIST_INDEX)
+//                    + " AchievementProgress: " + fields.get(ACHIVPROG_INDEX)
+//                    + " Friends: " + fields.get(FRIENDS_INDEX)
+//                    + " FriendRequests: " + fields.get(FREQUEST_INDEX)
+//                    + " Creation Time: " + fields.get(FREQUEST_INDEX + 1)
+//            );
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("System can't find file");
@@ -208,8 +209,8 @@ public class ProfileCSVReader {
 //                            + " FriendRequests: " + fields.get(i).get(FREQUEST_INDEX)
 //                            + " Creation Time: " + fields.get(i).get(17)
 //                    );
-                    i += 1;
-                }
+                i += 1;
+            }
             br.close();
         }catch (IOException e){
             e.printStackTrace();
@@ -228,8 +229,8 @@ public class ProfileCSVReader {
             String csvLine = "";
             for (int j = 0; j < profiles.get(i).size(); j ++){
 
-            switch (j){
-                case BIO_INDEX, GHIST_INDEX, ACHIVPROG_INDEX, FRIENDS_INDEX, FREQUEST_INDEX:
+                switch (j){
+                    case BIO_INDEX, GHIST_INDEX, ACHIVPROG_INDEX, FRIENDS_INDEX, FREQUEST_INDEX:
                         csvLine += "[" + profiles.get(i).get(j) + "]";
                         break;
                 }

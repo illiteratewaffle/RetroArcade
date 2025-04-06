@@ -12,11 +12,11 @@ class ProfileCSVReaderTest {
 
     @Test
     void openSingleProfileFile() {
-        ArrayList<String> expectedOutput = new ArrayList<>(List.of("2","sara_b","SaraB","sara@example.com","abcDEF123!@#",
-                "Competitive and loves strategy games.","profilePic.png","null","f","4.2","640","gold","157","Connect-4," +
-                        " Checkers","{0.60, WinConnect4WithPerfectMoves}","1, 7","4","2025-03-27 05:22:20.752369"));
+        ArrayList<String> expectedOutput = new ArrayList<>(List.of("19","sara_b","SaraB","sara@example.com","abcDEF123!@#",
+                "Competitive and loves strategy games.","profilePic.png","null","f","4.2","5.6","0.5","640","300","150","gold","silver","bronze","157","123","345","Connect-4,Checkers,TTT",
+                "WinConnect4WithPerfectMoves => 0.6","1,7","4","2025-04-05 18:57:53.970939"));
 
-        assertEquals(expectedOutput, ProfileCSVReader.openSingleProfileFile("tests/client_main_tests/test_resources/AuthenticationAndProfile/player_profile_2Test.csv"));
+        assertEquals(expectedOutput, ProfileCSVReader.openSingleProfileFile("tests/client_main_tests/test_resources/AuthenticationAndProfile/player_profile_19Test.csv"));
     }
 
     @Test
