@@ -7,6 +7,7 @@ import java.util.UUID;
 //import leaderboard.CheckersRanking;
 //import leaderboard.Connect4Ranking;
 //import AuthenticationAndProfile.PlayerRanking;
+import leaderboard.PlayerRanking;
 import player.PlayerManager;
 
 public class Profile {
@@ -122,7 +123,11 @@ public class Profile {
      */
     public void setBio(String newBio) {
         this.bio = newBio;
-        PlayerManager.updateAttribute(id, "bio", newBio);
+        try {
+            PlayerManager.updateAttribute(id, "bio", newBio);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**
@@ -233,7 +238,11 @@ public class Profile {
      */
     public void updateUsername(int id, String newUsername) {
         this.username = newUsername;
-        PlayerManager.updateAttribute(id, "username", newUsername);
+        try {
+            PlayerManager.updateAttribute(id, "username", newUsername);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 
