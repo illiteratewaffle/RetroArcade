@@ -29,9 +29,9 @@ public class ProfileDatabaseAccess {
      * @param id
      * @return Profile object from data corresponding to the id from the database
      */
-    public static Profile obtainProfile(int id) {
+    public static Profile obtainProfile(int id) throws SQLException{
         //call method to get csv for id
-//        try {
+        try {
             PlayerManager.getProfile(id); //method to get Profile csv with all attributes associated to the specified id
             String csvProfileFilePath = String.format("player_profile_%d.csv", id); //csv file saved to the main project directory
 
@@ -59,9 +59,9 @@ public class ProfileDatabaseAccess {
 
             Profile profile = new Profile(email, hashedPassword, nickname, bio, isOnline, currentGame, friendsList, playerRanking, gameHistory, profilePicFilePath, username, id);
             return profile;
-//        } catch (IOException e) {
-//            System.out.println("ID does not match a profile in the database.");
-//            return null;
+        } catch (SQLException s) {
+            throw new SQLException(s.getMessage());
+        }
 //        }
 //        } catch (IOException f) {
 //            System.out.println("Image issue.");
@@ -77,7 +77,7 @@ public class ProfileDatabaseAccess {
      * @param id
      * @return FriendsList object reflecting an up to date FriendsList that composes the profile saved in the database.
      */
-    public static FriendsList obtainFriendsList(int id) throws IOException{
+    public static FriendsList obtainFriendsList(int id) throws SQLException{
         //call method to get csv for id
         try {
             PlayerManager.getProfile(id); //method to get Profile csv with all attributes associated to the specified id
@@ -205,54 +205,41 @@ public class ProfileDatabaseAccess {
         try {
             PlayerManager.deleteProfile(id);
             Authentication.logOut(id);
-        } catch (SQLException s){
+        } catch (SQLException s) {
             throw new SQLException(s.getMessage());
         }
-    public static void removeProfile(int id){
-        try {
-            PlayerManager.deleteProfile(id);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        Authentication.logOut();
     }
-
     /**
      * getAllProfiles() is used to obtain the HashMap of all username keys and all Profile values.
      * @return HashMap<String, Profile>
      */
-    public static ArrayList<ArrayList<String>> getAllProfiles() throws SQLException{
-        try {
+    public static ArrayList<ArrayList<String>> getAllProfiles() throws SQLException {
             String csvProfileFilePath = "profiles_export.csv"; //csv is generated in the main directory of the project
-            PlayerManager.getProfileTable();//method to get all profiles in database into a csv file
-            ArrayList<ArrayList<String>> profileFields = ProfileCSVReader.openProfilesFile(csvProfileFilePath);
-            return profileFields;
-        } catch (SQLException s) {
-            throw new SQLException(s.getMessage());
+            try {
+                PlayerManager.getProfileTable();//method to get all profiles in database into a csv file
+                ArrayList<ArrayList<String>> profileFields = ProfileCSVReader.openProfilesFile(csvProfileFilePath);
+                return profileFields;
+            } catch (SQLException s) {
+                throw new SQLException(s.getMessage());
+            }
         }
-    public static ArrayList<ArrayList<String>> getAllProfiles() {
-        String csvProfileFilePath = "profiles_export.csv"; //csv is generated in the main directory of the project
-        try {
-            PlayerManager.getProfileTable();//method to get all profiles in database into a csv file
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        ArrayList<ArrayList<String>> profileFields = ProfileCSVReader.openProfilesFile(csvProfileFilePath);
-        return profileFields;
-    }
 
     /**
      * Method to search for Profiles with usernames similar to the searched term.
      * @param search String
      */
     //TODO: search profile method in Player Manager
-    public static List<Profile> searchForProfile(String search) {
-        List<Integer> usernameSearchMatchIdList = PlayerManager.searchProfiles(search);
-        List<Profile> profilesFound = new ArrayList<Profile>();
-        for (int i = 0; i < usernameSearchMatchIdList.size(); i++) {
-            profilesFound.add(obtainProfile(usernameSearchMatchIdList.get(i)));
+    public static List<Profile> searchForProfile(String search) throws SQLException{
+        try {
+            List<Integer> usernameSearchMatchIdList = PlayerManager.searchProfiles(search);
+            List<Profile> profilesFound = new ArrayList<Profile>();
+            for (int i = 0; i < usernameSearchMatchIdList.size(); i++) {
+                profilesFound.add(obtainProfile(usernameSearchMatchIdList.get(i)));
+            }
+            return profilesFound;
+        } catch (SQLException s){
+            throw new SQLException(s.getMessage());
         }
-        return profilesFound;
     }
 
     /**
