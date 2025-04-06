@@ -424,9 +424,127 @@ public class CheckersBoardTest {
         assertTrue(checkersBoard.isPiece(position));
     }
 
+    /**
+     * tests if the p1 piece is a king
+     */
+    @Test
+    public void testIsKingP1() {
+        // create a position value and a piece that is a king
+        Ivec2 position = new Ivec2(5, 5);
+        int p1Piece = CheckersPiece.P1KING.getValue();
+
+        // call the set piece method
+        checkersBoard.setPiece(position, p1Piece);
+        // assert that the piece at position is a king
+        assertTrue(checkersBoard.isKing(position));
+    }
+
+    /**
+     * tests if the p2 piece is a king
+     */
+    @Test
+    public void testIsKingP2() {
+        // create a position value and a piece that is a king
+        Ivec2 position = new Ivec2(5, 5);
+        int p2Piece = CheckersPiece.P2KING.getValue();
+
+        // call the set piece method
+        checkersBoard.setPiece(position, p2Piece);
+        // assert that the piece at position is a king
+        assertTrue(checkersBoard.isKing(position));
+    }
+
+    /**
+     * test the is king method when the p1 piece is not a king
+     */
+    @Test
+    public void testIsNotKingP1() {
+        // create a position value and a piece that is not a king
+        Ivec2 position = new Ivec2(5, 5);
+        int p1Piece = CheckersPiece.P1PAWN.getValue();
+
+        // call the set piece method
+        checkersBoard.setPiece(position, p1Piece);
+        // assert that the piece is not a king
+        assertFalse(checkersBoard.isKing(position));
+    }
+
+    /**
+     * test the is king method when the p2 piece is not a king
+     */
+    @Test
+    public void testIsNotKingP2() {
+        // create a position value and a piece that is not a king
+        Ivec2 position = new Ivec2(5, 5);
+        int p2Piece = CheckersPiece.P2PAWN.getValue();
+
+        // call the set piece method
+        checkersBoard.setPiece(position, p2Piece);
+        // assert that the piece is not a king
+        assertFalse(checkersBoard.isKing(position));
+    }
+
+    /**
+     * test the is pawn method when the p1 piece is a pawn
+     */
+    @Test
+    public void testIsPawnP1() {
+        // create a position value and a piece that is a pawn
+        Ivec2 position = new Ivec2(5, 5);
+        int p1Piece = CheckersPiece.P1PAWN.getValue();
+
+        // call the set piece method
+        checkersBoard.setPiece(position, p1Piece);
+        // assert that the piece is a pawn
+        assertTrue(checkersBoard.isPawn(position));
+    }
+
+    /**
+     * test the is pawn method when the p2 piece is a pawn
+     */
+    @Test
+    public void testIsPawnP2() {
+        // create a position value and a piece that is a pawn
+        Ivec2 position = new Ivec2(5, 5);
+        int p2Piece = CheckersPiece.P2PAWN.getValue();
+
+        // call the set piece method
+        checkersBoard.setPiece(position, p2Piece);
+        // assert that the piece is a pawn
+        assertTrue(checkersBoard.isPawn(position));
+    }
+
+    /**
+     * test the is pawn method when the p1 piece is not a pawn
+     */
+    @Test
+    public void testIsNotPawnP1() {
+        // create a position value and a piece that is not a pawn
+        Ivec2 position = new Ivec2(5, 5);
+        int p1Piece = CheckersPiece.P1KING.getValue();
+
+        // call the set piece method
+        checkersBoard.setPiece(position, p1Piece);
+        // assert that the piece is not a pawn
+        assertFalse(checkersBoard.isPawn(position));
+    }
+
+    /**
+     * test the is pawn method when the p2 piece is not a pawn
+     */
+    @Test
+    public void testIsNotPawnP2() {
+        // create a position value and a piece that is not a pawn
+        Ivec2 position = new Ivec2(5, 5);
+        int p2Piece = CheckersPiece.P2KING.getValue();
+
+        // call the set piece method
+        checkersBoard.setPiece(position, p2Piece);
+        // assert that the piece is not a pawn
+        assertFalse(checkersBoard.isPawn(position));
+    }
+
     /**TODO
-     * test isKing method
-     * test isPawn method
      * test makePawn method
      * test makeKing method
      * test makeP1 method
