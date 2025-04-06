@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class C4Controller implements IBoardGameController {
 
-    private GameLogic_Client.Connect4.C4GameLogic c4GameLogic;
+    public GameLogic_Client.Connect4.C4GameLogic c4GameLogic;
 
     /**
      * Starts a new game of Connect Four.
@@ -63,15 +63,11 @@ public class C4Controller implements IBoardGameController {
     @Override
     public int[] getWinner() {
         C4Piece winner = c4GameLogic.getC4Winner();
-
-        int winnerCode;
-        switch (winner) {
-            case RED -> winnerCode = 1;
-            case BLUE -> winnerCode = 2;
-            default -> winnerCode = -1; //draw
-        }
-
-        return new int[]{winnerCode};
+        return switch (winner) {
+            case RED -> new int[]{0};
+            case BLUE -> new int[]{1};
+            default -> new int[]{0, 1}; //draw
+        };
     }
 
     @Override

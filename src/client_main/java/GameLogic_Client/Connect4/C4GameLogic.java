@@ -1,5 +1,6 @@
 package GameLogic_Client.Connect4;
 
+import GameLogic_Client.GameState;
 import GameLogic_Client.Ivec2;
 
 public class C4GameLogic {
@@ -12,12 +13,32 @@ public class C4GameLogic {
 
     private C4Piece c4winner = C4Piece.BLANK;
 
+    public GameState gameState;
+
     /**
      * Constructs a new Connect Four game logic instance.
      */
     public C4GameLogic() {
         this.c4Board = new C4Board(6,7);
+        gameState = GameState.ONGOING;
         System.out.println("A new connect four board has been created");
+    }
+
+    /**
+     * Updates the game state based on the current board.
+     */
+    public void updateGameState() {
+        for (int j = 0; j < 7; j++) {
+            if (c4winner == C4Piece.RED) {
+                gameState = GameState.P1WIN;
+            } else if (c4winner == C4Piece.BLUE) {
+                gameState = GameState.P2WIN;
+            } else if (isC4ColFull(j)) {
+                gameState = GameState.TIE;
+            } else {
+                gameState = GameState.ONGOING;
+            }
+        }
     }
 
     /**
