@@ -38,6 +38,8 @@ public class gameMenuController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         quitMenu.setImage(new Image("quit_x.png"));
+
+        //setup mute status and soundtrack for main menu
         String path = Objects.requireNonNull(getClass().getResource("/music/mainMenuTrack.mp3")).toExternalForm(); // or absolute path
         Media sound = new Media(path);
         AudioManager.mediaPlayer = new MediaPlayer(sound);
@@ -51,22 +53,58 @@ public class gameMenuController implements Initializable {
         }
     }
 
+    /**
+     * switches scene to TTT game
+     * @throws IOException
+     */
     public void play_TTT() throws IOException {
+        // stop current soundtrack
         AudioManager.mediaPlayer.stop();
+        // load TTT resources
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("TTT.fxml")));
 
+        // get the current gameMenu stage
         Stage stage = (Stage) gameMenu_bg_image.getScene().getWindow();
 
         stage.setScene(new Scene(root));
         stage.show();
     }
-    public void play_checkers(){
 
-    }
-    public void play_C4(){
+    /**
+     * switches scene to checkers game
+     * @throws IOException
+     */
+    public void play_checkers() throws IOException {
+        // stop current soundtrack
+        AudioManager.mediaPlayer.stop();
+        // get checkers fxml resources
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("checkers.fxml")));
 
+        // get current gameMenu stage
+        Stage stage = (Stage) gameMenu_bg_image.getScene().getWindow();
+
+        stage.setScene(new Scene(root));
+        stage.show();
     }
+    public void play_C4() throws IOException {
+        // stop current soundtrack
+        AudioManager.mediaPlayer.stop();
+        // get connect4 fxml resources
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("connect4.fxml")));
+
+        // get current gameMenu stage
+        Stage stage = (Stage) gameMenu_bg_image.getScene().getWindow();
+
+        stage.setScene(new Scene(root));
+        stage.show();
+    }
+
+    /**
+     * quits gameMenu, closing application
+     * @throws IOException
+     */
     public void quitMenuClicked() throws IOException {
+        // only show new popup if no popup is showing
         if (!quitPopup.isShowing()) {
             quitPopup = new Stage();
             Stage owner = (Stage) gameMenu_bg_image.getScene().getWindow();

@@ -1,9 +1,7 @@
 package GUI_client;
 
-import GameLogic_Client.TicTacToe.TTTGameController;
 import GameLogic_Client.Ivec2;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
+import GameLogic_Client.TicTacToe.TTTGameController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -113,30 +111,36 @@ public class TTTController implements Initializable {
     @FXML
     public GridPane gameBoard;
 
+    // game controller for TTT logic
     TTTGameController theGame = new TTTGameController();
 
+    // easter egg
     private final ArrayList<Character> EEList = new ArrayList<Character>();
 
+    // stage for "are you sure?" popup
     private Stage quitPopup = new Stage();
-
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        Font.loadFont(getClass().getResourceAsStream("Fonts/SilomBol.ttf"), 16);
+        // set background and foreground images
         Image bg_image = new Image("background_retro.png");
         Image b_image = new Image("foreground.png");
-        // set background and foreground images
         background_image.setImage(bg_image);
         board_image.setImage(b_image);
-        quit_image.setImage(new Image("quit_x.png"));
+        // set button images
+        quit_image.setImage(new Image("home_button.png"));
         infoButton.setImage(new Image("info_button.png"));
+        turnBanner.setImage(new Image("XTurn.png"));
+        sendButton.setImage(new Image("send_button.png"));
+        chat_bg.setImage(new Image("chat_bg.png"));
 
-        muteButton.setImage(new Image("unmuteButton.png"));
+        // setup soundtrack
         String path = Objects.requireNonNull(getClass().getResource("/music/TTTTrack.mp3")).toExternalForm(); // or absolute path
         Media sound = new Media(path);
         AudioManager.mediaPlayer = new MediaPlayer(sound);
         AudioManager.mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
         AudioManager.mediaPlayer.play();
+        // if audioManager is muted, mute soundtrack, update mute button
         if (AudioManager.isMuted()){
             AudioManager.applyMute();
             muteButton.setImage(new Image("muteButton.png"));
@@ -144,9 +148,7 @@ public class TTTController implements Initializable {
             muteButton.setImage(new Image("unmuteButton.png"));
         }
 
-        turnBanner.setImage(new Image("XTurn.png"));
-        sendButton.setImage(new Image("send_button.png"));
-        chat_bg.setImage(new Image("chat_bg.png"));
+        // styling for chat board
         chat_area.clear();
         chat_area.setStyle(
                 "-fx-background-color: transparent;" +
@@ -157,7 +159,6 @@ public class TTTController implements Initializable {
                         "-fx-font-size: 16px;" +
                         "-fx-font-family: 'SilomBol.ttf';"
         );
-
         chat_pane.setStyle(
                 "-fx-background-color: transparent;" +
                         "-fx-background: transparent;" +
@@ -260,6 +261,12 @@ public class TTTController implements Initializable {
             }
     }
 
+    /**
+     * shows a yellow border on valid game tiles when hovering over them
+     * @param stackPane
+     * @param row
+     * @param col
+     */
     private void hoverEvent(StackPane stackPane, int row, int col){
         if (theGame.gameOngoing) {
             if (theGame.game.board.isEmpty(new Ivec2(row, col))) {
@@ -268,18 +275,23 @@ public class TTTController implements Initializable {
         }
     }
 
-    /*
-    triggered by x button click
-    prompts for confirmation
-    returns user to game menu
-    should also forfeit active matches
+    /**
+     * triggered by x button click
+     * prompts for confirmation
+     * returns user to game menu
+     * should also forfeit active matches
+     * @throws IOException
      */
     public void quit_TTT() throws IOException {
+        // check if popup is already showing
         if (!quitPopup.isShowing()) {
+            // if no popup is showing make a new popup
             quitPopup = new Stage();
+            // get caller stage, set as popup owner
             Stage owner = (Stage) board_image.getScene().getWindow();
             quitPopup.initOwner(owner);
 
+            // load popup resources
             FXMLLoader loader = new FXMLLoader(getClass().getResource("quitPopup.fxml"));
             Parent root = loader.load();
             Scene scene = new Scene(root);
@@ -288,10 +300,13 @@ public class TTTController implements Initializable {
             quitPopup.initStyle(StageStyle.TRANSPARENT);
             scene.setFill(Color.TRANSPARENT);
 
+            // set closeOwner false so TTT stage doesn't close
             controller.closeOwner = false;
             quitPopup.setScene(scene);
+            // show popup and wait for user input
             quitPopup.showAndWait();
 
+            // check if user wants to close TTT game
             if (controller.closeYes) {
                 AudioManager.mediaPlayer.stop();
                 Parent newRoot = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("gameMenu.fxml")));
@@ -303,6 +318,7 @@ public class TTTController implements Initializable {
             }
         }
     }
+    // easter egg stuff
     public void yellowPress(){
         EEList.add('Y');
     }
@@ -323,6 +339,11 @@ public class TTTController implements Initializable {
         board_image.setImage(new Image("foreground.png"));
     }
 
+    /**
+     * play again function
+     * essentially just clears board for now
+     * might remove
+     */
     public void playAgainYes() {
         if (!theGame.gameOngoing) {
             theGame = new TTTGameController();
@@ -331,19 +352,25 @@ public class TTTController implements Initializable {
         }
     }
 
+    /**
+     * game logic win checker
+     */
     public void checkWin(){
+        // check for game win
         if (theGame.game.checkWin(theGame.game.board)) {
-            // if game is over, current player is now the loser
+            // if game is over, current player is the loser
             if (theGame.getCurrentPlayer() == 2){
                 Win_Lose_Banner.setImage(new Image("X_wins.png"));
             } else if (theGame.getCurrentPlayer() == 1){
                 Win_Lose_Banner.setImage(new Image("O_wins.png"));
             }
+            // update game status
             theGame.gameOngoing = false;
-        } else if (theGame.game.checkDraw(theGame.game.board)){
+        } // check for game draw
+        else if (theGame.game.checkDraw(theGame.game.board)){
             Win_Lose_Banner.setImage(new Image("Draw.png"));
             theGame.gameOngoing = false;
-        }
+        } // if game is over, set play again features
         if (!theGame.gameOngoing){
             play_again.setImage(new Image("Play_Again.png"));
             check_circle.setImage(new Image("check_circle.png"));
@@ -352,6 +379,9 @@ public class TTTController implements Initializable {
         }
     }
 
+    /**
+     * clears all board images and play again images
+     */
     public void clearBoard(){
         Tile_0_0.setImage(null);
         Tile_0_1.setImage(null);
@@ -368,6 +398,9 @@ public class TTTController implements Initializable {
         Win_Lose_Banner.setImage(null);
     }
 
+    /**
+     * gets a string from chat text field and appends it to chat area
+     */
     public void sendMessage(){
         String message = chat_input_field.getText();
         if (!message.trim().isEmpty()){
@@ -376,26 +409,30 @@ public class TTTController implements Initializable {
         }
     }
 
+    /**
+     * function for networking to get string messages from opponents and update chat
+     * @param message
+     */
     public void getMessage(String message){
         chat_area.appendText(message);
     }
 
+    // button animations
     public void infoButtonPress(){
         info_bg.setImage(new Image("info_image.png"));
         info_bg.setMouseTransparent(false);
         info_ok_button.setMouseTransparent(false);
     }
-
     public void info_ok_clicked(){
         info_bg.setImage(null);
         info_bg.setMouseTransparent(true);
         info_ok_button.setMouseTransparent(true);
     }
     public void XPressed(){
-        quit_image.setImage(new Image("XButtonDown.png"));
+        quit_image.setImage(new Image("home_button_pressed.png"));
     }
     public void XReleased(){
-        quit_image.setImage(new Image("quit_x.png"));
+        quit_image.setImage(new Image("home_button.png"));
     }
     public void infoPressed(){
         infoButton.setImage(new Image("infoButtonDown.png"));

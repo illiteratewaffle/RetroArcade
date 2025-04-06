@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="ba5d62c9-ef67-4eb7-8775-b12157e4f5a8" name="Changes" comment="Mute button and Audio controlller to monitor muted status between controllers" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+        <option value="FxmlFile" />
+        <option value="Enum" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="p3_Checkers" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitLabDefaultAccount">
+    <option name="defaultAccountId" value="f9fd431d-83e7-48e5-b416-bb8ae1ab5f40" />
+  </component>
+  <component name="GitLabMergeRequestFiltersHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPENED&quot;,
+    &quot;assignee&quot;: {
+      &quot;type&quot;: &quot;org.jetbrains.plugins.gitlab.mergerequest.ui.filters.GitLabMergeRequestsFiltersValue.MergeRequestsMemberFilterValue.MergeRequestsAssigneeFilterValue&quot;,
+      &quot;username&quot;: &quot;project_7148_bot_e76b94ef433e06eb7def30ffc4962933&quot;,
+      &quot;fullname&quot;: &quot;seng300-assignment-1&quot;
+    }
+  }
+}</component>
+  <component name="GitLabMergeRequestsSettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;first&quot;: &quot;git@csgit.ucalgary.ca:ryan.hashemiantabriz/seng300-w25-project.git&quot;,
+    &quot;second&quot;: &quot;39e2ddf0-b747-4969-907b-987f1786dd46&quot;
+  }
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 8
+}</component>
+  <component name="ProjectId" id="2vFbTR2Mtt64jqdodaVcb0HkJIK" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.C4Application.executor&quot;: &quot;Run&quot;,
+    &quot;Application.CheckersApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Application.MainApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Application.TTTApplication.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;p3__GUI&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Tyler/IdeaProjects/seng300-w25-project/src/client_main/resources/music&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Tyler\IdeaProjects\seng300-w25-project\src\client_main\resources\music" />
+      <recent name="C:\Users\Tyler\IdeaProjects\seng300-w25-project\src\client_main\resources" />
+      <recent name="C:\Users\Tyler\IdeaProjects\seng300-w25-project\src\client_main\resources\GUI_buttons" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Tyler\IdeaProjects\seng300-w25-project\src\client_main\resources\GUI_buttons\pressed" />
+      <recent name="C:\Users\Tyler\IdeaProjects\seng300-w25-project\src\client_main\resources" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="seng300-w25-project" />
+      <option name="filePath" />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-a94e463ab2e7-intellij.indexing.shared.core-IU-243.26053.27" />
+        <option value="bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-IU-243.26053.27" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="ba5d62c9-ef67-4eb7-8775-b12157e4f5a8" name="Changes" comment="" />
+      <created>1743743778596</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1743743778596</updated>
+    </task>
+    <task id="LOCAL-00001" summary="Added info page for TTT/info button. Moved exit button to right side">
+      <option name="closed" value="true" />
+      <created>1743749603923</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1743749603923</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Exit menu button, player turn banners">
+      <option name="closed" value="true" />
+      <created>1743788633776</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1743788633776</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Added popup window exit controller and fxml">
+      <option name="closed" value="true" />
+      <created>1743792640202</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1743792640202</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Set new play buttons for game menu + hover events.">
+      <option name="closed" value="true" />
+      <created>1743805202524</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1743805202524</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Mute button and Audio controlller to monitor muted status between controllers">
+      <option name="closed" value="true" />
+      <created>1743810451019</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1743810451019</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Merged into p3_gui">
+      <option name="closed" value="true" />
+      <created>1743879927199</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1743879927199</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Fixed compiling errors">
+      <option name="closed" value="true" />
+      <created>1743883312686</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1743883312686</updated>
+    </task>
+    <task id="LOCAL-00008" summary="checkers Gui integrated into mainApplication">
+      <option name="closed" value="true" />
+      <created>1743885740044</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1743885740044</updated>
+    </task>
+    <task id="LOCAL-00009" summary="integrated C4 into gamemenu">
+      <option name="closed" value="true" />
+      <created>1743912522429</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1743912522429</updated>
+    </task>
+    <task id="LOCAL-00010" summary="removed unneccessary applications">
+      <option name="closed" value="true" />
+      <created>1743913028945</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1743913028945</updated>
+    </task>
+    <task id="LOCAL-00011" summary="removed unneccessary applications">
+      <option name="closed" value="true" />
+      <created>1743913105435</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1743913105435</updated>
+    </task>
+    <task id="LOCAL-00012" summary="readded fxml files">
+      <option name="closed" value="true" />
+      <created>1743913285897</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1743913285897</updated>
+    </task>
+    <task id="LOCAL-00013" summary="possibly fixed gitignore on the branch ? (checkers does not run right now)">
+      <option name="closed" value="true" />
+      <created>1743961720586</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1743961720586</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Added info page for TTT/info button. Moved exit button to right side" />
+    <MESSAGE value="Exit menu button, player turn banners" />
+    <MESSAGE value="Added popup window exit controller and fxml" />
+    <MESSAGE value="Set new play buttons for game menu + hover events." />
+    <MESSAGE value="Mute button and Audio controlller to monitor muted status between controllers" />
+    <MESSAGE value="Merged into p3_gui" />
+    <MESSAGE value="Fixed compiling errors" />
+    <MESSAGE value="Fixed errors" />
+    <MESSAGE value="checkers Gui integrated into mainApplication" />
+    <MESSAGE value="integrated C4 into gamemenu" />
+    <MESSAGE value="removed unneccessary applications" />
+    <MESSAGE value="readded fxml files" />
+    <MESSAGE value="possibly fixed gitignore on the branch ? (checkers does not run right now)" />
+    <option name="LAST_COMMIT_MESSAGE" value="possibly fixed gitignore on the branch ? (checkers does not run right now)" />
+  </component>
+</project>

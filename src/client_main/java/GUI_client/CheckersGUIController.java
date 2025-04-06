@@ -1,27 +1,57 @@
 package GUI_client;
 
 import GameLogic_Client.Checkers.CheckersController;
-import GameLogic_Client.Ivec2;
 
+import GameLogic_Client.Ivec2;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 
 import javafx.scene.image.ImageView;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.paint.Color;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import javafx.scene.control.TextField;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.paint.Color;
+import java.io.IOException;
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class CheckersGUIController implements Initializable {
 
     @FXML
+    public ImageView quitButton;
+    @FXML
+    public ImageView infoButton;
+    @FXML
+    public ImageView muteButton;
+    @FXML
     private GridPane checkerBoard;
+    @FXML
+    private ScrollPane checkerChatPane;
+    @FXML
+    private TextField checkerChatInput;
+    @FXML
+    private TextArea checkerChatArea;
 
     @FXML
     private ImageView screen;
 
+    @FXML
+    private ImageView checkerChatBg;
+
     private CheckersController gameLogic;
+    private Stage quitPopup = new Stage();
 
     private static final int BOARD_SIZE = 8;
     private StackPane[][] tileBorderGrid = new StackPane[BOARD_SIZE][BOARD_SIZE];
@@ -32,6 +62,7 @@ public class CheckersGUIController implements Initializable {
     private Image pinkChecker;
     private Image blueKingChecker;
     private Image pinkKingChecker;
+
 
     // Turn images
     private Image yourTurn;
@@ -61,8 +92,39 @@ public class CheckersGUIController implements Initializable {
         opponentTurn = new Image("checkers_blue_piece.png");
         winnerBlue = new Image("YOU_WIN_blue.png");
         winnerPink = new Image("YOU_WIN_pink.png");
-        //tie = new Image("TIE.png");
+        quitButton.setImage(new Image("home_button.png"));
+        infoButton.setImage(new Image("info_button.png"));
+        checkerChatBg.setImage(new Image("chat_bg.png"));
 
+        // setup audio and mute status
+        String path = Objects.requireNonNull(getClass().getResource("/music/checkersTrack.mp3")).toExternalForm(); // or absolute path
+        Media sound = new Media(path);
+        AudioManager.mediaPlayer = new MediaPlayer(sound);
+        AudioManager.mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+        AudioManager.mediaPlayer.play();
+        if (AudioManager.isMuted()){
+            AudioManager.applyMute();
+            muteButton.setImage(new Image("muteButton.png"));
+        } else {
+            muteButton.setImage(new Image("unmuteButton.png"));
+        }
+
+        checkerChatArea.clear();
+        checkerChatArea.setStyle(
+                "-fx-background-color: transparent;" +
+                        "-fx-control-inner-background: transparent;" +
+                        "-fx-text-fill: white;" +
+                        "-fx-border-color: transparent;" +
+                        "-fx-text-fill: yellow;" +
+                        "-fx-font-size: 16px;" +
+                        "-fx-font-family: 'SilomBol.ttf';"
+        );
+        checkerChatPane.setStyle(
+                "-fx-background-color: transparent;" +
+                        "-fx-background: transparent;" +
+                        "-fx-border-color: transparent;"
+        );
+        //tie = new Image("TIE.png");
 
         for (int i = 0; i < BOARD_SIZE; i++) {
             for (int j = 0; j < BOARD_SIZE; j++) {
@@ -113,6 +175,7 @@ public class CheckersGUIController implements Initializable {
                 checkerBoard.add(tileBorderGrid[i][j], j, i);
             }
         }
+
         // update the board and turns
         refreshBoard();
         getTurn();
@@ -214,5 +277,73 @@ public class CheckersGUIController implements Initializable {
            // screen.setImage(tie);
         }
         // otherwise do nothing and keep playing
+    }
+    public void XPressed(){
+        quitButton.setImage(new Image("home_button_pressed.png"));
+    }
+    public void XReleased(){
+        quitButton.setImage(new Image("home_button.png"));
+    }
+    public void infoPressed(){
+        infoButton.setImage(new Image("infoButtonDown.png"));
+    }
+    public void infoReleased(){
+        infoButton.setImage(new Image("info_button.png"));
+    }
+    public void muteButtonClick(){
+        if(!AudioManager.isMuted()) {
+            muteButton.setImage(new Image("muteButton.png"));
+            AudioManager.toggleMute();
+        } else {
+            muteButton.setImage(new Image("unmuteButton.png"));
+            AudioManager.toggleMute();
+        }
+    }
+    public void quitCheckers() throws IOException {
+        if (!quitPopup.isShowing()) {
+            quitPopup = new Stage();
+            Stage owner = (Stage) checkerBoard.getScene().getWindow();
+            quitPopup.initOwner(owner);
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("quitPopup.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            QuitPopupController controller = loader.getController();
+
+            quitPopup.initStyle(StageStyle.TRANSPARENT);
+            scene.setFill(Color.TRANSPARENT);
+
+            controller.closeOwner = false;
+            quitPopup.setScene(scene);
+            quitPopup.showAndWait();
+
+            if (controller.closeYes) {
+                AudioManager.mediaPlayer.stop();
+                Parent newRoot = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("gameMenu.fxml")));
+
+                Stage stage = (Stage) checkerBoard.getScene().getWindow();
+
+                stage.setScene(new Scene(newRoot));
+                stage.show();
+            }
+        }
+    }
+    /**
+     * gets a string from chat text field and appends it to chat area
+     */
+    public void sendMessage(){
+        String message = checkerChatInput.getText();
+        if (!message.trim().isEmpty()){
+            checkerChatArea.appendText("You: " + message + "\n");
+            checkerChatInput.clear();
+        }
+    }
+
+    /**
+     * function for networking to get string messages from opponents and update chat
+     * @param message
+     */
+    public void getMessage(String message){
+        checkerChatArea.appendText(message);
     }
 }

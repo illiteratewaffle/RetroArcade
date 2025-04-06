@@ -1,6 +1,7 @@
 package GameLogic_Client.Connect4;
 
 import GameLogic_Client.AbstractBoard;
+import GameLogic_Client.Ivec2;
 
 public class C4Board extends AbstractBoard {
 
@@ -18,13 +19,15 @@ public class C4Board extends AbstractBoard {
     /**
      * Place a token at a specified location (coordinates) on the board.
      */
-    void setC4Piece() {
+    public void setC4Piece(Ivec2 point, C4Piece piece) {
+        setPiece(point, piece.getValue());;
     }
 
     /**
      * Get the coordinates of a placed token on the board.
      */
-    void getC4Piece() {
+    public C4Piece getC4Piece(Ivec2 point) {
+        return C4Piece.fromInt(getPiece(point));
     }
 
     /**
