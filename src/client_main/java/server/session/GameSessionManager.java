@@ -42,7 +42,7 @@ public class GameSessionManager implements Runnable{
             ThreadMessage message = recieveInputFromPlayer(currentPlayer); //Wait for player input
 
             if (message != null){
-                gameController.receiveInput(message.getContent()); //Process the input in the game logic
+                //gameController.receiveInput(message.getContent()); //Process the input in the game logic
                 GameStateToPlayers(); //Notify players of the state of the game
             }
             if (!gameController.getGameOngoing()){
