@@ -39,7 +39,7 @@ public class CheckersGUIController implements Initializable {
 
     private Image winnerBlue;
     private Image winnerPink;
-    //private Image tie;
+    private Image tie;
 
     private StackPane previouslySelectedTile = null;
     private int lastClickedRow = -1;
@@ -61,7 +61,7 @@ public class CheckersGUIController implements Initializable {
         opponentTurn = new Image("checkers_blue_piece.png");
         winnerBlue = new Image("YOU_WIN_blue.png");
         winnerPink = new Image("YOU_WIN_pink.png");
-        //tie = new Image("TIE.png");
+        tie = new Image("tie.png");
 
 
         for (int i = 0; i < BOARD_SIZE; i++) {
@@ -211,7 +211,7 @@ public class CheckersGUIController implements Initializable {
             }
         // array of length two means tie
         } else if (winner.length == 2) {
-           // screen.setImage(tie);
+           screen.setImage(tie);
         }
         // otherwise do nothing and keep playing
     }
