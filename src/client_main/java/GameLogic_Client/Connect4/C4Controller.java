@@ -121,4 +121,12 @@ public class C4Controller implements IBoardGameController {
     void printBoard() {
         System.out.println(c4GameLogic);
     }
+
+    public int getC4ColHint() {
+        if (c4GameLogic == null) {
+            System.out.println("Game not started. No hint available.");
+            return -1;
+        }
+        return c4GameLogic.getC4HintColumn();
+    }
 }
