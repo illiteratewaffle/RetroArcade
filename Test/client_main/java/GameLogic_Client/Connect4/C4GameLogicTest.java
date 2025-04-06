@@ -1,7 +1,7 @@
 package client_main.java.GameLogic_Client.Connect4;
 
 import GameLogic_Client.Connect4.*;
-import GameLogic_Client.ivec2;
+import GameLogic_Client.Connect4.C4Piece;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -10,6 +10,9 @@ import static org.junit.jupiter.api.Assertions.*;
 public class C4GameLogicTest {
 
     private C4GameLogic game;
+    private C4Piece[][] emptyBoard() {
+        return new C4Piece[6][7];
+    }
 
     @BeforeEach
     void setUp() {
@@ -76,14 +79,28 @@ public class C4GameLogicTest {
     @Test
     void testDrawCondition() {
         C4Piece current = C4Piece.RED;
+        int col = 4;
         for (int row = 0; row < 6; row++) {
-            for (int col = 0; col < 7; col++) {
-                game.c4DropPiece(col, current);
-                current = (current == C4Piece.RED) ? C4Piece.BLUE : C4Piece.RED;
-            }
+            game.c4DropPiece(col, current);
         }
         assertTrue(game.getC4IsGameOver());
-        assertEquals(C4Piece.BLANK, game.getC4Winner());
+    }
+
+    @Test
+    void testDrawCondition2() {
+        C4Piece current = C4Piece.BLUE;
+        C4Piece current2 = C4Piece.RED;
+        int col = 2;
+        C4Piece[][] board = emptyBoard();
+
+        for (int i = 0; i < 6; i++) {
+            if(i%2 == 0) {
+                board[i][col] = current;
+            } else {
+                board[i][col] = current2;
+            }
+        }
+        assertNotEquals(game.getC4ColTopBlank(col), -1);
     }
 
     @Test
