@@ -6,17 +6,28 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 import leaderboard.Leaderboard;
 
+import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.ResourceBundle;
 
-public class leaderboardGUIController {
+public class leaderboardGUIController implements Initializable{
 
     private static final String GAME_CHECKERS = "CHECKERS";
     private static final String GAME_TTT = "TTT";
@@ -27,6 +38,10 @@ public class leaderboardGUIController {
     private Leaderboard leaderboard;
     private boolean friendSearch = false;
 
+    @FXML
+    public ImageView muteButton;
+    @FXML
+    public ImageView backButton;
     @FXML
     public ImageView checkers_button; // action: checkers_stats
     @FXML
@@ -45,6 +60,8 @@ public class leaderboardGUIController {
     public TextField friend_search;   // action: search
     @FXML
     public Button toggleOrder; // action: toggleOrder()
+    @FXML
+    public ImageView back;
     @FXML
     public MenuItem sortByWins;
     @FXML
@@ -69,8 +86,8 @@ public class leaderboardGUIController {
     /**
      * Sets up variable row for profiles
      */
-    @FXML
-    public void initialize() {
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
         // Make the TableView background transparent
         C4_table.setBackground(Background.EMPTY);
         C4_table.setStyle(
@@ -95,6 +112,19 @@ public class leaderboardGUIController {
 
         // Prevent horizontal scrolling by forcing columns to fill the available width
         C4_table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+
+        // setup soundtrack and mute status
+        String path = Objects.requireNonNull(getClass().getResource("/music/leaderboardsTrack.mp3")).toExternalForm(); // or absolute path
+        Media sound = new Media(path);
+        AudioManager.mediaPlayer = new MediaPlayer(sound);
+        AudioManager.mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+        AudioManager.mediaPlayer.play();
+        if (AudioManager.isMuted()){
+            AudioManager.applyMute();
+            muteButton.setImage(new Image("muteButton.png"));
+        } else{
+            muteButton.setImage(new Image("unmuteButton.png"));
+        }
     }
 
     // method to set up a TableColumn
@@ -292,6 +322,7 @@ public class leaderboardGUIController {
         }
     }
 
+    // filter(), sort(), search() must be here dont delete
     public void filter(ActionEvent actionEvent) {
         // Implement filter functionality as needed.
     }
@@ -301,5 +332,34 @@ public class leaderboardGUIController {
 
     public void search(ActionEvent actionEvent) {
     }
+    public void backButtonClicked() throws IOException {
+        AudioManager.mediaPlayer.stop();
+        Parent newRoot = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("gameMenu.fxml")));
 
+        Stage stage = (Stage) search_button.getScene().getWindow();
+
+        stage.setScene(new Scene(newRoot));
+        stage.show();
+    }
+    public void backButtonPressed(){
+        backButton.setImage(new Image("home_button_pressed.png"));
+    }
+    public void backButtonReleased(){
+        backButton.setImage(new Image("home_button.png"));
+    }
+    public void searchPressed(){
+        search_button.setImage(new Image("search_button_pressed.png"));
+    }
+    public void searchReleased(){
+        search_button.setImage(new Image("search_button.png"));
+    }
+    public void muteButtonClicked(){
+        if(!AudioManager.isMuted()) {
+            muteButton.setImage(new Image("muteButton.png"));
+            AudioManager.toggleMute();
+        } else {
+            muteButton.setImage(new Image("unmuteButton.png"));
+            AudioManager.toggleMute();
+        }
+    }
 }
