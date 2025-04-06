@@ -97,8 +97,16 @@ public class CheckersMoveTest {
      * this test checks the return boolean of the is capture method
      */
     @Test
-    public void testIsCaptureMethod1() {
+    public void testIsCaptureMethod() {
         // if the method returns true test passes
         assertTrue(checkersMove.isCapture());
+    }
+
+    @Test
+    public void testIsCaptureMethodNull() {
+        // set capture cord to null
+        checkersMove.setCaptureCoordinate(null);
+        // assert that is capture is false
+        assertFalse(checkersMove.isCapture());
     }
 }
