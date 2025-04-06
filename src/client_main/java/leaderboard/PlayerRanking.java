@@ -134,8 +134,6 @@ public class PlayerRanking {
             PlayerManager.updateAttribute(id, "wins_checkers", wins);
         }
     }
-
-
 }
 
 
