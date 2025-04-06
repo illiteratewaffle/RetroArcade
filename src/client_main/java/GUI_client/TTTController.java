@@ -1,6 +1,7 @@
 package GUI_client;
 
 import GameLogic_Client.Ivec2;
+import GameLogic_Client.GameState;
 import GameLogic_Client.TicTacToe.TTTGameController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -244,7 +245,7 @@ public class TTTController implements Initializable {
     private void setTile(int row, int col, ImageView imageView){
         Image X = new Image("X.png");
         Image O = new Image("O.png");
-        if (theGame.gameOngoing)
+        if (theGame.getGameOngoing())
             if (theGame.game.board.isEmpty(new Ivec2(row, col))) {
                 if (theGame.getCurrentPlayer() == 1){
                     imageView.setImage(X);
@@ -268,7 +269,7 @@ public class TTTController implements Initializable {
      * @param col
      */
     private void hoverEvent(StackPane stackPane, int row, int col){
-        if (theGame.gameOngoing) {
+        if (theGame.getGameOngoing()) {
             if (theGame.game.board.isEmpty(new Ivec2(row, col))) {
                 stackPane.setStyle("-fx-border-color: yellow; -fx-border-width: 3px; -fx-border-radius: 5px;");
             }
@@ -345,7 +346,7 @@ public class TTTController implements Initializable {
      * might remove
      */
     public void playAgainYes() {
-        if (!theGame.gameOngoing) {
+        if (!theGame.getGameOngoing()) {
             theGame = new TTTGameController();
             clearBoard();
             turnBanner.setImage(new Image("XTurn.png"));
@@ -353,31 +354,35 @@ public class TTTController implements Initializable {
     }
 
     /**
-     * game logic win checker
+     * Game logic win checker.
      */
     public void checkWin(){
         // check for game win
         if (theGame.game.checkWin(theGame.game.board)) {
             // if game is over, current player is the loser
-            if (theGame.getCurrentPlayer() == 2){
+            if (theGame.getCurrentPlayer() == 2){ // if the current player is O
                 Win_Lose_Banner.setImage(new Image("X_wins.png"));
+                theGame.game.updateGameState();  // Update the game state to P1 win
             } else if (theGame.getCurrentPlayer() == 1){
                 Win_Lose_Banner.setImage(new Image("O_wins.png"));
+                theGame.game.updateGameState();  // Update the game state to P2 win
             }
-            // update game status
-            theGame.gameOngoing = false;
-        } // check for game draw
+        }
+        // check for game draw
         else if (theGame.game.checkDraw(theGame.game.board)){
             Win_Lose_Banner.setImage(new Image("Draw.png"));
-            theGame.gameOngoing = false;
-        } // if game is over, set play again features
-        if (!theGame.gameOngoing){
+            theGame.game.updateGameState();  // Update the game state to TIE
+        }
+
+        // if game is over, set play again features
+        if (!theGame.getGameOngoing()){ // if the game is not ongoing, i.e. the game is over
             play_again.setImage(new Image("Play_Again.png"));
             check_circle.setImage(new Image("check_circle.png"));
             X_circle.setImage(new Image("X_circle.png"));
             turnBanner.setImage(null);
         }
     }
+
 
     /**
      * clears all board images and play again images

@@ -4,7 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ba5d62c9-ef67-4eb7-8775-b12157e4f5a8" name="Changes" comment="Mute button and Audio controlller to monitor muted status between controllers" />
+    <list default="true" id="ba5d62c9-ef67-4eb7-8775-b12157e4f5a8" name="Changes" comment="GameState Enum added to Game_Logic Client side, removed and properly fixed in checkers controller">
+      <change beforePath="$PROJECT_DIR$/src/client_main/java/GUI_client/TTTController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client_main/java/GUI_client/TTTController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/client_main/java/GameLogic_Client/TicTacToe/TTTGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client_main/java/GameLogic_Client/TicTacToe/TTTGame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/client_main/java/GameLogic_Client/TicTacToe/TTTGameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client_main/java/GameLogic_Client/TicTacToe/TTTGameController.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -46,6 +50,9 @@
     &quot;second&quot;: &quot;39e2ddf0-b747-4969-907b-987f1786dd46&quot;
   }
 }</component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 8
 }</component>
@@ -55,23 +62,26 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.C4Application.executor&quot;: &quot;Run&quot;,
-    &quot;Application.CheckersApplication.executor&quot;: &quot;Run&quot;,
-    &quot;Application.MainApplication.executor&quot;: &quot;Run&quot;,
-    &quot;Application.TTTApplication.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;p3__GUI&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Tyler/IdeaProjects/seng300-w25-project/src/client_main/resources/music&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.C4Application.executor": "Run",
+    "Application.CheckersApplication.executor": "Run",
+    "Application.MainApplication.executor": "Run",
+    "Application.TTTApplication.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "p3__GUI",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/Tyler/IdeaProjects/seng300-w25-project/src/client_main/resources/music",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Tyler\IdeaProjects\seng300-w25-project\src\client_main\resources\music" />
@@ -90,14 +100,6 @@
       <method v="2" />
     </configuration>
   </component>
-  <component name="SharedIndexes">
-    <attachedChunks>
-      <set>
-        <option value="bundled-jdk-9823dce3aa75-a94e463ab2e7-intellij.indexing.shared.core-IU-243.26053.27" />
-        <option value="bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-IU-243.26053.27" />
-      </set>
-    </attachedChunks>
-  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -106,6 +108,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1743743778596</updated>
+      <workItem from="1743964794507" duration="2366000" />
     </task>
     <task id="LOCAL-00001" summary="Added info page for TTT/info button. Moved exit button to right side">
       <option name="closed" value="true" />
@@ -211,7 +214,15 @@
       <option name="project" value="LOCAL" />
       <updated>1743961720586</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="GameState Enum added to Game_Logic Client side, removed and properly fixed in checkers controller">
+      <option name="closed" value="true" />
+      <created>1743964841470</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1743964841470</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -242,6 +253,7 @@
     <MESSAGE value="removed unneccessary applications" />
     <MESSAGE value="readded fxml files" />
     <MESSAGE value="possibly fixed gitignore on the branch ? (checkers does not run right now)" />
-    <option name="LAST_COMMIT_MESSAGE" value="possibly fixed gitignore on the branch ? (checkers does not run right now)" />
+    <MESSAGE value="GameState Enum added to Game_Logic Client side, removed and properly fixed in checkers controller" />
+    <option name="LAST_COMMIT_MESSAGE" value="GameState Enum added to Game_Logic Client side, removed and properly fixed in checkers controller" />
   </component>
 </project>
