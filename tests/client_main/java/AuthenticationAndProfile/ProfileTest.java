@@ -133,13 +133,27 @@ class ProfileTest {
 
     @Test
     void exportUsername() {
-        assertEquals("username", Profile.exportUsername(1));
+        String username = Profile.generateUsername();
+        String email = username + "@example.com";
+        String password = Profile.generatePassword();
+        ProfileCreation.createNewProfile(username, email, password);
+        String hashedPassword = ProfileCreation.hashedPassword(password);
+        int newProfileID = Authentication.getProfileLoggedIn().getID();
+        assertEquals(username, Profile.exportUsername(newProfileID));
     }
 
     @Test
     void updateUsernameInDatabase() {
-        profile.updateUsername(6, "Alice");
-        assertEquals("Alice", profile.exportUsername(6));
+        String username = Profile.generateUsername();
+        String newUsername = Profile.generateUsername();
+        String email = username + "@example.com";
+        String password = Profile.generatePassword();
+        ProfileCreation.createNewProfile(username, email, password);
+        String hashedPassword = ProfileCreation.hashedPassword(password);
+        int newProfileID = Authentication.getProfileLoggedIn().getID();
+        assertEquals(username, Profile.exportUsername(newProfileID));
+        profile.updateUsername(newProfileID, newUsername);
+        assertEquals(newUsername, profile.exportUsername(newProfileID));
     }
 
     @Test
