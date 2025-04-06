@@ -2,93 +2,182 @@ package client;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
+
+import static server.management.JsonConverter.fromJson;
+import static server.management.JsonConverter.toJson;
 
 public class Client {
 
     private Socket clientSocket;
-    private BufferedWriter bufferedWriter;
-    private BufferedReader bufferedReader;
-    private  String PlayerID; // placeholder for the playerID
-/**
-     * Constructor for ClientHandler.
-     *
-     * @param socket  the Socket that the client is connected on
-     * @param PlayerID The associated PlayerID for of the user.
-     */
-    public Client(Socket socket, String PlayerID){
+    private BufferedReader reader;
+    private PrintWriter writer;
+    private String playerId;
+
+    public Client(Socket socket, String playerId) {
         try {
-            this.bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            this.bufferedWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
-            this.PlayerID = PlayerID;
-        }catch (IOException e){
-            CloseEverything(clientSocket, bufferedReader, bufferedWriter);
+            this.clientSocket = socket;
+            this.reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            this.writer = new PrintWriter(socket.getOutputStream(), true);
+            this.playerId = playerId;
+        } catch (IOException e) {
+            closeEverything();
         }
     }
     /**
      * Sends the networking info to the associated ClientHandler.
-     * @param message the message the function wants to send
      */
-    public String SendMessageToHandler(String message){
-        try{
-        bufferedWriter.write(PlayerID);
-        bufferedWriter.newLine();
-        bufferedWriter.flush();
-
-        bufferedWriter.write(message);
-        bufferedWriter.newLine();
-        bufferedWriter.flush();
-        return ReturnMessage();
-        }catch (IOException e) {
-            CloseEverything(clientSocket, bufferedReader, bufferedWriter);
-            return null;
-        }
+    public void sendMessageToServer(String message) {
+        HashMap<String, Object> data = new HashMap<>();
+        data.put("type", "message");
+        data.put("message", message);
+        if (playerId != null){
+            data.put("sender", playerId);}
+        writer.println(toJson(data));
     }
     /**
      * Returns the networking response to the function caller.
      */
-    public String ReturnMessage(){
-        String returnMessage = null;
-        while (clientSocket.isConnected()){
-            try{
-                returnMessage = bufferedReader.readLine();
-                break;
-            }catch (IOException e){
-                returnMessage = null;
-                break;
-            }}
-        return returnMessage;
+    public void listenForMessages() {
+        new Thread(() -> {
+            try {
+                String msgFromServer;
+                while ((msgFromServer = reader.readLine()) != null) {
+                    HashMap<String, Object> data = (HashMap<String, Object>) fromJson(msgFromServer);
+
+                    String type = (String) data.get("type");
+                    switch (type) {
+                        case "message":
+                            System.out.println(data.get("sender") + ": " + data.get("message"));
+                            break;
+                        case "error":
+                            System.err.println("Error: " + data.get("message"));
+                            break;
+                        case "info":
+                            System.out.println("[INFO]: " + data.get("message"));
+                            break;
+                        default:
+                            System.out.println(msgFromServer);
+                            break;
+                    }
+                }
+            } catch (IOException e) {
+                closeEverything();
+            }
+        }).start();
     }
     /**
      * Closes the client connection.
      */
-    public void CloseEverything(Socket socket, BufferedReader bufferedReader, BufferedWriter bufferedWriter) {
+    private void closeEverything() {
         try {
-            if (bufferedReader != null){
-                bufferedReader.close();
-            }
-            if (bufferedWriter != null){
-                bufferedWriter.close();
-            }
-            if (socket != null){
-                socket.close();
-            }
-        }catch (IOException e){
-
+            if (reader != null) reader.close();
+            if (writer != null) writer.close();
+            if (clientSocket != null) clientSocket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+    }
+
+    public static HashMap<String, Object> getAuthData() {
+        Scanner scanner = new Scanner(System.in);
+        HashMap<String, Object> authData = new HashMap<>();
+
+        String type;
+        while (true) {
+            System.out.print("Are you logging in or registering? (login/register): ");
+            type = scanner.nextLine().trim().toLowerCase();
+
+            if (!type.equals("login") && !type.equals("register")) {
+                System.out.println("Invalid input. Must be 'login' or 'register'.");
+            } else {
+                break;
+            }
+        }
+
+        authData.put("type", type);
+
+        System.out.print("Enter username: ");
+        authData.put("username", scanner.nextLine().trim());
+
+        System.out.print("Enter password: ");
+        authData.put("password", scanner.nextLine().trim());
+
+        if (type.equals("register")) {
+            System.out.print("Enter email: ");
+            authData.put("email", scanner.nextLine().trim());
+        }
+
+        return authData;
     }
     /**
      * The function that the thread runs
      */
-    public static void main(String[] args){
-        try{
-        Socket socket = new Socket("localHost", 5050);
-        InputStreamReader inputStreamReader = new InputStreamReader(socket.getInputStream());
-        BufferedReader bufferedReader = new BufferedReader((inputStreamReader));
-        String PlayerID = bufferedReader.readLine();
-        Client client = new Client(socket, PlayerID);
-        String message = bufferedReader.readLine();
-        client.SendMessageToHandler(message);
-        }catch (IOException e){
+    public static void main(String[] args) {
+        String serverAddress = "localhost";
+        int port = 5050;
+
+        if (args.length == 2) {
+            serverAddress = args[0];
+            try {
+                port = Integer.parseInt(args[1]);
+            } catch (NumberFormatException e) {
+                System.err.println("Invalid port number. Using default 5050.");
+            }
         }
-    }
+
+        try {
+            Socket socket = new Socket(serverAddress, port);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
+
+            // Send auth request
+            HashMap<String, Object> authData = getAuthData();
+            writer.println(toJson(authData));
+
+            // Wait for server to assign and respond with PlayerID
+            String response;
+            String playerId = null;
+            while ((response = reader.readLine()) != null) {
+                HashMap<String, Object> responseMap = (HashMap<String, Object>) fromJson(response);
+                // PlayerID assignment (commented out for now)
+
+                if (responseMap.containsKey("playerId")) {
+                    playerId = (String) responseMap.get("playerId");
+                    System.out.println("Assigned PlayerID: " + playerId);
+                    break;
+                } else {
+                    break;}
+            }
+
+            if (playerId == null) {
+                // Start client
+                Client client = new Client(socket, null);
+                client.listenForMessages();
+
+                // Send messages to server
+                Scanner scanner = new Scanner(System.in);
+                while (true) {
+                    String message = scanner.nextLine();
+                    client.sendMessageToServer(message);
+                }
+            }
+            else {
+
+                // Start client
+                Client client = new Client(socket, playerId);
+                client.listenForMessages();
+
+                // Send messages to server
+                Scanner scanner = new Scanner(System.in);
+                while (true) {
+                    String message = scanner.nextLine();
+                    client.sendMessageToServer(message);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }}
 }
