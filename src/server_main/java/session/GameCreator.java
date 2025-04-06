@@ -4,7 +4,6 @@ import management.ServerLogger;
 import management.ThreadRegistry;
 import player.PlayerHandler;
 
-import java.util.Queue;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
@@ -23,19 +22,10 @@ public class GameCreator implements Runnable {
         gameQueue.add(player);
     }
 
-    public void startGameFromQueue() {
-        PlayerHandler player1 = gameQueue.poll();
-        PlayerHandler player2 = gameQueue.poll();
-
-        if ((player1 != null) && (player2 != null)) {
-            createSession(player1, player2);
-        }
-    }
-
     public void createSession(PlayerHandler player1, PlayerHandler player2) {
         //Create the game session manager for the game session being created
         GameSessionManager session = new GameSessionManager(player1, player2, "tictactoe");
-        System.out.println("Made game session manager");
+
         //Start the game session manager thread
         Thread sessionThread = Thread.startVirtualThread(session);
 
