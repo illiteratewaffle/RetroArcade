@@ -1,26 +1,31 @@
 package session;
 
+import management.ServerLogger;
 import management.ThreadRegistry;
 import player.PlayerHandler;
 
-import java.util.Queue;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class GameCreator implements Runnable {
 
+    //The concurrent linked queue which stores the queue for players waiting to join a game.
+    ConcurrentLinkedQueue<PlayerHandler> gameQueue = new ConcurrentLinkedQueue<>();
+
     //Concurrent hash map that stores a list of all currently active game sessions
     private final ConcurrentHashMap<Thread, GameSessionManager> activeSessions = new ConcurrentHashMap<>();
-    ConcurrentLinkedQueue<PlayerHandler> gameQueue;
 
-    public GameCreator(ConcurrentLinkedQueue<PlayerHandler> gameQueue) {
-        this.gameQueue = gameQueue;
+    public GameCreator() {
+    }
+
+    public void enqueuePlayer(PlayerHandler player) {
+        gameQueue.add(player);
     }
 
     public void createSession(PlayerHandler player1, PlayerHandler player2) {
-
         //Create the game session manager for the game session being created
         GameSessionManager session = new GameSessionManager(player1, player2, "tictactoe");
+
         //Start the game session manager thread
         Thread sessionThread = Thread.startVirtualThread(session);
 
@@ -31,8 +36,8 @@ public class GameCreator implements Runnable {
         //Update the gameSessionManagerThreads within the player handlers
         player1.setGameSessionManagerThread(sessionThread);
         player2.setGameSessionManagerThread(sessionThread);
-        System.out.println("Game session made");
-    }
+        ServerLogger.log("Created game session manager for " );
+     }
 
     public void endSession(Thread sessionThread) {
         activeSessions.remove(sessionThread);
@@ -54,7 +59,9 @@ public class GameCreator implements Runnable {
     @Override
     public void run() {
         while (true) {
-            startGameFromQueue();
+            if (gameQueue.size() % 2 == 0) {
+                startGameFromQueue();
+            }
         }
     }
 }
