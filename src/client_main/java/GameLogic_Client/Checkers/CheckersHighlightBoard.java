@@ -1,7 +1,6 @@
 package GameLogic_Client.Checkers;
 
 import GameLogic_Client.AbstractBoard;
-import GameLogic_Client.Checkers.CheckersHighlightType;
 import GameLogic_Client.Ivec2;
 
 
