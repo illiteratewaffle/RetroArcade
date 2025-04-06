@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ba5d62c9-ef67-4eb7-8775-b12157e4f5a8" name="Changes" comment="integrated C4 into gamemenu" />
+    <list default="true" id="ba5d62c9-ef67-4eb7-8775-b12157e4f5a8" name="Changes" comment="removed unneccessary applications">
+      <change afterPath="$PROJECT_DIR$/src/client_main/resources/GUI_client/checkers.fxml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -13,8 +15,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="FxmlFile" />
         <option value="Class" />
+        <option value="FxmlFile" />
       </list>
     </option>
   </component>
@@ -184,7 +186,23 @@
       <option name="project" value="LOCAL" />
       <updated>1743912522429</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="removed unneccessary applications">
+      <option name="closed" value="true" />
+      <created>1743913028945</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1743913028945</updated>
+    </task>
+    <task id="LOCAL-00011" summary="removed unneccessary applications">
+      <option name="closed" value="true" />
+      <created>1743913105435</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1743913105435</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -212,6 +230,7 @@
     <MESSAGE value="Fixed errors" />
     <MESSAGE value="checkers Gui integrated into mainApplication" />
     <MESSAGE value="integrated C4 into gamemenu" />
-    <option name="LAST_COMMIT_MESSAGE" value="integrated C4 into gamemenu" />
+    <MESSAGE value="removed unneccessary applications" />
+    <option name="LAST_COMMIT_MESSAGE" value="removed unneccessary applications" />
   </component>
 </project>
