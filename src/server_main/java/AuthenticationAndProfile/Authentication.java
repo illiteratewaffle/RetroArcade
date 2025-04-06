@@ -52,7 +52,11 @@ public class Authentication {
      * logOut() Sets profile's isOnline to false and sets the profileLoggedIn to null so that the previous profile information is no longer accessed.
      */
     public static void logOut(int id) {
-        ProfileDatabaseAccess.obtainProfile(id).setOnlineStatus(false);
+        try {
+            ProfileDatabaseAccess.obtainProfile(id).setOnlineStatus(false);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         //profileLoggedIn = null;
     }
 }
