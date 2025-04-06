@@ -8,7 +8,7 @@ public class JsonConverter {
      * @param map the given HashMap that you want to convert to json
      * @return the json string
      */
-    public static String toJson(HashMap<String,Object> map) {
+    public static String toJson(Map<String,Object> map) {
         // Create a new StringBuilder
         StringBuilder builder = new StringBuilder();
         // Start with a "{"
@@ -126,7 +126,7 @@ public class JsonConverter {
      * @param index the current index of the string
      * @return the corresponding HashMap
      */
-    private static HashMap<String,Object> parseMap(String json, IntWrapper index) {
+    private static Map<String,Object> parseMap(String json, IntWrapper index) {
         if (json.charAt(index.value) != '{') {
             throw new RuntimeException("Expected opening curly bracket for the HashMap: " + json.substring(0, index.value) + "\t<-HERE\t" + json.substring(index.value));
         }
