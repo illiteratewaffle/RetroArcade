@@ -103,15 +103,19 @@ public class PlayerHandler implements Runnable {
                     // Read the json string from the server
                     String message = bufferedReader.readLine();
                     // Convert the json formatting and send it to the GameSessionManager
-                    // THERE IS NO JSON TO STRING CONVERSION CLASS CREATED YET
-                    ThreadMessage threadMessage = new ThreadMessage(mainThread, fromJson(message));
-                    // Make sure that we have the GameSessionManagerThread before attempting to send information to it
-                    synchronized (gameSessionLock) {
-                        if (gameSessionManagerThread == null)
-                            gameSessionLock.wait();
+                    try {
+                        ThreadMessage threadMessage = new ThreadMessage(mainThread, fromJson(message));
+                        // Make sure that we have the GameSessionManagerThread before attempting to send information to it
+                        synchronized (gameSessionLock) {
+                            if (gameSessionManagerThread == null)
+                                gameSessionLock.wait();
+                        }
+                        // Relay the message to the GameSessionManager
+                        networkManager.sendMessage(gameSessionManagerThread, threadMessage);
+                    } catch (IllegalArgumentException e) {
+                        // TODO: Should this be handled better? wait maybe send back a message?
+                        log("PlayerHandler: Failure to parse message:", e.toString());
                     }
-                    // Relay the message to the GameSessionManager
-                    networkManager.sendMessage(gameSessionManagerThread, threadMessage);
                 } catch (IOException e) {
                     log("PlayerHandler: Failure to read a message from the client using the BufferedReader:", e.toString());
                 } catch (InterruptedException e) {
