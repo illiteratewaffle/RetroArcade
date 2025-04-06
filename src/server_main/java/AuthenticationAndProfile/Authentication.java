@@ -32,8 +32,8 @@ public class Authentication {
         String hashedPassword = ProfileCreation.hashedPassword(password);
         Profile profile;
         try {
-        int id = PlayerManager.authenticatePlayer(username, hashedPassword);
-        //if (id != -1) {
+            int id = PlayerManager.authenticatePlayer(username, hashedPassword);
+            //if (id != -1) {
             profile = ProfileDatabaseAccess.obtainProfile(id);
             //setProfileLoggedIn(profile);
             profile.setOnlineStatus(true);
@@ -51,21 +51,15 @@ public class Authentication {
     /**
      * logOut() Sets profile's isOnline to false and sets the profileLoggedIn to null so that the previous profile information is no longer accessed.
      */
-    public static void logOut(int id) throws SQLException{
+    public static void logOut(int id) throws SQLException {
         try {
             ProfileDatabaseAccess.obtainProfile(id).setOnlineStatus(false);
             //profileLoggedIn = null;
         } catch (SQLException s) {
             throw new SQLException(s.getMessage());
         }
-    public static void logOut(int id) {
-        try {
-            ProfileDatabaseAccess.obtainProfile(id).setOnlineStatus(false);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+
         }
-        //profileLoggedIn = null;
-    }
 }
 
 //    /**
