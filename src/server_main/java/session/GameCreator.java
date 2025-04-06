@@ -9,11 +9,11 @@ public class GameCreator {
 
     //Concurrent hash map that stores a list of all currently active game sessions
     private final ConcurrentHashMap<Thread, GameSessionManager> activeSessions = new ConcurrentHashMap<>();
-    /**
+
      public void createSession(PlayerHandler player1, PlayerHandler player2) {
 
      //Create the game session manager for the game session being created
-     GameSessionManager session = new GameSessionManager(player1, player2, new BoardGameController());
+     GameSessionManager session = new GameSessionManager(player1, player2, "tictactoe");
 
      //Start the game session manager thread
      Thread sessionThread = Thread.startVirtualThread(session);
@@ -25,7 +25,7 @@ public class GameCreator {
      //Update the gameSessionManagerThreads within the player handlers
      player1.setGameSessionManagerThread(sessionThread);
      player2.setGameSessionManagerThread(sessionThread);
-     } **/
+     }
 
     public void endSession(Thread sessionThread) {
         activeSessions.remove(sessionThread);

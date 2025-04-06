@@ -40,7 +40,7 @@ public class PlayerHandler implements Runnable {
      *
      * @param thread the new GameSessionManagerThread
      */
-    public synchronized void setThread(Thread thread) {
+    public synchronized void setGameSessionManagerThread(Thread thread) {
         synchronized (gameSessionLock) {
             // Update the gameSessionManagerThread then notify gameSessionLock
             gameSessionManagerThread = thread;
