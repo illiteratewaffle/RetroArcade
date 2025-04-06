@@ -21,7 +21,6 @@ public class PlayerRanking {
         this.wins = wins;
     }
 
-//    public PlayerRanking(){}
     public void endOfMatchMethod(int gameNumber, int result) {
         String gameName;
         if (gameNumber == TTT_INDEX) {
@@ -30,37 +29,37 @@ public class PlayerRanking {
             gameName = "connect4";
         } else if (gameNumber == CHECKERS_INDEX) {
             gameName = "checkers";
-            int currentRating = Integer.parseInt(PlayerManager.getAttribute(id, "rating_" + gameName));
-            int currentWins = Integer.parseInt(PlayerManager.getAttribute(id, "wins_" + gameName));
-            double currentWinLossRatio = Double.parseDouble(PlayerManager.getAttribute(id, "win_loss_ratio_" + gameName));
+        }
+        int currentRating = Integer.parseInt(PlayerManager.getAttribute(id, "rating_" + gameName));
+        int currentWins = Integer.parseInt(PlayerManager.getAttribute(id, "wins_" + gameName));
+        double currentWinLossRatio = Double.parseDouble(PlayerManager.getAttribute(id, "win_loss_ratio_" + gameName));
 
-            if (result == 1) {
-                currentRating += 50;
-                currentWins += 1;
-                currentWinLossRatio = ((double) currentWins / (currentWins + 1));
-            } else if (result == 0) {
-                currentRating -= 50;
-            }
+        if (result == 1) {
+            currentRating += 50;
+            currentWins += 1;
+            currentWinLossRatio = ((double) currentWins / (currentWins + 1));
+        } else if (result == 0) {
+            currentRating -= 50;
+        }
 
-            String newRank = getRank(currentRating);
+        String newRank = getRank(currentRating);
 
-            if (gameNumber == 0) {
-                // Push new rating, wins, win-loss ratio, and rank to the database
-                PlayerManager.updateAttribute(id, "rating_ttt", currentRating);
-                PlayerManager.updateAttribute(id, "wins_ttt", currentWins);
-                PlayerManager.updateAttribute(id, "win_loss_ratio_ttt", currentWinLossRatio);
-                PlayerManager.updateAttribute(id, "rank_ttt", newRank);
-            } else if (gameNumber == 1) {
-                PlayerManager.updateAttribute(id, "rating_connect4", currentRating);
-                PlayerManager.updateAttribute(id, "wins_connect4", currentWins);
-                PlayerManager.updateAttribute(id, "win_loss_ratio_connect4", currentWinLossRatio);
-                PlayerManager.updateAttribute(id, "rank_connect4", newRank);
-            } else if (gameNumber == 2) {
-                PlayerManager.updateAttribute(id, "rating_checkers", currentRating);
-                PlayerManager.updateAttribute(id, "wins_checkers", currentWins);
-                PlayerManager.updateAttribute(id, "win_loss_ratio_checkers", currentWinLossRatio);
-                PlayerManager.updateAttribute(id, "rank_checkers", newRank);
-            }
+        if (gameNumber == 0) {
+            PlayerManager.updateAttribute(id, "rating_ttt", currentRating);
+            PlayerManager.updateAttribute(id, "wins_ttt", currentWins);
+            PlayerManager.updateAttribute(id, "win_loss_ratio_ttt", currentWinLossRatio);
+            PlayerManager.updateAttribute(id, "rank_ttt", newRank);
+        } else if (gameNumber == 1) {
+            PlayerManager.updateAttribute(id, "rating_connect4", currentRating);
+            PlayerManager.updateAttribute(id, "wins_connect4", currentWins);
+            PlayerManager.updateAttribute(id, "win_loss_ratio_connect4", currentWinLossRatio);
+            PlayerManager.updateAttribute(id, "rank_connect4", newRank);
+        } else if (gameNumber == 2) {
+            PlayerManager.updateAttribute(id, "rating_checkers", currentRating);
+            PlayerManager.updateAttribute(id, "wins_checkers", currentWins);
+            PlayerManager.updateAttribute(id, "win_loss_ratio_checkers", currentWinLossRatio);
+            PlayerManager.updateAttribute(id, "rank_checkers", newRank);
+        }
         }
     }
     public double getWinLossRatio(int gameNumber) {
