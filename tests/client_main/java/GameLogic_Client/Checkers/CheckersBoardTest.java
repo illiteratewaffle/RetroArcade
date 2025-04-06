@@ -56,7 +56,7 @@ public class CheckersBoardTest {
      * the test is p1 test the set piece method, but we are more interested in the isp1 area
      */
     @Test
-    public void testIsP1() {
+    public void testIsP1Pawn() {
         // creating a position
         Ivec2 position = new Ivec2(6, 6);
         // creating the p1 piece
@@ -75,7 +75,7 @@ public class CheckersBoardTest {
      * this test is the same as test is p1 but for p2
      */
     @Test
-    public void testIsP2() {
+    public void testIsP2Pawn() {
         // created position and p2 piece
         Ivec2 position = new Ivec2(7, 7);
         int p2Piece = CheckersPiece.P2PAWN.getValue();
@@ -87,6 +87,43 @@ public class CheckersBoardTest {
         assertTrue(checkersBoard.isP2(position));
         assertFalse(checkersBoard.isP1(position));
     }
+
+    /**
+     * the test is p1 test the set piece method, but we are more interested in the isp1 area
+     */
+    @Test
+    public void testIsP1King() {
+        // creating a position
+        Ivec2 position = new Ivec2(6, 6);
+        // creating the p1 king piece
+        int p1Piece = CheckersPiece.P1KING.getValue();
+
+        // call set piece method
+        checkersBoard.setPiece(position, p1Piece);
+
+        // assert that the piece is a p1 king
+        assertTrue(checkersBoard.isP1(position));
+        // assert that the piece is not a p2 of any kind
+        assertFalse(checkersBoard.isP2(position));
+    }
+
+    /**
+     * this test is the same as test is p1 but for p2
+     */
+    @Test
+    public void testIsP2King() {
+        // created position and p2 king piece
+        Ivec2 position = new Ivec2(7, 7);
+        int p2Piece = CheckersPiece.P2KING.getValue();
+
+        // call set piece method
+        checkersBoard.setPiece(position, p2Piece);
+
+        // assert that the piece is a p2 king and not a p1 of any type
+        assertTrue(checkersBoard.isP2(position));
+        assertFalse(checkersBoard.isP1(position));
+    }
+
 
     /**
      * this test checks the set piece p1 method
