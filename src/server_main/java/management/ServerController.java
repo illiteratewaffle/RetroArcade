@@ -26,7 +26,8 @@ public class ServerController {
     public ServerController() {
         messageQueue = new LinkedBlockingQueue<>();
         gameQueue = new ConcurrentLinkedQueue<PlayerHandler>();
-        gameCreator = new GameCreator();
+        gameCreator = new GameCreator(gameQueue);
+        Thread.ofVirtual().start(gameCreator);
 
         ThreadRegistry.register(thread, messageQueue);
     }
