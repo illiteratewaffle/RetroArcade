@@ -2,7 +2,6 @@ package player;
 
 import database.databaseConnector;
 
-import javax.sql.rowset.spi.SyncProviderException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.*;
