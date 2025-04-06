@@ -63,7 +63,7 @@ public class UpdatePlayerStats {
             rewardPoint = 15;
         }
 
-        int currRanking = Integer.parseInt(player.getPlayerRanking().getRank(gameIndex));
+        int currRanking = player.getPlayerRanking().getRank(gameIndex);
         if (player.getGamesToReduceStrikes <= 5) {
             PlayerRanking.setRanking(player, currRanking + rewardPoint);
         } else if (player.getGamesToReduceStrikes <= 10) {
@@ -73,6 +73,8 @@ public class UpdatePlayerStats {
         } else {
             PlayerRanking.setRanking(player, currRanking);
         }
+
+
 
     }
 
