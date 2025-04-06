@@ -298,6 +298,26 @@ public class PlayerManager {
         }
     }
 
+    public static int getProfileID(String username) throws SQLException {
+        String query = "SELECT id FROM profiles WHERE username = ?";
+        try (PreparedStatement statement = conn.prepareStatement(query)) {
+            // Bind the username parameter
+            statement.setString(1, username);
+
+            // Execute the query
+            ResultSet rs = statement.executeQuery();
+
+            // If we get a row, return its "id"
+            if (rs.next()) {
+                return rs.getInt("id");
+            } else {
+                throw new SQLException("Error retrieving profile ID");
+            }
+        } catch (SQLException e) {
+            throw new SQLException("Error retrieving profile ID: " + e.getMessage(), e);
+        }
+    }
+
     public static void main(String[] args) throws SQLException {
         getAttribute(22, "nickname");
     }
