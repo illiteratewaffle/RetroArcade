@@ -4,110 +4,144 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ba5d62c9-ef67-4eb7-8775-b12157e4f5a8" name="Changes" comment="prepare for display friend's list on leaderboard feature. initiate code on Leaderboard.java and leaderboardGUIController.java" />
+    <list default="true" id="ba5d62c9-ef67-4eb7-8775-b12157e4f5a8" name="Changes" comment="prepare for display friend's list on leaderboard feature. initiate code on Leaderboard.java and leaderboardGUIController.java">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/profiles_export.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/client_main/java/leaderboardTests/LeaderboardTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/tests/client_main/java/leaderboardTests/LeaderboardTest.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 4
+}]]></component>
+  <component name="ProjectId" id="2vLdpcBtPp7fJ1XGWxEc7A8v1qc" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="1" id="Add" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.MainApplication.executor&quot;: &quot;Run&quot;,
-    &quot;Application.TTTApplication.executor&quot;: &quot;Run&quot;,
-    &quot;Application.leaderboardApplication.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.ProfileTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.ProfileTest.getBio.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;Leaderboard2&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Tyler/IdeaProjects/seng300-w25-project/src/client_main/resources&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.projectsettings.compiler.excludes&quot;
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.MainApplication.executor": "Run",
+    "Application.TTTApplication.executor": "Run",
+    "Application.leaderboardApplication.executor": "Run",
+    "JUnit.LeaderboardTest.executor": "Run",
+    "JUnit.LeaderboardTest.testConstructorNullSortChoice (1).executor": "Run",
+    "JUnit.LeaderboardTest.testConstructorNullSortChoice.executor": "Run",
+    "JUnit.LeaderboardTest.testGUIToggleSortOrder.executor": "Run",
+    "JUnit.LeaderboardTest.testSearchPlayerFound.executor": "Run",
+    "JUnit.LeaderboardTest.testSearchPlayerNotFound.executor": "Run",
+    "JUnit.LeaderboardTest.testSortByRating.executor": "Run",
+    "JUnit.LeaderboardTest.testToggleSortOrder.executor": "Run",
+    "JUnit.ProfileTest.executor": "Run",
+    "JUnit.ProfileTest.getBio.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "Leaderboard2",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "D:/University of Calgary/2025 Winter/Seng 300/projects/seng300-w25-project",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "reference.projectsettings.compiler.excludes",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RunManager">
-    <configuration name="ProfileCreationTest.createNewProfile" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="SENGProj-iteration3" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="client_main.java.AuthenticationAndProfile.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="client_main.java.AuthenticationAndProfile" />
-      <option name="MAIN_CLASS_NAME" value="client_main.java.AuthenticationAndProfile.ProfileCreationTest" />
-      <option name="METHOD_NAME" value="createNewProfile" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ProfileTest.getBio" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="LeaderboardTest.testConstructorNullSortChoice" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="SENGProj-iteration3" />
       <useClassPathOnly />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="client_main.java.AuthenticationAndProfile.*" />
+          <option name="PATTERN" value="leaderboard.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="client_main.java.AuthenticationAndProfile" />
-      <option name="MAIN_CLASS_NAME" value="client_main.java.AuthenticationAndProfile.ProfileTest" />
-      <option name="METHOD_NAME" value="getBio" />
+      <option name="PACKAGE_NAME" value="leaderboard" />
+      <option name="MAIN_CLASS_NAME" value="leaderboard.LeaderboardTest" />
+      <option name="METHOD_NAME" value="testConstructorNullSortChoice" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ProfileTest.getHashedPassword" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="LeaderboardTest.testSearchPlayerFound" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="SENGProj-iteration3" />
       <useClassPathOnly />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="client_main.java.AuthenticationAndProfile.*" />
+          <option name="PATTERN" value="leaderboard.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="client_main.java.AuthenticationAndProfile" />
-      <option name="MAIN_CLASS_NAME" value="client_main.java.AuthenticationAndProfile.ProfileTest" />
-      <option name="METHOD_NAME" value="getHashedPassword" />
+      <option name="PACKAGE_NAME" value="leaderboard" />
+      <option name="MAIN_CLASS_NAME" value="leaderboard.LeaderboardTest" />
+      <option name="METHOD_NAME" value="testSearchPlayerFound" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ProfileTest.setBio" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="LeaderboardTest.testSearchPlayerNotFound" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="SENGProj-iteration3" />
       <useClassPathOnly />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="client_main.java.AuthenticationAndProfile.*" />
+          <option name="PATTERN" value="leaderboard.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="client_main.java.AuthenticationAndProfile" />
-      <option name="MAIN_CLASS_NAME" value="client_main.java.AuthenticationAndProfile.ProfileTest" />
-      <option name="METHOD_NAME" value="setBio" />
+      <option name="PACKAGE_NAME" value="leaderboard" />
+      <option name="MAIN_CLASS_NAME" value="leaderboard.LeaderboardTest" />
+      <option name="METHOD_NAME" value="testSearchPlayerNotFound" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ProfileTest.setNickname" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="LeaderboardTest.testSortByRating" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="SENGProj-iteration3" />
+      <useClassPathOnly />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="client_main.java.AuthenticationAndProfile.*" />
+          <option name="PATTERN" value="leaderboard.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="client_main.java.AuthenticationAndProfile" />
-      <option name="MAIN_CLASS_NAME" value="client_main.java.AuthenticationAndProfile.ProfileTest" />
-      <option name="METHOD_NAME" value="setNickname" />
+      <option name="PACKAGE_NAME" value="leaderboard" />
+      <option name="MAIN_CLASS_NAME" value="leaderboard.LeaderboardTest" />
+      <option name="METHOD_NAME" value="testSortByRating" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="LeaderboardTest.testSortByWLR" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="SENGProj-iteration3" />
+      <useClassPathOnly />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="leaderboard.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="leaderboard" />
+      <option name="MAIN_CLASS_NAME" value="leaderboard.LeaderboardTest" />
+      <option name="METHOD_NAME" value="testSortByWLR" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -124,19 +158,19 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="JUnit.ProfileTest.getBio" />
-      <item itemvalue="JUnit.ProfileTest.setBio" />
-      <item itemvalue="JUnit.ProfileTest.setNickname" />
-      <item itemvalue="JUnit.ProfileCreationTest.createNewProfile" />
-      <item itemvalue="JUnit.ProfileTest.getHashedPassword" />
+      <item itemvalue="JUnit.LeaderboardTest.testConstructorNullSortChoice" />
+      <item itemvalue="JUnit.LeaderboardTest.testSearchPlayerFound" />
+      <item itemvalue="JUnit.LeaderboardTest.testSearchPlayerNotFound" />
+      <item itemvalue="JUnit.LeaderboardTest.testSortByRating" />
+      <item itemvalue="JUnit.LeaderboardTest.testSortByWLR" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.ProfileTest.getBio" />
-        <item itemvalue="JUnit.ProfileTest.setBio" />
-        <item itemvalue="JUnit.ProfileTest.setNickname" />
-        <item itemvalue="JUnit.ProfileTest.getHashedPassword" />
-        <item itemvalue="JUnit.ProfileCreationTest.createNewProfile" />
+        <item itemvalue="JUnit.LeaderboardTest.testSortByWLR" />
+        <item itemvalue="JUnit.LeaderboardTest.testSortByRating" />
+        <item itemvalue="JUnit.LeaderboardTest.testConstructorNullSortChoice" />
+        <item itemvalue="JUnit.LeaderboardTest.testSearchPlayerNotFound" />
+        <item itemvalue="JUnit.LeaderboardTest.testSearchPlayerFound" />
       </list>
     </recent_temporary>
   </component>
@@ -148,6 +182,7 @@
       </set>
     </attachedChunks>
   </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="ba5d62c9-ef67-4eb7-8775-b12157e4f5a8" name="Changes" comment="" />
@@ -155,6 +190,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1743743778596</updated>
+      <workItem from="1743928479822" duration="1394000" />
     </task>
     <task id="LOCAL-00001" summary="Added info page for TTT/info button. Moved exit button to right side">
       <option name="closed" value="true" />
@@ -260,8 +296,19 @@
       <option name="project" value="LOCAL" />
       <updated>1743910990600</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="prepare for display friend's list on leaderboard feature. initiate code on Leaderboard.java and leaderboardGUIController.java">
+      <option name="closed" value="true" />
+      <created>1743911735679</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1743911735680</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Created new branch with Leaderboard's code merged into mainIt2 authentication code, seems to work" />
