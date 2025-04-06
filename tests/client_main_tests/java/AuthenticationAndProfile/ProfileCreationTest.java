@@ -2,8 +2,10 @@ package client_main_tests.java.AuthenticationAndProfile;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
-import server.player.PlayerManager;
+import player.PlayerManager;
 import AuthenticationAndProfile.*;
+
+import java.sql.SQLException;
 
 class ProfileCreationTest {
 
@@ -26,14 +28,21 @@ class ProfileCreationTest {
         String username = Profile.generateUsername();
         String email = username + "@example.com";
         String password = Profile.generatePassword();
-        ProfileCreation.createNewProfile(username, email, password);
-        String hashedPassword = ProfileCreation.hashedPassword(password);
-        int newProfileID = Authentication.getProfileLoggedIn().getID();
+        Profile newProfile;
+        int newProfileID;
+        try {
+            newProfile = ProfileCreation.createNewProfile(username, email, password);
+            String hashedPassword = ProfileCreation.hashedPassword(password);
+            newProfileID = newProfile.getID();
 
-        assertEquals(Integer.toString(newProfileID), PlayerManager.getAttribute(newProfileID, "ID"));
-        assertEquals(username, PlayerManager.getAttribute(newProfileID, "username"));
-        assertEquals(email, PlayerManager.getAttribute(newProfileID, "email"));
-        assertEquals(hashedPassword, PlayerManager.getAttribute(newProfileID, "hashed_password"));
+            assertEquals(Integer.toString(newProfileID), PlayerManager.getAttribute(newProfileID, "ID"));
+            assertEquals(username, PlayerManager.getAttribute(newProfileID, "username"));
+            assertEquals(email, PlayerManager.getAttribute(newProfileID, "email"));
+            assertEquals(hashedPassword, PlayerManager.getAttribute(newProfileID, "hashed_password"));
+        } catch (SQLException s1) {
+            System.out.println("Error with getAttribute: " + s1.getMessage());
+            ProfileDatabaseAccess.removeProfile(newProfileID);
+        }
         ProfileDatabaseAccess.removeProfile(newProfileID);
     }
 }

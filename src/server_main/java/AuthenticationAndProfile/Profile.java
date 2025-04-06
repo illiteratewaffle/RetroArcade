@@ -1,11 +1,12 @@
 package AuthenticationAndProfile;
 
+import java.sql.SQLException;
 import java.util.UUID;
 
 //import leaderboard.TTTRanking;
 //import leaderboard.CheckersRanking;
 //import leaderboard.Connect4Ranking;
-//import leaderboard.PlayerRanking;
+//import AuthenticationAndProfile.PlayerRanking;
 import player.PlayerManager;
 
 public class Profile {
@@ -54,10 +55,13 @@ public class Profile {
      * Sets a player's email.
      * @param newEmail the new email of the player.
      */
-    public void setEmail(String newEmail) {
+    public void setEmail(String newEmail) throws SQLException{
         this.email = newEmail;
-        PlayerManager.updateAttribute(id, "email", newEmail);
-
+        try {
+            PlayerManager.updateAttribute(id, "email", newEmail);
+        } catch (SQLException s){
+            throw new SQLException(s.getMessage());
+        }
     }
 
     /**
