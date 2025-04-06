@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ba5d62c9-ef67-4eb7-8775-b12157e4f5a8" name="Changes" comment="Add search username feature implemented">
+    <list default="true" id="ba5d62c9-ef67-4eb7-8775-b12157e4f5a8" name="Changes" comment="add javadoc">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client_main/assets/GUI_client/leaderboard.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/client_main/assets/GUI_client/leaderboard.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/profiles_export.csv" beforeDir="false" afterPath="$PROJECT_DIR$/profiles_export.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/client_main/java/leaderboard/CSVFileReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client_main/java/leaderboard/CSVFileReader.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -223,7 +224,23 @@
       <option name="project" value="LOCAL" />
       <updated>1743907424247</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="make search box have colour yurr">
+      <option name="closed" value="true" />
+      <created>1743907988977</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1743907988977</updated>
+    </task>
+    <task id="LOCAL-00010" summary="add javadoc">
+      <option name="closed" value="true" />
+      <created>1743908109586</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1743908109586</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -236,6 +253,8 @@
     <MESSAGE value="resize scene" />
     <MESSAGE value="commit" />
     <MESSAGE value="Add search username feature implemented" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add search username feature implemented" />
+    <MESSAGE value="make search box have colour yurr" />
+    <MESSAGE value="add javadoc" />
+    <option name="LAST_COMMIT_MESSAGE" value="add javadoc" />
   </component>
 </project>
