@@ -145,7 +145,7 @@ public class ProfileCSVReader {
                     + " AchievementProgress: " + fields.get(ACHIVPROG_INDEX)
                     + " Friends: " + fields.get(FRIENDS_INDEX)
                     + " FriendRequests: " + fields.get(FREQUEST_INDEX)
-                    + " Creation Time: " + fields.get(17)
+                    + " Creation Time: " + fields.get(FREQUEST_INDEX + 1)
             );
         } catch (IOException e) {
             e.printStackTrace();
