@@ -2,6 +2,7 @@ package management;
 
 import management.ThreadMessage;
 import management.ThreadRegistry;
+import management.ServerController;
 import player.PlayerHandler;
 import player.PlayerManager;
 
@@ -21,10 +22,12 @@ import static management.JsonConverter.toJson;
 import static management.ServerLogger.log;
 
 public class AuthenticateClient implements Runnable {
+    private final ServerController serverController;
     Socket clientSocket;
 
-    public AuthenticateClient(Socket clientSocket) {
+    public AuthenticateClient(Socket clientSocket, ServerController serverController) {
         this.clientSocket = clientSocket;
+        this.serverController = serverController;
     }
 
     /**
@@ -54,6 +57,8 @@ public class AuthenticateClient implements Runnable {
                 ThreadRegistry.register(playerThread, queue);
                 // Add the new player to the playerList
                 ThreadRegistry.registerPlayer(playerId, playerHandler);
+
+                serverController.enqueuePlayer(playerHandler);
             }
 
         } catch (IOException e) {
