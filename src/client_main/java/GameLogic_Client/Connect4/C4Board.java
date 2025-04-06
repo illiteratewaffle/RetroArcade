@@ -1,7 +1,7 @@
 package GameLogic_Client.Connect4;
 
 import GameLogic_Client.AbstractBoard;
-import GameLogic_Client.ivec2;
+import GameLogic_Client.Ivec2;
 
 public class C4Board extends AbstractBoard {
 

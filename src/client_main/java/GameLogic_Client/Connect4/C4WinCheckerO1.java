@@ -1,15 +1,15 @@
 package GameLogic_Client.Connect4;
-import GameLogic_Client.ivec2;
+import GameLogic_Client.Ivec2;
 
 public class C4WinCheckerO1 {
-    public static boolean isC4Win(ivec2 lastCoordinate, C4Piece piece, C4Piece[][] board) {
+    public static boolean isC4Win(Ivec2 lastCoordinate, C4Piece piece, C4Piece[][] board) {
         return checkHorizontal(lastCoordinate, piece, board) ||
             checkVertical(lastCoordinate, piece, board) ||
             checkForwardSlash(lastCoordinate, piece, board) ||
             checkBackSlash(lastCoordinate, piece, board);
     }
 
-    public static boolean checkHorizontal(ivec2 last, C4Piece piece, C4Piece[][] board) {
+    public static boolean checkHorizontal(Ivec2 last, C4Piece piece, C4Piece[][] board) {
         int count = 1;
 
         // Check left
@@ -21,7 +21,7 @@ public class C4WinCheckerO1 {
         return count >= 4;
     }
 
-    private static boolean checkVertical(ivec2 last, C4Piece piece, C4Piece[][] board) {
+    private static boolean checkVertical(Ivec2 last, C4Piece piece, C4Piece[][] board) {
         int count = 1;
 
         // Check down only (it is impossible to have a piece above last played piece
@@ -30,7 +30,7 @@ public class C4WinCheckerO1 {
         return count >= 4;
     }
 
-    private static boolean checkForwardSlash(ivec2 last, C4Piece piece, C4Piece[][] board) {
+    private static boolean checkForwardSlash(Ivec2 last, C4Piece piece, C4Piece[][] board) {
         int count = 1;
 
         // Check top right
@@ -50,7 +50,7 @@ public class C4WinCheckerO1 {
         return count >= 4;
     }
 
-    private static boolean checkBackSlash(ivec2 last, C4Piece piece, C4Piece[][] board) {
+    private static boolean checkBackSlash(Ivec2 last, C4Piece piece, C4Piece[][] board) {
         int count = 1;
 
         // Check top left

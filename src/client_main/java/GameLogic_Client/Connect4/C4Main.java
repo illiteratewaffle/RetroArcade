@@ -1,5 +1,5 @@
 package GameLogic_Client.Connect4;
-import GameLogic_Client.ivec2;
+import GameLogic_Client.Ivec2;
 
 public class C4Main {
 
@@ -24,12 +24,12 @@ public class C4Main {
 //        c4Controller.ReceiveInput(new ivec2(7, 0));
 
         // Testing for a win
-        c4Controller.ReceiveInput(new ivec2(0, 0));
-        c4Controller.ReceiveInput(new ivec2(1, 0));
-        c4Controller.ReceiveInput(new ivec2(0, 0));
-        c4Controller.ReceiveInput(new ivec2(1, 0));
-        c4Controller.ReceiveInput(new ivec2(0, 0));
-        c4Controller.ReceiveInput(new ivec2(1, 0));
-        c4Controller.ReceiveInput(new ivec2(0, 0));
+        c4Controller.receiveInput(new Ivec2(0, 0));
+        c4Controller.receiveInput(new Ivec2(1, 0));
+        c4Controller.receiveInput(new Ivec2(0, 0));
+        c4Controller.receiveInput(new Ivec2(1, 0));
+        c4Controller.receiveInput(new Ivec2(0, 0));
+        c4Controller.receiveInput(new Ivec2(1, 0));
+        c4Controller.receiveInput(new Ivec2(0, 0));
     }
 }

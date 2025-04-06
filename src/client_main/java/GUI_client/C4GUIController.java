@@ -2,7 +2,7 @@ package GUI_client;
 
 import GameLogic_Client.Connect4.C4Controller;
 import GameLogic_Client.Connect4.C4Piece;
-import GameLogic_Client.ivec2;
+import GameLogic_Client.Ivec2;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -53,7 +53,7 @@ public class C4GUIController implements Initializable {
 
     @FXML
     private void handleUserClick() {
-        c4Controller.ReceiveInput(new ivec2(3, 0)); // for example, drop in column 3
+        c4Controller.receiveInput(new Ivec2(3, 0)); // for example, drop in column 3
     }
 
     @FXML
@@ -124,7 +124,7 @@ public class C4GUIController implements Initializable {
 
     private void handleColumnClick(int col) {
         if (!c4Controller.getC4IsGameOver()) {
-            c4Controller.ReceiveInput(new ivec2(col, 0));
+            c4Controller.receiveInput(new Ivec2(col, 0));
             updateBoard();
 
             if (c4Controller.getC4IsGameOver()) {
