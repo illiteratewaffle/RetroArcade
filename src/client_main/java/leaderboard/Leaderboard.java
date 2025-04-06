@@ -1,12 +1,9 @@
 package leaderboard;
 
-//import server_main.AuthenticationAndProfile.Profile;
+import AuthenticationAndProfile.FriendsList;
 import server.player.PlayerManager;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Objects;
+import java.util.*;
 
 
 public class Leaderboard {
@@ -360,14 +357,54 @@ public class Leaderboard {
         this.rankings = reversedRankingsArray;
     }
 
-    public ArrayList<ArrayList<String>> searchPlayer(String username){
+    /**
+     * Searches for a player's profile in the leaderboard rankings based on the specified username.
+     *
+     * This method iterates through the stripped list of player profiles stored in the rankings field.
+     * Each profile is represented as an ArrayList<String> with the username expected to be at index 2.
+     * When a profile with a matching username is found, it is added to a result list, printed to the console,
+     * and the search terminates, returning the result list containing the first matching profile.
+     * If no matching profile is found, a message "player not found" is printed and an empty list is returned.
+     *
+     *
+     * @param username
+     * @return
+     */
+    public ArrayList<ArrayList<String>> searchPlayer(String username) {
+        ArrayList<ArrayList<String>> result = new ArrayList<>();
+        boolean found = false;
+
+        for (ArrayList<String> profile : rankings) {
+            // Ensure the profile has a username at index 2
+            // uses stripped - strip() - rankings
+            if (profile.size() > 2 && profile.get(2).equals(username)) {
+                result.add(profile);
+                found = true;
+
+                System.out.println(result);
+
+                break; //for returning the first matching profile
+            }
+        }
+
+        if (!found) {
+            System.out.println("player not found");
+        }
+
+        return result;
+    }
+
+    public ArrayList<ArrayList<String>> filterFriends(){
+
+        FriendsList friendsList = new FriendsList();
+        List<Integer> friendsID = friendsList.getFriends();
+
+        // using IDs, search for Player's friends in rankings
+        // in rankings, isolate Player's friends
+        // make a NEW 2d list of friends
+        // send list to gui controller
 
         return rankings;
     }
-
-//    public ArrayList<ArrayList<String>> filterFriends(ArrayList<Profile> friendList){
-//
-//        return rankings;
-//    }
 
 }

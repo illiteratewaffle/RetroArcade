@@ -14,6 +14,7 @@ import javafx.util.Callback;
 import leaderboard.Leaderboard;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class leaderboardGUIController {
 
@@ -24,6 +25,7 @@ public class leaderboardGUIController {
     private String selectedSort = "RATING"; // default sort if needed
     private String selectedGame;
     private Leaderboard leaderboard;
+    private boolean friendSearch = false;
 
     @FXML
     public ImageView checkers_button; // action: checkers_stats
@@ -105,7 +107,6 @@ public class leaderboardGUIController {
             }
         });
 
-        // apply the common style
         column.setCellFactory(new Callback<TableColumn<ObservableList<String>, String>, TableCell<ObservableList<String>, String>>() {
             @Override
             public TableCell<ObservableList<String>, String> call(TableColumn<ObservableList<String>, String> param) {
@@ -231,6 +232,50 @@ public class leaderboardGUIController {
         displayLeaderboard(this.selectedSort, this.selectedGame);
     }
 
+    public void searchFriends(ActionEvent actionEvent) {
+        this.friendSearch = true;
+
+        // Code to get a new leaderboard based on player's friend's list.
+
+    }
+
+    public void searchAnyone(ActionEvent actionEvent) {
+        this.friendSearch = false;
+        displayLeaderboard(this.selectedSort, this.selectedGame);
+    }
+
+    public void send_search(MouseEvent mouseEvent) {
+        String searchText = friend_search.getText();
+
+        if (Objects.equals(searchText, "")) { // if nothing is typed in
+
+            System.out.println("Enter a username to be searched");
+
+        } else { // a username is typed
+
+            System.out.println("Search text: " + searchText);
+
+            // Ensure the leaderboard instance exists
+            if (leaderboard != null) {
+                // Get searched username
+                ArrayList<ArrayList<String>> result = leaderboard.searchPlayer(searchText);
+
+                if (result.isEmpty()) {
+                    System.out.println("player not found");
+                    return;
+                }
+
+                ObservableList<ObservableList<String>> tableData = FXCollections.observableArrayList();
+                ObservableList<String> observableRow = FXCollections.observableArrayList(result.get(0));
+
+                tableData.add(observableRow);
+
+                // Update the TableView with the search result
+                C4_table.setItems(tableData);
+            }
+        }
+    }
+
     public void filter(ActionEvent actionEvent) {
         // Implement filter functionality as needed.
     }
@@ -241,6 +286,4 @@ public class leaderboardGUIController {
     public void search(ActionEvent actionEvent) {
     }
 
-    public void send_search(MouseEvent mouseEvent) {
-    }
 }

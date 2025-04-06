@@ -40,34 +40,64 @@ public class CSVFileReader {
      * Puts it into ArrayList
      * Returns said ArrayList
      *
+     * update: METHOD COPIED FROM AUTHENTICATION AND PROFILE'S CODE - SOME FIELDS IN THE CSV HAVE COMMAS WITHIN AND
+     * I DIDNT ACCOUNT FOR IT. BUT THEY DID
+     *
      * @return
      */
     public static ArrayList<ArrayList<String>> openFile(String filePath){
         ArrayList<ArrayList<String>> fields = new ArrayList<>();
 
-        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
-            // Read the header line
-            String header = br.readLine();
-            //System.out.println("Header: " + header);
-
-            // Read and process each subsequent line
+        try{
+            BufferedReader br = new BufferedReader(new FileReader(filePath));
+            int i = 0;
+            br.readLine();
             String line;
             while ((line = br.readLine()) != null) {
-                ArrayList<String> field = new ArrayList<>();
-
-                // Split the line by ", " and store each field in an ArrayList<>
-                String[] fieldsList = line.split(",");
-
-                for (String fieldsString : fieldsList) {
-                    field.add(fieldsString.trim());
+                ArrayList<String> fieldsList = new ArrayList<>();
+                String section = "";
+                boolean inSection = false;
+                for (int j = 0; j < line.length(); j ++){
+                    Character c = Character.valueOf(line.charAt(j));
+                    if (c == '['){
+                        inSection = true;
+                    } else if (c == ',' && !inSection){
+                        fieldsList.add(section);
+                        section = "";
+                    }else if (c == ']') {
+                        inSection = false;
+                    } else if (j == line.length()-1) {
+                        section = section + c;
+                        fieldsList.add(section);
+                    }else if ( c != '"'){
+                        section = section + c;
+                    }
                 }
+                fields.add(fieldsList);
 
-                fields.add(field);
-
-                numberOfProfiles++;
+//                    System.out.println("ID: " + fields.get(i).get(ID_INDEX)
+//                            + " Username: " + fields.get(i).get(USER_INDEX)
+//                            + " Nickname: " + fields.get(i).get(NICK_INDEX)
+//                            + " Email: " + fields.get(i).get(EMAIL_INDEX)
+//                            + " HashedPassword: " + fields.get(i).get(PWD_INDEX)
+//                            + " Bio: " + fields.get(i).get(BIO_INDEX)
+//                            + " Profile pic: " + fields.get(i).get(PIC_INDEX)
+//                            + " Current game: " + fields.get(i).get(CGAME_INDEX)
+//                            + " IsOnline: " + fields.get(i).get(ONLINE_INDEX)
+//                            + " WLR: " + fields.get(i).get(WLR_INDEX)
+//                            + " Rating: " + fields.get(i).get(RATING_INDEX)
+//                            + " Rank: " + fields.get(i).get(RANK_INDEX)
+//                            + " Wins: " + fields.get(i).get(WINS_INDEX)
+//                            + " GameHistory: " + fields.get(i).get(GHIST_INDEX)
+//                            + " AchievementProgress: " + fields.get(i).get(ACHIVPROG_INDEX)
+//                            + " Friends: " + fields.get(i).get(FRIENDS_INDEX)
+//                            + " FriendRequests: " + fields.get(i).get(FREQUEST_INDEX)
+//                            + " Creation Time: " + fields.get(i).get(17)
+//                    );
+                i +=1;
             }
-
-        } catch (IOException e) {
+            br.close();
+        }catch (IOException e){
             e.printStackTrace();
             System.out.println("System can't find file");
         }
@@ -77,7 +107,7 @@ public class CSVFileReader {
     }
 
     /**
-     * from 2d arraylist of all profiles, makes another 2d arraylist of only profile statistics
+     * from 2d arraylist of all profiles, makes another 2d arraylist of ONLY PROFILE STATISTICS
      * format: [[id, username, rating ttt, rating c4, rating checkers, wins tt, wins c4, wins checkers, wlr ttt, wlr c4, wlr checkers], ...]
      *
      * @param fields
