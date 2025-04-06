@@ -125,4 +125,44 @@ public class CheckersBoardTest {
         assertTrue(checkersBoard.isP2(position));
         assertFalse(checkersBoard.isP1(position));
     }
+
+    @Test
+    public void testMakePawnKing()
+    {
+        Ivec2 position = new Ivec2(7, 7);
+        int p2Piece = CheckersPiece.P2PAWN.getValue();
+
+        checkersBoard.setPiece(position, p2Piece);
+        checkersBoard.makeKing(position);
+
+        assertTrue(checkersBoard.isP2(position));
+        assertTrue(checkersBoard.isKing(position));
+    }
+
+    @Test
+    public void testMakeKingKing()
+    {
+        Ivec2 position = new Ivec2(7, 7);
+        int p2Piece = CheckersPiece.P2KING.getValue();
+
+        checkersBoard.setPiece(position, p2Piece);
+        // Illegal argument when makeKing is called on a non-pawn piece.
+        assertThrows(IllegalArgumentException.class, () -> { checkersBoard.makeKing(position); } );
+
+        assertTrue(checkersBoard.isP2(position));
+        assertTrue(checkersBoard.isKing(position));
+    }
+
+    @Test
+    public void testMakeEmptyKing()
+    {
+        Ivec2 position = new Ivec2(7, 7);
+        int p2Piece = CheckersPiece.NONE.getValue();
+
+        checkersBoard.setPiece(position, p2Piece);
+        // Illegal argument when makeKing is called on a non-pawn piece.
+        assertThrows(IllegalArgumentException.class, () -> { checkersBoard.makeKing(position); } );
+
+        assertFalse(checkersBoard.isPiece(position));
+    }
 }
