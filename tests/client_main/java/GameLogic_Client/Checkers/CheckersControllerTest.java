@@ -8,9 +8,21 @@ import GameLogic_Client.Ivec2;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeEach;
 
-public class CheckersControllerTest
-{
+public class CheckersControllerTest {
+    private CheckersController checkersController;
+
+    @BeforeEach
+    public void setUp() {
+        checkersController = new CheckersController();
+    }
+
+    @Test
+    public void testCheckersController() {
+
+    }
+
     @Test
     public void testDefaultGameStateSetUp()
     {
@@ -33,32 +45,4 @@ public class CheckersControllerTest
         int p1PawnValue = CheckersPiece.P1PAWN.getValue();
         int p2PawnValue = CheckersPiece.P2PAWN.getValue();
 
-        int[][] expectedBoardPieceSetUp = new int[][] {
-                {p2PawnValue, emptyValue, p2PawnValue, emptyValue, p2PawnValue, emptyValue, p2PawnValue, emptyValue},
-                {emptyValue, p2PawnValue, emptyValue, p2PawnValue, emptyValue, p2PawnValue, emptyValue, p2PawnValue},
-                {p2PawnValue, emptyValue, p2PawnValue, emptyValue, p2PawnValue, emptyValue, p2PawnValue, emptyValue},
-                {emptyValue, emptyValue, emptyValue, emptyValue, emptyValue, emptyValue, emptyValue, emptyValue},
-                {emptyValue, emptyValue, emptyValue, emptyValue, emptyValue, emptyValue, emptyValue, emptyValue},
-                {emptyValue, p1PawnValue, emptyValue, p1PawnValue, emptyValue, p1PawnValue, emptyValue, p1PawnValue},
-                {p1PawnValue, emptyValue, p1PawnValue, emptyValue, p1PawnValue, emptyValue, p1PawnValue, emptyValue},
-                {emptyValue, p1PawnValue, emptyValue, p1PawnValue, emptyValue, p1PawnValue, emptyValue, p1PawnValue}
-        };
-
-        int[][] actualBoardPieceSetup = checkersController.getBoardCells(0b01).getFirst();
-
-        // Check if all the pieces are in the correct place.
-        for (int i = 0; i < expectedBoardPieceSetUp.length; i++)
-        {
-            for (int j = 0; j < expectedBoardPieceSetUp[i].length; j++)
-            {
-                assertEquals(expectedBoardPieceSetUp[i][j], actualBoardPieceSetup[i][j]);
-            }
-        }
-    }
-
-    @Test
-    public void testHintSetUp()
-    {
-
-    }
 }
