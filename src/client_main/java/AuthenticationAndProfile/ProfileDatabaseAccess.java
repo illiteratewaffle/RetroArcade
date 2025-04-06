@@ -85,17 +85,17 @@ public class ProfileDatabaseAccess {
             if (!friendsString.equals("null")){
             String[] fieldsList = friendsString.split(",");
             for (int i = 0 ; i < fieldsList.length; i ++){
-                friends.add(Integer.parseInt(fieldsList[i]));
-            }
+                    friends.add(Integer.parseInt(fieldsList[i]));
+                }
             }
             List<Integer> friendRequests = new ArrayList<>();
             String friendRequestString = profileFields.get(ProfileCSVReader.FREQUEST_INDEX);
             if(!friendRequestString.equals("null")) {
                 String[] fieldsList = friendRequestString.split(",");
                 for (int i = 0; i < fieldsList.length; i++) {
-                    friendRequests.add(Integer.parseInt(fieldsList[i]));
+                        friendRequests.add(Integer.parseInt(fieldsList[i]));
+                    }
                 }
-            }
             FriendsList friendsList = new FriendsList(friends, friendRequests);
             return friendsList;
         //} catch (IOException e) {
@@ -139,10 +139,6 @@ public class ProfileDatabaseAccess {
 //            System.out.println("ID does not match a profile in the database.");
 //            return null;
 //        }
-
-
-
-
     }
 
     public static GameHistory obtainGameHistory(int id) {

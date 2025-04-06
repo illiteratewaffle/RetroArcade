@@ -45,10 +45,14 @@ class ProfileDatabaseAccessTest {
 
     @Test
     void obtainFriendsList() {
-        System.out.println(PlayerManager.updateAttribute(id, "friends", "[1,2,3,4]"));
-        System.out.println(PlayerManager.updateAttribute(id, "friend_requests", "[7,8]"));
-        List<Integer> friends = new ArrayList<>(Arrays.asList(1,2,3,4));
-        List<Integer> friendRequests = new ArrayList<>(Arrays.asList(7,8));
+        System.out.println(PlayerManager.addToFriendsList(id, 1));
+        System.out.println(PlayerManager.addToFriendsList(id, 2));
+        System.out.println(PlayerManager.addToFriendsList(id, 3));
+        System.out.println(PlayerManager.addToFriendsList(id, 4));
+        System.out.println(PlayerManager.addToFriendRequestList(id, 7));
+        System.out.println(PlayerManager.addToFriendRequestList(id, 9));
+        List<Integer> friends = new ArrayList<>(Arrays.asList(1, 2, 3, 4));
+        List<Integer> friendRequests = new ArrayList<>(Arrays.asList(7, 8));
         assertEquals(friends, ProfileDatabaseAccess.obtainFriendsList(id).getFriends());
         assertEquals(friendRequests, ProfileDatabaseAccess.obtainFriendsList(id).getFriendRequests());
     }
