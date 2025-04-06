@@ -374,6 +374,8 @@ public class CheckersBoardTest {
 
         // asserting that there is a piece at that location
         assertTrue(checkersBoard.isPiece(position));
+        // assert the piece is p1
+        assertTrue(checkersBoard.isP1(position));
     }
 
     /**
@@ -390,6 +392,8 @@ public class CheckersBoardTest {
 
         // asserting that there is a piece at that location
         assertTrue(checkersBoard.isPiece(position));
+        // assert the piece is p2
+        assertTrue(checkersBoard.isP2(position));
     }
 
     /**
@@ -406,6 +410,8 @@ public class CheckersBoardTest {
 
         // asserting that there is a piece at that location
         assertTrue(checkersBoard.isPiece(position));
+        // assert the piece is p1
+        assertTrue(checkersBoard.isP1(position));
     }
 
     /**
@@ -422,6 +428,8 @@ public class CheckersBoardTest {
 
         // asserting that there is a piece at that location
         assertTrue(checkersBoard.isPiece(position));
+        // assert the piece is p2
+        assertTrue(checkersBoard.isP2(position));
     }
 
     /**
@@ -437,6 +445,8 @@ public class CheckersBoardTest {
         checkersBoard.setPiece(position, p1Piece);
         // assert that the piece at position is a king
         assertTrue(checkersBoard.isKing(position));
+        // assert the piece is p1
+        assertTrue(checkersBoard.isP1(position));
     }
 
     /**
@@ -452,6 +462,8 @@ public class CheckersBoardTest {
         checkersBoard.setPiece(position, p2Piece);
         // assert that the piece at position is a king
         assertTrue(checkersBoard.isKing(position));
+        // assert the piece is p2
+        assertTrue(checkersBoard.isP2(position));
     }
 
     /**
@@ -467,6 +479,8 @@ public class CheckersBoardTest {
         checkersBoard.setPiece(position, p1Piece);
         // assert that the piece is not a king
         assertFalse(checkersBoard.isKing(position));
+        // assert the piece is p1
+        assertTrue(checkersBoard.isP1(position));
     }
 
     /**
@@ -482,6 +496,8 @@ public class CheckersBoardTest {
         checkersBoard.setPiece(position, p2Piece);
         // assert that the piece is not a king
         assertFalse(checkersBoard.isKing(position));
+        // assert the piece is p2
+        assertTrue(checkersBoard.isP2(position));
     }
 
     /**
@@ -497,6 +513,8 @@ public class CheckersBoardTest {
         checkersBoard.setPiece(position, p1Piece);
         // assert that the piece is a pawn
         assertTrue(checkersBoard.isPawn(position));
+        // assert the piece is p1
+        assertFalse(checkersBoard.isP2(position));
     }
 
     /**
@@ -512,6 +530,8 @@ public class CheckersBoardTest {
         checkersBoard.setPiece(position, p2Piece);
         // assert that the piece is a pawn
         assertTrue(checkersBoard.isPawn(position));
+        // assert the piece is p2
+        assertTrue(checkersBoard.isP2(position));
     }
 
     /**
@@ -527,6 +547,8 @@ public class CheckersBoardTest {
         checkersBoard.setPiece(position, p1Piece);
         // assert that the piece is not a pawn
         assertFalse(checkersBoard.isPawn(position));
+        // assert the piece is p1
+        assertTrue(checkersBoard.isP1(position));
     }
 
     /**
@@ -542,51 +564,204 @@ public class CheckersBoardTest {
         checkersBoard.setPiece(position, p2Piece);
         // assert that the piece is not a pawn
         assertFalse(checkersBoard.isPawn(position));
+        // assert the piece is p2
+        assertTrue(checkersBoard.isP2(position));
+    }
+
+    /**
+     * tests the make pawn method for a p1 player
+     */
+    @Test
+    public void testMakePawnP1() {
+        // create position and p1 king piece
+        Ivec2 position = new Ivec2(5, 5);
+        int p1Piece = CheckersPiece.P1KING.getValue();
+
+        // call set piece
+        checkersBoard.setPiece(position, p1Piece);
+        // then call the make pawn method
+        checkersBoard.makePawn(position);
+
+        // assert that the piece is now a pawn
+        assertTrue(checkersBoard.isPawn(position));
+        // assert the piece is still a p1
+        assertTrue(checkersBoard.isP1(position));
+    }
+
+    /**
+     * tests the make pawn method for p2
+     */
+    @Test
+    public void testMakePawnP2() {
+        // creating a position and p2 king piece
+        Ivec2 position = new Ivec2(5, 5);
+        int p2Piece = CheckersPiece.P2KING.getValue();
+
+        // call the set piece method
+        checkersBoard.setPiece(position, p2Piece);
+        // call the make pawn method position in the position
+        checkersBoard.makePawn(position);
+
+        // assert the piece is now a pawn
+        assertTrue(checkersBoard.isPawn(position));
+        // assert the piece is still p2
+        assertTrue(checkersBoard.isP2(position));
+    }
+
+    /**
+     * test for converting a pawn to a pawn for p1
+     */
+    @Test
+    public void testMakePawnPawnP1() {
+        // creating a position and p1 pawn
+        Ivec2 position = new Ivec2(5, 5);
+        int p1Piece = CheckersPiece.P1PAWN.getValue();
+
+        // calling set piece
+        checkersBoard.setPiece(position, p1Piece);
+
+        // asserting this will throw and illegal argument exception when make pawn is called
+        assertThrows(IllegalArgumentException.class, () -> checkersBoard.makePawn(position));
+        // assert the piece is still a pawn
+        assertTrue(checkersBoard.isPawn(position));
+        // assert the piece is still p1
+        assertTrue(checkersBoard.isP1(position));
+    }
+
+    /**
+     * test for converting a pawn to a pawn for p2
+     */
+    @Test
+    public void testMakePawnPawnP2() {
+        // creating a position and p2 pawn
+        Ivec2 position = new Ivec2(5, 5);
+        int p2Piece = CheckersPiece.P2PAWN.getValue();
+
+        // call the set piece method
+        checkersBoard.setPiece(position, p2Piece);
+
+        // asserting this will throw and illegal argument exception when make pawn is called
+        assertThrows(IllegalArgumentException.class, () -> checkersBoard.makePawn(position));
+        // assert the piece is still a pawn
+        assertTrue(checkersBoard.isPawn(position));
+        // assert the piece is still p2
+        assertTrue(checkersBoard.isP2(position));
+    }
+
+    /**
+     * test to try to convert an empty space on the board to pawn
+     */
+    @Test
+    public void testMakePawnNone() {
+        // creation and position and empty piece
+        Ivec2 position = new Ivec2(5, 5);
+        int piece = CheckersPiece.NONE.getValue();
+
+        // calling set piece method
+        checkersBoard.setPiece(position, piece);
+
+        // asserting this will throw and illegal argument exception when make pawn is called
+        assertThrows(IllegalArgumentException.class, () -> checkersBoard.makePawn(position));
+        // assert there is no piece p1 or p2 at position
+        assertFalse(checkersBoard.isPiece(position));
+    }
+
+    /**
+     * test making a king from a pawn using p1
+     */
+    @Test
+    public void testMakeKingP1() {
+        // create a position and piece for p1
+        Ivec2 position = new Ivec2(7, 7);
+        int p1Piece = CheckersPiece.P1PAWN.getValue();
+
+        // call set piece method
+        checkersBoard.setPiece(position, p1Piece);
+        // call make king method
+        checkersBoard.makeKing(position);
+
+        // assert the piece is still p1
+        assertTrue(checkersBoard.isP1(position));
+        // assert piece is a king
+        assertTrue(checkersBoard.isKing(position));
     }
 
     @Test
-    public void testMakePawnKing()
-    {
+    public void testMakeKingP2() {
+        // create a position and piece for p2
         Ivec2 position = new Ivec2(7, 7);
         int p2Piece = CheckersPiece.P2PAWN.getValue();
 
+        // call set piece method
         checkersBoard.setPiece(position, p2Piece);
+        // call make king method
         checkersBoard.makeKing(position);
 
+        // assert that the piece is still p2
         assertTrue(checkersBoard.isP2(position));
+        // assert the piece is a king
         assertTrue(checkersBoard.isKing(position));
     }
 
+    /**
+     * tests converting a king to a king with p1
+     */
     @Test
-    public void testMakeKingKing()
-    {
+    public void testMakeKingKingP1() {
+        // creating a position and p1 king piece
+        Ivec2 position = new Ivec2(7, 7);
+        int p1Piece = CheckersPiece.P1KING.getValue();
+
+        // calling set piece method
+        checkersBoard.setPiece(position, p1Piece);
+
+        // Illegal argument when makeKing is called on a non-pawn piece.
+        assertThrows(IllegalArgumentException.class, () -> checkersBoard.makeKing(position));
+        // assert the piece is still p1
+        assertTrue(checkersBoard.isP1(position));
+        // assert the piece is still a king
+        assertTrue(checkersBoard.isKing(position));
+    }
+
+    /**
+     * tests converting a king to a king with p2
+     */
+    @Test
+    public void testMakeKingKingP2() {
+        // creating a position and p2 king piece
         Ivec2 position = new Ivec2(7, 7);
         int p2Piece = CheckersPiece.P2KING.getValue();
 
+        // calling set piece method
         checkersBoard.setPiece(position, p2Piece);
-        // Illegal argument when makeKing is called on a non-pawn piece.
-        assertThrows(IllegalArgumentException.class, () -> { checkersBoard.makeKing(position); } );
 
+        // Illegal argument when makeKing is called on a non-pawn piece.
+        assertThrows(IllegalArgumentException.class, () -> checkersBoard.makeKing(position));
+        // assert the piece is still p2
         assertTrue(checkersBoard.isP2(position));
+        // assert the piece is still a king
         assertTrue(checkersBoard.isKing(position));
     }
 
+    /**
+     * tests make king on a position with no piece
+     */
     @Test
-    public void testMakeEmptyKing()
-    {
+    public void testMakeKingNone() {
+        // creating position and a none piece
         Ivec2 position = new Ivec2(7, 7);
-        int p2Piece = CheckersPiece.NONE.getValue();
+        int piece = CheckersPiece.NONE.getValue();
 
-        checkersBoard.setPiece(position, p2Piece);
+        // calling set piece method
+        checkersBoard.setPiece(position, piece);
+
         // Illegal argument when makeKing is called on a non-pawn piece.
-        assertThrows(IllegalArgumentException.class, () -> { checkersBoard.makeKing(position); } );
-
+        assertThrows(IllegalArgumentException.class, () -> checkersBoard.makeKing(position));
+        // assert that there is no piece p1 or p2 at position
         assertFalse(checkersBoard.isPiece(position));
     }
 
     /**TODO
-     * test makePawn method
-     * test makeKing method
      * test makeP1 method
      * test makeP2 method
      */

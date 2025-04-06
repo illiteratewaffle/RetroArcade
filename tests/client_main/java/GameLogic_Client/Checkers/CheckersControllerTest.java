@@ -25,8 +25,7 @@ public class CheckersControllerTest {
     }
 
     @Test
-    public void testDefaultGameStateSetUp()
-    {
+    public void testDefaultGameStateSetUp() {
         CheckersController checkersController = new CheckersController();
 
         // The game should start from player 1's turn.
@@ -62,4 +61,5 @@ public class CheckersControllerTest {
         assertEquals(GameState.P2WIN, checkersController.getState());
     }
 
+    }
 }
