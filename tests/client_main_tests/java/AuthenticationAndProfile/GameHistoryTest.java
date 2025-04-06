@@ -32,4 +32,19 @@ class GameHistoryTest {
         List<String> expectedRecentGames = new ArrayList<>(Arrays.asList("Chess", "Connect4", "TTT", "Checkers", "Connect4"));
         assertEquals(expectedRecentGames, gh.getRecentGames());
     }
+
+    @Test
+    void setAchievementProgress() {
+        List<String> gameHistory = new ArrayList<>(Arrays.asList("TTT", "Checkers", "Connect4", "Checkers", "TTT", "Connect4", "Chess"));
+        HashMap<String, Double> initialAchievementProgress = new HashMap<>();
+        initialAchievementProgress.put("Win_Streak", 0.75);
+        initialAchievementProgress.put("Matches_Played", 0.50);
+        GameHistory gh = new GameHistory(gameHistory, initialAchievementProgress);
+        HashMap<String, Double> newAchievementProgress = new HashMap<>();
+        newAchievementProgress.put("Win_Streak", 0.90);
+        newAchievementProgress.put("Matches_Played", 0.70);
+        gh.setAchievementProgress(newAchievementProgress);
+
+        assertEquals(newAchievementProgress, gh.getAchievementProgress());
+    }
 }
