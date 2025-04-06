@@ -4,6 +4,7 @@ module seng300.w25.project {
     requires java.desktop;
     requires org.junit.jupiter.api;
     requires java.sql;
+    requires com.fasterxml.jackson.core;
     //requires org.junit.jupiter.api;
 
 
