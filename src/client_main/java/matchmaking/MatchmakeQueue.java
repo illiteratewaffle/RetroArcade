@@ -4,10 +4,14 @@ import java.util.*;
 
 // Queue class to manage matchmaking queue for different games
 public class MatchmakingQueue {
-    private Map<String, LinkedList<Player>> gameQueues;
+    private Map<String, LinkedList<Profile>> gameQueues;
 
     public MatchmakingQueue() {
         this.gameQueues = new HashMap<>();
+    }
+
+    public LinkedList<Profile> getQueue(String gameType) {
+        return gameQueues.getOrDefault(gameType, new LinkedList<>());
     }
 
     /***
@@ -15,8 +19,8 @@ public class MatchmakingQueue {
      * @param player Player to be added into queue
      * @param gameType Game type for which players want to be added into queue for
      */
-    public void enqueue(Player player, String gameType) {
-        gameQueues.putIfAbsent(gameType, new LinkedList<Player>());
+    public void enqueue(Profile player, String gameType) {
+        gameQueues.putIfAbsent(gameType, new LinkedList<Profile>());
         gameQueues.get(gameType).add(player);
         quickSort(gameQueues.get(gameType));
         //Testing purposes
@@ -28,9 +32,9 @@ public class MatchmakingQueue {
      * @param gameType The queue from which the player is already in queue
      * @return Player that has been dequeued or null if queue is empty
      */
-    public Player dequeue(Player player, String gameType) {
+    public Profile dequeue(Player player, String gameType) {
         if (gameQueues.containsKey(gameType) && !gameQueues.get(gameType).isEmpty()) {
-            Player player = gameQueues.get(gameType).poll();
+            Profile player = gameQueues.get(gameType).poll();
             //Testing purposes
             System.out.println(player.getName() + " has been matched for " + gameType + ".");
             return player;
@@ -58,28 +62,28 @@ public class MatchmakingQueue {
      * @param list list of Player objects to sort
      * @return sorted LinkedList of Players
      */
-
-    private LinkedList<Player> quickSortHelper(LinkedList<Player> list) {
+    private LinkedList<Profile> quickSortHelper(LinkedList<Player> list) {
         if (list.size() <= 1) {
             return list;
         }
 
-        Player pivot = list.get(list.size() / 2);
-        LinkedList<Player> lesser = new LinkedList<Player>();
-        LinkedList<Player> greater = new LinkedList<Player>();
-        LinkedList<Player> equal = new LinkedList<Player>();
+        Profile pivot = list.get(list.size() / 2);
+        LinkedList<Profile> lesser = new LinkedList<Profile>();
+        LinkedList<Profile> greater = new LinkedList<Profile>();
+        LinkedList<Profile> equal = new LinkedList<Profile>();
 
-        for (Player player : list) {
-            if (player.getRank() > pivot.getRank()) {
+
+        for (Profile player : list) {
+            if (player.obtainPlayerRanking().getRanking(gametype) > pivot.obtainPlayerRanking().getRanking(gametype)) {
                 greater.add(player);
-            } else if (player.getRank() < pivot.getRank()) {
+            } else if (player.obtainPlayerRanking().getRanking(gametype) < pivot.obtainPlayerRanking().getRanking(gametype) {
                 lesser.add(player);
             } else {
                 equal.add(player);
             }
         }
 
-        LinkedList<Player> sortedList = new LinkedList<Player>();
+        LinkedList<Profile> sortedList = new LinkedList<Profile>();
         sortedList.addAll(quickSortHelper(greater));
         sortedList.addAll(equal);
         sortedList.addAll(quickSortHelper(lesser));
