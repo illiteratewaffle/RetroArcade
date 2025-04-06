@@ -25,7 +25,7 @@ public class ServerController {
 
     public ServerController() {
         messageQueue = new LinkedBlockingQueue<>();
-        gameQueue = new ConcurrentLinkedQueue<PlayerHandler>();
+        gameQueue = new ConcurrentLinkedQueue<>();
         gameCreator = new GameCreator(gameQueue);
 
         ThreadRegistry.register(thread, messageQueue);
