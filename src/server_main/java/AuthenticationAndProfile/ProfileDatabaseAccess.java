@@ -272,7 +272,7 @@ public class ProfileDatabaseAccess {
 
     public static void main(String[] args) {
         try {
-            Profile profile = obtainProfile(2);
+            Profile profile = ProfileCreation.createNewProfile("username6", "email6@email.com", "jdfksdhfksj");
             System.out.println(profile.getGameHistory().getGameHistory());
         } catch (SQLException s){
             System.out.println(s.getMessage());

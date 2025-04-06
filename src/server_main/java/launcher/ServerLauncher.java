@@ -1,3 +1,5 @@
+package launcher;
+
 import management.ServerController;
 
 import java.util.Scanner;
