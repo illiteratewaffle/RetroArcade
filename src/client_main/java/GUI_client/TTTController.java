@@ -1,36 +1,54 @@
 package GUI_client;
 
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
+import GameLogic_Client.Ivec2;
+import GameLogic_Client.GameState;
+import GameLogic_Client.TicTacToe.TTTGameController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import javafx.scene.control.Button;
+import javafx.stage.StageStyle;
 
-import javax.swing.*;
-import java.awt.*;
-
-import javafx.geometry.Rectangle2D;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class TTTController implements Initializable {
 
     // FXML declarations
+    @FXML
+    public ImageView muteButton;
+    @FXML
+    public ImageView turnBanner;
+    @FXML
+    public ImageView info_bg;
+    @FXML
+    public ImageView info_ok_button;
+    @FXML
+    public ImageView infoButton;
+    @FXML
+    public ImageView chat_bg;
+    @FXML
+    public ImageView sendButton;
+    @FXML
+    public ScrollPane chat_pane;
+    @FXML
+    public TextArea chat_area;
+    @FXML
+    public TextField chat_input_field;
     @FXML
     public ImageView quit_image;
     @FXML
@@ -94,40 +112,59 @@ public class TTTController implements Initializable {
     @FXML
     public GridPane gameBoard;
 
-    // boolean flag alternating Xs and Os
-    boolean flag = true;
+    // game controller for TTT logic
+    TTTGameController theGame = new TTTGameController();
 
-    // boolean variable that board events must check to be true before executing
-    boolean isPlayable = true;
+    // easter egg
+    private final ArrayList<Character> EEList = new ArrayList<Character>();
 
-    // booleanProperty to listen for server input by other player
-    BooleanProperty isYourTurn = new SimpleBooleanProperty(false);
-
-    // booleanProperty to listen for gameOver message
-    BooleanProperty isGameOver = new SimpleBooleanProperty(false);
-
-    // 2D Array for tracking board status
-    Tile[][] board = new Tile[3][3];
-
-    ArrayList<Character> EEList = new ArrayList<Character>();
-
+    // stage for "are you sure?" popup
+    private Stage quitPopup = new Stage();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        // set background and foreground images
         Image bg_image = new Image("background_retro.png");
         Image b_image = new Image("foreground.png");
-        // set background and foreground images
         background_image.setImage(bg_image);
         board_image.setImage(b_image);
-        quit_image.setImage(new Image("quit_x.png"));
+        // set button images
+        quit_image.setImage(new Image("home_button.png"));
+        infoButton.setImage(new Image("info_button.png"));
+        turnBanner.setImage(new Image("XTurn.png"));
+        sendButton.setImage(new Image("send_button.png"));
+        chat_bg.setImage(new Image("chat_bg.png"));
 
-        // initialize board tile chars to empty
-        for (int i = 0; i < 3; i++){
-            for (int j = 0; j < 3; j++){
-                board[i][j] = new Tile('-', i, j);
-            }
+        // setup soundtrack
+        String path = Objects.requireNonNull(getClass().getResource("/music/TTTTrack.mp3")).toExternalForm(); // or absolute path
+        Media sound = new Media(path);
+        AudioManager.mediaPlayer = new MediaPlayer(sound);
+        AudioManager.mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+        AudioManager.mediaPlayer.play();
+        // if audioManager is muted, mute soundtrack, update mute button
+        if (AudioManager.isMuted()){
+            AudioManager.applyMute();
+            muteButton.setImage(new Image("muteButton.png"));
+        } else {
+            muteButton.setImage(new Image("unmuteButton.png"));
         }
 
+        // styling for chat board
+        chat_area.clear();
+        chat_area.setStyle(
+                "-fx-background-color: transparent;" +
+                        "-fx-control-inner-background: transparent;" +
+                        "-fx-text-fill: white;" + // Optional for readability
+                        "-fx-border-color: transparent;" +
+                        "-fx-text-fill: yellow;" +
+                        "-fx-font-size: 16px;" +
+                        "-fx-font-family: 'SilomBol.ttf';"
+        );
+        chat_pane.setStyle(
+                "-fx-background-color: transparent;" +
+                        "-fx-background: transparent;" +
+                        "-fx-border-color: transparent;"
+        );
 
         /*
         mouse-click event: clears border and sets piece
@@ -208,72 +245,81 @@ public class TTTController implements Initializable {
     private void setTile(int row, int col, ImageView imageView){
         Image X = new Image("X.png");
         Image O = new Image("O.png");
-        Image YOUWIN = new Image("YOU_WIN.png");
-        Image play_again_image = new Image("Play_Again.png");
-        Image check_image = new Image("check_circle.png");
-        Image X_image = new Image("X_circle.png");
-
-        if (isPlayable) {
-            if (board[row][col].getPiece() == '-') {
-                if (flag) {
-                    board[row][col].setPiece('X');
+        if (theGame.getGameOngoing())
+            if (theGame.game.board.isEmpty(new Ivec2(row, col))) {
+                if (theGame.getCurrentPlayer() == 1){
                     imageView.setImage(X);
+                    turnBanner.setImage(new Image("OTurn.png"));
+                    theGame.game.makeMove(row, col);
+                    theGame.game.currentPlayer = 2;
                 } else {
-                    board[row][col].setPiece('O');
                     imageView.setImage(O);
+                    turnBanner.setImage(new Image("XTurn.png"));
+                    theGame.game.makeMove(row, col);
+                    theGame.game.currentPlayer = 1;
                 }
-                flag = !flag;
+                checkWin();
             }
-            for (Tile[] tiles: board){
-                for (Tile tile: tiles){
-                    System.out.print(tile.getPiece());
-                }
-                System.out.println();
-            }
-            System.out.println();
-        }
-        if (isWon(board)) {
-            Win_Lose_Banner.setImage(YOUWIN);
-            isGameOver.set(true);
-            play_again.setImage(play_again_image);
-            check_circle.setImage(check_image);
-            X_circle.setImage(X_image);
-        }
     }
 
+    /**
+     * shows a yellow border on valid game tiles when hovering over them
+     * @param stackPane
+     * @param row
+     * @param col
+     */
     private void hoverEvent(StackPane stackPane, int row, int col){
-        if (board[row][col].getPiece() == '-'){
-            stackPane.setStyle("-fx-border-color: yellow; -fx-border-width: 3px; -fx-border-radius: 5px;");
+        if (theGame.getGameOngoing()) {
+            if (theGame.game.board.isEmpty(new Ivec2(row, col))) {
+                stackPane.setStyle("-fx-border-color: yellow; -fx-border-width: 3px; -fx-border-radius: 5px;");
+            }
         }
     }
 
-    private  boolean isWon(Tile[][] board){
-        return true;
-    }
-
-    /*
-    triggered by x button click
-    prompts for confirmation
-    returns user to game menu
-    should also forfeit active matches
+    /**
+     * triggered by x button click
+     * prompts for confirmation
+     * returns user to game menu
+     * should also forfeit active matches
+     * @throws IOException
      */
     public void quit_TTT() throws IOException {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        ButtonType yesButton = new ButtonType("Yes");
-        alert.getButtonTypes().set(0, yesButton);
-        alert.setHeaderText("Quit Game?\nYou will forfeit active matches.");
-        alert.setContentText("Click YES to quit");
-        Optional<ButtonType> result = alert.showAndWait();
+        // check if popup is already showing
+        if (!quitPopup.isShowing()) {
+            // if no popup is showing make a new popup
+            quitPopup = new Stage();
+            // get caller stage, set as popup owner
+            Stage owner = (Stage) board_image.getScene().getWindow();
+            quitPopup.initOwner(owner);
 
-        if(result.isPresent() && result.get() == yesButton){
-            Parent root = FXMLLoader.load(getClass().getResource("gameMenu.fxml"));
+            // load popup resources
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("quitPopup.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            QuitPopupController controller = loader.getController();
 
-            Stage stage = (Stage) gameBoard.getScene().getWindow();
+            quitPopup.initStyle(StageStyle.TRANSPARENT);
+            scene.setFill(Color.TRANSPARENT);
 
-            stage.setScene(new Scene(root));
-            stage.show();
+            // set closeOwner false so TTT stage doesn't close
+            controller.closeOwner = false;
+            quitPopup.setScene(scene);
+            // show popup and wait for user input
+            quitPopup.showAndWait();
+
+            // check if user wants to close TTT game
+            if (controller.closeYes) {
+                AudioManager.mediaPlayer.stop();
+                Parent newRoot = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("gameMenu.fxml")));
+
+                Stage stage = (Stage) gameBoard.getScene().getWindow();
+
+                stage.setScene(new Scene(newRoot));
+                stage.show();
+            }
         }
     }
+    // easter egg stuff
     public void yellowPress(){
         EEList.add('Y');
     }
@@ -283,6 +329,10 @@ public class TTTController implements Initializable {
     public void greenPress(){
         if (EEList.toString().equals("[B, B, Y, Y, B, Y, B, Y]")){
             board_image.setImage(new Image("EE.jpg"));
+            String path = Objects.requireNonNull(getClass().getResource("/music/EESFX.mp3")).toExternalForm(); // or absolute path
+            Media sound = new Media(path);
+            MediaPlayer EE_SFX = new MediaPlayer(sound);
+            EE_SFX.play();
         }
     }
     public void redPress(){
@@ -290,6 +340,118 @@ public class TTTController implements Initializable {
         board_image.setImage(new Image("foreground.png"));
     }
 
+    /**
+     * play again function
+     * essentially just clears board for now
+     * might remove
+     */
     public void playAgainYes() {
+        if (!theGame.getGameOngoing()) {
+            theGame = new TTTGameController();
+            clearBoard();
+            turnBanner.setImage(new Image("XTurn.png"));
+        }
+    }
+
+    /**
+     * Game logic win checker.
+     */
+    public void checkWin(){
+        // check for game win
+        if (theGame.game.checkWin(theGame.game.board)) {
+            // if game is over, current player is the loser
+            if (theGame.getCurrentPlayer() == 2){ // if the current player is O
+                Win_Lose_Banner.setImage(new Image("X_wins.png"));
+                theGame.game.updateGameState();  // Update the game state to P1 win
+            } else if (theGame.getCurrentPlayer() == 1){
+                Win_Lose_Banner.setImage(new Image("O_wins.png"));
+                theGame.game.updateGameState();  // Update the game state to P2 win
+            }
+        }
+        // check for game draw
+        else if (theGame.game.checkDraw(theGame.game.board)){
+            Win_Lose_Banner.setImage(new Image("Draw.png"));
+            theGame.game.updateGameState();  // Update the game state to TIE
+        }
+
+        // if game is over, set play again features
+        if (!theGame.getGameOngoing()){ // if the game is not ongoing, i.e. the game is over
+            play_again.setImage(new Image("Play_Again.png"));
+            check_circle.setImage(new Image("check_circle.png"));
+            X_circle.setImage(new Image("X_circle.png"));
+            turnBanner.setImage(null);
+        }
+    }
+
+
+    /**
+     * clears all board images and play again images
+     */
+    public void clearBoard(){
+        Tile_0_0.setImage(null);
+        Tile_0_1.setImage(null);
+        Tile_0_2.setImage(null);
+        Tile_1_0.setImage(null);
+        Tile_1_1.setImage(null);
+        Tile_1_2.setImage(null);
+        Tile_2_0.setImage(null);
+        Tile_2_1.setImage(null);
+        Tile_2_2.setImage(null);
+        play_again.setImage(null);
+        check_circle.setImage(null);
+        X_circle.setImage(null);
+        Win_Lose_Banner.setImage(null);
+    }
+
+    /**
+     * gets a string from chat text field and appends it to chat area
+     */
+    public void sendMessage(){
+        String message = chat_input_field.getText();
+        if (!message.trim().isEmpty()){
+            chat_area.appendText("You: " + message + "\n");
+            chat_input_field.clear();
+        }
+    }
+
+    /**
+     * function for networking to get string messages from opponents and update chat
+     * @param message
+     */
+    public void getMessage(String message){
+        chat_area.appendText(message);
+    }
+
+    // button animations
+    public void infoButtonPress(){
+        info_bg.setImage(new Image("info_image.png"));
+        info_bg.setMouseTransparent(false);
+        info_ok_button.setMouseTransparent(false);
+    }
+    public void info_ok_clicked(){
+        info_bg.setImage(null);
+        info_bg.setMouseTransparent(true);
+        info_ok_button.setMouseTransparent(true);
+    }
+    public void XPressed(){
+        quit_image.setImage(new Image("home_button_pressed.png"));
+    }
+    public void XReleased(){
+        quit_image.setImage(new Image("home_button.png"));
+    }
+    public void infoPressed(){
+        infoButton.setImage(new Image("infoButtonDown.png"));
+    }
+    public void infoReleased(){
+        infoButton.setImage(new Image("info_button.png"));
+    }
+    public void muteButtonClick(){
+        if(!AudioManager.isMuted()) {
+            muteButton.setImage(new Image("muteButton.png"));
+            AudioManager.toggleMute();
+        } else {
+            muteButton.setImage(new Image("unmuteButton.png"));
+            AudioManager.toggleMute();
+        }
     }
 }

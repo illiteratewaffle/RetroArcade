@@ -1,0 +1,4 @@
+id,username,nickname,email,hashed_password,bio,profile_pic_path,current_game,is_online,win_loss_ratio_ttt,win_loss_ratio_connect4,win_loss_ratio_checkers,rating_ttt,rating_connect4,rating_checkers,rank_ttt,rank_connect4,rank_checkers,wins_ttt,wins_connect4,wins_checkers,games_played,achievement_progress,friends,friend_requests,created_at
+19,username,null,email@email.com,12345678,null,null,null,null,0,0,0,0,0,0,unranked,unranked,unranked,0,0,0,null,null,{1,2,3,4},null,2025-04-05 18:57:53.970939
+97,colby,null,colby.campbell@ucalgary.ca,password,null,null,null,null,0.5,2,1,1500,1550,600,unranked,unranked,unranked,15,4,10,null,null,null,null,2025-04-04 17:33:23.814236
+98,evan,null,evansuckz,password,null,null,null,null,2,4,1.1,456,900,2050,unranked,unranked,unranked,45,8,55,null,null,null,null,2025-04-04 17:33:59.127249
