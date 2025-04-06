@@ -2,8 +2,6 @@ package GUI_client;
 
 import GameLogic_Client.TicTacToe.TTTGameController;
 import GameLogic_Client.ivec2;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -14,6 +12,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
@@ -23,12 +23,13 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class TTTController implements Initializable {
 
     // FXML declarations
+    @FXML
+    public ImageView muteButton;
     @FXML
     public ImageView turnBanner;
     @FXML
@@ -112,7 +113,9 @@ public class TTTController implements Initializable {
 
     TTTGameController theGame = new TTTGameController();
 
-    ArrayList<Character> EEList = new ArrayList<Character>();
+    private final ArrayList<Character> EEList = new ArrayList<Character>();
+
+    private Stage quitPopup = new Stage();
 
 
     @Override
@@ -126,7 +129,18 @@ public class TTTController implements Initializable {
         quit_image.setImage(new Image("quit_x.png"));
         infoButton.setImage(new Image("info_button.png"));
 
-        TTTGameController theGame = new TTTGameController();
+        muteButton.setImage(new Image("unmuteButton.png"));
+        String path = Objects.requireNonNull(getClass().getResource("/music/TTTTrack.mp3")).toExternalForm(); // or absolute path
+        Media sound = new Media(path);
+        AudioManager.mediaPlayer = new MediaPlayer(sound);
+        AudioManager.mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+        AudioManager.mediaPlayer.play();
+        if (AudioManager.isMuted()){
+            AudioManager.applyMute();
+            muteButton.setImage(new Image("muteButton.png"));
+        } else {
+            muteButton.setImage(new Image("unmuteButton.png"));
+        }
 
         turnBanner.setImage(new Image("XTurn.png"));
         sendButton.setImage(new Image("send_button.png"));
@@ -259,29 +273,32 @@ public class TTTController implements Initializable {
     should also forfeit active matches
      */
     public void quit_TTT() throws IOException {
-        Stage quitPopup = new Stage();
-        Stage owner = (Stage) board_image.getScene().getWindow();
-        quitPopup.initOwner(owner);
+        AudioManager.mediaPlayer.stop();
+        if (!quitPopup.isShowing()) {
+            quitPopup = new Stage();
+            Stage owner = (Stage) board_image.getScene().getWindow();
+            quitPopup.initOwner(owner);
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("quitPopup.fxml"));
-        Parent root = loader.load();
-        Scene scene = new Scene(root);
-        QuitPopupController controller = loader.getController();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("quitPopup.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            QuitPopupController controller = loader.getController();
 
-        quitPopup.initStyle(StageStyle.TRANSPARENT);
-        scene.setFill(Color.TRANSPARENT);
+            quitPopup.initStyle(StageStyle.TRANSPARENT);
+            scene.setFill(Color.TRANSPARENT);
 
-        controller.closeOwner = false;
-        quitPopup.setScene(scene);
-        quitPopup.showAndWait();
+            controller.closeOwner = false;
+            quitPopup.setScene(scene);
+            quitPopup.showAndWait();
 
-        if (controller.closeYes) {
-            Parent newRoot = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("gameMenu.fxml")));
+            if (controller.closeYes) {
+                Parent newRoot = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("gameMenu.fxml")));
 
-            Stage stage = (Stage) gameBoard.getScene().getWindow();
+                Stage stage = (Stage) gameBoard.getScene().getWindow();
 
-            stage.setScene(new Scene(newRoot));
-            stage.show();
+                stage.setScene(new Scene(newRoot));
+                stage.show();
+            }
         }
     }
     public void yellowPress(){
@@ -293,6 +310,10 @@ public class TTTController implements Initializable {
     public void greenPress(){
         if (EEList.toString().equals("[B, B, Y, Y, B, Y, B, Y]")){
             board_image.setImage(new Image("EE.jpg"));
+            String path = Objects.requireNonNull(getClass().getResource("/music/EESFX.mp3")).toExternalForm(); // or absolute path
+            Media sound = new Media(path);
+            MediaPlayer EE_SFX = new MediaPlayer(sound);
+            EE_SFX.play();
         }
     }
     public void redPress(){
@@ -367,5 +388,26 @@ public class TTTController implements Initializable {
         info_bg.setImage(null);
         info_bg.setMouseTransparent(true);
         info_ok_button.setMouseTransparent(true);
+    }
+    public void XPressed(){
+        quit_image.setImage(new Image("XButtonDown.png"));
+    }
+    public void XReleased(){
+        quit_image.setImage(new Image("quit_x.png"));
+    }
+    public void infoPressed(){
+        infoButton.setImage(new Image("infoButtonDown.png"));
+    }
+    public void infoReleased(){
+        infoButton.setImage(new Image("info_button.png"));
+    }
+    public void muteButtonClick(){
+        if(!AudioManager.isMuted()) {
+            muteButton.setImage(new Image("muteButton.png"));
+            AudioManager.toggleMute();
+        } else {
+            muteButton.setImage(new Image("unmuteButton.png"));
+            AudioManager.toggleMute();
+        }
     }
 }

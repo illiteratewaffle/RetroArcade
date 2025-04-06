@@ -3,6 +3,7 @@ module seng300.w25.project {
     requires javafx.fxml;
     requires java.desktop;
     requires org.junit.jupiter.api;
+    requires javafx.media;
     //requires org.junit.jupiter.api;
 
 
