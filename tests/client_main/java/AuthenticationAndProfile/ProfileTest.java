@@ -145,14 +145,15 @@ class ProfileTest {
     @Test
     void updateUsernameInDatabase() {
         String username = Profile.generateUsername();
+        String newUsername = Profile.generateUsername();
         String email = username + "@example.com";
         String password = Profile.generatePassword();
         ProfileCreation.createNewProfile(username, email, password);
         String hashedPassword = ProfileCreation.hashedPassword(password);
         int newProfileID = Authentication.getProfileLoggedIn().getID();
         assertEquals(username, Profile.exportUsername(newProfileID));
-        profile.updateUsername(newProfileID, "Alice");
-        assertEquals("Alice", profile.exportUsername(newProfileID));
+        profile.updateUsername(newProfileID, newUsername);
+        assertEquals(newUsername, profile.exportUsername(newProfileID));
     }
 
     @Test
