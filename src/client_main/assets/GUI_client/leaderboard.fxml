@@ -88,7 +88,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
         </TextField>
-      <ImageView fx:id="search_button" accessibleRole="BUTTON" fitHeight="96.0" fitWidth="121.0" layoutX="523.0" layoutY="514.0" onMouseClicked="#send_search">
+      <ImageView fx:id="search_button" accessibleRole="BUTTON" fitHeight="96.0" fitWidth="121.0" layoutX="523.0" layoutY="514.0" onMouseClicked="#send_search" onMousePressed="#searchPressed" onMouseReleased="#searchReleased">
          <image>
             <Image url="@../leaderboard_assets/search_button.png" />
          </image>
