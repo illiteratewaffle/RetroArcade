@@ -743,6 +743,9 @@ public class CheckersBoardTest {
         assertTrue(checkersBoard.isKing(position));
     }
 
+    /**
+     * tests make king on a position with no piece
+     */
     @Test
     public void testMakeKingNone() {
         // creating position and a none piece
