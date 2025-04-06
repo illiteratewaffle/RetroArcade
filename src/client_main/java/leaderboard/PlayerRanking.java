@@ -60,7 +60,6 @@ public class PlayerRanking {
             PlayerManager.updateAttribute(id, "win_loss_ratio_checkers", currentWinLossRatio);
             PlayerManager.updateAttribute(id, "rank_checkers", newRank);
         }
-        }
     }
     public double getWinLossRatio(int gameNumber) {
         return winLossRatio[gameNumber];
