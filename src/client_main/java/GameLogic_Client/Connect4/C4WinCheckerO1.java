@@ -3,6 +3,8 @@ import GameLogic_Client.Ivec2;
 
 public class C4WinCheckerO1 {
     public static boolean isC4Win(Ivec2 lastCoordinate, C4Piece piece, C4Piece[][] board) {
+        C4GameLogic game = new C4GameLogic();
+        game.updateGameState();
         return checkHorizontal(lastCoordinate, piece, board) ||
             checkVertical(lastCoordinate, piece, board) ||
             checkForwardSlash(lastCoordinate, piece, board) ||
