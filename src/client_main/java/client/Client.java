@@ -29,8 +29,14 @@ public class Client {
         HashMap<String, Object> data = new HashMap<>();
         data.put("type", "message");
         data.put("message", message);
-        if (playerId != null){
-            data.put("sender", playerId);}
+        writer.println(JsonConverter.toJson(data));
+    }
+    public void sendMessageFromMethod(String type, String message, String extra, String extraObject) {
+        HashMap<String, Object> data = new HashMap<>();
+        data.put("type", type);
+        data.put("message", message);
+        if (extra != "null"){
+            data.put(extra, extraObject);}
         writer.println(JsonConverter.toJson(data));
     }
     /**
@@ -136,18 +142,6 @@ public class Client {
             // Wait for server to assign and respond with PlayerID
             String response;
             String playerId = null;
-            while ((response = reader.readLine()) != null) {
-                HashMap<String, Object> responseMap = (HashMap<String, Object>) JsonConverter.fromJson(response);
-                // PlayerID assignment (commented out for now)
-
-                if (responseMap.containsKey("playerId")) {
-                    playerId = (String) responseMap.get("playerId");
-                    System.out.println("Assigned PlayerID: " + playerId);
-                    break;
-                } else {
-                    break;}
-            }
-
             if (playerId == null) {
                 // Start client
                 Client client = new Client(socket, null);
