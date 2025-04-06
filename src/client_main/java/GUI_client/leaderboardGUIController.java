@@ -234,9 +234,25 @@ public class leaderboardGUIController {
 
     public void searchFriends(ActionEvent actionEvent) {
         this.friendSearch = true;
+        System.out.println("YES IT WORKING");
 
-        // Code to get a new leaderboard based on player's friend's list.
+        leaderboard = new Leaderboard(selectedSort, selectedGame);
+        leaderboard.filterFriends();
+        ArrayList<ArrayList<String>> rankingData = leaderboard.getRankings();
 
+        // Recalculate leaderboard positions (1-indexed)
+        for (int i = 0; i < rankingData.size(); i++) {
+            rankingData.get(i).set(0, String.valueOf(i + 1));
+        }
+
+        // Convert the data into an ObservableList for the TableView
+        ObservableList<ObservableList<String>> tableData = FXCollections.observableArrayList();
+        for (ArrayList<String> row : rankingData) {
+            ObservableList<String> observableRow = FXCollections.observableArrayList(row);
+            tableData.add(observableRow);
+        }
+
+        C4_table.setItems(tableData);
     }
 
     public void searchAnyone(ActionEvent actionEvent) {

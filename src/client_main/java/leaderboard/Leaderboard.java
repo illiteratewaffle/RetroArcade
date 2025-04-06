@@ -57,7 +57,7 @@ public class Leaderboard {
      */
     public void updateLeaderboard() {
 
-        //PlayerManager.getProfileTable(); BRING BACK WHEN COMPLETELY DONE LEADERBOARD
+        //PlayerManager.getProfileTable(); //BRING BACK WHEN COMPLETELY DONE LEADERBOARD
 
         this.rankings = CSVFileReader.retrieveProfiles(FILEPATH);
 
@@ -65,6 +65,7 @@ public class Leaderboard {
 
         // toggleSortOrder(rankings);
         // System.out.println("toggled " + rankings);
+        //filterFriends();
     }
 
     public void GUIToggleSortOrder() {
@@ -397,13 +398,25 @@ public class Leaderboard {
     public ArrayList<ArrayList<String>> filterFriends(){
 
         FriendsList friendsList = new FriendsList();
-        List<Integer> friendsID = friendsList.getFriends();
+        //List<Integer> friendsID = friendsList.getFriends(); // now waiting for authentication to fix their method
+        List<Integer> friendsID = Arrays.asList(19, 97, 98, 86); // for testing purposes, comment when auth fixes
 
-        // using IDs, search for Player's friends in rankings
-        // in rankings, isolate Player's friends
-        // make a NEW 2d list of friends
-        // send list to gui controller
+        for (int i = rankings.size() - 1; i >= 0; i--) {
+            ArrayList<String> row = rankings.get(i);
+            int id = Integer.parseInt(row.get(1)); // second element as integer
+            boolean found = false;
+            for (Integer friendID : friendsID) {
+                if (friendID.intValue() == id) {
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                rankings.remove(i);
+            }
+        }
 
+        System.out.println(rankings);
         return rankings;
     }
 
