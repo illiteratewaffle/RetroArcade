@@ -1,7 +1,7 @@
 package misc;
 
 import org.junit.jupiter.api.*;
-import server.database.databaseConnector;
+import database.databaseConnector;
 
 import java.sql.Connection;
 
