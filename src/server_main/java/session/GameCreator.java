@@ -57,6 +57,15 @@ public class GameCreator implements Runnable {
         return activeSessions.get(sessionThread);
     }
 
+    public void startGameFromQueue() {
+        PlayerHandler player1 = gameQueue.poll();
+        PlayerHandler player2 = gameQueue.poll();
+
+        if ((player1 != null) && (player2 != null)) {
+            createSession(player1, player2);
+        }
+    }
+
     @Override
     public void run() {
         while (true) {

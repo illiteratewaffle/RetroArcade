@@ -23,8 +23,8 @@ module seng300.w25.project {
     exports database;
     exports player;
     exports AuthenticationAndProfile;
-    //exports GameLogic_Client.TicTacToe;
-    //exports GameLogic_Client;
+    exports GameLogic_Client.TicTacToe;
+    exports GameLogic_Client;
     exports management;
     exports launcher;
 }

@@ -65,16 +65,9 @@ public class GameSessionManager implements Runnable{
         log("GameSessionManager created");
 
         // Send initial game link info to players
-        HashMap<String, Object> gameLink = new HashMap<>();
-        gameLink.put("type", "game-link");
+        player1.setGameSessionManagerThread(Thread.currentThread());
 
-        Thread player1Thread = player1.getThread();
-        Thread player2Thread = player2.getThread();
-
-
-        ThreadRegistry.getQueue(player1Thread).add(new ThreadMessage(currentThread, gameLink));
-        ThreadRegistry.getQueue(player2Thread).add(new ThreadMessage(currentThread, gameLink));
-
+        player2.setGameSessionManagerThread(Thread.currentThread());
         while (gameController.getGameOngoing()) {
 
             try {

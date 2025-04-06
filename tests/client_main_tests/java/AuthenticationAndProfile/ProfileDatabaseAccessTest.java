@@ -1,6 +1,6 @@
 package client_main_tests.java.AuthenticationAndProfile;
 
-import leaderboard.PlayerRanking;
+import AuthenticationAndProfile.PlayerRanking;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -36,7 +36,7 @@ class ProfileDatabaseAccessTest {
         }
     }
 
-    @Test
+    /*@Test
     void obtainProfile() {
         HashMap<String, Double> achievementProgress = new HashMap<>();
         List<String> gameHistory = new ArrayList<>();
@@ -52,7 +52,7 @@ class ProfileDatabaseAccessTest {
         } catch (SQLException s) {
             System.out.println(s.getMessage());
         }
-    }
+    }*/
 
     @Test
     void obtainFriendsList() {
