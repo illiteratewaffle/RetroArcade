@@ -23,7 +23,7 @@
       </StackPane>
       <AnchorPane prefHeight="600.0" prefWidth="900.0">
          <children>
-            <ImageView fx:id="TTT_play_button" fitHeight="116.0" fitWidth="324.0" layoutX="288.0" layoutY="138.0" onMouseClicked="#play_TTT" onMouseEntered="#TTTStartEntered" onMouseExited="#TTTStartExited" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="TTT_play_button" fitHeight="116.0" fitWidth="324.0" layoutX="288.0" layoutY="180.0" onMouseClicked="#play_TTT" onMouseEntered="#TTTStartEntered" onMouseExited="#TTTStartExited" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../TTT_start_button.png" />
                </image>
@@ -34,8 +34,9 @@
             <ImageView fx:id="quitMenu" fitHeight="80.0" fitWidth="80.0" layoutX="807.0" layoutY="15.0" onMouseClicked="#quitMenuClicked" onMousePressed="#XPressed" onMouseReleased="#XReleased" pickOnBounds="true" preserveRatio="true">
                <cursor>
                   <Cursor fx:constant="OPEN_HAND" />
-               </cursor></ImageView>
-            <ImageView fx:id="checkers_play_button" fitHeight="84.0" fitWidth="324.0" layoutX="288.0" layoutY="258.0" onMouseClicked="#play_checkers" onMouseEntered="#checkersStartEntered" onMouseExited="#checkersStartExited" pickOnBounds="true">
+               </cursor>
+            </ImageView>
+            <ImageView fx:id="checkers_play_button" fitHeight="84.0" fitWidth="324.0" layoutX="288.0" layoutY="300.0" onMouseClicked="#play_checkers" onMouseEntered="#checkersStartEntered" onMouseExited="#checkersStartExited" pickOnBounds="true">
                <cursor>
                   <Cursor fx:constant="OPEN_HAND" />
                </cursor>
@@ -43,7 +44,7 @@
                   <Image url="@../checkers_start_button.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="C4_play_button" fitHeight="84.0" fitWidth="324.0" layoutX="288.0" layoutY="378.0" onMouseEntered="#C4StartEntered" onMouseExited="#C4StartExited" onMouseClicked="#play_C4" pickOnBounds="true">
+            <ImageView fx:id="C4_play_button" fitHeight="84.0" fitWidth="324.0" layoutX="289.0" layoutY="418.0" onMouseClicked="#play_C4" onMouseEntered="#C4StartEntered" onMouseExited="#C4StartExited" pickOnBounds="true">
                <cursor>
                   <Cursor fx:constant="OPEN_HAND" />
                </cursor>
@@ -58,6 +59,14 @@
                <image>
                   <Image url="@../unmuteButton.png" />
                </image>
+            </ImageView>
+            <ImageView fx:id="leaderboardsButton" fitHeight="100.0" fitWidth="430.0" layoutX="236.0" layoutY="26.0" onMouseClicked="#leaderboardsClicked" onMouseEntered="#leaderboardsEntered" onMouseExited="#leaderboardsExited" pickOnBounds="true">
+               <image>
+                  <Image url="@../leaderboardsButton.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="OPEN_HAND" />
+               </cursor>
             </ImageView>
          </children>
       </AnchorPane>

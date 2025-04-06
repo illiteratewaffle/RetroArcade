@@ -14,7 +14,6 @@
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #201e42;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI_client.leaderboardGUIController">
-    <stylesheets>@src/client_main/resources/GUI_client/style.css</stylesheets>
     <children>
       <ImageView fitHeight="463.0" fitWidth="891.0" layoutX="3.0" layoutY="9.0">
          <image>
@@ -56,6 +55,9 @@
          <font>
             <Font name="Silom" size="16.0" />
          </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </SplitMenuButton>
       <SplitMenuButton fx:id="sort_stats" layoutX="56.0" layoutY="519.0" mnemonicParsing="false" onAction="#sort" prefHeight="35.0" prefWidth="300.0" style="-fx-background-color: black;" text="Choose Statistics Sorting Option">
          <items>
@@ -66,45 +68,70 @@
          <font>
             <Font name="Silom" size="16.0" />
          </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </SplitMenuButton>
       <Button fx:id="toggleOrder" layoutX="56.0" layoutY="560.0" mnemonicParsing="false" onAction="#toggleOrder" prefHeight="35.0" prefWidth="300.0" text="Toggle Sort Order">
          <font>
             <Font size="16.0" />
          </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </Button>
         <TextField fx:id="friend_search" layoutX="415.0" layoutY="506.0" onAction="#search" prefHeight="45.0" prefWidth="300.0" promptText="Search Username" style="-fx-background-color: transparent; -fx-text-fill: #ffa200; -fx-prompt-text-fill: rgba(255, 162, 0, 0.75); -fx-border-color: #ffa200; -fx-border-width: 2px;">
             <font>
                 <Font name="Silom" size="25.0" />
             </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
         </TextField>
-      <ImageView fx:id="search_button" accessibleRole="BUTTON" fitHeight="107.0" fitWidth="129.0" layoutX="726.0" layoutY="483.0" onMouseClicked="#send_search">
+      <ImageView fx:id="search_button" accessibleRole="BUTTON" fitHeight="107.0" fitWidth="129.0" layoutX="726.0" layoutY="483.0" onMouseClicked="#send_search" onMousePressed="#searchPressed" onMouseReleased="#searchReleased">
          <image>
-            <Image url="@../leaderboard_assets/search_button.PNG" />
+            <Image url="@../leaderboard_assets/search_button.png" />
          </image>
+         <cursor>
+            <Cursor fx:constant="OPEN_HAND" />
+         </cursor>
       </ImageView>
-      <ImageView fitHeight="72.0" fitWidth="80.0" layoutX="2.0">
+      <ImageView fx:id="backButton" fitHeight="80.0" fitWidth="80.0" layoutX="807.0" layoutY="15.0" onMouseClicked="#backButtonClicked" onMousePressed="#backButtonPressed" onMouseReleased="#backButtonReleased">
          <image>
-            <Image url="@../GUI_buttons/back_button%20copy.png" />
+            <Image url="@../home_button.png" />
          </image>
+         <cursor>
+            <Cursor fx:constant="OPEN_HAND" />
+         </cursor>
       </ImageView>
-      <ImageView fx:id="checkers_button" accessibleRole="BUTTON" fitHeight="79.0" fitWidth="227.0" layoutX="62.0" layoutY="120.0" onMouseClicked="#checkers_stats">
+      <ImageView fx:id="checkers_button" accessibleRole="BUTTON" fitHeight="79.0" fitWidth="227.0" layoutX="62.0" layoutY="120.0" onMouseClicked="#checkers_stats" pickOnBounds="true">
          <image>
             <Image url="@../leaderboard_assets/simple_check_button.png" />
          </image>
          <cursor>
-            <Cursor fx:constant="SE_RESIZE" />
+            <Cursor fx:constant="OPEN_HAND" />
          </cursor>
       </ImageView>
-      <ImageView fx:id="TTT_button" accessibleRole="BUTTON" fitHeight="96.0" fitWidth="228.0" layoutX="337.0" layoutY="113.0" onMouseClicked="#TTT_stats">
+      <ImageView fx:id="TTT_button" accessibleRole="BUTTON" fitHeight="96.0" fitWidth="228.0" layoutX="337.0" layoutY="113.0" onMouseClicked="#TTT_stats" pickOnBounds="true">
          <image>
             <Image url="@../leaderboard_assets/simple_TTT_button.png" />
          </image>
+         <cursor>
+            <Cursor fx:constant="OPEN_HAND" />
+         </cursor>
       </ImageView>
-      <ImageView fx:id="C4_button" accessibleRole="BUTTON" fitHeight="101.0" fitWidth="232.0" layoutX="617.0" layoutY="110.0" onMouseClicked="#C4_stats">
+      <ImageView fx:id="C4_button" accessibleRole="BUTTON" fitHeight="101.0" fitWidth="232.0" layoutX="617.0" layoutY="110.0" onMouseClicked="#C4_stats" pickOnBounds="true">
          <image>
             <Image url="@../leaderboard_assets/simple_c4_button.png" />
          </image>
+         <cursor>
+            <Cursor fx:constant="OPEN_HAND" />
+         </cursor>
       </ImageView>
+      <ImageView fx:id="muteButton" fitHeight="80.0" fitWidth="80.0" layoutX="717.0" layoutY="15.0" onMouseClicked="#muteButtonClicked" pickOnBounds="true" preserveRatio="true">
+         <cursor>
+            <Cursor fx:constant="OPEN_HAND" />
+         </cursor></ImageView>
 
          </children>
 </AnchorPane>

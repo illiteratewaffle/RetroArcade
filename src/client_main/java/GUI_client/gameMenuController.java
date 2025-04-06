@@ -21,6 +21,8 @@ import javafx.scene.media.MediaPlayer;
 
 public class gameMenuController implements Initializable {
     @FXML
+    public ImageView leaderboardsButton;
+    @FXML
     public ImageView muteButton;
     @FXML
     public ImageView C4_play_button;
@@ -152,5 +154,23 @@ public class gameMenuController implements Initializable {
             muteButton.setImage(new Image("unmuteButton.png"));
             AudioManager.toggleMute();
         }
+    }
+    public void leaderboardsClicked() throws IOException {
+        // stop current soundtrack
+        AudioManager.mediaPlayer.stop();
+        // get connect4 fxml resources
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("leaderboard.fxml")));
+
+        // get current gameMenu stage
+        Stage stage = (Stage) gameMenu_bg_image.getScene().getWindow();
+
+        stage.setScene(new Scene(root));
+        stage.show();
+    }
+    public void leaderboardsEntered(){
+        leaderboardsButton.setImage(new Image("leaderboardsButton_inverted.png"));
+    }
+    public void leaderboardsExited(){
+        leaderboardsButton.setImage(new Image("leaderboardsButton.png"));
     }
 }
