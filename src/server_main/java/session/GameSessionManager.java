@@ -68,31 +68,54 @@ public class GameSessionManager implements Runnable{
         HashMap<String, Object> gameLink = new HashMap<>();
         gameLink.put("type", "game-link");
 
-        Thread player1Thread = new Thread(player1);
-        Thread player2Thread = new Thread(player2);
+        Thread player1Thread = player1.getThread();
+        Thread player2Thread = player2.getThread();
+
 
         ThreadRegistry.getQueue(player1Thread).add(new ThreadMessage(currentThread, gameLink));
         ThreadRegistry.getQueue(player2Thread).add(new ThreadMessage(currentThread, gameLink));
 
         while (gameController.getGameOngoing()) {
-            PlayerHandler currentPlayer = getCurrentPlayer();
-            Thread currentPlayerThread = currentPlayer.getThread();
 
             try {
                 ThreadMessage msg = myQueue.take();
+                Thread sender = msg.getSender();
+                Object typeObj = msg.getContent().get("type");
+                HashMap<String, Object> content = (HashMap<String, Object>) msg.getContent();
 
-                if (msg.getSender() == currentPlayerThread) {
-                    String inputStr = (String) msg.getContent().get("move");  // Expecting key "move"
-                    Ivec2 move = parseInput(inputStr);
 
-                    gameController.receiveInput(move);
-                    broadcastGameState();
+                if (typeObj == null) {
+                    log("Message missing type. Ignored.");
+                    continue;
+                }
 
-                    if (!gameController.getGameOngoing()) {
-                        handleGameEnd();
-                    }
-                } else {
-                    log("Received input from wrong player. Ignoring.");
+                String type = typeObj.toString();
+
+                switch (type) {
+                    case "move":
+                        PlayerHandler currentPlayer = getCurrentPlayer();
+                        Thread currentPlayerThread = currentPlayer.getThread();
+                        if (sender == currentPlayer.getThread()) {
+                            String inputStr = (String) msg.getContent().get("move");  // Expecting key "move"
+                            Ivec2 move = parseInput(inputStr);
+
+                            gameController.receiveInput(move);
+                            broadcastGameState();
+
+                            if (!gameController.getGameOngoing()) {
+                                handleGameEnd();
+                            }
+                        } else {
+                            log("Received move from wrong player. Ignoring.");
+                        }
+                        break;
+
+                    case "message":
+                        handleChatMessage(sender, content);
+                        break;
+
+                    default:
+                        log("Unknown message type: " + type);
                 }
 
             } catch (InterruptedException e) {
@@ -163,5 +186,26 @@ public class GameSessionManager implements Runnable{
         int y = Integer.parseInt(parts[1].trim());
         return new Ivec2(x, y);
     }
+
+    private void handleChatMessage(Thread sender, HashMap<String, Object> content) {
+        try {
+            HashMap<String, Object> forward = new HashMap<>();
+            forward.put("type", "message");
+            forward.put("message", content.get("message"));
+
+            if (sender == player1.getThread()) {
+//                forward.put("sender", player1.getUsername());
+                ThreadRegistry.getQueue(player2.getThread()).add(new ThreadMessage(Thread.currentThread(), forward));
+            } else if (sender == player2.getThread()) {
+//                forward.put("sender", player2.getUsername());
+                ThreadRegistry.getQueue(player1.getThread()).add(new ThreadMessage(Thread.currentThread(), forward));
+            } else {
+                log("Chat message sender not recognized.");
+            }
+        } catch (Exception e) {
+            log("Error handling chat message:", e.toString());
+        }
+    }
+
 
 }
