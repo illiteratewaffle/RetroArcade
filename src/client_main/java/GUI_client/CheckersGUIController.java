@@ -1,5 +1,6 @@
 package GUI_client;
 
+import GameLogic_Client.Checkers.CheckersBoard;
 import GameLogic_Client.Checkers.CheckersController;
 import GameLogic_Client.Ivec2;
 
@@ -52,7 +53,18 @@ public class CheckersGUIController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // relative addresses
-        gameLogic = new CheckersController();
+        /** Leo's tests, do with it as you wish
+        gameLogic = new CheckersController(new CheckersBoard(8, 8, new int[][]{
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 3, 0, 3, 0, 3, 0, 3},
+                {3, 0, 3, 0, 3, 0, 3, 0},
+                {0, 3, 0, 3, 0, 1, 0, 3},
+                {1, 0, 3, 0, 1, 0, 1, 0},
+                {0, 1, 0, 1, 0, 1, 0, 1},
+                {1, 0, 1, 0, 1, 0, 1, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0}
+        }));
+         */
         blueChecker = new Image("checkers_blue_piece.png");
         pinkChecker = new Image("checkers_pink_piece.png");
         blueKingChecker = new Image("checkers_blue_king_piece.png");

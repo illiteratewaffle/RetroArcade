@@ -84,8 +84,6 @@ public class CheckersController implements IBoardGameController
         boolean shouldCheckBottomLeft = false;
         boolean shouldCheckBottomRight = false;
 
-        //To Ryan: problem?
-
         // King pieces can move in all 4 directions.
         if (board.isKing(pieceLocation))
         {
@@ -263,6 +261,10 @@ public class CheckersController implements IBoardGameController
     final static int defaultWidth = 8;
     final static int defaultHeight = 8;
 
+    public GameState getState(){
+        return currentGameState;
+    }
+
     // Player 1's pieces begin at the bottom of the board, moving upwards.
     final static Ivec2[] defaultInitLocationsP1 = new Ivec2[]
         {
@@ -333,18 +335,6 @@ public class CheckersController implements IBoardGameController
            System.out.print(Cell);
        }
    }
-
-
-   public static void main(String[] args)
-   {
-       CheckersController test = new CheckersController();
-       test.receiveInput(new Ivec2(1, 2));
-       test.receiveInput(new Ivec2(1, 3));
-       test.receiveInput(new Ivec2(1, 2));
-       test.receiveInput(new Ivec2(2, 3));
-       test.printBoard();
-   }
-
 
 
 // Internal State Methods. Used internally by the CheckersController to manage its state.
@@ -593,6 +583,9 @@ public class CheckersController implements IBoardGameController
     protected boolean currentPlayerChanged = false;
     protected int boardChanged = 0;
 
+    /**
+     * Manages the back eng logic behind every click
+     */
     public void receiveInput(Ivec2 input)
     {
         // Reset the flags to help detect changes since the last input.
@@ -662,7 +655,11 @@ public class CheckersController implements IBoardGameController
         else throw new IndexOutOfBoundsException("Players in Checkers are denoted as either 0 or 1 only.");
     }
 
-
+    /**
+     * Getter for winner
+     *
+     * @return an array with data on who has won the match
+     */
     public int[] getWinner()
     {
         return switch (currentGameState)
