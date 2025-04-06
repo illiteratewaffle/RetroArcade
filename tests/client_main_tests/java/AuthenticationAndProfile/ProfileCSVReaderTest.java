@@ -16,7 +16,7 @@ class ProfileCSVReaderTest {
                 "Competitive and loves strategy games.","profilePic.png","null","f","4.2","640","gold","157","Connect-4," +
                         " Checkers","{0.60, WinConnect4WithPerfectMoves}","1, 7","4","2025-03-27 05:22:20.752369"));
 
-        assertEquals(expectedOutput, ProfileCSVReader.openSingleProfileFile("tests/client_main/test_resources/AuthenticationAndProfile/player_profile_2Test.csv"));
+        assertEquals(expectedOutput, ProfileCSVReader.openSingleProfileFile("tests/client_main_tests/test_resources/AuthenticationAndProfile/player_profile_2Test.csv"));
     }
 
     @Test
@@ -28,6 +28,6 @@ class ProfileCSVReaderTest {
                         "Connect-4, Checkers","{0.60, WinConnect4WithPerfectMoves}","1","4","2025-03-27 05:22:20.752369")),
                 new ArrayList<>(List.of("3","dannyX","Danny","dannyx@gamezone.net","secureHASH321$$","Here for the fun!","null","Checkers","t","1.9","300","bronze","40",
                 "TTT, Connect-4","{1.0, TTTFirstWin}","1, 2","","2025-03-27 05:22:20.752369"))));
-        assertEquals(expectedOutput, ProfileCSVReader.openProfilesFile("tests/client_main/test_resources/AuthenticationAndProfile/profiles_exportTest.csv"));
+        assertEquals(expectedOutput, ProfileCSVReader.openProfilesFile("tests/client_main_tests/test_resources/AuthenticationAndProfile/profiles_exportTest.csv"));
     }
 }
