@@ -1,4 +1,4 @@
-package leaderboard;
+package client_main.java.leaderboardTests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -9,6 +9,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import leaderboard.*;
 
 public class LeaderboardTest {
 

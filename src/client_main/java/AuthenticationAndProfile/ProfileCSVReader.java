@@ -87,17 +87,17 @@ public class ProfileCSVReader {
                     inSection = true;
                 }else if ( c == '{' && !inSection){
                     inSection2 = true;
-                } else if (c == ',' && !inSection || c == ',' && !inSection2) {
+                } else if ((c == ',' && !inSection) || (c == ',' && !inSection2)) {
                     fields.add(section);
                     section = "";
                 }else if (c == ']') {
                     inSection = false;
-                }else if ( c == '}' && inSection2){
+                }else if (c == '}' && inSection2){
                     inSection2 = false;
-                } else if (j == line.length()-1) {
+                } else if (j == line.length() - 1) {
                     section = section + c;
                     fields.add(section);
-                }else if (c != '"'){
+                }else if (c != '"') {
                     section = section + c;
                 }
             }
@@ -158,7 +158,7 @@ public class ProfileCSVReader {
                     } else if (j == line.length()-1) {
                         section = section + c;
                         fieldsList.add(section);
-                    }else if ( c != '"'){
+                    }else if (c != '"'){
                         section = section + c;
                     }
                 }
@@ -183,7 +183,7 @@ public class ProfileCSVReader {
 //                            + " FriendRequests: " + fields.get(i).get(FREQUEST_INDEX)
 //                            + " Creation Time: " + fields.get(i).get(17)
 //                    );
-                    i +=1;
+                    i += 1;
                 }
             br.close();
         }catch (IOException e){
@@ -214,9 +214,6 @@ public class ProfileCSVReader {
     }
 
     public static void main(String[] args) {
-        System.out.println("all profiles");
-        openProfilesFile("profiles_export.csv");
-        System.out.println("single profile:");
-       openSingleProfileFile("profile_2_export.csv");
+
     }
 }

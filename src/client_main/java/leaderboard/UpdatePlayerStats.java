@@ -4,33 +4,33 @@ import AuthenticationAndProfile.Profile;
 public class UpdatePlayerStats {
 
 
-    /**
-     * Applies a strike to the player for leaving a match early.
-     * Resets the number of games the player must complete to reduce a strike.
-     *
-     * @param player The player who left the game early.
-     */
-    public void applyStrike(Profile player) {
-        int currentStrikes = player.getStrikes();
-        player.setStrikes(currentStrikes + 1);
-        player.setGamesToReduceStrikes(5); // reset to a certain number of games to clear next strike
-    }
-
-    /**
-     * Call this method after a player completes a game.
-     * Decrements the player's games-to-reduce-strikes counter.
-     * If applicable, updates rating and rank.
-     *
-     * @param player   The player who completed the game.
-     * @param gameType The game type (e.g., "TTT", "Connect4", "Checkers").
-     */
-    public void recordGameCompletion(Profile player, String gameType) {
-        int gamesLeft = player.getGamesToReduceStrikes();
-        if (gamesLeft > 0) {
-            player.setGamesToReduceStrikes(gamesLeft - 1);
-        }
-        updateStats(player, gameType);
-    }
+//    /**
+//     * Applies a strike to the player for leaving a match early.
+//     * Resets the number of games the player must complete to reduce a strike.
+//     *
+//     * @param player The player who left the game early.
+//     */
+//    public void applyStrike(Profile player) {
+//        int currentStrikes = player.getStrikes();
+//        player.setStrikes(currentStrikes + 1);
+//        player.setGamesToReduceStrikes(5); // reset to a certain number of games to clear next strike
+//    }
+//
+//    /**
+//     * Call this method after a player completes a game.
+//     * Decrements the player's games-to-reduce-strikes counter.
+//     * If applicable, updates rating and rank.
+//     *
+//     * @param player   The player who completed the game.
+//     * @param gameType The game type (e.g., "TTT", "Connect4", "Checkers").
+//     */
+//    public void recordGameCompletion(Profile player, String gameType) {
+//        int gamesLeft = player.getGamesToReduceStrikes();
+//        if (gamesLeft > 0) {
+//            player.setGamesToReduceStrikes(gamesLeft - 1);
+//        }
+//        updateStats(player, gameType);
+//    }
 
     /**
      * Updates a player's ranking score based on the game they completed,
@@ -63,16 +63,16 @@ public class UpdatePlayerStats {
             rewardPoint = 15;
         }
 
-        int currRanking = Integer.parseInt(player.getPlayerRanking().getRank(gameIndex));
-        if (player.getGamesToReduceStrikes <= 5) {
-            PlayerRanking.setRanking(player, currRanking + rewardPoint);
-        } else if (player.getGamesToReduceStrikes <= 10) {
-            PlayerRanking.setRanking(player, currRanking + (rewardPoint - 10));
-        } else if (player.getGamesToReduceStrikes <= 15) {
-            PlayerRanking.setRanking(player, currRanking + (rewardPoint - 15));
-        } else {
-            PlayerRanking.setRanking(player, currRanking);
-        }
+//        int currRanking = Integer.parseInt(player.getPlayerRanking().getRank(gameIndex));
+//        if (player.getGamesToReduceStrikes <= 5) {
+//            PlayerRanking.setRanking(player, currRanking + rewardPoint);
+//        } else if (player.getGamesToReduceStrikes <= 10) {
+//            PlayerRanking.setRanking(player, currRanking + (rewardPoint - 10));
+//        } else if (player.getGamesToReduceStrikes <= 15) {
+//            PlayerRanking.setRanking(player, currRanking + (rewardPoint - 15));
+//        } else {
+//            PlayerRanking.setRanking(player, currRanking);
+//        }
 
     }
 
