@@ -395,7 +395,7 @@ public class Leaderboard {
         return result;
     }
 
-    public void filterFriends(){
+    public ArrayList<ArrayList<String>> filterFriends(){
 
         FriendsList friendsList = new FriendsList();
         //List<Integer> friendsID = friendsList.getFriends(); // now waiting for authentication to fix their method
@@ -416,6 +416,7 @@ public class Leaderboard {
             }
         }
 
+        return rankings;
     }
 
 }

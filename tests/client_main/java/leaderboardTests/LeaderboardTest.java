@@ -133,6 +133,27 @@ public class LeaderboardTest {
 
     @Test
     public void testFilterFriends() {
+        // Instantiate Leaderboard with game "CHECKERS" (which triggers reading and stripping the CSV)
+        leaderboard = new Leaderboard("RATING", "CHECKERS");
 
+        // Before filtering, the stripped rankings should have 5 rows.
+        ArrayList<ArrayList<String>> originalRankings = leaderboard.getRankings();
+        assertEquals(5, originalRankings.size(), "Pre-filter, there should be 5 rows in the rankings");
+
+        // Call the filterFriends() method
+        ArrayList<ArrayList<String>> filteredRankings = leaderboard.filterFriends();
+
+        // After filtering, the row with id "158" should be removed.
+        assertEquals(4, filteredRankings.size(), "After filtering, there should be 4 rows in the rankings");
+
+        // In the stripped leaderboard, the order is:
+        // [position, id, username, win_loss_ratio, rating, wins]
+        // Check that each row's id (at index 1) is one of the allowed friends: 19, 97, 98, or 86.
+        for (ArrayList<String> row : filteredRankings) {
+            int id = Integer.parseInt(row.get(1));
+            assertTrue(id == 19 || id == 97 || id == 98 || id == 86,
+                    "Row with id " + id + " should be in the allowed friends list");
+        }
     }
+
 }
