@@ -1,6 +1,6 @@
 package leaderboard;
 
-import server.player.PlayerManager;
+import player.PlayerManager;
 
 public class PlayerRanking {
     private final int id;
