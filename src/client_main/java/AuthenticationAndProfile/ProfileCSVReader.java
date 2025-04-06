@@ -79,49 +79,74 @@ public class ProfileCSVReader {
             line = br.readLine();
             // Split the line by csv section and store each field in an ArrayList<Object>
             String section = "";
+//            boolean inSection = false;
+//            boolean inSection2 = false;
+//            for (int j = 0; j < line.length(); j ++){
+//                Character c = Character.valueOf(line.charAt(j));
+//                if (c == '[') {
+//                    inSection = true;
+//                }else if ((c == '{') && !inSection){
+//                    inSection2 = true;
+//                } else if ((c == ',' && (!inSection || !inSection2))) {
+//                    fields.add(section);
+//                    section = "";
+//                }else if (c == ']') {
+//                    inSection = false;
+//                }else if ((c == '}' )&& inSection2){
+//                    inSection2 = false;
+//                } else if (j == line.length() - 1) {
+//                    section = section + c;
+//                    fields.add(section);
+//                }else if (c != '"') {
+//                    section = section + c;
+//                }
             boolean inSection = false;
-            boolean inSection2 = false;
-            for (int j = 0; j < line.length(); j ++){
+            boolean firstOpenBracket = true;
+            for (int j = 0; j < line.length(); j ++) {
                 Character c = Character.valueOf(line.charAt(j));
-                if (c == '[') {
+                if (c == '{') {
                     inSection = true;
-                }else if ( c == '{' && !inSection){
-                    inSection2 = true;
-                } else if ((c == ',' && !inSection) || (c == ',' && !inSection2)) {
+                    firstOpenBracket = true;
+                } else if (c == ',' && !inSection) {
                     fields.add(section);
                     section = "";
-                }else if (c == ']') {
+                } else if (c == '}') {
                     inSection = false;
-                }else if (c == '}' && inSection2){
-                    inSection2 = false;
                 } else if (j == line.length() - 1) {
                     section = section + c;
-                    fields.add(section);
-                }else if (c != '"') {
+                } else if ( c != '"') {
                     section = section + c;
                 }
             }
             br.close();
 
-//            System.out.println("ID: " + fields.get(ID_INDEX)
-//                    + " Username: " + fields.get(USER_INDEX)
-//                    + " Nickname: " + fields.get(NICK_INDEX)
-//                    + " Email: " + fields.get(EMAIL_INDEX)
-//                    + " HashedPassword: " + fields.get(PWD_INDEX)
-//                    + " Bio: " + fields.get(BIO_INDEX)
-//                    + " Profile pic: " + fields.get(PIC_INDEX)
-//                    + " Current game: " + fields.get(CGAME_INDEX)
-//                    + " IsOnline: " + fields.get(ONLINE_INDEX)
-//                    + " WLR: " + fields.get(WLR_INDEX)
-//                    + " Rating: " + fields.get(RATING_INDEX)
-//                    + " Rank: " + fields.get(RANK_INDEX)
-//                    + " Wins: " + fields.get(WINS_INDEX)
-//                    + " GameHistory: " + fields.get(GHIST_INDEX)
-//                    + " AchievementProgress: " + fields.get(ACHIVPROG_INDEX)
-//                    + " Friends: " + fields.get(FRIENDS_INDEX)
-//                    + " FriendRequests: " + fields.get(FREQUEST_INDEX)
-//                    + " Creation Time: " + fields.get(17)
-//            );
+            System.out.println("ID: " + fields.get(ID_INDEX)
+                    + " Username: " + fields.get(USER_INDEX)
+                    + " Nickname: " + fields.get(NICK_INDEX)
+                    + " Email: " + fields.get(EMAIL_INDEX)
+                    + " HashedPassword: " + fields.get(PWD_INDEX)
+                    + " Bio: " + fields.get(BIO_INDEX)
+                    + " Profile pic: " + fields.get(PIC_INDEX)
+                    + " Current game: " + fields.get(CGAME_INDEX)
+                    + " IsOnline: " + fields.get(ONLINE_INDEX)
+                    + " WLR TTT: " + fields.get(WLR_TTT_INDEX)
+                    + "WLR C4:" + fields.get(WLR_CONNECT4_INDEX)
+                    + "WLR C4:" + fields.get(WLR_CHECKERS_INDEX)
+                    + " Rating: " + fields.get(RATING_TTT_INDEX)
+                    + " Rating: " + fields.get(RATING_CONNECT4_INDEX)
+                    + " Rating: " + fields.get(RATING_CHECKERS_INDEX)
+                    + " Rank: " + fields.get(RANK_TTT_INDEX)
+                    + " Rank: " + fields.get(RANK_CONNECT4_INDEX)
+                    + " Rank: " + fields.get(RANK_CHECKERS_INDEX)
+                    + " Wins: " + fields.get(WINS_TTT_INDEX)
+                    + " Wins: " + fields.get(WINS_CONNECT4_INDEX)
+                    + " Wins: " + fields.get(WINS_CHECKERS_INDEX)
+                    + " GameHistory: " + fields.get(GHIST_INDEX)
+                    + " AchievementProgress: " + fields.get(ACHIVPROG_INDEX)
+                    + " Friends: " + fields.get(FRIENDS_INDEX)
+                    + " FriendRequests: " + fields.get(FREQUEST_INDEX)
+                    + " Creation Time: " + fields.get(17)
+            );
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("System can't find file");
@@ -214,6 +239,6 @@ public class ProfileCSVReader {
     }
 
     public static void main(String[] args) {
-
+        openSingleProfileFile("player_profile_19.csv");
     }
 }

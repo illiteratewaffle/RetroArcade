@@ -82,6 +82,7 @@ public class ProfileDatabaseAccess {
             ArrayList<String> profileFields = openSingleProfileFile(csvProfileFilePath);
             List<Integer> friends = new ArrayList<>();
             String friendsString = profileFields.get(ProfileCSVReader.FRIENDS_INDEX);
+        System.out.println("Friends String: " + friendsString);
             if (!friendsString.equals("null")){
             String[] fieldsList = friendsString.split(",");
             for (int i = 0 ; i < fieldsList.length; i ++){

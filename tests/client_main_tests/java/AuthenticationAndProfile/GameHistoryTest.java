@@ -13,12 +13,23 @@ import static org.junit.jupiter.api.Assertions.*;
 class GameHistoryTest {
     @Test
     void getGameHistory() {
+        List<String> gameHistory = new ArrayList<>(Arrays.asList("TTT", "Checkers", "Connect4", "Checkers"));
         HashMap<String, Double> achievementProgress = new HashMap<>();
         achievementProgress.put("Win_Streak", 0.75);
         achievementProgress.put("Matches_Played", 0.50);
-        List<String> gameHistory = new ArrayList<>(Arrays.asList("TTT", "Checkers", "Connect4", "Checkers"));
         GameHistory gh = new GameHistory(gameHistory, achievementProgress);
         assertEquals(gameHistory, gh.getGameHistory());
         assertEquals(achievementProgress, gh.getAchievementProgress());
+    }
+
+    @Test
+    void getRecentGames() {
+        List<String> gameHistory = new ArrayList<>(Arrays.asList("TTT", "Checkers", "Connect4", "Checkers", "TTT", "Connect4", "Chess"));
+        HashMap<String, Double> achievementProgress = new HashMap<>();
+        achievementProgress.put("Win_Streak", 0.75);
+        achievementProgress.put("Matches_Played", 0.50);
+        GameHistory gh = new GameHistory(gameHistory, achievementProgress);
+        List<String> expectedRecentGames = new ArrayList<>(Arrays.asList("Chess", "Connect4", "TTT", "Checkers", "Connect4"));
+        assertEquals(expectedRecentGames, gh.getRecentGames());
     }
 }

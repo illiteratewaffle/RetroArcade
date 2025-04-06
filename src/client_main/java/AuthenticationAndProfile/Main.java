@@ -21,12 +21,12 @@ public class Main {
 //            if (sc.nextLine().equalsIgnoreCase("exit"))
 //                running = false;
 //        }
-//        for (int i = 0; i < 200; i++) {
-//            PlayerManager.deleteProfile(i);
-//            ProfileDatabaseAccess.getAllProfiles();
-//        }
+        for (int i = 0; i < 200; i++) {
+            PlayerManager.deleteProfile(i);
+            ProfileDatabaseAccess.getAllProfiles();
+        }
             //PlayerManager.addToFriendsList(2, 1);
-            System.out.println(ProfileDatabaseAccess.obtainFriendsList(2).getFriends());
+            //System.out.println(ProfileDatabaseAccess.obtainFriendsList(2).getFriends());
 
     }
 }
