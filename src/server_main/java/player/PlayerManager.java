@@ -324,7 +324,28 @@ public class PlayerManager {
         }
     }
 
+    public static String deleteFriendRequest(int playerId, int friendId) throws SQLException {
+        // array_remove will remove 'friendId' from the 'friend_requests' INT[] column for the row matching userId
+        String query = "UPDATE profiles SET friend_requests = array_remove(friend_requests, ?) WHERE id = ?";
+
+        try (PreparedStatement statement = conn.prepareStatement(query)) {
+            // Bind parameters
+            statement.setInt(1, friendId);
+            statement.setInt(2, playerId);
+
+            int rowsUpdated = statement.executeUpdate();
+            if (rowsUpdated > 0) {
+                // Successfully removed friendId from friend_requests
+                return "Friend request from ID " + friendId + " removed for user " + playerId;
+            } else {
+                throw new SQLException("No player found with ID: " + playerId);
+            }
+        } catch (SQLException e) {
+            throw new SQLException("No player found with ID: " + e.getMessage(), e);
+        }
+    }
+
     public static void main(String[] args) throws SQLException {
-        getAttribute(22, "nickname");
+        System.out.println(deleteFriendRequest(12, 3));
     }
 }
