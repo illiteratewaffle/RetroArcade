@@ -1,52 +1,37 @@
 package session;
 
 import management.ThreadRegistry;
-import player.Player;
+import player.PlayerHandler;
 
-import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.ConcurrentHashMap;
 
-public class GameCreator implements Runnable {
-    // private final ConcurrentHashMap<Thread, BlockingQueue<ThreadMessage>> queue;
-    private final CopyOnWriteArrayList<Player> playerList;
+public class GameCreator {
 
+    //Concurrent hash map that stores a list of all currently active game sessions
+    private final ConcurrentHashMap<Thread, GameSessionManager> activeSessions = new ConcurrentHashMap<>();
     /**
-     * Constructor for the GameCreator class
-     */
-    public GameCreator() {
-        // this.queue = ThreadRegistry.threadRegistry;
-        this.playerList = ThreadRegistry.playerList;
+     public void createSession(PlayerHandler player1, PlayerHandler player2) {
+
+     //Create the game session manager for the game session being created
+     GameSessionManager session = new GameSessionManager(player1, player2, new BoardGameController());
+
+     //Start the game session manager thread
+     Thread sessionThread = Thread.startVirtualThread(session);
+
+     //Assign the game session manager thread to both the game session hashmap list, and also onto the thread registry
+     activeSessions.put(sessionThread, session);
+     //ThreadRegistry.register(sessionThread, session.getMessageQueue()); This will need to be fixed after talking with martin.
+
+     //Update the gameSessionManagerThreads within the player handlers
+     player1.setGameSessionManagerThread(sessionThread);
+     player2.setGameSessionManagerThread(sessionThread);
+     } **/
+
+    public void endSession(Thread sessionThread) {
+        activeSessions.remove(sessionThread);
     }
 
-    /**
-     * The function that the thread runs
-     */
-    public void run() {
-        // Just run at all times (prolly not a good idea but still at an early state of coding)
-        while (true) {
-            // Waits until .notify has been called (when playerList is updated)
-            synchronized (playerList) {
-                try {
-                    playerList.wait();
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-            Player player1 = null;
-            Player player2 = null;
-            for (Player player : playerList) {
-                if (player.getStatus() == Player.PlayerStatus.WAITING) {
-                    if (player1 == null) {
-                        player1 = player;
-                    } else {
-                        player2 = player;
-                        break;
-                    }
-                }
-            }
-            if (player2 != null) {
-                // Create the GameSessionManager object
-                Thread.ofVirtual().start(new GameSessionManager(player1, player2));
-            }
-        }
+    public GameSessionManager getSession(Thread sessionThread) {
+        return activeSessions.get(sessionThread);
     }
 }
