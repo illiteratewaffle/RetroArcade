@@ -1,10 +1,8 @@
-package client_main.java.AuthenticationAndProfile;
+package client_main_tests.java.AuthenticationAndProfile;
 
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import server.player.PlayerManager;
-import java.util.UUID;
 import AuthenticationAndProfile.*;
 
 class ProfileCreationTest {

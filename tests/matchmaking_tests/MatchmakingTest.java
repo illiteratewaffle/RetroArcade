@@ -1,4 +1,4 @@
-package matchmaking;
+package matchmaking_tests;
 
 public class MatchmakingTest {
 }

@@ -14,7 +14,7 @@
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="872.0" prefWidth="900.0" style="-fx-background-color: #201e42;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI_client.leaderboardController">
-    <stylesheets>@src/client_main/resources/GUI_client/style.css</stylesheets>
+    <stylesheets>@src/client_main_tests/resources/GUI_client/style.css</stylesheets>
     <children>
       <ImageView fitHeight="748.0" fitWidth="891.0" layoutX="3.0" layoutY="9.0">
          <image>

@@ -8,4 +8,12 @@ module seng300.w25.project {
 
     opens GUI_client to javafx.fxml;
     exports GUI_client;
+
+    exports server.database;
+    exports leaderboard;
+    exports server.player;
+    exports AuthenticationAndProfile;
+    exports GameLogic_Client.TicTacToe;
+    exports GameLogic_Client;
+    exports server.management;
 }

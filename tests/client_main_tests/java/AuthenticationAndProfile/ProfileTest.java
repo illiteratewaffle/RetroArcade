@@ -1,11 +1,9 @@
-package client_main.java.AuthenticationAndProfile;
+package client_main_tests.java.AuthenticationAndProfile;
 
 import leaderboard.PlayerRanking;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import AuthenticationAndProfile.*;

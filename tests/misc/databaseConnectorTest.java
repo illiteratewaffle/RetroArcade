@@ -1,3 +1,5 @@
+package misc;
+
 import org.junit.jupiter.api.*;
 import server.database.databaseConnector;
 

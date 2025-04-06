@@ -1,9 +1,8 @@
-package client_main.java.AuthenticationAndProfile;
+package client_main_tests.java.AuthenticationAndProfile;
 
 import org.junit.jupiter.api.*;
 //import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
