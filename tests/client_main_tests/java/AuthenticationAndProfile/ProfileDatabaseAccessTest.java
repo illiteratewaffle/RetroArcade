@@ -102,6 +102,8 @@ class ProfileDatabaseAccessTest {
 
     @Test
     void searchForProfile() {
+        List<Profile> profiles = ProfileDatabaseAccess.searchForProfile("username");
+        System.out.println(profiles.size());
     }
 
     @Test

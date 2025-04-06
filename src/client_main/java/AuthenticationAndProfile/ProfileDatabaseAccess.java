@@ -219,6 +219,7 @@ public class ProfileDatabaseAccess {
      */
     public static List<Profile> searchForProfile(String search) {
         List<Integer> usernameSearchMatchIdList = PlayerManager.searchProfiles(search);
+        System.out.println(usernameSearchMatchIdList.size());
         List<Profile> profilesFound = new ArrayList<Profile>();
         for (int i = 0; i < usernameSearchMatchIdList.size(); i++) {
             profilesFound.add(obtainProfile(usernameSearchMatchIdList.get(i)));
