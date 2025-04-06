@@ -11,11 +11,27 @@ public class MatchmakingQueue {
     }
 
     public LinkedList<Profile> getQueue(String gameType) {
-        return gameQueues.getOrDefault(gameType, new LinkedList<>());
+        if (gameQueues.get(gameType) != null){
+            return gameQueues.get(gameType);
+        } else {
+            return null;
+        }
+    }
+
+    public int getQueueWaitTTT(){
+        return gameQueues.get("TTT").size();
+    }
+
+    public int getQueueWaitCon4(){
+        return gameQueues.get("Connect4").size();
+    }
+
+    public int getWaitCheckers(){
+        return gameQueues.get("Checkers").size();
     }
 
     /***
-     * Adds player into specific gametype queue
+     * Adds player into specific gameType queue
      * @param player Player to be added into queue
      * @param gameType Game type for which players want to be added into queue for
      */
@@ -23,8 +39,6 @@ public class MatchmakingQueue {
         gameQueues.putIfAbsent(gameType, new LinkedList<Profile>());
         gameQueues.get(gameType).add(player);
         quickSort(gameQueues.get(gameType));
-        //Testing purposes
-        System.out.println(player.getName() + " has joined the " + gameType + " queue.");
     }
 
     /***
@@ -32,15 +46,12 @@ public class MatchmakingQueue {
      * @param gameType The queue from which the player is already in queue
      * @return Player that has been dequeued or null if queue is empty
      */
-    public Profile dequeue(Player player, String gameType) {
+    public Profile dequeue(Profile player, String gameType) {
         if (gameQueues.containsKey(gameType) && !gameQueues.get(gameType).isEmpty()) {
-            Profile player = gameQueues.get(gameType).poll();
-            //Testing purposes
-            System.out.println(player.getName() + " has been matched for " + gameType + ".");
+            ArrayList<Profile> list = gameQueues.get(gameType);
+            list = list.remove(player);
             return player;
         }
-        //Test
-        System.out.println("No players in " + gameType + " queue.");
         return null;
     }
 
@@ -48,10 +59,10 @@ public class MatchmakingQueue {
      * Sorts queue
      * @param gameType sorts specific game queue
      */
-    public void quickSort(String gameType) {
+    private void quickSort(String gameType) {
 
         if (gameQueues.containsKey(gameType)) {
-            gameQueues.put(gameType, quickSortHelper(gameQueues.get(gameType)));
+            gameQueues.put(gameType, quickSortHelper(gameQueues.get(gameType), gameType));
         }
 
     }
@@ -62,7 +73,7 @@ public class MatchmakingQueue {
      * @param list list of Player objects to sort
      * @return sorted LinkedList of Players
      */
-    private LinkedList<Profile> quickSortHelper(LinkedList<Player> list) {
+    private LinkedList<Profile> quickSortHelper(LinkedList<Profile> list, String gameType) {
         if (list.size() <= 1) {
             return list;
         }
@@ -74,9 +85,9 @@ public class MatchmakingQueue {
 
 
         for (Profile player : list) {
-            if (player.obtainPlayerRanking().getRanking(gametype) > pivot.obtainPlayerRanking().getRanking(gametype)) {
+            if (player.obtainPlayerRanking().getRanking().getRank(gameType) > pivot.obtainPlayerRanking().getRanking().getRanking(gameType)) {
                 greater.add(player);
-            } else if (player.obtainPlayerRanking().getRanking(gametype) < pivot.obtainPlayerRanking().getRanking(gametype) {
+            } else if (player.obtainPlayerRanking().getRanking().getRank(gameType) < pivot.obtainPlayerRanking().getRanking().getRanking(gameType)) {
                 lesser.add(player);
             } else {
                 equal.add(player);
