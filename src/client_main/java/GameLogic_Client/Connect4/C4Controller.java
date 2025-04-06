@@ -20,7 +20,8 @@ public class C4Controller implements IBoardGameController {
     }
 
     /**
-     * Receives yser input during the game.
+     * Receives user input during the game.
+     * @param input A 2D-Integer-Coordinate Input that corresponds to a Board Cell.
      */
     @Override
     public void ReceiveInput(ivec2 input) {
@@ -122,6 +123,11 @@ public class C4Controller implements IBoardGameController {
         System.out.println(c4GameLogic);
     }
 
+
+    /**
+     * Function to give users hints if needed during the game based on which column is an ideal pick.
+     * @return hint to user
+     */
     public int getC4ColHint() {
         if (c4GameLogic == null) {
             System.out.println("Game not started. No hint available.");
