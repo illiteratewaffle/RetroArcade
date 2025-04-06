@@ -33,13 +33,20 @@ public class PlayerRanking {
         int currentRating = Integer.parseInt(PlayerManager.getAttribute(id, "rating_" + gameName));
         int currentWins = Integer.parseInt(PlayerManager.getAttribute(id, "wins_" + gameName));
         double currentWinLossRatio = Double.parseDouble(PlayerManager.getAttribute(id, "win_loss_ratio_" + gameName));
+        int currentGamesPlayed = Integer.parseInt(PlayerManager.getAttribute(id, "total_" + gameName));
 
         if (result == 1) {
             currentRating += 50;
             currentWins += 1;
-            currentWinLossRatio = ((double) currentWins / (currentWins + 1));
+            currentGamesPlayed += 1;
+
+            // Rounding method looked up from StackOverflow:
+            // https://stackoverflow.com/questions/11701399/round-up-to-2-decimal-places-in-java
+            currentWinLossRatio = Math.round(((double) currentWins / currentGamesPlayed) * 100.0 / 100.0);
         } else if (result == 0) {
             currentRating -= 50;
+            currentGamesPlayed += 1;
+            currentWinLossRatio = Math.round(((double) currentWins / currentGamesPlayed) * 100.0 / 100.0);
         }
 
         String newRank = getRank(currentRating);
