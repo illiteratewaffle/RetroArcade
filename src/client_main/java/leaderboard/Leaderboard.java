@@ -1,7 +1,6 @@
 package leaderboard;
 
 import AuthenticationAndProfile.FriendsList;
-import server.player.PlayerManager;
 
 import java.util.*;
 
@@ -395,7 +394,7 @@ public class Leaderboard {
         return result;
     }
 
-    public ArrayList<ArrayList<String>> filterFriends(){
+    public void filterFriends(){
 
         FriendsList friendsList = new FriendsList();
         //List<Integer> friendsID = friendsList.getFriends(); // now waiting for authentication to fix their method
@@ -416,8 +415,6 @@ public class Leaderboard {
             }
         }
 
-        System.out.println(rankings);
-        return rankings;
     }
 
 }

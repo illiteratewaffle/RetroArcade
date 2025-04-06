@@ -14,7 +14,7 @@ module seng300.w25.project {
     requires annotations;
     requires javafx.media;
     requires java.sql;
-    requires org.junit.jupiter.api;
+    //requires org.junit.jupiter.api;
 
 
     opens GUI_client to javafx.fxml;
