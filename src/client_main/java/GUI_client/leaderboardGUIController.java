@@ -88,7 +88,7 @@ public class leaderboardGUIController {
 
         final String cellStyle = "-fx-background-color: transparent; -fx-text-fill: #00d8ff; -fx-font-weight: bold;";
 
-        // Set up each column using the helper method
+        // Set up each column
         setupTableColumn(position, 0);
         setupTableColumn(username, 2);
         setupTableColumn(wlr, 3);
