@@ -4,22 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ba5d62c9-ef67-4eb7-8775-b12157e4f5a8" name="Changes" comment="checkers Gui integrated into mainApplication">
-      <change afterPath="$PROJECT_DIR$/src/client_main/resources/GUI_buttons/home_button.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/client_main/resources/GUI_buttons/pressed/home_button_pressed.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/client_main/resources/home_button.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/client_main/resources/home_button_pressed.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/client_main/resources/music/C4Track.mp4" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client_main/java/GUI_client/C4GUIController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client_main/java/GUI_client/C4GUIController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client_main/java/GUI_client/CheckersGUIController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client_main/java/GUI_client/CheckersGUIController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client_main/java/GUI_client/TTTController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client_main/java/GUI_client/TTTController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client_main/java/GUI_client/gameMenuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client_main/java/GUI_client/gameMenuController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client_main/resources/GUI_client/TTT.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/client_main/resources/GUI_client/TTT.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client_main/resources/GUI_client/checkers.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/client_main/resources/GUI_client/checkers.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client_main/resources/GUI_client/connect4.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/client_main/resources/GUI_client/connect4.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client_main/resources/GUI_client/gameMenu.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/client_main/resources/GUI_client/gameMenu.fxml" afterDir="false" />
-    </list>
+    <list default="true" id="ba5d62c9-ef67-4eb7-8775-b12157e4f5a8" name="Changes" comment="integrated C4 into gamemenu" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -191,7 +176,15 @@
       <option name="project" value="LOCAL" />
       <updated>1743885740044</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="integrated C4 into gamemenu">
+      <option name="closed" value="true" />
+      <created>1743912522429</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1743912522429</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -218,6 +211,7 @@
     <MESSAGE value="Fixed compiling errors" />
     <MESSAGE value="Fixed errors" />
     <MESSAGE value="checkers Gui integrated into mainApplication" />
-    <option name="LAST_COMMIT_MESSAGE" value="checkers Gui integrated into mainApplication" />
+    <MESSAGE value="integrated C4 into gamemenu" />
+    <option name="LAST_COMMIT_MESSAGE" value="integrated C4 into gamemenu" />
   </component>
 </project>
