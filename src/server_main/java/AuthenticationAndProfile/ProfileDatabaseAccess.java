@@ -1,5 +1,5 @@
 package AuthenticationAndProfile;
-//import AuthenticationAndProfile.PlayerRanking;
+//import leaderboard.PlayerRanking;
 import player.PlayerManager;
 
 import java.io.IOException;

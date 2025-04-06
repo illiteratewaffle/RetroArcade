@@ -1,11 +1,12 @@
 package client_main_tests.java.AuthenticationAndProfile;
 
+import AuthenticationAndProfile.*;
 import org.junit.jupiter.api.AfterEach;
 
-import AuthenticationAndProfile.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import player.PlayerManager;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 
