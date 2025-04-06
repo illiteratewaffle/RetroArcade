@@ -4,30 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0fb4edcb-a013-42ce-af41-d722ae3d60c2" name="Changes" comment="Created new branch with Leaderboard's code merged into mainIt2 authentication code, seems to work">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="ba5d62c9-ef67-4eb7-8775-b12157e4f5a8" name="Changes" comment="commit">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/seng300-w25-project/client/Client.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/seng300-w25-project/client/ClientHandler.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/seng300-w25-project/client/TemporaryClient.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/seng300-w25-project/db-config-test.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/seng300-w25-project/db-config.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/seng300-w25-project/server/Main.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/seng300-w25-project/server/database/databaseConnector.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/seng300-w25-project/server/management/ConnectionManager.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/seng300-w25-project/server/management/NetworkManager.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/seng300-w25-project/server/management/ServerController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/seng300-w25-project/server/management/ServerLogger.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/seng300-w25-project/server/management/ThreadMessage.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/seng300-w25-project/server/management/ThreadRegistry.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/seng300-w25-project/server/player/Player$PlayerStatus.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/seng300-w25-project/server/player/Player.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/seng300-w25-project/server/player/PlayerHandler$PlayerHandlerListener.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/seng300-w25-project/server/player/PlayerHandler.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/seng300-w25-project/server/player/PlayerManager.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/seng300-w25-project/server/session/GameCreator.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/seng300-w25-project/server/session/GameSessionManager.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/test/seng300-w25-project/DatabaseConnectorTest.class" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,13 +17,21 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "JUnit.ProfileCreationTest.createNewProfile.executor": "Run",
-    "JUnit.ProfileTest.getHashedPassword.executor": "Run",
-    "JUnit.ProfileTest.setNickname.executor": "Run",
-    "git-widget-placeholder": "mainIt2__AuthenticationAndProfile__Leaderboard__Testing"
+    "Application.MainApplication.executor": "Run",
+    "Application.TTTApplication.executor": "Run",
+    "Application.leaderboardApplication.executor": "Run",
+    "JUnit.ProfileTest.executor": "Run",
+    "JUnit.ProfileTest.getBio.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "Leaderboard2",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/Tyler/IdeaProjects/seng300-w25-project/src/client_main/resources",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "settings.editor.selected.configurable": "reference.projectsettings.compiler.excludes"
   }
 }]]></component>
-  <component name="RunManager" selected="JUnit.ProfileTest.setBio">
+  <component name="RunManager" selected="JUnit.ProfileTest.getBio">
     <configuration name="ProfileCreationTest.createNewProfile" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="SENGProj-iteration3" />
       <extension name="coverage">
@@ -148,19 +134,90 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.ProfileTest.setBio" />
         <item itemvalue="JUnit.ProfileTest.getBio" />
+        <item itemvalue="JUnit.ProfileTest.setBio" />
         <item itemvalue="JUnit.ProfileTest.setNickname" />
         <item itemvalue="JUnit.ProfileTest.getHashedPassword" />
         <item itemvalue="JUnit.ProfileCreationTest.createNewProfile" />
       </list>
     </recent_temporary>
   </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="jdk-21.0.1-openjdk-21.0.1-f644763e9732-f98dd351" />
+        <option value="jdk-21.0.2-openjdk-21.0.2-f644763e9732-c0c073db" />
+      </set>
+    </attachedChunks>
+  </component>
   <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="ba5d62c9-ef67-4eb7-8775-b12157e4f5a8" name="Changes" comment="" />
+      <created>1743743778596</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1743743778596</updated>
+    </task>
+    <task id="LOCAL-00001" summary="Added info page for TTT/info button. Moved exit button to right side">
+      <option name="closed" value="true" />
+      <created>1743749603923</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1743749603923</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Exit menu button, player turn banners">
+      <option name="closed" value="true" />
+      <created>1743788633776</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1743788633776</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Added popup window exit controller and fxml">
+      <option name="closed" value="true" />
+      <created>1743792640202</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1743792640202</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Set new play buttons for game menu + hover events.">
+      <option name="closed" value="true" />
+      <created>1743805202524</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1743805202524</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Mute button and Audio controlller to monitor muted status between controllers">
+      <option name="closed" value="true" />
+      <created>1743810451019</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1743810451019</updated>
+    </task>
+    <task id="LOCAL-00006" summary="commit">
+      <option name="closed" value="true" />
+      <created>1743897164439</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1743897164439</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Created new branch with Leaderboard's code merged into mainIt2 authentication code, seems to work" />
-    <option name="LAST_COMMIT_MESSAGE" value="Created new branch with Leaderboard's code merged into mainIt2 authentication code, seems to work" />
+    <MESSAGE value="Added info page for TTT/info button. Moved exit button to right side" />
+    <MESSAGE value="Exit menu button, player turn banners" />
+    <MESSAGE value="Added popup window exit controller and fxml" />
+    <MESSAGE value="Set new play buttons for game menu + hover events." />
+    <MESSAGE value="Mute button and Audio controlller to monitor muted status between controllers" />
+    <MESSAGE value="resize scene" />
+    <MESSAGE value="commit" />
+    <option name="LAST_COMMIT_MESSAGE" value="commit" />
   </component>
 </project>
