@@ -58,8 +58,9 @@ public class AuthenticateClient implements Runnable {
                 // Add the new player to the playerList
                 ThreadRegistry.registerPlayer(playerId, playerHandler);
 
-                serverController.enqueuePlayer(playerHandler);
-                System.out.println("Player enqueued.");
+                //TODO: Temporary Matchmaking
+                //serverController.enqueuePlayer(playerHandler);
+                //System.out.println("Player enqueued.");
             }
 
         } catch (IOException e) {
