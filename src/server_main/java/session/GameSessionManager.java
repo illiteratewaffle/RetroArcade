@@ -24,9 +24,7 @@ import static management.ServerLogger.log;
 public class GameSessionManager implements Runnable{
     private final PlayerHandler player1;
     private final PlayerHandler player2;
-
     private final IBoardGameController gameController;
-    private final ConcurrentHashMap<Thread, BlockingQueue<ThreadMessage>> queue = ThreadRegistry.threadRegistry;
 
 
     /**
@@ -40,7 +38,7 @@ public class GameSessionManager implements Runnable{
         this.gameController = getController(gameType);
     }
 // GameSessionManager manager = new GameSessionManager(player1, player2, getController(gameType));
-    public IBoardGameController getController(String gameType){
+    private IBoardGameController getController(String gameType){
         switch (gameType.toLowerCase()) {
             case "tictactoe":
                 return new GameLogic_Client.TicTacToe.TTTGameController();
@@ -61,31 +59,36 @@ public class GameSessionManager implements Runnable{
     @Override
     public void run() {
         Thread currentThread = Thread.currentThread();
-        queue.put(currentThread, new LinkedBlockingQueue<>());
+        BlockingQueue<ThreadMessage> myQueue = new LinkedBlockingQueue<>();
+        ThreadRegistry.register(currentThread, myQueue);
 
         log("GameSessionManager created");
 
         // Send initial game link info to players
         HashMap<String, Object> gameLink = new HashMap<>();
         gameLink.put("type", "game-link");
-        queue.get(player1.getThread()).add(new ThreadMessage(currentThread, gameLink));
-        queue.get(player2.getThread()).add(new ThreadMessage(currentThread, gameLink));
 
-        while (gameController.GetGameOngoing()) {
-            Player currentPlayer = getCurrentPlayer();
+        Thread player1Thread = new Thread(player1);
+        Thread player2Thread = new Thread(player2);
+
+        ThreadRegistry.getQueue(player1Thread).add(new ThreadMessage(currentThread, gameLink));
+        ThreadRegistry.getQueue(player2Thread).add(new ThreadMessage(currentThread, gameLink));
+
+        while (gameController.getGameOngoing()) {
+            PlayerHandler currentPlayer = getCurrentPlayer();
             Thread currentPlayerThread = currentPlayer.getThread();
 
             try {
-                ThreadMessage msg = queue.get(currentThread).take();
+                ThreadMessage msg = myQueue.take();
 
                 if (msg.getSender() == currentPlayerThread) {
                     String inputStr = (String) msg.getContent().get("move");  // Expecting key "move"
                     Ivec2 move = parseInput(inputStr);
 
-                    gameController.ReceiveInput(move);
+                    gameController.receiveInput(move);
                     broadcastGameState();
 
-                    if (!gameController.GetGameOngoing()) {
+                    if (!gameController.getGameOngoing()) {
                         handleGameEnd();
                     }
                 } else {
@@ -107,8 +110,8 @@ public class GameSessionManager implements Runnable{
         update.put("type", "game-state");
         update.put("state", state);
 
-        queue.get(player1.getThread()).add(new ThreadMessage(Thread.currentThread(), update));
-        queue.get(player2.getThread()).add(new ThreadMessage(Thread.currentThread(), update));
+        ThreadRegistry.getQueue(player1.getThread()).add(new ThreadMessage(Thread.currentThread(), update));
+        ThreadRegistry.getQueue(player2.getThread()).add(new ThreadMessage(Thread.currentThread(), update));
     }
     
     /**
@@ -126,29 +129,6 @@ public class GameSessionManager implements Runnable{
     }
 
 
-    /**
-     * Waits for input from the specified player
-     *  @param player The player to recieve input from
-     *  @return The received input message
-     */
-    private ThreadMessage recieveInputFromPlayer(PlayerHandler player){
-        try {
-            return player.getMessageQueue.take(); 
-        } catch (InterruptedException e){
-            Thread.currentThread().interrupt();
-            return null;
-        }
-    }
-
-    /**
-     * Sends the current state of the game to the players
-     */
-    private void GameStateToPlayers(){
-        ThreadMessage gameState = new ThreadMessage(Thread.currentThread(), formatGameState()); //Sender thread reference
-
-        sendToPlayer(player1, gameState); //Send state to players
-        sendToPlayer(player2, gameState);
-    }
 
     /**
      * Formats the game state in a string format
@@ -161,31 +141,18 @@ public class GameSessionManager implements Runnable{
     }
 
     /**
-     *  Sends a message to a specific player
-     * @param player the player send the message to
-     * @param message The message to send
-     */
-    private void sendToPlayer(PlayerHandler player, ThreadMessage message) {
-        String state = formatGameState();
-        ThreadMessage gameStateMsg = new ThreadMessage(Thread.currentThread(), state);
-        player1.getQueue().offer(gameStateMsg);
-        player2.getQueue().offer(gameStateMsg);
-        
-    }
-
-    /**
      * Ends the game if necessary and notifies both players
      */
     private void handleGameEnd(){
-        int[] winner = gameController.GetWinner();
+        int[] winner = gameController.getWinner();
         String message = winner.length == 0 ? "Game ended in a tie!" : "Player " + winner[0] + " wins!";
 
         HashMap<String, Object> gameEnd = new HashMap<>();
         gameEnd.put("type", "game-over");
         gameEnd.put("result", message);
 
-        queue.get(player1.getThread()).add(new ThreadMessage(Thread.currentThread(), gameEnd));
-        queue.get(player2.getThread()).add(new ThreadMessage(Thread.currentThread(), gameEnd));
+        ThreadRegistry.getQueue(player1.getThread()).add(new ThreadMessage(Thread.currentThread(), gameEnd));
+        ThreadRegistry.getQueue(player2.getThread()).add(new ThreadMessage(Thread.currentThread(), gameEnd));
         //TODO: update profiles 
         //End session
     }
