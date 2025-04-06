@@ -4,75 +4,50 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ba5d62c9-ef67-4eb7-8775-b12157e4f5a8" name="Changes" comment="Added a call to the hashing method in setHashedPassword.">
+    <list default="true" id="0fb4edcb-a013-42ce-af41-d722ae3d60c2" name="Changes" comment="Created new branch with Leaderboard's code merged into mainIt2 authentication code, seems to work">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client_main/java/AuthenticationAndProfile/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client_main/java/AuthenticationAndProfile/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client_main/java/AuthenticationAndProfile/ProfileCSVReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client_main/java/AuthenticationAndProfile/ProfileCSVReader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client_main/java/AuthenticationAndProfile/ProfileDatabaseAccess.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client_main/java/AuthenticationAndProfile/ProfileDatabaseAccess.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client_main/java/server/player/PlayerManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client_main/java/server/player/PlayerManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/client_main/java/AuthenticationAndProfile/ProfileDatabaseAccessTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/tests/client_main/java/AuthenticationAndProfile/ProfileDatabaseAccessTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/client_main/java/GameLogic_Client/TicTacToe/TTTBoardTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/tests/client_main/java/GameLogic_Client/TicTacToe/TTTBoardTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/client_main/java/GameLogic_Client/TicTacToe/TTTGameTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/tests/client_main/java/GameLogic_Client/TicTacToe/TTTGameTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/seng300-w25-project/client/Client.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/seng300-w25-project/client/ClientHandler.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/seng300-w25-project/client/TemporaryClient.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/seng300-w25-project/db-config-test.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/seng300-w25-project/db-config.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/seng300-w25-project/server/Main.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/seng300-w25-project/server/database/databaseConnector.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/seng300-w25-project/server/management/ConnectionManager.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/seng300-w25-project/server/management/NetworkManager.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/seng300-w25-project/server/management/ServerController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/seng300-w25-project/server/management/ServerLogger.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/seng300-w25-project/server/management/ThreadMessage.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/seng300-w25-project/server/management/ThreadRegistry.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/seng300-w25-project/server/player/Player$PlayerStatus.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/seng300-w25-project/server/player/Player.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/seng300-w25-project/server/player/PlayerHandler$PlayerHandlerListener.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/seng300-w25-project/server/player/PlayerHandler.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/seng300-w25-project/server/player/PlayerManager.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/seng300-w25-project/server/session/GameCreator.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/seng300-w25-project/server/session/GameSessionManager.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/test/seng300-w25-project/DatabaseConnectorTest.class" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="FxmlFile" />
-        <option value="Class" />
-      </list>
-    </option>
-  </component>
-  <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
-  <component name="GitLabDefaultAccount">
-    <option name="defaultAccountId" value="f9fd431d-83e7-48e5-b416-bb8ae1ab5f40" />
-  </component>
-  <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 8
-}</component>
-  <component name="ProjectId" id="2vFbTR2Mtt64jqdodaVcb0HkJIK" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="1" id="Add" />
   </component>
-  <component name="ProjectViewState">
-    <option name="hideEmptyMiddlePackages" value="true" />
-    <option name="showLibraryContents" value="true" />
-  </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "Application.MainApplication.executor": "Run",
-    "Application.TTTApplication.executor": "Run",
-    "Application.leaderboardApplication.executor": "Run",
-    "JUnit.AuthenticationTest.executor": "Run",
-    "JUnit.TTTBoardTest.executor": "Run",
-    "JUnit.TTTGameTest.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "mainIt2__AuthenticationAndProfile",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/Tyler/IdeaProjects/seng300-w25-project/src/client_main/resources",
-    "node.js.selected.package.tslint": "(autodetect)"
+    "JUnit.ProfileCreationTest.createNewProfile.executor": "Run",
+    "JUnit.ProfileTest.getHashedPassword.executor": "Run",
+    "JUnit.ProfileTest.setNickname.executor": "Run",
+    "git-widget-placeholder": "mainIt2__AuthenticationAndProfile__Leaderboard__Testing"
   }
 }]]></component>
-  <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\Tyler\IdeaProjects\seng300-w25-project\src\client_main\resources" />
-      <recent name="C:\Users\Tyler\IdeaProjects\seng300-w25-project\src\client_main\resources\music" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\Tyler\IdeaProjects\seng300-w25-project\src\client_main\resources" />
-    </key>
-  </component>
-  <component name="RunManager" selected="JUnit.AuthenticationTest">
-    <configuration name="AuthenticationTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.ProfileTest.setBio">
+    <configuration name="ProfileCreationTest.createNewProfile" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="SENGProj-iteration3" />
-      <useClassPathOnly />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="client_main.java.AuthenticationAndProfile.*" />
@@ -80,14 +55,14 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="client_main.java.AuthenticationAndProfile" />
-      <option name="MAIN_CLASS_NAME" value="client_main.java.AuthenticationAndProfile.AuthenticationTest" />
-      <option name="METHOD_NAME" value="" />
-      <option name="TEST_OBJECT" value="class" />
+      <option name="MAIN_CLASS_NAME" value="client_main.java.AuthenticationAndProfile.ProfileCreationTest" />
+      <option name="METHOD_NAME" value="createNewProfile" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ProfileCSVReaderTest.openSingleProfileFile" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ProfileTest.getBio" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="SENGProj-iteration3" />
       <useClassPathOnly />
       <extension name="coverage">
@@ -97,8 +72,58 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="client_main.java.AuthenticationAndProfile" />
-      <option name="MAIN_CLASS_NAME" value="client_main.java.AuthenticationAndProfile.ProfileCSVReaderTest" />
-      <option name="METHOD_NAME" value="openSingleProfileFile" />
+      <option name="MAIN_CLASS_NAME" value="client_main.java.AuthenticationAndProfile.ProfileTest" />
+      <option name="METHOD_NAME" value="getBio" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ProfileTest.getHashedPassword" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="SENGProj-iteration3" />
+      <useClassPathOnly />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="client_main.java.AuthenticationAndProfile.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="client_main.java.AuthenticationAndProfile" />
+      <option name="MAIN_CLASS_NAME" value="client_main.java.AuthenticationAndProfile.ProfileTest" />
+      <option name="METHOD_NAME" value="getHashedPassword" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ProfileTest.setBio" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="SENGProj-iteration3" />
+      <useClassPathOnly />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="client_main.java.AuthenticationAndProfile.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="client_main.java.AuthenticationAndProfile" />
+      <option name="MAIN_CLASS_NAME" value="client_main.java.AuthenticationAndProfile.ProfileTest" />
+      <option name="METHOD_NAME" value="setBio" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ProfileTest.setNickname" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="SENGProj-iteration3" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="client_main.java.AuthenticationAndProfile.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="client_main.java.AuthenticationAndProfile" />
+      <option name="MAIN_CLASS_NAME" value="client_main.java.AuthenticationAndProfile.ProfileTest" />
+      <option name="METHOD_NAME" value="setNickname" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -114,84 +139,28 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="JetRunConfigurationType">
-      <module name="seng300-w25-project" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
-      <module name="seng300-w25-project" />
-      <option name="filePath" />
-      <method v="2" />
-    </configuration>
+    <list>
+      <item itemvalue="JUnit.ProfileTest.getBio" />
+      <item itemvalue="JUnit.ProfileTest.setBio" />
+      <item itemvalue="JUnit.ProfileTest.setNickname" />
+      <item itemvalue="JUnit.ProfileCreationTest.createNewProfile" />
+      <item itemvalue="JUnit.ProfileTest.getHashedPassword" />
+    </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.AuthenticationTest" />
-        <item itemvalue="JUnit.ProfileCSVReaderTest.openSingleProfileFile" />
+        <item itemvalue="JUnit.ProfileTest.setBio" />
+        <item itemvalue="JUnit.ProfileTest.getBio" />
+        <item itemvalue="JUnit.ProfileTest.setNickname" />
+        <item itemvalue="JUnit.ProfileTest.getHashedPassword" />
+        <item itemvalue="JUnit.ProfileCreationTest.createNewProfile" />
       </list>
     </recent_temporary>
   </component>
-  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
-    <task active="true" id="Default" summary="Default task">
-      <changelist id="ba5d62c9-ef67-4eb7-8775-b12157e4f5a8" name="Changes" comment="" />
-      <created>1743743778596</created>
-      <option name="number" value="Default" />
-      <option name="presentableId" value="Default" />
-      <updated>1743743778596</updated>
-    </task>
-    <task id="LOCAL-00001" summary="Added info page for TTT/info button. Moved exit button to right side">
-      <option name="closed" value="true" />
-      <created>1743749603923</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1743749603923</updated>
-    </task>
-    <task id="LOCAL-00002" summary="Exit menu button, player turn banners">
-      <option name="closed" value="true" />
-      <created>1743788633776</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1743788633776</updated>
-    </task>
-    <task id="LOCAL-00003" summary="Added popup window exit controller and fxml">
-      <option name="closed" value="true" />
-      <created>1743792640202</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1743792640202</updated>
-    </task>
-    <task id="LOCAL-00004" summary="Set new play buttons for game menu + hover events.">
-      <option name="closed" value="true" />
-      <created>1743805202524</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1743805202524</updated>
-    </task>
-    <task id="LOCAL-00005" summary="Mute button and Audio controlller to monitor muted status between controllers">
-      <option name="closed" value="true" />
-      <created>1743810451019</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1743810451019</updated>
-    </task>
-    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Added info page for TTT/info button. Moved exit button to right side" />
-    <MESSAGE value="Exit menu button, player turn banners" />
-    <MESSAGE value="Added popup window exit controller and fxml" />
-    <MESSAGE value="Set new play buttons for game menu + hover events." />
-    <MESSAGE value="Mute button and Audio controlller to monitor muted status between controllers" />
-    <MESSAGE value="resize scene" />
-    <MESSAGE value="Added a call to the hashing method in setHashedPassword." />
-    <option name="LAST_COMMIT_MESSAGE" value="Added a call to the hashing method in setHashedPassword." />
+    <MESSAGE value="Created new branch with Leaderboard's code merged into mainIt2 authentication code, seems to work" />
+    <option name="LAST_COMMIT_MESSAGE" value="Created new branch with Leaderboard's code merged into mainIt2 authentication code, seems to work" />
   </component>
 </project>
