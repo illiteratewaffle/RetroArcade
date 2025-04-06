@@ -1,20 +1,14 @@
-package server_main.java.server.session;
+package session;
 
-import server.player.PlayerHandler;
-import server.management.ThreadMessage;
-import server_main.java.server.management.ThreadRegistry;
-import GameLogic_Client.ivec2;
-
+import player.PlayerHandler;
+import management.ThreadMessage;
+import management.ThreadRegistry;
+import GameLogic_Client.IBoardGameController;
+import GameLogic_Client.Ivec2;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.IntBinaryOperator;
-
-import server.session.IBoardGameController;
-/**
- *
- */
-
 
 public class GameSessionManager implements Runnable{
     private final PlayerHandler player1;
