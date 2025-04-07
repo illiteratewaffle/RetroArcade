@@ -135,7 +135,7 @@ public class PlayerHandler implements Runnable {
                         // TODO: TEMPORARY, CHECK IF TYPE IS ENQUEUE
                         if (jsonMap.containsKey("type") && jsonMap.get("type").equals("enqueue")) {
                             // Pass itself in to enqueuePlayer
-                            ServerController.enqueuePlayer(PlayerHandler.this);
+                            ServerController.enqueuePlayer(PlayerHandler.this, gameType);
                         }
                         // TODO: this threadMessage has to be like "sorted" to where it needs to go
                         ThreadMessage threadMessage = new ThreadMessage(mainThread, jsonMap);

@@ -55,7 +55,7 @@ public class GameCreator implements Runnable {
 
     public void startGameFromQueue(int gameType) {
         List<PlayerHandler> players = gameQueue.matchOpponents(gameType);
-        if (players.size() == 2) {
+        if (players.size() >= 2) {
             createSession(players.get(0), players.get(1), gameType);
         } else {
             ServerLogger.log("GameCreator: Unable to retrieve a list of two players from Matchmaking.");
