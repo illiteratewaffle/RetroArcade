@@ -21,7 +21,7 @@ class ProfileTest {
     }
 /*
     private Profile profile;
-
+//
     @BeforeEach
     void setUp() {
         HashMap<String, Double> achievementProgress = new HashMap<>();
