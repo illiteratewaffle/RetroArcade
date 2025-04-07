@@ -1,5 +1,6 @@
 package GUI_client;
 import AuthenticationAndProfile.Authentication;
+import com.sun.javafx.menu.MenuItemBase;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -46,6 +47,7 @@ public class profileGUIController {
     @FXML private ScrollPane avatar_pane;
     private Object GUI_avatars;
     private AuthenticationAndProfile.Profile Profile;
+    private MenuItemBase friends_Button;
 
     public profileGUIController() {
         System.out.println("profileGUIController loaded");
@@ -84,6 +86,7 @@ public class profileGUIController {
         history_list.setOpacity(0.0);
         friends_list.setOpacity(0.0);
         stats_pane.setOpacity(0.0);
+
 
        // Using an obervable list so that it can be updated as more information is added.
         //Getting the data needed to populate the inbox (friend requests) list.
@@ -182,22 +185,61 @@ public class profileGUIController {
 
     public void open_edit_profile(MouseEvent mouseEvent) {
         //Making sure that all other lists/table is invisible while editing profile.
+        apply_button.setOpacity(1.0); apply_button.setDisable(false);
+        discard_button.setOpacity(1.0); discard_button.setDisable(false);
         history_list.setOpacity(0.0);
         inbox_contents.setOpacity(0.0);
         friends_list.setOpacity(0.0);
         stats_pane.setOpacity(0.0);
         avatar_pane.setOpacity(1.0);
         edit_profile_button.setOpacity(0.0);
-        apply_button.setOpacity(1.0); apply_button.toFront();
-        discard_button.toFront(); discard_button.toFront();
+        friends_Button.setDisable(true);
+        stats_button.setDisable(true);
+        inbox_button.setDisable(true);
+        history_button.setDisable(true);
+        edit_profile_button.setDisable(true);
     }
     public void updateProfilePicture(Image image){
         avatar.setImage(image);
     }
     public void discard_changes(MouseEvent mouseEvent) {
-        
+        history_list.setOpacity(0.0);
+        inbox_contents.setOpacity(0.0);
+        friends_list.setOpacity(0.0);
+        stats_pane.setOpacity(1.0);
+        avatar_pane.setOpacity(0.0);
+        edit_profile_button.setOpacity(1.0);
+        apply_button.setOpacity(0.0);
+        discard_button.setOpacity(0.0);
+        friends_Button.setDisable(false);
+        stats_button.setDisable(false);
+        inbox_button.setDisable(false);
+        history_button.setDisable(false);
+        edit_profile_button.setDisable(false);
+        apply_button.setDisable(true);
+        discard_button.setDisable(true);
+
+        initializeProfile();
     }
     public void apply_changes(MouseEvent mouseEvent) {
+        history_list.setOpacity(0.0);
+        inbox_contents.setOpacity(0.0);
+        friends_list.setOpacity(0.0);
+        stats_pane.setOpacity(1.0);
+        avatar_pane.setOpacity(0.0);
+        edit_profile_button.setOpacity(1.0);
+        apply_button.setOpacity(0.0);
+        discard_button.setOpacity(0.0);
+        friends_Button.setDisable(false);
+        stats_button.setDisable(false);
+        inbox_button.setDisable(false);
+        history_button.setDisable(false);
+        edit_profile_button.setDisable(false);
+        apply_button.setDisable(true);
+        discard_button.setDisable(true);
+
+
+
     }
 
     //All methods below are used to change the profile picture based on
@@ -224,7 +266,7 @@ public class profileGUIController {
         } else {
             System.out.println("Failed to load image from path: " + path);
         }
-
+        AvatarPath(path);
     }
 
     public void choose_purple_alien(MouseEvent mouseEvent) {
@@ -237,6 +279,7 @@ public class profileGUIController {
         } else {
             System.out.println("Failed to load image from path: " + path);
         }
+        AvatarPath(path);
     }
 
 
@@ -250,6 +293,7 @@ public void choose_pink_alien(ContextMenuEvent contextMenuEvent) {
         } else {
             System.out.println("Failed to load image from path: " + path);
         }
+        AvatarPath(path);
     }
 
     public void choose_green_alien(ContextMenuEvent contextMenuEvent) {
@@ -262,6 +306,7 @@ public void choose_pink_alien(ContextMenuEvent contextMenuEvent) {
         } else {
             System.out.println("Failed to load image from path: " + path);
         }
+        AvatarPath(path);
     }
 
     public void choose_cyan_alien(MouseEvent mouseEvent) {
@@ -274,6 +319,7 @@ public void choose_pink_alien(ContextMenuEvent contextMenuEvent) {
         } else {
             System.out.println("Failed to load image from path: " + path);
         }
+        AvatarPath(path);
     }
 
     public void choose_toad(MouseEvent mouseEvent) {
@@ -286,6 +332,7 @@ public void choose_pink_alien(ContextMenuEvent contextMenuEvent) {
         } else {
             System.out.println("Failed to load image from path: " + path);
         }
+        AvatarPath(path);
     }
 
     public void choose_blue_ghost(MouseEvent mouseEvent) {
@@ -298,6 +345,7 @@ public void choose_pink_alien(ContextMenuEvent contextMenuEvent) {
         } else {
             System.out.println("Failed to load image from path: " + path);
         }
+        AvatarPath(path);
     }
 
     public void choose_pink_ghost(MouseEvent mouseEvent) {
@@ -310,6 +358,7 @@ public void choose_pink_alien(ContextMenuEvent contextMenuEvent) {
         } else {
             System.out.println("Failed to load image from path: " + path);
         }
+        AvatarPath(path);
     }
 
     public void choose_red_ghost(MouseEvent mouseEvent) {
@@ -322,6 +371,7 @@ public void choose_pink_alien(ContextMenuEvent contextMenuEvent) {
         } else {
             System.out.println("Failed to load image from path: " + path);
         }
+        AvatarPath(path);
     }
 
     public void choose_yellow_ghost(MouseEvent mouseEvent) {
@@ -334,6 +384,10 @@ public void choose_pink_alien(ContextMenuEvent contextMenuEvent) {
         } else {
             System.out.println("Failed to load image from path: " + path);
         }
+        AvatarPath(path);
+    }
+    public String AvatarPath(String path){
+        return (path);
     }
 }
 
