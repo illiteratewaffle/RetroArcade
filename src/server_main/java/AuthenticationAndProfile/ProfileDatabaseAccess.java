@@ -71,6 +71,39 @@ public class ProfileDatabaseAccess {
 //        }
     }
 
+    public static Profile obtainProfileDirect(int id) throws SQLException{
+        try {
+            //from Profile ArrayList obtain the values for Profile Class variables
+            String username = PlayerManager.getAttribute(id, "username");
+            String nickname = PlayerManager.getAttribute(id, "nickname");
+            String email = PlayerManager.getAttribute(id, "email");
+            String hashedPassword = PlayerManager.getAttribute(id, "hashed_password");
+            String bio = PlayerManager.getAttribute(id, "bio");
+            String profilePicFilePath = PlayerManager.getAttribute(id, "profile_pic_path");
+            String currentGame = PlayerManager.getAttribute(id, "current_game");
+            boolean isOnline;
+            if (PlayerManager.getAttribute(id, "is_online") != null) {
+                if (PlayerManager.getAttribute(id, "is_online").equals("true")) {
+                    isOnline = true;
+                } else {
+                    isOnline = false;
+                }
+            } else {
+                isOnline = false;
+            }
+
+            //Call methods to create the FriendsList, GameHistory, and PlayerRanking objects from database attached to profile id
+            FriendsList friendsList = obtainFriendsListDirect(id);
+            GameHistory gameHistory = obtainGameHistoryDirect(id);
+            PlayerRanking playerRanking = obtainPlayerRankingDirect(id);
+
+            Profile profile = new Profile(email, hashedPassword, nickname, bio, isOnline, currentGame, friendsList, playerRanking, gameHistory, profilePicFilePath, username, id);
+            return profile;
+        } catch (SQLException s) {
+            throw new SQLException(s.getMessage());
+        }
+    }
+
     /**
      * Constructs a FriendsList Object based off of the FriendsList variables saved to the database for the specified id.
      * @param id
@@ -107,10 +140,31 @@ public class ProfileDatabaseAccess {
         return friendsList;
     }
 
+    public static FriendsList obtainFriendsListDirect(int id) throws SQLException{
+        List<Integer> friends = new ArrayList<>();
+        String friendsString = PlayerManager.getAttribute(id, "friends");
+        //System.out.println("Friends String: " + friendsString);
+        if (!friendsString.equals("null")){
+            String[] fieldsList = friendsString.split(",");
+            for (int i = 0 ; i < fieldsList.length; i ++){
+                friends.add(Integer.parseInt(fieldsList[i]));
+            }
+        }
+        List<Integer> friendRequests = new ArrayList<>();
+        String friendRequestString = PlayerManager.getAttribute(id, "friend_requests");
+        if(!friendRequestString.equals("null")) {
+            String[] fieldsList = friendRequestString.split(",");
+            for (int i = 0; i < fieldsList.length; i++) {
+                friendRequests.add(Integer.parseInt(fieldsList[i]));
+            }
+        }
+        FriendsList friendsList = new FriendsList(friends, friendRequests, id);
+        return friendsList;
+    }
+
     public static PlayerRanking obtainPlayerRanking(int id) {
         //call method to get csv for id
         //try {
-        //PlayerManager.getProfileTable(id); //method to get Profile csv with all attributes associated to the specified id
         String csvProfileFilePath = String.format("player_profile_%d.csv", id); //csv file saved to the main project directory
 
         ArrayList<String> profileFields = openSingleProfileFile(csvProfileFilePath);
@@ -153,6 +207,46 @@ public class ProfileDatabaseAccess {
 //            System.out.println("ID does not match a profile in the database.");
 //            return null;
 //        }
+    }
+
+    public static PlayerRanking obtainPlayerRankingDirect(int id) throws SQLException{
+        //from Profile ArrayList obtain the values for Profile Class variables
+        double[] winLossRatio = new double[3];
+        int[] rating = new int[3];
+        String[] rank = new String[3];
+        int[] wins = new int[3];
+        int[] losses = new int[3];
+        int[] total = new int[3];
+        try {
+            winLossRatio[0] = Double.parseDouble(PlayerManager.getAttribute(id, "win_loss_ratio_ttt"));
+            winLossRatio[1] = Double.parseDouble(PlayerManager.getAttribute(id, "win_loss_ratio_connect4"));
+            winLossRatio[2] = Double.parseDouble(PlayerManager.getAttribute(id, "win_loss_ratio_checkers"));
+
+            rating[0] = Integer.parseInt(PlayerManager.getAttribute(id, "rating_ttt"));
+            rating[1] = Integer.parseInt(PlayerManager.getAttribute(id, "rating_connect4"));
+            rating[2] = Integer.parseInt(PlayerManager.getAttribute(id, "rating_checkers"));
+
+            rank[0] = PlayerManager.getAttribute(id, "rank_ttt");
+            rank[1] = PlayerManager.getAttribute(id, "rank_connect4");
+            rank[2] = PlayerManager.getAttribute(id, "rank_checkers");
+
+            wins[0] = Integer.parseInt(PlayerManager.getAttribute(id, "wins_ttt"));
+            wins[1] = Integer.parseInt(PlayerManager.getAttribute(id, "wins_connect4"));
+            wins[2] = Integer.parseInt(PlayerManager.getAttribute(id, "wins_checkers"));
+
+            losses[0] = Integer.parseInt(PlayerManager.getAttribute(id, "losses_ttt"));
+            losses[1] = Integer.parseInt(PlayerManager.getAttribute(id, "losses_connect4"));
+            losses[2] = Integer.parseInt(PlayerManager.getAttribute(id, "losses_checkers"));
+
+            total[0] = Integer.parseInt(PlayerManager.getAttribute(id, "total_ttt"));
+            total[1] = Integer.parseInt(PlayerManager.getAttribute(id, "total_connect4"));
+            total[2] = Integer.parseInt(PlayerManager.getAttribute(id, "total_checkers"));
+        } catch (SQLException s) {
+            throw new SQLException(s.getMessage());
+        }
+
+        PlayerRanking playerRanking = new PlayerRanking(id,winLossRatio, rating, rank, wins, losses, total);
+        return playerRanking;
     }
 
     public static GameHistory obtainGameHistory(int id) {
@@ -207,6 +301,51 @@ public class ProfileDatabaseAccess {
 
     }
 
+    public static GameHistory obtainGameHistoryDirect(int id) throws SQLException {
+        try {
+            List<String> gameHistory = new ArrayList<>();
+            String gameHistoryString = PlayerManager.getAttribute(id, "games_played");
+            if (!gameHistoryString.equals("null")) {
+                String[] fieldsList = gameHistoryString.split(", ");
+                for (int i = 0; i < fieldsList.length; i++) {
+                    gameHistory.add(fieldsList[i]);
+                }
+            }
+            HashMap<String, Double> achievementProgress = new HashMap<>();
+            String achievementProgressString = PlayerManager.getAttribute(id, "achievement_progress");
+            if (!achievementProgressString.equals("null")) {
+                String section = "";
+                boolean inSection = false;
+                for (int j = 0; j < achievementProgressString.length(); j++) {
+                    Character c = Character.valueOf(achievementProgressString.charAt(j));
+                    if (c == '{') {
+                        inSection = true;
+                    } else if (c == ',' && !inSection) {
+                        String[] entry = section.split(",");
+                        String key = entry[0];
+                        Double value = Double.parseDouble(entry[1]);
+                        achievementProgress.put(key, value);
+                        section = "";
+                    } else if (c == '}') {
+                        inSection = false;
+                    } else if (j == achievementProgressString.length() - 1) {
+                        section = section + c;
+                        String[] entry = section.split(",");
+                        String key = entry[0];
+                        Double value = Double.parseDouble(entry[1]);
+                        achievementProgress.put(key, value);
+                    } else if (c != '"') {
+                        section = section + c;
+                    }
+                }
+            }
+            GameHistory gameHistoryObject = new GameHistory(gameHistory, achievementProgress);
+            return gameHistoryObject;
+        } catch (SQLException s) {
+            throw new SQLException(s.getMessage());
+        }
+    }
+
     /**
      * removeProfile(long id) removes all profile information associated from the Database and logs the account out.
      * @param id
@@ -219,6 +358,7 @@ public class ProfileDatabaseAccess {
             throw new SQLException(s.getMessage());
         }
     }
+
     /**
      * getAllProfiles() is used to obtain the HashMap of all username keys and all Profile values.
      * @return HashMap<String, Profile>
@@ -239,7 +379,7 @@ public class ProfileDatabaseAccess {
      * @param search String
      */
     //TODO: search profile method in Player Manager
-    public static Profile searchForProfile(String search) throws SQLException{
+    public static Profile searchForProfile(String search) throws SQLException {
         try {
             Integer usernameSearchMatchIdList = PlayerManager.getProfileID(search);
             Profile profilesFound = obtainProfile((usernameSearchMatchIdList));
@@ -269,7 +409,7 @@ public class ProfileDatabaseAccess {
      * Method to obtain the profile information required to view other profiles.
      * @param profile
      */
-    public static void viewOtherProfile(Profile profile){
+    public static void viewOtherProfile(Profile profile) {
         //username
         //nickname
         //bio

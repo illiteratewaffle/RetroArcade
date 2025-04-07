@@ -40,7 +40,7 @@ public class GameCreatorTest {
         PlayerHandler fakePlayer = new PlayerHandler(serverSideSocket, queue, fakeProfile);
 
         // Try to enqueue the player (what we want to test)
-        assertDoesNotThrow(() -> gameCreator.enqueuePlayer(fakePlayer),
+        assertDoesNotThrow(() -> gameCreator.enqueuePlayer(fakePlayer, 0),
                 "GameCreator should accept a player with a dummy profile");
 
         // Clean up sockets

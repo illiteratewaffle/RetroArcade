@@ -31,7 +31,7 @@ public class ServerController {
         try {
             gameCreator.enqueuePlayer(player, gameType);
         } catch (SQLException e) {
-            ServerLogger.log("ServerController: Error enqueuing player to the queue.");
+            ServerLogger.log("ServerController: Error enqueuing player to the queue: " + e);
         }
     }
 

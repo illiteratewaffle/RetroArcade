@@ -154,6 +154,7 @@ public class PlayerHandler implements Runnable {
                                 gameSessionLock.wait();
                         }
                         // Relay the message to the GameSessionManager
+                        System.out.println();
                         networkManager.sendMessage(gameSessionManagerThread, threadMessage);
                     } catch (IllegalArgumentException e) {
                         // TODO: Should this be handled better? wait maybe send back a message?
