@@ -38,10 +38,9 @@ class AuthenticationTest {
     @Test
     void logIn() {
         try {
-            int id = PlayerManager.registerPlayer("username1", "email@email.com", ProfileCreation.hashedPassword("1234567"));
+            int id = PlayerManager.registerPlayer("username", "email@email.com", ProfileCreation.hashedPassword("1234567"));
             Profile profile1 = ProfileDatabaseAccess.obtainProfile(id);
-            assertEquals(profile1, Authentication.logIn("username1", "1234567"));
-            ProfileDatabaseAccess.removeProfile(id);
+            assertEquals(profile1, Authentication.logIn("username", "1234567"));
         } catch (SQLException s) {
             System.out.println("registerPlayer or logIn error: " + s.getMessage());
         }

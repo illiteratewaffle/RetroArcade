@@ -21,14 +21,14 @@ public class Main {
 //                running = false;
 //        }
         //Clearing Profiles:
-//        for (int i = 0; i < 200; i++) {
-//            try {
-//                PlayerManager.deleteProfile(i);
-//                ProfileDatabaseAccess.getAllProfiles();
-//            } catch (SQLException s){
-//                System.out.println(s.getMessage());
-//            }
-//        }
+        for (int i = 0; i < 200; i++) {
+            try {
+                PlayerManager.deleteProfile(i);
+                ProfileDatabaseAccess.getAllProfiles();
+            } catch (SQLException s){
+                System.out.println(s.getMessage());
+            }
+        }
 
         //ProfileCreation.createNewProfile("");
             //PlayerManager.addToFriendsList(2, 1);
