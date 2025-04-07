@@ -163,6 +163,7 @@ public class CheckersGUIController implements Initializable {
             if (currentPlayer == 0) {
                 screen.setImage(yourTurn);
             }
+
             else {
                 screen.setImage(opponentTurn);
             }
@@ -213,7 +214,6 @@ public class CheckersGUIController implements Initializable {
 
         // array of length one means someone one
         // TODO: send to networking
-        // TODO: add graphics for win/lose/tie messages
         if (winner.length == 1) {
             if (winner[0] == 0) {
                 screen.setImage(winnerPink);
