@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -8,7 +9,7 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #8A006C;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI_client.profileController">
+<AnchorPane prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #8A006C;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI_client.profileGUIController">
    <children>
       <ImageView fitHeight="529.0" fitWidth="900.0" layoutY="33.0">
          <image>
@@ -52,26 +53,6 @@
             <Font name="Silom" size="18.0" />
          </font>
       </Label>
-      <ImageView fx:id="inbox_button" accessibleRole="BUTTON" fitHeight="58.0" fitWidth="134.0" layoutX="76.0" layoutY="188.0" onMouseClicked="#open_inbox">
-         <image>
-            <Image url="@../profile_assets/profile_buttons/inbox_button.png" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="friends_button" accessibleRole="BUTTON" fitHeight="84.0" fitWidth="158.0" layoutX="259.0" layoutY="174.0">
-         <image>
-            <Image url="@../profile_assets/profile_buttons/friends_button.png" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="history_button" accessibleRole="BUTTON" fitHeight="78.0" fitWidth="179.0" layoutX="470.0" layoutY="177.0" onMouseClicked="#open_history">
-         <image>
-            <Image url="@../profile_assets/profile_buttons/history_button.png" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="stats_button" accessibleRole="BUTTON" fitHeight="58.0" fitWidth="154.0" layoutX="680.0" layoutY="189.0" onMouseClicked="#open_stats">
-         <image>
-            <Image url="@../profile_assets/profile_buttons/stats_button.png" />
-         </image>
-      </ImageView>
       <ScrollPane layoutX="32.0" layoutY="239.0" prefHeight="324.0" prefWidth="834.0" style="-fx-background-color: transparent;">
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="303.0" prefWidth="833.0">
@@ -81,6 +62,108 @@
                         <Image url="@../leaderboard_assets/star_background.PNG" />
                      </image>
                   </ImageView>
+                  <ListView fx:id="inbox_contents" opacity="0.0" prefHeight="304.0" prefWidth="836.0" style="-fx-background-color: transparent;" />
+                  <ListView fx:id="friends_list" layoutX="-3.0" layoutY="-6.0" opacity="0.0" prefHeight="311.0" prefWidth="840.0" style="-fx-background-color: transparent;" />
+                  <ListView fx:id="history_list" layoutX="7.0" layoutY="4.0" opacity="0.0" prefHeight="311.0" prefWidth="840.0" style="-fx-background-color: transparent;" />
+                  <AnchorPane fx:id="stats_pane" prefHeight="308.0" prefWidth="834.0">
+                     <children>
+                        <Label fx:id="check_rank_label" alignment="CENTER" layoutX="197.0" layoutY="232.0" prefHeight="77.0" prefWidth="163.0" textAlignment="CENTER" textFill="WHITE">
+                           <font>
+                              <Font name="Silom" size="30.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="check_rating_label" alignment="CENTER" layoutX="196.0" layoutY="167.0" prefHeight="77.0" prefWidth="163.0" textAlignment="CENTER" textFill="WHITE">
+                           <font>
+                              <Font name="Silom" size="30.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="check_win_label" alignment="CENTER" layoutX="197.0" layoutY="99.0" prefHeight="77.0" prefWidth="163.0" textAlignment="CENTER" textFill="WHITE">
+                           <font>
+                              <Font name="Silom" size="30.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="check_wlr_label" alignment="CENTER" layoutX="195.0" layoutY="42.0" prefHeight="77.0" prefWidth="170.0" textAlignment="CENTER" textFill="WHITE">
+                           <font>
+                              <Font name="Silom" size="30.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="Checkers_stats_label" alignment="CENTER" layoutX="191.0" layoutY="-12.0" prefHeight="77.0" prefWidth="163.0" text="Checkers" textAlignment="CENTER" textFill="WHITE">
+                           <font>
+                              <Font name="Silom" size="30.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="TTT_rank_label" alignment="CENTER" layoutX="400.0" layoutY="232.0" prefHeight="77.0" prefWidth="194.0" textAlignment="CENTER" textFill="WHITE">
+                           <font>
+                              <Font name="Silom" size="30.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="TTT_rating_label" alignment="CENTER" layoutX="399.0" layoutY="165.0" prefHeight="77.0" prefWidth="194.0" textAlignment="CENTER" textFill="WHITE">
+                           <font>
+                              <Font name="Silom" size="30.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="TTT_win_label" alignment="CENTER" layoutX="400.0" layoutY="100.0" prefHeight="77.0" prefWidth="194.0" textAlignment="CENTER" textFill="WHITE">
+                           <font>
+                              <Font name="Silom" size="30.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="TTT_wlr_label" alignment="CENTER" layoutX="399.0" layoutY="43.0" prefHeight="77.0" prefWidth="183.0" textAlignment="CENTER" textFill="WHITE">
+                           <font>
+                              <Font name="Silom" size="30.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="TTT_stats_label" alignment="CENTER" layoutX="392.0" layoutY="-12.0" prefHeight="77.0" prefWidth="194.0" text="Tic-Tac-Toe" textAlignment="CENTER" textFill="WHITE">
+                           <font>
+                              <Font name="Silom" size="30.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="c4_rank_label" alignment="CENTER" layoutX="627.0" layoutY="232.0" prefHeight="77.0" prefWidth="194.0" textAlignment="CENTER" textFill="WHITE">
+                           <font>
+                              <Font name="Silom" size="30.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="c4_rating_label" alignment="CENTER" layoutX="637.0" layoutY="159.0" prefHeight="77.0" prefWidth="185.0" textAlignment="CENTER" textFill="WHITE">
+                           <font>
+                              <Font name="Silom" size="30.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="c4_win_label" alignment="CENTER" layoutX="638.0" layoutY="97.0" prefHeight="77.0" prefWidth="185.0" textAlignment="CENTER" textFill="WHITE">
+                           <font>
+                              <Font name="Silom" size="30.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="c4_wlr_label" alignment="CENTER" layoutX="627.0" layoutY="40.0" prefHeight="77.0" prefWidth="194.0" textAlignment="CENTER" textFill="WHITE">
+                           <font>
+                              <Font name="Silom" size="30.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="C4_stats_label" alignment="CENTER" layoutX="648.0" layoutY="-12.0" prefHeight="77.0" prefWidth="163.0" text="Connect 4" textAlignment="CENTER" textFill="WHITE">
+                           <font>
+                              <Font name="Silom" size="30.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="wlr_label" alignment="CENTER" layoutX="11.0" layoutY="40.0" prefHeight="77.0" prefWidth="174.0" text="Win/loss Ratio" textAlignment="CENTER" textFill="WHITE">
+                           <font>
+                              <Font name="Silom" size="21.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="wins_label" alignment="CENTER" layoutX="20.0" layoutY="103.0" prefHeight="77.0" prefWidth="163.0" text="wins" textAlignment="CENTER" textFill="WHITE">
+                           <font>
+                              <Font name="Silom" size="21.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="rating_label" alignment="CENTER" layoutX="20.0" layoutY="167.0" prefHeight="77.0" prefWidth="163.0" text="Rating" textAlignment="CENTER" textFill="WHITE">
+                           <font>
+                              <Font name="Silom" size="21.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="rank_label" alignment="CENTER" layoutX="20.0" layoutY="233.0" prefHeight="77.0" prefWidth="163.0" text="Rank" textAlignment="CENTER" textFill="WHITE">
+                           <font>
+                              <Font name="Silom" size="21.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
                </children>
             </AnchorPane>
         </content>
@@ -88,6 +171,26 @@
       <ImageView fx:id="edit_profile_button" accessibleRole="BUTTON" fitHeight="66.0" fitWidth="224.0" layoutX="659.0" layoutY="548.0" onMouseClicked="#open_edit_profile">
          <image>
             <Image url="@../profile_assets/profile_buttons/edit_profile_button_black.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="inbox_button" accessibleRole="BUTTON" fitHeight="58.0" fitWidth="134.0" layoutX="76.0" layoutY="188.0" onMouseClicked="#open_inbox">
+         <image>
+            <Image url="@../profile_assets/profile_buttons/inbox_button.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="friends_button" accessibleRole="BUTTON" fitHeight="84.0" fitWidth="158.0" layoutX="259.0" layoutY="174.0" onMouseClicked="#open_friends">
+         <image>
+            <Image url="@../profile_assets/profile_buttons/friends_button.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="stats_button" accessibleRole="BUTTON" fitHeight="58.0" fitWidth="154.0" layoutX="454.0" layoutY="187.0" onMouseClicked="#open_stats">
+         <image>
+            <Image url="@../profile_assets/profile_buttons/stats_button.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="history_button" accessibleRole="BUTTON" fitHeight="78.0" fitWidth="179.0" layoutX="646.0" layoutY="178.0" onMouseClicked="#open_history">
+         <image>
+            <Image url="@../profile_assets/profile_buttons/history_button.png" />
          </image>
       </ImageView>
    </children>
