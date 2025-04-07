@@ -104,8 +104,12 @@ public class PlayerRanking {
         return winLossRatio[gameNumber];
     }
 
-    public int getRating(int gameNumber) {
-        return rating[gameNumber];
+    public int getRating(int gameNumber) throws SQLException {
+        try {
+            return Integer.parseInt(PlayerManager.getAttribute(id, "rating_" + gameNumber));
+        } catch (SQLException s) {
+            throw new SQLException(s.getMessage());
+        }
     }
 
     public String getRank(int rating) {
