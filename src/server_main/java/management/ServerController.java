@@ -26,9 +26,11 @@ public class ServerController {
         ServerLogger.log("Started connection manager and game creator.");
     }
 
+    public static void enqueuePlayer(PlayerHandler player, int gameType) {
+        gameCreator.enqueuePlayer(player, gameType);
+    }
 
-
-    public static void enqueuePlayer(PlayerHandler player) {
-        gameCreator.enqueuePlayer(player);
+    public static void dequeuePlayer(PlayerHandler player) {
+        gameCreator.dequeuePlayer(player);
     }
 }
