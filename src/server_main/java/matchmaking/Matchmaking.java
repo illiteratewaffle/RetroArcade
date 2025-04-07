@@ -6,7 +6,7 @@ import java.util.*;
 public class Matchmaking {
 
     /***
-     *
+     * Matches opponents from the MatchmkaingQueue ,
      * @param gameType
      * @return
      */
@@ -25,6 +25,7 @@ public class Matchmaking {
                     List<PlayerHandler> matchedPlayers = new ArrayList<>();
                     matchedPlayers.add(h1);
                     matchedPlayers.add(h2);
+                    return matchedPlayers;
                 } else {
                     MatchmakingQueue.enqueue(h1, gameType);
                 }
