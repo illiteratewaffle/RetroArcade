@@ -1,5 +1,6 @@
 package matchmaking;
 
+import java.sql.SQLException;
 import java.util.*;
 
 import player.PlayerHandler;
@@ -53,9 +54,13 @@ public class MatchmakingQueue {
      * @param handler PlayerHandler object
      * @param gameType gameType specifying which LinkedList to add the PlayerHandler into
      */
-    public static void enqueue(PlayerHandler handler, int gameType) {
-        gameQueues.get(gameType).add(handler);
-        quickSort(gameType);
+    public static void enqueue(PlayerHandler handler, int gameType) throws SQLException {
+        try {
+            gameQueues.get(gameType).add(handler);
+            quickSort(gameType);
+        } catch (SQLException e){
+            throw new SQLException(e.getMessage());
+        }
     }
 
     /**
@@ -122,9 +127,13 @@ public class MatchmakingQueue {
      * This method replaces the existing queue for the given game type with the sorted version.
      * @param gameType An integer representing the game type of the queue to be sorted.
      */
-    private static void quickSort(int gameType) {
-        if (gameQueues.containsKey(gameType)) {
-            gameQueues.put(gameType, quickSortHelper(gameQueues.get(gameType), gameType));
+    private static void quickSort(int gameType) throws SQLException {
+        try {
+            if (gameQueues.containsKey(gameType)) {
+                gameQueues.put(gameType, quickSortHelper(gameQueues.get(gameType), gameType));
+            }
+        } catch(SQLException e) {
+            throw new SQLException(e.getMessage());
         }
     }
 
@@ -135,32 +144,37 @@ public class MatchmakingQueue {
      * @param gameType The integer representing the game type used to retrieve the player's rating.
      * @return A new LinkedList containing the PlayerHandler objects sorted in ascending order of their rating for the given game type.
      */
-    private static LinkedList<PlayerHandler> quickSortHelper(LinkedList<PlayerHandler> list, int gameType) {
-        if (list.size() <= 1) return list;
+    private static LinkedList<PlayerHandler> quickSortHelper(LinkedList<PlayerHandler> list, int gameType) throws SQLException {
 
-        PlayerHandler pivot = list.get(list.size() / 2);
-        LinkedList<PlayerHandler> lesser = new LinkedList<>();
-        LinkedList<PlayerHandler> greater = new LinkedList<>();
-        LinkedList<PlayerHandler> equal = new LinkedList<>();
+        try {
+            if (list.size() <= 1) return list;
 
-        int pivotRank = pivot.getProfile().getPlayerRanking().getRating(gameType);
+            PlayerHandler pivot = list.get(list.size() / 2);
+            LinkedList<PlayerHandler> lesser = new LinkedList<>();
+            LinkedList<PlayerHandler> greater = new LinkedList<>();
+            LinkedList<PlayerHandler> equal = new LinkedList<>();
 
-        for (PlayerHandler handler : list) {
-            int rank = handler.getProfile().getPlayerRanking().getRating(gameType);
+            int pivotRank = pivot.getProfile().getPlayerRanking().getRating(gameType);
 
-            if (rank > pivotRank) {
-                greater.add(handler);
-            } else if (rank < pivotRank) {
-                lesser.add(handler);
-            } else {
-                equal.add(handler);
+            for (PlayerHandler handler : list) {
+                int rank = handler.getProfile().getPlayerRanking().getRating(gameType);
+
+                if (rank > pivotRank) {
+                    greater.add(handler);
+                } else if (rank < pivotRank) {
+                    lesser.add(handler);
+                } else {
+                    equal.add(handler);
+                }
             }
-        }
 
-        LinkedList<PlayerHandler> sorted = new LinkedList<>();
-        sorted.addAll(quickSortHelper(greater, gameType));
-        sorted.addAll(equal);
-        sorted.addAll(quickSortHelper(lesser, gameType));
-        return sorted;
+            LinkedList<PlayerHandler> sorted = new LinkedList<>();
+            sorted.addAll(quickSortHelper(greater, gameType));
+            sorted.addAll(equal);
+            sorted.addAll(quickSortHelper(lesser, gameType));
+            return sorted;
+        } catch (SQLException e){
+            throw new SQLException(e.getMessage());
+        }
     }
 }

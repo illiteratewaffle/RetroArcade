@@ -31,7 +31,7 @@ public class PlayerRanking {
         id = 0;
     }
 
-    public void endOfMatchMethod(int gameNumber, int result) throws SQLException{
+    public void endOfMatchMethod(int gameNumber, int result) throws SQLException {
         String gameName = null;
         if (gameNumber == TTT_INDEX) {
             gameName = "ttt";
@@ -57,6 +57,9 @@ public class PlayerRanking {
                 currentWinLossRatio = Math.round(((double) currentWins / currentGamesPlayed) * 100.0 / 100.0);
             } else if (result == 0) {
                 currentRating -= 50;
+                if (currentRating < 0) {
+                    currentRating = 0;
+                }
                 currentLosses += 1;
                 currentGamesPlayed += 1;
                 currentWinLossRatio = Math.round(((double) currentWins / currentGamesPlayed) * 100.0 / 100.0);
@@ -104,8 +107,12 @@ public class PlayerRanking {
         return winLossRatio[gameNumber];
     }
 
-    public int getRating(int gameNumber) {
-        return rating[gameNumber];
+    public int getRating(int gameNumber) throws SQLException {
+        try {
+            return Integer.parseInt(PlayerManager.getAttribute(id, "rating_" + gameNumber));
+        } catch (SQLException s) {
+            throw new SQLException(s.getMessage());
+        }
     }
 
     public String getRank(int rating) {
@@ -126,8 +133,6 @@ public class PlayerRanking {
         return wins[gameNumber];
     }
 }
-
-
 
 
 //Abstract version test:
