@@ -271,10 +271,20 @@ public class PlayerManager {
     }
 
     public static String addToFriendsList(int id, int newFriendId) throws SQLException {
-        String query = "UPDATE profiles SET friends = array_append(friends, ?) WHERE id = ?";
+        String query = """
+                            UPDATE profiles
+                            SET friends = CASE
+                            WHEN array_position(friends, ?) IS NOT NULL
+                            THEN friends
+                            ELSE array_append(friends, ?)
+                            END
+                            WHERE id = ?
+                """;
         try (PreparedStatement statement = conn.prepareStatement(query)) {
             statement.setInt(1, newFriendId);
-            statement.setInt(2, id);
+            statement.setInt(2, newFriendId);
+            statement.setInt(3, id);
+
 
             int rowsUpdated = statement.executeUpdate();
             if (rowsUpdated > 0) {
@@ -288,10 +298,19 @@ public class PlayerManager {
     }
 
     public static String addToFriendRequests(int id, int newFriendId) throws SQLException {
-        String query = "UPDATE profiles SET friend_requests = array_append(friend_requests, ?) WHERE id = ?";
+        String query = """
+                            UPDATE profiles
+                            SET friend_requests = CASE
+                            WHEN array_position(friend_requests, ?) IS NOT NULL
+                            THEN friend_requests
+                            ELSE array_append(friend_requests, ?)
+                            END
+                            WHERE id = ?
+                """;
         try (PreparedStatement statement = conn.prepareStatement(query)) {
             statement.setInt(1, newFriendId);
-            statement.setInt(2, id);
+            statement.setInt(2, newFriendId);
+            statement.setInt(3, id);
 
             int rowsUpdated = statement.executeUpdate();
             if (rowsUpdated > 0) {
@@ -307,10 +326,7 @@ public class PlayerManager {
     public static int getProfileID(String username) throws SQLException {
         String query = "SELECT id FROM profiles WHERE username = ?";
         try (PreparedStatement statement = conn.prepareStatement(query)) {
-            // Bind the username parameter
             statement.setString(1, username);
-
-            // Execute the query
             ResultSet rs = statement.executeQuery();
 
             // If we get a row, return its "id"
@@ -321,6 +337,27 @@ public class PlayerManager {
             }
         } catch (SQLException e) {
             throw new SQLException("Error retrieving profile ID: " + e.getMessage(), e);
+        }
+    }
+
+    public static String deleteFriend(int playerId, int friendId) throws SQLException {
+        // array_remove will remove 'friendId' from the 'friend_requests' INT[] column for the row matching userId
+        String query = "UPDATE profiles SET friends = array_remove(friends, ?) WHERE id = ?";
+
+        try (PreparedStatement statement = conn.prepareStatement(query)) {
+            // Bind parameters
+            statement.setInt(1, friendId);
+            statement.setInt(2, playerId);
+
+            int rowsUpdated = statement.executeUpdate();
+            if (rowsUpdated > 0) {
+                // Successfully removed friendId from friend_requests
+                return "Friend with ID " + friendId + " removed for user " + playerId;
+            } else {
+                throw new SQLException("No player found with ID: " + playerId);
+            }
+        } catch (SQLException e) {
+            throw new SQLException("No player found with ID: " + e.getMessage(), e);
         }
     }
 
@@ -342,6 +379,32 @@ public class PlayerManager {
             }
         } catch (SQLException e) {
             throw new SQLException("No player found with ID: " + e.getMessage(), e);
+        }
+    }
+
+    public static String addToGamesPlayed(int id, String gamePlayed) {
+        String query = """
+                            UPDATE profiles
+                            SET games_played = CASE
+                            WHEN array_position(games_played, ?) IS NOT NULL
+                            THEN games_played
+                            ELSE array_append(games_played, ?)
+                            END
+                            WHERE id = ?
+                """;
+        try (PreparedStatement statement = conn.prepareStatement(query)) {
+            statement.setString(1, gamePlayed);
+            statement.setString(2, gamePlayed);
+            statement.setInt(3, id);
+
+            int rowsUpdated = statement.executeUpdate();
+            if (rowsUpdated > 0) {
+                return "added game " + gamePlayed + " to player " + id + " games played list";
+            } else {
+                return "No player found with ID: " + id;
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 
