@@ -12,6 +12,7 @@ public class ServerLauncher {
         ServerController controller = new ServerController();
         int port = 5050;
         controller.startServer(port);
+
         // Create an infinite while loop so the server does not exit
         // TODO: the main thread should be used for a proper task
         Scanner sc = new Scanner(System.in);

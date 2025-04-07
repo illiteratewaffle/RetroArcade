@@ -17,16 +17,12 @@ public class ServerController {
     //This is the message queue for incoming messages to the server controller.
     BlockingQueue<ThreadMessage> messageQueue;
 
-    //The queue for players waiting to join a game
-    ConcurrentLinkedQueue<PlayerHandler> gameQueue;
-
     //The game creator that the server controller will use to create game sessions.
     GameCreator gameCreator;
 
     public ServerController() {
         messageQueue = new LinkedBlockingQueue<>();
-        gameQueue = new ConcurrentLinkedQueue<>();
-        gameCreator = new GameCreator(gameQueue);
+        gameCreator = new GameCreator();
 
         ThreadRegistry.register(thread, messageQueue);
     }
@@ -40,19 +36,10 @@ public class ServerController {
 
         Thread.startVirtualThread(connectionManager);
         Thread.startVirtualThread(gameCreator);
+        ServerLogger.log("Started connection manager and game creator.");
     }
 
     public void enqueuePlayer(PlayerHandler player) {
-        gameQueue.add(player);
+        gameCreator.enqueuePlayer(player);
     }
-
-    public void startGameFromQueue() {
-        PlayerHandler player1 = gameQueue.poll();
-        PlayerHandler player2 = gameQueue.poll();
-
-        if ((player1 != null) && (player2 != null)) {
-            gameCreator.createSession(player1, player2);
-        }
-    }
-
 }
