@@ -288,7 +288,7 @@ public class PlayerManager {
     }
 
     public static String addToFriendRequests(int id, int newFriendId) throws SQLException {
-        String query = "UPDATE profiles SET friends = array_append(friend_requests, ?) WHERE id = ?";
+        String query = "UPDATE profiles SET friend_requests = array_append(friend_requests, ?) WHERE id = ?";
         try (PreparedStatement statement = conn.prepareStatement(query)) {
             statement.setInt(1, newFriendId);
             statement.setInt(2, id);
@@ -346,6 +346,11 @@ public class PlayerManager {
     }
 
     public static void main(String[] args) throws SQLException {
-        System.out.println(deleteFriendRequest(12, 3));
+        addToFriendsList(1, 1);
+        addToFriendsList(1, 2);
+        addToFriendsList(1, 3);
+        addToFriendsList(1, 4);
+        addToFriendRequests(1, 7);
+        addToFriendRequests(1, 9);
     }
 }
