@@ -82,8 +82,12 @@ public class ProfileDatabaseAccess {
             String profilePicFilePath = PlayerManager.getAttribute(id, "profile_pic_path");
             String currentGame = PlayerManager.getAttribute(id, "current_game");
             boolean isOnline;
-            if (PlayerManager.getAttribute(id, "is_online").equals("true")) {
-                isOnline = true;
+            if (PlayerManager.getAttribute(id, "is_online") != null) {
+                if (PlayerManager.getAttribute(id, "is_online").equals("true")) {
+                    isOnline = true;
+                } else {
+                    isOnline = false;
+                }
             } else {
                 isOnline = false;
             }
@@ -297,6 +301,51 @@ public class ProfileDatabaseAccess {
 
     }
 
+    public static GameHistory obtainGameHistoryDirect(int id) throws SQLException {
+        try {
+            List<String> gameHistory = new ArrayList<>();
+            String gameHistoryString = PlayerManager.getAttribute(id, "games_played");
+            if (!gameHistoryString.equals("null")) {
+                String[] fieldsList = gameHistoryString.split(", ");
+                for (int i = 0; i < fieldsList.length; i++) {
+                    gameHistory.add(fieldsList[i]);
+                }
+            }
+            HashMap<String, Double> achievementProgress = new HashMap<>();
+            String achievementProgressString = PlayerManager.getAttribute(id, "achievement_progress");
+            if (!achievementProgressString.equals("null")) {
+                String section = "";
+                boolean inSection = false;
+                for (int j = 0; j < achievementProgressString.length(); j++) {
+                    Character c = Character.valueOf(achievementProgressString.charAt(j));
+                    if (c == '{') {
+                        inSection = true;
+                    } else if (c == ',' && !inSection) {
+                        String[] entry = section.split(",");
+                        String key = entry[0];
+                        Double value = Double.parseDouble(entry[1]);
+                        achievementProgress.put(key, value);
+                        section = "";
+                    } else if (c == '}') {
+                        inSection = false;
+                    } else if (j == achievementProgressString.length() - 1) {
+                        section = section + c;
+                        String[] entry = section.split(",");
+                        String key = entry[0];
+                        Double value = Double.parseDouble(entry[1]);
+                        achievementProgress.put(key, value);
+                    } else if (c != '"') {
+                        section = section + c;
+                    }
+                }
+            }
+            GameHistory gameHistoryObject = new GameHistory(gameHistory, achievementProgress);
+            return gameHistoryObject;
+        } catch (SQLException s) {
+            throw new SQLException(s.getMessage());
+        }
+    }
+
     /**
      * removeProfile(long id) removes all profile information associated from the Database and logs the account out.
      * @param id
@@ -309,6 +358,7 @@ public class ProfileDatabaseAccess {
             throw new SQLException(s.getMessage());
         }
     }
+
     /**
      * getAllProfiles() is used to obtain the HashMap of all username keys and all Profile values.
      * @return HashMap<String, Profile>
@@ -329,7 +379,7 @@ public class ProfileDatabaseAccess {
      * @param search String
      */
     //TODO: search profile method in Player Manager
-    public static Profile searchForProfile(String search) throws SQLException{
+    public static Profile searchForProfile(String search) throws SQLException {
         try {
             Integer usernameSearchMatchIdList = PlayerManager.getProfileID(search);
             Profile profilesFound = obtainProfile((usernameSearchMatchIdList));
@@ -359,7 +409,7 @@ public class ProfileDatabaseAccess {
      * Method to obtain the profile information required to view other profiles.
      * @param profile
      */
-    public static void viewOtherProfile(Profile profile){
+    public static void viewOtherProfile(Profile profile) {
         //username
         //nickname
         //bio

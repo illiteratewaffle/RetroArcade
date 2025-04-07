@@ -56,6 +56,24 @@ class ProfileDatabaseAccessTest {
     }
 
     @Test
+    void obtainProfileDirect() {
+        HashMap<String, Double> achievementProgress = new HashMap<>();
+        List<String> gameHistory = new ArrayList<>();
+        //String hashedPassword = ProfileCreation.hashedPassword("1234567");
+        Profile profile1 = new Profile("email1@email.com", "12345678910", "null", "null",
+                false, "null", new FriendsList(), new PlayerRanking(), new GameHistory(gameHistory, achievementProgress), "null", "username1", 1);
+        try {
+            int id1 = PlayerManager.registerPlayer("username1", "email1@email.com", "12345678910");
+            assertEquals(profile1.getEmail(), ProfileDatabaseAccess.obtainProfileDirect(id1).getEmail());
+            assertEquals(profile1.getUsername(), ProfileDatabaseAccess.obtainProfileDirect(id1).getUsername());
+            assertEquals(profile1.getOnlineStatus(), ProfileDatabaseAccess.obtainProfileDirect(id1).getOnlineStatus());
+            PlayerManager.deleteProfile(id1);
+        } catch (SQLException s) {
+            System.out.println(s.getMessage());
+        }
+    }
+
+    @Test
     void obtainFriendsList() {
         try {
             System.out.println(PlayerManager.addToFriendsList(id, 1));
