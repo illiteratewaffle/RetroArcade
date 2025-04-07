@@ -48,4 +48,9 @@ public class ThreadRegistry {
         playerList.put(ID, handler);
     }
 
+    public static void unregister(PlayerHandler handler) {
+        threadRegistry.remove(handler.getThread());
+        playerList.remove(handler.getProfile().getID());
+    }
+
 }

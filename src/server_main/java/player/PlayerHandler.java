@@ -1,8 +1,10 @@
 package player;
 
 import AuthenticationAndProfile.Profile;
+import management.ServerLogger;
 import management.ThreadMessage;
 import management.NetworkManager;
+import management.ThreadRegistry;
 
 import java.io.*;
 import java.net.Socket;
@@ -111,6 +113,25 @@ public class PlayerHandler implements Runnable {
                 try {
                     // Read the json string from the server
                     String message = bufferedReader.readLine();
+
+                    //If message == null, then that means the player has disconnected and this thread should be terminated.
+                    if (message == null) {
+                        running = false;
+
+                        //Unregister the player from the thread registry and the player list.
+                        ThreadRegistry.unregister(PlayerHandler.this);
+
+                        //Log that the player has disconnected.
+                        ServerLogger.log("Player " + profile.getUsername() + " Disconnected.");
+
+                        //Check if the player is in a game session, and if so handle the game session ending.
+                        if (gameSessionManagerThread != null) {
+                            //Implement disconnection handling for when they're in a game session.
+                        }
+
+                        break;
+                    }
+
                     // Convert the json formatting and send it to the GameSessionManager
                     try {
                         ThreadMessage threadMessage = new ThreadMessage(mainThread, fromJson(message));
