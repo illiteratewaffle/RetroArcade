@@ -110,7 +110,6 @@ public class TTTGame {
                 TTTPiece piece = TTTPiece.fromInt(grid[row][col]);
                 System.out.print(piece + " ");
             }
-            System.out.println();
         }
     }
 }
