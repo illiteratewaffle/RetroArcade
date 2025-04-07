@@ -25,7 +25,7 @@ class ProfileCreationTest {
 
     @Test
     void createNewProfile() {
-        /*String username = Profile.generateUsername();
+        String username = Profile.generateUsername();
         String email = username + "@example.com";
         String password = Profile.generatePassword();
         Profile newProfile;
@@ -39,10 +39,9 @@ class ProfileCreationTest {
             assertEquals(username, PlayerManager.getAttribute(newProfileID, "username"));
             assertEquals(email, PlayerManager.getAttribute(newProfileID, "email"));
             assertEquals(hashedPassword, PlayerManager.getAttribute(newProfileID, "hashed_password"));
+            ProfileDatabaseAccess.removeProfile(newProfileID);
         } catch (SQLException s1) {
             System.out.println("Error with getAttribute: " + s1.getMessage());
-            ProfileDatabaseAccess.removeProfile(newProfileID);
         }
-        ProfileDatabaseAccess.removeProfile(newProfileID);*/
     }
 }

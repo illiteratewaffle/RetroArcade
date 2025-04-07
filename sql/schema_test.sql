@@ -21,8 +21,8 @@ CREATE TABLE profiles_new
     wins_TTT                INT              DEFAULT 0,
     wins_connect4           INT              DEFAULT 0,
     wins_checkers           INT              DEFAULT 0,
-    games_played            JSONB,
-    achievement_progress    JSONB,
+    games_played            TEXT[],
+    achievement_progress    hstore,
     friends                 INT[],
     friend_requests         INT[],
     losses_TTT              INT              DEFAULT 0,
@@ -33,4 +33,3 @@ CREATE TABLE profiles_new
     total_checkers          INT              DEFAULT 0,
     created_at              TIMESTAMP        DEFAULT CURRENT_TIMESTAMP
 );
-
