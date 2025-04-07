@@ -8,4 +8,6 @@ module seng300.w25.project {
     exports GameLogic_Client;
 
     opens GUI_client to javafx.fxml, javafx.graphics;
+    exports GameLogic_Client.Connect4;
+    opens GameLogic_Client.Connect4 to javafx.fxml, javafx.graphics;
 }

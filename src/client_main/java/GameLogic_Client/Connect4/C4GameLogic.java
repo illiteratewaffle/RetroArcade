@@ -180,10 +180,10 @@ public class C4GameLogic {
      * Suggests a column for the current player to play based on immediate win.
      * @return the column index of a winning move if available, or the first non-full column.
      */
-    public int getC4HintColumn () {
+    public HintResult getC4HintColumn () {
         System.out.println("Hint requested");
         C4Piece[][] simulatedBoard = copyC4Board();
-        int colHinted = -1;
+        //int colHinted = -1;
 
         //test for win condition
         for (int col = 0; col < simulatedBoard[0].length; col++) {
@@ -194,15 +194,37 @@ public class C4GameLogic {
             simulatedBoard[row][col] = currentPlayer;
 
             if (C4WinCheckerO1.isC4Win(new ivec2(col, row), currentPlayer, simulatedBoard)) {
-                colHinted = col;
+                simulatedBoard[row][col] = C4Piece.BLANK;
+                //colHinted = col;
                 System.out.println("Place piece in " + col+1 + " to win");
+                return new HintResult(col, "WIN");
             }
 
             //undo simulated move
             simulatedBoard[row][col] = C4Piece.BLANK;
         }
 
-        //if win condition no found, test to see if opponent has win move. Then block it
+        C4Piece opponent = currentPlayer == C4Piece.RED ? C4Piece.BLUE : C4Piece.RED;
+
+        for (int col = 0; col < simulatedBoard[0].length; col++) {
+            int row = getC4ColTopBlank(col);
+            if (row == -1) continue;
+
+            simulatedBoard[row][col] = opponent;
+
+            if (C4WinCheckerO1.isC4Win(new ivec2(col, row), opponent, simulatedBoard)) {
+                simulatedBoard[row][col] = C4Piece.BLANK;
+                return new HintResult(col, "BLOCK");
+            }
+
+            simulatedBoard[row][col] = C4Piece.BLANK;
+        }
+
+        System.out.println("No winning or blocking move detected.");
+        return new HintResult(-1, "NONE");
+    }
+
+        /*//if win condition no found, test to see if opponent has win move. Then block it
         if (colHinted == -1) {
             //find opponent's piece
             C4Piece opponentPiece = C4Piece.BLANK;
@@ -238,7 +260,7 @@ public class C4GameLogic {
         }
 
         return colHinted;
-    }
+    } */
 
 
 }

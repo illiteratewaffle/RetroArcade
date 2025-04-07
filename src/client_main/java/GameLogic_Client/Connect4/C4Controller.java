@@ -1,6 +1,5 @@
 package GameLogic_Client.Connect4;
 
-import GameLogic_Client.Connect4.C4Piece;
 import GameLogic_Client.IBoardGameController;
 import GameLogic_Client.ivec2;
 
@@ -128,10 +127,10 @@ public class C4Controller implements IBoardGameController {
      * Function to give users hints if needed during the game based on which column is an ideal pick.
      * @return hint to user
      */
-    public int getC4ColHint() {
+    public HintResult getC4ColHint() {
         if (c4GameLogic == null) {
             System.out.println("Game not started. No hint available.");
-            return -1;
+            return new HintResult(-1, "NONE");
         }
         return c4GameLogic.getC4HintColumn();
     }

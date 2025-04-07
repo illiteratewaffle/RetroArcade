@@ -1,9 +1,6 @@
 package GUI_client;
 
-import GameLogic_Client.Connect4.C4Controller;
-import GameLogic_Client.Connect4.C4GameLogic;
-import GameLogic_Client.Connect4.C4Piece;
-import GameLogic_Client.Connect4.C4WinCheckerO1;
+import GameLogic_Client.Connect4.*;
 import GameLogic_Client.ivec2;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -14,6 +11,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.paint.Color;
+import GameLogic_Client.Connect4.HintResult;
+
 
 
 import java.net.URL;
@@ -53,6 +52,9 @@ public class C4GUIController implements Initializable {
 
     @FXML
     public Button info_ok_button;
+
+    @FXML
+    private ImageView hintButton;
 
     @FXML
     private ImageView hintMessageImage;
@@ -196,60 +198,34 @@ public class C4GUIController implements Initializable {
         if (c4Controller.getC4IsGameOver()) {
             winImage.setImage(new Image("win_image.png"));
             winImage.setVisible(true);
+            hintButton.setDisable(true);
         }
     }
 
     @FXML
     private void clickHintButton() {
-        int hintCol = c4Controller.getC4ColHint();
-        hintMessageImage.setImage(new Image("C4hint_win_image.png"));
-        noHintMessageImage.setImage(new Image("C4no_hint_image.png"));
-        if (hintCol != -1) {
-            highlightHintColumn(hintCol);
-
+        HintResult hint = c4Controller.getC4ColHint();
+        hintMessageImage.setVisible(false);
+        noHintMessageImage.setVisible(false);
+        //hintMessageImage.setImage(new Image("C4hint_win_image.png"));
+        //noHintMessageImage.setImage(new Image("C4no_hint_image.png"));
+        if (hint.col != -1) {
+            highlightHintColumn(hint.col);
+            if ("WIN".equals(hint.type)){
+                hintMessageImage.setImage(new Image("C4hint_win_image.png"));
+            }else if ("BLOCK".equals(hint.type)){
+                hintMessageImage.setImage(new Image("C4hint_block_image.png"));
+            }
             hintMessageImage.setVisible(true);
             hintMessageImage.setMouseTransparent(false);
         }else{
+            noHintMessageImage.setImage(new Image("C4no_hint_image.png"));
             noHintMessageImage.setVisible(true);
             noHintMessageImage.setMouseTransparent(false);
         }
         hint_ok_button.setVisible(true);
         hint_ok_button.setMouseTransparent(false);
     }
-
-   /* private String getHintReason(int col) {
-        C4Piece[][] board = c4Controller.getC4Board().getC4Board();
-        C4Piece currentPlayer = c4Controller.getC4CurrentPlayer();
-        int row = getC4ColTopBlank(board, col);
-
-        if (row == -1) return "NONE";
-
-        // Test if current player could win
-        board[row][col] = currentPlayer;
-        boolean isWin = C4WinCheckerO1.isC4Win(new ivec2(col, row), currentPlayer, board);
-        board[row][col] = C4Piece.BLANK;
-        if (isWin) return "WIN";
-
-        // Test if opponent could win — so we're blocking
-        C4Piece opponent = (currentPlayer == C4Piece.RED) ? C4Piece.BLUE : C4Piece.RED;
-        board[row][col] = opponent;
-        boolean isBlock = C4WinCheckerO1.isC4Win(new ivec2(col, row), opponent, board);
-        board[row][col] = C4Piece.BLANK;
-        if (isBlock) return "BLOCK";
-
-        return "NONE";
-    }
-
-    private int getC4ColTopBlank(C4Piece[][] board, int col) {
-        for (int row = board.length - 1; row >= 0; row--) {
-            if (board[row][col] == C4Piece.BLANK) {
-                return row;
-            }
-        }
-        return -1;
-    } */
-
-
 
     private void highlightHintColumn(int col) {
         // Remove any previous hint highlights
