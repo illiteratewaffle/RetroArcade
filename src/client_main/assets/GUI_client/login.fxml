@@ -9,7 +9,7 @@
    <children>
       <ImageView fitHeight="400.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../../../Downloads/retro_arcade_resized_900x600.png" />
+            <Image url="@../retro_arcade_resized_900x600.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="343.0" fitWidth="401.0" layoutX="96.0" layoutY="104.0" pickOnBounds="true" preserveRatio="true">
