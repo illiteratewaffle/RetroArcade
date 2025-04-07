@@ -57,13 +57,13 @@ public class ProfileCreation {
 //                System.out.println("Invalid email or username. Credentials already associated with an existing account.");
 //                return false;
 //            } else {
-                System.out.println("Profile registered correctly. Trying to Log In.");
-                Profile loggedInProfile = Authentication.logIn(username, password);
-                return loggedInProfile;
+            System.out.println("Profile registered correctly. Trying to Log In.");
+            Profile loggedInProfile = Authentication.logIn(username, password);
+            return loggedInProfile;
             //}
-            } catch(SQLException s){
-                throw new SQLException("Login Unsuccessful: " + s.getMessage());
-            }
+        } catch(SQLException s){
+            throw new SQLException("Login Unsuccessful: " + s.getMessage());
+        }
     }
 //            Profile profile = ProfileDatabaseAccess.obtainProfile(id);
 //            Authentication.setProfileLoggedIn(profile);
@@ -77,30 +77,30 @@ public class ProfileCreation {
 //            return null;
 //    }
 
-        /**
-         * Hashing Algorithm for Password. Takes the entered password and encrypts it to save profile credentials to the ProfileDatabase.
-         * @param unhashedPassword
-         * @return
-         */
-        public static String hashedPassword (String unhashedPassword){
-            String hashed = "";
-            //inbuilt MessageDigest class for SHA-256 hashing
-            //Source: https://www.baeldung.com/sha-256-hashing-java
-            //Convert bytes to hex Source: https://www.geeksforgeeks.org/java-program-to-convert-byte-array-to-hex-string/
-            try {
-                MessageDigest digest = MessageDigest.getInstance("SHA-256");
-                byte[] encodedHash = digest.digest(unhashedPassword.getBytes(StandardCharsets.UTF_8));
-                for (int i = 0; i < encodedHash.length; i++) {
-                    hashed += String.format("%02X", encodedHash[i]);
-                }
-            } catch (NoSuchAlgorithmException e) {
-                System.out.println("No such SHA-256 algorithm");
+    /**
+     * Hashing Algorithm for Password. Takes the entered password and encrypts it to save profile credentials to the ProfileDatabase.
+     * @param unhashedPassword
+     * @return
+     */
+    public static String hashedPassword (String unhashedPassword){
+        String hashed = "";
+        //inbuilt MessageDigest class for SHA-256 hashing
+        //Source: https://www.baeldung.com/sha-256-hashing-java
+        //Convert bytes to hex Source: https://www.geeksforgeeks.org/java-program-to-convert-byte-array-to-hex-string/
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            byte[] encodedHash = digest.digest(unhashedPassword.getBytes(StandardCharsets.UTF_8));
+            for (int i = 0; i < encodedHash.length; i++) {
+                hashed += String.format("%02X", encodedHash[i]);
             }
-            return hashed;
+        } catch (NoSuchAlgorithmException e) {
+            System.out.println("No such SHA-256 algorithm");
         }
+        return hashed;
+    }
 
 
-//    /**
+    //    /**
 //     * Method to delete the profile currently logged inm from the ProfileDatabase and then log them out.
 //     * @param authenticationSession
 //     */
@@ -109,15 +109,15 @@ public class ProfileCreation {
 //        ProfileDatabase.removeProfile(authenticationSession.getProfileLoggedIn().getUsername());
 //        authenticationSession.logOut();
 //    }
-        public static void main (String[]args) {
-            try {
-                Profile profile = ProfileCreation.createNewProfile("NewBranchDatabase", "newbranchdatabase@email.com", "1234586ass8sword");
-                System.out.println(profile.getID());
-                //should print true
-                System.out.println(profile.getOnlineStatus());
-                //System.out.println(ProfileDatabaseAccess.obtainProfile(5).getOnlineStatus());
-            }catch (SQLException s) {
-                System.out.println(s.getMessage());
+    public static void main (String[]args) {
+        try {
+            Profile profile = ProfileCreation.createNewProfile("NewBranchDatabase", "newbranchdatabase@email.com", "1234586ass8sword");
+            System.out.println(profile.getID());
+            //should print true
+            System.out.println(profile.getOnlineStatus());
+            //System.out.println(ProfileDatabaseAccess.obtainProfile(5).getOnlineStatus());
+        }catch (SQLException s) {
+            System.out.println(s.getMessage());
 
             //Email should be: "EmailShould be in index 3@email.com"
             //System.out.println(Authentication.getProfileLoggedIn().getHashedPassword());
@@ -125,6 +125,6 @@ public class ProfileCreation {
             //System.out.println(Authentication.getProfileLoggedIn().getUsername());
             //Username should be : "username should be in index 1"
         }
-        }
-        }
+    }
+}
 

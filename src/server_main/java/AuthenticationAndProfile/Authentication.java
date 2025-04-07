@@ -58,8 +58,7 @@ public class Authentication {
         } catch (SQLException s) {
             throw new SQLException(s.getMessage());
         }
-
-        }
+    }
 }
 
 //    /**

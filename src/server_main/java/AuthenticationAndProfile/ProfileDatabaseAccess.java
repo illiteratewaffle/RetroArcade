@@ -82,40 +82,40 @@ public class ProfileDatabaseAccess {
             PlayerManager.getProfile(id); //method to get Profile csv with all attributes associated to the specified id
         } catch (SQLException s){
             throw new SQLException(s.getMessage());
-            }
-            String csvProfileFilePath = String.format("player_profile_%d.csv", id); //csv file saved to the main project directory
+        }
+        String csvProfileFilePath = String.format("player_profile_%d.csv", id); //csv file saved to the main project directory
 
-            ArrayList<String> profileFields = openSingleProfileFile(csvProfileFilePath);
-            List<Integer> friends = new ArrayList<>();
-            String friendsString = profileFields.get(ProfileCSVReader.FRIENDS_INDEX);
+        ArrayList<String> profileFields = openSingleProfileFile(csvProfileFilePath);
+        List<Integer> friends = new ArrayList<>();
+        String friendsString = profileFields.get(ProfileCSVReader.FRIENDS_INDEX);
         System.out.println("Friends String: " + friendsString);
-            if (!friendsString.equals("null")){
+        if (!friendsString.equals("null")){
             String[] fieldsList = friendsString.split(",");
             for (int i = 0 ; i < fieldsList.length; i ++){
-                    friends.add(Integer.parseInt(fieldsList[i]));
-                }
+                friends.add(Integer.parseInt(fieldsList[i]));
             }
-            List<Integer> friendRequests = new ArrayList<>();
-            String friendRequestString = profileFields.get(ProfileCSVReader.FREQUEST_INDEX);
-            if(!friendRequestString.equals("null")) {
-                String[] fieldsList = friendRequestString.split(",");
-                for (int i = 0; i < fieldsList.length; i++) {
-                        friendRequests.add(Integer.parseInt(fieldsList[i]));
-                    }
-                }
-            FriendsList friendsList = new FriendsList(friends, friendRequests, id);
-            return friendsList;
+        }
+        List<Integer> friendRequests = new ArrayList<>();
+        String friendRequestString = profileFields.get(ProfileCSVReader.FREQUEST_INDEX);
+        if(!friendRequestString.equals("null")) {
+            String[] fieldsList = friendRequestString.split(",");
+            for (int i = 0; i < fieldsList.length; i++) {
+                friendRequests.add(Integer.parseInt(fieldsList[i]));
+            }
+        }
+        FriendsList friendsList = new FriendsList(friends, friendRequests, id);
+        return friendsList;
     }
 
     public static PlayerRanking obtainPlayerRanking(int id) {
         //call method to get csv for id
         //try {
-            //PlayerManager.getProfileTable(id); //method to get Profile csv with all attributes associated to the specified id
-            String csvProfileFilePath = String.format("player_profile_%d.csv", id); //csv file saved to the main project directory
+        //PlayerManager.getProfileTable(id); //method to get Profile csv with all attributes associated to the specified id
+        String csvProfileFilePath = String.format("player_profile_%d.csv", id); //csv file saved to the main project directory
 
-            ArrayList<String> profileFields = openSingleProfileFile(csvProfileFilePath);
+        ArrayList<String> profileFields = openSingleProfileFile(csvProfileFilePath);
 
-            //from Profile ArrayList obtain the values for Profile Class variables
+        //from Profile ArrayList obtain the values for Profile Class variables
         double[] winLossRatio = new double[3];
         int[] rating = new int[3];
         String[] rank = new String[3];
@@ -147,8 +147,8 @@ public class ProfileDatabaseAccess {
         total[1] = Integer.parseInt(profileFields.get(ProfileCSVReader.TOTAL_CONNECT4_INDEX));
         total[2] = Integer.parseInt(profileFields.get(ProfileCSVReader.TOTAL_CHECKERS_INDEX));
 
-            PlayerRanking playerRanking = new PlayerRanking(id,winLossRatio, rating, rank, wins, losses, total);
-            return playerRanking;
+        PlayerRanking playerRanking = new PlayerRanking(id,winLossRatio, rating, rank, wins, losses, total);
+        return playerRanking;
 //        } catch (IOException e){
 //            System.out.println("ID does not match a profile in the database.");
 //            return null;
@@ -198,8 +198,8 @@ public class ProfileDatabaseAccess {
                 }
             }
         }
-            GameHistory gameHistoryObject = new GameHistory(gameHistory, achievementProgress);
-            return gameHistoryObject;
+        GameHistory gameHistoryObject = new GameHistory(gameHistory, achievementProgress);
+        return gameHistoryObject;
 //        } catch (IOException e) {
 //            System.out.println("ID does not match a profile in the database.");
 //            return null;
@@ -224,15 +224,15 @@ public class ProfileDatabaseAccess {
      * @return HashMap<String, Profile>
      */
     public static ArrayList<ArrayList<String>> getAllProfiles() throws SQLException {
-            String csvProfileFilePath = "profiles_export.csv"; //csv is generated in the main directory of the project
-            try {
-                PlayerManager.getProfileTable();//method to get all profiles in database into a csv file
-                ArrayList<ArrayList<String>> profileFields = ProfileCSVReader.openProfilesFile(csvProfileFilePath);
-                return profileFields;
-            } catch (SQLException s) {
-                throw new SQLException(s.getMessage());
-            }
+        String csvProfileFilePath = "profiles_export.csv"; //csv is generated in the main directory of the project
+        try {
+            PlayerManager.getProfileTable();//method to get all profiles in database into a csv file
+            ArrayList<ArrayList<String>> profileFields = ProfileCSVReader.openProfilesFile(csvProfileFilePath);
+            return profileFields;
+        } catch (SQLException s) {
+            throw new SQLException(s.getMessage());
         }
+    }
 
     /**
      * Method to search for Profiles with usernames similar to the searched term.

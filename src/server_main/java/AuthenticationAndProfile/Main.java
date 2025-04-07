@@ -31,8 +31,8 @@ public class Main {
         }
 
         //ProfileCreation.createNewProfile("");
-            //PlayerManager.addToFriendsList(2, 1);
-            //System.out.println(ProfileDatabaseAccess.obtainFriendsList(2).getFriends());
+        //PlayerManager.addToFriendsList(2, 1);
+        //System.out.println(ProfileDatabaseAccess.obtainFriendsList(2).getFriends());
 
     }
 }

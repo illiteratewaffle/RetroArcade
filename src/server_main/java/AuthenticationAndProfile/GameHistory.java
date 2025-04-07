@@ -15,6 +15,7 @@ public class GameHistory{
     private long id;
     //achievements
     //progress of achievements
+
     /**
      * Constructor that loads the game history for a specific profile
      */
@@ -22,14 +23,12 @@ public class GameHistory{
 //        this.id = id;
 //        loadGameHistory();
 //    }
-
     public GameHistory(List<String> gameHistory, HashMap<String, Double> achievementProgress) {
         this.gameHistory = gameHistory;
         this.achievementProgress = achievementProgress;
     }
 
 //    public GameHistory(List<String> gameHistory){};
-
 
 
     /**
