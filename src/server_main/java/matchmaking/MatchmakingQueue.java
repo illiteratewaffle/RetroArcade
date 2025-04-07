@@ -124,6 +124,7 @@ public class MatchmakingQueue {
      * @param gameType An integer representing the game type of the queue to be sorted.
      */
     private static void quickSort(int gameType) throws SQLException {
+
         if (gameQueues.containsKey(gameType)) {
             gameQueues.put(gameType, quickSortHelper(gameQueues.get(gameType), gameType));
         }
@@ -137,6 +138,8 @@ public class MatchmakingQueue {
      * @return A new LinkedList containing the PlayerHandler objects sorted in ascending order of their rating for the given game type.
      */
     private static LinkedList<PlayerHandler> quickSortHelper(LinkedList<PlayerHandler> list, int gameType) throws SQLException {
+
+
         if (list.size() <= 1) return list;
 
         PlayerHandler pivot = list.get(list.size() / 2);
@@ -163,5 +166,6 @@ public class MatchmakingQueue {
         sorted.addAll(equal);
         sorted.addAll(quickSortHelper(lesser, gameType));
         return sorted;
+
     }
 }

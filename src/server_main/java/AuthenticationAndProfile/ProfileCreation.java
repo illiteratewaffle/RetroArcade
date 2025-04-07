@@ -53,14 +53,13 @@ public class ProfileCreation {
         try {
             int id = PlayerManager.registerPlayer(username, email, hashedPassword); //handle register player errors
             System.out.println(id);
-//            if (id == -1) {
-//                System.out.println("Invalid email or username. Credentials already associated with an existing account.");
-//                return false;
-//            } else {
-            System.out.println("Profile registered correctly. Trying to Log In.");
-            Profile loggedInProfile = Authentication.logIn(username, password);
-            return loggedInProfile;
-            //}
+            if (id == -1) {
+                throw new SQLException("Invalid email or username. Credentials are already associated with an existing account.");
+            } else {
+                System.out.println("Profile registered correctly. Trying to Log In.");
+                Profile loggedInProfile = Authentication.logIn(username, password);
+                return loggedInProfile;
+            }
         } catch(SQLException s){
             throw new SQLException("Login Unsuccessful: " + s.getMessage());
         }

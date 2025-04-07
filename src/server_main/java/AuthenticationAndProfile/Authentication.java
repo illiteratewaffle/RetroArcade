@@ -33,16 +33,15 @@ public class Authentication {
         Profile profile;
         try {
             int id = PlayerManager.authenticatePlayer(username, hashedPassword);
-            //if (id != -1) {
-            profile = ProfileDatabaseAccess.obtainProfile(id);
-            //setProfileLoggedIn(profile);
-            profile.setOnlineStatus(true);
-            System.out.printf("Player %d is setOnline\n", id);
-            return profile;
-//        } else {
-//            System.out.println("Unable to Log In.");
-//
-//        }
+            if (id != -1) {
+                profile = ProfileDatabaseAccess.obtainProfile(id);
+                //setProfileLoggedIn(profile);
+                profile.setOnlineStatus(true);
+                System.out.printf("Player %d is setOnline\n", id);
+                return profile;
+            } else {
+                throw new SQLException("Incorrect Username or Password");
+            }
         } catch (SQLException s) {
             throw new SQLException(s.getMessage());
         }
