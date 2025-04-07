@@ -72,6 +72,10 @@ public class GameSessionManager implements Runnable {
         BlockingQueue<ThreadMessage> myQueue = new LinkedBlockingQueue<>();
         ThreadRegistry.register(currentThread, myQueue);
 
+        // Tell the players the thread is ready
+        player1.setGameSessionManagerThread(Thread.currentThread());
+        player2.setGameSessionManagerThread(Thread.currentThread());
+
         log("GameSessionManager: Created " + gameType + " with players " + player1.getProfile().getUsername() +
                 ":" + player1.getProfile().getID() + " and " + player2.getProfile().getUsername() + ":" +
                 player2.getProfile().getID() + ".");

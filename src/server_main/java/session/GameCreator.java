@@ -41,8 +41,6 @@ public class GameCreator implements Runnable {
         //ThreadRegistry.register(sessionThread, session.getMessageQueue()); This will need to be fixed after talking with martin.
 
         //Update the gameSessionManagerThreads within the player handlers
-        player1.setGameSessionManagerThread(sessionThread);
-        player2.setGameSessionManagerThread(sessionThread);
         ServerLogger.log("GameCreator: Created game session manager for " + player1.getProfile().getUsername() + " and " + player2.getProfile().getUsername());
     }
 
