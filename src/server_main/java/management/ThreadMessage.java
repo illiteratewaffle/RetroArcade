@@ -31,7 +31,7 @@ public class ThreadMessage {
 
     /**
      * Get the content of the message
-     * @return a String that is the content of the message
+     * @return a HashMap<String, Object> that is the content of the message
      */
     public Map<String, Object> getContent() {
         return content;
