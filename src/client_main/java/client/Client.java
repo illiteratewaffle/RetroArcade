@@ -46,13 +46,28 @@ public class Client {
 
                     String type = (String) data.get("type");
                     switch (type) {
-                        case "message":
+                        case "chat":
                             System.out.println(data.get("sender") + ": " + data.get("message"));
+                            String message = (String) data.get("message");
+                            String sender = (String) data.get("sender");
+                            //updateChatbox(message,sender)
+                            break;
+                        case "game-move":
+                            System.err.println("Error: " + data.get("message"));
+                            break;
+                        case "profile-info-request":
+                            System.err.println("Error: " + data.get("message"));
                             break;
                         case "error":
                             System.err.println("Error: " + data.get("message"));
                             break;
-                        case "info":
+                        case "exit-game":
+                            System.out.println("[INFO]: " + data.get("message"));
+                            break;
+                        case "login":
+                            System.out.println("[INFO]: " + data.get("message"));
+                            break;
+                        case "register":
                             System.out.println("[INFO]: " + data.get("message"));
                             break;
                         default:
@@ -109,6 +124,7 @@ public class Client {
 
         return authData;
     }
+
     /**
      * The function that the thread runs
      */
@@ -165,4 +181,51 @@ public class Client {
         } catch (IOException e) {
             e.printStackTrace();
         }}
+    public static void login(String Username, String Password) {
+        String serverAddress = "localhost";
+        int port = 5050;
+        try {
+            Socket socket = new Socket(serverAddress, port);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
+
+            // Send auth request
+            HashMap<String, Object> authData = new HashMap<>();
+            authData.put("type", "login");
+            authData.put("username", Username);
+            authData.put("password", Password);
+            writer.println(JsonConverter.toJson(authData));
+
+            // Wait for server to assign and respond with PlayerID
+            String response;
+            // Start client
+            Client client = new Client(socket, null);
+            client.listenForMessages();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }}
+    public static void register(String Username, String Password, String Email) {
+        String serverAddress = "localhost";
+        int port = 5050;
+        try {
+            Socket socket = new Socket(serverAddress, port);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
+
+            // Send auth request
+            HashMap<String, Object> authData = new HashMap<>();
+            authData.put("type", "login");
+            authData.put("username", Username);
+            authData.put("password", Password);
+            authData.put("email", Email);
+            writer.println(JsonConverter.toJson(authData));
+
+            // Wait for server to assign and respond with PlayerID
+            Client client = new Client(socket, null);
+            client.listenForMessages();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }}
+
 }

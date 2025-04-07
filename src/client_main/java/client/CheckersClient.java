@@ -9,8 +9,8 @@ public class CheckersClient {
         String y = String.valueOf(input.y);
         HashMap<String, Object> data = new HashMap<>();
         data.put("type", "game-move");
-        data.put("message", "null");
-        data.put("game","Checkers)");
+        data.put("command", "receiveInput");
+        data.put("game","Checkers");
         data.put("x", x);
         data.put("y", y);
 
@@ -18,4 +18,18 @@ public class CheckersClient {
         Client.networkingMethod(data);
     }
 
+    public void getCurrentPlayer(){
+        HashMap<String, Object> data = new HashMap<>();
+        data.put("type", "game-move");
+        data.put("command", "getCurrentPlayer");
+        data.put("game","Checkers");
+        Client.networkingMethod(data);
+    }
+    public void sendmessage(String message){
+        HashMap<String, Object> data = new HashMap<>();
+        data.put("type", "chat");
+        data.put("message", message);
+        data.put("game","Checkers");
+        Client.networkingMethod(data);
+    }
 }
