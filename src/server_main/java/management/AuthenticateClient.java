@@ -3,6 +3,7 @@ package management;
 import AuthenticationAndProfile.Authentication;
 import AuthenticationAndProfile.Profile;
 import AuthenticationAndProfile.ProfileCreation;
+import AuthenticationAndProfile.ProfileDatabaseAccess;
 import management.ThreadMessage;
 import management.ThreadRegistry;
 import management.ServerController;
@@ -25,12 +26,10 @@ import static management.JsonConverter.toJson;
 import static management.ServerLogger.log;
 
 public class AuthenticateClient implements Runnable {
-    private final ServerController serverController;
     Socket clientSocket;
 
-    public AuthenticateClient(Socket clientSocket, ServerController serverController) {
+    public AuthenticateClient(Socket clientSocket) {
         this.clientSocket = clientSocket;
-        this.serverController = serverController;
     }
 
     /**
@@ -90,7 +89,8 @@ public class AuthenticateClient implements Runnable {
                     String password = (String) authData.get("password");
                     // login logic
                     try {
-                        return Authentication.logIn(username, password);
+                        int id = PlayerManager.authenticatePlayer(username, password);
+                        return ProfileDatabaseAccess.obtainProfile(id);
                         // return PlayerManager.authenticatePlayer(username, password);
                     } catch (SQLException e) {
                         sendError(printWriter, clientSocket, e.toString());

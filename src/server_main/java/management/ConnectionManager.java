@@ -8,11 +8,9 @@ import static management.ServerLogger.log;
 
 public class ConnectionManager implements Runnable {
     private final int port;
-    private final ServerController serverController;
 
-    public ConnectionManager(ServerController serverController, int port) {
+    public ConnectionManager(int port) {
 
-        this.serverController = serverController;
         this.port = port;
     }
 
@@ -28,7 +26,7 @@ public class ConnectionManager implements Runnable {
                 log("ConnectionManager: Accepted connection from " + clientSocket.getRemoteSocketAddress());
 
                 // Authenticate the player before accepting them to the server
-                AuthenticateClient authenticateClient = new AuthenticateClient(clientSocket, serverController);
+                AuthenticateClient authenticateClient = new AuthenticateClient(clientSocket);
                 Thread.ofVirtual().start(authenticateClient);
 
             }
