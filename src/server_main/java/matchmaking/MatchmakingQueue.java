@@ -1,5 +1,6 @@
 package matchmaking;
 
+import java.sql.SQLException;
 import java.util.*;
 
 import player.PlayerHandler;
@@ -53,7 +54,7 @@ public class MatchmakingQueue {
      * @param handler PlayerHandler object
      * @param gameType gameType specifying which LinkedList to add the PlayerHandler into
      */
-    public static void enqueue(PlayerHandler handler, int gameType) {
+    public static void enqueue(PlayerHandler handler, int gameType) throws SQLException {
         gameQueues.get(gameType).add(handler);
         quickSort(gameType);
     }
@@ -122,7 +123,7 @@ public class MatchmakingQueue {
      * This method replaces the existing queue for the given game type with the sorted version.
      * @param gameType An integer representing the game type of the queue to be sorted.
      */
-    private static void quickSort(int gameType) {
+    private static void quickSort(int gameType) throws SQLException {
         if (gameQueues.containsKey(gameType)) {
             gameQueues.put(gameType, quickSortHelper(gameQueues.get(gameType), gameType));
         }
@@ -135,7 +136,7 @@ public class MatchmakingQueue {
      * @param gameType The integer representing the game type used to retrieve the player's rating.
      * @return A new LinkedList containing the PlayerHandler objects sorted in ascending order of their rating for the given game type.
      */
-    private static LinkedList<PlayerHandler> quickSortHelper(LinkedList<PlayerHandler> list, int gameType) {
+    private static LinkedList<PlayerHandler> quickSortHelper(LinkedList<PlayerHandler> list, int gameType) throws SQLException {
         if (list.size() <= 1) return list;
 
         PlayerHandler pivot = list.get(list.size() / 2);
