@@ -28,9 +28,9 @@ public class GameCreator implements Runnable {
         ServerLogger.log("GameCreator: Dequeued player " + player.getProfile().getUsername());
     }
 
-    public void createSession(PlayerHandler player1, PlayerHandler player2) {
+    public void createSession(PlayerHandler player1, PlayerHandler player2, int gameType) {
         //Create the game session manager for the game session being created
-        GameSessionManager session = new GameSessionManager(player1, player2, "tictactoe");
+        GameSessionManager session = new GameSessionManager(player1, player2, gameType);
 
         //Start the game session manager thread
         Thread sessionThread = Thread.startVirtualThread(session);
@@ -43,7 +43,7 @@ public class GameCreator implements Runnable {
         player1.setGameSessionManagerThread(sessionThread);
         player2.setGameSessionManagerThread(sessionThread);
         ServerLogger.log("GameCreator: Created game session manager for " + player1.getProfile().getUsername() + " and " + player2.getProfile().getUsername());
-     }
+    }
 
     public void endSession(Thread sessionThread) {
         activeSessions.remove(sessionThread);
