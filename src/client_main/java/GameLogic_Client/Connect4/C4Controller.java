@@ -20,7 +20,8 @@ public class C4Controller implements IBoardGameController {
     }
 
     /**
-     * Receives yser input during the game.
+     * Receives user input during the game.
+     * @param input A 2D-Integer-Coordinate Input that corresponds to a Board Cell.
      */
     @Override
     public void ReceiveInput(ivec2 input) {
@@ -64,15 +65,11 @@ public class C4Controller implements IBoardGameController {
     @Override
     public int[] GetWinner() {
         C4Piece winner = c4GameLogic.getC4Winner();
-
-        int winnerCode;
-        switch (winner) {
-            case RED -> winnerCode = 1;
-            case BLUE -> winnerCode = 2;
-            default -> winnerCode = -1; //draw
-        }
-
-        return new int[]{winnerCode};
+        return switch (winner) {
+            case RED -> new int[]{0};
+            case BLUE -> new int[]{1};
+            default -> new int[]{0, 1}; //draw
+        };
     }
 
     @Override
@@ -124,5 +121,18 @@ public class C4Controller implements IBoardGameController {
      */
     void printBoard() {
         System.out.println(c4GameLogic);
+    }
+
+
+    /**
+     * Function to give users hints if needed during the game based on which column is an ideal pick.
+     * @return hint to user
+     */
+    public int getC4ColHint() {
+        if (c4GameLogic == null) {
+            System.out.println("Game not started. No hint available.");
+            return -1;
+        }
+        return c4GameLogic.getC4HintColumn();
     }
 }
