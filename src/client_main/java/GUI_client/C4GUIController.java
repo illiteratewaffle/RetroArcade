@@ -1,10 +1,13 @@
 package GUI_client;
 
 import GameLogic_Client.Connect4.C4Controller;
+import GameLogic_Client.Connect4.C4GameLogic;
 import GameLogic_Client.Connect4.C4Piece;
+import GameLogic_Client.Connect4.C4WinCheckerO1;
 import GameLogic_Client.ivec2;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -52,6 +55,15 @@ public class C4GUIController implements Initializable {
     public Button info_ok_button;
 
     @FXML
+    private ImageView hintMessageImage;
+
+    @FXML
+    public Button hint_ok_button;
+
+    @FXML
+    private ImageView noHintMessageImage;
+
+    @FXML
     private void handleUserClick() {
         c4Controller.ReceiveInput(new ivec2(3, 0)); // for example, drop in column 3
     }
@@ -93,6 +105,7 @@ public class C4GUIController implements Initializable {
 
     @FXML
     private GridPane c4GUIGrid;
+
 
     private void updateBoard() {
 //        C4Piece[][] board = gameLogic.getBoard().getC4Board(); // assuming getBoard() returns C4Board
@@ -136,6 +149,9 @@ public class C4GUIController implements Initializable {
                     showWinImage();
                 }
                 disableAllColumnButtons();
+                c4GUIGrid.getChildren().removeIf(node ->
+                        node instanceof Rectangle && "HINT".equals(node.getId())
+                );
             }
         }
     }
@@ -159,9 +175,7 @@ public class C4GUIController implements Initializable {
                                 GridPane.getRowIndex(node) != null &&
                                 GridPane.getColumnIndex(node) == col);
             }
-
         }
-
     }
 
     public void clickInfoButton(){
@@ -183,8 +197,108 @@ public class C4GUIController implements Initializable {
             winImage.setImage(new Image("win_image.png"));
             winImage.setVisible(true);
         }
-
     }
+
+    @FXML
+    private void clickHintButton() {
+        int hintCol = c4Controller.getC4ColHint();
+        hintMessageImage.setImage(new Image("C4hint_win_image.png"));
+        noHintMessageImage.setImage(new Image("C4no_hint_image.png"));
+        if (hintCol != -1) {
+            highlightHintColumn(hintCol);
+
+            hintMessageImage.setVisible(true);
+            hintMessageImage.setMouseTransparent(false);
+        }else{
+            noHintMessageImage.setVisible(true);
+            noHintMessageImage.setMouseTransparent(false);
+        }
+        hint_ok_button.setVisible(true);
+        hint_ok_button.setMouseTransparent(false);
+    }
+
+   /* private String getHintReason(int col) {
+        C4Piece[][] board = c4Controller.getC4Board().getC4Board();
+        C4Piece currentPlayer = c4Controller.getC4CurrentPlayer();
+        int row = getC4ColTopBlank(board, col);
+
+        if (row == -1) return "NONE";
+
+        // Test if current player could win
+        board[row][col] = currentPlayer;
+        boolean isWin = C4WinCheckerO1.isC4Win(new ivec2(col, row), currentPlayer, board);
+        board[row][col] = C4Piece.BLANK;
+        if (isWin) return "WIN";
+
+        // Test if opponent could win — so we're blocking
+        C4Piece opponent = (currentPlayer == C4Piece.RED) ? C4Piece.BLUE : C4Piece.RED;
+        board[row][col] = opponent;
+        boolean isBlock = C4WinCheckerO1.isC4Win(new ivec2(col, row), opponent, board);
+        board[row][col] = C4Piece.BLANK;
+        if (isBlock) return "BLOCK";
+
+        return "NONE";
+    }
+
+    private int getC4ColTopBlank(C4Piece[][] board, int col) {
+        for (int row = board.length - 1; row >= 0; row--) {
+            if (board[row][col] == C4Piece.BLANK) {
+                return row;
+            }
+        }
+        return -1;
+    } */
+
+
+
+    private void highlightHintColumn(int col) {
+        // Remove any previous hint highlights
+        c4GUIGrid.getChildren().removeIf(node ->
+                node instanceof Rectangle &&
+                        "HINT".equals(node.getId())
+        );
+
+        for (int row = 0; row < 6; row++) {
+            Rectangle highlight = new Rectangle(38, 36);
+            highlight.setFill(Color.PINK);
+            highlight.setOpacity(0.4);
+            highlight.setMouseTransparent(true);
+            c4GUIGrid.add(highlight, col, row);
+
+        }
+    }
+
+    public Node getNodeFromGridPane(GridPane grid, int col, int row) {
+        for (Node node : grid.getChildren()) {
+            if (GridPane.getColumnIndex(node) == col && GridPane.getRowIndex(node) == row) {
+                return node;
+            }
+        }
+        return null;  // Return null if no node is found at the given position
+    }
+
+    public void clickHintOkButton(){
+        hintMessageImage.setVisible(false);
+        hintMessageImage.setMouseTransparent(true);
+        noHintMessageImage.setVisible(false);
+        noHintMessageImage.setMouseTransparent(true);
+        hint_ok_button.setVisible(false);
+        hint_ok_button.setMouseTransparent(true);
+        resetColumnHighlights();
+    }
+
+    public void resetColumnHighlights() {
+        for (int row = 0; row < 6; row++) {
+            for (int col = 0; col < 7; col++) {
+                Node cell = getNodeFromGridPane(c4GUIGrid, col, row);
+                if (cell instanceof Rectangle) {
+                    Rectangle rect = (Rectangle) cell;
+                    rect.setStroke(Color.TRANSPARENT);  // Remove the highlight (clear border)
+                }
+            }
+        }
+    }
+
 
     @FXML private Button col0Button, col1Button, col2Button, col3Button, col4Button, col5Button, col6Button;
     private void disableAllColumnButtons() {

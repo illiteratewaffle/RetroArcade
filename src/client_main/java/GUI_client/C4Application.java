@@ -18,8 +18,6 @@ public class C4Application extends Application {
         Parent root = fxmlLoader.load();
         Scene scene = new Scene(root);
 
-//        C4GUIController GUIcontroller = fxmlLoader.getController();
-
         stage.setTitle("Connect 4 - JavaFX UI");
         stage.setScene(scene);
         stage.show();
