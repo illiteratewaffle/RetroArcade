@@ -22,7 +22,7 @@
       <!--Login Box Image -->
       <ImageView fitHeight="343.0" fitWidth="401.0" layoutX="96.0" layoutY="104.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../login_background." />
+            <Image url="@../login_background.png" />
          </image>
       </ImageView>
 
