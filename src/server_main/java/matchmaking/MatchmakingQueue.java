@@ -57,6 +57,18 @@ public class MatchmakingQueue {
      * @return
      */
     public static PlayerHandler dequeue(PlayerHandler player, int gameType) {
+        if (gameQueues.containsKey(gameType) && !gameQueues.get(gameType).remove(player)) {
+            return gameQueues.get(gameType).removeFirst();
+        }
+        return null;
+    }
+
+    /***
+     *
+     * @param gameType
+     * @return
+     */
+    public static PlayerHandler dequeue(int gameType) {
         if (gameQueues.containsKey(gameType) && !gameQueues.get(gameType).isEmpty()) {
             return gameQueues.get(gameType).removeFirst();
         }

@@ -12,7 +12,7 @@ public class Matchmaking {
      */
     public List<PlayerHandler> matchOpponents(int gameType) {
         while (MatchmakingQueue.size(gameType) > 1) {
-            PlayerHandler h1 = MatchmakingQueue.dequeue(gameType);
+            PlayerHandler h1 = MatchmakingQueue.dequeue(gameType);      //Solulu
             PlayerHandler h2 = MatchmakingQueue.peek(gameType);
 
             if (h2 != null) {
