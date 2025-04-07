@@ -20,8 +20,8 @@ public class GameCreator implements Runnable {
     }
 
     public void enqueuePlayer(PlayerHandler player, int gameType) throws SQLException {
-        gameQueue.enqueue(gameType, player);
         ServerLogger.log("GameCreator: Enqueued player " + player.getProfile().getUsername());
+        gameQueue.enqueue(gameType, player);
     }
 
     public void dequeuePlayer(PlayerHandler player) {

@@ -45,7 +45,7 @@ public class TemporaryClient {
                     if (data.containsKey("type") && data.get("type").equals("error")) {
                         // if it is an error, print the error
                         System.err.println("Error: " + data.get("message"));
-                    } else if (data.containsKey("type") && data.get("type").equals("message")) {
+                    } else if (data.containsKey("type") && data.get("type").equals("chat")) {
                         System.out.println(data.get("sender") + ": " + data.get("message"));
                     } else {
                         System.out.println(response);
@@ -86,7 +86,7 @@ public class TemporaryClient {
                         data.put("game-type", 2);
                     }
                 } else {
-                    data.put("type", "message");
+                    data.put("type", "chat");
                     data.put("message", message);
                 }
 
