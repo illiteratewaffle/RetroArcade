@@ -118,7 +118,15 @@ public class PlayerManager {
 
                 // Write player row
                 for (int i = 1; i <= columnCount; i++) {
-                    writer.append(rs.getString(i));
+                    String value = rs.getString(i);
+                    String columnType = metaData.getColumnTypeName(i);
+
+                    // Wrap hstore values in curly braces
+                    if ("hstore".equalsIgnoreCase(columnType) && value != null) {
+                        value = "{" + value + "}";
+                    }
+
+                    writer.append(value != null ? value : "");
                     if (i < columnCount) writer.append(",");
                 }
                 writer.append("\n");
@@ -166,7 +174,15 @@ public class PlayerManager {
             // Write table rows in the CSV
             while (rs.next()) {
                 for (int i = 1; i <= columnCount; i++) {
-                    writer.append(rs.getString(i));
+                    String value = rs.getString(i);
+                    String columnType = metaData.getColumnTypeName(i);
+
+                    // Wrap hstore values in curly braces
+                    if ("hstore".equalsIgnoreCase(columnType) && value != null) {
+                        value = "{" + value + "}";
+                    }
+
+                    writer.append(value != null ? value : "");
                     if (i < columnCount) writer.append(",");
                 }
                 writer.append("\n");
