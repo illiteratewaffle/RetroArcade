@@ -5,6 +5,7 @@ import management.*;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.BlockingQueue;
 
@@ -124,6 +125,14 @@ public class PlayerHandler implements Runnable {
                         //Check if the player is in a game session, and if so handle the game session ending.
                         if (gameSessionManagerThread != null) {
                             //TODO: Implement disconnection handling for when they're in a game session.
+
+                            //Create the thread message map to send to the game session manager
+                            Map<String, Object> messageMap = new HashMap<>();
+                            messageMap.put("type", "disconnection");
+
+                            //Create the thread message and send it to game session manager
+                            ThreadMessage disconnectMessage = new ThreadMessage(mainThread, messageMap);
+                            networkManager.sendMessage(gameSessionManagerThread, disconnectMessage);
                         }
 
                         break;
