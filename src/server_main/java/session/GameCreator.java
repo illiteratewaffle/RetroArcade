@@ -20,12 +20,12 @@ public class GameCreator implements Runnable {
 
     public void enqueuePlayer(PlayerHandler player, int gameType) {
         gameQueue.enqueue(gameType, player);
-        ServerLogger.log("Game Creator: Enqueued player " + player.getProfile().getUsername());
+        ServerLogger.log("GameCreator: Enqueued player " + player.getProfile().getUsername());
     }
 
     public void dequeuePlayer(PlayerHandler player) {
         gameQueue.dequeue(player);
-        ServerLogger.log("Game Creator: Dequeued player " + player.getProfile().getUsername());
+        ServerLogger.log("GameCreator: Dequeued player " + player.getProfile().getUsername());
     }
 
     public void createSession(PlayerHandler player1, PlayerHandler player2) {
@@ -42,7 +42,7 @@ public class GameCreator implements Runnable {
         //Update the gameSessionManagerThreads within the player handlers
         player1.setGameSessionManagerThread(sessionThread);
         player2.setGameSessionManagerThread(sessionThread);
-        ServerLogger.log("Game Creator: Created game session manager for " + player1.getProfile().getUsername() + " and " + player2.getProfile().getUsername());
+        ServerLogger.log("GameCreator: Created game session manager for " + player1.getProfile().getUsername() + " and " + player2.getProfile().getUsername());
      }
 
     public void endSession(Thread sessionThread) {
@@ -55,6 +55,11 @@ public class GameCreator implements Runnable {
 
     public void startGameFromQueue(int gameType) {
         List<PlayerHandler> players = gameQueue.matchOpponents(gameType);
+        if (players.size() == 2) {
+            createSession(players.get(0), players.get(1));
+        } else {
+            ServerLogger.log("GameCreator: Unable to retrieve a list of two players from Matchmaking.");
+        }
     }
 
     @Override
