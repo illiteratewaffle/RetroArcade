@@ -25,7 +25,6 @@ public class C4Application extends Application {
 
     public static void main(String[] args) {
         C4Controller c4Controller = new C4Controller();
-//        c4Controller.start();
         launch(args);
 
     }

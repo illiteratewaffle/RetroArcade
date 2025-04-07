@@ -106,5 +106,6 @@
          </image>
       </ImageView>
         <Button fx:id="hint_ok_button" layoutX="36.0" layoutY="312.0" mnemonicParsing="false" onMouseClicked="#clickHintOkButton" opacity="0.0" prefHeight="26.0" prefWidth="50.0" textFill="WHITE" />
+      <ImageView fx:id="turnIndicatorImage" fitHeight="79.0" fitWidth="98.0" layoutX="404.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true" />
     </children>
 </AnchorPane>

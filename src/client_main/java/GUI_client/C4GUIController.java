@@ -30,7 +30,7 @@ public class C4GUIController implements Initializable {
         c4Controller = new C4Controller();
         c4Controller.start(); // This will print the board and start the game logic
         c4GUIGrid.setGridLinesVisible(true);
-        //infoButton.setImage(new Image("C4Info.jpg"));
+        updateTurnIndicator();
 
         setupHoverEffect(col0Button, 0);
         setupHoverEffect(col1Button, 1);
@@ -64,6 +64,9 @@ public class C4GUIController implements Initializable {
 
     @FXML
     private ImageView noHintMessageImage;
+
+    @FXML
+    private ImageView turnIndicatorImage;
 
     @FXML
     private void handleUserClick() {
@@ -110,7 +113,6 @@ public class C4GUIController implements Initializable {
 
 
     private void updateBoard() {
-//        C4Piece[][] board = gameLogic.getBoard().getC4Board(); // assuming getBoard() returns C4Board
         C4Piece[][] board = c4Controller.getC4Board();;
 
         c4GUIGrid.getChildren().clear();
@@ -141,6 +143,7 @@ public class C4GUIController implements Initializable {
         if (!c4Controller.getC4IsGameOver()) {
             c4Controller.ReceiveInput(new ivec2(col, 0));
             updateBoard();
+            updateTurnIndicator();
 
             if (c4Controller.getC4IsGameOver()) {
                 C4Piece winner = c4Controller.getC4WinnerAsEnum();
@@ -164,21 +167,37 @@ public class C4GUIController implements Initializable {
     }
 
     private void highlightColumnOnHover(int col, boolean isHovering) {
-        for (int row = 0; row < 6; row++) {
-            Rectangle highlight = new Rectangle(38, 36);
-            highlight.setFill(Color.PINK);
-            highlight.setOpacity(0.4);
-            highlight.setMouseTransparent(true);
-            if (isHovering) {
+        if (isHovering) {
+            // Get current player and assign appropriate color (for pink or blue's turn)
+            C4Piece currentPlayer = c4Controller.getC4CurrentPlayer();
+            Color hoverColor = currentPlayer == C4Piece.RED ? Color.HOTPINK : Color.LIGHTBLUE;
+
+            for (int row = 0; row < 6; row++) {
+                Rectangle highlight = new Rectangle(38, 36);
+                highlight.setFill(hoverColor);
+                highlight.setOpacity(0.4);
+                highlight.setMouseTransparent(true);
+                highlight.setId("HOVER");
                 c4GUIGrid.add(highlight, col, row);
-            }else{
-                c4GUIGrid.getChildren().removeIf(node -> node instanceof Rectangle &&
-                                GridPane.getColumnIndex(node) != null &&
-                                GridPane.getRowIndex(node) != null &&
-                                GridPane.getColumnIndex(node) == col);
             }
+        } else {
+            c4GUIGrid.getChildren().removeIf(node ->
+                    node instanceof Rectangle &&
+                            "HOVER".equals(node.getId()) &&
+                            GridPane.getColumnIndex(node) != null &&
+                            GridPane.getColumnIndex(node) == col
+            );
         }
     }
+
+    private void updateTurnIndicator() {
+        turnIndicatorImage.setImage(new Image(
+                c4Controller.getC4CurrentPlayer() == C4Piece.RED
+                        ? "/pink_turn.png"
+                        : "/blue_turn.png"
+        ));
+    }
+
 
     public void clickInfoButton(){
         infoImage.setImage(new Image("C4info.jpg"));
@@ -207,8 +226,6 @@ public class C4GUIController implements Initializable {
         HintResult hint = c4Controller.getC4ColHint();
         hintMessageImage.setVisible(false);
         noHintMessageImage.setVisible(false);
-        //hintMessageImage.setImage(new Image("C4hint_win_image.png"));
-        //noHintMessageImage.setImage(new Image("C4no_hint_image.png"));
         if (hint.col != -1) {
             highlightHintColumn(hint.col);
             if ("WIN".equals(hint.type)){
@@ -228,7 +245,6 @@ public class C4GUIController implements Initializable {
     }
 
     private void highlightHintColumn(int col) {
-        // Remove any previous hint highlights
         c4GUIGrid.getChildren().removeIf(node ->
                 node instanceof Rectangle &&
                         "HINT".equals(node.getId())
@@ -236,7 +252,7 @@ public class C4GUIController implements Initializable {
 
         for (int row = 0; row < 6; row++) {
             Rectangle highlight = new Rectangle(38, 36);
-            highlight.setFill(Color.PINK);
+            highlight.setFill(Color.YELLOW);
             highlight.setOpacity(0.4);
             highlight.setMouseTransparent(true);
             c4GUIGrid.add(highlight, col, row);
@@ -250,7 +266,7 @@ public class C4GUIController implements Initializable {
                 return node;
             }
         }
-        return null;  // Return null if no node is found at the given position
+        return null;
     }
 
     public void clickHintOkButton(){

@@ -115,6 +115,8 @@ public class C4Controller implements IBoardGameController {
         return c4GameLogic.getC4Winner();
     }
 
+    public C4Piece getC4CurrentPlayer() {return c4GameLogic.getC4CurrentPlayer();}
+
     /**
      * Prints current state of board (at any point).
      */
