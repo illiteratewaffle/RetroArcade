@@ -169,7 +169,6 @@ public class CheckersGUIController implements Initializable {
         }
     }
 
-    
 
     /**
      * Gets the board cells and updates the pieces and highlights on the board based on that

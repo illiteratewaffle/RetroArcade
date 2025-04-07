@@ -681,6 +681,7 @@ public class CheckersController implements IBoardGameController
         {
             case P1WIN -> new int[]{0};
             case P2WIN -> new int[]{1};
+
             case TIE -> new int[]{0, 1};
             // By default, declare nobody as the winner.
             default -> new int[]{};

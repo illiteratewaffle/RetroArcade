@@ -4,6 +4,7 @@ import GameLogic_Client.Checkers.*;
 
 import GameLogic_Client.Checkers.GameState;
 import GameLogic_Client.Ivec2;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -125,11 +126,29 @@ public class CheckersControllerTest {
         Ivec2 start = new Ivec2(2, 2);
         var validInputs = controller.getPieceMovesPublic(new Ivec2(2,2), mustCapture);
 
-        // Validate that moves exist for player 1
+        // Validate that moves exists
         assertFalse(validInputs.isEmpty());
         Ivec2 expectedTarget = new Ivec2(3, 3);
         assertTrue(validInputs.containsKey(expectedTarget));
     }
+
+    public void getWinnerTest(){
+        CheckersController controller = new CheckersController();
+
+        GameState state = GameState.ONGOING;
+        Assertions.assertEquals(GameState.ONGOING, controller.getState());
+
+        state = GameState.P1WIN;
+        Assertions.assertEquals(GameState.P1WIN, controller.getState());
+
+        state = GameState.P2WIN;
+        Assertions.assertEquals(GameState.P2WIN, controller.getState());
+
+        state = GameState.TIE;
+        Assertions.assertEquals(GameState.TIE, controller.getState());
+    }
+
+
 
 
 }
