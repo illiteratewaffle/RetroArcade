@@ -21,7 +21,7 @@ class ProfileDatabaseAccessTest {
     @BeforeEach
     void setUp() {
         try {
-            id = PlayerManager.registerPlayer("username", "email@email.com", "12345678");
+            id = PlayerManager.registerPlayer("username2", "email2@email.com", "12345678");
             profile = ProfileDatabaseAccess.obtainProfile(id);
         } catch (SQLException s) {
             System.out.println("register player error: " + s.getMessage());
@@ -58,19 +58,31 @@ class ProfileDatabaseAccessTest {
     @Test
     void obtainFriendsList() {
         try {
-        System.out.println(PlayerManager.addToFriendsList(id, 1));
-        System.out.println(PlayerManager.addToFriendsList(id, 2));
-        System.out.println(PlayerManager.addToFriendsList(id, 3));
-        System.out.println(PlayerManager.addToFriendsList(id, 4));
-        //System.out.println(PlayerManager.addToFriendRequestList(id, 7));
-        //System.out.println(PlayerManager.addToFriendRequestList(id, 9));
-        List<Integer> friends = new ArrayList<>(Arrays.asList(1, 2, 3, 4));
-        List<Integer> friendRequests = new ArrayList<>(Arrays.asList(7, 8));
-        assertEquals(friends, ProfileDatabaseAccess.obtainFriendsList(id).getFriends());
-        //assertEquals(friendRequests, ProfileDatabaseAccess.obtainFriendsList(id).getFriendRequests());
-    } catch (SQLException s) {
-        System.out.println(s.getMessage());
-    }
+            System.out.println(PlayerManager.addToFriendsList(id, 1));
+            //System.out.println(ProfileDatabaseAccess.obtainFriendsList(id).getFriends());
+            //System.out.println(ProfileDatabaseAccess.obtainFriendsList(id).getFriendRequests());
+            System.out.println(PlayerManager.addToFriendsList(id, 2));
+            //System.out.println(ProfileDatabaseAccess.obtainFriendsList(id).getFriends());
+            //System.out.println(ProfileDatabaseAccess.obtainFriendsList(id).getFriendRequests());
+            System.out.println(PlayerManager.addToFriendsList(id, 3));
+            //System.out.println(ProfileDatabaseAccess.obtainFriendsList(id).getFriends());
+            //System.out.println(ProfileDatabaseAccess.obtainFriendsList(id).getFriendRequests());
+            System.out.println(PlayerManager.addToFriendsList(id, 4));
+            //System.out.println(ProfileDatabaseAccess.obtainFriendsList(id).getFriends());
+            //System.out.println(ProfileDatabaseAccess.obtainFriendsList(id).getFriendRequests());
+            System.out.println(PlayerManager.addToFriendRequests(id, 7));
+            //System.out.println(ProfileDatabaseAccess.obtainFriendsList(id).getFriends());
+            //System.out.println(ProfileDatabaseAccess.obtainFriendsList(id).getFriendRequests());
+            System.out.println(PlayerManager.addToFriendRequests(id, 9));
+            //System.out.println(ProfileDatabaseAccess.obtainFriendsList(id).getFriends());
+            //System.out.println(ProfileDatabaseAccess.obtainFriendsList(id).getFriendRequests());
+            List<Integer> friends = new ArrayList<>(Arrays.asList(1, 2, 3, 4));
+            List<Integer> friendRequests = new ArrayList<>(Arrays.asList(7, 9));
+            assertEquals(friends, ProfileDatabaseAccess.obtainFriendsList(id).getFriends());
+            assertEquals(friendRequests, ProfileDatabaseAccess.obtainFriendsList(id).getFriendRequests());
+        } catch (SQLException s) {
+            System.out.println(s.getMessage());
+        }
     }
 
     @Test
