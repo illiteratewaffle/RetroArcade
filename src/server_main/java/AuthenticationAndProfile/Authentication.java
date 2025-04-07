@@ -1,22 +1,16 @@
 package AuthenticationAndProfile;
 
 import player.PlayerManager;
-//import java.util.HashMap;
+import static management.ServerLogger.log;
+
+import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 /**
  * Authentication Class handles Profile Login and Logout
  * @author Alessia Flaig
  */
 public class Authentication {
-    //private static Profile profileLoggedIn;
-
-//    /**
-//     * Constructor to be created when program runs?
-//     */
-//    public Authentication() {
-//
-//    }
-
     /**
      * logIn(String username, String password)
      * This method takes a provided username and password from the LogIn page and authenticates the LogIn credentials.
@@ -28,55 +22,50 @@ public class Authentication {
      * login fails.
      */
     //return profile object
-    public static Profile logIn(String username, String password) throws SQLException {
-        String hashedPassword = ProfileCreation.hashedPassword(password);
-        Profile profile;
+    public static Profile logIn(String username, String password) throws SQLException, NoSuchAlgorithmException, IOException {
         try {
+            String hashedPassword = ProfileCreation.hashedPassword(password);
+            Profile profile;
             int id = PlayerManager.authenticatePlayer(username, hashedPassword);
             if (id != -1) {
                 profile = ProfileDatabaseAccess.obtainProfile(id);
-                //setProfileLoggedIn(profile);
                 profile.setOnlineStatus(true);
-                System.out.printf("Player %d is setOnline\n", id);
+                log("Player %d is setOnline\n", id);
                 return profile;
             } else {
                 throw new SQLException("Incorrect Username or Password");
             }
         } catch (SQLException s) {
             throw new SQLException(s.getMessage());
+        } catch (NoSuchAlgorithmException e) {
+            throw new NoSuchAlgorithmException(e.getMessage());
+        } catch (IOException i) {
+            throw new IOException(i.getMessage());
         }
     }
 
     /**
      * logOut() Sets profile's isOnline to false and sets the profileLoggedIn to null so that the previous profile information is no longer accessed.
      */
-    public static void logOut(int id) throws SQLException {
+    public static void logOut(int id) throws SQLException, IOException {
         try {
             ProfileDatabaseAccess.obtainProfile(id).setOnlineStatus(false);
-            //profileLoggedIn = null;
         } catch (SQLException s) {
             throw new SQLException(s.getMessage());
+        } catch (IOException e) {
+            throw new IOException(e.getMessage());
         }
     }
+
+//    public static String forgotPassword(String username, String email) {
+//        String password;
+//        try {
+//            password = PlayerManager.findPassword(username, email);
+//            log("Password sent to email: " + email);
+//            log("Password: " + password);
+//        } catch (SQLException s) {
+//            log("Username or Email do not exist. " + s.getMessage());
+//        }
+//        return password;
+//    }
 }
-
-//    /**
-//     * getProfileLoggedIn() to access Profile object of the profile currently logged in.
-//     * @return Profile currently logged in to access profile information.
-//     */
-//    public static Profile getProfileLoggedIn(){
-//        return profileLoggedIn;
-//    }
-//
-//    /**
-//     * Sets the Profile currently logged into on the program.
-//     * @param profile = Profile
-//     */
-//    public static void setProfileLoggedIn(Profile profile){
-//        profileLoggedIn = profile;
-//    }
-//}
-
-//public static void main(String[] args) {
-//
-//}

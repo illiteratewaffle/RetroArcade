@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import player.PlayerManager;
 import AuthenticationAndProfile.*;
 
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 
 class ProfileCreationTest {
@@ -12,8 +13,12 @@ class ProfileCreationTest {
     @Test
     void validHashedPassword() {
         String password = "1234567";
-        String hashedPassword = ProfileCreation.hashedPassword(password);
-        assertEquals("8bb0cf6eb9b17d0f7d22b456f121257dc1254e1f01665370476383ea776df414".toUpperCase(), hashedPassword);
+        try {
+            String hashedPassword = ProfileCreation.hashedPassword(password);
+            assertEquals("8bb0cf6eb9b17d0f7d22b456f121257dc1254e1f01665370476383ea776df414".toUpperCase(), hashedPassword);
+        } catch (NoSuchAlgorithmException n) {
+
+        }
     }
 
     @Test

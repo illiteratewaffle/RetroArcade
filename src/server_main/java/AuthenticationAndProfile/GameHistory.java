@@ -13,22 +13,14 @@ public class GameHistory{
     private List<String> gameHistory = new ArrayList<>();
     private HashMap<String, Double> achievementProgress = new HashMap<String, Double>();
     private long id;
-    //achievements
-    //progress of achievements
 
     /**
      * Constructor that loads the game history for a specific profile
      */
-//    public GameHistory(long id){
-//        this.id = id;
-//        loadGameHistory();
-//    }
     public GameHistory(List<String> gameHistory, HashMap<String, Double> achievementProgress) {
         this.gameHistory = gameHistory;
         this.achievementProgress = achievementProgress;
     }
-
-//    public GameHistory(List<String> gameHistory){};
 
 
     /**
@@ -53,20 +45,6 @@ public class GameHistory{
             return recentGames;
         }
     }
-
-
-//    public void loadGameHistory(){
-//        String filePath = // insert file path (different file for each id? all ids in same file?)
-//        ArrayList<String> fileContents = GameHistoryCSVReader.openGameHistoryFile(filePath);
-//        String[] games = //split game history based on how stored in csv (by ',' or ';' etc)
-//        for (String game : games){
-//            gameHistory.add(game.trim());
-//        }
-//    }
-
-    // load game history from CSV file ?
-    // save game history to CSV file ?
-
 
     public HashMap<String, Double> getAchievementProgress() {
         return achievementProgress;

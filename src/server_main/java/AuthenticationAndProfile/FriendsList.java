@@ -1,6 +1,7 @@
 package AuthenticationAndProfile;
 
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -74,23 +75,27 @@ public class FriendsList {
      * @param username The username used to search
      * @return The id associated with the username or -1 if not found
      */
-    public int idFromUsername(String username) {
-        ArrayList<ArrayList<String>> profiles = ProfileCSVReader.openProfilesFile("profiles_export.csv");
-        for (ArrayList<String> profile : profiles) {
-            if (profile.size() > ProfileCSVReader.USER_INDEX) {
-                String foundUsername = profile.get(ProfileCSVReader.USER_INDEX); // ensures enough elements in array
-                if (foundUsername.equals(username)) { // if the username matches the username of a current profile
-                    return Integer.parseInt(profile.get(ProfileCSVReader.ID_INDEX)); // returns ID associated with given username
+    public int idFromUsername(String username) throws IOException {
+        try {
+            ArrayList<ArrayList<String>> profiles = ProfileCSVReader.openProfilesFile("profiles_export.csv");
+            for (ArrayList<String> profile : profiles) {
+                if (profile.size() > ProfileCSVReader.USER_INDEX) {
+                    String foundUsername = profile.get(ProfileCSVReader.USER_INDEX); // ensures enough elements in array
+                    if (foundUsername.equals(username)) { // if the username matches the username of a current profile
+                        return Integer.parseInt(profile.get(ProfileCSVReader.ID_INDEX)); // returns ID associated with given username
+                    }
                 }
             }
+            return -1; // if username is not found in the database
+        } catch (IOException e) {
+            throw new IOException(e.getMessage());
         }
-        return -1; // if username is not found in the database
     }
 
     /**
      * Updates the CSV file adter any changes to the users friends or friend requests
      */
-    public void updateCSV() {
+    public void updateCSV() throws IOException {
         ArrayList<ArrayList<String>> profiles = ProfileCSVReader.openProfilesFile("profiles_export.csv");
 
         for (ArrayList<String> profile : profiles) {
@@ -113,12 +118,16 @@ public class FriendsList {
      *
      * @param username The username of the profile to add as a friend
      */
-    public void addFriend(String username) {
-        int id = idFromUsername(username);
-        if (id != -1 && !friends.contains(id)) {
-            friends.add(id); // adds the id to the list of friends
+    public void addFriend(String username) throws IOException {
+        try {
+            int id = idFromUsername(username);
+            if (id != -1 && !friends.contains(id)) {
+                friends.add(id); // adds the id to the list of friends
 
-            updateCSV(); // updates the CSV to reflect changes
+                updateCSV(); // updates the CSV to reflect changes
+            }
+        } catch (IOException e) {
+            throw new IOException(e.getMessage());
         }
     }
 
@@ -127,11 +136,15 @@ public class FriendsList {
      *
      * @param username The username of the profile to remove as a friend
      */
-    public void removeFriend(String username) {
-        int id = idFromUsername(username);
-        friends.remove(id); // removes the id from the list of friends
+    public void removeFriend(String username) throws IOException {
+        try {
+            int id = idFromUsername(username);
+            friends.remove(id); // removes the id from the list of friends
 
-        updateCSV(); // updates the CSV to reflect changes
+            updateCSV(); // updates the CSV to reflect changes
+        } catch (IOException e) {
+            throw new IOException(e.getMessage());
+        }
     }
 
     /**
@@ -140,13 +153,17 @@ public class FriendsList {
      *
      * @param username The username of the user sending the friend request
      */
-    public void acceptFriendRequest(String username) {
-        int id = idFromUsername(username);
-        if (friendRequests.contains(id)) {
-            friendRequests.remove(id); // removes the id from the friend request list
-            addFriend(username); // adds the friend to the friend list
+    public void acceptFriendRequest(String username) throws IOException{
+        try {
+            int id = idFromUsername(username);
+            if (friendRequests.contains(id)) {
+                friendRequests.remove(id); // removes the id from the friend request list
+                addFriend(username); // adds the friend to the friend list
 
-            updateCSV(); // updates the CSV to reflect changes
+                updateCSV(); // updates the CSV to reflect changes
+            }
+        } catch (IOException e) {
+            throw new IOException(e.getMessage());
         }
 
     }
@@ -156,7 +173,7 @@ public class FriendsList {
      *
      * @param username The username of the profile to send the request to
      */
-    public void sendFriendRequest(String username) throws SQLException { // username is of the profile to send the request to
+    public void sendFriendRequest(String username) throws SQLException, IOException { // username is of the profile to send the request to
         int recievingId = idFromUsername(username); // id to send the request to
         String sendingUsername;
         try {
@@ -183,6 +200,8 @@ public class FriendsList {
             ProfileCSVReader.writeProfilesFile("profiles_export.csv", profiles); // write the updates back to the CSV
         } catch (SQLException s) {
             throw new SQLException(s.getMessage());
+        } catch (IOException e) {
+            throw new IOException(e.getMessage());
         }
     }
 }

@@ -1,15 +1,10 @@
 package AuthenticationAndProfile;
 
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.UUID;
-
-//import leaderboard.TTTRanking;
-//import leaderboard.CheckersRanking;
-//import leaderboard.Connect4Ranking;
-//import leaderboard.PlayerRanking;
-//import leaderboard.PlayerRanking;
-//import leaderboard.PlayerRanking;
 import player.PlayerManager;
+import static management.ServerLogger.log;
 
 public class Profile {
     private String email;
@@ -28,9 +23,6 @@ public class Profile {
     public Profile(String email, String hashedPassword, String nickname, String bio, boolean isOnline, String currentGame,
                    FriendsList friendsList, PlayerRanking playerRanking, GameHistory gameHistory, String profilePicFilePath,
                    String username, int id) {
-        //public Profile(String email, String hashedPassword, String nickname, String bio, boolean isOnline, String
-        // currentGame, FriendsList friendsList, TTTRanking TTTRanking, Connect4Ranking connect4Ranking, CheckersRanking
-        // checkersRanking, GameHistory gameHistory, String profilePicFilePath, String username, int id) {
         this.email = email;
         this.hashedPassword = hashedPassword;
         this.nickname = nickname;
@@ -82,20 +74,17 @@ public class Profile {
      *
      * @param newPassword the new password of the player.
      */
-    public void setHashedPassword(String newPassword) throws SQLException {
-        String newHashedPassword = ProfileCreation.hashedPassword(newPassword);
-        this.hashedPassword = newHashedPassword;
+    public void setHashedPassword(String newPassword) throws SQLException, NoSuchAlgorithmException {
         try {
+            String newHashedPassword = ProfileCreation.hashedPassword(newPassword);
+            this.hashedPassword = newHashedPassword;
             PlayerManager.updateAttribute(id, "hashed_password", newHashedPassword);
-        } catch (SQLException s) {
-            throw new SQLException(s.getMessage());
-        }
-        try {
             PlayerManager.updateAttribute(id, "hashed_password", newHashedPassword);
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        } catch (NoSuchAlgorithmException n) {
+            throw new NoSuchAlgorithmException(n.getMessage());
         }
-
     }
 
     /**
@@ -183,12 +172,12 @@ public class Profile {
     public void getCurrentStatus() {
         if (isOnline) {
             if (currentGame != null) {
-                System.out.println("Online - Currently playing: " + currentGame);
+                log("Online - Currently playing: " + currentGame);
             } else {
-                System.out.println("Online");
+                log("Online");
             }
         } else {
-            System.out.println("Offline");
+            log("Offline");
         }
     }
 
@@ -346,28 +335,3 @@ public class Profile {
 // The identifier is then converted to a string using .toString. This ensures every time this test is ran, a unique profile is created.
 // The rest of the code in this test case (ProfileCreation.createNewProfile and following) was written without any AI assistance.
 // To ensure this code is efficiently reusable, I've moved the generation of usernames and passwords to their own methods in the Profile class.
-
-
-//    public TTTRanking getTTTRanking() {
-//        return TTTRanking;
-//    }
-//
-//    public Connect4Ranking getConnect4Ranking() {
-//        return connect4Ranking;
-//    }
-//
-//    public CheckersRanking getCheckersRanking() {
-//        return checkersRanking;
-//    }
-//
-//    public void setTTTRanking(TTTRanking TTTRanking) {
-//        this.TTTRanking = TTTRanking;
-//    }
-//
-//    public void setConnect4Ranking(Connect4Ranking connect4Ranking) {
-//        this.connect4Ranking = connect4Ranking;
-//    }
-//
-//    public void setCheckersRanking(CheckersRanking checkersRanking) {
-//        this.checkersRanking = checkersRanking;
-//    }

@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
@@ -89,10 +90,10 @@ public class AuthenticateClient implements Runnable {
                     String password = (String) authData.get("password");
                     // login logic
                     try {
-                         return Authentication.logIn(username, password);
+                        return Authentication.logIn(username, password);
                         //return ProfileDatabaseAccess.obtainProfile(id);
                         // return PlayerManager.authenticatePlayer(username, password);
-                    } catch (SQLException e) {
+                    } catch (SQLException | IOException | NoSuchAlgorithmException e) {
                         sendError(printWriter, clientSocket, e.toString());
                         return null;
                     }
@@ -112,7 +113,7 @@ public class AuthenticateClient implements Runnable {
                         // check boolean on ProfileCreation.createNewProfile(username, email, password)
                         // something?
                         return ProfileCreation.createNewProfile(username, email, password);
-                    } catch (SQLException e) {
+                    } catch (SQLException | NoSuchAlgorithmException | IOException e) {
                         sendError(printWriter, clientSocket, e.toString());
                         return null;
                     }

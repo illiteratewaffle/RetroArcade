@@ -5,7 +5,7 @@ import player.PlayerManager;
 import java.sql.SQLException;
 
 public class PlayerRanking {
-    private final int id;
+    private int id;
     private double[] winLossRatio = new double[3];
     private int[] rating = new int[3];
     private String[] rank = new String[3];
@@ -28,7 +28,6 @@ public class PlayerRanking {
     }
 
     public PlayerRanking() {
-        id = 0;
     }
 
     public void endOfMatchMethod(int gameNumber, int result) throws SQLException {
@@ -137,10 +136,6 @@ public class PlayerRanking {
         }
     }
 
-//    public int getWins(int id, int gameNumber) {
-//        return wins[gameNumber];
-//    }
-//}
 
     public int getWins(int gameNumber) throws SQLException {
         String gameName = null;
@@ -158,51 +153,3 @@ public class PlayerRanking {
         }
     }
 }
-
-
-//Abstract version test:
-//public abstract class PlayerRanking {
-//    protected double winLossRatio;
-//    protected int rating;
-//    protected String rank;
-//    protected int wins;
-//
-//    public PlayerRanking(double winLossRatio, int rating, String rank, int wins) {
-//        this.winLossRatio = winLossRatio;
-//        this.rating = rating;
-//        this.rank = rank;
-//        this.wins = wins;
-//    }
-//
-//    public double getWinLossRatio() {
-//        return winLossRatio;
-//    }
-//
-//    public void setWinLossRatio(double winLossRatio) {
-//        this.winLossRatio = winLossRatio;
-//    }
-//
-//    public int getRating() {
-//        return rating;
-//    }
-//
-//    public void setRating(int rating) {
-//        this.rating = rating;
-//    }
-//
-//    public String getRank() {
-//        return rank;
-//    }
-//
-//    public void setRank(String rank) {
-//        this.rank = rank;
-//    }
-//
-//    public int getWins() {
-//        return wins;
-//    }
-//
-//    public void setWins(int wins) {
-//        this.wins = wins;
-//    }
-//}

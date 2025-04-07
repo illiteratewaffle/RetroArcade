@@ -2,8 +2,9 @@ package AuthenticationAndProfile;
 
 import player.PlayerManager;
 
+import java.io.IOException;
 import java.sql.SQLException;
-
+import static management.ServerLogger.log;
 public class Main {
     /**
      * Main Method to start the server
@@ -20,19 +21,15 @@ public class Main {
 //            if (sc.nextLine().equalsIgnoreCase("exit"))
 //                running = false;
 //        }
+
         //Clearing Profiles:
         for (int i = 0; i < 200; i++) {
             try {
                 PlayerManager.deleteProfile(i);
                 ProfileDatabaseAccess.getAllProfiles();
-            } catch (SQLException s){
-                System.out.println(s.getMessage());
+            } catch (SQLException | IOException s){
+                log(s.getMessage());
             }
         }
-
-        //ProfileCreation.createNewProfile("");
-        //PlayerManager.addToFriendsList(2, 1);
-        //System.out.println(ProfileDatabaseAccess.obtainFriendsList(2).getFriends());
-
     }
 }

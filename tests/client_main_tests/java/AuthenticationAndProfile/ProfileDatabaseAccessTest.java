@@ -7,12 +7,13 @@ import org.junit.jupiter.api.Test;
 import player.PlayerManager;
 import AuthenticationAndProfile.*;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.*;
 
 import static java.util.Map.entry;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import static management.ServerLogger.log;
 
 class ProfileDatabaseAccessTest {
     private static int id;
@@ -25,6 +26,8 @@ class ProfileDatabaseAccessTest {
             profile = ProfileDatabaseAccess.obtainProfile(id);
         } catch (SQLException s) {
             System.out.println("register player error: " + s.getMessage());
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
         }
     }
 
@@ -51,7 +54,9 @@ class ProfileDatabaseAccessTest {
             assertEquals(profile1.getOnlineStatus(), ProfileDatabaseAccess.obtainProfile(id1).getOnlineStatus());
             PlayerManager.deleteProfile(id1);
         } catch (SQLException s) {
-            System.out.println(s.getMessage());
+            log(s.getMessage());
+        } catch (IOException e) {
+            log(e.getMessage());
         }
     }
 
@@ -69,7 +74,7 @@ class ProfileDatabaseAccessTest {
             assertEquals(profile1.getOnlineStatus(), ProfileDatabaseAccess.obtainProfileDirect(id1).getOnlineStatus());
             PlayerManager.deleteProfile(id1);
         } catch (SQLException s) {
-            System.out.println(s.getMessage());
+            log(s.getMessage());
         }
     }
 
@@ -98,7 +103,7 @@ class ProfileDatabaseAccessTest {
             List<Integer> friendRequests = new ArrayList<>(Arrays.asList(7, 9));
             assertEquals(friends, ProfileDatabaseAccess.obtainFriendsList(id).getFriends());
             assertEquals(friendRequests, ProfileDatabaseAccess.obtainFriendsList(id).getFriendRequests());
-        } catch (SQLException s) {
+        } catch (SQLException | IOException s) {
             System.out.println(s.getMessage());
         }
     }
@@ -135,8 +140,8 @@ class ProfileDatabaseAccessTest {
             assertEquals(playerRanking.getWinLossRatio(0), ProfileDatabaseAccess.obtainPlayerRanking(id).getWinLossRatio(PlayerRanking.TTT_INDEX));
             assertEquals(playerRanking.getRating(2), ProfileDatabaseAccess.obtainPlayerRanking(id).getRating(PlayerRanking.CHECKERS_INDEX));
             assertEquals(playerRanking.getRank(1), ProfileDatabaseAccess.obtainPlayerRanking(id).getRank(PlayerRanking.CONNECT4_INDEX));
-            assertEquals(playerRanking.getWins(id, 2), ProfileDatabaseAccess.obtainPlayerRanking(id).getWins(id, PlayerRanking.CHECKERS_INDEX));
-        } catch (SQLException s) {
+            assertEquals(playerRanking.getWins(2), ProfileDatabaseAccess.obtainPlayerRanking(id).getWins(PlayerRanking.CHECKERS_INDEX));
+        } catch (SQLException | IOException s) {
             System.out.println(s.getMessage());
         }
     }
@@ -152,7 +157,7 @@ class ProfileDatabaseAccessTest {
             assertEquals(gameHistory1.getGameHistory(), ProfileDatabaseAccess.obtainGameHistory(id).getGameHistory());
             assertEquals(gameHistory1.getAchievementProgress(), ProfileDatabaseAccess.obtainGameHistory(id).getAchievementProgress());
         } catch (SQLException s){
-            System.out.println(s.getMessage());
+            log(s.getMessage());
         }
     }
 

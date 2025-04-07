@@ -4,6 +4,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import static management.ServerLogger.log;
+
 public class ProfileCSVReader {
     /* New: With Game Rankings *********************************
     ID: index 0
@@ -75,7 +77,7 @@ public class ProfileCSVReader {
      *
      * @return
      */
-    public static ArrayList<String> openSingleProfileFile(String filePath){
+    public static ArrayList<String> openSingleProfileFile(String filePath) throws IOException{
         ArrayList<String> fields = new ArrayList<>();
         try {
             BufferedReader br = new BufferedReader(new FileReader(filePath));
@@ -85,27 +87,6 @@ public class ProfileCSVReader {
             line = br.readLine();
             // Split the line by csv section and store each field in an ArrayList<Object>
             String section = "";
-//            boolean inSection = false;
-//            boolean inSection2 = false;
-//            for (int j = 0; j < line.length(); j ++){
-//                Character c = Character.valueOf(line.charAt(j));
-//                if (c == '[') {
-//                    inSection = true;
-//                }else if ((c == '{') && !inSection){
-//                    inSection2 = true;
-//                } else if ((c == ',' && (!inSection || !inSection2))) {
-//                    fields.add(section);
-//                    section = "";
-//                }else if (c == ']') {
-//                    inSection = false;
-//                }else if ((c == '}' )&& inSection2){
-//                    inSection2 = false;
-//                } else if (j == line.length() - 1) {
-//                    section = section + c;
-//                    fields.add(section);
-//                }else if (c != '"') {
-//                    section = section + c;
-//                }
             boolean inSection = false;
             boolean firstOpenBracket = true;
             for (int j = 0; j < line.length(); j ++) {
@@ -155,8 +136,7 @@ public class ProfileCSVReader {
 //                    + " Creation Time: " + fields.get(FREQUEST_INDEX + 1)
 //            );
         } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("System can't find file");
+            throw new IOException("System can't find file");
         }
         return fields;
     }
@@ -167,7 +147,7 @@ public class ProfileCSVReader {
      * @param filePath
      * @return ArrayList<String> of all profiles in the database
      */
-    public static ArrayList<ArrayList<String>> openProfilesFile(String filePath) {
+    public static ArrayList<ArrayList<String>> openProfilesFile(String filePath) throws IOException{
         ArrayList<ArrayList<String>> fields = new ArrayList<>();
         try{
             BufferedReader br = new BufferedReader(new FileReader(filePath));
@@ -195,32 +175,11 @@ public class ProfileCSVReader {
                     }
                 }
                 fields.add(fieldsList);
-
-//                    System.out.println("ID: " + fields.get(i).get(ID_INDEX)
-//                            + " Username: " + fields.get(i).get(USER_INDEX)
-//                            + " Nickname: " + fields.get(i).get(NICK_INDEX)
-//                            + " Email: " + fields.get(i).get(EMAIL_INDEX)
-//                            + " HashedPassword: " + fields.get(i).get(PWD_INDEX)
-//                            + " Bio: " + fields.get(i).get(BIO_INDEX)
-//                            + " Profile pic: " + fields.get(i).get(PIC_INDEX)
-//                            + " Current game: " + fields.get(i).get(CGAME_INDEX)
-//                            + " IsOnline: " + fields.get(i).get(ONLINE_INDEX)
-//                            + " WLR: " + fields.get(i).get(WLR_INDEX)
-//                            + " Rating: " + fields.get(i).get(RATING_INDEX)
-//                            + " Rank: " + fields.get(i).get(RANK_INDEX)
-//                            + " Wins: " + fields.get(i).get(WINS_INDEX)
-//                            + " GameHistory: " + fields.get(i).get(GHIST_INDEX)
-//                            + " AchievementProgress: " + fields.get(i).get(ACHIVPROG_INDEX)
-//                            + " Friends: " + fields.get(i).get(FRIENDS_INDEX)
-//                            + " FriendRequests: " + fields.get(i).get(FREQUEST_INDEX)
-//                            + " Creation Time: " + fields.get(i).get(17)
-//                    );
                 i += 1;
             }
             br.close();
-        }catch (IOException e){
-            e.printStackTrace();
-            System.out.println("System can't find file");
+        } catch (IOException e){
+            throw new IOException("System can't find file");
         }
         return fields;
     }
@@ -246,6 +205,10 @@ public class ProfileCSVReader {
     }
 
     public static void main(String[] args) {
-        openSingleProfileFile("player_profile_19.csv");
+        try {
+            openSingleProfileFile("player_profile_19.csv");
+        } catch (IOException e) {
+            log(e.getMessage());
+        }
     }
 }
