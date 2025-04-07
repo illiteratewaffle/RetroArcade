@@ -1,6 +1,7 @@
 package player;
 
 import database.databaseConnector;
+import org.postgresql.util.HStoreConverter;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -14,13 +15,15 @@ public class PlayerManager {
     private static final Connection conn = databaseConnector.connect();
 
     /**
-     * Registers a new player with only the required information.
-     * Optional fields like nickname, bio, current game, and stats can be updated later.
+     * Registers a new player with the provided username, email, and hashed password.
+     * Returns the newly created player's ID on success. Optional profile attributes
+     * like nickname or bio can be set later.
      *
      * @param email Profile's associated email. Must be unique.
      * @param hashedPassword SHA-256 hashed password.
      * @param username Unique username of the player.
-     * @return Confirmation message on success or error message on failure.
+     * @return The newly created player ID if registration is successful, -1 otherwise.
+     * @throws SQLException
      */
     public static int registerPlayer(String username, String email, String hashedPassword) throws SQLException {
 
@@ -52,9 +55,11 @@ public class PlayerManager {
 
     /**
      * Authenticates player by querying the player relation in the db.
+     *
      * @param username References database using username for authentication.
      * @param passwordHash Checks username contains matching passwordHash in database.
      * @return true if player credentials match, false otherwise.
+     * @throws SQLException if a database access error occurs during the authentication process. To be handled by caller.
      */
     public static int authenticatePlayer(String username, String passwordHash) throws SQLException {
         // Prepare SQL query for storing profile into db. PreparedStatement is used to prevent SQL injection
@@ -82,6 +87,14 @@ public class PlayerManager {
         }
     }
 
+    /**
+     * Retrieves a player's profile by their ID and writes the data to a CSV file.
+     * The CSV includes column headers and the full row of player information.
+     *
+     * @param id ID of the player whose profile is to be exported.
+     * @throws SQLException SQLException if there is an error accessing the database or writing to the file. To be
+     * handled by caller.
+     */
     public static void getProfile(int id) throws SQLException {
         String query = "SELECT * FROM profiles WHERE id = ?";
         String fileName = "player_profile_" + id + ".csv";
@@ -167,6 +180,14 @@ public class PlayerManager {
         }
     }
 
+    /**
+     * Searches the friends list of a player for usernames containing the provided substring.
+     *
+     * @param id ID of the player whose friends list is being searched.
+     * @param nameFragment Substring to match against friend usernames.
+     * @return List of friend IDs whose usernames contain the substring.
+     * @throws SQLException SQLException if a database access error occurs or the query fails. To be handled by caller.
+     */
     public static List<Integer> searchFriendsList(int id, String nameFragment) throws SQLException {
         // SQL query that searches friends based on friend usernames that match the submitted string parameter
         String query = """
@@ -197,6 +218,7 @@ public class PlayerManager {
         // Return the friend's list that match the substring passed through
         return matchingIds;
     }
+
     //TODO: Search usernames to find all ids of profiles that have usernames that match search terms
     public static List<Integer> searchProfiles(String nameFragment) throws SQLException {
         // List containing friend Ids
@@ -204,6 +226,13 @@ public class PlayerManager {
         return matchingIds;
     }
 
+    /**
+     * Retrieves the username associated with the given player ID.
+     *
+     * @param id ID of the player.
+     * @return The username if found, or null if no matching player is found.
+     * @throws SQLException SQLException if a database access error occurs or the query fails. To be handled by caller.
+     */
     public static String getUsername(int id) throws SQLException {
         String query = "SELECT username FROM profiles WHERE id = ?";
 
@@ -222,6 +251,13 @@ public class PlayerManager {
         }
     }
 
+    /**
+     * Delete a profile row from the profiles table in the database.
+     *
+     * @param id ID of the profile to be deleted.
+     * @return Status message.
+     * @throws SQLException SQLException if a database access error occurs or the query fails. To be handled by caller.
+     */
     public static String deleteProfile(int id) throws SQLException {
         String query = "DELETE FROM profiles WHERE id = ?";
         try (PreparedStatement statement = conn.prepareStatement(query)) {
@@ -237,6 +273,15 @@ public class PlayerManager {
         }
     }
 
+    /**
+     * Update the attribute of a specified profile attribute - constrained to INTS, DOUBLES, TEXT, and BOOLEAN data types.
+     *
+     * @param id ID of the player.
+     * @param attrColumn Column to fetch data from.
+     * @param newValue New value to update attribute with.
+     * @return Status message.
+     * @throws SQLException SQLException if a database access error occurs or the query fails. To be handled by caller.
+     */
     public static String updateAttribute(int id, String attrColumn, Object newValue) throws SQLException {
         String query = "UPDATE profiles SET " + attrColumn + " = ? WHERE id = ?";
         try (PreparedStatement statement = conn.prepareStatement(query)) {
@@ -254,6 +299,14 @@ public class PlayerManager {
         }
     }
 
+    /**
+     * Fetch data from a specified profile ID and attribute column.
+     *
+     * @param id ID of the player.
+     * @param attrColumn Column to fetch data from.
+     * @return Value stored in the cell fetching data from.
+     * @throws SQLException SQLException if a database access error occurs or the query fails. To be handled by caller.
+     */
     public static String getAttribute(int id, String attrColumn) throws SQLException {
         String query = "SELECT " + attrColumn + " FROM profiles WHERE id = ?";
         try (PreparedStatement statement = conn.prepareStatement(query)) {
@@ -270,6 +323,14 @@ public class PlayerManager {
         }
     }
 
+    /**
+     * Add new friend profile ID to a player's friend list.
+     *
+     * @param id ID of the player.
+     * @param newFriendId ID of the newly added friend/
+     * @return Status message.
+     * @throws SQLException SQLException if a database access error occurs or the query fails. To be handled by caller.
+     */
     public static String addToFriendsList(int id, int newFriendId) throws SQLException {
         String query = """
                             UPDATE profiles
@@ -297,6 +358,14 @@ public class PlayerManager {
         }
     }
 
+    /**
+     * Add a friend request profile id to a player's friend request list.
+     *
+     * @param id ID of the player.
+     * @param newFriendId ID of the requesting friend.
+     * @return Status message.
+     * @throws SQLException SQLException if a database access error occurs or the query fails. To be handled by caller.
+     */
     public static String addToFriendRequests(int id, int newFriendId) throws SQLException {
         String query = """
                             UPDATE profiles
@@ -319,10 +388,17 @@ public class PlayerManager {
                 return "No player found with ID: " + id;
             }
         } catch (SQLException e) {
-            throw new SQLException("Error updating 'friend_requests' array: " + e.getMessage(), e);
+            throw new SQLException("Error updating friend_requests array: " + e.getMessage(), e);
         }
     }
 
+    /**
+     * Fetch a profile's ID using their username as a search constraint.
+     *
+     * @param username Username of the profile to search for.
+     * @return ID of the profile searched for.
+     * @throws SQLException SQLException if a database access error occurs or the query fails. To be handled by caller.
+     */
     public static int getProfileID(String username) throws SQLException {
         String query = "SELECT id FROM profiles WHERE username = ?";
         try (PreparedStatement statement = conn.prepareStatement(query)) {
@@ -340,6 +416,14 @@ public class PlayerManager {
         }
     }
 
+    /**
+     * Delete a friend from player's friend list.
+     *
+     * @param playerId ID of the player.
+     * @param friendId ID of the friend to be removed.
+     * @return Status message.
+     * @throws SQLException SQLException if a database access error occurs or the query fails. To be handled by caller.
+     */
     public static String deleteFriend(int playerId, int friendId) throws SQLException {
         // array_remove will remove 'friendId' from the 'friend_requests' INT[] column for the row matching userId
         String query = "UPDATE profiles SET friends = array_remove(friends, ?) WHERE id = ?";
@@ -357,10 +441,18 @@ public class PlayerManager {
                 throw new SQLException("No player found with ID: " + playerId);
             }
         } catch (SQLException e) {
-            throw new SQLException("No player found with ID: " + e.getMessage(), e);
+            throw new SQLException("Error deleting Friend: " + e.getMessage(), e);
         }
     }
 
+    /**
+     * Delete a friend request from a player's friend request list.
+     *
+     * @param playerId ID of the player.
+     * @param friendId ID of the friend request.
+     * @return Status message
+     * @throws SQLException SQLException if a database access error occurs or the query fails. To be handled by caller.
+     */
     public static String deleteFriendRequest(int playerId, int friendId) throws SQLException {
         // array_remove will remove 'friendId' from the 'friend_requests' INT[] column for the row matching userId
         String query = "UPDATE profiles SET friend_requests = array_remove(friend_requests, ?) WHERE id = ?";
@@ -378,11 +470,19 @@ public class PlayerManager {
                 throw new SQLException("No player found with ID: " + playerId);
             }
         } catch (SQLException e) {
-            throw new SQLException("No player found with ID: " + e.getMessage(), e);
+            throw new SQLException("Error deleting friend request: " + e.getMessage(), e);
         }
     }
 
-    public static String addToGamesPlayed(int id, String gamePlayed) {
+    /**
+     * Adds a game to the list of games played by a player.
+     *
+     * @param id ID of the player.
+     * @param gamePlayed Name of the game to add.
+     * @return Status message.
+     * @throws SQLException if a database access error occurs during the update. To be handled by caller.
+     */
+    public static String addToGamesPlayed(int id, String gamePlayed) throws SQLException {
         String query = """
                             UPDATE profiles
                             SET games_played = CASE
@@ -404,7 +504,39 @@ public class PlayerManager {
                 return "No player found with ID: " + id;
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new SQLException("Error adding to games played: " + e.getMessage(), e);
+        }
+    }
+
+    /**
+     * Adds or updates a player's progress toward a named achievement. Stores unique keys only.
+     *
+     * @param id ID of the player.
+     * @param achievementName Name of the achievement. Must be a string.
+     * @param progress Progress value to set. Must be a string.
+     * @return Status message.
+     * @throws SQLException if a database access error occurs during the update. To be handled by caller.
+     */
+    public static String setAchievementProgress(int id, String achievementName, String progress) throws SQLException {
+        String query = """
+                     UPDATE profiles
+                     SET achievement_progress = achievement_progress || hstore(?,?)
+                     WHERE id = ?
+                """;
+
+        try (PreparedStatement statement = conn.prepareStatement(query)) {
+            statement.setString(1, achievementName);
+            statement.setString(2, progress);
+            statement.setInt(3, id);
+
+            int rowsAffected = statement.executeUpdate();
+            if (rowsAffected > 0) {
+                return "Set achievement '" + achievementName + " for player " + id;
+            } else {
+                return "No player found with ID: " + id;
+            }
+        } catch (SQLException e) {
+            throw new SQLException("Error setting achievement progress: " + e.getMessage(), e);
         }
     }
 
