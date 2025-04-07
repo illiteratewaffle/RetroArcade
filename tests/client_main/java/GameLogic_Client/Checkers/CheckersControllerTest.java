@@ -48,6 +48,8 @@ public class CheckersControllerTest {
     {
         gameLogic = new CheckersController(defaultCheckersBoard);
 
+        // The size of the game board should be the same as that of the passed argument.
+        assertEquals(defaultCheckersBoard.getSize(), gameLogic.getBoardSize());
         // The game should start from player 1's turn.
         assertEquals(0, gameLogic.getCurrentPlayer());
         // The game should still be ongoing.
@@ -393,7 +395,7 @@ public class CheckersControllerTest {
     @Test
     // Test checking for valid moves of a piece when
     // one of the tiles that it can move to is blocked from being a capture
-    // because the capture would jump to an out of bounds tile.
+    // because the capture would jump to an out-of-bounds tile.
     public void getBlockedPieceMovesTest4()
     {
         // Modified board where a capture is blocked and therefore not possible.
@@ -403,7 +405,7 @@ public class CheckersControllerTest {
                 {pawn2, empty, pawn2, empty, pawn2, empty, pawn2, empty},
                 {empty, empty, empty, empty, empty, empty, empty, pawn1},
                 {empty, empty, empty, empty, empty, empty, empty, empty},
-                {empty, pawn1, empty, pawn1, empty, pawn1, empty, pawn2},
+                {empty, pawn1, empty, pawn1, empty, pawn1, empty, empty},
                 {pawn1, empty, pawn1, empty, pawn1, empty, pawn1, empty},
                 {empty, pawn1, empty, pawn1, empty, pawn1, empty, pawn1}
         }));
@@ -509,17 +511,23 @@ public class CheckersControllerTest {
     @Test
     public void testCanCaptureUpdateValidInputs()
     {
-        gameLogic = new CheckersController();
+        // Modified board such that only the 2 right-most pieces on the 6th row can make a capture.
+        gameLogic = new CheckersController(new CheckersBoard(8, 8, new int[][]{
+                {pawn2, empty, pawn2, empty, pawn2, empty, pawn2, empty},
+                {empty, pawn2, empty, pawn2, empty, pawn2, empty, pawn2},
+                {pawn2, empty, pawn2, empty, pawn2, empty, empty, empty},
+                {empty, empty, empty, empty, empty, empty, empty, empty},
+                {empty, empty, empty, empty, empty, empty, pawn2, empty},
+                {empty, pawn1, empty, pawn1, empty, pawn1, empty, pawn1},
+                {pawn1, empty, pawn1, empty, pawn1, empty, pawn1, empty},
+                {empty, pawn1, empty, pawn1, empty, pawn1, empty, pawn1}
+        }));
 
         HashMap<Ivec2, HashMap<Ivec2, CheckersMove>> expectedValidInputs = new HashMap<>();
 
-        boolean[] mustCapture = new boolean[]{false};
+        boolean[] mustCapture = new boolean[]{true};
 
-        // Add the moves of pieces that can be moved.
-        expectedValidInputs.put(new Ivec2(1, 5),
-                gameLogic.getPieceMovesPublic(new Ivec2(1, 5), mustCapture));
-        expectedValidInputs.put(new Ivec2(3, 5),
-                gameLogic.getPieceMovesPublic(new Ivec2(3, 5), mustCapture));
+        // Add the capture moves of pieces that can be actually perform a capture.
         expectedValidInputs.put(new Ivec2(5, 5),
                 gameLogic.getPieceMovesPublic(new Ivec2(5, 5), mustCapture));
         expectedValidInputs.put(new Ivec2(7, 5),
@@ -529,6 +537,14 @@ public class CheckersControllerTest {
     }
 
 
+    @Test
+    public void selectPieceTest()
+    {
+        gameLogic = new CheckersController(defaultCheckersBoard);
+    }
+
+
+    @Test
     public void getWinnerTest(){
         CheckersController controller = new CheckersController();
 
