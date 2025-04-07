@@ -85,7 +85,6 @@ public class GameSessionManager implements Runnable {
             try {
                 ThreadMessage threadMessage = myQueue.take();
                 if (threadMessage.getContent().containsKey("type") && threadMessage.getContent().get("type").equals("chat")) {
-                    System.out.println("balls");
                     handleChatMessage(threadMessage);
                 }
             } catch (InterruptedException e) {
