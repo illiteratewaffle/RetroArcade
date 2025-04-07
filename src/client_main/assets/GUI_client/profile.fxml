@@ -278,12 +278,12 @@
             <Image url="@../profile_assets/profile_buttons/stats_button.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="discard_button" fitHeight="49.0" fitWidth="180.0" layoutX="230.0" layoutY="570.0" onMouseClicked="#discard_changes" opacity="0.0">
+      <ImageView fx:id="discard_button" fitHeight="49.0" fitWidth="180.0" layoutX="230.0" layoutY="559.0" onMouseClicked="#discard_changes" opacity="0.0">
          <image>
             <Image url="@../profile_assets/discard_button.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="apply_button" fitHeight="34.0" fitWidth="148.0" layoutX="45.0" layoutY="577.0" onMouseClicked="#apply_changes" opacity="0.0">
+      <ImageView fx:id="apply_button" fitHeight="34.0" fitWidth="148.0" layoutX="45.0" layoutY="565.0" onMouseClicked="#apply_changes" opacity="0.0">
          <image>
             <Image url="@../profile_assets/apply_button.png" />
          </image>

@@ -68,6 +68,7 @@ public class profileGUIController {
             } else {
                 //set the avatar to poop if no other path is found.
                 avatarPath = "/GUI_client/GUI_avatars/poop.PNG";
+                url = getClass().getResource(avatarPath);
                 Image profileImage = new Image(url.toExternalForm(), false);
                 avatar.setImage(profileImage);
             }
