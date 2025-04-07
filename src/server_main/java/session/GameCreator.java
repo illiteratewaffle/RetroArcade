@@ -20,13 +20,13 @@ public class GameCreator implements Runnable {
     }
 
     public void enqueuePlayer(PlayerHandler player, int gameType) throws SQLException {
-        ServerLogger.log("GameCreator: Enqueued player " + player.getProfile().getUsername());
+        ServerLogger.log("GameCreator: Enqueued player " + player.getProfile().getUsername() + ":" + player.getProfile().getID());
         gameQueue.enqueue(gameType, player);
     }
 
     public void dequeuePlayer(PlayerHandler player) {
         gameQueue.dequeue(player);
-        ServerLogger.log("GameCreator: Dequeued player " + player.getProfile().getUsername());
+        ServerLogger.log("GameCreator: Dequeued player " + player.getProfile().getUsername() + ":" + player.getProfile().getID());
     }
 
     public void createSession(PlayerHandler player1, PlayerHandler player2, int gameType) {
@@ -41,7 +41,9 @@ public class GameCreator implements Runnable {
         //ThreadRegistry.register(sessionThread, session.getMessageQueue()); This will need to be fixed after talking with martin.
 
         //Update the gameSessionManagerThreads within the player handlers
-        ServerLogger.log("GameCreator: Created game session manager for " + player1.getProfile().getUsername() + " and " + player2.getProfile().getUsername());
+        ServerLogger.log("GameCreator: Created game session manager for " + player1.getProfile().getUsername()
+                + ":" + player1.getProfile().getID() + " and " + player2.getProfile().getUsername() + ":"
+                + player2.getProfile().getID());
     }
 
     public void endSession(Thread sessionThread) {
