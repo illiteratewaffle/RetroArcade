@@ -182,8 +182,10 @@ public class Client {
             e.printStackTrace();
         }}
     public static void login(String Username, String Password) {
-        String serverAddress = "localhost";
+        String serverAddress = "10.13.157.168";
         int port = 5050;
+        Username = "ava";
+        Password = "password";
         try {
             Socket socket = new Socket(serverAddress, port);
             BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
