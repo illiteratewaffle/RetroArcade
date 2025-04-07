@@ -27,7 +27,8 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class CheckersGUIController implements Initializable {
-
+    @FXML
+    public ImageView sendButton;
     @FXML
     public ImageView quitButton;
     @FXML

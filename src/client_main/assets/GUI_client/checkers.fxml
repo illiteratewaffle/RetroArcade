@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
 
-<AnchorPane fx:id="checkersBackgroundImage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI_client.CheckersGUIController">
+<AnchorPane fx:id="checkersBackgroundImage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI_client.CheckersGUIController">
     <children>
         <ImageView fx:id="carpetBackground" fitHeight="697.0" fitWidth="957.0" layoutX="-15.0" layoutY="-22.0" pickOnBounds="true" preserveRatio="true">
             <image>
@@ -308,23 +315,29 @@
             <cursor>
                 <Cursor fx:constant="OPEN_HAND" />
             </cursor></ImageView>
-      <ImageView fx:id="checkerChatBg" fitHeight="368.0" fitWidth="179.0" layoutX="722.0" layoutY="146.0" pickOnBounds="true" preserveRatio="true" />
-        <ScrollPane fx:id="checkerChatPane" hbarPolicy="NEVER" layoutX="739.0" layoutY="168.0" prefHeight="298.0" prefWidth="150.0" vbarPolicy="ALWAYS">
-         <content>
-            <TextArea fx:id="checkerChatArea" prefHeight="304.0" prefWidth="151.0" />
-         </content></ScrollPane>
-        <TextField fx:id="checkerChatInput" layoutX="741.0" layoutY="474.0" prefHeight="24.0" prefWidth="108.0" promptText="send to chat" />
-        <ImageView fitHeight="26.0" fitWidth="37.0" layoutX="855.0" layoutY="474.0" pickOnBounds="true" preserveRatio="true" />
-        <ImageView fx:id="quitButton" fitHeight="64.0" fitWidth="68.0" layoutX="819.0" layoutY="15.0" onMouseClicked="#quitCheckers" onMousePressed="#XPressed" onMouseReleased="#XReleased" pickOnBounds="true" preserveRatio="true">
+        <ImageView fx:id="checkerChatBg" fitHeight="383.0" fitWidth="230.0" layoutX="672.0" layoutY="99.0" pickOnBounds="true" />
+        <ScrollPane fx:id="checkerChatPane" hbarPolicy="NEVER" layoutX="686.0" layoutY="131.0" prefHeight="295.0" prefWidth="200.0" vbarPolicy="ALWAYS">
+            <content>
+                <TextArea fx:id="checkerChatArea" mouseTransparent="true" prefHeight="293.0" prefWidth="200.0" />
+            </content></ScrollPane>
+        <TextField fx:id="checkerChatInput" layoutX="684.0" layoutY="437.0" prefHeight="25.0" prefWidth="151.0" promptText="send to chat" />
+        <ImageView fx:id="sendButton" fitHeight="25.0" fitWidth="48.0" layoutX="847.0" layoutY="437.0" onMouseClicked="#sendMessage" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../send_button.png" />
+            </image>
             <cursor>
                 <Cursor fx:constant="OPEN_HAND" />
             </cursor></ImageView>
-        <ImageView fx:id="muteButton" fitHeight="64.0" fitWidth="68.0" layoutX="732.0" layoutY="13.0" onMouseClicked="#muteButtonClick" pickOnBounds="true" preserveRatio="true">
+        <ImageView fx:id="quitButton" fitHeight="80.0" fitWidth="80.0" layoutX="807.0" layoutY="15.0" onMouseClicked="#quitCheckers" onMousePressed="#XPressed" onMouseReleased="#XReleased" pickOnBounds="true" preserveRatio="true">
+            <cursor>
+                <Cursor fx:constant="OPEN_HAND" />
+            </cursor></ImageView>
+        <ImageView fx:id="muteButton" fitHeight="80.0" fitWidth="80.0" layoutX="717.0" layoutY="15.0" onMouseClicked="#muteButtonClick" pickOnBounds="true" preserveRatio="true">
             <cursor>
                 <Cursor fx:constant="OPEN_HAND" />
             </cursor></ImageView>
         <ImageView fx:id="infoButton" fitHeight="64.0" fitWidth="68.0" layoutX="16.0" layoutY="14.0" onMouseClicked="#infoButtonPress" onMousePressed="#infoPressed" onMouseReleased="#infoReleased" pickOnBounds="true" preserveRatio="true">
-        <cursor>
+            <cursor>
                 <Cursor fx:constant="OPEN_HAND" />
             </cursor></ImageView>
         <ImageView fx:id="infoBg" fitHeight="487.0" fitWidth="349.0" layoutX="288.0" layoutY="57.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" />
@@ -334,8 +347,3 @@
             </cursor></ImageView>
     </children>
 </AnchorPane>
-
-
-
-
-
