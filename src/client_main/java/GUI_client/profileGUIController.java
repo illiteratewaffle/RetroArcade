@@ -4,14 +4,18 @@ import com.sun.javafx.menu.MenuItemBase;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import leaderboard.PlayerRanking;
 
+import java.io.IOException;
 import java.net.URL;
 
 public class profileGUIController {
@@ -52,25 +56,25 @@ public class profileGUIController {
     public profileGUIController() {
         System.out.println("profileGUIController loaded");
     }
-
+    //**Other profile would need this
     public void initializeProfile(){
         String bio = Authentication.getProfileLoggedIn().getBio();
         String userName = Profile.getUsername();
         String nickName = Profile.getNickname();
-        String avatarPath = Profile.getProfilePicFilePath();
+        String getAvatarPath = Profile.getProfilePicFilePath();
+        setConponents(bio, userName, nickName, getAvatarPath);
+    }
+    //**Other profile would need this
+    public void setConponents(String bio, String userName, String nickName, String getAvatarPath) {
         bio_label.setText(bio);
-        name_label.setText(nickName + "("+userName+")");
-        if (avatarPath != null) {
-            URL url = getClass().getResource(avatarPath);
+        name_label.setText(nickName + "(" + userName + ")");
+        if (getAvatarPath != null) {
+            URL url = getClass().getResource(getAvatarPath);
             if (url != null) {
                 Image profileImage = new Image(url.toExternalForm(), false);
                 avatar.setImage(profileImage);
             } else {
-                //set the avatar to poop if no other path is found.
-                avatarPath = "/GUI_client/GUI_avatars/poop.PNG";
-                url = getClass().getResource(avatarPath);
-                Image profileImage = new Image(url.toExternalForm(), false);
-                avatar.setImage(profileImage);
+                System.out.println("No Avatar found!");
             }
         }
     }
@@ -96,7 +100,7 @@ public class profileGUIController {
        // Adding the content to the listview
         inbox_contents.setItems(requests);
     }
-
+    //**Other profile would need this
     public void open_friends(MouseEvent mouseEvent){
         //Making sure that all other lists/table is invisible so that you cannot see the other windows, only the one clicked into.
         inbox_contents.setOpacity(0.0);
@@ -113,7 +117,7 @@ public class profileGUIController {
 
 
     }
-
+    //**Other profile needs this
     public void open_history(MouseEvent mouseEvent) {
         //Making sure that all other lists/table is invisible so that you cannot see the other windows, only the one clicked into.
         history_list.setOpacity(1.0);
@@ -129,7 +133,7 @@ public class profileGUIController {
         //Adding the histroy content to the listview
         history_list.setItems(history);
     }
-
+    //**Other profile needs this
     public void open_stats(MouseEvent mouseEvent) {
         //Making sure that all other lists/table is invisible so that you cannot see the other windows, only the one clicked into.
         history_list.setOpacity(0.0);
@@ -186,6 +190,7 @@ public class profileGUIController {
 
     public void open_edit_profile(MouseEvent mouseEvent) {
         //Making sure that all other lists/table is invisible while editing profile.
+
         apply_button.setOpacity(1.0); apply_button.setDisable(false);
         discard_button.setOpacity(1.0); discard_button.setDisable(false);
         history_list.setOpacity(0.0);
@@ -203,7 +208,8 @@ public class profileGUIController {
     public void updateProfilePicture(Image image){
         avatar.setImage(image);
     }
-    public void discard_changes(MouseEvent mouseEvent) {
+
+    public void discard_changes(MouseEvent mouseEvent) throws IOException {
         history_list.setOpacity(0.0);
         inbox_contents.setOpacity(0.0);
         friends_list.setOpacity(0.0);
@@ -219,9 +225,9 @@ public class profileGUIController {
         edit_profile_button.setDisable(false);
         apply_button.setDisable(true);
         discard_button.setDisable(true);
-
         initializeProfile();
     }
+
     public void apply_changes(MouseEvent mouseEvent) {
         history_list.setOpacity(0.0);
         inbox_contents.setOpacity(0.0);
@@ -238,13 +244,10 @@ public class profileGUIController {
         edit_profile_button.setDisable(false);
         apply_button.setDisable(true);
         discard_button.setDisable(true);
-
-
-
     }
 
     //All methods below are used to change the profile picture based on
-    public void choose_poop(ContextMenuEvent contextMenuEvent) {
+    public void choose_poop(MouseEvent mouseEvent) {
         String path = "/GUI_avatars/poop.PNG";
         URL url = getClass().getResource(path);
         if (url != null) {
@@ -267,7 +270,7 @@ public class profileGUIController {
         } else {
             System.out.println("Failed to load image from path: " + path);
         }
-        AvatarPath(path);
+        getAvatarPath(path);
     }
 
     public void choose_purple_alien(MouseEvent mouseEvent) {
@@ -280,12 +283,12 @@ public class profileGUIController {
         } else {
             System.out.println("Failed to load image from path: " + path);
         }
-        AvatarPath(path);
+        getAvatarPath(path);
     }
 
 
-public void choose_pink_alien(ContextMenuEvent contextMenuEvent) {
-        String path = "/GUI_avatars/pacman_pink.PNG";
+public void choose_pink_alien(MouseEvent mouseEvent) {
+        String path = "/GUI_avatars/Invader_pink.PNG";
         URL url = getClass().getResource(path);
         if (url != null) {
             System.out.println("Image URL: " + url);
@@ -294,10 +297,10 @@ public void choose_pink_alien(ContextMenuEvent contextMenuEvent) {
         } else {
             System.out.println("Failed to load image from path: " + path);
         }
-        AvatarPath(path);
+        getAvatarPath(path);
     }
 
-    public void choose_green_alien(ContextMenuEvent contextMenuEvent) {
+    public void choose_green_alien(MouseEvent mouseEvent) {
         String path = "/GUI_avatars/Invader_green.PNG";
         URL url = getClass().getResource(path);
         if (url != null) {
@@ -307,7 +310,7 @@ public void choose_pink_alien(ContextMenuEvent contextMenuEvent) {
         } else {
             System.out.println("Failed to load image from path: " + path);
         }
-        AvatarPath(path);
+        getAvatarPath(path);
     }
 
     public void choose_cyan_alien(MouseEvent mouseEvent) {
@@ -320,7 +323,7 @@ public void choose_pink_alien(ContextMenuEvent contextMenuEvent) {
         } else {
             System.out.println("Failed to load image from path: " + path);
         }
-        AvatarPath(path);
+        getAvatarPath(path);
     }
 
     public void choose_toad(MouseEvent mouseEvent) {
@@ -333,7 +336,7 @@ public void choose_pink_alien(ContextMenuEvent contextMenuEvent) {
         } else {
             System.out.println("Failed to load image from path: " + path);
         }
-        AvatarPath(path);
+        getAvatarPath(path);
     }
 
     public void choose_blue_ghost(MouseEvent mouseEvent) {
@@ -346,7 +349,7 @@ public void choose_pink_alien(ContextMenuEvent contextMenuEvent) {
         } else {
             System.out.println("Failed to load image from path: " + path);
         }
-        AvatarPath(path);
+        getAvatarPath(path);
     }
 
     public void choose_pink_ghost(MouseEvent mouseEvent) {
@@ -359,7 +362,7 @@ public void choose_pink_alien(ContextMenuEvent contextMenuEvent) {
         } else {
             System.out.println("Failed to load image from path: " + path);
         }
-        AvatarPath(path);
+        getAvatarPath(path);
     }
 
     public void choose_red_ghost(MouseEvent mouseEvent) {
@@ -372,7 +375,7 @@ public void choose_pink_alien(ContextMenuEvent contextMenuEvent) {
         } else {
             System.out.println("Failed to load image from path: " + path);
         }
-        AvatarPath(path);
+        getAvatarPath(path);
     }
 
     public void choose_yellow_ghost(MouseEvent mouseEvent) {
@@ -385,9 +388,9 @@ public void choose_pink_alien(ContextMenuEvent contextMenuEvent) {
         } else {
             System.out.println("Failed to load image from path: " + path);
         }
-        AvatarPath(path);
+        getAvatarPath(path);
     }
-    public String AvatarPath(String path){
+    public String getAvatarPath(String path){
         return (path);
     }
 }
