@@ -2,6 +2,7 @@ package GameLogic_Client.Connect4;
 
 import GameLogic_Client.IBoardGameController;
 import GameLogic_Client.Ivec2;
+import GameLogic_Client.GameState;
 
 import java.util.ArrayList;
 
@@ -20,6 +21,7 @@ public class C4Controller implements IBoardGameController {
 
     /**
      * Receives user input during the game.
+     * @param input coordinates.
      */
     @Override
     public void receiveInput(Ivec2 input) {
@@ -47,49 +49,87 @@ public class C4Controller implements IBoardGameController {
         }
     }
 
+    /**
+     * Gets the board for connect-4
+     * @return Connect-4 board by calling function in C4GameLogic class.
+     */
     public C4Piece[][] getC4Board() {
         return c4GameLogic.getC4Board().getC4Board();
     }
 
+    /**
+     * Calls C4GameLogic class function to check whether the function
+     * @return true or false based on whether the game is over or not.
+     */
     public boolean getC4IsGameOver() {
         return c4GameLogic.getC4IsGameOver();
     }
 
+    /**
+     * Removes player from game (it is inherited from interface)
+     * @param Player The index of the player to remove.
+     * @throws IndexOutOfBoundsException if player # is out of bounds.
+     */
     @Override
     public void removePlayer(int Player) throws IndexOutOfBoundsException {
 
     }
 
+    /**
+     * Updates the state of the game as it progresses.
+     * @return array of game outcome
+     */
     @Override
     public int[] getWinner() {
-        C4Piece winner = c4GameLogic.getC4Winner();
-        return switch (winner) {
-            case RED -> new int[]{0};
-            case BLUE -> new int[]{1};
-            default -> new int[]{0, 1}; //draw
+        return switch (c4GameLogic.gameState) {
+            case P1WIN -> new int[]{0};
+            case P2WIN -> new int[]{1};
+            case TIE -> new int[]{0, 1}; //draw
+            default -> new int[]{};
         };
     }
 
+    /**
+     * Checks whether the game is ongoing or not.
+     * @return true or false based on whether the game is ongoing or not.
+     */
     @Override
     public boolean getGameOngoing() {
         return !c4GameLogic.getC4IsGameOver();
     }
 
+    /**
+     * Gets board's cells, used in GUI.
+     * @param LayerMask A bit-string, where the bits of all the layers to query are set to 1.
+     * @return null if it's a blank, else piece's enum value.
+     */
     @Override
     public ArrayList<int[][]> getBoardCells(int LayerMask) {
         return null;
     }
 
+    /**
+     * Returns the size of our Connect-4 board.
+     * @return null if size is 0, else, returns the dimensions through function in Ivec2 class.
+     */
     @Override
     public Ivec2 getBoardSize() {
         return null;
     }
 
+    /**
+     * Returns the current player's integer value.
+     * @return 0, if no player's turn, else 1 or 2.
+     */
     @Override
     public int getCurrentPlayer() {
         return 0;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public boolean gameOngoingChangedSinceLastCommand() {
         return false;
