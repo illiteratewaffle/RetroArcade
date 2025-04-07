@@ -323,9 +323,19 @@
             <cursor>
                 <Cursor fx:constant="OPEN_HAND" />
             </cursor></ImageView>
-        <ImageView fx:id="infoButton" fitHeight="80.0" fitWidth="80.0" layoutX="16.0" layoutY="14.0" onMousePressed="#infoPressed" onMouseReleased="#infoReleased" pickOnBounds="true" preserveRatio="true">
+        <ImageView fx:id="infoButton" fitHeight="64.0" fitWidth="68.0" layoutX="16.0" layoutY="14.0" onMouseClicked="#infoButtonPress" onMousePressed="#infoPressed" onMouseReleased="#infoReleased" pickOnBounds="true" preserveRatio="true">
+        <cursor>
+                <Cursor fx:constant="OPEN_HAND" />
+            </cursor></ImageView>
+        <ImageView fx:id="infoBg" fitHeight="487.0" fitWidth="349.0" layoutX="288.0" layoutY="57.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" />
+        <ImageView fx:id="infoOkButton" fitHeight="40.0" fitWidth="75.0" layoutX="500.0" layoutY="500.0" mouseTransparent="true" onMouseClicked="#info_ok_clicked" pickOnBounds="true" preserveRatio="true">
             <cursor>
                 <Cursor fx:constant="OPEN_HAND" />
             </cursor></ImageView>
     </children>
 </AnchorPane>
+
+
+
+
+
