@@ -23,7 +23,7 @@ public class C4WinCheckerO1 {
         return count >= 4;
     }
 
-    private static boolean checkVertical(Ivec2 last, C4Piece piece, C4Piece[][] board) {
+    public static boolean checkVertical(Ivec2 last, C4Piece piece, C4Piece[][] board) {
         int count = 1;
 
         // Check down only (it is impossible to have a piece above last played piece
@@ -32,7 +32,7 @@ public class C4WinCheckerO1 {
         return count >= 4;
     }
 
-    private static boolean checkForwardSlash(Ivec2 last, C4Piece piece, C4Piece[][] board) {
+    public static boolean checkForwardSlash(Ivec2 last, C4Piece piece, C4Piece[][] board) {
         int count = 1;
 
         // Check top right
@@ -52,7 +52,7 @@ public class C4WinCheckerO1 {
         return count >= 4;
     }
 
-    private static boolean checkBackSlash(Ivec2 last, C4Piece piece, C4Piece[][] board) {
+    public static boolean checkBackSlash(Ivec2 last, C4Piece piece, C4Piece[][] board) {
         int count = 1;
 
         // Check top left
