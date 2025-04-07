@@ -89,8 +89,8 @@ public class AuthenticateClient implements Runnable {
                     String password = (String) authData.get("password");
                     // login logic
                     try {
-                        int id = PlayerManager.authenticatePlayer(username, password);
-                        return ProfileDatabaseAccess.obtainProfile(id);
+                         return Authentication.logIn(username, password);
+                        //return ProfileDatabaseAccess.obtainProfile(id);
                         // return PlayerManager.authenticatePlayer(username, password);
                     } catch (SQLException e) {
                         sendError(printWriter, clientSocket, e.toString());

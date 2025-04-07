@@ -20,6 +20,7 @@ public class GameCreator implements Runnable {
 
     public void enqueuePlayer(PlayerHandler player) {
         gameQueue.add(player);
+        ServerLogger.log("Enqueued player " + player.getProfile().getUsername());
     }
 
     public void createSession(PlayerHandler player1, PlayerHandler player2) {
