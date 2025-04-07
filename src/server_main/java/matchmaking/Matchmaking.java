@@ -42,8 +42,6 @@ public class Matchmaking {
      * @param handler
      */
     public void enqueue(int gameType, PlayerHandler handler) {
-        if (!handler.getProfile().isTimeout()) {                    //Check with networking
-            MatchmakingQueue.enqueue(handler, gameType);
-        }
+        MatchmakingQueue.enqueue(handler, gameType);
     }
 }
