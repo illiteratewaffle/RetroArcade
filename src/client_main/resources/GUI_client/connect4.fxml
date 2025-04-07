@@ -85,11 +85,6 @@
         <Button fx:id="col4Button" layoutX="476.0" layoutY="106.0" mnemonicParsing="false" onAction="#onCol4Click" opacity="0.0" prefHeight="216.0" prefWidth="35.0" text="Button" />
         <Button fx:id="col5Button" layoutX="510.0" layoutY="109.0" mnemonicParsing="false" onAction="#onCol5Click" opacity="0.0" prefHeight="217.0" prefWidth="42.0" text="Button" />
       <ImageView fx:id="winImage" fitHeight="331.0" fitWidth="452.0" layoutX="231.0" layoutY="54.0" pickOnBounds="true" preserveRatio="true" visible="false" />
-      <ImageView fx:id="infoImage" fitHeight="504.0" fitWidth="403.0" layoutX="271.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true" visible="false">
-         <image>
-            <Image url="@../C4info.jpg" />
-         </image></ImageView>
-      <Button fx:id="info_ok_button" layoutX="404.0" layoutY="465.0" mnemonicParsing="false" onMouseClicked="#clickInfoOkButton" opacity="0.0" prefHeight="33.0" prefWidth="70.0" />
       <ImageView fx:id="hintButton" fitHeight="120.0" fitWidth="112.0" layoutX="7.0" layoutY="80.0" onMouseClicked="#clickHintButton" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../hint.png" />
@@ -107,5 +102,10 @@
       </ImageView>
         <Button fx:id="hint_ok_button" layoutX="36.0" layoutY="312.0" mnemonicParsing="false" onMouseClicked="#clickHintOkButton" opacity="0.0" prefHeight="26.0" prefWidth="50.0" textFill="WHITE" />
       <ImageView fx:id="turnIndicatorImage" fitHeight="79.0" fitWidth="98.0" layoutX="404.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true" />
+        <ImageView fx:id="infoImage" fitHeight="504.0" fitWidth="403.0" layoutX="271.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true" visible="false">
+            <image>
+                <Image url="@../C4info.jpg" />
+            </image></ImageView>
+        <Button fx:id="info_ok_button" layoutX="404.0" layoutY="465.0" mnemonicParsing="false" onMouseClicked="#clickInfoOkButton" opacity="0.0" prefHeight="33.0" prefWidth="70.0" />
     </children>
 </AnchorPane>
