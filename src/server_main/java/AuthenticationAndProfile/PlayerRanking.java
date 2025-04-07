@@ -137,8 +137,25 @@ public class PlayerRanking {
         }
     }
 
-    public int getWins(int id, int gameNumber) {
-        return wins[gameNumber];
+//    public int getWins(int id, int gameNumber) {
+//        return wins[gameNumber];
+//    }
+//}
+
+    public int getWins(int gameNumber) throws SQLException {
+        String gameName = null;
+        if (gameNumber == TTT_INDEX) {
+            gameName = "ttt";
+        } else if (gameNumber == CONNECT4_INDEX) {
+            gameName = "connect4";
+        } else if (gameNumber == CHECKERS_INDEX) {
+            gameName = "checkers";
+        }
+        try {
+            return Integer.parseInt(PlayerManager.getAttribute(id, "wins" + gameName));
+        } catch (SQLException s) {
+            throw new SQLException(s.getMessage());
+        }
     }
 }
 
