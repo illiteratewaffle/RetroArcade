@@ -31,15 +31,7 @@ public class Client {
         data.put("message", message);
         writer.println(JsonConverter.toJson(data));
     }
-    public static void networkingMethod(String type, String message, String game, String extra, String extraObject) {
-        HashMap<String, Object> data = new HashMap<>();
-        data.put("type", type);
-        data.put("message", message);
-        if (game != "null"){
-            data.put("game", game);
-        }
-        if (extra != "null"){
-            data.put(extra, extraObject);}
+    public static void networkingMethod(HashMap<String, Object> data) {
         writer.println(JsonConverter.toJson(data));
     }
     /**

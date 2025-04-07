@@ -1,11 +1,21 @@
 package client_main.java.client;
+
+import java.util.HashMap;
+
 public class CheckersClient {
     public void receiveInput(GameLogic_Client.Ivec2 input) {
         // Convert the move to a string format like "x,y"
-        String move = input.x + "," + input.y;
+        String x = String.valueOf(input.x);
+        String y = String.valueOf(input.y);
+        HashMap<String, Object> data = new HashMap<>();
+        data.put("type", "game-move");
+        data.put("message", "null");
+        data.put("game","Checkers)");
+        data.put("x", x);
+        data.put("y", y);
 
         // Send the move to the server move is column then row
-        Client.networkingMethod("game-move", move, "checkers", "null", "null");
+        Client.networkingMethod(data);
     }
 
 }
