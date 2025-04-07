@@ -108,8 +108,16 @@ public class PlayerRanking {
     }
 
     public int getRating(int gameNumber) throws SQLException {
+        String gameName = null;
+        if (gameNumber == TTT_INDEX) {
+            gameName = "ttt";
+        } else if (gameNumber == CONNECT4_INDEX) {
+            gameName = "connect4";
+        } else if (gameNumber == CHECKERS_INDEX) {
+            gameName = "checkers";
+        }
         try {
-            return Integer.parseInt(PlayerManager.getAttribute(id, "rating_" + gameNumber));
+            return Integer.parseInt(PlayerManager.getAttribute(id, "rating_" + gameName));
         } catch (SQLException s) {
             throw new SQLException(s.getMessage());
         }
