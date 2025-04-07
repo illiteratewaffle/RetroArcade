@@ -177,8 +177,8 @@ public class C4GameLogic {
     }
 
     /**
-     * Suggests a column for the current player to play based on immediate win.
-     * @return the column index of a winning move if available, or the first non-full column.
+     * Suggests a column for the current player to play based on immediate win or opportunity to block opponent from winning.
+     * @return a HintResult object containing the column index of a winning or blocking move if available, or the first non-full column.
      */
     public HintResult getC4HintColumn () {
         System.out.println("Hint requested");
@@ -223,44 +223,4 @@ public class C4GameLogic {
         System.out.println("No winning or blocking move detected.");
         return new HintResult(-1, "NONE");
     }
-
-        /*//if win condition no found, test to see if opponent has win move. Then block it
-        if (colHinted == -1) {
-            //find opponent's piece
-            C4Piece opponentPiece = C4Piece.BLANK;
-            if (currentPlayer == C4Piece.RED) {
-                opponentPiece = C4Piece.BLUE;
-            } else if (currentPlayer == C4Piece.BLUE) {
-                opponentPiece = C4Piece.RED;
-            }
-
-            for (int col = 0; col < simulatedBoard[0].length; col++) {
-                int row = getC4ColTopBlank(col);
-                if (row == -1) continue;
-
-                //simulate move
-                simulatedBoard[row][col] = opponentPiece;
-
-                if (C4WinCheckerO1.isC4Win(new ivec2(col, row), opponentPiece, simulatedBoard)) {
-                    colHinted = col;
-                    System.out.println("Place piece in " + col+1 + " to block opponent");
-                }
-
-                //undo simulated move
-                simulatedBoard[row][col] = C4Piece.BLANK;
-            }
-        }
-
-        //return first move by default can be utilized but gives player false sense of a correct move
-//        for (int col = 0; col < simulatedBoard[0].length; col++) {
-//            if (!isC4ColFull(col)) return col;
-//        }
-        if (colHinted == -1) {
-            System.out.println("No winning moves detected. Please use best judgement.");
-        }
-
-        return colHinted;
-    } */
-
-
 }
