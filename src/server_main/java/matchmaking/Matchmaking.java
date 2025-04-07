@@ -45,7 +45,26 @@ public class Matchmaking {
         MatchmakingQueue.enqueue(handler, gameType);
     }
 
+    /***
+     *
+     * @param player
+     */
     public void dequeue(PlayerHandler player) {
         MatchmakingQueue.dequeue(player);
+    }
+
+    /***
+     *
+     * @param gameType
+     * @return
+     */
+    public int getQueueSize(int gameType){
+        if (gameType == 0){
+            return MatchmakingQueue.getQueueWaitTTT();
+        } else if (gameType == 1) {
+            return MatchmakingQueue.getQueueWaitCon4();
+        } else {
+            return MatchmakingQueue.getWaitCheckers();
+        }
     }
 }
