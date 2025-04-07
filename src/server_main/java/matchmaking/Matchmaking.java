@@ -1,6 +1,7 @@
 package matchmaking;
 import player.PlayerHandler;
 
+import java.sql.SQLException;
 import java.util.*;
 
 public class Matchmaking {
@@ -29,7 +30,7 @@ public class Matchmaking {
      * @param gameType the specific gameType LinkedList to add PlayerHandler into
      * @param handler the player to add into the LinkedList
      */
-    public void enqueue(int gameType, PlayerHandler handler) {
+    public void enqueue(int gameType, PlayerHandler handler) throws SQLException {
         MatchmakingQueue.enqueue(handler, gameType);
     }
 
