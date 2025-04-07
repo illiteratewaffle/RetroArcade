@@ -12,6 +12,7 @@ import java.util.*;
 
 import static java.util.Map.entry;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 class ProfileDatabaseAccessTest {
     private static int id;

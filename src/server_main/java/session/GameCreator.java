@@ -36,7 +36,7 @@ public class GameCreator implements Runnable {
         //Update the gameSessionManagerThreads within the player handlers
         player1.setGameSessionManagerThread(sessionThread);
         player2.setGameSessionManagerThread(sessionThread);
-        ServerLogger.log("Created game session manager for " );
+        ServerLogger.log("Created game session manager for " + player1.getProfile().getUsername() + " and " + player2.getProfile().getUsername());
      }
 
     public void endSession(Thread sessionThread) {
