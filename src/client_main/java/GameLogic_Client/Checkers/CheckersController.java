@@ -428,7 +428,7 @@ public class CheckersController implements IBoardGameController
     }
 
     /**
-     * A public version of updateValidInputs for testing purposes
+     * A public version of updateValidInputs for testing purposes.
      * @return A copy of the validInputs map that is used internally by this class.
      */
     public HashMap<Ivec2, HashMap<Ivec2, CheckersMove>> updateValidInputsPublic()
@@ -668,6 +668,13 @@ public class CheckersController implements IBoardGameController
 
         return;
     }
+
+    /**
+     * A public helper method to retrieve the location of the selected piece for testing purposes.
+     * @return The location of the currently selected piece, or null if no pieces are currently selected.
+     */
+    public Ivec2 getCurrentPieceLocation() { return currentPieceLocation; }
+
 
 
     public void removePlayer(int player) throws IndexOutOfBoundsException

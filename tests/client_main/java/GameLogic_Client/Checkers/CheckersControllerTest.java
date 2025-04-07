@@ -11,7 +11,9 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 public class CheckersControllerTest {
     private CheckersController gameLogic;
@@ -490,6 +492,10 @@ public class CheckersControllerTest {
     {
         gameLogic = new CheckersController(defaultCheckersBoard);
 
+        // Ensure that this test is only running for player 1.
+        // We have yet to test for turn changing.
+        assertEquals(0, gameLogic.getCurrentPlayer());
+
         HashMap<Ivec2, HashMap<Ivec2, CheckersMove>> expectedValidInputs = new HashMap<>();
 
         boolean[] mustCapture = new boolean[]{false};
@@ -523,6 +529,10 @@ public class CheckersControllerTest {
                 {empty, pawn1, empty, pawn1, empty, pawn1, empty, pawn1}
         }));
 
+        // Ensure that this test is only running for player 1.
+        // We have yet to test for turn changing.
+        assertEquals(0, gameLogic.getCurrentPlayer());
+
         HashMap<Ivec2, HashMap<Ivec2, CheckersMove>> expectedValidInputs = new HashMap<>();
 
         boolean[] mustCapture = new boolean[]{true};
@@ -538,9 +548,573 @@ public class CheckersControllerTest {
 
 
     @Test
-    public void selectPieceTest()
+    public void selectPieceFailTest()
     {
         gameLogic = new CheckersController(defaultCheckersBoard);
+
+        assertEquals(0, gameLogic.getCurrentPlayer());
+
+        Set<Ivec2> selectablePieces = gameLogic.updateValidInputsPublic().keySet();
+        for (int y = 0; y < defaultInitialBoardData.length; y++)
+        {
+            for (int x = 0; x < defaultInitialBoardData[y].length; x++)
+            {
+                Ivec2 inputPos = new Ivec2(x, y);
+                if (!selectablePieces.contains(inputPos))
+                {
+                    gameLogic.receiveInput(inputPos);
+                    // This piece should not be selectable.
+                    assertNull(gameLogic.getCurrentPieceLocation());
+                }
+            }
+        }
+
+        // The turn should not end here.
+        assertEquals(0, gameLogic.getCurrentPlayer());
+
+
+        // The board should not have changed here.
+        int[][] actualBoard = gameLogic.getBoardCells(0b01).getFirst();
+
+        for (int y = 0; y < defaultInitialBoardData.length; y++)
+        {
+            for (int x = 0; x < defaultInitialBoardData[y].length; x++)
+            {
+                assertEquals(defaultInitialBoardData[y][x], actualBoard[y][x]);
+            }
+        }
+    }
+
+
+    @Test
+    // Test if clicking on a selectable piece will select it.
+    public void selectSinglePieceTest1()
+    {
+        gameLogic = new CheckersController(defaultCheckersBoard);
+
+        assertEquals(0, gameLogic.getCurrentPlayer());
+
+        // Pass an input to the Leftmost piece on the 6th row.
+        Ivec2 inputPos = new Ivec2(1, 5);
+        gameLogic.receiveInput(inputPos);
+        assertEquals(inputPos, gameLogic.getCurrentPieceLocation());
+
+        // The turn should not end here.
+        assertEquals(0, gameLogic.getCurrentPlayer());
+
+
+        // The board should not have changed here.
+        int[][] actualBoard = gameLogic.getBoardCells(0b01).getFirst();
+
+        for (int y = 0; y < defaultInitialBoardData.length; y++)
+        {
+            for (int x = 0; x < defaultInitialBoardData[y].length; x++)
+            {
+                assertEquals(defaultInitialBoardData[y][x], actualBoard[y][x]);
+            }
+        }
+    }
+
+    @Test
+    // Test if clicking on a selectable piece will replace the currently selected one.
+    public void selectSinglePieceTest2()
+    {
+        gameLogic = new CheckersController(defaultCheckersBoard);
+
+        assertEquals(0, gameLogic.getCurrentPlayer());
+
+        // Pass an input to the Leftmost piece on the 6th row.
+        Ivec2 inputPos = new Ivec2(1, 5);
+        gameLogic.receiveInput(inputPos);
+        assertEquals(inputPos, gameLogic.getCurrentPieceLocation());
+
+        // Pass an input to the second Leftmost piece on the 6th row.
+        Ivec2 nexInputPos = new Ivec2(3, 5);
+        gameLogic.receiveInput(nexInputPos);
+        assertEquals(nexInputPos, gameLogic.getCurrentPieceLocation());
+
+        // The turn should not end here.
+        assertEquals(0, gameLogic.getCurrentPlayer());
+    }
+
+
+    @Test
+    // Test if clicking on a selected piece will deselect it.
+    public void deselectSinglePieceTest1()
+    {
+        gameLogic = new CheckersController(defaultCheckersBoard);
+
+        assertEquals(0, gameLogic.getCurrentPlayer());
+
+        // Pass an input to the Leftmost piece on the 6th row.
+        Ivec2 inputPos = new Ivec2(1, 5);
+        gameLogic.receiveInput(inputPos);
+        assertEquals(inputPos, gameLogic.getCurrentPieceLocation());
+
+        // Pressing on the same piece again should deselect it.
+        gameLogic.receiveInput(inputPos);
+        assertNull(gameLogic.getCurrentPieceLocation());
+
+        // The turn should not end here.
+        assertEquals(0, gameLogic.getCurrentPlayer());
+
+
+        // The board should not have changed here.
+        int[][] actualBoard = gameLogic.getBoardCells(0b01).getFirst();
+
+        for (int y = 0; y < defaultInitialBoardData.length; y++)
+        {
+            for (int x = 0; x < defaultInitialBoardData[y].length; x++)
+            {
+                assertEquals(defaultInitialBoardData[y][x], actualBoard[y][x]);
+            }
+        }
+    }
+
+
+    @Test
+    // Test if clicking on a non-selectable tile will deselect the current piece.
+    public void deselectSinglePieceTest2()
+    {
+        gameLogic = new CheckersController(defaultCheckersBoard);
+
+        assertEquals(0, gameLogic.getCurrentPlayer());
+
+        // Pass an input to the Leftmost piece on the 6th row.
+        Ivec2 inputPos = new Ivec2(1, 5);
+        gameLogic.receiveInput(inputPos);
+        assertEquals(inputPos, gameLogic.getCurrentPieceLocation());
+
+        // Pressing on something that cannot be selected should deselect the current piece.
+        Ivec2 newInputPos = new Ivec2(0, 0);
+        gameLogic.receiveInput(inputPos);
+        assertNull(gameLogic.getCurrentPieceLocation());
+
+        // The turn should not end here.
+        assertEquals(0, gameLogic.getCurrentPlayer());
+
+
+        // The board should not have changed here.
+        int[][] actualBoard = gameLogic.getBoardCells(0b01).getFirst();
+
+        for (int y = 0; y < defaultInitialBoardData.length; y++)
+        {
+            for (int x = 0; x < defaultInitialBoardData[y].length; x++)
+            {
+                assertEquals(defaultInitialBoardData[y][x], actualBoard[y][x]);
+            }
+        }
+    }
+
+
+    @Test
+    public void movePieceNoCaptureTest()
+    {
+        gameLogic = new CheckersController(new CheckersBoard(8, 8, new int[][]{
+                {pawn2, empty, pawn2, empty, pawn2, empty, pawn2, empty},
+                {empty, pawn2, empty, pawn2, empty, pawn2, empty, pawn2},
+                {pawn2, empty, pawn2, empty, empty, empty, empty, empty},
+                {empty, empty, empty, pawn2, empty, pawn2, empty, empty},
+                {empty, empty, empty, empty, empty, empty, empty, empty},
+                {empty, pawn1, empty, pawn1, empty, pawn1, empty, pawn1},
+                {pawn1, empty, pawn1, empty, pawn1, empty, pawn1, empty},
+                {empty, pawn1, empty, pawn1, empty, pawn1, empty, pawn1}
+        }));
+
+        assertEquals(0, gameLogic.getCurrentPlayer());
+
+        // Pass an input to the rightmost piece on the 6th row.
+        Ivec2 inputPos = new Ivec2(7, 5);
+        gameLogic.receiveInput(inputPos);
+        assertEquals(inputPos, gameLogic.getCurrentPieceLocation());
+
+        // Make the move to a new position.
+        Ivec2 newInputPos = new Ivec2(6, 4);
+        gameLogic.receiveInput(newInputPos);
+
+        // This should end the turn and clear the position of the currently selected piece.
+        assertNull(gameLogic.getCurrentPieceLocation());
+        assertEquals(1, gameLogic.getCurrentPlayer());
+
+        // The expected layout of the board after the move.
+        int[][] expectedBoard = new int[][]{
+                {pawn2, empty, pawn2, empty, pawn2, empty, pawn2, empty},
+                {empty, pawn2, empty, pawn2, empty, pawn2, empty, pawn2},
+                {pawn2, empty, pawn2, empty, empty, empty, empty, empty},
+                {empty, empty, empty, pawn2, empty, pawn2, empty, empty},
+                {empty, empty, empty, empty, empty, empty, pawn1, empty},
+                {empty, pawn1, empty, pawn1, empty, pawn1, empty, empty},
+                {pawn1, empty, pawn1, empty, pawn1, empty, pawn1, empty},
+                {empty, pawn1, empty, pawn1, empty, pawn1, empty, pawn1}
+        };
+
+        int[][] actualBoard = gameLogic.getBoardCells(0b01).getFirst();
+
+        for (int y = 0; y < expectedBoard.length; y++)
+        {
+            for (int x = 0; x < expectedBoard[y].length; x++)
+            {
+                assertEquals(expectedBoard[y][x], actualBoard[y][x]);
+            }
+        }
+
+
+        // Check if the map of valid inputs for player 2 is now in effect.
+        HashMap<Ivec2, HashMap<Ivec2, CheckersMove>> expectedValidInputs = new HashMap<>();
+
+        boolean[] mustCapture = new boolean[]{true};
+
+        // Add the moves of pieces that can be moved.
+        // It will result in a capture this turn.
+        expectedValidInputs.put(new Ivec2(5, 3),
+                gameLogic.getPieceMovesPublic(new Ivec2(5, 3), mustCapture));
+
+        assertEquals(expectedValidInputs, gameLogic.updateValidInputsPublic());
+    }
+
+
+    @Test
+    // Test when a piece can make a capture, and the input does not specify a capture move.
+    public void movePieceCaptureTest1()
+    {
+        // Modified board such that only the 2 right-most pieces on the 6th row can make a capture.
+        gameLogic = new CheckersController(new CheckersBoard(8, 8, new int[][]{
+                {pawn2, empty, pawn2, empty, pawn2, empty, pawn2, empty},
+                {empty, pawn2, empty, pawn2, empty, pawn2, empty, pawn2},
+                {pawn2, empty, pawn2, empty, pawn2, empty, empty, empty},
+                {empty, empty, empty, empty, empty, empty, empty, empty},
+                {empty, empty, empty, empty, empty, empty, pawn2, empty},
+                {empty, pawn1, empty, pawn1, empty, pawn1, empty, pawn1},
+                {pawn1, empty, pawn1, empty, pawn1, empty, pawn1, empty},
+                {empty, pawn1, empty, pawn1, empty, pawn1, empty, pawn1}
+        }));
+
+        assertEquals(0, gameLogic.getCurrentPlayer());
+
+        // Pass an input to the second rightmost piece on the 6th row.
+        Ivec2 inputPos = new Ivec2(5, 5);
+        gameLogic.receiveInput(inputPos);
+        assertEquals(inputPos, gameLogic.getCurrentPieceLocation());
+
+        // Make the move to a new position that is not a capture.
+        Ivec2 newInputPos = new Ivec2(4, 4);
+        gameLogic.receiveInput(newInputPos);
+
+
+        // This should be equivalent to selecting a non-selectable tile,
+        // and thus deselect the current piece.
+        assertNull(gameLogic.getCurrentPieceLocation());
+
+        // The turn should not end here.
+        assertEquals(0, gameLogic.getCurrentPlayer());
+
+
+        // The board should not have changed here.
+        int[][] actualBoard = gameLogic.getBoardCells(0b01).getFirst();
+
+        for (int y = 0; y < defaultInitialBoardData.length; y++)
+        {
+            for (int x = 0; x < defaultInitialBoardData[y].length; x++)
+            {
+                assertEquals(defaultInitialBoardData[y][x], actualBoard[y][x]);
+            }
+        }
+    }
+
+
+    @Test
+    // Test when a piece can make a capture, and the input specifies a capture move,
+    // but the capture does not lead to another capture.
+    public void movePieceCaptureTest2()
+    {
+        // Modified board such that only the 2 right-most pieces on the 6th row can make a capture.
+        gameLogic = new CheckersController(new CheckersBoard(8, 8, new int[][]{
+                {pawn2, empty, pawn2, empty, pawn2, empty, pawn2, empty},
+                {empty, pawn2, empty, pawn2, empty, pawn2, empty, pawn2},
+                {pawn2, empty, pawn2, empty, pawn2, empty, empty, empty},
+                {empty, empty, empty, empty, empty, empty, empty, empty},
+                {empty, empty, empty, empty, empty, empty, pawn2, empty},
+                {empty, pawn1, empty, pawn1, empty, pawn1, empty, pawn1},
+                {pawn1, empty, pawn1, empty, pawn1, empty, pawn1, empty},
+                {empty, pawn1, empty, pawn1, empty, pawn1, empty, pawn1}
+        }));
+
+        assertEquals(0, gameLogic.getCurrentPlayer());
+
+        // Pass an input to the second rightmost piece on the 6th row.
+        Ivec2 inputPos = new Ivec2(5, 5);
+        gameLogic.receiveInput(inputPos);
+        assertEquals(inputPos, gameLogic.getCurrentPieceLocation());
+
+        // Make the move to a new position that is a capture.
+        Ivec2 newInputPos = new Ivec2(7, 3);
+        gameLogic.receiveInput(newInputPos);
+
+
+        // Move to the next turn.
+        assertNull(gameLogic.getCurrentPieceLocation());
+
+        assertEquals(1, gameLogic.getCurrentPlayer());
+
+
+        // The expected layout of the board after the move.
+        int[][] expectedBoard = new int[][]{
+                {pawn2, empty, pawn2, empty, pawn2, empty, pawn2, empty},
+                {empty, pawn2, empty, pawn2, empty, pawn2, empty, pawn2},
+                {pawn2, empty, pawn2, empty, pawn2, empty, empty, empty},
+                {empty, empty, empty, empty, empty, empty, empty, pawn1},
+                {empty, empty, empty, empty, empty, empty, empty, empty},
+                {empty, pawn1, empty, pawn1, empty, empty, empty, pawn1},
+                {pawn1, empty, pawn1, empty, pawn1, empty, pawn1, empty},
+                {empty, pawn1, empty, pawn1, empty, pawn1, empty, pawn1}
+        };
+
+        int[][] actualBoard = gameLogic.getBoardCells(0b01).getFirst();
+
+        for (int y = 0; y < expectedBoard.length; y++)
+        {
+            for (int x = 0; x < expectedBoard[y].length; x++)
+            {
+                assertEquals(expectedBoard[y][x], actualBoard[y][x]);
+            }
+        }
+
+
+        // Check if the map of valid inputs for player 2 is now in effect.
+        HashMap<Ivec2, HashMap<Ivec2, CheckersMove>> expectedValidInputs = new HashMap<>();
+
+        boolean[] mustCapture = new boolean[]{false};
+
+        // Add the moves of pieces that can be moved.
+        expectedValidInputs.put(new Ivec2(0, 2),
+                gameLogic.getPieceMovesPublic(new Ivec2(0, 2), mustCapture));
+        expectedValidInputs.put(new Ivec2(2, 2),
+                gameLogic.getPieceMovesPublic(new Ivec2(2, 2), mustCapture));
+        expectedValidInputs.put(new Ivec2(4, 2),
+                gameLogic.getPieceMovesPublic(new Ivec2(4, 2), mustCapture));
+        expectedValidInputs.put(new Ivec2(5, 1),
+                gameLogic.getPieceMovesPublic(new Ivec2(5, 1), mustCapture));
+        expectedValidInputs.put(new Ivec2(7, 1),
+                gameLogic.getPieceMovesPublic(new Ivec2(7, 1), mustCapture));
+
+        assertEquals(expectedValidInputs, gameLogic.updateValidInputsPublic());
+    }
+
+
+    @Test
+    // Test when a piece can make a capture, and the input specifies a capture move,
+    // and the capture does lead to another capture.
+    public void movePieceCaptureTest3()
+    {
+        // Modified board such that only the 2 right-most pieces on the 6th row can make a capture.
+        gameLogic = new CheckersController(new CheckersBoard(8, 8, new int[][]{
+                {pawn2, empty, pawn2, empty, pawn2, empty, pawn2, empty},
+                {empty, pawn2, empty, empty, empty, pawn2, empty, pawn2},
+                {pawn2, empty, pawn2, empty, pawn2, empty, empty, empty},
+                {empty, empty, empty, empty, empty, empty, empty, empty},
+                {empty, empty, empty, empty, empty, empty, pawn2, empty},
+                {empty, pawn1, empty, pawn1, empty, pawn1, empty, pawn1},
+                {pawn1, empty, pawn1, empty, pawn1, empty, pawn1, empty},
+                {empty, pawn1, empty, pawn1, empty, pawn1, empty, pawn1}
+        }));
+
+        assertEquals(0, gameLogic.getCurrentPlayer());
+
+        // Pass an input to the rightmost piece on the 6th row.
+        Ivec2 inputPos = new Ivec2(7, 5);
+        gameLogic.receiveInput(inputPos);
+        assertEquals(inputPos, gameLogic.getCurrentPieceLocation());
+
+        // Make the move to a new position that is a capture.
+        Ivec2 newInputPos = new Ivec2(5, 3);
+        gameLogic.receiveInput(newInputPos);
+
+
+        // The currently selected piece should be forced to make another capture.
+        assertEquals(newInputPos, gameLogic.getCurrentPieceLocation());
+
+        // The current player's turn should continue.
+        assertEquals(0, gameLogic.getCurrentPlayer());
+
+
+        // The expected layout of the board after the move.
+        int[][] expectedBoard = new int[][]{
+                {pawn2, empty, pawn2, empty, pawn2, empty, pawn2, empty},
+                {empty, pawn2, empty, empty, empty, pawn2, empty, pawn2},
+                {pawn2, empty, pawn2, empty, pawn2, empty, empty, empty},
+                {empty, empty, empty, empty, empty, pawn1, empty, empty},
+                {empty, empty, empty, empty, empty, empty, empty, empty},
+                {empty, pawn1, empty, pawn1, empty, pawn1, empty, empty},
+                {pawn1, empty, pawn1, empty, pawn1, empty, pawn1, empty},
+                {empty, pawn1, empty, pawn1, empty, pawn1, empty, pawn1}
+        };
+
+        int[][] actualBoard = gameLogic.getBoardCells(0b01).getFirst();
+
+        for (int y = 0; y < expectedBoard.length; y++)
+        {
+            for (int x = 0; x < expectedBoard[y].length; x++)
+            {
+                assertEquals(expectedBoard[y][x], actualBoard[y][x]);
+            }
+        }
+
+
+        // Check if the map of valid inputs still only contain moves for the selected piece.
+        HashMap<Ivec2, HashMap<Ivec2, CheckersMove>> expectedValidInputs = new HashMap<>();
+
+        // A capture is forced.
+        boolean[] mustCapture = new boolean[]{true};
+
+        // Add the captures of the selected piece.
+        expectedValidInputs.put(new Ivec2(5, 3),
+                gameLogic.getPieceMovesPublic(new Ivec2(5, 3), mustCapture));
+
+        assertEquals(expectedValidInputs, gameLogic.updateValidInputsPublic());
+    }
+
+
+    @Test
+    // Test when a piece can make a capture, and the input specifies a capture move,
+    // and the capture does lead to another capture, but the move has made the selected piece into a king.
+    public void movePieceCaptureTest4()
+    {
+        // Modified board such that only the 2 right-most pieces on the 6th row can make a capture.
+        gameLogic = new CheckersController(new CheckersBoard(8, 8, new int[][]{
+                {pawn2, empty, pawn2, empty, empty, empty, pawn2, empty},
+                {empty, pawn2, empty, pawn2, empty, pawn2, empty, pawn2},
+                {pawn2, empty, empty, empty, pawn2, empty, king1, empty},
+                {empty, empty, empty, empty, empty, empty, empty, empty},
+                {empty, empty, empty, empty, empty, empty, empty, empty},
+                {empty, pawn1, empty, pawn1, empty, pawn1, empty, empty},
+                {pawn1, empty, pawn1, empty, pawn1, empty, pawn1, empty},
+                {empty, pawn1, empty, pawn1, empty, pawn1, empty, pawn1}
+        }));
+
+        assertEquals(0, gameLogic.getCurrentPlayer());
+
+        // Pass an input to the rightmost piece on the 3rd row.
+        Ivec2 inputPos = new Ivec2(6, 2);
+        gameLogic.receiveInput(inputPos);
+        assertEquals(inputPos, gameLogic.getCurrentPieceLocation());
+
+        // Make the move to a new position that is a capture.
+        Ivec2 newInputPos = new Ivec2(4, 0);
+        gameLogic.receiveInput(newInputPos);
+
+
+        // The currently selected piece should be forced to make another capture.
+        assertEquals(newInputPos, gameLogic.getCurrentPieceLocation());
+
+        // The current player's turn should continue.
+        assertEquals(0, gameLogic.getCurrentPlayer());
+
+
+        // The expected layout of the board after the move.
+        int[][] expectedBoard = new int[][]{
+                {pawn2, empty, pawn2, empty, king1, empty, pawn2, empty},
+                {empty, pawn2, empty, pawn2, empty, empty, empty, pawn2},
+                {pawn2, empty, empty, empty, pawn2, empty, empty, empty},
+                {empty, empty, empty, empty, empty, empty, empty, empty},
+                {empty, empty, empty, empty, empty, empty, empty, empty},
+                {empty, pawn1, empty, pawn1, empty, pawn1, empty, empty},
+                {pawn1, empty, pawn1, empty, pawn1, empty, pawn1, empty},
+                {empty, pawn1, empty, pawn1, empty, pawn1, empty, pawn1}
+        };
+
+        int[][] actualBoard = gameLogic.getBoardCells(0b01).getFirst();
+
+        for (int y = 0; y < expectedBoard.length; y++)
+        {
+            for (int x = 0; x < expectedBoard[y].length; x++)
+            {
+                assertEquals(expectedBoard[y][x], actualBoard[y][x]);
+            }
+        }
+
+
+        // Check if the map of valid inputs for player 2 is now in effect.
+        HashMap<Ivec2, HashMap<Ivec2, CheckersMove>> expectedValidInputs = new HashMap<>();
+
+        boolean[] mustCapture = new boolean[]{true};
+
+        expectedValidInputs.put(newInputPos,
+                gameLogic.getPieceMovesPublic(newInputPos, mustCapture));
+
+        assertEquals(expectedValidInputs, gameLogic.updateValidInputsPublic());
+    }
+
+
+    @Test
+    // Test when a piece can make a capture, and the input specifies a capture move,
+    // and the capture does lead to another capture,
+    // and the move was a movement to the backlines by a king piece (which should not be made king again).
+    public void movePieceCaptureTest5()
+    {
+        // Modified board such that only the 2 right-most pieces on the 6th row can make a capture.
+        gameLogic = new CheckersController(new CheckersBoard(8, 8, new int[][]{
+                {pawn2, empty, pawn2, empty, empty, empty, pawn2, empty},
+                {empty, pawn2, empty, pawn2, empty, pawn2, empty, pawn2},
+                {pawn2, empty, empty, empty, pawn2, empty, king1, empty},
+                {empty, empty, empty, empty, empty, empty, empty, empty},
+                {empty, empty, empty, empty, empty, empty, empty, empty},
+                {empty, pawn1, empty, pawn1, empty, pawn1, empty, empty},
+                {pawn1, empty, pawn1, empty, pawn1, empty, pawn1, empty},
+                {empty, pawn1, empty, pawn1, empty, pawn1, empty, pawn1}
+        }));
+
+        assertEquals(0, gameLogic.getCurrentPlayer());
+
+        // Pass an input to the rightmost piece on the 3rd row.
+        Ivec2 inputPos = new Ivec2(6, 2);
+        gameLogic.receiveInput(inputPos);
+        assertEquals(inputPos, gameLogic.getCurrentPieceLocation());
+
+        // Make the move to a new position that is a capture.
+        Ivec2 newInputPos = new Ivec2(4, 0);
+        gameLogic.receiveInput(newInputPos);
+
+
+        // This turn should still continue because the selected piece will not be made king again.
+        assertEquals(newInputPos, gameLogic.getCurrentPieceLocation());
+
+        assertEquals(0, gameLogic.getCurrentPlayer());
+
+
+        // The expected layout of the board after the move.
+        int[][] expectedBoard = new int[][]{
+                {pawn2, empty, pawn2, empty, king1, empty, pawn2, empty},
+                {empty, pawn2, empty, pawn2, empty, empty, empty, pawn2},
+                {pawn2, empty, empty, empty, pawn2, empty, empty, empty},
+                {empty, empty, empty, empty, empty, empty, empty, empty},
+                {empty, empty, empty, empty, empty, empty, empty, empty},
+                {empty, pawn1, empty, pawn1, empty, pawn1, empty, empty},
+                {pawn1, empty, pawn1, empty, pawn1, empty, pawn1, empty},
+                {empty, pawn1, empty, pawn1, empty, pawn1, empty, pawn1}
+        };
+
+        int[][] actualBoard = gameLogic.getBoardCells(0b01).getFirst();
+
+        for (int y = 0; y < expectedBoard.length; y++)
+        {
+            for (int x = 0; x < expectedBoard[y].length; x++)
+            {
+                assertEquals(expectedBoard[y][x], actualBoard[y][x]);
+            }
+        }
+
+
+        // Check if the map of valid inputs still only contain moves for the selected piece.
+        HashMap<Ivec2, HashMap<Ivec2, CheckersMove>> expectedValidInputs = new HashMap<>();
+
+        // A capture is forced.
+        boolean[] mustCapture = new boolean[]{true};
+
+        // Add the captures of the selected piece.
+        expectedValidInputs.put(new Ivec2(4, 0),
+                gameLogic.getPieceMovesPublic(new Ivec2(4, 0), mustCapture));
+
+        assertEquals(expectedValidInputs, gameLogic.updateValidInputsPublic());
     }
 
 
