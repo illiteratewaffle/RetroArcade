@@ -163,9 +163,9 @@ public class Profile {
         isOnline = online;
         try {
             if (online) {
-                PlayerManager.updateAttribute(this.id, Integer.toString(ProfileCSVReader.ONLINE_INDEX), "true");
+                PlayerManager.updateAttribute(this.id, "is_online", true);
             } else {
-                PlayerManager.updateAttribute(this.id, Integer.toString(ProfileCSVReader.ONLINE_INDEX), "false");
+                PlayerManager.updateAttribute(this.id, "is_online", false);
             }
         } catch (SQLException s) {
             throw new SQLException(s.getMessage());
