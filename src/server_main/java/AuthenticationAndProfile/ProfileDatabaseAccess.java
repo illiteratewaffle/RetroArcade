@@ -64,14 +64,6 @@ public class ProfileDatabaseAccess {
         } catch (IOException e) {
             throw new IOException(e.getMessage());
         }
-//        }
-//        } catch (IOException f) {
-//            System.out.println("Image issue.");
-//            return null;
-//        } catch (NullPointerException g) {
-//            System.out.println("Profile does not exist.");
-//            return null;
-//        }
     }
 
     public static Profile obtainProfileDirect(int id) throws SQLException {
@@ -121,8 +113,7 @@ public class ProfileDatabaseAccess {
             ArrayList<String> profileFields = openSingleProfileFile(csvProfileFilePath);
             List<Integer> friends = new ArrayList<>();
             String friendsString = profileFields.get(ProfileCSVReader.FRIENDS_INDEX);
-            System.out.println("Friends String: " + friendsString);
-            if (!friendsString.equals("null")) {
+            if (!friendsString.equals("")) {
                 String[] fieldsList = friendsString.split(",");
                 for (int i = 0; i < fieldsList.length; i++) {
                     friends.add(Integer.parseInt(fieldsList[i]));
@@ -130,7 +121,7 @@ public class ProfileDatabaseAccess {
             }
             List<Integer> friendRequests = new ArrayList<>();
             String friendRequestString = profileFields.get(ProfileCSVReader.FREQUEST_INDEX);
-            if (!friendRequestString.equals("null")) {
+            if (!friendRequestString.equals("")) {
                 String[] fieldsList = friendRequestString.split(",");
                 for (int i = 0; i < fieldsList.length; i++) {
                     friendRequests.add(Integer.parseInt(fieldsList[i]));
@@ -138,7 +129,7 @@ public class ProfileDatabaseAccess {
             }
             FriendsList friendsList = new FriendsList(friends, friendRequests, id);
             return friendsList;
-        }catch (SQLException s) {
+        } catch (SQLException s) {
             throw new SQLException(s.getMessage());
         } catch (IOException e) {
             throw new IOException(e.getMessage());
@@ -148,8 +139,7 @@ public class ProfileDatabaseAccess {
     public static FriendsList obtainFriendsListDirect(int id) throws SQLException{
         List<Integer> friends = new ArrayList<>();
         String friendsString = PlayerManager.getAttribute(id, "friends");
-        //System.out.println("Friends String: " + friendsString);
-        if (!friendsString.equals("null")){
+        if (!friendsString.equals("")){
             String[] fieldsList = friendsString.split(",");
             for (int i = 0 ; i < fieldsList.length; i ++){
                 friends.add(Integer.parseInt(fieldsList[i]));
@@ -157,7 +147,7 @@ public class ProfileDatabaseAccess {
         }
         List<Integer> friendRequests = new ArrayList<>();
         String friendRequestString = PlayerManager.getAttribute(id, "friend_requests");
-        if(!friendRequestString.equals("null")) {
+        if(!friendRequestString.equals("")) {
             String[] fieldsList = friendRequestString.split(",");
             for (int i = 0; i < fieldsList.length; i++) {
                 friendRequests.add(Integer.parseInt(fieldsList[i]));
@@ -263,7 +253,7 @@ public class ProfileDatabaseAccess {
             ArrayList<String> profileFields = openSingleProfileFile(csvProfileFilePath);
             List<String> gameHistory = new ArrayList<>();
             String gameHistoryString = profileFields.get(ProfileCSVReader.GHIST_INDEX);
-            if (!gameHistoryString.equals("null")) {
+            if (!gameHistoryString.equals("")) {
                 String[] fieldsList = gameHistoryString.split(", ");
                 for (int i = 0; i < fieldsList.length; i++) {
                     gameHistory.add(fieldsList[i]);
@@ -271,7 +261,7 @@ public class ProfileDatabaseAccess {
             }
             HashMap<String, Double> achievementProgress = new HashMap<>();
             String achievementProgressString = profileFields.get(ProfileCSVReader.ACHIVPROG_INDEX);
-            if (!achievementProgressString.equals("null")) {
+            if (!achievementProgressString.equals("")) {
                 String section = "";
                 boolean inSection = false;
                 for (int j = 0; j < achievementProgressString.length(); j++) {
@@ -309,7 +299,7 @@ public class ProfileDatabaseAccess {
         try {
             List<String> gameHistory = new ArrayList<>();
             String gameHistoryString = PlayerManager.getAttribute(id, "games_played");
-            if (!gameHistoryString.equals("null")) {
+            if (!gameHistoryString.equals("")) {
                 String[] fieldsList = gameHistoryString.split(", ");
                 for (int i = 0; i < fieldsList.length; i++) {
                     gameHistory.add(fieldsList[i]);
@@ -317,7 +307,7 @@ public class ProfileDatabaseAccess {
             }
             HashMap<String, Double> achievementProgress = new HashMap<>();
             String achievementProgressString = PlayerManager.getAttribute(id, "achievement_progress");
-            if (!achievementProgressString.equals("null")) {
+            if (!achievementProgressString.equals("")) {
                 String section = "";
                 boolean inSection = false;
                 for (int j = 0; j < achievementProgressString.length(); j++) {

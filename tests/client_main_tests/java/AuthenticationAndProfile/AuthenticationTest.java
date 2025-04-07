@@ -10,6 +10,8 @@ import player.PlayerManager;
 import static org.junit.jupiter.api.Assertions.*;
 
 
+import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,11 +22,15 @@ class AuthenticationTest {
 
     @BeforeEach
     void setUp() {
-        HashMap<String, Double> achievementProgress = new HashMap<>();
-        List<String> gameHistory = new ArrayList<>();
-        String password = "1234567";
-        String hashedPassword = ProfileCreation.hashedPassword(password);
-        profile = new Profile("email1@email.com", hashedPassword,"nick", "This is bio.", false, "null", new FriendsList(), new PlayerRanking(), new GameHistory(gameHistory, achievementProgress), "C:profile/pic/path.png", "username1", 2 );
+        try {
+            HashMap<String, Double> achievementProgress = new HashMap<>();
+            List<String> gameHistory = new ArrayList<>();
+            String password = "1234567";
+            String hashedPassword = ProfileCreation.hashedPassword(password);
+            profile = new Profile("email1@email.com", hashedPassword, "nick", "This is bio.", false, "null", new FriendsList(), new PlayerRanking(), new GameHistory(gameHistory, achievementProgress), "C:profile/pic/path.png", "username1", 2);
+        } catch (NoSuchAlgorithmException n) {
+            System.out.println(n.getMessage());
+        }
     }
 
     @AfterEach
@@ -45,6 +51,8 @@ class AuthenticationTest {
             PlayerManager.deleteProfile(id);
         } catch (SQLException s) {
             System.out.println("registerPlayer or logIn error: " + s.getMessage());
+        } catch (IOException | NoSuchAlgorithmException e) {
+            System.out.println(e.getMessage());
         }
     }
 

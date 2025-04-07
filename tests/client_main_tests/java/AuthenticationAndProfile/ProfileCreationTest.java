@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import player.PlayerManager;
 import AuthenticationAndProfile.*;
 
+import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 
@@ -23,9 +24,13 @@ class ProfileCreationTest {
 
     @Test
     void blankHashedPassword() {
-        String password = "";
-        String hashedPassword = ProfileCreation.hashedPassword(password);
-        assertEquals("e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855".toUpperCase(), hashedPassword);
+        try {
+            String password = "";
+            String hashedPassword = ProfileCreation.hashedPassword(password);
+            assertEquals("e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855".toUpperCase(), hashedPassword);
+        } catch (NoSuchAlgorithmException n) {
+            System.out.println(n.getMessage());
+        }
     }
 
     @Test
@@ -47,6 +52,8 @@ class ProfileCreationTest {
             ProfileDatabaseAccess.removeProfile(newProfileID);
         } catch (SQLException s1) {
             System.out.println("Error with getAttribute: " + s1.getMessage());
+        } catch (NoSuchAlgorithmException | IOException n) {
+            System.out.println(n.getMessage());
         }
     }
 }

@@ -6,6 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import player.PlayerManager;
 
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,12 +21,16 @@ class FriendsListTest {
     private static Profile profileB;
     @BeforeEach
     void setUp(){
-        HashMap<String, Double> achievementProgress = new HashMap<>();
-        List<String> gameHistory = new ArrayList<>();
-        String password = "1234567";
-        String hashedPassword = ProfileCreation.hashedPassword(password);
-        profileA = new Profile("email1@email.com", hashedPassword,"bert", "Hi", false, "null", null, new PlayerRanking(), new GameHistory(gameHistory, achievementProgress), "C:profileA/pic/path.png", "username1", 2 );
-        profileB = new Profile("email2@email.com", hashedPassword, "ernie", "Hello", false, null, null, new PlayerRanking(), new GameHistory(gameHistory, achievementProgress), "C:profileB/pic/path.png", "username2", 3 );
+        try {
+            HashMap<String, Double> achievementProgress = new HashMap<>();
+            List<String> gameHistory = new ArrayList<>();
+            String password = "1234567";
+            String hashedPassword = ProfileCreation.hashedPassword(password);
+            profileA = new Profile("email1@email.com", hashedPassword, "bert", "Hi", false, "null", null, new PlayerRanking(), new GameHistory(gameHistory, achievementProgress), "C:profileA/pic/path.png", "username1", 2);
+            profileB = new Profile("email2@email.com", hashedPassword, "ernie", "Hello", false, null, null, new PlayerRanking(), new GameHistory(gameHistory, achievementProgress), "C:profileB/pic/path.png", "username2", 3);
+        } catch (NoSuchAlgorithmException n) {
+            System.out.println(n.getMessage());
+        }
     }
 
     @AfterEach
