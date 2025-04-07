@@ -4,6 +4,7 @@ import management.ServerLogger;
 import matchmaking.Matchmaking;
 import player.PlayerHandler;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -18,7 +19,7 @@ public class GameCreator implements Runnable {
     public GameCreator() {
     }
 
-    public void enqueuePlayer(PlayerHandler player, int gameType) {
+    public void enqueuePlayer(PlayerHandler player, int gameType) throws SQLException {
         gameQueue.enqueue(gameType, player);
         ServerLogger.log("GameCreator: Enqueued player " + player.getProfile().getUsername());
     }

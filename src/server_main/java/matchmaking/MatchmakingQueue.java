@@ -55,12 +55,8 @@ public class MatchmakingQueue {
      * @param gameType gameType specifying which LinkedList to add the PlayerHandler into
      */
     public static void enqueue(PlayerHandler handler, int gameType) throws SQLException {
-        try {
-            gameQueues.get(gameType).add(handler);
-            quickSort(gameType);
-        } catch (SQLException e){
-            throw new SQLException(e.getMessage());
-        }
+        gameQueues.get(gameType).add(handler);
+        quickSort(gameType);
     }
 
     /**
@@ -128,12 +124,9 @@ public class MatchmakingQueue {
      * @param gameType An integer representing the game type of the queue to be sorted.
      */
     private static void quickSort(int gameType) throws SQLException {
-        try {
-            if (gameQueues.containsKey(gameType)) {
-                gameQueues.put(gameType, quickSortHelper(gameQueues.get(gameType), gameType));
-            }
-        } catch(SQLException e) {
-            throw new SQLException(e.getMessage());
+
+        if (gameQueues.containsKey(gameType)) {
+            gameQueues.put(gameType, quickSortHelper(gameQueues.get(gameType), gameType));
         }
     }
 
@@ -146,35 +139,33 @@ public class MatchmakingQueue {
      */
     private static LinkedList<PlayerHandler> quickSortHelper(LinkedList<PlayerHandler> list, int gameType) throws SQLException {
 
-        try {
-            if (list.size() <= 1) return list;
 
-            PlayerHandler pivot = list.get(list.size() / 2);
-            LinkedList<PlayerHandler> lesser = new LinkedList<>();
-            LinkedList<PlayerHandler> greater = new LinkedList<>();
-            LinkedList<PlayerHandler> equal = new LinkedList<>();
+        if (list.size() <= 1) return list;
 
-            int pivotRank = pivot.getProfile().getPlayerRanking().getRating(gameType);
+        PlayerHandler pivot = list.get(list.size() / 2);
+        LinkedList<PlayerHandler> lesser = new LinkedList<>();
+        LinkedList<PlayerHandler> greater = new LinkedList<>();
+        LinkedList<PlayerHandler> equal = new LinkedList<>();
 
-            for (PlayerHandler handler : list) {
-                int rank = handler.getProfile().getPlayerRanking().getRating(gameType);
+        int pivotRank = pivot.getProfile().getPlayerRanking().getRating(gameType);
 
-                if (rank > pivotRank) {
-                    greater.add(handler);
-                } else if (rank < pivotRank) {
-                    lesser.add(handler);
-                } else {
-                    equal.add(handler);
-                }
+        for (PlayerHandler handler : list) {
+            int rank = handler.getProfile().getPlayerRanking().getRating(gameType);
+
+            if (rank > pivotRank) {
+                greater.add(handler);
+            } else if (rank < pivotRank) {
+                lesser.add(handler);
+            } else {
+                equal.add(handler);
             }
-
-            LinkedList<PlayerHandler> sorted = new LinkedList<>();
-            sorted.addAll(quickSortHelper(greater, gameType));
-            sorted.addAll(equal);
-            sorted.addAll(quickSortHelper(lesser, gameType));
-            return sorted;
-        } catch (SQLException e){
-            throw new SQLException(e.getMessage());
         }
+
+        LinkedList<PlayerHandler> sorted = new LinkedList<>();
+        sorted.addAll(quickSortHelper(greater, gameType));
+        sorted.addAll(equal);
+        sorted.addAll(quickSortHelper(lesser, gameType));
+        return sorted;
+
     }
 }

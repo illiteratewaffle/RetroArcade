@@ -56,6 +56,14 @@ public class GameSessionManager implements Runnable {
     }
 
     /**
+     * The method to handle win conditions and stuff when a player disconnects.
+     * @param player The player that disconnected.
+     */
+    private void handleDisconnection(PlayerHandler player) {
+
+    }
+
+    /**
      * The method that runs on the separate Thread
      */
     public void run() {
