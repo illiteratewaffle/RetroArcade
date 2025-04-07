@@ -778,7 +778,7 @@ public class CheckersControllerTest {
     public void movePieceCaptureTest1()
     {
         // Modified board such that only the 2 right-most pieces on the 6th row can make a capture.
-        gameLogic = new CheckersController(new CheckersBoard(8, 8, new int[][]{
+        int[][] modifiedBoardData = new int[][]{
                 {pawn2, empty, pawn2, empty, pawn2, empty, pawn2, empty},
                 {empty, pawn2, empty, pawn2, empty, pawn2, empty, pawn2},
                 {pawn2, empty, pawn2, empty, pawn2, empty, empty, empty},
@@ -787,7 +787,8 @@ public class CheckersControllerTest {
                 {empty, pawn1, empty, pawn1, empty, pawn1, empty, pawn1},
                 {pawn1, empty, pawn1, empty, pawn1, empty, pawn1, empty},
                 {empty, pawn1, empty, pawn1, empty, pawn1, empty, pawn1}
-        }));
+        };
+        gameLogic = new CheckersController(new CheckersBoard(8, 8, modifiedBoardData));
 
         assertEquals(0, gameLogic.getCurrentPlayer());
 
@@ -812,11 +813,11 @@ public class CheckersControllerTest {
         // The board should not have changed here.
         int[][] actualBoard = gameLogic.getBoardCells(0b01).getFirst();
 
-        for (int y = 0; y < defaultInitialBoardData.length; y++)
+        for (int y = 0; y < modifiedBoardData.length; y++)
         {
-            for (int x = 0; x < defaultInitialBoardData[y].length; x++)
+            for (int x = 0; x < modifiedBoardData[y].length; x++)
             {
-                assertEquals(defaultInitialBoardData[y][x], actualBoard[y][x]);
+                assertEquals(modifiedBoardData[y][x], actualBoard[y][x]);
             }
         }
     }
@@ -1119,24 +1120,197 @@ public class CheckersControllerTest {
 
 
     @Test
-    public void getWinnerTest(){
-        CheckersController controller = new CheckersController();
+    public void checkNoOpponentWinTest()
+    {
+        gameLogic = new CheckersController(new CheckersBoard(8, 8, new int[][]{
+                {empty, empty, empty, empty, empty, empty, empty, empty},
+                {empty, empty, empty, empty, empty, pawn2, empty, empty},
+                {empty, empty, empty, empty, empty, empty, king1, empty},
+                {empty, empty, empty, empty, empty, empty, empty, empty},
+                {empty, empty, empty, empty, empty, empty, empty, empty},
+                {empty, pawn1, empty, pawn1, empty, pawn1, empty, empty},
+                {pawn1, empty, pawn1, empty, pawn1, empty, pawn1, empty},
+                {empty, pawn1, empty, pawn1, empty, pawn1, empty, pawn1}
+        }));
 
-        GameState state = GameState.ONGOING;
-        Assertions.assertEquals(GameState.ONGOING, controller.getState());
+        // Assert initial states.
+        assertTrue(gameLogic.getGameOngoing());
+        assertEquals(0, gameLogic.getCurrentPlayer());
 
-        state = GameState.P1WIN;
-        Assertions.assertEquals(GameState.P1WIN, controller.getState());
+        // Make the capture.
+        // Pass an input to the rightmost piece on the 3rd row.
+        Ivec2 inputPos = new Ivec2(6, 2);
+        gameLogic.receiveInput(inputPos);
+        assertEquals(inputPos, gameLogic.getCurrentPieceLocation());
 
-        state = GameState.P2WIN;
-        Assertions.assertEquals(GameState.P2WIN, controller.getState());
+        // Make the move to a new position that is a capture.
+        Ivec2 newInputPos = new Ivec2(4, 0);
+        gameLogic.receiveInput(newInputPos);
 
-        state = GameState.TIE;
-        Assertions.assertEquals(GameState.TIE, controller.getState());
+        // The expected layout of the board after the move.
+        int[][] expectedBoard = new int[][]{
+                {empty, empty, empty, empty, king1, empty, empty, empty},
+                {empty, empty, empty, empty, empty, empty, empty, empty},
+                {empty, empty, empty, empty, empty, empty, empty, empty},
+                {empty, empty, empty, empty, empty, empty, empty, empty},
+                {empty, empty, empty, empty, empty, empty, empty, empty},
+                {empty, pawn1, empty, pawn1, empty, pawn1, empty, empty},
+                {pawn1, empty, pawn1, empty, pawn1, empty, pawn1, empty},
+                {empty, pawn1, empty, pawn1, empty, pawn1, empty, pawn1}
+        };
+
+        int[][] actualBoard = gameLogic.getBoardCells(0b01).getFirst();
+
+        for (int y = 0; y < expectedBoard.length; y++)
+        {
+            for (int x = 0; x < expectedBoard[y].length; x++)
+            {
+                assertEquals(expectedBoard[y][x], actualBoard[y][x]);
+            }
+        }
+
+        // There are no pieces belonging to player 2 left.
+        // This should result in a win for player 1.
+        assertFalse(gameLogic.getGameOngoing());
+        // There should be exactly 1 winner.
+        assertEquals(1, gameLogic.getWinner().length);
+        // This should be player 1 (represented by index 0).
+        assertEquals(0, gameLogic.getWinner()[0]);
+
+        // After a win, there should be no valid inputs left.
+        assertTrue(gameLogic.updateValidInputsPublic().isEmpty());
     }
 
 
+    @Test
+    public void checkImmobilisedOpponentWinTest()
+    {
+        gameLogic = new CheckersController(new CheckersBoard(8, 8, new int[][]{
+                {empty, empty, empty, empty, empty, empty, empty, empty},
+                {empty, empty, empty, empty, empty, pawn2, empty, empty},
+                {empty, empty, empty, empty, empty, empty, king1, empty},
+                {empty, empty, empty, empty, empty, empty, empty, empty},
+                {empty, empty, empty, empty, empty, empty, empty, empty},
+                {empty, pawn1, empty, pawn1, empty, pawn1, empty, pawn2},
+                {pawn1, empty, pawn1, empty, pawn1, empty, pawn1, empty},
+                {empty, pawn1, empty, pawn1, empty, pawn1, empty, pawn1}
+        }));
+
+        // Assert initial states.
+        assertTrue(gameLogic.getGameOngoing());
+        assertEquals(0, gameLogic.getCurrentPlayer());
+
+        // Make the capture.
+        // Pass an input to the rightmost piece on the 3rd row.
+        Ivec2 inputPos = new Ivec2(6, 2);
+        gameLogic.receiveInput(inputPos);
+        assertEquals(inputPos, gameLogic.getCurrentPieceLocation());
+
+        // Make the move to a new position that is a capture.
+        Ivec2 newInputPos = new Ivec2(4, 0);
+        gameLogic.receiveInput(newInputPos);
+
+        // The expected layout of the board after the move.
+        int[][] expectedBoard = new int[][]{
+                {empty, empty, empty, empty, king1, empty, empty, empty},
+                {empty, empty, empty, empty, empty, empty, empty, empty},
+                {empty, empty, empty, empty, empty, empty, empty, empty},
+                {empty, empty, empty, empty, empty, empty, empty, empty},
+                {empty, empty, empty, empty, empty, empty, empty, empty},
+                {empty, pawn1, empty, pawn1, empty, pawn1, empty, pawn2},
+                {pawn1, empty, pawn1, empty, pawn1, empty, pawn1, empty},
+                {empty, pawn1, empty, pawn1, empty, pawn1, empty, pawn1}
+        };
+
+        int[][] actualBoard = gameLogic.getBoardCells(0b01).getFirst();
+
+        for (int y = 0; y < expectedBoard.length; y++)
+        {
+            for (int x = 0; x < expectedBoard[y].length; x++)
+            {
+                assertEquals(expectedBoard[y][x], actualBoard[y][x]);
+            }
+        }
+
+        // The only piece belonging to player 2 should be unable to move.
+        // This should result in a win for player 1.
+        assertFalse(gameLogic.getGameOngoing());
+        // There should be exactly 1 winner.
+        assertEquals(1, gameLogic.getWinner().length);
+        // This should be player 1 (represented by index 0).
+        assertEquals(0, gameLogic.getWinner()[0]);
+
+        // After a win, there should be no valid inputs left.
+        assertTrue(gameLogic.updateValidInputsPublic().isEmpty());
+    }
 
 
+    @Test
+    public void checkTieTest()
+    {
+        gameLogic = new CheckersController(new CheckersBoard(8, 8, new int[][]{
+                {empty, empty, empty, empty, empty, empty, empty, empty},
+                {empty, pawn2, empty, pawn2, empty, pawn2, empty, pawn2},
+                {pawn2, empty, pawn2, empty, pawn2, empty, pawn2, empty},
+                {empty, pawn2, empty, pawn2, empty, pawn2, empty, pawn2},
+                {pawn1, empty, pawn1, empty, pawn1, empty, pawn1, empty},
+                {empty, pawn1, empty, pawn1, empty, pawn1, empty, pawn1},
+                {pawn1, empty, pawn1, empty, pawn1, empty, empty, empty},
+                {empty, empty, empty, empty, empty, empty, empty, pawn1}
+        }));
+
+        // Assert initial states.
+        assertTrue(gameLogic.getGameOngoing());
+        assertEquals(0, gameLogic.getCurrentPlayer());
+
+        // Make the only possible move.
+        // Pass an input to the rightmost piece on the 8th row.
+        Ivec2 inputPos = new Ivec2(7, 7);
+        gameLogic.receiveInput(inputPos);
+        assertEquals(inputPos, gameLogic.getCurrentPieceLocation());
+
+        Ivec2 newInputPos = new Ivec2(6, 6);
+        gameLogic.receiveInput(newInputPos);
+
+        // The expected layout of the board after the move.
+        int[][] expectedBoard = new int[][]{
+                {empty, empty, empty, empty, empty, empty, empty, empty},
+                {empty, pawn2, empty, pawn2, empty, pawn2, empty, pawn2},
+                {pawn2, empty, pawn2, empty, pawn2, empty, pawn2, empty},
+                {empty, pawn2, empty, pawn2, empty, pawn2, empty, pawn2},
+                {pawn1, empty, pawn1, empty, pawn1, empty, pawn1, empty},
+                {empty, pawn1, empty, pawn1, empty, pawn1, empty, pawn1},
+                {pawn1, empty, pawn1, empty, pawn1, empty, pawn1, empty},
+                {empty, empty, empty, empty, empty, empty, empty, empty}
+        };
+
+        int[][] actualBoard = gameLogic.getBoardCells(0b01).getFirst();
+
+        for (int y = 0; y < expectedBoard.length; y++)
+        {
+            for (int x = 0; x < expectedBoard[y].length; x++)
+            {
+                assertEquals(expectedBoard[y][x], actualBoard[y][x]);
+            }
+        }
+
+        // No players should be able to make any other moves.
+        assertFalse(gameLogic.getGameOngoing());
+        // There should be exactly 2 winners (tie).
+        assertEquals(2, gameLogic.getWinner().length);
+
+        // This should be player 1 and 2, (represented by indices 0 and 1).
+        HashSet<Integer> expectedWinners = new HashSet<>();
+        expectedWinners.add(0);
+        expectedWinners.add(1);
+
+        HashSet<Integer> actualWinners = new HashSet<>();
+        for (int i : gameLogic.getWinner()) actualWinners.add(i);
+
+        assertEquals(expectedWinners, actualWinners);
+
+        // After a win, there should be no valid inputs left.
+        assertTrue(gameLogic.updateValidInputsPublic().isEmpty());
+    }
 }
 
