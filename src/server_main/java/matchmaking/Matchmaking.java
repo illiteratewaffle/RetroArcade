@@ -46,7 +46,7 @@ public class Matchmaking {
      * @param gameType
      * @return
      */
-    public int getQueueSize(int gameType){
+    public int getQueueSize(int gameType) {
         if (gameType == 0){
             return MatchmakingQueue.getQueueWaitTTT();
         } else if (gameType == 1) {

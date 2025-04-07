@@ -4,7 +4,13 @@ import java.util.*;
 import player.PlayerHandler;
 
 public class MatchmakingQueue {
-    private static Map<Integer, LinkedList<PlayerHandler>> gameQueues = new HashMap<>();
+    private static final Map<Integer, LinkedList<PlayerHandler>> gameQueues = new HashMap<>();
+
+    static {
+        gameQueues.put(0, new LinkedList<>()); // TTT
+        gameQueues.put(1, new LinkedList<>()); // Connect 4
+        gameQueues.put(2, new LinkedList<>()); // Checkers
+    }
 
     /***
      *
@@ -46,7 +52,6 @@ public class MatchmakingQueue {
      * @param gameType
      */
     public static void enqueue(PlayerHandler handler, int gameType) {
-        gameQueues.putIfAbsent(gameType, new LinkedList<>());
         gameQueues.get(gameType).add(handler);
         quickSort(gameType);
     }
@@ -54,22 +59,19 @@ public class MatchmakingQueue {
     /***
      *
      * @param gameType
-     * @return
      */
-    public static PlayerHandler dequeue(PlayerHandler player, int gameType) {
+    public static void dequeue(PlayerHandler player, int gameType) {
         if (gameQueues.containsKey(gameType) && !gameQueues.get(gameType).remove(player)) {
-            return gameQueues.get(gameType).removeFirst();
+            gameQueues.get(gameType).removeFirst();
         }
-        return null;
     }
 
-    public static PlayerHandler dequeue(PlayerHandler handler) {
+    public static void dequeue(PlayerHandler handler) {
         for (Map.Entry<Integer, LinkedList<PlayerHandler>> entry : gameQueues.entrySet()) {
             if (entry.getValue().remove(handler)) {
-                return handler;
+                return;
             }
         }
-        return null;
     }
 
     /***
@@ -102,7 +104,7 @@ public class MatchmakingQueue {
      * @return
      */
     public static int size(int gameType) {
-        return gameQueues.getOrDefault(gameType, new LinkedList<>()).size();
+        return gameQueues.get(gameType).size();
     }
 
     /***
