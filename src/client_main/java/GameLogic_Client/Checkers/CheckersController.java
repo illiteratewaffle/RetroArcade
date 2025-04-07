@@ -175,8 +175,22 @@ public class CheckersController implements IBoardGameController
      * A public version of getPieceMoves for testing purposes
      *
      * @param pieceLocation
+     * The location of the piece on the board.<br>
+     * If the location is invalid, or if its corresponding tile does not contain a piece,
+     * an empty HashMap will be returned by default.
      * @param mustCapture
+     * An array of at least 1 boolean.<br>
+     * The first value specifies whether all the moves by this piece must result in a capture or not.<br>
+     * Note that a piece will be forced to make a capture whenever possible.<br>
+     * When this case occurs, the value pointed at will be set to true for completion.<br>
+     * If this array is null or empty, the caller will not detect any changes in it, and
+     * it will be assumed that the moves by this piece do not need to result in a captures.
      * @return
+     * A <code>HashMap</code> containing all possible moves this piece can make (with the filter considered).
+     * This maps the Target Position of each move to a corresponding <code>CheckersMove</code> instance.<br>
+     * The Target Position is used for mapping and validating discrete <code>Ivec2</code> user inputs,
+     * while the <code>CheckersMove</code> instance stores all the data needed
+     * for the <code>CheckersBoard</code> to make the move.
      */
     public HashMap<Ivec2, CheckersMove> getPieceMovesPublic(Ivec2 pieceLocation, boolean[] mustCapture)
     {
@@ -413,8 +427,14 @@ public class CheckersController implements IBoardGameController
         }
     }
 
-    public void updateValidInputsPublic(){
+    /**
+     * A public version of updateValidInputs for testing purposes
+     * @return A copy of the validInputs map that is used internally by this class.
+     */
+    public HashMap<Ivec2, HashMap<Ivec2, CheckersMove>> updateValidInputsPublic()
+    {
         updateValidInputs();
+        return validInputs;
     }
 
 
