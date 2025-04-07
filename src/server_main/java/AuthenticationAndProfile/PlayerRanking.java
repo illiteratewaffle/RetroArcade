@@ -23,6 +23,10 @@ public class PlayerRanking {
         this.wins = wins;
     }
 
+    public PlayerRanking() {
+        id = 0;
+    }
+
     public void endOfMatchMethod(int gameNumber, int result) throws SQLException{
         String gameName = null;
         if (gameNumber == TTT_INDEX) {

@@ -74,8 +74,13 @@ public class TemporaryClient {
                 String message = scanner.nextLine();
 
                 Map<String, Object> data = new HashMap<>();
-                data.put("type", "message");
-                data.put("message", message);
+                if (message.equalsIgnoreCase("enqueue")) {
+                    data.put("type", "enqueue");
+                } else {
+                    data.put("type", "message");
+                    data.put("message", message);
+                }
+
                 output.println(toJson(data));
                 // System.out.println("Sent to server: " + message);
             }
