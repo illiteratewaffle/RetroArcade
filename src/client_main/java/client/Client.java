@@ -9,7 +9,7 @@ public class Client {
 
     private Socket clientSocket;
     private BufferedReader reader;
-    private PrintWriter writer;
+    private static PrintWriter writer;
     private String playerId;
 
     public Client(Socket socket, String playerId) {
@@ -31,7 +31,7 @@ public class Client {
         data.put("message", message);
         writer.println(JsonConverter.toJson(data));
     }
-    public void networkingMethod(String type, String message, String game, String extra, String extraObject) {
+    public static void networkingMethod(String type, String message, String game, String extra, String extraObject) {
         HashMap<String, Object> data = new HashMap<>();
         data.put("type", type);
         data.put("message", message);
