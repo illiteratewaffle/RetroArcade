@@ -12,6 +12,7 @@ import java.util.*;
 
 import static java.util.Map.entry;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 class ProfileDatabaseAccessTest {
     private static int id;
@@ -36,8 +37,8 @@ class ProfileDatabaseAccessTest {
         }
     }
 
-    /*@Test
-    void obtainProfile() {
+    @Test
+    void obtainProfile() {/*
         HashMap<String, Double> achievementProgress = new HashMap<>();
         List<String> gameHistory = new ArrayList<>();
         //String hashedPassword = ProfileCreation.hashedPassword("1234567");
@@ -51,8 +52,9 @@ class ProfileDatabaseAccessTest {
             PlayerManager.deleteProfile(id1);
         } catch (SQLException s) {
             System.out.println(s.getMessage());
-        }
-    }*/
+        }*/
+        fail();
+    }
 
     @Test
     void obtainFriendsList() {

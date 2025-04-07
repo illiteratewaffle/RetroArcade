@@ -14,6 +14,11 @@ import AuthenticationAndProfile.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ProfileTest {
+
+    @Test
+    void testFail() {
+        assertEquals(false, true);
+    }
 /*
     private Profile profile;
 
