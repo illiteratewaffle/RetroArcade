@@ -1,62 +1,76 @@
 package GUI_client;
-import AuthenticationAndProfile.Profile;
 import AuthenticationAndProfile.Authentication;
-import AuthenticationAndProfile.FriendsList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import leaderboard.PlayerRanking;
 
-import java.util.List;
+import java.net.URL;
 
 public class profileGUIController {
-    @FXML
-    public ImageView inbox_button;
-    @FXML
-    public ImageView friends_button;
-    @FXML
-    public ImageView history_button;
-    @FXML
-    public ImageView stats_button;
-    @FXML
-    public ListView inbox_contents;
-    @FXML
-    public ListView friends_list;
-    @FXML
-    public ListView history_list;
-    @FXML
-    public AnchorPane stats_pane;
+    @FXML public ImageView inbox_button;
+    @FXML public ImageView friends_button;
+    @FXML public ImageView history_button;
+    @FXML public ImageView stats_button;
+    @FXML public ImageView avatar;
+    @FXML public ImageView edit_profile_button;
+    @FXML public ImageView apply_button;
+    @FXML public ImageView discard_button;
+    @FXML public ListView inbox_contents;
+    @FXML public ListView friends_list;
+    @FXML public ListView history_list;
+    @FXML public AnchorPane stats_pane;
     //Checkers labels for stats
-    @FXML
-    public Label check_wlr_label;
-    @FXML
-    public Label check_win_label;
-    @FXML
-    public Label check_rating_label;
-    @FXML
-    public Label check_rank_label;
+    @FXML public Label check_wlr_label;
+    @FXML public Label check_win_label;
+    @FXML public Label check_rating_label;
+    @FXML public Label check_rank_label;
     //TTT labels for stats
-    @FXML
-    public Label TTT_wlr_label;
-    @FXML
-    public Label TTT_win_label;
-    @FXML
-    public Label TTT_rating_label;
-    @FXML
-    public Label TTT_rank_label;
+    @FXML public Label TTT_wlr_label;
+    @FXML public Label TTT_win_label;
+    @FXML public Label TTT_rating_label;
+    @FXML public Label TTT_rank_label;
     //C4 labels for stats
-    @FXML
-    public Label c4_wlr_label;
-    @FXML
-    public Label c4_win_label;
-    @FXML
-    public Label c4_rating_label;
-    @FXML
-    public Label c4_rank_label;
+    @FXML public Label c4_wlr_label;
+    @FXML public Label c4_win_label;
+    @FXML public Label c4_rating_label;
+    @FXML public Label c4_rank_label;
+    @FXML public Label bio_label;
+    @FXML public Label name_label;
+    @FXML private ScrollPane avatar_pane;
+    private Object GUI_avatars;
+    private AuthenticationAndProfile.Profile Profile;
+
+    public profileGUIController() {
+        System.out.println("profileGUIController loaded");
+    }
+
+    public void initializeProfile(){
+        String bio = Authentication.getProfileLoggedIn().getBio();
+        String userName = Profile.getUsername();
+        String nickName = Profile.getNickname();
+        String avatarPath = Profile.getProfilePicFilePath();
+        bio_label.setText(bio);
+        name_label.setText(nickName + "("+userName+")");
+        if (avatarPath != null) {
+            URL url = getClass().getResource(avatarPath);
+            if (url != null) {
+                Image profileImage = new Image(url.toExternalForm(), false);
+                avatar.setImage(profileImage);
+            } else {
+                //set the avatar to poop if no other path is found.
+                avatarPath = "/GUI_client/GUI_avatars/poop.PNG";
+                Image profileImage = new Image(url.toExternalForm(), false);
+                avatar.setImage(profileImage);
+            }
+        }
+    }
 
     public void go_home(MouseEvent mouseEvent) {
     }
@@ -172,6 +186,154 @@ public class profileGUIController {
         inbox_contents.setOpacity(0.0);
         friends_list.setOpacity(0.0);
         stats_pane.setOpacity(0.0);
+        avatar_pane.setOpacity(1.0);
+        edit_profile_button.setOpacity(0.0);
+        apply_button.setOpacity(1.0); apply_button.toFront();
+        discard_button.toFront(); discard_button.toFront();
+    }
+    public void updateProfilePicture(Image image){
+        avatar.setImage(image);
+    }
+    public void discard_changes(MouseEvent mouseEvent) {
+        
+    }
+    public void apply_changes(MouseEvent mouseEvent) {
+    }
+
+    //All methods below are used to change the profile picture based on
+    public void choose_poop(ContextMenuEvent contextMenuEvent) {
+        String path = "/GUI_avatars/poop.PNG";
+        URL url = getClass().getResource(path);
+        if (url != null) {
+            System.out.println("Image URL: " + url);
+            Image image = new Image(url.toExternalForm(), false);
+            updateProfilePicture(image);
+        } else {
+            System.out.println("Failed to load image from path: " + path);
+        }
+
+    }
+
+    public void choose_goomba(MouseEvent mouseEvent) {
+        String path = "/GUI_avatars/mario_goomba.PNG";
+        URL url = getClass().getResource(path);
+        if (url != null) {
+            System.out.println("Image URL: " + url);
+            Image image = new Image(url.toExternalForm(), false);
+            updateProfilePicture(image);
+        } else {
+            System.out.println("Failed to load image from path: " + path);
+        }
+
+    }
+
+    public void choose_purple_alien(MouseEvent mouseEvent) {
+        String path = "/GUI_avatars/invader_purple.PNG";
+        URL url = getClass().getResource(path);
+        if (url != null) {
+            System.out.println("Image URL: " + url);
+            Image image = new Image(url.toExternalForm(), false);
+            updateProfilePicture(image);
+        } else {
+            System.out.println("Failed to load image from path: " + path);
+        }
+    }
+
+
+public void choose_pink_alien(ContextMenuEvent contextMenuEvent) {
+        String path = "/GUI_avatars/pacman_pink.PNG";
+        URL url = getClass().getResource(path);
+        if (url != null) {
+            System.out.println("Image URL: " + url);
+            Image image = new Image(url.toExternalForm(), false);
+            updateProfilePicture(image);
+        } else {
+            System.out.println("Failed to load image from path: " + path);
+        }
+    }
+
+    public void choose_green_alien(ContextMenuEvent contextMenuEvent) {
+        String path = "/GUI_avatars/Invader_green.PNG";
+        URL url = getClass().getResource(path);
+        if (url != null) {
+            System.out.println("Image URL: " + url);
+            Image image = new Image(url.toExternalForm(), false);
+            updateProfilePicture(image);
+        } else {
+            System.out.println("Failed to load image from path: " + path);
+        }
+    }
+
+    public void choose_cyan_alien(MouseEvent mouseEvent) {
+        String path = "/GUI_avatars/Invader_cyan.PNG";
+        URL url = getClass().getResource(path);
+        if (url != null) {
+            System.out.println("Image URL: " + url);
+            Image image = new Image(url.toExternalForm(), false);
+            updateProfilePicture(image);
+        } else {
+            System.out.println("Failed to load image from path: " + path);
+        }
+    }
+
+    public void choose_toad(MouseEvent mouseEvent) {
+        String path = "/GUI_avatars/mario_toad.PNG";
+        URL url = getClass().getResource(path);
+        if (url != null) {
+            System.out.println("Image URL: " + url);
+            Image image = new Image(url.toExternalForm(), false);
+            updateProfilePicture(image);
+        } else {
+            System.out.println("Failed to load image from path: " + path);
+        }
+    }
+
+    public void choose_blue_ghost(MouseEvent mouseEvent) {
+        String path = "/GUI_avatars/pacman_blue.PNG";
+        URL url = getClass().getResource(path);
+        if (url != null) {
+            System.out.println("Image URL: " + url);
+            Image image = new Image(url.toExternalForm(), false);
+            updateProfilePicture(image);
+        } else {
+            System.out.println("Failed to load image from path: " + path);
+        }
+    }
+
+    public void choose_pink_ghost(MouseEvent mouseEvent) {
+        String path = "/GUI_avatars/pacman_pink.PNG";
+        URL url = getClass().getResource(path);
+        if (url != null) {
+            System.out.println("Image URL: " + url);
+            Image image = new Image(url.toExternalForm(), false);
+            updateProfilePicture(image);
+        } else {
+            System.out.println("Failed to load image from path: " + path);
+        }
+    }
+
+    public void choose_red_ghost(MouseEvent mouseEvent) {
+        String path = "/GUI_avatars/pacman_red.PNG";
+        URL url = getClass().getResource(path);
+        if (url != null) {
+            System.out.println("Image URL: " + url);
+            Image image = new Image(url.toExternalForm(), false);
+            updateProfilePicture(image);
+        } else {
+            System.out.println("Failed to load image from path: " + path);
+        }
+    }
+
+    public void choose_yellow_ghost(MouseEvent mouseEvent) {
+        String path = "/GUI_avatars/pacman_yellow.PNG";
+        URL url = getClass().getResource(path);
+        if (url != null) {
+            System.out.println("Image URL: " + url);
+            Image image = new Image(url.toExternalForm(), false);
+            updateProfilePicture(image);
+        } else {
+            System.out.println("Failed to load image from path: " + path);
+        }
     }
 }
 

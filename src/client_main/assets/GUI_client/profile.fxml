@@ -3,27 +3,42 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #8A006C;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI_client.profileGUIController">
+<AnchorPane prefHeight="604.0" prefWidth="900.0" style="-fx-background-color: #8A006C;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI_client.profileGUIController">
    <children>
-      <ImageView fitHeight="529.0" fitWidth="900.0" layoutY="33.0">
+      <ImageView fx:id="apply_button" fitHeight="38.0" fitWidth="189.0" layoutX="402.0" layoutY="567.0" onMouseClicked="#apply_changes" opacity="0.0">
+         <image>
+            <Image url="@../profile_assets/apply_button.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="discard_button" fitHeight="37.0" fitWidth="216.0" layoutX="655.0" layoutY="572.0" onMouseClicked="#discard_changes" opacity="0.0">
+         <image>
+            <Image url="@../profile_assets/discard_button.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="570.0" fitWidth="900.0" layoutY="-1.0">
          <image>
             <Image url="@../profile_assets/profile_background2.PNG" />
          </image>
       </ImageView>
       <Circle fill="#fffedf" layoutX="169.0" layoutY="124.0" radius="67.0" stroke="BLACK" strokeType="INSIDE" />
       <Circle fill="#8a8a8a" layoutX="169.0" layoutY="124.0" radius="60.0" stroke="BLACK" strokeType="INSIDE" />
-      <ImageView fx:id="profile_picture" fitHeight="206.0" fitWidth="212.0" layoutX="63.0" layoutY="21.0">
+      <ImageView fx:id="avatar" fitHeight="194.0" fitWidth="194.0" layoutX="74.0" layoutY="25.0">
          <image>
             <Image url="@../GUI_avatars/Invader_purple.PNG" />
          </image>
       </ImageView>
-      <ImageView fitHeight="169.0" fitWidth="595.0" layoutX="220.0" layoutY="-6.0">
+      <ImageView fitHeight="194.0" fitWidth="595.0" layoutX="220.0" layoutY="-6.0">
          <image>
             <Image url="@../profile_assets/chat_bubble.PNG" />
          </image>
@@ -33,17 +48,17 @@
             <Image url="@../GUI_buttons/home_button.png" />
          </image>
       </ImageView>
-      <ImageView accessibleRole="BUTTON" fitHeight="90.0" fitWidth="90.0" layoutX="808.0" layoutY="2.0" onMouseClicked="#close_window" fx:id="x_button">
+      <ImageView accessibleRole="BUTTON" fitHeight="89.0" fitWidth="90.0" layoutX="808.0" layoutY="2.0" onMouseClicked="#close_window" fx:id="x_button">
          <image>
             <Image url="@../GUI_buttons/x_button.png" />
          </image>
       </ImageView>
-      <Label fx:id="bio_label" accessibleRole="TEXT_FIELD" alignment="TOP_LEFT" layoutX="300.0" layoutY="36.0" prefHeight="99.0" prefWidth="504.0" text="Connect4 is my lifes passion!" wrapText="true">
+      <Label fx:id="bio_label" accessibleRole="TEXT_FIELD" alignment="TOP_LEFT" layoutX="300.0" layoutY="36.0" prefHeight="117.0" prefWidth="504.0" text="Connect4 is my lifes passion!" wrapText="true">
          <font>
             <Font name="Silom" size="18.0" />
          </font>
       </Label>
-      <Label fx:id="name_label" accessibleRole="TEXT_FIELD" alignment="TOP_LEFT" layoutX="249.0" layoutY="9.0" prefHeight="35.0" prefWidth="551.0" text="Dianna Prince (@connect4whore) " wrapText="true">
+      <Label fx:id="name_label" accessibleRole="TEXT_FIELD" alignment="TOP_LEFT" layoutX="249.0" layoutY="9.0" prefHeight="35.0" prefWidth="463.0" text="Dianna Prince (@connect4whore) " wrapText="true">
          <font>
             <Font name="Silom" size="18.0" />
          </font>
@@ -53,16 +68,16 @@
             <Font name="Silom" size="18.0" />
          </font>
       </Label>
-      <ScrollPane layoutX="32.0" layoutY="239.0" prefHeight="324.0" prefWidth="834.0" style="-fx-background-color: transparent;">
+      <ScrollPane layoutX="32.0" layoutY="246.0" prefHeight="305.0" prefWidth="838.0" style="-fx-background-color: transparent;">
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="303.0" prefWidth="833.0">
                <children>
-                  <ImageView fitHeight="326.0" fitWidth="834.0" layoutY="-23.0">
+                  <ImageView fitHeight="326.0" fitWidth="835.0" layoutY="-23.0">
                      <image>
                         <Image url="@../leaderboard_assets/star_background.PNG" />
                      </image>
                   </ImageView>
-                  <ListView fx:id="inbox_contents" opacity="0.0" prefHeight="304.0" prefWidth="836.0" style="-fx-background-color: transparent;" />
+                  <ListView fx:id="inbox_contents" opacity="0.0" prefHeight="304.0" prefWidth="821.0" style="-fx-background-color: transparent;" />
                   <ListView fx:id="friends_list" layoutX="-3.0" layoutY="-6.0" opacity="0.0" prefHeight="311.0" prefWidth="840.0" style="-fx-background-color: transparent;" />
                   <ListView fx:id="history_list" layoutX="7.0" layoutY="4.0" opacity="0.0" prefHeight="311.0" prefWidth="840.0" style="-fx-background-color: transparent;" />
                   <AnchorPane fx:id="stats_pane" prefHeight="308.0" prefWidth="834.0">
@@ -168,7 +183,101 @@
             </AnchorPane>
         </content>
       </ScrollPane>
-      <ImageView fx:id="edit_profile_button" accessibleRole="BUTTON" fitHeight="66.0" fitWidth="224.0" layoutX="659.0" layoutY="548.0" onMouseClicked="#open_edit_profile">
+      <AnchorPane fx:id="edit_pane" layoutX="99.0" opacity="0.0" prefHeight="200.0" prefWidth="683.0">
+         <children>
+            <TextField fx:id="edit_nickname" editable="false" layoutX="250.0" layoutY="6.0" prefHeight="30.0" prefWidth="467.0" />
+            <TextArea fx:id="edit_bio" editable="false" layoutX="301.0" layoutY="38.0" prefHeight="110.0" prefWidth="493.0">
+               <font>
+                  <Font name="Silom" size="16.0" />
+               </font>
+            </TextArea>
+         </children>
+      </AnchorPane>
+      <ScrollPane fx:id="avatar_pane" layoutX="28.0" layoutY="238.0" opacity="0.0" prefHeight="404.0" prefWidth="844.0" style="-fx-background-color: transparent;">
+         <content>
+            <GridPane prefHeight="1053.0" prefWidth="824.0">
+              <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="309.69232177734375" minWidth="10.0" prefWidth="282.2517395019531" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="337.7482604980469" minWidth="10.0" prefWidth="282.91607666015625" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="293.8321533203125" minWidth="10.0" prefWidth="264.08392333984375" />
+              </columnConstraints>
+              <rowConstraints>
+                  <RowConstraints maxHeight="306.4685363769531" minHeight="10.0" prefHeight="235.86306762695312" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="418.1369323730469" minHeight="10.0" prefHeight="237.42962646484375" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="432.57037353515625" minHeight="0.0" prefHeight="252.37261962890625" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="336.04791259765625" minHeight="0.0" prefHeight="319.62738037109375" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <ImageView fitHeight="1890.0" fitWidth="849.0">
+                     <image>
+                        <Image url="@../leaderboard_assets/star_background.PNG" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="cyan_alien" accessibleRole="BUTTON" fitHeight="227.0" fitWidth="280.0" onMouseClicked="#choose_cyan_alien">
+                     <image>
+                        <Image url="@../GUI_avatars/Invader_cyan.PNG" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="green_alien" accessibleRole="BUTTON" fitHeight="227.0" fitWidth="280.0" onContextMenuRequested="#choose_green_alien" GridPane.columnIndex="1">
+                     <image>
+                        <Image url="@../GUI_avatars/Invader_green.PNG" />
+                     </image>
+                  </ImageView>
+                  <ImageView accessibleRole="BUTTON" fitHeight="227.0" fitWidth="266.0" onContextMenuRequested="#choose_pink_alien" GridPane.columnIndex="2">
+                     <image>
+                        <Image url="@../GUI_avatars/Invader_pink.PNG" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="purple_alien" accessibleRole="BUTTON" fitHeight="227.0" fitWidth="280.0" onMouseClicked="#choose_purple_alien" GridPane.rowIndex="1">
+                     <image>
+                        <Image url="@../GUI_avatars/Invader_purple.PNG" />
+                     </image>
+                  </ImageView>
+                  <ImageView accessibleRole="BUTTON" fitHeight="227.0" fitWidth="280.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <image>
+                        <Image url="@../GUI_avatars/Invader_purple.PNG" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="goomba" accessibleRole="BUTTON" fitHeight="227.0" fitWidth="266.0" onMouseClicked="#choose_goomba" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                     <image>
+                        <Image url="@../GUI_avatars/mario_goomba.PNG" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="toad" accessibleRole="BUTTON" fitHeight="227.0" fitWidth="280.0" onMouseClicked="#choose_toad" GridPane.rowIndex="2">
+                     <image>
+                        <Image url="@../GUI_avatars/mario_toad.PNG" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="blue_ghost" accessibleRole="BUTTON" fitHeight="227.0" fitWidth="280.0" onMouseClicked="#choose_blue_ghost" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                     <image>
+                        <Image url="@../GUI_avatars/pacman_blue.PNG" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="pink_ghost" accessibleRole="BUTTON" fitHeight="227.0" fitWidth="280.0" onMouseClicked="#choose_pink_ghost" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                     <image>
+                        <Image url="@../GUI_avatars/pacman_pink.PNG" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="red_ghost" accessibleRole="BUTTON" fitHeight="227.0" fitWidth="280.0" onMouseClicked="#choose_red_ghost" GridPane.rowIndex="3">
+                     <image>
+                        <Image url="@../GUI_avatars/pacman_red.PNG" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="yellow_ghost" accessibleRole="BUTTON" fitHeight="227.0" fitWidth="280.0" onMouseClicked="#choose_yellow_ghost" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                     <image>
+                        <Image url="@../GUI_avatars/pacman_yellow.PNG" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="poop" accessibleRole="BUTTON" fitHeight="227.0" fitWidth="280.0" onContextMenuRequested="#choose_poop" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <image>
+                        <Image url="@../GUI_avatars/poop.PNG" />
+                     </image>
+                  </ImageView>
+               </children>
+            </GridPane>
+         </content>
+      </ScrollPane>
+      <ImageView fx:id="edit_profile_button" accessibleRole="BUTTON" fitHeight="68.0" fitWidth="241.0" layoutX="613.0" layoutY="550.0" onMouseClicked="#open_edit_profile">
          <image>
             <Image url="@../profile_assets/profile_buttons/edit_profile_button_black.png" />
          </image>
