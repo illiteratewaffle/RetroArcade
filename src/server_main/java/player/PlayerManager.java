@@ -58,7 +58,7 @@ public class PlayerManager {
      *
      * @param username References database using username for authentication.
      * @param passwordHash Checks username contains matching passwordHash in database.
-     * @return true if player credentials match, false otherwise.
+     * @return True if player credentials match, false otherwise.
      * @throws SQLException if a database access error occurs during the authentication process. To be handled by caller.
      */
     public static int authenticatePlayer(String username, String passwordHash) throws SQLException {
@@ -235,10 +235,36 @@ public class PlayerManager {
         return matchingIds;
     }
 
-    //TODO: Search usernames to find all ids of profiles that have usernames that match search terms
+    /**
+     * Searches the profile table by substring. Returns profiles with usernames that contain substring arg.
+     * @param nameFragment Substring to match against friend usernames.
+     * @return List of profile IDs whose usernames contain the substring.
+     * @throws SQLException SQLException if a database access error occurs or the query fails. To be handled by caller.
+     */
     public static List<Integer> searchProfiles(String nameFragment) throws SQLException {
-        // List containing friend Ids
+        // SQL query that searches profiles table based on profile usernames that match the submitted string parameter.
+        String query = """
+                SELECT id
+                FROM profiles
+                WHERE username ILIKE ?""";
+
+        // List containing profile Ids
         List<Integer> matchingIds = new ArrayList<>();
+
+        // Prepare SQL query by setting search parameters and then execute
+        try(PreparedStatement statement = conn.prepareStatement(query)) {
+            // % signify wildcards so it searches any string containing the substring nameFragment
+            statement.setString(1, "%" + nameFragment + "%");
+            // Store the resulting table in rs
+            ResultSet rs = statement.executeQuery();
+            // rs.next moves cursor to next row in table and stores the id into matchingIds list
+            while (rs.next()) {
+                matchingIds.add(rs.getInt("id"));
+            }
+        } catch (SQLException e) {
+            throw new SQLException("Error profiles by substring: " + e.getMessage());
+        }
+        // Return the profile's list that match the substring passed through
         return matchingIds;
     }
 
@@ -557,11 +583,6 @@ public class PlayerManager {
     }
 
     public static void main(String[] args) throws SQLException {
-        addToFriendsList(1, 1);
-        addToFriendsList(1, 2);
-        addToFriendsList(1, 3);
-        addToFriendsList(1, 4);
-        addToFriendRequests(1, 7);
-        addToFriendRequests(1, 9);
+        System.out.println(searchProfiles("cr"));
     }
 }
