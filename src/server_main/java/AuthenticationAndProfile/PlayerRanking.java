@@ -10,17 +10,21 @@ public class PlayerRanking {
     private int[] rating = new int[3];
     private String[] rank = new String[3];
     private int[] wins = new int[3];
+    private int[] losses = new int[3];
+    private int[] total = new int[3];
 
     public static final int TTT_INDEX = 0;
     public static final int CONNECT4_INDEX = 1;
     public static final int CHECKERS_INDEX = 2;
 
-    public PlayerRanking(int id, double[] winLossRatio, int[] rating, String[] rank, int[] wins) {
+    public PlayerRanking(int id, double[] winLossRatio, int[] rating, String[] rank, int[] wins, int[] losses, int[] total) {
         this.id = id;
         this.winLossRatio = winLossRatio;
         this.rating = rating;
         this.rank = rank;
         this.wins = wins;
+        this.losses = losses;
+        this.total = total;
     }
 
     public PlayerRanking() {

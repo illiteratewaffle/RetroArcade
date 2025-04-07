@@ -120,6 +120,9 @@ public class ProfileDatabaseAccess {
         int[] rating = new int[3];
         String[] rank = new String[3];
         int[] wins = new int[3];
+        int[] losses = new int[3];
+        int[] total = new int[3];
+
         winLossRatio[0] = Double.parseDouble(profileFields.get(ProfileCSVReader.WLR_TTT_INDEX));
         winLossRatio[1] = Double.parseDouble(profileFields.get(ProfileCSVReader.WLR_CONNECT4_INDEX));
         winLossRatio[2] = Double.parseDouble(profileFields.get(ProfileCSVReader.WLR_CHECKERS_INDEX));
@@ -136,7 +139,15 @@ public class ProfileDatabaseAccess {
         wins[1] = Integer.parseInt(profileFields.get(ProfileCSVReader.WINS_CONNECT4_INDEX));
         wins[2] = Integer.parseInt(profileFields.get(ProfileCSVReader.WINS_CHECKERS_INDEX));
 
-            PlayerRanking playerRanking = new PlayerRanking(id,winLossRatio, rating, rank, wins);
+        losses[0] = Integer.parseInt(profileFields.get(ProfileCSVReader.LOSSES_TTT_INDEX));
+        losses[1] = Integer.parseInt(profileFields.get(ProfileCSVReader.LOSSES_CONNECT4_INDEX));
+        losses[2] = Integer.parseInt(profileFields.get(ProfileCSVReader.LOSSES_CHECKERS_INDEX));
+
+        total[0] = Integer.parseInt(profileFields.get(ProfileCSVReader.TOTAL_TTT_INDEX));
+        total[1] = Integer.parseInt(profileFields.get(ProfileCSVReader.TOTAL_CONNECT4_INDEX));
+        total[2] = Integer.parseInt(profileFields.get(ProfileCSVReader.TOTAL_CHECKERS_INDEX));
+
+            PlayerRanking playerRanking = new PlayerRanking(id,winLossRatio, rating, rank, wins, losses, total);
             return playerRanking;
 //        } catch (IOException e){
 //            System.out.println("ID does not match a profile in the database.");

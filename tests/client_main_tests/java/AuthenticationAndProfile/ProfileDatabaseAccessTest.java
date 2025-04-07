@@ -88,24 +88,32 @@ class ProfileDatabaseAccessTest {
     @Test
     void obtainPlayerRanking() {
         try {
-            System.out.println(PlayerManager.updateAttribute(id, "win_loss_ratio_ttt", "0.25"));
-            System.out.println(PlayerManager.updateAttribute(id, "win_loss_ratio_connect4", "0.50"));
-            System.out.println(PlayerManager.updateAttribute(id, "win_loss_ratio_checkers", "0.75"));
-            System.out.println(PlayerManager.updateAttribute(id, "rating_ttt", "30"));
-            System.out.println(PlayerManager.updateAttribute(id, "rating_connect4", "50"));
-            System.out.println(PlayerManager.updateAttribute(id, "rating_checkers", "80"));
+            System.out.println(PlayerManager.updateAttribute(id, "win_loss_ratio_ttt", 0.25));
+            System.out.println(PlayerManager.updateAttribute(id, "win_loss_ratio_connect4", 0.50));
+            System.out.println(PlayerManager.updateAttribute(id, "win_loss_ratio_checkers", 0.75));
+            System.out.println(PlayerManager.updateAttribute(id, "rating_ttt", 30));
+            System.out.println(PlayerManager.updateAttribute(id, "rating_connect4", 50));
+            System.out.println(PlayerManager.updateAttribute(id, "rating_checkers", 80));
             System.out.println(PlayerManager.updateAttribute(id, "rank_ttt", "Bronze"));
             System.out.println(PlayerManager.updateAttribute(id, "rank_connect4", "Silver"));
             System.out.println(PlayerManager.updateAttribute(id, "rank_checkers", "Gold"));
-            System.out.println(PlayerManager.updateAttribute(id, "wins_ttt", "5"));
-            System.out.println(PlayerManager.updateAttribute(id, "wins_connect4", "120"));
-            System.out.println(PlayerManager.updateAttribute(id, "wins_checkers", "500"));
+            System.out.println(PlayerManager.updateAttribute(id, "wins_ttt", 5));
+            System.out.println(PlayerManager.updateAttribute(id, "wins_connect4", 120));
+            System.out.println(PlayerManager.updateAttribute(id, "wins_checkers", 500));
+            System.out.println(PlayerManager.updateAttribute(id, "losses_ttt", 45));
+            System.out.println(PlayerManager.updateAttribute(id, "losses_connect4", 20));
+            System.out.println(PlayerManager.updateAttribute(id, "losses_checkers", 1));
+            System.out.println(PlayerManager.updateAttribute(id, "total_ttt", 53));
+            System.out.println(PlayerManager.updateAttribute(id, "total_connect4", 141));
+            System.out.println(PlayerManager.updateAttribute(id, "total_checkers", 504));
             double[] winLossRatio = new double[]{0.25, 0.50, 0.75};
             int[] rating = new int[]{30, 50, 80};
             String[] rank = new String[]{"Bronze", "Silver", "Gold"};
             int[] wins = new int[]{5, 120, 500};
-
-            PlayerRanking playerRanking = new PlayerRanking(id, winLossRatio, rating, rank, wins);
+            int[] losses = new int[]{45, 20, 1};
+            int[] total = new int[]{53, 141, 504};
+            profile = ProfileDatabaseAccess.obtainProfile(id);
+            PlayerRanking playerRanking = new PlayerRanking(id, winLossRatio, rating, rank, wins, losses, total);
             assertEquals(playerRanking.getWinLossRatio(0), ProfileDatabaseAccess.obtainPlayerRanking(id).getWinLossRatio(PlayerRanking.TTT_INDEX));
             assertEquals(playerRanking.getRating(2), ProfileDatabaseAccess.obtainPlayerRanking(id).getRating(PlayerRanking.CHECKERS_INDEX));
             assertEquals(playerRanking.getRank(1), ProfileDatabaseAccess.obtainPlayerRanking(id).getRank(PlayerRanking.CONNECT4_INDEX));

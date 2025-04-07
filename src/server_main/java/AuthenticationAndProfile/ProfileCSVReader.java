@@ -61,6 +61,13 @@ public class ProfileCSVReader {
     protected static final int ACHIVPROG_INDEX = 22;
     protected static final int FRIENDS_INDEX = 23;
     protected static final int FREQUEST_INDEX = 24;
+    protected static final int LOSSES_TTT_INDEX = 25;
+    protected static final int LOSSES_CONNECT4_INDEX = 26;
+    protected static final int LOSSES_CHECKERS_INDEX = 27;
+    protected static final int TOTAL_TTT_INDEX = 28;
+    protected static final int TOTAL_CONNECT4_INDEX = 29;
+    protected static final int TOTAL_CHECKERS_INDEX = 30;
+
 
     /**
      * Opens CSV file (from networking): A list of one profile and their information
