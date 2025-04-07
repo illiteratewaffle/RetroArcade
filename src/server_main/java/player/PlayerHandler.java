@@ -27,6 +27,7 @@ public class PlayerHandler implements Runnable {
     private Thread gameSessionManagerThread = null;
     private final Object gameSessionLock = new Object();
     private Thread mainThread = null;
+    private PlayerHandler thisPlayerHandler = this;
 
     /**
      * Get the Thread that the PlayerHandler is on
@@ -134,8 +135,15 @@ public class PlayerHandler implements Runnable {
                         Map<String, Object> jsonMap = fromJson(message);
                         // TODO: TEMPORARY, CHECK IF TYPE IS ENQUEUE
                         if (jsonMap.containsKey("type") && jsonMap.get("type").equals("enqueue")) {
-                            // Pass itself in to enqueuePlayer
-                            ServerController.enqueuePlayer(PlayerHandler.this, gameType);
+                            if (jsonMap.containsKey("game-type") && jsonMap.get("game-type").equals(0)) {
+                                ServerController.enqueuePlayer(thisPlayerHandler, 0);
+                            } else if (jsonMap.containsKey("game-type") && jsonMap.get("game-type").equals(1)) {
+                                ServerController.enqueuePlayer(thisPlayerHandler, 1);
+                            } else if (jsonMap.containsKey("game-type") && jsonMap.get("game-type").equals(2)) {
+                                ServerController.enqueuePlayer(thisPlayerHandler, 2);
+                            } else {
+                                log("PlayerHandler: Unknown game-type: " + jsonMap.get("game-type"));
+                            }
                         }
                         // TODO: this threadMessage has to be like "sorted" to where it needs to go
                         ThreadMessage threadMessage = new ThreadMessage(mainThread, jsonMap);
