@@ -2,6 +2,7 @@ package management;
 
 import player.PlayerHandler;
 
+import java.sql.SQLException;
 import java.util.Queue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -27,7 +28,11 @@ public class ServerController {
     }
 
     public static void enqueuePlayer(PlayerHandler player, int gameType) {
-        gameCreator.enqueuePlayer(player, gameType);
+        try {
+            gameCreator.enqueuePlayer(player, gameType);
+        } catch (SQLException e) {
+            ServerLogger.log("ServerController: Error enqueuing player to the queue.");
+        }
     }
 
     public static void dequeuePlayer(PlayerHandler player) {
