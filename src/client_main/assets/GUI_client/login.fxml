@@ -48,7 +48,7 @@
          </image>
       </ImageView>
 
-      <!--Login Message Label-->
+
       <Label fx:id="WrongLogIn" layoutX="230" layoutY="320" textFill="red" style="-fx-font-weight: bold;" />
 
    </children>
