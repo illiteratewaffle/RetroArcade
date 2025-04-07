@@ -22,7 +22,7 @@ class ProfileDatabaseAccessTest {
     @BeforeEach
     void setUp() {
         try {
-            id = PlayerManager.registerPlayer("username2", "email2@email.com", "12345678");
+            id = PlayerManager.registerPlayer("username3", "email3@email.com", "12345678");
             profile = ProfileDatabaseAccess.obtainProfile(id);
         } catch (SQLException s) {
             System.out.println("register player error: " + s.getMessage());
