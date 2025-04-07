@@ -39,7 +39,7 @@ public class JsonConverter {
         if (object == null) {
             return "null";
         } else if (object instanceof String) {
-            return "\"" + object.toString().replace("\"","\\\"").replace("\\","\\\\")
+            return "\"" + object.toString().replace("\\","\\\\").replace("\"","\\\"")
                     .replace("\n","\\n").replace("\t", "\\t") + "\"";
         } else if (object instanceof Number || object instanceof Boolean) {
             return object.toString();
@@ -265,20 +265,11 @@ public class JsonConverter {
                 // Get the next escape sequence character that we moved too
                 char escapeChar = json.charAt(index.value);
                 switch (escapeChar) {
-                    case '"':
-                        builder.append('"');
-                        break;
-                    case '\\':
-                        builder.append('\\');
-                        break;
-                    case 'n':
-                        builder.append('\n');
-                        break;
-                    case 't':
-                        builder.append('\t');
-                        break;
-                    default:
-                        throw new IllegalArgumentException("Unsupported escape sequence character: \\" + escapeChar + ": " + json.substring(0, index.value) + "\t<-HERE\t" + json.substring(index.value));
+                    case '\\': builder.append('\\'); break;
+                    case '"': builder.append('"'); break;
+                    case 'n': builder.append('\n'); break;
+                    case 't': builder.append('\t'); break;
+                    default: throw new IllegalArgumentException("Unsupported escape sequence character: \\" + escapeChar + ": " + json.substring(0, index.value) + "\t<-HERE\t" + json.substring(index.value));
                 }
                 index.value++;
                 continue;

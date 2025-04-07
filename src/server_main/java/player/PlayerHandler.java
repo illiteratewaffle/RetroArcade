@@ -1,13 +1,11 @@
 package player;
 
 import AuthenticationAndProfile.Profile;
-import management.ServerLogger;
-import management.ThreadMessage;
-import management.NetworkManager;
-import management.ThreadRegistry;
+import management.*;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.Map;
 import java.util.concurrent.BlockingQueue;
 
 import static management.JsonConverter.fromJson;
@@ -88,7 +86,6 @@ public class PlayerHandler implements Runnable {
         // Start the PlayerHandlerListener thread
         PlayerHandlerListener playerHandlerListener = new PlayerHandlerListener();
         Thread playerHandlerListenerThread = Thread.ofVirtual().start(playerHandlerListener);
-        //
         while (running) {
             try {
                 // Take a message from the blocking queue
@@ -126,7 +123,7 @@ public class PlayerHandler implements Runnable {
 
                         //Check if the player is in a game session, and if so handle the game session ending.
                         if (gameSessionManagerThread != null) {
-                            //Implement disconnection handling for when they're in a game session.
+                            //TODO: Implement disconnection handling for when they're in a game session.
                         }
 
                         break;
@@ -134,7 +131,15 @@ public class PlayerHandler implements Runnable {
 
                     // Convert the json formatting and send it to the GameSessionManager
                     try {
-                        ThreadMessage threadMessage = new ThreadMessage(mainThread, fromJson(message));
+                        Map<String, Object> jsonMap = fromJson(message);
+                        // TODO: TEMPORARY, CHECK IF TYPE IS ENQUEUE
+                        if (jsonMap.containsKey("type") && jsonMap.get("type").equals("enqueue")) {
+                            // Pass itself in to enqueuePlayer
+                            ServerController.enqueuePlayer(PlayerHandler.this);
+                        }
+                        // TODO: this threadMessage has to be like "sorted" to where it needs to go
+                        ThreadMessage threadMessage = new ThreadMessage(mainThread, jsonMap);
+                        // TODO: this code should only run if we are sending information to the gameSessionManager
                         // Make sure that we have the GameSessionManagerThread before attempting to send information to it
                         synchronized (gameSessionLock) {
                             if (gameSessionManagerThread == null)
