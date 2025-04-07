@@ -27,7 +27,6 @@ public class PlayerHandler implements Runnable {
     private Thread gameSessionManagerThread = null;
     private final Object gameSessionLock = new Object();
     private Thread mainThread = null;
-    private PlayerHandler thisPlayerHandler = this;
 
     /**
      * Get the Thread that the PlayerHandler is on
@@ -74,7 +73,7 @@ public class PlayerHandler implements Runnable {
             this.bufferedReader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
             this.printWriter = new PrintWriter(clientSocket.getOutputStream(), true);
         } catch (IOException e) {
-            log("Failure to initialize PlayerHandler BufferedReader/BufferedWriter:", e.toString());
+            log("PlayerHandler: Failure to initialize PlayerHandler BufferedReader/BufferedWriter:", e.toString());
         }
     }
 
@@ -120,7 +119,7 @@ public class PlayerHandler implements Runnable {
                         ThreadRegistry.unregister(PlayerHandler.this);
 
                         //Log that the player has disconnected.
-                        ServerLogger.log("Player " + profile.getUsername() + " Disconnected.");
+                        ServerLogger.log("PlayerHandler: Player " + profile.getUsername() + ":" + profile.getID() + " disconnected.");
 
                         //Check if the player is in a game session, and if so handle the game session ending.
                         if (gameSessionManagerThread != null) {
@@ -136,11 +135,11 @@ public class PlayerHandler implements Runnable {
                         // TODO: TEMPORARY, CHECK IF TYPE IS ENQUEUE
                         if (jsonMap.containsKey("type") && jsonMap.get("type").equals("enqueue")) {
                             if (jsonMap.containsKey("game-type") && jsonMap.get("game-type").equals(0)) {
-                                ServerController.enqueuePlayer(thisPlayerHandler, 0);
+                                ServerController.enqueuePlayer(PlayerHandler.this, 0);
                             } else if (jsonMap.containsKey("game-type") && jsonMap.get("game-type").equals(1)) {
-                                ServerController.enqueuePlayer(thisPlayerHandler, 1);
+                                ServerController.enqueuePlayer(PlayerHandler.this, 1);
                             } else if (jsonMap.containsKey("game-type") && jsonMap.get("game-type").equals(2)) {
-                                ServerController.enqueuePlayer(thisPlayerHandler, 2);
+                                ServerController.enqueuePlayer(PlayerHandler.this, 2);
                             } else {
                                 log("PlayerHandler: Unknown game-type: " + jsonMap.get("game-type"));
                             }
