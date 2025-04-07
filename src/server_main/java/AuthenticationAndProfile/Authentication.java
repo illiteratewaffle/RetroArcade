@@ -30,7 +30,7 @@ public class Authentication {
             if (id != -1) {
                 profile = ProfileDatabaseAccess.obtainProfile(id);
                 profile.setOnlineStatus(true);
-                log("Player %d is setOnline\n", id);
+                log(String.format("Player %d is setOnline\n", id));
                 return profile;
             } else {
                 throw new SQLException("Incorrect Username or Password");

@@ -45,11 +45,10 @@ class ProfileCreationTest {
             String hashedPassword = ProfileCreation.hashedPassword(password);
             newProfileID = newProfile.getID();
 
-            assertEquals(Integer.toString(newProfileID), PlayerManager.getAttribute(newProfileID, "ID"));
+            assertEquals(Integer.toString(newProfileID), PlayerManager.getAttribute(newProfileID, "id"));
             assertEquals(username, PlayerManager.getAttribute(newProfileID, "username"));
             assertEquals(email, PlayerManager.getAttribute(newProfileID, "email"));
             assertEquals(hashedPassword, PlayerManager.getAttribute(newProfileID, "hashed_password"));
-            ProfileDatabaseAccess.removeProfile(newProfileID);
         } catch (SQLException s1) {
             System.out.println("Error with getAttribute: " + s1.getMessage());
         } catch (NoSuchAlgorithmException | IOException n) {

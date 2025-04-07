@@ -51,28 +51,21 @@ class AuthenticationTest {
             PlayerManager.deleteProfile(id);
         } catch (SQLException s) {
             System.out.println("registerPlayer or logIn error: " + s.getMessage());
-        } catch (IOException | NoSuchAlgorithmException e) {
+        } catch (NoSuchAlgorithmException | IOException e) {
             System.out.println(e.getMessage());
         }
     }
 
-//    @Test
-//    void logOut() {
-//        Authentication.setProfileLoggedIn(profile);
-//        Authentication.logOut();
-//        assertNull(Authentication.getProfileLoggedIn());
-//    }
-
-//    @Test
-//    void getProfileLoggedIn() {
-//        Authentication.setProfileLoggedIn(profile);
-//        assertEquals(profile, Authentication.getProfileLoggedIn());
-//    }
-
-//    @Test
-//    void setProfileLoggedIn() {
-//        //Profile profile = new Profile("email@email.com", "46#B286734A8%367","nick", "This is bio.", false, "null", new FriendsList(), new PlayerRanking(), new GameHistory(), "C:profile/pic/path.png", "username", 2 );
-//        Authentication.setProfileLoggedIn(profile);
-//        assertEquals(profile, Authentication.getProfileLoggedIn());
-//    }
+    @Test
+    void logOut() {
+        try {
+            int id = PlayerManager.registerPlayer("username2", "email2@email.com", ProfileCreation.hashedPassword("1234567"));
+            Profile profile1 = ProfileDatabaseAccess.obtainProfile(id);
+            Authentication.logOut(id);
+            assertFalse(ProfileDatabaseAccess.obtainProfile(id).getOnlineStatus());
+            PlayerManager.deleteProfile(id);
+        } catch (SQLException | NoSuchAlgorithmException | IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 }
