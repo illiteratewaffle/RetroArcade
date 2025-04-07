@@ -1,8 +1,9 @@
 package GameLogic_Client.TicTacToe;
 
+import GameLogic_Client.GameState;
 import GameLogic_Client.IBoardGameController;
-import GameLogic_Client.TicTacToe.TTTGame;
 import GameLogic_Client.Ivec2;
+
 import java.util.ArrayList;
 
 /**
@@ -18,16 +19,10 @@ public class TTTGameController implements IBoardGameController {
     public TTTGame game;
 
     /**
-     * Indicates whether the game is still ongoing.
-     */
-    public boolean gameOngoing;
-
-    /**
-     * Initializes the game controller, setting up a new game instance and marking the game as ongoing.
+     * Initializes the game controller by creating a new game instance.
      */
     public TTTGameController() {
         this.game = new TTTGame();
-        this.gameOngoing = true;
     }
 
     /**
@@ -58,14 +53,16 @@ public class TTTGameController implements IBoardGameController {
     /**
      * Determines if there is a winner.
      *
-     * @return An array containing the winner's index (1 for X, 2 for O), or an empty array if no winner.
+     * @return An array containing the winner's index (0 for X, 1 for O), both for tie, or empty if no winner.
      */
     @Override
     public int[] getWinner() {
-        if (game.checkWin(game.board)) {
-            return new int[] { game.currentPlayer };
-        }
-        return new int[0];
+        return switch (game.gameState) {
+            case P1WIN -> new int[]{0};
+            case P2WIN -> new int[]{1};
+            case TIE -> new int[]{0, 1};
+            default -> new int[]{};
+        };
     }
 
     /**
@@ -75,7 +72,7 @@ public class TTTGameController implements IBoardGameController {
      */
     @Override
     public boolean getGameOngoing() {
-        return gameOngoing;
+        return game.gameState == GameState.ONGOING;
     }
 
     /**
@@ -114,11 +111,11 @@ public class TTTGameController implements IBoardGameController {
     /**
      * Checks if the game state has changed since the last command.
      *
-     * @return true if the game is still ongoing.
+     * @return false, as state change tracking is not currently implemented.
      */
     @Override
     public boolean gameOngoingChangedSinceLastCommand() {
-        return gameOngoing;
+        return false;
     }
 
     /**

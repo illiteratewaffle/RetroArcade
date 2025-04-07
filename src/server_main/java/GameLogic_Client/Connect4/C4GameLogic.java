@@ -1,5 +1,8 @@
 package GameLogic_Client.Connect4;
 
+import GameLogic_Client.GameState;
+import GameLogic_Client.Ivec2;
+
 public class C4GameLogic {
 
     private final C4Board c4Board;
@@ -8,12 +11,34 @@ public class C4GameLogic {
     private int[] C4lastPlayedPosition = new int[2];
     private C4Piece currentPlayer = C4Piece.RED; //red goes first
 
+    private C4Piece c4winner = C4Piece.BLANK;
+
+    public GameState gameState;
+
     /**
      * Constructs a new Connect Four game logic instance.
      */
     public C4GameLogic() {
         this.c4Board = new C4Board(6,7);
+        gameState = GameState.ONGOING;
         System.out.println("A new connect four board has been created");
+    }
+
+    /**
+     * Updates the game state based on the current board.
+     */
+    public void updateGameState() {
+        for (int j = 0; j < 7; j++) {
+            if (c4winner == C4Piece.RED) {
+                gameState = GameState.P1WIN;
+            } else if (c4winner == C4Piece.BLUE) {
+                gameState = GameState.P2WIN;
+            } else if (isC4ColFull(j)) {
+                gameState = GameState.TIE;
+            } else {
+                gameState = GameState.ONGOING;
+            }
+        }
     }
 
     /**
@@ -21,7 +46,7 @@ public class C4GameLogic {
      * @return true if the game is over, false otherwise.
      */
     public boolean getC4IsGameOver() {
-        return false;
+        return isC4GameOver;
     }
 
     /**
@@ -37,7 +62,13 @@ public class C4GameLogic {
      * @return the row index of the topmost blank space, or -1 if it's full.
      */
     public int getC4ColTopBlank(int col) {
+        C4Piece[][] board = c4Board.getC4Board();
 
+        for (int row = board.length-1; row >= 0; row--) {
+            if (board[row][col] == C4Piece.BLANK) {
+                return row;
+            }
+        }
         return -1;
     }
 
@@ -46,7 +77,7 @@ public class C4GameLogic {
      * @return the winning piece, or BLANK if no winner.
      */
     public C4Piece getC4Winner() {
-        return C4Piece.BLANK;
+        return c4winner;
     }
 
     /**
@@ -55,6 +86,10 @@ public class C4GameLogic {
      */
     public int[] getC4lastPlayedPosition() {
         return C4lastPlayedPosition;
+    }
+
+    public int getc4PiecesPlayed() {
+        return c4PiecesPlayed;
     }
 
     /**
@@ -67,8 +102,41 @@ public class C4GameLogic {
         if (isC4ColFull(col)) {
             System.out.println(String.format("Column[%d] is full!", col));
             return false;
+        } else {
+            int row = getC4ColTopBlank(col);
+
+            // place piece
+            c4PlacePiece(row, col, piece);
+
+            // save last played coordinate
+            C4lastPlayedPosition[0] = row;
+            C4lastPlayedPosition[1] = col;
+
+            // increment piece counter
+            c4PiecesPlayed += 1;
+
+            Ivec2 lastPlayed = new Ivec2(col, row);
+
+            // check for win
+            if (C4WinCheckerO1.isC4Win(lastPlayed, piece, c4Board.getC4Board())) {
+                isC4GameOver = true;
+                c4winner = piece;
+                System.out.println(c4winner + " has won!");
+            } else if (c4PiecesPlayed == c4Board.getC4Board().length * c4Board.getC4Board()[0].length) {
+                isC4GameOver = true;
+                c4winner = C4Piece.BLANK;
+                System.out.println("Game ended in a draw!");
+            } else {
+                // Swap player turn
+                if (currentPlayer == C4Piece.RED) {
+                    currentPlayer = C4Piece.BLUE;
+                }
+                else if (currentPlayer == C4Piece.BLUE) {
+                    currentPlayer = C4Piece.RED;
+                }
+            }
+            return true;
         }
-        return false;
     }
 
     /**
@@ -96,6 +164,15 @@ public class C4GameLogic {
      * @param piece the piece to be placed.
      */
     private void c4PlacePiece(int row, int col, C4Piece piece) {
+        Ivec2 point = new Ivec2(col, row);
+        c4Board.setC4Piece(point, piece);
+    }
+
+    /**
+     * Returns the 2D array of the board. Required for the controller class to view the board.
+     */
+    public C4Board getC4Board() {
+        return c4Board;
     }
 
     /**

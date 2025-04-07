@@ -1,7 +1,6 @@
 package GameLogic_Client.TicTacToe;
 
 import GameLogic_Client.AbstractBoard;
-import GameLogic_Client.TicTacToe.TTTPiece;
 import GameLogic_Client.Ivec2;
 
 /**

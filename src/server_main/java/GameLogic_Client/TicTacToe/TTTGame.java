@@ -1,4 +1,6 @@
 package GameLogic_Client.TicTacToe;
+
+import GameLogic_Client.GameState;
 import GameLogic_Client.Ivec2;
 
 /**
@@ -21,12 +23,18 @@ public class TTTGame {
     public int currentPlayer;
 
     /**
+     * Tracks the current game state (ongoing, win, or tie).
+     */
+    public GameState gameState;
+
+    /**
      * Initializes a new Tic-Tac-Toe game with an empty board.
      * X (player 1) starts first.
      */
     public TTTGame() {
         board = new TTTBoard();
         currentPlayer = 1;
+        gameState = GameState.ONGOING;
     }
 
     /**
@@ -44,7 +52,9 @@ public class TTTGame {
             return false;
         }
 
-        if (isGameOver(board)) {
+        updateGameState();
+
+        if (gameState != GameState.ONGOING) {
             printBoard();
             return true;
         }
@@ -58,6 +68,23 @@ public class TTTGame {
      */
     public void switchTurn() {
         currentPlayer = (currentPlayer == 1) ? 2 : 1;
+    }
+
+    /**
+     * Updates the game state based on the current board.
+     */
+    public void updateGameState() {
+        TTTPiece winner = board.checkWinner();
+
+        if (winner == TTTPiece.X) {
+            gameState = GameState.P1WIN;
+        } else if (winner == TTTPiece.O) {
+            gameState = GameState.P2WIN;
+        } else if (board.isFull()) {
+            gameState = GameState.TIE;
+        } else {
+            gameState = GameState.ONGOING;
+        }
     }
 
     /**
@@ -110,6 +137,7 @@ public class TTTGame {
                 TTTPiece piece = TTTPiece.fromInt(grid[row][col]);
                 System.out.print(piece + " ");
             }
+            System.out.println();
         }
     }
 }
