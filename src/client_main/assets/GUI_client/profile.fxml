@@ -35,37 +35,37 @@
       <Circle fill="#8a8a8a" layoutX="169.0" layoutY="124.0" radius="60.0" stroke="BLACK" strokeType="INSIDE" />
       <ImageView fx:id="avatar" fitHeight="194.0" fitWidth="194.0" layoutX="74.0" layoutY="25.0">
          <image>
-            <Image url="@../GUI_avatars/Invader_purple.PNG" />
+            <Image url="@../GUI_avatars/Invader_purple.PNG"/>
          </image>
       </ImageView>
       <ImageView fitHeight="194.0" fitWidth="595.0" layoutX="220.0" layoutY="-6.0">
          <image>
-            <Image url="@../profile_assets/chat_bubble.PNG" />
+            <Image url="@../profile_assets/chat_bubble.PNG"/>
          </image>
       </ImageView>
       <ImageView fx:id="home_button" accessibleRole="BUTTON" fitHeight="90.0" fitWidth="101.0" layoutX="-3.0" layoutY="3.0" onMouseClicked="#go_home">
          <image>
-            <Image url="@../GUI_buttons/home_button.png" />
+            <Image url="@../GUI_buttons/home_button.png"/>
          </image>
       </ImageView>
       <ImageView accessibleRole="BUTTON" fitHeight="89.0" fitWidth="90.0" layoutX="808.0" layoutY="2.0" onMouseClicked="#close_window" fx:id="x_button">
          <image>
-            <Image url="@../GUI_buttons/x_button.png" />
+            <Image url="@../GUI_buttons/x_button.png"/>
          </image>
       </ImageView>
       <Label fx:id="bio_label" accessibleRole="TEXT_FIELD" alignment="TOP_LEFT" layoutX="300.0" layoutY="36.0" prefHeight="117.0" prefWidth="504.0" text="Connect4 is my lifes passion!" wrapText="true">
          <font>
-            <Font name="Silom" size="18.0" />
+            <Font name="Silom" size="18.0"/>
          </font>
       </Label>
       <Label fx:id="name_label" accessibleRole="TEXT_FIELD" alignment="TOP_LEFT" layoutX="249.0" layoutY="9.0" prefHeight="35.0" prefWidth="463.0" text="Dianna Prince (@connect4whore) " wrapText="true">
          <font>
-            <Font name="Silom" size="18.0" />
+            <Font name="Silom" size="18.0"/>
          </font>
       </Label>
       <Label alignment="TOP_LEFT" layoutX="247.0" layoutY="35.0" prefHeight="23.0" prefWidth="51.0" text="says:">
          <font>
-            <Font name="Silom" size="18.0" />
+            <Font name="Silom" size="18.0"/>
          </font>
       </Label>
       <ScrollPane layoutX="32.0" layoutY="246.0" prefHeight="305.0" prefWidth="838.0" style="-fx-background-color: transparent;">
@@ -210,67 +210,67 @@
                <children>
                   <ImageView fitHeight="1890.0" fitWidth="849.0">
                      <image>
-                        <Image url="@../leaderboard_assets/star_background.PNG" />
+                        <Image url="@../leaderboard_assets/star_background.PNG"/>
                      </image>
                   </ImageView>
                   <ImageView fx:id="cyan_alien" accessibleRole="BUTTON" fitHeight="227.0" fitWidth="280.0" onMouseClicked="#choose_cyan_alien">
                      <image>
-                        <Image url="@../GUI_avatars/Invader_cyan.PNG" />
+                        <Image url="@../GUI_avatars/Invader_cyan.PNG"/>
                      </image>
                   </ImageView>
                   <ImageView fx:id="green_alien" accessibleRole="BUTTON" fitHeight="227.0" fitWidth="280.0" onContextMenuRequested="#choose_green_alien" GridPane.columnIndex="1">
                      <image>
-                        <Image url="@../GUI_avatars/Invader_green.PNG" />
+                        <Image url="@../GUI_avatars/Invader_green.PNG"/>
                      </image>
                   </ImageView>
                   <ImageView accessibleRole="BUTTON" fitHeight="227.0" fitWidth="266.0" onContextMenuRequested="#choose_pink_alien" GridPane.columnIndex="2">
                      <image>
-                        <Image url="@../GUI_avatars/Invader_pink.PNG" />
+                        <Image url="@../GUI_avatars/Invader_pink.PNG"/>
                      </image>
                   </ImageView>
                   <ImageView fx:id="purple_alien" accessibleRole="BUTTON" fitHeight="227.0" fitWidth="280.0" onMouseClicked="#choose_purple_alien" GridPane.rowIndex="1">
                      <image>
-                        <Image url="@../GUI_avatars/Invader_purple.PNG" />
+                        <Image url="@../GUI_avatars/Invader_purple.PNG"/>
                      </image>
                   </ImageView>
                   <ImageView accessibleRole="BUTTON" fitHeight="227.0" fitWidth="280.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <image>
-                        <Image url="@../GUI_avatars/Invader_purple.PNG" />
+                        <Image url="@../GUI_avatars/Invader_purple.PNG"/>
                      </image>
                   </ImageView>
                   <ImageView fx:id="goomba" accessibleRole="BUTTON" fitHeight="227.0" fitWidth="266.0" onMouseClicked="#choose_goomba" GridPane.columnIndex="2" GridPane.rowIndex="1">
                      <image>
-                        <Image url="@../GUI_avatars/mario_goomba.PNG" />
+                        <Image url="@../GUI_avatars/mario_goomba.PNG"/>
                      </image>
                   </ImageView>
                   <ImageView fx:id="toad" accessibleRole="BUTTON" fitHeight="227.0" fitWidth="280.0" onMouseClicked="#choose_toad" GridPane.rowIndex="2">
                      <image>
-                        <Image url="@../GUI_avatars/mario_toad.PNG" />
+                        <Image url="@../GUI_avatars/mario_toad.PNG"/>
                      </image>
                   </ImageView>
                   <ImageView fx:id="blue_ghost" accessibleRole="BUTTON" fitHeight="227.0" fitWidth="280.0" onMouseClicked="#choose_blue_ghost" GridPane.columnIndex="1" GridPane.rowIndex="2">
                      <image>
-                        <Image url="@../GUI_avatars/pacman_blue.PNG" />
+                        <Image url="@../GUI_avatars/pacman_blue.PNG"/>
                      </image>
                   </ImageView>
                   <ImageView fx:id="pink_ghost" accessibleRole="BUTTON" fitHeight="227.0" fitWidth="280.0" onMouseClicked="#choose_pink_ghost" GridPane.columnIndex="2" GridPane.rowIndex="2">
                      <image>
-                        <Image url="@../GUI_avatars/pacman_pink.PNG" />
+                        <Image url="@../GUI_avatars/pacman_pink.PNG"/>
                      </image>
                   </ImageView>
                   <ImageView fx:id="red_ghost" accessibleRole="BUTTON" fitHeight="227.0" fitWidth="280.0" onMouseClicked="#choose_red_ghost" GridPane.rowIndex="3">
                      <image>
-                        <Image url="@../GUI_avatars/pacman_red.PNG" />
+                        <Image url="@../GUI_avatars/pacman_red.PNG"/>
                      </image>
                   </ImageView>
                   <ImageView fx:id="yellow_ghost" accessibleRole="BUTTON" fitHeight="227.0" fitWidth="280.0" onMouseClicked="#choose_yellow_ghost" GridPane.columnIndex="1" GridPane.rowIndex="3">
                      <image>
-                        <Image url="@../GUI_avatars/pacman_yellow.PNG" />
+                        <Image url="@../GUI_avatars/pacman_yellow.PNG"/>
                      </image>
                   </ImageView>
                   <ImageView fx:id="poop" accessibleRole="BUTTON" fitHeight="227.0" fitWidth="280.0" onContextMenuRequested="#choose_poop" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <image>
-                        <Image url="@../GUI_avatars/poop.PNG" />
+                        <Image url="@../GUI_avatars/poop.PNG"/>
                      </image>
                   </ImageView>
                </children>
@@ -279,27 +279,27 @@
       </ScrollPane>
       <ImageView fx:id="edit_profile_button" accessibleRole="BUTTON" fitHeight="68.0" fitWidth="241.0" layoutX="613.0" layoutY="550.0" onMouseClicked="#open_edit_profile">
          <image>
-            <Image url="@../profile_assets/profile_buttons/edit_profile_button_black.png" />
+            <Image url="@../profile_assets/profile_buttons/edit_profile_button_black.png"/>
          </image>
       </ImageView>
       <ImageView fx:id="inbox_button" accessibleRole="BUTTON" fitHeight="58.0" fitWidth="134.0" layoutX="76.0" layoutY="188.0" onMouseClicked="#open_inbox">
          <image>
-            <Image url="@../profile_assets/profile_buttons/inbox_button.png" />
+            <Image url="@../profile_assets/profile_buttons/inbox_button.png"/>
          </image>
       </ImageView>
       <ImageView fx:id="friends_button" accessibleRole="BUTTON" fitHeight="84.0" fitWidth="158.0" layoutX="259.0" layoutY="174.0" onMouseClicked="#open_friends">
          <image>
-            <Image url="@../profile_assets/profile_buttons/friends_button.png" />
+            <Image url="@../profile_assets/profile_buttons/friends_button.png"/>
          </image>
       </ImageView>
       <ImageView fx:id="stats_button" accessibleRole="BUTTON" fitHeight="58.0" fitWidth="154.0" layoutX="454.0" layoutY="187.0" onMouseClicked="#open_stats">
          <image>
-            <Image url="@../profile_assets/profile_buttons/stats_button.png" />
+            <Image url="@../profile_assets/profile_buttons/stats_button.png"/>
          </image>
       </ImageView>
       <ImageView fx:id="history_button" accessibleRole="BUTTON" fitHeight="78.0" fitWidth="179.0" layoutX="646.0" layoutY="178.0" onMouseClicked="#open_history">
          <image>
-            <Image url="@../profile_assets/profile_buttons/history_button.png" />
+            <Image url="@../profile_assets/profile_buttons/history_button.png"/>
          </image>
       </ImageView>
    </children>
