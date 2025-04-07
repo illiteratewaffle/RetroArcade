@@ -44,4 +44,8 @@ public class Matchmaking {
     public void enqueue(int gameType, PlayerHandler handler) {
         MatchmakingQueue.enqueue(handler, gameType);
     }
+
+    public void dequeue(PlayerHandler player) {
+        MatchmakingQueue.dequeue(player);
+    }
 }

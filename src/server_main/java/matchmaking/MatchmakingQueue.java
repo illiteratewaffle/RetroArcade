@@ -63,6 +63,15 @@ public class MatchmakingQueue {
         return null;
     }
 
+    public static PlayerHandler dequeue(PlayerHandler handler) {
+        for (Map.Entry<Integer, LinkedList<PlayerHandler>> entry : gameQueues.entrySet()) {
+            if (entry.getValue().remove(handler)) {
+                return handler;
+            }
+        }
+        return null;
+    }
+
     /***
      *
      * @param gameType
