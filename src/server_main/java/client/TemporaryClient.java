@@ -74,8 +74,17 @@ public class TemporaryClient {
                 String message = scanner.nextLine();
 
                 Map<String, Object> data = new HashMap<>();
-                if (message.equalsIgnoreCase("enqueue")) {
-                    data.put("type", "enqueue");
+                if (message.startsWith("enqueue")) {
+                    if (message.contains("0")) {
+                        data.put("type", "enqueue");
+                        data.put("game-type", 0);
+                    } else if (message.contains("1")) {
+                        data.put("type", "enqueue");
+                        data.put("game-type", 1);
+                    } else if (message.contains("2")) {
+                        data.put("type", "enqueue");
+                        data.put("game-type", 2);
+                    }
                 } else {
                     data.put("type", "message");
                     data.put("message", message);
