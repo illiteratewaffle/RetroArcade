@@ -42,13 +42,13 @@
       </ImageView>
 
       <!-- Sign up Button -->
-      <ImageView fx:id= "signUpButton"accessibleRole="BUTTON" fitHeight="60.0" fitWidth="76.0" layoutX="220.0" layoutY="241.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id= "signUpButton" accessibleRole="BUTTON" fitHeight="60.0" fitWidth="76.0" layoutX="220.0" layoutY="241.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../GUI_buttons/signup_button.png" />
          </image>
       </ImageView>
 
-
+      <!-- Login failure message -->
       <Label fx:id="WrongLogIn" layoutX="230" layoutY="320" textFill="red" style="-fx-font-weight: bold;" />
 
    </children>
