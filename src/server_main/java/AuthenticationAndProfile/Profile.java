@@ -22,7 +22,7 @@ public class Profile {
     private FriendsList friendsList;
     private GameHistory gameHistory;
     private String profilePicFilePath;
-    private static String username;
+    private String username;
     private int id;
 
     public Profile(String email, String hashedPassword, String nickname, String bio, boolean isOnline, String currentGame,
