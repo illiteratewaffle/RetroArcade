@@ -27,4 +27,5 @@ module seng300.w25.project {
     exports GameLogic_Client;
     exports management;
     exports launcher;
+    exports session;
 }

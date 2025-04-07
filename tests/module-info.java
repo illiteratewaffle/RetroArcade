@@ -22,4 +22,5 @@ module seng300.w25.project_tests {
     opens misc;
     opens networking_main.management;
 
+    opens server_tests to org.junit.platform.commons;
 }

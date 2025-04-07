@@ -228,14 +228,13 @@ public class ProfileDatabaseAccess {
      * @param search String
      */
     //TODO: search profile method in Player Manager
-    public static List<Profile> searchForProfile(String search) throws SQLException{
+    public static Profile searchForProfile(String search) throws SQLException{
         try {
-            List<Integer> usernameSearchMatchIdList = PlayerManager.searchProfiles(search);
-            List<Profile> profilesFound = new ArrayList<Profile>();
-            for (int i = 0; i < usernameSearchMatchIdList.size(); i++) {
-                profilesFound.add(obtainProfile(usernameSearchMatchIdList.get(i)));
-            }
+            Integer usernameSearchMatchIdList = PlayerManager.getProfileID(search);
+            Profile profilesFound = obtainProfile((usernameSearchMatchIdList));
+
             return profilesFound;
+
         } catch (SQLException s){
             throw new SQLException(s.getMessage());
         }
