@@ -2,7 +2,9 @@ package AuthenticationAndProfile;
 
 import player.PlayerManager;
 
+import java.io.IOException;
 import java.sql.SQLException;
+import java.util.HashMap;
 
 public class PlayerRanking {
     private int id;
@@ -29,78 +31,70 @@ public class PlayerRanking {
 
     public PlayerRanking() {
     }
+//
+//    public void endOfMatchMethod(int playerID, int gameNumber, int result) throws SQLException {
+//        String gameName = null;
+//        if (gameNumber == TTT_INDEX) {
+//            gameName = "ttt";
+//        } else if (gameNumber == CONNECT4_INDEX) {
+//            gameName = "connect4";
+//        } else if (gameNumber == CHECKERS_INDEX) {
+//            gameName = "checkers";
+//        }
+//        try {
+//            int currentRating = Integer.parseInt(PlayerManager.getAttribute(playerID, "rating_" + gameName));
+//            int currentWins = Integer.parseInt(PlayerManager.getAttribute(playerID, "wins_" + gameName));
+//            int currentLosses = Integer.parseInt(PlayerManager.getAttribute(playerID, "losses_" + gameName));
+//            double currentWinLossRatio = Double.parseDouble(PlayerManager.getAttribute(playerID, "win_loss_ratio_" + gameName));
+//            int currentGamesPlayed = Integer.parseInt(PlayerManager.getAttribute(playerID, "total_" + gameName));
+//
+//            if (result == 1) {
+//                currentRating += 50;
+//                currentWins += 1;
+//                currentGamesPlayed += 1;
+//
+//                currentWinLossRatio = Math.round(((double) currentWins / currentGamesPlayed) * 100.0 / 100.0);
+//            } else if (result == 0) {
+//                currentRating -= 50;
+//                if (currentRating < 0) {
+//                    currentRating = 0;
+//                }
+//                currentLosses += 1;
+//                currentGamesPlayed += 1;
+//                currentWinLossRatio = Math.round(((double) currentWins / currentGamesPlayed) * 100.0 / 100.0);
+//            }
+//
+//            String newRank = PlayerRanking.getRank(currentRating);
+//
+//            PlayerManager.updateAttribute(playerID, "rating_" + gameName, currentRating);
+//            PlayerManager.updateAttribute(playerID, "losses_" + gameName, currentLosses);
+//            PlayerManager.updateAttribute(playerID, "total_" + gameName, currentGamesPlayed);
+//            PlayerManager.updateAttribute(playerID, "wins_" + gameName, currentWinLossRatio);
+//            PlayerManager.updateAttribute(playerID, "win_loss_ratio_" + gameName, currentWinLossRatio);
+//            PlayerManager.updateAttribute(playerID, "rank_" + gameName, newRank);
+//
+//            Profile profile = ProfileDatabaseAccess.obtainProfile(id);
+//
+//            HashMap<String, Double> achievementProgress = profile.getGameHistory().getAchievementProgress();
+//
+//
 
-    public void endOfMatchMethod(int playerID, int gameNumber, int result) throws SQLException {
-        String gameName = null;
-        if (gameNumber == TTT_INDEX) {
-            gameName = "ttt";
-        } else if (gameNumber == CONNECT4_INDEX) {
-            gameName = "connect4";
-        } else if (gameNumber == CHECKERS_INDEX) {
-            gameName = "checkers";
-        }
-        try {
-            int currentRating = Integer.parseInt(PlayerManager.getAttribute(playerID, "rating_" + gameName));
-            int currentWins = Integer.parseInt(PlayerManager.getAttribute(playerID, "wins_" + gameName));
-            int currentLosses = Integer.parseInt(PlayerManager.getAttribute(playerID, "losses_" + gameName));
-            double currentWinLossRatio = Double.parseDouble(PlayerManager.getAttribute(playerID, "win_loss_ratio_" + gameName));
-            int currentGamesPlayed = Integer.parseInt(PlayerManager.getAttribute(playerID, "total_" + gameName));
-
-            if (result == 1) {
-                currentRating += 50;
-                currentWins += 1;
-                currentGamesPlayed += 1;
-
-                currentWinLossRatio = Math.round(((double) currentWins / currentGamesPlayed) * 100.0 / 100.0);
-            } else if (result == 0) {
-                currentRating -= 50;
-                if (currentRating < 0) {
-                    currentRating = 0;
-                }
-                currentLosses += 1;
-                currentGamesPlayed += 1;
-                currentWinLossRatio = Math.round(((double) currentWins / currentGamesPlayed) * 100.0 / 100.0);
-            }
-
-            String newRank = getRank(currentRating);
-
-            if (gameNumber == 0 && result == 0) {
-                PlayerManager.updateAttribute(playerID, "rating_ttt", currentRating);
-                PlayerManager.updateAttribute(playerID, "losses_ttt", currentLosses);
-                PlayerManager.updateAttribute(playerID, "win_loss_ratio_ttt", currentWinLossRatio);
-                PlayerManager.updateAttribute(playerID, "rank_ttt", newRank);
-            } else if (gameNumber == 1 && result == 0) {
-                PlayerManager.updateAttribute(playerID, "rating_connect4", currentRating);
-                PlayerManager.updateAttribute(playerID, "losses_connect4", currentLosses);
-                PlayerManager.updateAttribute(playerID, "win_loss_ratio_connect4", currentWinLossRatio);
-                PlayerManager.updateAttribute(playerID, "rank_connect4", newRank);
-            } else if (gameNumber == 2 && result == 0) {
-                PlayerManager.updateAttribute(playerID, "rating_checkers", currentRating);
-                PlayerManager.updateAttribute(playerID, "losses_checkers", currentLosses);
-                PlayerManager.updateAttribute(playerID, "win_loss_ratio_checkers", currentWinLossRatio);
-                PlayerManager.updateAttribute(playerID, "rank_checkers", newRank);
-            } else if (gameNumber == 0 && result == 1) {
-                PlayerManager.updateAttribute(playerID, "rating_ttt", currentRating);
-                PlayerManager.updateAttribute(playerID, "wins_ttt", currentWins);
-                PlayerManager.updateAttribute(playerID, "win_loss_ratio_ttt", currentWinLossRatio);
-                PlayerManager.updateAttribute(playerID, "rank_ttt", newRank);
-            } else if (gameNumber == 1 && result == 1) {
-                PlayerManager.updateAttribute(playerID, "rating_connect4", currentRating);
-                PlayerManager.updateAttribute(playerID, "wins_connect4", currentWins);
-                PlayerManager.updateAttribute(playerID, "win_loss_ratio_connect4", currentWinLossRatio);
-                PlayerManager.updateAttribute(playerID, "rank_connect4", newRank);
-            } else if (gameNumber == 2 && result == 1) {
-                PlayerManager.updateAttribute(playerID, "rating_checkers", currentRating);
-                PlayerManager.updateAttribute(playerID, "wins_checkers", currentWins);
-                PlayerManager.updateAttribute(playerID, "win_loss_ratio_checkers", currentWinLossRatio);
-                PlayerManager.updateAttribute(playerID, "rank_checkers", newRank);
-            }
-        } catch (SQLException s) {
-            throw new SQLException(s.getMessage());
-        }
-    }
-
-    public double getWinLossRatio(int gameNumber) {
+//
+////            for (String achievement : achievements.keySet()) {
+////                if (achievement.equals("10 Wins " + gameName)) {
+////                    double progress = Math.min(currentWins / 10.0, 1.0);
+////                    achievements.put(achievement, progress);
+////                } else if (achievement.equals("50 Games Played " + gameName)) {
+////                    double progress = Math.min(currentGamesPlayed / 50.0, 1.0);
+////                    achievements.put(achievement, progress);
+////                }
+//            // Add more achievement logic as needed
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+//
+//    }
+        public double getWinLossRatio(int gameNumber) {
         return winLossRatio[gameNumber];
     }
 
@@ -151,7 +145,7 @@ public class PlayerRanking {
         }
     }
 
-//    public void setWinLossRatio(int gameNumber, double ratio) throws SQLException {
+    //    public void setWinLossRatio(int gameNumber, double ratio) throws SQLException {
 //        try {
 //            String gameName = "";
 //            if (gameNumber == TTT_INDEX) {
