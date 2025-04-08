@@ -12,6 +12,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import leaderboard.PlayerRanking;
 import AuthenticationAndProfile.Profile;
@@ -23,6 +25,8 @@ import java.sql.SQLException;
 import java.util.Objects;
 
 public class profileGUIController {
+    @FXML
+    public ImageView muteButton;
     @FXML
     public ImageView home_button;
     @FXML
@@ -100,6 +104,18 @@ public class profileGUIController {
         avatar.setImage(new Image(avatarPath));
         nickname_label.setText(nickname);
         bio_text_area.setText(bio);
+        // setup soundtrack and mute status
+        String path = Objects.requireNonNull(getClass().getResource("/music/profileTrack.mp3")).toExternalForm(); // or absolute path
+        Media sound = new Media(path);
+        AudioManager.mediaPlayer = new MediaPlayer(sound);
+        AudioManager.mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+        AudioManager.mediaPlayer.play();
+        if (AudioManager.isMuted()){
+            AudioManager.applyMute();
+            muteButton.setImage(new Image("muteButton.png"));
+        } else{
+            muteButton.setImage(new Image("unmuteButton.png"));
+        }
     }
 
     //maybe we can send the information to the server once the home button is clicked?
@@ -423,6 +439,15 @@ public class profileGUIController {
     }
     public void homeButtonReleased(){
         home_button.setImage(new Image("home_button.png"));
+    }
+    public void muteButtonClicked(){
+        if(!AudioManager.isMuted()) {
+            muteButton.setImage(new Image("muteButton.png"));
+            AudioManager.toggleMute();
+        } else {
+            muteButton.setImage(new Image("unmuteButton.png"));
+            AudioManager.toggleMute();
+        }
     }
     //------------------------------------------------------------------------------
 
