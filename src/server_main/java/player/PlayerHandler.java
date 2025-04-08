@@ -66,11 +66,21 @@ public class PlayerHandler implements Runnable {
      *
      * @param recipientID
      */
-    public synchronized void sendFriendRequest(Integer recipientID) {
+    public synchronized boolean sendFriendRequest(Integer recipientID) {
         try {
             this.getProfile().getFriendsList().sendFriendRequest(recipientID);
+            return true;
         } catch (SQLException | IOException e) {
             ServerLogger.log("PlayerHandler: " + this.getProfile().getUsername() + " could not send friend request to " + recipientID);
+            return false;
+        }
+    }
+
+    public synchronized void acceptFriendRequest(Integer senderID) {
+        try {
+            this.getProfile().getFriendsList().acceptFriendRequest(senderID);
+        } catch (IOException | SQLException e) {
+            ServerLogger.log("PlayerHandler: " + this.getProfile().getUsername() + " could not accept friend request from " + senderID);
         }
     }
 
@@ -137,6 +147,13 @@ public class PlayerHandler implements Runnable {
         // Start the PlayerHandlerListener thread
         PlayerHandlerListener playerHandlerListener = new PlayerHandlerListener();
         Thread playerHandlerListenerThread = Thread.ofVirtual().start(playerHandlerListener);
+
+        //Set the players online status to true
+        try {
+            this.getProfile().setOnlineStatus(true);
+        } catch (SQLException e) {
+            ServerLogger.log("PlayerHandler: " + this.getProfile().getUsername() + " could not set online status to true.");
+        }
         while (running) {
             try {
                 // Take a message from the blocking queue
