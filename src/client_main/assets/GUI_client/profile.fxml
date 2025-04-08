@@ -15,7 +15,7 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="604.0" prefWidth="900.0" style="-fx-background-color: #8A006C;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI_client.profileGUIController">
+<AnchorPane prefHeight="604.0" prefWidth="900.0" style="-fx-background-color: #8A006C;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI_client.profileGUIController">
    <children>
       <ImageView fitHeight="570.0" fitWidth="900.0" layoutY="-1.0">
          <image>
@@ -288,7 +288,7 @@
             <Image url="@../profile_assets/profile_buttons/history_button.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="edit_profile_button" accessibleRole="BUTTON" fitHeight="62.0" fitWidth="258.0" layoutX="596.0" layoutY="556.0" onMouseClicked="#open_edit_profile" pickOnBounds="true">
+      <ImageView fx:id="edit_profile_button" accessibleRole="BUTTON" fitHeight="75.0" fitWidth="258.0" layoutX="596.0" layoutY="556.0" onMouseClicked="#open_edit_profile" pickOnBounds="true">
          <image>
             <Image url="@../profile_assets/profile_buttons/edit_profile_button_black.png" />
          </image>
@@ -301,9 +301,9 @@
             <Cursor fx:constant="OPEN_HAND" />
          </cursor>
       </ImageView>
-      <ImageView fx:id="done_button" fitHeight="29.0" fitWidth="128.0" layoutX="55.0" layoutY="572.0" onMouseClicked="#apply_changes" opacity="0.0" pickOnBounds="true">
+      <ImageView fx:id="done_button" fitHeight="44.0" fitWidth="128.0" layoutX="55.0" layoutY="572.0" onMouseClicked="#apply_changes" opacity="0.0" pickOnBounds="true">
          <image>
-            <Image url="@../profile_assets/done_button.png" />
+            <Image url="@../profile_assets/profile_buttons/done_button.png"/>
          </image>
       </ImageView>
       <TextField fx:id="search_friend" layoutX="28.0" layoutY="568.0" prefHeight="45.0" prefWidth="274.0" promptText="Search for a friend!">
@@ -316,7 +316,7 @@
             <Image url="@../profile_assets/profile_buttons/friends_black.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="muteButton" fitHeight="80.0" fitWidth="80.0" layoutX="14.0" layoutY="12.0" onMouseClicked="#muteButtonClicked" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="muteButton" fitHeight="80.0" fitWidth="80.0" layoutX="717.0" layoutY="15.0" onMouseClicked="#muteButtonClicked" pickOnBounds="true" preserveRatio="true">
          <cursor>
             <Cursor fx:constant="OPEN_HAND" />
          </cursor></ImageView>
@@ -325,7 +325,7 @@
             <Image url="@../leaderboard_assets/search_button.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="add_friend" fitHeight="75.0" fitWidth="214.0" layoutX="596.0" layoutY="552.0" onMouseClicked="#send_request" opacity="0.0" pickOnBounds="true">
+      <ImageView fx:id="add_friend" disable="true" fitHeight="75.0" fitWidth="214.0" layoutX="596.0" layoutY="552.0" onMouseClicked="#send_request" opacity="0.0" pickOnBounds="true">
          <image>
             <Image url="@../profile_assets/profile_buttons/add_friend_button.png" />
          </image>

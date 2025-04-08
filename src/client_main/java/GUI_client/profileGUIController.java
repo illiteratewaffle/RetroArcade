@@ -97,11 +97,11 @@ public class profileGUIController {
 
     public profileGUIController() {
         //this.profile = ProfileCreation.createNewProfile("");
-        try{
-            this.profile = ProfileDatabaseAccess.obtainProfile(435);} catch (SQLException e) {
-        } catch (IOException s) {
-            System.out.println(s.getMessage());
-        }
+//        try{
+//            this.profile = ProfileDatabaseAccess.obtainProfile(435);} catch (SQLException e) {
+//        } catch (IOException s) {
+//            System.out.println(s.getMessage());
+//        }
         System.out.println("profileGUIController loaded");
         //initialize(this.profile); //This part cannot be uncommented until I have an actual profile to test with
     }
@@ -507,4 +507,9 @@ public class profileGUIController {
         return nickname;
     }
 
+    public void friend_search(MouseEvent mouseEvent) {
+    }
+
+    public void send_request(MouseEvent mouseEvent) {
+    }
 }
