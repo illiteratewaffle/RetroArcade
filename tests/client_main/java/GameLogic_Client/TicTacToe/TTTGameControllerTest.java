@@ -115,4 +115,11 @@ class TTTGameControllerTest {
         assertEquals(2, gameController.getCurrentPlayer(), "Player should not switch after invalid move");
     }
 
+    @Test
+    void getBoardCellsAfterMove() {
+        gameController.game.makeMove(0, 0);
+        int[][] board = gameController.getBoardCells(0).get(0);
+        assertEquals(1, board[0][0], "Top-left cell should be marked by Player 1");
+    }
+
 }
