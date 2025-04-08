@@ -25,22 +25,44 @@ public class TTTGameController implements IBoardGameController {
         this.game = new TTTGame();
     }
 
+    /**
+     * Checks if a given tile on the board is empty.
+     * @param tile Ivec2 coordinates of the tile that you want to check if empty.
+     * @return returns true if empty, false if not empty.
+     */
     public boolean isTileEmpty(Ivec2 tile) {
         return game.board.isEmpty(tile);
     }
 
+    /**
+     * Makes the move via the game logic and switches the players turn if the move is valid.
+     * @param row the row coordinate of the move.
+     * @param col the col coordinate of the move.
+     * @return returns true if the move is valid. False if invalid.
+     */
     public boolean makeMove(int row, int col) {
         return game.makeMove(row, col);
     }
 
+    /**
+     * checks if a win condition has been reached by either player.
+     * @return returns true if a player has won, false if nobody has won yet.
+     */
     public boolean checkWin() {
         return game.checkWin(game.board);
     }
 
+    /**
+     * checks if a draw condition has been reached in-game.
+     * @return returns true if there's a draw, false otherwise.
+     */
     public boolean checkDraw() {
         return game.checkDraw(game.board);
     }
 
+    /**
+     * updates the game state via the game logic.
+     */
     public void updateGameState() {
         game.updateGameState();
     }
