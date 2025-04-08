@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -38,12 +40,12 @@
                 <Image url="@connect_4_assets/x_button.png" />
             </image>
         </ImageView>
-        <ImageView fitHeight="199.0" fitWidth="880.0" layoutX="8.0" layoutY="407.0">
+        <ImageView fx:id="chatBackground" fitHeight="189.0" fitWidth="849.0" layoutX="26.0" layoutY="404.0">
             <image>
-                <Image url="@connect_4_assets/chat_bubble2.PNG" />
+                <Image url="@horizontal_chat_bg.jpg" />
             </image>
         </ImageView>
-        <ImageView accessibleRole="BUTTON" fitHeight="59.0" fitWidth="105.0" layoutX="761.0" layoutY="511.0">
+        <ImageView fx:id="sendButton" accessibleRole="BUTTON" fitHeight="59.0" fitWidth="105.0" layoutX="748.0" layoutY="521.0" onMouseClicked="#sendMessage">
             <image>
                 <Image url="@connect_4_assets/send_button.png" />
             </image>
@@ -72,7 +74,7 @@
                 <RowConstraints maxHeight="119.0" minHeight="0.0" prefHeight="36.0" vgrow="SOMETIMES" />
             </rowConstraints>
         </GridPane>
-        <TextField layoutX="70.0" layoutY="527.0" prefHeight="34.0" prefWidth="662.0" text="message opponent">
+        <TextField fx:id="chatField" layoutX="47.0" layoutY="533.0" prefHeight="40.0" prefWidth="686.0" text="message opponent">
             <font>
                 <Font name="Silom" size="19.0" />
             </font></TextField>
@@ -89,7 +91,6 @@
          <image>
             <Image url="@C4info.jpg" />
          </image></ImageView>
-      <Button fx:id="info_ok_button" layoutX="404.0" layoutY="465.0" mnemonicParsing="false" onMouseClicked="#clickInfoOkButton" opacity="0.0" prefHeight="33.0" prefWidth="70.0" />
       <ImageView fx:id="hintButton" fitHeight="120.0" fitWidth="112.0" layoutX="7.0" layoutY="80.0" onMouseClicked="#clickHintButton" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@hint.png" />
@@ -100,12 +101,22 @@
             <Image url="@C4hint_win_image.png" />
          </image>
       </ImageView>
-      <Button fx:id="hint_ok_button" layoutX="18.0" layoutY="320.0" mnemonicParsing="false" onMouseClicked="#clickHintOkButton" opacity="0.0" prefHeight="49.0" prefWidth="91.0" textFill="WHITE" />
       <ImageView fx:id="noHintMessageImage" fitHeight="199.0" fitWidth="112.0" layoutX="7.0" layoutY="176.0" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
             <Image url="@C4no_hint_image.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="turnIndicatorImage" fitHeight="49.0" fitWidth="200.0" layoutX="353.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true" />
+        <Button fx:id="hint_ok_button" layoutX="36.0" layoutY="312.0" mnemonicParsing="false" onMouseClicked="#clickHintOkButton" opacity="0.0" prefHeight="26.0" prefWidth="50.0" textFill="WHITE" />
+      <ImageView fx:id="turnIndicatorImage" fitHeight="79.0" fitWidth="98.0" layoutX="404.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true" />
+        <Button fx:id="info_ok_button" layoutX="404.0" layoutY="465.0" mnemonicParsing="false" onMouseClicked="#clickInfoOkButton" opacity="0.0" prefHeight="33.0" prefWidth="70.0" />
+      <ScrollPane fx:id="chatPane" hbarPolicy="NEVER" layoutX="167.0" layoutY="422.0" prefHeight="152.0" prefWidth="544.0" vbarPolicy="ALWAYS">
+         <content>
+            <TextArea fx:id="chatArea" prefHeight="110.0" prefWidth="527.0">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </TextArea>
+         </content>
+      </ScrollPane>
     </children>
 </AnchorPane>

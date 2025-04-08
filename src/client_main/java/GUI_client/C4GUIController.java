@@ -11,6 +11,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.paint.Color;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.control.ScrollPane;
 import GameLogic_Client.Connect4.HintResult;
 
 
@@ -31,6 +34,23 @@ public class C4GUIController implements Initializable {
         c4Controller.start(); // This will print the board and start the game logic
         c4GUIGrid.setGridLinesVisible(true);
         updateTurnIndicator();
+
+        chatArea.clear();
+        chatArea.setStyle(
+                "-fx-background-color: transparent;" +
+                        "-fx-control-inner-background: transparent;" +
+                        "-fx-text-fill: white;" + // Optional for readability
+                        "-fx-border-color: transparent;" +
+                        "-fx-text-fill: yellow;" +
+                        "-fx-font-size: 16px;" +
+                        "-fx-font-family: 'SilomBol.ttf';"
+        );
+        chatPane.setStyle(
+                "-fx-background-color: transparent;" +
+                        "-fx-background: transparent;" +
+                        "-fx-border-color: transparent;"
+        );
+
 
         setupHoverEffect(col0Button, 0);
         setupHoverEffect(col1Button, 1);
@@ -67,6 +87,18 @@ public class C4GUIController implements Initializable {
 
     @FXML
     private ImageView turnIndicatorImage;
+
+    @FXML
+    public ImageView sendButton;
+
+    @FXML
+    public TextArea chatArea;
+
+    @FXML
+    public TextField chatField;
+
+    @FXML
+    public ScrollPane chatPane;
 
     @FXML
     private void handleUserClick() {
@@ -196,6 +228,18 @@ public class C4GUIController implements Initializable {
                         ? "/pink_turn.png"
                         : "/blue_turn.png"
         ));
+    }
+
+    public void sendMessage(){
+        String message = chatField.getText();
+        if (!message.trim().isEmpty()){
+            chatArea.appendText("You: " + message + "\n");
+            chatField.clear();
+        }
+    }
+
+    public void getMessage(String message){
+        chatArea.appendText(message);
     }
 
 
