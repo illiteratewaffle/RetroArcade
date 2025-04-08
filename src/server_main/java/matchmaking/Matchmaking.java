@@ -60,4 +60,8 @@ public class Matchmaking {
         }
     }
 
+    public boolean isInQueue(PlayerHandler player) {
+        return MatchmakingQueue.isInQueue(player);
+    }
+
 }
