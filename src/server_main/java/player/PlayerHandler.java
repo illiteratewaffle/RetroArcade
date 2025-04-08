@@ -66,7 +66,7 @@ public class PlayerHandler implements Runnable {
      * Method to send a friend request to another user.
      * @param recipientID The recipient whom the friend request is intended for.
      */
-    public synchronized boolean sendFriendRequest(Integer recipientID) {
+    private synchronized boolean sendFriendRequest(Integer recipientID) {
         try {
             this.getProfile().getFriendsList().sendFriendRequest(recipientID);
             return true;
@@ -80,13 +80,76 @@ public class PlayerHandler implements Runnable {
      * Method to accept a friend request from another user.
      * @param senderID The ID of the user sending the friend request.
      */
-    public synchronized void acceptFriendRequest(Integer senderID) {
+    private synchronized void acceptFriendRequest(Integer senderID) {
         try {
             this.getProfile().getFriendsList().acceptFriendRequest(senderID);
         } catch (IOException | SQLException e) {
             ServerLogger.log("PlayerHandler: " + this.getProfile().getUsername() + " could not accept friend request from " + senderID);
         }
     }
+
+    /**
+     * Method to send a direct game request to another user.
+     * @param queueMessage The thread message from the queue of type "send-game"
+     */
+    private synchronized void sendGameRequest(ThreadMessage queueMessage) {
+
+        //Check to see if the message even contains the recipient id we need.
+        if (queueMessage.getContent().containsKey("id")) {
+            Integer recipientID = (Integer) queueMessage.getContent().get("id");
+
+            //First, obtain the player handler of the recipient using their id.
+            Thread recipientThread = ThreadRegistry.getHandler(recipientID).getThread();
+
+            if (recipientThread != null) {
+
+                //Check if the incoming message contains the game type needed.
+                if (queueMessage.getContent().containsKey("game-type")) {
+
+                    //Create the map for the thread message containing the message type.
+                    Map<String, Object> requestMap = new HashMap<>();
+                    requestMap.put("type", "game-request");
+                    requestMap.put("ID", recipientID);
+                    requestMap.put("game-type", queueMessage.getContent().get("game-type"));
+
+                    //Create the actual thread message for a game request out of the request map.
+                    ThreadMessage requestMessage = new ThreadMessage(Thread.currentThread(), requestMap);
+
+                    //Send the message and log it.
+                    networkManager.sendMessage(recipientThread, requestMessage);
+                    ServerLogger.log("PlayerHandler: " + this.getProfile().getUsername() + " sent game request to " + recipientID);
+                }
+                ServerLogger.log("PlayerHandler: " + this.getProfile().getUsername() + " unable to send game request, incoming message lacks game type.");
+            }
+            ServerLogger.log("PlayerHandler: " + this.getProfile().getUsername() + "Unable to send game request, recipient thread was null.");
+        }
+        ServerLogger.log("PlayerHandler: " + this.getProfile().getUsername() + " unable to send game request, Thread Message did not contain recipient id.");
+    }
+
+    /**
+     * Method to accept a game request from another user.
+     * @param requestMessage The message containing the request to join a game.
+     */
+    private synchronized void acceptGameRequest(ThreadMessage requestMessage) {
+
+        if (requestMessage.getContent().containsKey("ID")) {
+
+            //Get the id, and by extension the player handler of the user sending the game request.
+            Integer senderID = (Integer) requestMessage.getContent().get("ID");
+            PlayerHandler sender = ThreadRegistry.getHandler(senderID);
+
+            //Make sure that the request message contains the game type to be played.
+            if (requestMessage.getContent().containsKey("game-type")) {
+
+                int gameType = (int) requestMessage.getContent().get("game-type");
+                ServerController.createFriendsGame(PlayerHandler.this, sender, gameType);
+                ServerLogger.log("PlayerHandler: " + this.getProfile().getUsername() + " created friends game with " + sender.getProfile().getUsername());
+            }
+            ServerLogger.log("PlayerHandler: " + this.getProfile().getUsername() + "unable to accept game request, incoming message does not containn game type.");
+        }
+        ServerLogger.log("PlayerHandler: " + this.getProfile().getUsername() + " unable to accept game request because message does not contain a sender id.");
+    }
+
 
     /**
      * This function disconnects the player from the server.
