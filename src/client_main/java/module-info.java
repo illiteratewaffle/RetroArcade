@@ -14,9 +14,15 @@ module seng300.w25.project {
     requires annotations;
     requires javafx.media;
     requires java.sql;
+    requires org.postgresql.jdbc;
     //requires org.junit.jupiter.api;
 
 
     opens GUI_client to javafx.fxml;
     exports GUI_client;
+    /*exports GameLogic_Client;
+
+    //opens GUI_client to javafx.fxml, javafx.graphics;
+    exports GameLogic_Client.Connect4;
+    opens GameLogic_Client.Connect4 to javafx.fxml, javafx.graphics; */
 }

@@ -182,4 +182,66 @@ public class C4GameLogic {
     public String toString() {
         return c4Board.toString();
     }
+
+    /**
+     * Makes a copy of the current board. Used for the hint method
+     * @return a copy of a 2D array of the board.
+     */
+    public C4Piece[][] copyC4Board() {
+        C4Piece[][] original = this.getC4Board().getC4Board();
+        C4Piece[][] copy = new C4Piece[original.length][original[0].length];
+
+        for (int row = 0; row < original.length; row++) {
+            System.arraycopy(original[row], 0, copy[row], 0, original[0].length);
+        }
+        return copy;
+    }
+
+    /**
+     * Suggests a column for the current player to play based on immediate win or opportunity to block opponent from winning.
+     * @return a HintResult object containing the column index of a winning or blocking move if available, or the first non-full column.
+     */
+    public HintResult getC4HintColumn () {
+        System.out.println("Hint requested");
+        C4Piece[][] simulatedBoard = copyC4Board();
+        //int colHinted = -1;
+
+        //test for win condition
+        for (int col = 0; col < simulatedBoard[0].length; col++) {
+            int row = getC4ColTopBlank(col);
+            if (row == -1) continue;
+
+            //simulate move
+            simulatedBoard[row][col] = currentPlayer;
+
+            if (C4WinCheckerO1.isC4Win(new Ivec2(col, row), currentPlayer, simulatedBoard)) {
+                simulatedBoard[row][col] = C4Piece.BLANK;
+                //colHinted = col;
+                System.out.println("Place piece in " + col+1 + " to win");
+                return new HintResult(col, "WIN");
+            }
+
+            //undo simulated move
+            simulatedBoard[row][col] = C4Piece.BLANK;
+        }
+
+        C4Piece opponent = currentPlayer == C4Piece.RED ? C4Piece.BLUE : C4Piece.RED;
+
+        for (int col = 0; col < simulatedBoard[0].length; col++) {
+            int row = getC4ColTopBlank(col);
+            if (row == -1) continue;
+
+            simulatedBoard[row][col] = opponent;
+
+            if (C4WinCheckerO1.isC4Win(new Ivec2(col, row), opponent, simulatedBoard)) {
+                simulatedBoard[row][col] = C4Piece.BLANK;
+                return new HintResult(col, "BLOCK");
+            }
+
+            simulatedBoard[row][col] = C4Piece.BLANK;
+        }
+
+        System.out.println("No winning or blocking move detected.");
+        return new HintResult(-1, "NONE");
+    }
 }

@@ -52,12 +52,6 @@ public class TTTController implements Initializable {
     @FXML
     public ImageView quit_image;
     @FXML
-    public ImageView play_again;
-    @FXML
-    public ImageView check_circle;
-    @FXML
-    public ImageView X_circle;
-    @FXML
     public ImageView Win_Lose_Banner;
     @FXML
     public StackPane TileBorder_0_0;
@@ -246,17 +240,15 @@ public class TTTController implements Initializable {
         Image X = new Image("X.png");
         Image O = new Image("O.png");
         if (theGame.getGameOngoing())
-            if (theGame.game.board.isEmpty(new Ivec2(row, col))) {
+            if (theGame.isTileEmpty(new Ivec2(row, col))) {
                 if (theGame.getCurrentPlayer() == 1){
                     imageView.setImage(X);
                     turnBanner.setImage(new Image("OTurn.png"));
-                    theGame.game.makeMove(row, col);
-                    theGame.game.currentPlayer = 2;
+                    theGame.makeMove(row, col);
                 } else {
                     imageView.setImage(O);
                     turnBanner.setImage(new Image("XTurn.png"));
-                    theGame.game.makeMove(row, col);
-                    theGame.game.currentPlayer = 1;
+                    theGame.makeMove(row, col);
                 }
                 checkWin();
             }
@@ -270,7 +262,7 @@ public class TTTController implements Initializable {
      */
     private void hoverEvent(StackPane stackPane, int row, int col){
         if (theGame.getGameOngoing()) {
-            if (theGame.game.board.isEmpty(new Ivec2(row, col))) {
+            if (theGame.isTileEmpty(new Ivec2(row, col))) {
                 stackPane.setStyle("-fx-border-color: yellow; -fx-border-width: 3px; -fx-border-radius: 5px;");
             }
         }
@@ -319,13 +311,16 @@ public class TTTController implements Initializable {
             }
         }
     }
+
     // easter egg stuff
     public void yellowPress(){
         EEList.add('Y');
     }
+
     public void bluePress(){
         EEList.add('B');
     }
+
     public void greenPress(){
         if (EEList.toString().equals("[B, B, Y, Y, B, Y, B, Y]")){
             board_image.setImage(new Image("EE.jpg"));
@@ -335,6 +330,7 @@ public class TTTController implements Initializable {
             EE_SFX.play();
         }
     }
+
     public void redPress(){
         EEList.clear();
         board_image.setImage(new Image("foreground.png"));
@@ -358,27 +354,24 @@ public class TTTController implements Initializable {
      */
     public void checkWin(){
         // check for game win
-        if (theGame.game.checkWin(theGame.game.board)) {
+        if (theGame.checkWin()) {
             // if game is over, current player is the loser
-            if (theGame.getCurrentPlayer() == 2){ // if the current player is O
+            if (theGame.getCurrentPlayer() == 1){ // if the current player is O
                 Win_Lose_Banner.setImage(new Image("X_wins.png"));
-                theGame.game.updateGameState();  // Update the game state to P1 win
-            } else if (theGame.getCurrentPlayer() == 1){
+                theGame.updateGameState();  // Update the game state to P1 win
+            } else if (theGame.getCurrentPlayer() == 2){
                 Win_Lose_Banner.setImage(new Image("O_wins.png"));
-                theGame.game.updateGameState();  // Update the game state to P2 win
+                theGame.updateGameState();  // Update the game state to P2 win
             }
         }
         // check for game draw
-        else if (theGame.game.checkDraw(theGame.game.board)){
+        else if (theGame.checkDraw()){
             Win_Lose_Banner.setImage(new Image("Draw.png"));
-            theGame.game.updateGameState();  // Update the game state to TIE
+            theGame.updateGameState();  // Update the game state to TIE
         }
 
         // if game is over, set play again features
         if (!theGame.getGameOngoing()){ // if the game is not ongoing, i.e. the game is over
-            play_again.setImage(new Image("Play_Again.png"));
-            check_circle.setImage(new Image("check_circle.png"));
-            X_circle.setImage(new Image("X_circle.png"));
             turnBanner.setImage(null);
         }
     }
@@ -397,9 +390,6 @@ public class TTTController implements Initializable {
         Tile_2_0.setImage(null);
         Tile_2_1.setImage(null);
         Tile_2_2.setImage(null);
-        play_again.setImage(null);
-        check_circle.setImage(null);
-        X_circle.setImage(null);
         Win_Lose_Banner.setImage(null);
     }
 
@@ -433,6 +423,7 @@ public class TTTController implements Initializable {
         info_bg.setMouseTransparent(true);
         info_ok_button.setMouseTransparent(true);
     }
+
     public void XPressed(){
         quit_image.setImage(new Image("home_button_pressed.png"));
     }

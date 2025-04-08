@@ -1,74 +1,71 @@
 package AuthenticationAndProfile;
 
 import server.player.PlayerManager;
-//import java.util.HashMap;
+import static server.management.ServerLogger.log;
+
+import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
+import java.sql.SQLException;
 /**
  * Authentication Class handles Profile Login and Logout
  * @author Alessia Flaig
  */
 public class Authentication {
-    private static Profile profileLoggedIn;
-
-//    /**
-//     * Constructor to be created when program runs?
-//     */
-//    public Authentication() {
-//
-//    }
     /**
      * logIn(String username, String password)
      * This method takes a provided username and password from the LogIn page and authenticates the LogIn credentials.
      * When successfully logged in, profile's isOnline is set to true.
+     *
      * @param username String
      * @param password String
      * @return true if login is successful. Throws exceptions for incorrect username or password if
      * login fails.
      */
-    public static boolean logIn(String username, String password) {
-        String hashedPassword = ProfileCreation.hashedPassword(password);
-        //try {
+    //return profile object
+    public static Profile logIn(String username, String password) throws SQLException, NoSuchAlgorithmException, IOException {
+        try {
+            String hashedPassword = ProfileCreation.hashedPassword(password);
+            Profile profile;
             int id = PlayerManager.authenticatePlayer(username, hashedPassword);
             if (id != -1) {
-                Profile profile = ProfileDatabaseAccess.obtainProfile(id);
-                setProfileLoggedIn(profile);
+                profile = ProfileDatabaseAccess.obtainProfile(id);
                 profile.setOnlineStatus(true);
-                System.out.printf("Player %d is setOnline\n", id);
-                return true;
+                log(String.format("Player %d is setOnline\n", id));
+                return profile;
             } else {
-                System.out.println("Unable to Log In.");
-                return false;
+                throw new SQLException("Incorrect Username or Password");
             }
-//        } catch (IOException e) {
-//            System.out.println("Wrong username or password.");
-//            return false;
-//        }
+        } catch (SQLException s) {
+            throw new SQLException(s.getMessage());
+        } catch (NoSuchAlgorithmException e) {
+            throw new NoSuchAlgorithmException(e.getMessage());
+        } catch (IOException i) {
+            throw new IOException(i.getMessage());
+        }
     }
 
     /**
      * logOut() Sets profile's isOnline to false and sets the profileLoggedIn to null so that the previous profile information is no longer accessed.
      */
-    public static void logOut(){
-        profileLoggedIn.setOnlineStatus(false);
-        profileLoggedIn = null;
+    public static void logOut(int id) throws SQLException, IOException {
+        try {
+            ProfileDatabaseAccess.obtainProfile(id).setOnlineStatus(false);
+        } catch (SQLException s) {
+            throw new SQLException(s.getMessage());
+        } catch (IOException e) {
+            throw new IOException(e.getMessage());
+        }
     }
 
-    /**
-     * getProfileLoggedIn() to access Profile object of the profile currently logged in.
-     * @return Profile currently logged in to access profile information.
-     */
-    public static Profile getProfileLoggedIn(){
-        return profileLoggedIn;
-    }
-
-    /**
-     * Sets the Profile currently logged into on the program.
-     * @param profile Profile
-     */
-    public static void setProfileLoggedIn(Profile profile){
-        profileLoggedIn = profile;
-    }
+//    public static String forgotPassword(String username, String email) {
+//        String password;
+//        try {
+//            password = PlayerManager.findPassword(username, email);
+//            log("Password sent to email: " + email);
+//            log("Password: " + password);
+//        } catch (SQLException s) {
+//            log("Username or Email do not exist. " + s.getMessage());
+//        }
+//        return password;
+//    }
 }
-
-//public static void main(String[] args) {
-//
-//}

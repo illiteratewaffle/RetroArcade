@@ -2,7 +2,6 @@ package GameLogic_Client.Connect4;
 
 import GameLogic_Client.IBoardGameController;
 import GameLogic_Client.Ivec2;
-import GameLogic_Client.GameState;
 
 import java.util.ArrayList;
 
@@ -21,7 +20,12 @@ public class C4Controller implements IBoardGameController {
 
     /**
      * Receives user input during the game.
-     * @param input coordinates.
+     * @param input A 2D-Integer-Coordinate Input that corresponds to a Board Cell.
+     */
+
+    /**
+     * Receives user input during the game.
+     * @param input A 2D-Integer-Coordinate Input that corresponds to a Board Cell.
      */
     @Override
     public void receiveInput(Ivec2 input) {
@@ -79,7 +83,16 @@ public class C4Controller implements IBoardGameController {
      * Updates the state of the game as it progresses.
      * @return array of game outcome
      */
-    @Override
+    /*@Override
+    public int[] GetWinner() {
+        C4Piece winner = c4GameLogic.getC4Winner();
+        return switch (winner) {
+            case RED -> new int[]{0};
+            case BLUE -> new int[]{1};
+            default -> new int[]{0, 1}; //draw
+        };
+    }*/
+
     public int[] getWinner() {
         return switch (c4GameLogic.gameState) {
             case P1WIN -> new int[]{0};
@@ -123,7 +136,11 @@ public class C4Controller implements IBoardGameController {
      */
     @Override
     public int getCurrentPlayer() {
-        return 0;
+        int currentPlayer = 0;
+        if (c4GameLogic.getC4CurrentPlayer() == C4Piece.BLUE) {
+            currentPlayer = 1;
+        }
+        return currentPlayer;
     }
 
     /**
@@ -154,10 +171,25 @@ public class C4Controller implements IBoardGameController {
         return c4GameLogic.getC4Winner();
     }
 
+    public C4Piece getC4CurrentPlayer() {return c4GameLogic.getC4CurrentPlayer();}
+
     /**
      * Prints current state of board (at any point).
      */
     void printBoard() {
         System.out.println(c4GameLogic);
+    }
+
+
+    /**
+     * Function to give users hints if needed during the game based on which column is an ideal pick.
+     * @return hint to user
+     */
+    public HintResult getC4ColHint() {
+        if (c4GameLogic == null) {
+            System.out.println("Game not started. No hint available.");
+            return new HintResult(-1, "NONE");
+        }
+        return c4GameLogic.getC4HintColumn();
     }
 }

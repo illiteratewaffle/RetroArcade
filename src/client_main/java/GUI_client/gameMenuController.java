@@ -1,5 +1,6 @@
 package GUI_client;
 
+import client.Client;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -20,6 +21,8 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
 public class gameMenuController implements Initializable {
+    @FXML
+    public ImageView profileButton;
     @FXML
     public ImageView leaderboardsButton;
     @FXML
@@ -106,19 +109,40 @@ public class gameMenuController implements Initializable {
      * @throws IOException
      */
     public void quitMenuClicked() throws IOException {
-        // only show new popup if no popup is showing
+        // check if popup is already showing
         if (!quitPopup.isShowing()) {
+            // if no popup is showing make a new popup
             quitPopup = new Stage();
-            Stage owner = (Stage) gameMenu_bg_image.getScene().getWindow();
+            // get caller stage, set as popup owner
+            Stage owner = (Stage) quitMenu.getScene().getWindow();
             quitPopup.initOwner(owner);
 
-            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("quitPopup.fxml")));
+            // load popup resources
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("quitPopup.fxml"));
+            Parent root = loader.load();
             Scene scene = new Scene(root);
+            QuitPopupController controller = loader.getController();
 
             quitPopup.initStyle(StageStyle.TRANSPARENT);
             scene.setFill(Color.TRANSPARENT);
+
+            // set closeOwner false so TTT stage doesn't close
+            controller.closeOwner = false;
             quitPopup.setScene(scene);
-            quitPopup.show();
+            // show popup and wait for user input
+            quitPopup.showAndWait();
+
+            // check if user wants to close TTT game
+            if (controller.closeYes) {
+
+                AudioManager.mediaPlayer.stop();
+                Parent newRoot = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("login.fxml")));
+
+                Stage stage = (Stage) quitMenu.getScene().getWindow();
+
+                stage.setScene(new Scene(newRoot));
+                stage.show();
+            }
         }
     }
     public void XPressed(){
@@ -172,5 +196,23 @@ public class gameMenuController implements Initializable {
     }
     public void leaderboardsExited(){
         leaderboardsButton.setImage(new Image("leaderboardsButton.png"));
+    }
+    public void profileButtonClicked() throws IOException {
+        // stop current soundtrack
+        AudioManager.mediaPlayer.stop();
+        // get connect4 fxml resources
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("profile.fxml")));
+
+        // get current gameMenu stage
+        Stage stage = (Stage) gameMenu_bg_image.getScene().getWindow();
+
+        stage.setScene(new Scene(root));
+        stage.show();
+    }
+    public void profileButtonPressed(){
+        profileButton.setImage(new Image("profile_button_pressed.png"));
+    }
+    public void profileButtonReleased(){
+        profileButton.setImage(new Image("profile_button.png"));
     }
 }

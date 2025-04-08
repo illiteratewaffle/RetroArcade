@@ -1,14 +1,19 @@
 package GUI_client;
 
+import GameLogic_Client.Connect4.*;
 import GameLogic_Client.Connect4.C4Controller;
 import GameLogic_Client.Connect4.C4Piece;
 import GameLogic_Client.Ivec2;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
@@ -27,8 +32,11 @@ import java.util.ResourceBundle;
 
 public class C4GUIController implements Initializable {
 
-    private C4Controller c4Controller = new C4Controller();
+    private C4Controller c4Controller;
 
+    /**
+     * Initialize the game board GUI for Connect 4
+     */
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -39,6 +47,24 @@ public class C4GUIController implements Initializable {
         c4Controller.start(); // This will print the board and start the game logic
         c4GUIGrid.setGridLinesVisible(true);
         //infoButton.setImage(new Image("C4Info.jpg"));
+        updateTurnIndicator();
+
+        chatArea.clear();
+        chatArea.setStyle(
+                "-fx-background-color: transparent;" +
+                        "-fx-control-inner-background: transparent;" +
+                        "-fx-text-fill: white;" + // Optional for readability
+                        "-fx-border-color: transparent;" +
+                        "-fx-text-fill: yellow;" +
+                        "-fx-font-size: 16px;" +
+                        "-fx-font-family: 'SilomBol.ttf';"
+        );
+        chatPane.setStyle(
+                "-fx-background-color: transparent;" +
+                        "-fx-background: transparent;" +
+                        "-fx-border-color: transparent;"
+        );
+
 
         setupHoverEffect(col0Button, 0);
         setupHoverEffect(col1Button, 1);
@@ -52,6 +78,7 @@ public class C4GUIController implements Initializable {
         Media sound = new Media(path);
         AudioManager.mediaPlayer = new MediaPlayer(sound);
         AudioManager.mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+        AudioManager.setMuted(false);
         AudioManager.mediaPlayer.play();
         if (AudioManager.isMuted()){
             AudioManager.applyMute();
@@ -62,6 +89,7 @@ public class C4GUIController implements Initializable {
 
         homeButton.setImage(new Image("home_button.png"));
     }
+
     @FXML
     public ImageView muteButton;
 
@@ -79,6 +107,33 @@ public class C4GUIController implements Initializable {
 
     @FXML
     public ImageView homeButton;
+
+    @FXML
+    private ImageView hintButton;
+
+    @FXML
+    private ImageView hintMessageImage;
+
+    @FXML
+    public Button hint_ok_button;
+
+    @FXML
+    private ImageView noHintMessageImage;
+
+    @FXML
+    private ImageView turnIndicatorImage;
+
+    @FXML
+    public ImageView sendButton;
+
+    @FXML
+    public TextArea chatArea;
+
+    @FXML
+    public TextField chatField;
+
+    @FXML
+    public ScrollPane chatPane;
 
     @FXML
     private void handleUserClick() {
@@ -125,6 +180,9 @@ public class C4GUIController implements Initializable {
     @FXML
     private GridPane c4GUIGrid;
 
+    /**
+     * Updates the GUI board with pieces colored to match the current user's move
+     */
     private void updateBoard() {
 //        C4Piece[][] board = gameLogic.getBoard().getC4Board(); // assuming getBoard() returns C4Board
         C4Piece[][] board = c4Controller.getC4Board();;
@@ -144,6 +202,7 @@ public class C4GUIController implements Initializable {
         }
     }
 
+
     private void addPieceToGrid(int row, int col, String imgPath) {
         ImageView piece = new ImageView(new Image(Objects.requireNonNull(getClass().getResourceAsStream(imgPath))));
         piece.setFitWidth(30);
@@ -157,10 +216,12 @@ public class C4GUIController implements Initializable {
         if (!c4Controller.getC4IsGameOver()) {
             c4Controller.receiveInput(new Ivec2(col, 0));
             updateBoard();
+            updateTurnIndicator();
 
             if (c4Controller.getC4IsGameOver()) {
                 C4Piece winner = c4Controller.getC4WinnerAsEnum();
                 if (winner == C4Piece.BLANK) {
+                   // C4Piece winner = c4Controller.getC4WinnerAsEnum();
                     c4Controller.c4GameLogic.updateGameState();
                     System.out.println("It's a draw!");
                 } else {
@@ -169,54 +230,179 @@ public class C4GUIController implements Initializable {
                     c4Controller.c4GameLogic.updateGameState();
                 }
                 disableAllColumnButtons();
+                c4GUIGrid.getChildren().removeIf(node ->
+                        node instanceof Rectangle && "HINT".equals(node.getId())
+                );
             }
         }
     }
 
+    /**
+     *
+     * @param
+     */
     private void setupHoverEffect(Button button, int col) {
         button.setOnMouseEntered(e -> highlightColumnOnHover(col, true));
         button.setOnMouseExited(e -> highlightColumnOnHover(col, false));
     }
 
+    /**
+     * Highlight the column that the user's mouse is hovering over
+     * Display highlight in specific color (pink or blue) based on the current user's turn
+     * @param col index that the player's mouse is currently hovering over
+     * @isHovering true if the mouse is currently hovering over the column, false otherwise
+     */
     private void highlightColumnOnHover(int col, boolean isHovering) {
-        for (int row = 0; row < 6; row++) {
-            Rectangle highlight = new Rectangle(38, 36);
-            highlight.setFill(Color.PINK);
-            highlight.setOpacity(0.4);
-            highlight.setMouseTransparent(true);
-            if (isHovering) {
+        if (isHovering) {
+            // Get current player and assign appropriate color (for pink or blue's turn)
+            C4Piece currentPlayer = c4Controller.getC4CurrentPlayer();
+            Color hoverColor = currentPlayer == C4Piece.RED ? Color.HOTPINK : Color.LIGHTBLUE;
+
+            for (int row = 0; row < 6; row++) {
+                Rectangle highlight = new Rectangle(38, 36);
+                highlight.setFill(hoverColor);
+                highlight.setOpacity(0.4);
+                highlight.setMouseTransparent(true);
+                highlight.setId("HOVER");
                 c4GUIGrid.add(highlight, col, row);
-            }else{
-                c4GUIGrid.getChildren().removeIf(node -> node instanceof Rectangle &&
-                                GridPane.getColumnIndex(node) != null &&
-                                GridPane.getRowIndex(node) != null &&
-                                GridPane.getColumnIndex(node) == col);
             }
-
+        } else {
+            c4GUIGrid.getChildren().removeIf(node ->
+                    node instanceof Rectangle &&
+                            "HOVER".equals(node.getId()) &&
+                            GridPane.getColumnIndex(node) != null &&
+                            GridPane.getColumnIndex(node) == col
+            );
         }
-
     }
 
-    public void infoButtonClicked(){
+    /**
+     * Updates the GUI board with a banner displaying the current user's turn
+     */
+    private void updateTurnIndicator() {
+        turnIndicatorImage.setImage(new Image(
+                c4Controller.getC4CurrentPlayer() == C4Piece.RED
+                        ? "/pink_turn.png"
+                        : "/blue_turn.png"
+        ));
+    }
+
+    public void sendMessage(){
+        String message = chatField.getText();
+        if (!message.trim().isEmpty()){
+            chatArea.appendText("You: " + message + "\n");
+            chatField.clear();
+        }
+    }
+
+    public void getMessage(String message){
+        chatArea.appendText(message);
+    }
+
+    /**
+     * Makes the info page image visible when the info button is clicked
+     */
+    public void clickInfoButton(){
         infoImage.setImage(new Image("C4info.jpg"));
         infoImage.setVisible(true);
         infoImage.setMouseTransparent(false);
         info_ok_button.setMouseTransparent(false);
     }
 
+    /**
+     * Hides the info page image when OK button on info page is clicked
+     * Disables player interaction with the OK button once clicked
+     */
     public void clickInfoOkButton(){
         infoImage.setVisible(false);
         infoImage.setMouseTransparent(true);
         info_ok_button.setMouseTransparent(true);
     }
 
-
+    /**
+     * Updates the GUI board with a win message when the game has been won
+     * Disables the hint button once game has been won
+     */
     public void showWinImage() {
         if (c4Controller.getC4IsGameOver()) {
             winImage.setImage(new Image("win_image.png"));
             winImage.setVisible(true);
+            hintButton.setDisable(true);
         }
+    }
 
+    @FXML
+    private void clickHintButton() {
+        HintResult hint = c4Controller.getC4ColHint();
+        hintMessageImage.setVisible(false);
+        noHintMessageImage.setVisible(false);
+        if (hint.col != -1) {
+            highlightHintColumn(hint.col);
+            if ("WIN".equals(hint.type)){
+                hintMessageImage.setImage(new Image("C4hint_win_image.png"));
+            }else if ("BLOCK".equals(hint.type)){
+                hintMessageImage.setImage(new Image("C4hint_block_image.png"));
+            }
+            hintMessageImage.setVisible(true);
+            hintMessageImage.setMouseTransparent(false);
+        }else{
+            noHintMessageImage.setImage(new Image("C4no_hint_image.png"));
+            noHintMessageImage.setVisible(true);
+            noHintMessageImage.setMouseTransparent(false);
+        }
+        hint_ok_button.setVisible(true);
+        hint_ok_button.setMouseTransparent(false);
+    }
+
+    private void highlightHintColumn(int col) {
+        c4GUIGrid.getChildren().removeIf(node ->
+                node instanceof Rectangle &&
+                        "HINT".equals(node.getId())
+        );
+
+        for (int row = 0; row < 6; row++) {
+            Rectangle highlight = new Rectangle(38, 36);
+            highlight.setFill(Color.YELLOW);
+            highlight.setOpacity(0.4);
+            highlight.setMouseTransparent(true);
+            c4GUIGrid.add(highlight, col, row);
+
+        }
+    }
+
+    public Node getNodeFromGridPane(GridPane grid, int col, int row) {
+        for (Node node : grid.getChildren()) {
+            if (GridPane.getColumnIndex(node) == col && GridPane.getRowIndex(node) == row) {
+                return node;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Hides the info page image when OK button on info page is clicked
+     * Disables player interaction with the OK button once clicked
+     */
+    public void clickHintOkButton(){
+        hintMessageImage.setVisible(false);
+        hintMessageImage.setMouseTransparent(true);
+        noHintMessageImage.setVisible(false);
+        noHintMessageImage.setMouseTransparent(true);
+        hint_ok_button.setVisible(false);
+        hint_ok_button.setMouseTransparent(true);
+        resetColumnHighlights();
+    }
+
+    public void resetColumnHighlights() {
+        for (int row = 0; row < 6; row++) {
+            for (int col = 0; col < 7; col++) {
+                Node cell = getNodeFromGridPane(c4GUIGrid, col, row);
+                if (cell instanceof Rectangle) {
+                    Rectangle rect = (Rectangle) cell;
+                    rect.setStroke(Color.TRANSPARENT);  // Remove the highlight (clear border)
+                }
+            }
+        }
     }
 
     @FXML private Button col0Button, col1Button, col2Button, col3Button, col4Button, col5Button, col6Button;
@@ -263,12 +449,7 @@ public class C4GUIController implements Initializable {
         homeButton.setImage(new Image("home_button_pressed.png"));
     }
     public void homeButtonReleased(){ homeButton.setImage(new Image("home_button.png"));}
-    public void infoButtonPressed(){
-        infoButton.setImage(new Image("infoButtonDown.png"));
-    }
-    public void infoButtonReleased(){
-        infoButton.setImage(new Image("info_button.png"));
-    }
+
     public void muteButtonClicked(){
         if(!AudioManager.isMuted()) {
             muteButton.setImage(new Image("muteButton.png"));

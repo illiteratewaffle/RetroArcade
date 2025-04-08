@@ -1,54 +1,166 @@
 package server.session;
 
-import server.management.ThreadRegistry;
-import server.player.Player;
+import GameLogic_Client.IBoardGameController;
+import server.management.ServerController;
 import server.management.ThreadMessage;
+import server.management.ThreadRegistry;
+import server.player.PlayerHandler;
 
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.LinkedBlockingQueue;
+
 import static server.management.ServerLogger.log;
 
-/**
- * 
- */
 public class GameSessionManager implements Runnable {
-    final Player player1;
-    final Player player2;
-    private final ConcurrentHashMap<Thread, BlockingQueue<ThreadMessage>> queue;
+    private final PlayerHandler player1;
+    private final PlayerHandler player2;
+    private final Integer gameType;
+    private final IBoardGameController gameController;
 
-    public GameSessionManager(Player player1, Player player2) {
+    /**
+     * The constructor for the GameSessionManager
+     *
+     * @param player1  The first player's PlayerHandler
+     * @param player2  The second player's PlayerHandler
+     * @param gameType
+     */
+    public GameSessionManager(PlayerHandler player1, PlayerHandler player2, int gameType) {
         this.player1 = player1;
         this.player2 = player2;
-        this.queue = ThreadRegistry.threadRegistry;
-        // Set the players as playing
-        player1.setPlaying();
-        player2.setPlaying();
+        // yeah, bad practice what about it
+        this.gameType = gameType;
+        this.gameController = getController(gameType);
     }
 
-    @Override
+    /**
+     * Get the corresponding controller for the game being played
+     * @param gameType the String of the game type that is going to be created
+     * @return the subclass of the IGameBoardController
+     */
+    private IBoardGameController getController(int gameType) {
+        switch (gameType) {
+            case 0:
+                return new GameLogic_Client.TicTacToe.TTTGameController();
+            case 1:
+                GameLogic_Client.Connect4.C4Controller c4 = new GameLogic_Client.Connect4.C4Controller();
+                c4.start(); // Ensure Connect4 game is initialized
+                return c4;
+            case 2:
+                return new GameLogic_Client.Checkers.CheckersController();
+            default:
+                throw new IllegalArgumentException("GameSessionManager: Unknown game type: " + gameType);
+        }
+    }
+
+    /**
+     * The method that runs on the separate Thread
+     */
     public void run() {
-        queue.put(Thread.currentThread(), new LinkedBlockingQueue<>());
-        log("GameSessionManager created");
-        // here goes the code for running the game + communicating with the player handlers
-        queue.get(player1.getThread()).add(new ThreadMessage(Thread.currentThread(), "This is the GameSessionManager talking to you!"));
-        queue.get(player2.getThread()).add(new ThreadMessage(Thread.currentThread(), "This is the GameSessionManager talking to you!"));
-        while (true) {
+        // Register the GameSessionManager on the ThreadRegistry
+        Thread currentThread = Thread.currentThread();
+        BlockingQueue<ThreadMessage> myQueue = new LinkedBlockingQueue<>();
+        ThreadRegistry.register(currentThread, myQueue);
+
+        // Tell the players the thread is ready
+        player1.setGameSessionManagerThread(Thread.currentThread());
+        player2.setGameSessionManagerThread(Thread.currentThread());
+
+        log("GameSessionManager: Created " + gameType + " with players " + player1.getProfile().getUsername() +
+                ":" + player1.getProfile().getID() + " and " + player2.getProfile().getUsername() + ":" +
+                player2.getProfile().getID() + ".");
+
+        // While the game is ongoing, could replace with a running boolean?
+        while (gameController.getGameOngoing()) {
             try {
-//                // This is NASTY
-//                while (!queue.containsKey(Thread.currentThread()))
-//                    Thread.sleep(10);
-                ThreadMessage threadMessage = queue.get(Thread.currentThread()).take();
-                Thread sender = threadMessage.getSender();
-                if (sender == player1.getThread()) {
-                    queue.get(player2.getThread()).add(new ThreadMessage(Thread.currentThread(), threadMessage.getContent()));
-                } else if (sender == player2.getThread()) {
-                    queue.get(player1.getThread()).add(new ThreadMessage(Thread.currentThread(), threadMessage.getContent()));
-                } else {
-                    log("The player's message failed to route correctly.");
-                }
+                ThreadMessage threadMessage = myQueue.take();
+                routeMessage(threadMessage);
             } catch (InterruptedException e) {
-                log("Unable to get message for GameSessionManager thread:", e.toString());
+                log("GameSessionManager: Failed to take from own BlockingQueue.");
+                // TODO: shutdown game?
+            }
+        }
+    }
+
+    /**
+     * Handles chat messages, routing them to the other player
+     * @param threadMessage the ThreadMessage received
+     */
+    private void handleChatMessage(ThreadMessage threadMessage) {
+        Map<String, Object> content = threadMessage.getContent();
+        Thread sender = threadMessage.getSender();
+        // Create a response
+        HashMap<String, Object> forward = new HashMap<>();
+        // Make a new message of the type "chat"
+        forward.put("type", "chat");
+        // Put the other users message in the hashmap
+        forward.put("message", content.get("message"));
+        // Send to the opposite player
+        if (sender == player1.getThread()) {
+            forward.put("sender", player1.getProfile().getUsername());
+            ThreadRegistry.getQueue(player2.getThread()).add(new ThreadMessage(Thread.currentThread(), forward));
+        } else if (sender == player2.getThread()) {
+            forward.put("sender", player2.getProfile().getUsername());
+            ThreadRegistry.getQueue(player1.getThread()).add(new ThreadMessage(Thread.currentThread(), forward));
+        } else {
+            log("GameSessionManager: Chat message sender not recognized.");
+        }
+    }
+
+    /**
+     * Method that handles the end of a game session.
+     * @param winner The player that won the game.
+     */
+    private void handleGameEnd(PlayerHandler winner, PlayerHandler loser) {
+        try {
+            //Update the players profiles based on the result of the game.
+            winner.getProfile().getPlayerRanking().endOfMatchMethod(gameType, 1);
+            loser.getProfile().getPlayerRanking().endOfMatchMethod(gameType, 0);
+        } catch (SQLException e) {
+            //If there is an error, log it.
+            log("GameSessionManager: Error while logging the winners and loser of a game session.", e);
+        }
+
+        //Once the game session has concluded, call the methods to end everything and log it.
+        ServerController.endGameSession(Thread.currentThread());
+        log("GameSessionManager: Game session ended.");
+    }
+
+    /**
+     * The method to handle win conditions and stuff when a player disconnects.
+     * @param message The Thread Message saying a disconnection has occurred.
+     */
+    private void handleDisconnection(ThreadMessage message) {
+        //Find the thread of the player that was disconnected.
+        Thread sender = message.getSender();
+
+        //Check which player was the one that got disconnected.
+        if (sender == player1.getThread()) {
+            player2.setGameSessionManagerThread(null);
+            handleGameEnd(player2, player1);
+        } else if (sender == player2.getThread()) {
+            player1.setGameSessionManagerThread(null);
+            handleGameEnd(player1, player2);
+        }
+    }
+
+    /**
+     * Routes the ThreadMessage to the corresponding function
+     * @param threadMessage the ThreadMessage received
+     */
+    private void routeMessage(ThreadMessage threadMessage) {
+        Map<String, Object> content = threadMessage.getContent();
+        Thread sender = threadMessage.getSender();
+        // Make sure it contains the key type
+        if (content.containsKey("type")) {
+            if (content.get("type").equals("disconnection")) {
+                handleDisconnection(threadMessage);
+            } else if (content.get("type").equals("chat")) {
+                handleChatMessage(threadMessage);
+            } else if (content.get("type").equals("game")) {
+                log("GameSessionManager: Message not recognized: " + threadMessage.getContent());
             }
         }
     }

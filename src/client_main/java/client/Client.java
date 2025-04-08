@@ -1,10 +1,10 @@
 package client_main.java.client;
-
 import java.io.*;
 import java.net.Socket;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
+import client_main.java.client.JsonConverter;
 
 public class Client {
 
