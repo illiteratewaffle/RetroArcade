@@ -19,7 +19,7 @@ Retro Arcade is an online multiplayer board game platform built for real-time co
 
 Retro Arcade was developed in response to a bold vision: to create a platform where players can discover and play multiplayer board games in real-time, track their game stats, rise through leaderboards, and build a vibrant community.
 
-This platform lays the groundwork for a fully scalable and extensible digital board game hub. Although it currently runs locally, it includes stubs and architecture for future online hosting and database integration.
+The current version has seperate server and client files and has networking capabilities
 
 ---
 
