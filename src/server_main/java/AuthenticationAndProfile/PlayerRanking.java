@@ -31,70 +31,73 @@ public class PlayerRanking {
 
     public PlayerRanking() {
     }
-//
-//    public void endOfMatchMethod(int playerID, int gameNumber, int result) throws SQLException {
-//        String gameName = null;
-//        if (gameNumber == TTT_INDEX) {
-//            gameName = "ttt";
-//        } else if (gameNumber == CONNECT4_INDEX) {
-//            gameName = "connect4";
-//        } else if (gameNumber == CHECKERS_INDEX) {
-//            gameName = "checkers";
-//        }
-//        try {
-//            int currentRating = Integer.parseInt(PlayerManager.getAttribute(playerID, "rating_" + gameName));
-//            int currentWins = Integer.parseInt(PlayerManager.getAttribute(playerID, "wins_" + gameName));
-//            int currentLosses = Integer.parseInt(PlayerManager.getAttribute(playerID, "losses_" + gameName));
-//            double currentWinLossRatio = Double.parseDouble(PlayerManager.getAttribute(playerID, "win_loss_ratio_" + gameName));
-//            int currentGamesPlayed = Integer.parseInt(PlayerManager.getAttribute(playerID, "total_" + gameName));
-//
-//            if (result == 1) {
-//                currentRating += 50;
-//                currentWins += 1;
-//                currentGamesPlayed += 1;
-//
-//                currentWinLossRatio = Math.round(((double) currentWins / currentGamesPlayed) * 100.0 / 100.0);
-//            } else if (result == 0) {
-//                currentRating -= 50;
-//                if (currentRating < 0) {
-//                    currentRating = 0;
-//                }
-//                currentLosses += 1;
-//                currentGamesPlayed += 1;
-//                currentWinLossRatio = Math.round(((double) currentWins / currentGamesPlayed) * 100.0 / 100.0);
-//            }
-//
-//            String newRank = PlayerRanking.getRank(currentRating);
-//
-//            PlayerManager.updateAttribute(playerID, "rating_" + gameName, currentRating);
-//            PlayerManager.updateAttribute(playerID, "losses_" + gameName, currentLosses);
-//            PlayerManager.updateAttribute(playerID, "total_" + gameName, currentGamesPlayed);
-//            PlayerManager.updateAttribute(playerID, "wins_" + gameName, currentWinLossRatio);
-//            PlayerManager.updateAttribute(playerID, "win_loss_ratio_" + gameName, currentWinLossRatio);
-//            PlayerManager.updateAttribute(playerID, "rank_" + gameName, newRank);
-//
-//            Profile profile = ProfileDatabaseAccess.obtainProfile(id);
-//
-//            HashMap<String, Double> achievementProgress = profile.getGameHistory().getAchievementProgress();
-//
-//
 
-//
-////            for (String achievement : achievements.keySet()) {
-////                if (achievement.equals("10 Wins " + gameName)) {
-////                    double progress = Math.min(currentWins / 10.0, 1.0);
-////                    achievements.put(achievement, progress);
-////                } else if (achievement.equals("50 Games Played " + gameName)) {
-////                    double progress = Math.min(currentGamesPlayed / 50.0, 1.0);
-////                    achievements.put(achievement, progress);
-////                }
-//            // Add more achievement logic as needed
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
-//
-//    }
-        public double getWinLossRatio(int gameNumber) {
+    public void endOfMatchMethod(int playerID, int gameNumber, int result) throws SQLException {
+        String gameName = null;
+        if (gameNumber == TTT_INDEX) {
+            gameName = "ttt";
+        } else if (gameNumber == CONNECT4_INDEX) {
+            gameName = "connect4";
+        } else if (gameNumber == CHECKERS_INDEX) {
+            gameName = "checkers";
+        }
+        try {
+            int currentRating = Integer.parseInt(PlayerManager.getAttribute(playerID, "rating_" + gameName));
+            int currentWins = Integer.parseInt(PlayerManager.getAttribute(playerID, "wins_" + gameName));
+            int currentLosses = Integer.parseInt(PlayerManager.getAttribute(playerID, "losses_" + gameName));
+            double currentWinLossRatio = Double.parseDouble(PlayerManager.getAttribute(playerID, "win_loss_ratio_" + gameName));
+            int currentGamesPlayed = Integer.parseInt(PlayerManager.getAttribute(playerID, "total_" + gameName));
+
+            if (result == 1) {
+                currentRating += 50;
+                currentWins += 1;
+                currentGamesPlayed += 1;
+
+                currentWinLossRatio = Math.round(((double) currentWins / currentGamesPlayed) * 100.0 / 100.0);
+            } else if (result == 0) {
+                currentRating -= 50;
+                if (currentRating < 0) {
+                    currentRating = 0;
+                }
+                currentLosses += 1;
+                currentGamesPlayed += 1;
+                currentWinLossRatio = Math.round(((double) currentWins / currentGamesPlayed) * 100.0 / 100.0);
+            }
+
+            String newRank = PlayerRanking.getRank(currentRating);
+
+            PlayerManager.updateAttribute(playerID, "rating_" + gameName, currentRating);
+            PlayerManager.updateAttribute(playerID, "losses_" + gameName, currentLosses);
+            PlayerManager.updateAttribute(playerID, "total_" + gameName, currentGamesPlayed);
+            PlayerManager.updateAttribute(playerID, "wins_" + gameName, currentWinLossRatio);
+            PlayerManager.updateAttribute(playerID, "win_loss_ratio_" + gameName, currentWinLossRatio);
+            PlayerManager.updateAttribute(playerID, "rank_" + gameName, newRank);
+
+            Profile profile = ProfileDatabaseAccess.obtainProfile(id);
+
+            HashMap<String, Double> achievementProgress = profile.getGameHistory().getAchievementProgress();
+
+            if (achievementProgress != null) {
+                String winAchievement = "10 Wins " + gameName;
+                String gamesPlayedAchievement = "50 Games Played " + gameName;
+
+                if (achievementProgress.containsKey(winAchievement)) {
+                    double progress = Math.min(currentWins / 10.0, 1.0);
+                    achievementProgress.put(winAchievement, progress);
+                }
+                if (achievementProgress.containsKey(gamesPlayedAchievement)) {
+                    double progress = Math.min(currentGamesPlayed / 50.0, 1.0);
+                    achievementProgress.put(gamesPlayedAchievement, progress);
+                }
+
+                profile.getGameHistory().setAchievementProgress(achievementProgress);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public double getWinLossRatio(int gameNumber) {
         return winLossRatio[gameNumber];
     }
 
@@ -114,7 +117,7 @@ public class PlayerRanking {
         }
     }
 
-    public String getRank(int rating) {
+    public static String getRank(int rating) {
         if (rating < 500) {
             return "Bronze";
         } else if (rating < 1000) {
