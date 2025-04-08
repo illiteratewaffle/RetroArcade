@@ -4,7 +4,7 @@ import java.net.Socket;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
-import JsonConverter;
+import client.JsonConverter;
 
 public class Client {
 
@@ -62,7 +62,7 @@ public class Client {
         }).start();
     }
 
-    private static void closeEverything() {
+    public static void closeEverything() {
         try {
             if (reader != null) {
                 reader.close();
@@ -138,7 +138,7 @@ public class Client {
 
     public static void login(String Username, String Password) {
         try {
-            connect("10.13.157.168", 5050, null);
+            connect("10.13.94.60", 5050, null);
             HashMap<String, Object> authData = new HashMap<>();
             authData.put("type", "login");
             authData.put("username", Username);

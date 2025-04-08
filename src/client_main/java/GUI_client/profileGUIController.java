@@ -1,6 +1,8 @@
 package GUI_client;
 import AuthenticationAndProfile.Authentication;
 
+import AuthenticationAndProfile.ProfileCreation;
+import AuthenticationAndProfile.ProfileDatabaseAccess;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -44,6 +46,8 @@ public class profileGUIController {
     @FXML
     public ImageView done_button;
     @FXML
+    public ImageView confirm_search;
+    @FXML
     public ListView inbox_contents;
     @FXML
     public ListView friends_list;
@@ -81,6 +85,8 @@ public class profileGUIController {
     @FXML
     public TextField nickname_label;
     @FXML
+    public TextField search_friend;
+    @FXML
     private TextArea bio_text_area;
     private Profile profile;
     private String avatarPath;
@@ -90,20 +96,49 @@ public class profileGUIController {
 
 
     public profileGUIController() {
+        //this.profile = ProfileCreation.createNewProfile("");
+        try{
+            this.profile = ProfileDatabaseAccess.obtainProfile(435);} catch (SQLException e) {
+        } catch (IOException s) {
+            System.out.println(s.getMessage());
+        }
         System.out.println("profileGUIController loaded");
-        //initialize(profile); //This part cannot be uncommented until I have an actual profile to test with
+        //initialize(this.profile); //This part cannot be uncommented until I have an actual profile to test with
     }
 
     public void initialize(Profile loadedProfile) {
-        this.profile = loadedProfile;
         avatarPath = profile.getProfilePicFilePath();
         nickname = profile.getNickname();
-        bio = profile.getNickname();
-        bio_text_area.setEditable(false);
+        bio = profile.getBio();
+        System.out.println(avatarPath);
+        URL url = getClass().getResource(avatarPath);
 
-        avatar.setImage(new Image(avatarPath));
-        nickname_label.setText(nickname);
-        bio_text_area.setText(bio);
+
+        if (url != null) {
+                Image image = new Image(url.toExternalForm(), false);
+                updateProfilePicture(image);
+        } else {
+            avatarPath = "/GUI_avatars/mario_toad.PNG";  // Default avatar
+            url = getClass().getResource(avatarPath);
+                Image image = new Image(url.toExternalForm(), false);
+                updateProfilePicture(image);
+        }
+
+        if (nickname != null) {
+            nickname_label.setText(nickname);
+        } else {
+            nickname = "Set your nickname!";
+            nickname_label.setText(nickname);
+        }
+        if (bio != null) {
+            bio_text_area.setText(bio);
+            bio_text_area.setEditable(false);
+        } else {
+            bio = "Set your bio!";
+            bio_label.setText(bio);
+            bio_text_area.setEditable(false);
+        }
+
         // setup soundtrack and mute status
         String path = Objects.requireNonNull(getClass().getResource("/music/profileTrack.mp3")).toExternalForm(); // or absolute path
         Media sound = new Media(path);
@@ -248,6 +283,9 @@ public class profileGUIController {
         avatar_pane.setOpacity(1.0);avatar_pane.setDisable(false);
         nickname_label.setEditable(true); bio_text_area.setEditable(true);
         bio_text_area.setOpacity(1.0); nickname_label.setStyle("-fx-background-color: white;");
+        confirm_search.setOpacity(0.0); confirm_search.setDisable(true);
+        search_friend.setOpacity(0.0); search_friend.setDisable(true);
+
     }
 
     //The once the done button is pressed, the editing will no longer occur.
@@ -261,6 +299,8 @@ public class profileGUIController {
         avatar_pane.setOpacity(0.0);avatar_pane.setDisable(true);
         nickname_label.setEditable(false); bio_text_area.setEditable(false);
         bio_text_area.setOpacity(1.0); nickname_label.setStyle("-fx-background-color: transparent;");
+        confirm_search.setOpacity(1.0); confirm_search.setDisable(false);
+        search_friend.setOpacity(1.0); search_friend.setDisable(false);
 
         String bio = bio_text_area.getText(); // gets user input
         bio_label.setText(bio);
@@ -305,7 +345,7 @@ public class profileGUIController {
         } else {
             System.out.println("Failed to load image from path: " + path);
         }
-        getAvatarPath(path);
+      //  getAvatarPath(path);
     }
 
     public void choose_purple_alien(MouseEvent mouseEvent) {
@@ -318,7 +358,7 @@ public class profileGUIController {
         } else {
             System.out.println("Failed to load image from path: " + path);
         }
-        getAvatarPath(path);
+     //   getAvatarPath(path);
     }
 
 
@@ -332,7 +372,7 @@ public class profileGUIController {
         } else {
             System.out.println("Failed to load image from path: " + path);
         }
-        getAvatarPath(path);
+     //   getAvatarPath(path);
     }
 
     public void choose_green_alien(MouseEvent mouseEvent) {
@@ -345,7 +385,7 @@ public class profileGUIController {
         } else {
             System.out.println("Failed to load image from path: " + path);
         }
-        getAvatarPath(path);
+     //   getAvatarPath(path);
     }
 
     public void choose_cyan_alien(MouseEvent mouseEvent) {
@@ -358,7 +398,7 @@ public class profileGUIController {
         } else {
             System.out.println("Failed to load image from path: " + path);
         }
-        getAvatarPath(path);
+      //  getAvatarPath(path);
     }
 
     public void choose_toad(MouseEvent mouseEvent) {
@@ -371,7 +411,7 @@ public class profileGUIController {
         } else {
             System.out.println("Failed to load image from path: " + path);
         }
-        getAvatarPath(path);
+      //  getAvatarPath(path);
     }
 
     public void choose_blue_ghost(MouseEvent mouseEvent) {
@@ -384,7 +424,7 @@ public class profileGUIController {
         } else {
             System.out.println("Failed to load image from path: " + path);
         }
-        getAvatarPath(path);
+      //  getAvatarPath(path);
     }
 
     public void choose_pink_ghost(MouseEvent mouseEvent) {
@@ -397,7 +437,7 @@ public class profileGUIController {
         } else {
             System.out.println("Failed to load image from path: " + path);
         }
-        getAvatarPath(path);
+      //  getAvatarPath(path);
     }
 
     public void choose_red_ghost(MouseEvent mouseEvent) {
@@ -423,7 +463,7 @@ public class profileGUIController {
         } else {
             System.out.println("Failed to load image from path: " + path);
         }
-        getAvatarPath(path);
+       // getAvatarPath(path);
     }
     public void homeButtonClicked() throws IOException {
         AudioManager.mediaPlayer.stop();
@@ -449,6 +489,9 @@ public class profileGUIController {
             AudioManager.toggleMute();
         }
     }
+
+    public void click_friend(MouseEvent mouseEvent) {
+    }
     //------------------------------------------------------------------------------
 
     //So that it can be sent to the server? idk how this works man
@@ -463,4 +506,5 @@ public class profileGUIController {
     public String getNickname(String nickname) {
         return nickname;
     }
+
 }
