@@ -1,4 +1,4 @@
-package client_main_tests.java.AuthenticationAndProfile;
+package client_main.java.AuthenticationAndProfile;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -28,7 +28,7 @@ class ProfileTest {
             String password = "1234567";
             String hashedPassword = ProfileCreation.hashedPassword(password);
             int id = 0;
-            profile = new Profile("test@example.com", hashedPassword, "nickname", "This is bio.", false, "currentGame", new FriendsList(friends, friendRequests, id), new PlayerRanking(), new GameHistory(gameHistory, achievementProgress), "C:profile/pic/path.png", "username", 2);
+            profile = new Profile("test@example.com", hashedPassword, "nickname", "This is bio.", false, "currentGame", new FriendsList(), new PlayerRanking(), new GameHistory(), "C:profile/pic/path.png", "username", 2);
         } catch (NoSuchAlgorithmException e) {
             fail(e.getMessage());
         }
@@ -60,7 +60,7 @@ class ProfileTest {
             String password = "WhatAGoodPassword!";
             String hashedPassword = ProfileCreation.hashedPassword(password);
             int id = 0;
-            Profile profile2 = new Profile("test@example.com", hashedPassword, "nick", "This is bio.", false, "currentGame", new FriendsList(friends, friendRequests, id), new PlayerRanking(), new GameHistory(gameHistory, achievementProgress), "C:profile/pic/path.png", "username", 2);
+            Profile profile2 = new Profile("test@example.com", hashedPassword, "nick", "This is bio.", false, "currentGame", new FriendsList(friends, friendRequests, id), new PlayerRanking(), new GameHistory(gameHistory, achievementProgress, id), "C:profile/pic/path.png", "username", 2);
 
 
             assertEquals(hashedPassword, profile2.getHashedPassword());
@@ -156,7 +156,7 @@ class ProfileTest {
         HashMap<String, Double> achievementProgress = new HashMap<>();
         achievementProgress.put("Win_Streak", 0.75);
         achievementProgress.put("Matches_Played", 0.50);
-        GameHistory newGamesPlayed = new GameHistory(gameHistory, achievementProgress);
+        GameHistory newGamesPlayed = new GameHistory(gameHistory, achievementProgress, profile.getID());
         profile.setGameHistory(newGamesPlayed);
         assertEquals(newGamesPlayed, profile.getGameHistory());
     }

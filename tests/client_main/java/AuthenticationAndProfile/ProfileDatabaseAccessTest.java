@@ -1,7 +1,6 @@
-package client_main_tests.java.AuthenticationAndProfile;
+package client_main.java.AuthenticationAndProfile;
 
 import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import player.PlayerManager;
@@ -13,7 +12,6 @@ import java.util.*;
 
 import static java.util.Map.entry;
 import static org.junit.jupiter.api.Assertions.*;
-import static management.ServerLogger.log;
 
 class ProfileDatabaseAccessTest {
     private static int id;
@@ -46,7 +44,7 @@ class ProfileDatabaseAccessTest {
         List<String> gameHistory = new ArrayList<>();
         //String hashedPassword = ProfileCreation.hashedPassword("1234567");
         Profile profile1 = new Profile("email9@email.com", "12345678910", "null", "null",
-                false, "null", new FriendsList(), new PlayerRanking(), new GameHistory(gameHistory, achievementProgress), "null", "username9", 1);
+                false, "null", new FriendsList(), new PlayerRanking(), new GameHistory(), "null", "username9", 1);
         try {
             int id1 = PlayerManager.registerPlayer("username9", "email9@email.com", "12345678910");
             assertEquals(profile1.getEmail(), ProfileDatabaseAccess.obtainProfile(id1).getEmail());
@@ -64,7 +62,7 @@ class ProfileDatabaseAccessTest {
         List<String> gameHistory = new ArrayList<>();
         //String hashedPassword = ProfileCreation.hashedPassword("1234567");
         Profile profile1 = new Profile("email12@email.com", "12345678910", "null", "null",
-                false, "null", new FriendsList(), new PlayerRanking(), new GameHistory(gameHistory, achievementProgress), "null", "username12", 1);
+                false, "null", new FriendsList(), new PlayerRanking(), new GameHistory(), "null", "username12", 1);
         try {
             int id1 = PlayerManager.registerPlayer("username12", "email12@email.com", "12345678910");
             assertEquals(profile1.getEmail(), ProfileDatabaseAccess.obtainProfileDirect(id1).getEmail());
@@ -136,7 +134,7 @@ class ProfileDatabaseAccessTest {
             profile = ProfileDatabaseAccess.obtainProfile(id);
             PlayerRanking playerRanking = new PlayerRanking(id, winLossRatio, rating, rank, wins, losses, total);
             assertEquals(playerRanking.getWinLossRatio(0), ProfileDatabaseAccess.obtainPlayerRanking(id).getWinLossRatio(PlayerRanking.TTT_INDEX));
-            assertEquals(playerRanking.getRating(2), ProfileDatabaseAccess.obtainPlayerRanking(id).getRating(PlayerRanking.CHECKERS_INDEX));
+            assertEquals(playerRanking.getRating(2, PlayerRanking.CHECKERS_INDEX), ProfileDatabaseAccess.obtainPlayerRanking(id).getRating(id, PlayerRanking.CHECKERS_INDEX));
             assertEquals(playerRanking.getRank(1), ProfileDatabaseAccess.obtainPlayerRanking(id).getRank(PlayerRanking.CONNECT4_INDEX));
             assertEquals(playerRanking.getWins(2), ProfileDatabaseAccess.obtainPlayerRanking(id).getWins(PlayerRanking.CHECKERS_INDEX));
         } catch (SQLException | IOException s) {
@@ -148,11 +146,12 @@ class ProfileDatabaseAccessTest {
     @Test
     void obtainGameHistory(){
         try {
-            System.out.println(PlayerManager.updateAttribute(id, "games_played", "[TTT, Checkers, Connect4, Checkers]"));
+            System.out.println(PlayerManager.updateAttribute(id, "games_played", new String[]{"TTT", "Checkers", "Connect4", "Checkers"}));
+            HashMap<String, Double> achievements = new HashMap<>(Map.ofEntries(entry("Have100Cat'sInTTT", 0.75), entry("WinCheckersWithoutLosingOnePiece", 0.00)));
+
             System.out.println(PlayerManager.updateAttribute(id, "achievement_progress", "[{Have100Cat'sInTTT, 0.75}, {WinCheckersWithoutLosingOnePiece, 0.00}]"));
             List<String> gameHistory = new ArrayList<>(Arrays.asList("TTT", "Checkers", "Connect4", "Checkers"));
-            HashMap<String, Double> achievements = new HashMap<>(Map.ofEntries(entry("Have100Cat'sInTTT", 0.75), entry("WinCheckersWithoutLosingOnePiece", 0.00)));
-            GameHistory gameHistory1 = new GameHistory(gameHistory, achievements);
+            GameHistory gameHistory1 = new GameHistory(gameHistory, achievements, id);
             assertEquals(gameHistory1.getGameHistory(), ProfileDatabaseAccess.obtainGameHistory(id).getGameHistory());
             assertEquals(gameHistory1.getAchievementProgress(), ProfileDatabaseAccess.obtainGameHistory(id).getAchievementProgress());
         } catch (SQLException | IOException s) {

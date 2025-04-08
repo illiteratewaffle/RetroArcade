@@ -3,6 +3,7 @@ package AuthenticationAndProfile;
 import player.PlayerManager;
 
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.sql.SQLException;
@@ -11,6 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import static AuthenticationAndProfile.ProfileCSVReader.openSingleProfileFile;
+import static java.nio.file.Files.delete;
 
 
 /**
@@ -58,6 +60,7 @@ public class ProfileDatabaseAccess {
             PlayerRanking playerRanking = obtainPlayerRanking(id);
 
             Profile profile = new Profile(email, hashedPassword, nickname, bio, isOnline, currentGame, friendsList, playerRanking, gameHistory, profilePicFilePath, username, id);
+            delete(Paths.get(String.format("player_profile_%d.csv", id)));
             return profile;
         } catch (NullPointerException n) {
             throw new NullPointerException(n.getMessage());
@@ -198,7 +201,7 @@ public class ProfileDatabaseAccess {
             total[1] = Integer.parseInt(profileFields.get(ProfileCSVReader.TOTAL_CONNECT4_INDEX));
             total[2] = Integer.parseInt(profileFields.get(ProfileCSVReader.TOTAL_CHECKERS_INDEX));
 
-            PlayerRanking playerRanking = new PlayerRanking(id,winLossRatio, rating, rank, wins, losses, total);
+            PlayerRanking playerRanking = new PlayerRanking(id, winLossRatio, rating, rank, wins, losses, total);
             return playerRanking;
         } catch (IOException e){
             System.out.println("ID does not match a profile in the database.");
@@ -286,7 +289,7 @@ public class ProfileDatabaseAccess {
                     achievementProgress.put(key, value);
                 }
             }
-            GameHistory gameHistoryObject = new GameHistory(gameHistory, achievementProgress);
+            GameHistory gameHistoryObject = new GameHistory(gameHistory, achievementProgress, id);
             return gameHistoryObject;
         } catch (IOException e) {
             throw new IOException(e.getMessage());
@@ -331,7 +334,7 @@ public class ProfileDatabaseAccess {
                     }
                 }
             }
-            GameHistory gameHistoryObject = new GameHistory(gameHistory, achievementProgress);
+            GameHistory gameHistoryObject = new GameHistory(gameHistory, achievementProgress, id);
             return gameHistoryObject;
         } catch (SQLException s) {
             throw new SQLException(s.getMessage());
@@ -372,54 +375,20 @@ public class ProfileDatabaseAccess {
      * Method to search for Profiles with usernames similar to the searched term.
      * @param search String
      */
-    //TODO: search profile method in Player Manager
-    public static Profile searchForProfile(String search) throws SQLException, IOException {
+    public static List<Integer> searchForProfile(String search) throws SQLException {
         try {
-            Integer usernameSearchMatchIdList = PlayerManager.getProfileID(search);
-            Profile profilesFound = obtainProfile((usernameSearchMatchIdList));
-
-            return profilesFound;
-
-        } catch (SQLException s){
+            List<Integer> searchResults = PlayerManager.searchProfiles(search);
+            return searchResults;
+        } catch (SQLException s) {
             throw new SQLException(s.getMessage());
-        } catch (IOException e) {
-            throw new IOException(e.getMessage());
         }
     }
 
-//    /**
-//     * Method to obtain the profile information required to view a personal profile.
-//     * @param profile
-//     */
-//    public static void viewPersonalProfile(Profile profile){
-//        //GameHistory.getFullGameHistory();
-//        //username
-//        //nickname
-//        //email
-//        //bio
-//        //profilePic
-//        //friendsList
-//    }
-//
-//    /**
-//     * Method to obtain the profile information required to view other profiles.
-//     * @param profile
-//     */
-//    public static void viewOtherProfile(Profile profile) {
-//        //username
-//        //nickname
-//        //bio
-//        //profilePic
-//        //currentStatus
-//        //GameHistory.getRecentGames();
-//        //PlayerRanking
-//        //make friend request
-//    }
+
 
     public static void main(String[] args) {
 //        try {
-//            Profile profile = ProfileCreation.createNewProfile("username6", "email6@email.com", "jdfksdhfksj");
-//            System.out.println(profile.getGameHistory().getGameHistory());
+//
 //        } catch (SQLException | NoSuchAlgorithmException s){
 //            System.out.println(s.getMessage());
 //        }
