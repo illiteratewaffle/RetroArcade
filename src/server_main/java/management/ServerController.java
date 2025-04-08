@@ -38,4 +38,9 @@ public class ServerController {
     public static void dequeuePlayer(PlayerHandler player) {
         gameCreator.dequeuePlayer(player);
     }
+
+    public static void endGameSession(Thread gameSessionManagerThread) {
+        gameCreator.endSession(gameSessionManagerThread);
+        ThreadRegistry.unregisterSession(gameSessionManagerThread);
+    }
 }

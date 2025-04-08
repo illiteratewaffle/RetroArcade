@@ -1,10 +1,13 @@
 package session;
 
 import GameLogic_Client.IBoardGameController;
+import management.ServerController;
+import management.ServerLogger;
 import management.ThreadMessage;
 import management.ThreadRegistry;
 import player.PlayerHandler;
 
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.BlockingQueue;
@@ -15,7 +18,7 @@ import static management.ServerLogger.log;
 public class GameSessionManager implements Runnable {
     private final PlayerHandler player1;
     private final PlayerHandler player2;
-    private final String gameType;
+    private final Integer gameType;
     private final IBoardGameController gameController;
 
     /**
@@ -29,9 +32,7 @@ public class GameSessionManager implements Runnable {
         this.player1 = player1;
         this.player2 = player2;
         // yeah, bad practice what about it
-        if (gameType == 0) this.gameType = "tictactoe";
-        else if (gameType == 1) this.gameType = "connect4";
-        else this.gameType = "checkers";
+        this.gameType = gameType;
         this.gameController = getController(gameType);
     }
 
@@ -57,10 +58,44 @@ public class GameSessionManager implements Runnable {
 
     /**
      * The method to handle win conditions and stuff when a player disconnects.
-     * @param player The player that disconnected.
+     * @param message The Thread Message saying a disconnection has occurred.
      */
-    private void handleDisconnection(PlayerHandler player) {
+    private void handleDisconnection(ThreadMessage message) {
 
+        //Find the thread of the player that was disconnected.
+        Thread sender = message.getSender();
+
+        //Check which player was the one that got disconnected.
+        if (sender == player1.getThread()) {
+
+            player2.setGameSessionManagerThread(null);
+            handleGameEnd(player2, player1);
+        } else if (sender == player2.getThread()) {
+
+            player1.setGameSessionManagerThread(null);
+            handleGameEnd(player1, player2);
+        }
+
+    }
+
+    /**
+     * Method that handles the end of a game session.
+     * @param winner The player that won the game.
+     */
+    private void handleGameEnd(PlayerHandler winner, PlayerHandler loser) {
+        try {
+            //Update the players profiles based on the result of the game.
+            winner.getProfile().getPlayerRanking().endOfMatchMethod(gameType, 1);
+            loser.getProfile().getPlayerRanking().endOfMatchMethod(gameType, 0);
+        } catch (SQLException e) {
+
+            //If there is an error, log it.
+            ServerLogger.log("GameSessionManager: Error while logging the winners and loser of a game session.", e);
+        }
+
+        //Once the game session has concluded, call the methods to end everything and log it.
+        ServerController.endGameSession(Thread.currentThread());
+        ServerLogger.log("GameSessionManager: Game session ended.");
     }
 
     /**

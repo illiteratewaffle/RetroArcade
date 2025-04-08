@@ -53,4 +53,8 @@ public class ThreadRegistry {
         playerList.remove(handler.getProfile().getID());
     }
 
+    public static void unregisterSession(Thread gameSessionManagerThread) {
+        threadRegistry.remove(gameSessionManagerThread);
+    }
+
 }
