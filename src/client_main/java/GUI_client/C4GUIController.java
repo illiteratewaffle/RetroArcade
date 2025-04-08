@@ -279,7 +279,7 @@ public class C4GUIController implements Initializable {
     }
 
 
-    public void infoButtonClicked(){
+    public void clickInfoButton(){
         infoImage.setImage(new Image("C4info.jpg"));
         infoImage.setVisible(true);
         infoImage.setMouseTransparent(false);
