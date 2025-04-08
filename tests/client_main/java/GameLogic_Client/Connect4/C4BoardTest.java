@@ -1,4 +1,4 @@
-package client_main.java.GameLogic_Client.Connnect4;
+package GameLogic_Client.Connect4;
 import GameLogic_Client.Connect4.C4Board;
 import GameLogic_Client.Connect4.C4Piece;
 import GameLogic_Client.Ivec2;
