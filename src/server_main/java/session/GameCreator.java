@@ -24,8 +24,9 @@ public class GameCreator implements Runnable {
         if (!gameQueue.isInQueue(player)) {
             ServerLogger.log("GameCreator: Enqueued player " + player.getProfile().getUsername() + ":" + player.getProfile().getID());
             gameQueue.enqueue(gameType, player);
+        } else {
+            ServerLogger.log("GameCreator: Unable to enqueue player " + player.getProfile().getUsername() + ", player is already enqueued,");
         }
-        ServerLogger.log("GameCreator: Unable to enqueue player " + player.getProfile().getUsername() + ", player is already enqueued,");
     }
 
     public void dequeuePlayer(PlayerHandler player) {
