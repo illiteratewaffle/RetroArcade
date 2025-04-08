@@ -6,6 +6,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import player.PlayerManager;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -15,59 +19,60 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 class FriendsListTest {
+    private FriendsList friendsList;
+    private Profile profileA;
+    private Profile profileB;
 
-    private static Profile profileA;
-    private static Profile profileB;
     @BeforeEach
     void setUp(){
         try {
-            HashMap<String, Double> achievementProgress = new HashMap<>();
-            List<String> gameHistory = new ArrayList<>();
-            String password = "1234567";
-            String hashedPassword = ProfileCreation.hashedPassword(password);
-            profileA = new Profile("email1@email.com", hashedPassword, "bert", "Hi", false, "null", null, new PlayerRanking(), new GameHistory(gameHistory, achievementProgress), "C:profileA/pic/path.png", "username1", 2);
-            profileB = new Profile("email2@email.com", hashedPassword, "ernie", "Hello", false, null, null, new PlayerRanking(), new GameHistory(gameHistory, achievementProgress), "C:profileB/pic/path.png", "username2", 3);
-        } catch (NoSuchAlgorithmException n) {
-            fail(n.getMessage());
+            Files.copy(Paths.get("profiles_export.csv"), Paths.get("test_profiles_export.csv"), StandardCopyOption.REPLACE_EXISTING);
+            profileA = ProfileCreation.createNewProfile("UsernameA", "A@email.com", "PasswordA");
+            profileB = ProfileCreation.createNewProfile("UsernameB", "B@email.com", "PasswordB");
+
+        } catch (Exception e) {
+            fail(e.getMessage());
         }
     }
 
     @AfterEach
-    void tearDown(){
+    void tearDown() {
         try {
             PlayerManager.deleteProfile(profileA.getID());
-        } catch (SQLException s){
+        } catch (SQLException s) {
             fail("deleteProfile error: " + s.getMessage());
         }
         try {
             PlayerManager.deleteProfile(profileB.getID());
-        } catch (SQLException s){
+        } catch (SQLException s) {
             fail("deleteProfile error: " + s.getMessage());
         }
     }
 
     @Test
-    void addFriend(){
-//        FriendsList friendsOfA = new FriendsList(new ArrayList<>(), new ArrayList<>(), profileA.getID());
-//        profileA.setFriendsList(friendsOfA);
-//
-//        int profileBID = profileB.getID();
-//        friendsOfA.addFriend(profileB.getUsername());
-//
-//        assertTrue(friendsOfA.getFriends().contains(profileBID));
+    void addFriend() throws SQLException, NoSuchAlgorithmException, IOException {
+        try{
+
+            FriendsList friendsList = profileA.getFriendsList();
+            friendsList.addFriend(profileB.getUsername());
+            List<Integer> friends = friendsList.getFriends();
+            System.out.println(friends);
+            System.out.println(friendsList);
+            assertTrue(friends.contains(profileA.getID()), "friends list should contain user with id 123");
+
+        } catch (Exception e){
+            fail(e.getMessage());
+        }
     }
-    @Test
-    void removeFriend(){
-//        List<Integer> existingFriends = new ArrayList<>();
-//        existingFriends.add(profileB.getID());
-//        FriendsList friendsOfA = new FriendsList(existingFriends, new ArrayList<>(), profileA.getID());
-//        profileA.setFriendsList(friendsOfA);
+
+//    @Test
+//    void removeFriend() throws IOException {
+//        String usernameToAdd = "friend_username";
+//        Integer idToAdd = 123;
+//        friends.addFriend(usernameToAdd);
 //
-//        int profileBID = profileB.getID();
-//        friendsOfA.removeFriend(profileB.getUsername());
 //
-//        assertFalse(friendsOfA.getFriends().contains(profileBID));
-    }
+//    }
     @Test
     void acceptFriendRequest(){
 

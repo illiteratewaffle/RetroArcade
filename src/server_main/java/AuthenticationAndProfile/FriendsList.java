@@ -93,7 +93,7 @@ public class FriendsList {
     }
 
     /**
-     * Updates the CSV file adter any changes to the users friends or friend requests
+     * Updates the CSV file after any changes to the users friends or friend requests
      */
     public void updateCSV() throws IOException {
         ArrayList<ArrayList<String>> profiles = ProfileCSVReader.openProfilesFile("profiles_export.csv");
@@ -104,7 +104,7 @@ public class FriendsList {
                 if (profileId == id) {
                     // update friends list and friends request list to account for changes
                     profile.set(ProfileCSVReader.FRIENDS_INDEX, friends.toString().replace("[", "").replace("]", "")); // csv file contains comma seperated list of ids (DOUBLE CHECK)
-                    profile.set(ProfileCSVReader.FREQUEST_INDEX, friendRequests.toString().replace("[", "").replace("]", "")); // DOUBLE CHECK -> saves as 123,456,789
+                    profile.set(ProfileCSVReader.FREQUEST_INDEX, friendRequests.toString().replace("[", "").replace("]", ""));
                     break; // stops loop when the required profile has been updated
                 }
             }
