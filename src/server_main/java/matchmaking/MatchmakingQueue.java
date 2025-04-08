@@ -67,7 +67,7 @@ public class MatchmakingQueue {
      * @return true if the player is found in any of the queues, false otherwise.
      */
     public static Boolean isInQueue(PlayerHandler player) {
-        for (Map.Entry<Integer, LinkedList<PlayerHandler>> entry : gameQueues.entrySet()) {     //Loop through each queue presen
+        for (Map.Entry<Integer, LinkedList<PlayerHandler>> entry : gameQueues.entrySet()) {     //Loop through each queue
             if (entry.getValue().contains(player)) {
                 return Boolean.TRUE;
             }

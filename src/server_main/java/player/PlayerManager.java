@@ -141,7 +141,9 @@ public class PlayerManager {
     }
 
     /**
-     * Fetches all profile data from the database and writes it into a CSV file.
+     * Exports all player profiles to a CSV file.
+     *
+     * @throws SQLException If a database or file writing error occurs.
      */
     public static void getProfileTable() throws SQLException {
         // SQL query to fetch all rows in the profiles table
