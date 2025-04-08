@@ -1,6 +1,7 @@
 package session;
 
 import GameLogic_Client.IBoardGameController;
+import GameLogic_Client.Ivec2;
 import management.ServerController;
 import management.ServerLogger;
 import management.ThreadMessage;
@@ -171,21 +172,114 @@ public class GameSessionManager implements Runnable {
     }
 
     /**
-     * Routes the ThreadMessage to the corresponding function
-     * @param threadMessage the ThreadMessage received
+     * Route the ThreadMessage to the corresponding function
+     * @param threadMessage the ThreadMessage that is to be routed
      */
-    private void routeMessage(ThreadMessage threadMessage) {
+    public void routeMessage(ThreadMessage threadMessage) {
+        // Get the sender and the content from the ThreadMessage
         Map<String, Object> content = threadMessage.getContent();
         Thread sender = threadMessage.getSender();
-        // Make sure it contains the key type
-        if (content.containsKey("type")) {
-            if (content.get("type").equals("disconnection")) {
-                handleDisconnection(threadMessage);
-            } else if (content.get("type").equals("chat")) {
+        Map<String, Object> forward = new HashMap<>();
+
+        // This is nasty bro
+        switch ((String) content.get("type")) {
+            case "game":
+                // Add "type":"game" to the return json
+                forward.put("type", "game");
+                switch ((String) content.get("command")) {
+                    // If wanting to call receiveInput()
+                    case "receiveInput":
+                        if (content.containsKey("parameter") && content.get("parameter") instanceof int[] parameter) {
+                            Ivec2 ivec2 = new Ivec2(parameter[0], parameter[1]);
+                            gameController.receiveInput(ivec2);
+                        } else {
+                            log("GameSessionManager: Message not recognized: " + threadMessage.getContent());
+                        }
+                        break;
+                    // If wanting to call removePlayer()
+                    case "removePlayer":
+                        if (content.containsKey("parameter") && content.get("parameter") instanceof Integer parameter) {
+                            gameController.removePlayer(parameter);
+                        } else {
+                            log("GameSessionManager: Message not recognized: " + threadMessage.getContent());
+                        }
+                        break;
+                    // If wanting to call getWinner()
+                    case "getWinner":
+                        forward.put("data", gameController.getWinner());
+                        sendMessageBack(sender, forward);
+                        break;
+                    // If wanting to call getGameOngoing()
+                    case "getGameOngoing":
+                        forward.put("data", gameController.getGameOngoing());
+                        sendMessageBack(sender, forward);
+                        break;
+                    // If wanting to call getBoardCells()
+                    case "getBoardCells":
+                        if (content.containsKey("parameter") && content.get("parameter") instanceof Integer parameter) {
+                            forward.put("data", gameController.getBoardCells(parameter));
+                            sendMessageBack(sender, forward);
+                        } else {
+                            log("GameSessionManager: Message not recognized: " + threadMessage.getContent());
+                        }
+                        break;
+                    // If wanting to call getBoardSize()
+                    case "getBoardSize":
+                        forward.put("data", gameController.getBoardSize());
+                        sendMessageBack(sender, forward);
+                        break;
+                    // If wanting to call getCurrentPlayer()
+                    case "getCurrentPlayer":
+                        // TODO: THIS MUST BE DEPENDENT ON THE PLAYER CURRENTLY PLAYING
+                        forward.put("data", gameController.getCurrentPlayer());
+                        sendMessageBack(sender, forward);
+                        break;
+                    // If wanting to call gameOngoingChangedSinceLastCommand()
+                    case "gameOngoingChangedSinceLastCommand":
+                        forward.put("data", gameController.gameOngoingChangedSinceLastCommand());
+                        sendMessageBack(sender, forward);
+                        break;
+                    // If wanting to call winnersChangedSinceLastCommand()
+                    case "winnersChangedSinceLastCommand":
+                        forward.put("data", gameController.winnersChangedSinceLastCommand());
+                        sendMessageBack(sender, forward);
+                        break;
+                    // If wanting to call currentPlayerChangedSinceLastCommand()
+                    case "currentPlayerChangedSinceLastCommand":
+                        forward.put("data", gameController.currentPlayerChangedSinceLastCommand());
+                        sendMessageBack(sender, forward);
+                        break;
+                    // If wanting to call boardChangedSinceLastCommand()
+                    case "boardChangedSinceLastCommand":
+                        forward.put("data", gameController.boardChangedSinceLastCommand());
+                        sendMessageBack(sender, forward);
+                        break;
+                    default:
+                        log("GameSessionManager: Message not recognized: " + threadMessage.getContent());
+                }
+                break;
+            // If chatting with a player
+            case "chat":
                 handleChatMessage(threadMessage);
-            } else if (content.get("type").equals("game")) {
+                break;
+            // If handling a disconnection
+            case "disconnection":
+                handleDisconnection(threadMessage);
+                break;
+            default:
                 log("GameSessionManager: Message not recognized: " + threadMessage.getContent());
-            }
+        }
+    }
+
+    private void sendMessageBack(Thread sender, Map<String, Object> newMessage) {
+        ThreadMessage forward = new ThreadMessage(Thread.currentThread(), newMessage);
+        // Send to the same player
+        if (sender == player1.getThread()) {
+            ThreadRegistry.getQueue(player1.getThread()).add(forward);
+        } else if (sender == player2.getThread()) {
+            ThreadRegistry.getQueue(player1.getThread()).add(forward);
+        } else {
+            log("GameSessionManager: Chat message sender not recognized: " + sender);
         }
     }
 }
