@@ -167,7 +167,15 @@ public class FriendsList {
         } catch (IOException e) {
             throw new IOException(e.getMessage());
         }
+    }
 
+    public void rejectFriendRequest(int friendID) throws SQLException {
+        try {
+            friendRequests.remove(friendID);
+            PlayerManager.deleteFriendRequest(id, friendID);
+        } catch (SQLException s) {
+            throw new SQLException(s.getMessage());
+        }
     }
 
     /**
