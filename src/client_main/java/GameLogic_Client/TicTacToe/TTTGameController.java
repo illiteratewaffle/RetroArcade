@@ -16,13 +16,33 @@ public class TTTGameController implements IBoardGameController {
     /**
      * The Tic-Tac-Toe game instance.
      */
-    public TTTGame game;
+    private TTTGame game;
 
     /**
      * Initializes the game controller by creating a new game instance.
      */
     public TTTGameController() {
         this.game = new TTTGame();
+    }
+
+    public boolean isTileEmpty(Ivec2 tile) {
+        return game.board.isEmpty(tile);
+    }
+
+    public boolean makeMove(int row, int col) {
+        return game.makeMove(row, col);
+    }
+
+    public boolean checkWin() {
+        return game.checkWin(game.board);
+    }
+
+    public boolean checkDraw() {
+        return game.checkDraw(game.board);
+    }
+
+    public void updateGameState() {
+        game.updateGameState();
     }
 
     /**
