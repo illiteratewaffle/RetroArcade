@@ -18,7 +18,7 @@ class TTTGameControllerTest {
     @Test
     void getCurrentPlayer() {
         assertEquals(1, gameController.getCurrentPlayer(), "Current player should be X at start of the game");
-        gameController.game.makeMove(0, 0);
+        gameController.makeMove(0, 0);
         assertEquals(2, gameController.getCurrentPlayer(), "Current player should now be O after first turn");
     }
 
@@ -44,36 +44,36 @@ class TTTGameControllerTest {
 
     @Test
     void getWinnerX() {
-        gameController.game.makeMove(0, 0);
-        gameController.game.makeMove(0, 1);
-        gameController.game.makeMove(1, 0);
-        gameController.game.makeMove(1, 1);
-        gameController.game.makeMove(2, 0); // player 1 should win here
+        gameController.makeMove(0, 0);
+        gameController.makeMove(0, 1);
+        gameController.makeMove(1, 0);
+        gameController.makeMove(1, 1);
+        gameController.makeMove(2, 0); // player 1 should win here
         assertArrayEquals(new int[] {0}, gameController.getWinner());
     }
 
     @Test
     void getWinnerO() {
-        gameController.game.makeMove(0, 0);
-        gameController.game.makeMove(0, 1);
-        gameController.game.makeMove(1, 0);
-        gameController.game.makeMove(1, 1);
-        gameController.game.makeMove(2, 2);
-        gameController.game.makeMove(2, 1); // Player 2 should win here
+        gameController.makeMove(0, 0);
+        gameController.makeMove(0, 1);
+        gameController.makeMove(1, 0);
+        gameController.makeMove(1, 1);
+        gameController.makeMove(2, 2);
+        gameController.makeMove(2, 1); // Player 2 should win here
         assertArrayEquals(new int[] {1}, gameController.getWinner());
     }
 
     @Test
     void getWinnerDraw() {
-        gameController.game.makeMove(0, 0); //player 1
-        gameController.game.makeMove(0,1);  //player 2
-        gameController.game.makeMove(0,2);  //player 1
-        gameController.game.makeMove(1,1);  //player 2
-        gameController.game.makeMove(1,0);  //player 1
-        gameController.game.makeMove(1,2);  //player 2
-        gameController.game.makeMove(2,1);  //player 1
-        gameController.game.makeMove(2,0);  //player 2
-        gameController.game.makeMove(2,2);  //player 1
+        gameController.makeMove(0, 0); //player 1
+        gameController.makeMove(0,1);  //player 2
+        gameController.makeMove(0,2);  //player 1
+        gameController.makeMove(1,1);  //player 2
+        gameController.makeMove(1,0);  //player 1
+        gameController.makeMove(1,2);  //player 2
+        gameController.makeMove(2,1);  //player 1
+        gameController.makeMove(2,0);  //player 2
+        gameController.makeMove(2,2);  //player 1
         // this should result in a draw
         assertArrayEquals(new int[] {0, 1}, gameController.getWinner());
     }
@@ -85,11 +85,11 @@ class TTTGameControllerTest {
 
     @Test
     void getGameOngoingFalse() {
-        gameController.game.makeMove(0, 0);
-        gameController.game.makeMove(0, 1);
-        gameController.game.makeMove(1, 0);
-        gameController.game.makeMove(1, 1);
-        gameController.game.makeMove(2, 0); // X should win here, thus ending the game
+        gameController.makeMove(0, 0);
+        gameController.makeMove(0, 1);
+        gameController.makeMove(1, 0);
+        gameController.makeMove(1, 1);
+        gameController.makeMove(2, 0); // X should win here, thus ending the game
         gameController.getWinner();
         assertFalse(gameController.getGameOngoing(), "Game should now be completed");
     }
@@ -117,7 +117,7 @@ class TTTGameControllerTest {
 
     @Test
     void getBoardCellsAfterMove() {
-        gameController.game.makeMove(0, 0);
+        gameController.makeMove(0, 0);
         int[][] board = gameController.getBoardCells(0).get(0);
         assertEquals(1, board[0][0], "Top-left cell should be marked by Player 1");
     }
