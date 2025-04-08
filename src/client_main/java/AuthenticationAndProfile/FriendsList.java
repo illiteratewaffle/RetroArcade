@@ -1,14 +1,14 @@
 package AuthenticationAndProfile;
 
 
-import player.PlayerManager;
+import server.player.PlayerManager;
 
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static management.ServerLogger.log;
+import static server.management.ServerLogger.log;
 
 /**
  * FriendsList class handles operations related to a users friends list and friend requests

@@ -1,7 +1,7 @@
 package AuthenticationAndProfile;
 
-import player.PlayerManager;
-import static management.ServerLogger.log;
+import server.player.PlayerManager;
+import static server.management.ServerLogger.log;
 
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;

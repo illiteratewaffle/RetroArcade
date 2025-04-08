@@ -4,7 +4,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import static management.ServerLogger.log;
+import static server.management.ServerLogger.log;
 
 public class ProfileCSVReader {
     /* New: With Game Rankings *********************************

@@ -1,6 +1,6 @@
 package server.management;
 
-import player.PlayerHandler;
+import server.player.PlayerHandler;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ConcurrentHashMap;

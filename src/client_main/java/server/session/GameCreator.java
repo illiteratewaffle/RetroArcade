@@ -1,8 +1,8 @@
 package server.session;
 
-import management.ServerLogger;
-import matchmaking.Matchmaking;
-import player.PlayerHandler;
+import server.management.ServerLogger;
+import server.matchmaking.Matchmaking;
+import server.player.PlayerHandler;
 
 import java.sql.SQLException;
 import java.util.List;

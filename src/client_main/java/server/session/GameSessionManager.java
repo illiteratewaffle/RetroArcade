@@ -1,10 +1,10 @@
 package server.session;
 
 import GameLogic_Client.IBoardGameController;
-import management.ServerController;
-import management.ThreadMessage;
-import management.ThreadRegistry;
-import player.PlayerHandler;
+import server.management.ServerController;
+import server.management.ThreadMessage;
+import server.management.ThreadRegistry;
+import server.player.PlayerHandler;
 
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -12,7 +12,7 @@ import java.util.Map;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
-import static management.ServerLogger.log;
+import static server.management.ServerLogger.log;
 
 public class GameSessionManager implements Runnable {
     private final PlayerHandler player1;

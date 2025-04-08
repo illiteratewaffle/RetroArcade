@@ -1,6 +1,6 @@
 package AuthenticationAndProfile;
 //import leaderboard.PlayerRanking;
-import player.PlayerManager;
+import server.player.PlayerManager;
 
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;

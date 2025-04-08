@@ -44,10 +44,10 @@ public class Main {
 //        }
         try {
             Profile profile = ProfileDatabaseAccess.obtainProfile(294);
-            profile.getCurrentStatus()
+            profile.getCurrentStatus();
 
 
-        } catch (SQLException | IOException | NoSuchAlgorithmException s) {
+        } catch (SQLException | IOException s) {
             System.out.println(s.getMessage());
         }
     }
