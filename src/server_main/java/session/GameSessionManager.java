@@ -153,4 +153,19 @@ public class GameSessionManager implements Runnable {
             log("GameSessionManager: Chat message sender not recognized.");
         }
     }
+
+    private void routeMessage(ThreadMessage threadMessage) {
+        Map<String, Object> content = threadMessage.getContent();
+        Thread sender = threadMessage.getSender();
+        // Make sure it contains the key type
+        if (content.containsKey("type")) {
+            if (content.get("type").equals("disconnection")) {
+                handleDisconnection(threadMessage);
+            } else if (content.get("type").equals("chat")) {
+                handleChatMessage(threadMessage);
+            } else if (content.get("type").equals("game")) {
+                // Now use a motha fuckin switch statement bitch
+            }
+        }
+    }
 }

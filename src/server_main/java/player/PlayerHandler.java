@@ -114,8 +114,6 @@ public class PlayerHandler implements Runnable {
 
                     //If message == null, then that means the player has disconnected and this thread should be terminated.
                     if (message == null) {
-                        running = false;
-
                         //Unregister the player from the thread registry and the player list.
                         ThreadRegistry.unregister(PlayerHandler.this);
 
@@ -169,7 +167,29 @@ public class PlayerHandler implements Runnable {
                         log("PlayerHandler: Failure to parse message:", e.toString());
                     }
                 } catch (IOException e) {
-                    log("PlayerHandler: Failure to read a message from the client using the BufferedReader:", e.toString());
+                    // log("PlayerHandler: Failure to read a message from the client using the BufferedReader:", e.toString());
+                    running = false;
+
+                    //Unregister the player from the thread registry and the player list.
+                    ThreadRegistry.unregister(PlayerHandler.this);
+
+                    //Log that the player has disconnected.
+                    ServerLogger.log("PlayerHandler: Player " + profile.getUsername() + ":" + profile.getID() + " disconnected.");
+
+                    //Check if the player is in a game session, and if so handle the game session ending.
+                    if (gameSessionManagerThread != null) {
+                        //TODO: Implement disconnection handling for when they're in a game session.
+
+                        //Create the thread message map to send to the game session manager
+                        Map<String, Object> messageMap = new HashMap<>();
+                        messageMap.put("type", "disconnection");
+
+                        //Create the thread message and send it to game session manager
+                        ThreadMessage disconnectMessage = new ThreadMessage(mainThread, messageMap);
+                        networkManager.sendMessage(gameSessionManagerThread, disconnectMessage);
+                    }
+
+                    break;
                 } catch (InterruptedException e) {
                     // just gotta say this should be passed in through some way man, maybe a function? idk doesn't matter
                     log("PlayerHandler: Never received the thread for the GameSessionManager:", e.toString());
