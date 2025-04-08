@@ -296,9 +296,10 @@
             <Image url="@../profile_assets/done_button.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="muteButton" fitHeight="80.0" fitWidth="80.0" layoutX="717.0" layoutY="15.0" onMouseClicked="#muteButtonClicked" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="muteButton" fitHeight="80.0" fitWidth="80.0" layoutX="14.0" layoutY="12.0" onMouseClicked="#muteButtonClicked" pickOnBounds="true" preserveRatio="true">
          <cursor>
             <Cursor fx:constant="OPEN_HAND" />
-         </cursor></ImageView>
+         </cursor>
+      </ImageView>
    </children>
 </AnchorPane>
