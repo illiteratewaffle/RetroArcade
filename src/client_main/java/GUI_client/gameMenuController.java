@@ -1,6 +1,6 @@
 package GUI_client;
 
-import client.Client;
+import client.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
+
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
@@ -29,7 +30,8 @@ public class gameMenuController implements Initializable {
     public ImageView muteButton;
     @FXML
     public ImageView C4_play_button;
-    @FXML ImageView checkers_play_button;
+    @FXML
+    ImageView checkers_play_button;
     @FXML
     public ImageView quitMenu;
     @FXML
@@ -50,16 +52,17 @@ public class gameMenuController implements Initializable {
         AudioManager.mediaPlayer = new MediaPlayer(sound);
         AudioManager.mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
         AudioManager.mediaPlayer.play();
-        if (AudioManager.isMuted()){
+        if (AudioManager.isMuted()) {
             AudioManager.applyMute();
             muteButton.setImage(new Image("muteButton.png"));
-        } else{
+        } else {
             muteButton.setImage(new Image("unmuteButton.png"));
         }
     }
 
     /**
      * switches scene to TTT game
+     *
      * @throws IOException
      */
     public void play_TTT() throws IOException {
@@ -77,6 +80,7 @@ public class gameMenuController implements Initializable {
 
     /**
      * switches scene to checkers game
+     *
      * @throws IOException
      */
     public void play_checkers() throws IOException {
@@ -91,6 +95,7 @@ public class gameMenuController implements Initializable {
         stage.setScene(new Scene(root));
         stage.show();
     }
+
     public void play_C4() throws IOException {
         // stop current soundtrack
         AudioManager.mediaPlayer.stop();
@@ -106,6 +111,7 @@ public class gameMenuController implements Initializable {
 
     /**
      * quits gameMenu, closing application
+     *
      * @throws IOException
      */
     public void quitMenuClicked() throws IOException {
@@ -134,6 +140,7 @@ public class gameMenuController implements Initializable {
 
             // check if user wants to close TTT game
             if (controller.closeYes) {
+                Client.closeEverything();
 
                 AudioManager.mediaPlayer.stop();
                 Parent newRoot = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("login.fxml")));
@@ -145,33 +152,41 @@ public class gameMenuController implements Initializable {
             }
         }
     }
-    public void XPressed(){
+
+    public void XPressed() {
         quitMenu.setImage(new Image("XButtonDown.png"));
     }
-    public void XReleased(){
+
+    public void XReleased() {
         quitMenu.setImage(new Image("quit_x.png"));
     }
 
-    public void TTTStartEntered(){
+    public void TTTStartEntered() {
         TTT_play_button.setImage(new Image("TTT_start_button_inverted.png"));
     }
-    public void TTTStartExited(){
+
+    public void TTTStartExited() {
         TTT_play_button.setImage(new Image("TTT_start_button.png"));
     }
-    public void checkersStartEntered(){
+
+    public void checkersStartEntered() {
         checkers_play_button.setImage(new Image("checkers_start_button_inverted.png"));
     }
-    public void checkersStartExited(){
+
+    public void checkersStartExited() {
         checkers_play_button.setImage(new Image("checkers_start_button.png"));
     }
-    public void C4StartEntered(){
+
+    public void C4StartEntered() {
         C4_play_button.setImage(new Image("C4_start_button_inverted.png"));
     }
-    public void C4StartExited(){
+
+    public void C4StartExited() {
         C4_play_button.setImage(new Image("C4_start_button.png"));
     }
-    public void muteButtonClick(){
-        if(!AudioManager.isMuted()) {
+
+    public void muteButtonClick() {
+        if (!AudioManager.isMuted()) {
             muteButton.setImage(new Image("muteButton.png"));
             AudioManager.toggleMute();
         } else {
@@ -179,6 +194,7 @@ public class gameMenuController implements Initializable {
             AudioManager.toggleMute();
         }
     }
+
     public void leaderboardsClicked() throws IOException {
         // stop current soundtrack
         AudioManager.mediaPlayer.stop();
@@ -191,12 +207,15 @@ public class gameMenuController implements Initializable {
         stage.setScene(new Scene(root));
         stage.show();
     }
-    public void leaderboardsEntered(){
+
+    public void leaderboardsEntered() {
         leaderboardsButton.setImage(new Image("leaderboardsButton_inverted.png"));
     }
-    public void leaderboardsExited(){
+
+    public void leaderboardsExited() {
         leaderboardsButton.setImage(new Image("leaderboardsButton.png"));
     }
+
     public void profileButtonClicked() throws IOException {
         // stop current soundtrack
         AudioManager.mediaPlayer.stop();
@@ -209,10 +228,12 @@ public class gameMenuController implements Initializable {
         stage.setScene(new Scene(root));
         stage.show();
     }
-    public void profileButtonPressed(){
+
+    public void profileButtonPressed() {
         profileButton.setImage(new Image("profile_button_pressed.png"));
     }
-    public void profileButtonReleased(){
+
+    public void profileButtonReleased() {
         profileButton.setImage(new Image("profile_button.png"));
     }
 }
