@@ -80,8 +80,9 @@ public class PlayerHandler implements Runnable {
             } catch (SQLException | IOException e) {
                 ServerLogger.log("PlayerHandler: " + this.getProfile().getUsername() + " could not send friend request to " + recipientID);
             }
+        } else {
+            ServerLogger.log("PlayerHandler: " + this.getProfile().getUsername() + " unable to send friend request, incoming message did not contain recipient id.");
         }
-        ServerLogger.log("PlayerHandler: " + this.getProfile().getUsername() + " unable to send friend request, incoming message did not contain recipient id.");
     }
 
     /**
@@ -101,8 +102,9 @@ public class PlayerHandler implements Runnable {
             } catch (IOException | SQLException e) {
                 ServerLogger.log("PlayerHandler: " + this.getProfile().getUsername() + " could not accept friend request from " + senderID);
             }
+        } else {
+            ServerLogger.log("PlayerHandler: " + this.getProfile().getUsername() + " unable to accept friend request, client message does not contain sender id.");
         }
-        ServerLogger.log("PlayerHandler: " + this.getProfile().getUsername() + " unable to accept friend request, client message does not contain sender id.");
     }
 
     /**
@@ -135,12 +137,15 @@ public class PlayerHandler implements Runnable {
                     //Send the message and log it.
                     networkManager.sendMessage(recipientThread, requestMessage);
                     ServerLogger.log("PlayerHandler: " + this.getProfile().getUsername() + " sent game request to " + recipientID);
+                } else {
+                    ServerLogger.log("PlayerHandler: " + this.getProfile().getUsername() + " unable to send game request, incoming message lacks game type.");
                 }
-                ServerLogger.log("PlayerHandler: " + this.getProfile().getUsername() + " unable to send game request, incoming message lacks game type.");
+            } else {
+                ServerLogger.log("PlayerHandler: " + this.getProfile().getUsername() + "Unable to send game request, recipient thread was null.");
             }
-            ServerLogger.log("PlayerHandler: " + this.getProfile().getUsername() + "Unable to send game request, recipient thread was null.");
+        } else {
+            ServerLogger.log("PlayerHandler: " + this.getProfile().getUsername() + " unable to send game request, Thread Message did not contain recipient id.");
         }
-        ServerLogger.log("PlayerHandler: " + this.getProfile().getUsername() + " unable to send game request, Thread Message did not contain recipient id.");
     }
 
     /**
@@ -161,10 +166,12 @@ public class PlayerHandler implements Runnable {
                 int gameType = (int) requestMessage.getContent().get("game-type");
                 ServerController.createFriendsGame(PlayerHandler.this, sender, gameType);
                 ServerLogger.log("PlayerHandler: " + this.getProfile().getUsername() + " created friends game with " + sender.getProfile().getUsername());
+            } else {
+                ServerLogger.log("PlayerHandler: " + this.getProfile().getUsername() + "unable to accept game request, incoming message does not containn game type.");
             }
-            ServerLogger.log("PlayerHandler: " + this.getProfile().getUsername() + "unable to accept game request, incoming message does not containn game type.");
+        } else {
+            ServerLogger.log("PlayerHandler: " + this.getProfile().getUsername() + " unable to accept game request because message does not contain a sender id.");
         }
-        ServerLogger.log("PlayerHandler: " + this.getProfile().getUsername() + " unable to accept game request because message does not contain a sender id.");
     }
 
 
