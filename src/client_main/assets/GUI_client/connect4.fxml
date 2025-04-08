@@ -120,4 +120,3 @@
         <Button fx:id="info_ok_button" layoutX="404.0" layoutY="465.0" mnemonicParsing="false" onMouseClicked="#clickInfoOkButton" opacity="0.0" prefHeight="33.0" prefWidth="70.0" />
     </children>
 </AnchorPane>
-

@@ -44,6 +44,23 @@ public class C4GUIController implements Initializable {
         c4GUIGrid.setGridLinesVisible(true);
         //infoButton.setImage(new Image("C4Info.jpg"));
 
+        chatArea.clear();
+        chatArea.setStyle(
+                "-fx-background-color: transparent;" +
+                        "-fx-control-inner-background: transparent;" +
+                        "-fx-text-fill: white;" + // Optional for readability
+                        "-fx-border-color: transparent;" +
+                        "-fx-text-fill: yellow;" +
+                        "-fx-font-size: 16px;" +
+                        "-fx-font-family: 'SilomBol.ttf';"
+        );
+        chatPane.setStyle(
+                "-fx-background-color: transparent;" +
+                        "-fx-background: transparent;" +
+                        "-fx-border-color: transparent;"
+        );
+
+
         setupHoverEffect(col0Button, 0);
         setupHoverEffect(col1Button, 1);
         setupHoverEffect(col2Button, 2);
