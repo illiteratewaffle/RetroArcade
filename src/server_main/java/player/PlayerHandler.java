@@ -64,16 +64,24 @@ public class PlayerHandler implements Runnable {
 
     /**
      * Method to send a friend request to another user.
-     * @param recipientID The recipient whom the friend request is intended for.
+     * @param message The message from the client side containing the command to send a friend request.
      */
-    private synchronized boolean sendFriendRequest(Integer recipientID) {
-        try {
-            this.getProfile().getFriendsList().sendFriendRequest(recipientID);
-            return true;
-        } catch (SQLException | IOException e) {
-            ServerLogger.log("PlayerHandler: " + this.getProfile().getUsername() + " could not send friend request to " + recipientID);
-            return false;
+    private synchronized void sendFriendRequest(ThreadMessage message) {
+
+        //Check if the message contains the id of the recipient.
+        if (message.getContent().containsKey("ID")) {
+
+            //If it does, then send the friend request to user associated with the id.
+            int recipientID = (int) message.getContent().get("ID");
+            try {
+                this.getProfile().getFriendsList().sendFriendRequest(recipientID);
+                ServerLogger.log("PlayerHandler: " + this.getProfile().getUsername() + " sent friend request to " + recipientID);
+
+            } catch (SQLException | IOException e) {
+                ServerLogger.log("PlayerHandler: " + this.getProfile().getUsername() + " could not send friend request to " + recipientID);
+            }
         }
+        ServerLogger.log("PlayerHandler: " + this.getProfile().getUsername() + " unable to send friend request, incoming message did not contain recipient id.");
     }
 
     /**
