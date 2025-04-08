@@ -111,14 +111,32 @@ public class C4Controller implements IBoardGameController {
         return !c4GameLogic.getC4IsGameOver();
     }
 
-    /**
-     * Gets board's cells, used in GUI.
-     * @param LayerMask A bit-string, where the bits of all the layers to query are set to 1.
-     * @return null if it's a blank, else piece's enum value.
-     */
     @Override
     public ArrayList<int[][]> getBoardCells(int LayerMask) {
-        return null;
+        ArrayList<int[][]> sendBoard = new ArrayList<>();
+        C4Piece[][] currentBoardEnum = c4GameLogic.getC4Board().getC4Board();
+
+        int rows = currentBoardEnum.length;
+        int cols = currentBoardEnum[0].length;
+        int[][] intBoard = new int[rows][cols];
+
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                switch (currentBoardEnum[i][j]) {
+                    case BLANK:
+                        intBoard[i][j] = 0;
+                        break;
+                    case RED:
+                        intBoard[i][j] = 1;
+                        break;
+                    case BLUE:
+                        intBoard[i][j] = 2;
+                        break;
+                }
+            }
+        }
+        sendBoard.add(intBoard);
+        return sendBoard;
     }
 
     /**
@@ -179,7 +197,6 @@ public class C4Controller implements IBoardGameController {
     void printBoard() {
         System.out.println(c4GameLogic);
     }
-
 
     /**
      * Function to give users hints if needed during the game based on which column is an ideal pick.
