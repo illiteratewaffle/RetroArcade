@@ -3,6 +3,7 @@ package AuthenticationAndProfile;
 import player.PlayerManager;
 
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import static management.ServerLogger.log;
 public class Main {
@@ -23,18 +24,23 @@ public class Main {
 //        }
 
 //        //Clearing Profiles:
-        for (int i = 0; i < 300; i++) {
-            try {
-                PlayerManager.deleteProfile(i);
-                ProfileDatabaseAccess.getAllProfiles();
-            } catch (SQLException | IOException s){
-                log(s.getMessage());
-            }
-        }
-//        try {
-//            PlayerManager.deleteProfile(2);
-//        } catch (SQLException s) {
-//            System.out.println(s.getMessage());
+//        for (int i = 0; i < 300; i++) {
+//            try {
+//                PlayerManager.deleteProfile(i);
+//                ProfileDatabaseAccess.getAllProfiles();
+//            } catch (SQLException | IOException s){
+//                log(s.getMessage());
+//            }
 //        }
+        try {
+            ProfileCreation.createNewProfile("username1", "email@email.com", "password");
+            int id;
+            System.out.println(id = PlayerManager.getProfileID("username1"));
+            PlayerManager.deleteProfile(id);
+            System.out.println("Profile deleted.");
+            System.out.println(ProfileDatabaseAccess.obtainFriendsList(id));
+        } catch (IOException | SQLException | NoSuchAlgorithmException s) {
+            System.out.println(s.getMessage());
+        }
     }
 }

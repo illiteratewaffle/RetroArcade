@@ -139,7 +139,7 @@ public class ProfileDatabaseAccess {
     public static FriendsList obtainFriendsListDirect(int id) throws SQLException{
         List<Integer> friends = new ArrayList<>();
         String friendsString = PlayerManager.getAttribute(id, "friends");
-        if (!friendsString.equals(null)){
+        if (friendsString != null){
             String[] fieldsList = friendsString.split(",");
             for (int i = 0 ; i < fieldsList.length; i ++){
                 friends.add(Integer.parseInt(fieldsList[i]));
@@ -147,7 +147,7 @@ public class ProfileDatabaseAccess {
         }
         List<Integer> friendRequests = new ArrayList<>();
         String friendRequestString = PlayerManager.getAttribute(id, "friend_requests");
-        if(!friendRequestString.equals(null)) {
+        if(friendRequestString != null) {
             String[] fieldsList = friendRequestString.split(",");
             for (int i = 0; i < fieldsList.length; i++) {
                 friendRequests.add(Integer.parseInt(fieldsList[i]));
@@ -303,7 +303,7 @@ public class ProfileDatabaseAccess {
             }
             HashMap<String, Double> achievementProgress = new HashMap<>();
             String achievementProgressString = PlayerManager.getAttribute(id, "achievement_progress");
-            if (!achievementProgressString.equals("")) {
+            if (achievementProgressString != null) {
                 String section = "";
                 boolean inSection = false;
                 for (int j = 0; j < achievementProgressString.length(); j++) {

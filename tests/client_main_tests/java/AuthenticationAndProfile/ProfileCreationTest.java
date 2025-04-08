@@ -18,7 +18,7 @@ class ProfileCreationTest {
             String hashedPassword = ProfileCreation.hashedPassword(password);
             assertEquals("8bb0cf6eb9b17d0f7d22b456f121257dc1254e1f01665370476383ea776df414".toUpperCase(), hashedPassword);
         } catch (NoSuchAlgorithmException n) {
-
+            fail(n.getMessage());
         }
     }
 

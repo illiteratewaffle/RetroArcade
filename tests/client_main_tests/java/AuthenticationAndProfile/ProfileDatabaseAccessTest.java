@@ -21,7 +21,7 @@ class ProfileDatabaseAccessTest {
     @BeforeEach
     void setUp() {
         try {
-            id = PlayerManager.registerPlayer("username3", "email3@email.com", "12345678");
+            id = PlayerManager.registerPlayer("username11", "email11@email.com", "12345678");
             profile = ProfileDatabaseAccess.obtainProfile(id);
         } catch (SQLException s) {
             fail("register player error: " + s.getMessage());
@@ -44,10 +44,10 @@ class ProfileDatabaseAccessTest {
         HashMap<String, Double> achievementProgress = new HashMap<>();
         List<String> gameHistory = new ArrayList<>();
         //String hashedPassword = ProfileCreation.hashedPassword("1234567");
-        Profile profile1 = new Profile("email1@email.com", "12345678910", "null", "null",
-                false, "null", new FriendsList(), new PlayerRanking(), new GameHistory(gameHistory, achievementProgress), "null", "username1", 1);
+        Profile profile1 = new Profile("email9@email.com", "12345678910", "null", "null",
+                false, "null", new FriendsList(), new PlayerRanking(), new GameHistory(gameHistory, achievementProgress), "null", "username9", 1);
         try {
-            int id1 = PlayerManager.registerPlayer("username1", "email1@email.com", "12345678910");
+            int id1 = PlayerManager.registerPlayer("username9", "email9@email.com", "12345678910");
             assertEquals(profile1.getEmail(), ProfileDatabaseAccess.obtainProfile(id1).getEmail());
             assertEquals(profile1.getUsername(), ProfileDatabaseAccess.obtainProfile(id1).getUsername());
             assertEquals(profile1.getOnlineStatus(), ProfileDatabaseAccess.obtainProfile(id1).getOnlineStatus());
@@ -62,10 +62,10 @@ class ProfileDatabaseAccessTest {
         HashMap<String, Double> achievementProgress = new HashMap<>();
         List<String> gameHistory = new ArrayList<>();
         //String hashedPassword = ProfileCreation.hashedPassword("1234567");
-        Profile profile1 = new Profile("email1@email.com", "12345678910", "null", "null",
-                false, "null", new FriendsList(), new PlayerRanking(), new GameHistory(gameHistory, achievementProgress), "null", "username1", 1);
+        Profile profile1 = new Profile("email12@email.com", "12345678910", "null", "null",
+                false, "null", new FriendsList(), new PlayerRanking(), new GameHistory(gameHistory, achievementProgress), "null", "username12", 1);
         try {
-            int id1 = PlayerManager.registerPlayer("username1", "email1@email.com", "12345678910");
+            int id1 = PlayerManager.registerPlayer("username12", "email12@email.com", "12345678910");
             assertEquals(profile1.getEmail(), ProfileDatabaseAccess.obtainProfileDirect(id1).getEmail());
             assertEquals(profile1.getUsername(), ProfileDatabaseAccess.obtainProfileDirect(id1).getUsername());
             assertEquals(profile1.getOnlineStatus(), ProfileDatabaseAccess.obtainProfileDirect(id1).getOnlineStatus());
