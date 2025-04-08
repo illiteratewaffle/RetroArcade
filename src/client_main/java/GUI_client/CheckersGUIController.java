@@ -74,6 +74,7 @@ public class CheckersGUIController implements Initializable {
 
     private Image winnerBlue;
     private Image winnerPink;
+    private Image tie;
     //private Image tie;
 
     private StackPane previouslySelectedTile = null;
@@ -97,6 +98,7 @@ public class CheckersGUIController implements Initializable {
         opponentTurn = new Image("checkers_blue_piece.png");
         winnerBlue = new Image("YOU_WIN_blue.png");
         winnerPink = new Image("YOU_WIN_pink.png");
+        tie = new Image("its_a_tie.png");
         quitButton.setImage(new Image("home_button.png"));
         infoButton.setImage(new Image("info_button.png"));
         checkerChatBg.setImage(new Image("chat_bg.png"));
@@ -129,7 +131,6 @@ public class CheckersGUIController implements Initializable {
                         "-fx-background: transparent;" +
                         "-fx-border-color: transparent;"
         );
-        //tie = new Image("TIE.png");
 
         for (int i = 0; i < BOARD_SIZE; i++) {
             for (int j = 0; j < BOARD_SIZE; j++) {
@@ -269,22 +270,13 @@ public class CheckersGUIController implements Initializable {
         int winner = gameLogic.getWinner();
 
         // array of length one means someone one
-        // TODO: send to networking
-        // TODO: add graphics for win/lose/tie messages
         if (winner == 0) {
             screen.setImage(winnerPink);
         } else if (winner == 1) {
             screen.setImage(winnerBlue);
-
-        // array of length two means tie
         } else if (winner == 2) {
-            // screen.setImage(tie);
+             screen.setImage(tie);
         }
-       /* if (!gameLogic.getGameOngoing()){
-            play_again.setImage(new Image("Play_Again.png"));
-            check_circle.setImage(new Image("check_circle.png"));
-            X_circle.setImage(new Image("X_circle.png"));
-        }*/
     }
     public void XPressed(){
         quitButton.setImage(new Image("home_button_pressed.png"));
