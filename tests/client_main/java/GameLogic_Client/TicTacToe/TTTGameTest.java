@@ -1,4 +1,4 @@
-package client_main_tests.java.GameLogic_Client.TicTacToe;
+package client_main.java.GameLogic_Client.TicTacToe;
 /**
  * TTGameTest class to test the functions and methods of the TTTGame class.
  * Author: Vicente David - Game Logic Team

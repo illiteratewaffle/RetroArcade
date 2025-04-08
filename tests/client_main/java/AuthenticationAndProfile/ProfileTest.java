@@ -1,4 +1,4 @@
-package client_main_tests.java.AuthenticationAndProfile;
+package client_main.java.AuthenticationAndProfile;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

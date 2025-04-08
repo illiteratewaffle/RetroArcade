@@ -1,7 +1,6 @@
-package client_main_tests.java.AuthenticationAndProfile;
+package client_main.java.AuthenticationAndProfile;
 
 import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import player.PlayerManager;
@@ -13,7 +12,6 @@ import java.util.*;
 
 import static java.util.Map.entry;
 import static org.junit.jupiter.api.Assertions.*;
-import static management.ServerLogger.log;
 
 class ProfileDatabaseAccessTest {
     private static int id;

@@ -1,4 +1,4 @@
-package client_main_tests.java.GameLogic_Client.Checkers;
+package client_main.java.GameLogic_Client.Checkers;
 
 import org.junit.jupiter.api.Test;
 

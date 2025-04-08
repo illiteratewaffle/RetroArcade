@@ -1,4 +1,4 @@
-package client_main_tests.java.AuthenticationAndProfile;
+package client_main.java.AuthenticationAndProfile;
 
 import AuthenticationAndProfile.PlayerRanking;
 import AuthenticationAndProfile.Profile;
