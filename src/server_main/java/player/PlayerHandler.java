@@ -86,14 +86,23 @@ public class PlayerHandler implements Runnable {
 
     /**
      * Method to accept a friend request from another user.
-     * @param senderID The ID of the user sending the friend request.
+     * @param message The message from the client containing the command to accept the friend request.
      */
-    private synchronized void acceptFriendRequest(Integer senderID) {
-        try {
-            this.getProfile().getFriendsList().acceptFriendRequest(senderID);
-        } catch (IOException | SQLException e) {
-            ServerLogger.log("PlayerHandler: " + this.getProfile().getUsername() + " could not accept friend request from " + senderID);
+    private synchronized void acceptFriendRequest(ThreadMessage message) {
+
+        //Check to make sure that the message contains the player id of the sender.
+        if (message.getContent().containsKey("ID")) {
+
+            //If it does, then get the id of the sender and accept the friend request.
+            int senderID = (int) message.getContent().get("ID");
+            try {
+                this.getProfile().getFriendsList().acceptFriendRequest(senderID);
+                ServerLogger.log("PlayerHandler: " + this.getProfile().getUsername() + " accepted friend request from " + senderID);
+            } catch (IOException | SQLException e) {
+                ServerLogger.log("PlayerHandler: " + this.getProfile().getUsername() + " could not accept friend request from " + senderID);
+            }
         }
+        ServerLogger.log("PlayerHandler: " + this.getProfile().getUsername() + " unable to accept friend request, client message does not contain sender id.");
     }
 
     /**
