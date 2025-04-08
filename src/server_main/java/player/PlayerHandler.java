@@ -2,6 +2,7 @@ package player;
 
 import AuthenticationAndProfile.Profile;
 import management.*;
+import matchmaking.Matchmaking;
 
 import java.io.*;
 import java.net.Socket;
@@ -28,6 +29,7 @@ public class PlayerHandler implements Runnable {
     private Thread gameSessionManagerThread = null;
     private final Object gameSessionLock = new Object();
     private Thread mainThread = null;
+    private boolean inQueue;
 
     /**
      * Get the Thread that the PlayerHandler is on
@@ -35,6 +37,14 @@ public class PlayerHandler implements Runnable {
      */
     public synchronized Thread getThread() {
         return mainThread;
+    }
+
+    /**
+     * Set the inQueue status of a player.
+     * @param bool The boolean value to set the status to.
+     */
+    public synchronized void setInQueue(boolean bool) {
+        inQueue = bool;
     }
 
     /**
@@ -120,9 +130,13 @@ public class PlayerHandler implements Runnable {
                         //Log that the player has disconnected.
                         ServerLogger.log("PlayerHandler: Player " + profile.getUsername() + ":" + profile.getID() + " disconnected.");
 
+                        //Check if the player is currently in game queue
+                        if (inQueue) {
+                            ServerController.dequeuePlayer(PlayerHandler.this);
+                        }
+
                         //Check if the player is in a game session, and if so handle the game session ending.
                         if (gameSessionManagerThread != null) {
-                            //TODO: Implement disconnection handling for when they're in a game session.
 
                             //Create the thread message map to send to the game session manager
                             Map<String, Object> messageMap = new HashMap<>();
@@ -132,6 +146,7 @@ public class PlayerHandler implements Runnable {
                             ThreadMessage disconnectMessage = new ThreadMessage(mainThread, messageMap);
                             networkManager.sendMessage(gameSessionManagerThread, disconnectMessage);
                         }
+
 
                         break;
                     }

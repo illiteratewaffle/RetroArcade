@@ -60,4 +60,13 @@ public class Matchmaking {
         }
     }
 
+    /***
+     * Check if player is already queued for some gameType
+     * @param player PlayerHandler to check if queued
+     * @return True if PlayerHandler is in queue or false if player handler is not present
+     */
+    public boolean isInQueue(PlayerHandler player) {
+        return MatchmakingQueue.isInQueue(player);
+    }
+
 }
