@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-import static management.ServerLogger.log;
+import static server.management.ServerLogger.log;
 
 public class ConnectionManager implements Runnable {
     private final int port;

@@ -14,6 +14,7 @@ module seng300.w25.project {
     requires annotations;
     requires javafx.media;
     requires java.sql;
+    requires org.postgresql.jdbc;
     //requires org.junit.jupiter.api;
 
 

@@ -1,10 +1,10 @@
 package server.management;
 
-import matchmaking.Matchmaking;
-import player.PlayerHandler;
+import server.matchmaking.Matchmaking;
+import server.player.PlayerHandler;
 
 import java.sql.SQLException;
-import session.GameCreator;
+import server.session.GameCreator;
 
 public class ServerController {
 

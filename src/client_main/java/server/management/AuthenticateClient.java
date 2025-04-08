@@ -4,11 +4,11 @@ import AuthenticationAndProfile.Authentication;
 import AuthenticationAndProfile.Profile;
 import AuthenticationAndProfile.ProfileCreation;
 import AuthenticationAndProfile.ProfileDatabaseAccess;
-import management.ThreadMessage;
-import management.ThreadRegistry;
-import management.ServerController;
-import player.PlayerHandler;
-import player.PlayerManager;
+import server.management.ThreadMessage;
+import server.management.ThreadRegistry;
+import server.management.ServerController;
+import server.player.PlayerHandler;
+import server.player.PlayerManager;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -22,9 +22,9 @@ import java.util.Map;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
-import static management.JsonConverter.fromJson;
-import static management.JsonConverter.toJson;
-import static management.ServerLogger.log;
+import static server.management.JsonConverter.fromJson;
+import static server.management.JsonConverter.toJson;
+import static server.management.ServerLogger.log;
 
 public class AuthenticateClient implements Runnable {
     Socket clientSocket;

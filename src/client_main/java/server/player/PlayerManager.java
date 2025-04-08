@@ -1,6 +1,6 @@
 package server.player;
 
-import database.databaseConnector;
+import server.database.databaseConnector;
 import org.postgresql.util.HStoreConverter;
 
 import java.io.FileWriter;
@@ -9,7 +9,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import static management.ServerLogger.log;
+import static server.management.ServerLogger.log;
 
 public class PlayerManager {
     private static final Connection conn = databaseConnector.connect();
