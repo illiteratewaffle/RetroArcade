@@ -42,15 +42,21 @@ public class Main {
 //        } catch (IOException | SQLException | NoSuchAlgorithmException s) {
 //            System.out.println(s.getMessage());
 //        }
+//        try {
+//            Profile profile = ProfileCreation.createNewProfile("usernameGUITest", "emailGUITest@gmail.com", "password");
+//            int profileID = profile.getID();
+//            System.out.println(profile.getCurrentStatus());
+//            System.out.println(profile.getUsername());
+//            ProfileDatabaseAccess.obtainProfile(profileID);
+//            Authentication.logOut(profileID);
+//            ProfileDatabaseAccess.removeProfile(profileID);
+//        } catch (SQLException | IOException | NoSuchAlgorithmException s) {
+//            System.out.println(s.getMessage());
+//        }
         try {
-            Profile profile = ProfileCreation.createNewProfile("usernameGUITest", "emailGUITest@gmail.com", "password");
-            int profileID = profile.getID();
-            System.out.println(profile.getCurrentStatus());
-            System.out.println(profile.getUsername());
-            ProfileDatabaseAccess.obtainProfile(profileID);
-            Authentication.logOut(profileID);
-            ProfileDatabaseAccess.removeProfile(profileID);
-        } catch (SQLException | IOException | NoSuchAlgorithmException s) {
+            PlayerManager.getProfileTable();
+        }
+        catch (SQLException s){
             System.out.println(s.getMessage());
         }
     }
