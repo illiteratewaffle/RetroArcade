@@ -69,6 +69,22 @@ public class GameSessionManager implements Runnable {
         player1.setGameSessionManagerThread(Thread.currentThread());
         player2.setGameSessionManagerThread(Thread.currentThread());
 
+        //Set the game status pf the two players
+        try {
+            if (gameType == 0) {
+                player1.getProfile().setCurrentGame("Tic Tac Toe");
+                player2.getProfile().setCurrentGame("Tic Tac Toe");
+            } else if (gameType == 1) {
+                player1.getProfile().setCurrentGame("Connect Four");
+                player2.getProfile().setCurrentGame("Connect Four");
+            } else {
+                player1.getProfile().setCurrentGame("Checkers");
+                player2.getProfile().setCurrentGame("Checkers");
+            }
+        } catch (SQLException e) {
+            ServerLogger.log("GameSessionManager: Unable to update current game status of players.",e);
+        }
+
         log("GameSessionManager: Created " + gameType + " with players " + player1.getProfile().getUsername() +
                 ":" + player1.getProfile().getID() + " and " + player2.getProfile().getUsername() + ":" +
                 player2.getProfile().getID() + ".");
@@ -119,6 +135,12 @@ public class GameSessionManager implements Runnable {
             //Update the players profiles based on the result of the game.
             winner.getProfile().getPlayerRanking().endOfMatchMethod(winner.getProfile().getID(), gameType, 1);
             loser.getProfile().getPlayerRanking().endOfMatchMethod(loser.getProfile().getID(), gameType, 0);
+
+            //Set the game status of the two players to null
+            winner.getProfile().setCurrentGame(null);
+            loser.getProfile().setCurrentGame(null);
+
+            //Log it
             ServerLogger.log("GameSessionManager: Game ended.");
         } catch (SQLException e) {
             //If there is an error, log it.
