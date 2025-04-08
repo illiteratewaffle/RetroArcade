@@ -99,4 +99,12 @@ class TTTGameControllerTest {
         Ivec2 boardSize = new Ivec2(3, 3);
         assertEquals(boardSize, gameController.getBoardSize()); // tic-tac-toe board size is always 3x3
     }
+
+    @Test
+    void receiveInputValidMove() {
+        Ivec2 input = new Ivec2(0, 0);
+        gameController.receiveInput(input);
+        assertEquals(2, gameController.getCurrentPlayer(), "Player should switch after valid move");
+    }
+
 }
