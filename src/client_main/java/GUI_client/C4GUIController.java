@@ -41,7 +41,7 @@ public class C4GUIController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         assert c4GUIGrid != null : "🔥 FATAL: c4GUIGrid was NOT injected!";
-        assert winImage != null : "🔥 winImageView was NOT injected! Check your FXML fx:id";
+        assert resultImage != null : "🔥 ResultImageView was NOT injected! Check your FXML fx:id";
         System.out.println("✅ c4GUIGrid injected successfully: " + c4GUIGrid);
         c4Controller = new C4Controller();
         c4Controller.start(); // This will print the board and start the game logic
@@ -94,7 +94,7 @@ public class C4GUIController implements Initializable {
     public ImageView muteButton;
 
     @FXML
-    private ImageView winImage;
+    private ImageView resultImage;
 
     @FXML
     public ImageView infoButton;
@@ -224,6 +224,7 @@ public class C4GUIController implements Initializable {
                    // C4Piece winner = c4Controller.getC4WinnerAsEnum();
                     c4Controller.c4GameLogic.updateGameState();
                     System.out.println("It's a draw!");
+                    showTieImage();
                 } else {
                     System.out.println("Player " + winner + " wins! 🎉");
                     showWinImage();
@@ -325,8 +326,20 @@ public class C4GUIController implements Initializable {
      */
     public void showWinImage() {
         if (c4Controller.getC4IsGameOver()) {
-            winImage.setImage(new Image("win_image.png"));
-            winImage.setVisible(true);
+            resultImage.setImage(new Image("win_image.png"));
+            resultImage.setVisible(true);
+            hintButton.setDisable(true);
+        }
+    }
+
+    /**
+     * Updates the GUI board with a tie message when the game has been tied
+     * Disables the hint button once game has tied
+     */
+    public void showTieImage() {
+        if (c4Controller.getC4IsGameOver()) {
+            resultImage.setImage(new Image("its_a_tie.png"));
+            resultImage.setVisible(true);
             hintButton.setDisable(true);
         }
     }

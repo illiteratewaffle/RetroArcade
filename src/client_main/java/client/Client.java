@@ -1,6 +1,7 @@
 package client;
 import java.io.*;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -45,7 +46,11 @@ public class Client {
                     String type = (String) data.get("type");
                     switch (type) {
                         case "chat":
+                            String sender = (String) data.get("sender");
+                            String message = (String) data.get("message");
                         case "game-move":
+                            handleGameCommand(data);
+                            break;
                         case "profile-info-request":
                         case "error":
                         case "exit-game":
@@ -64,14 +69,8 @@ public class Client {
 
     public static void closeEverything() {
         try {
-            if (reader != null) {
-                reader.close();
                 reader = null;
-            }
-            if (writer != null) {
-                writer.close();
                 writer = null;
-            }
             if (clientSocket != null) clientSocket.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -164,4 +163,66 @@ public class Client {
             e.printStackTrace();
         }
     }
+    private static void handleGameCommand(HashMap<String, Object> data) {
+        String command = (String) data.get("command");
+
+        switch (command) {
+            case "receiveInput":
+                ArrayList<Double> inputParams = (ArrayList<Double>) data.get("parameter");
+
+                int x = inputParams.get(0).intValue();
+                int y = inputParams.get(1).intValue();
+                //gameLogic.receiveInput(new int[]{x, y});  // assuming you have this
+                break;
+
+            case "removePlayer":
+                int playerToRemove = ((Double) data.get("parameter")).intValue();
+                //gameLogic.removePlayer(playerToRemove);  // assuming you have this
+                break;
+
+            case "getWinner":
+                ArrayList<Double> winnersRaw = (ArrayList<Double>) data.get("data");
+                //List<Integer> winners = winnersRaw.stream().map(Double::intValue).toList();
+                //System.out.println("Winner(s): " + winners);
+                break;
+
+            case "getGameOngoing":
+                boolean ongoing = (Boolean) data.get("data");
+                //System.out.println("Game ongoing: " + ongoing);
+                break;
+
+            case "getBoardCells":
+                int boardId = ((Double) data.get("parameter")).intValue();
+
+                break;
+
+            case "getBoardSize":
+                ArrayList<Double> sizeRaw = (ArrayList<Double>) data.get("data");
+                int width = sizeRaw.get(0).intValue();
+                int height = sizeRaw.get(1).intValue();
+                System.out.println("Board size: " + width + "x" + height);
+                break;
+
+            case "getCurrentPlayer":
+                int currentPlayer = ((Double) data.get("data")).intValue();
+                System.out.println("Current player: " + currentPlayer);
+                break;
+
+            case "gameOngoingChangedSinceLastCommand":
+            case "winnersChangedSinceLastCommand":
+            case "currentPlayerChangedSinceLastCommand":
+                boolean changed = (Boolean) data.get("data");
+                //System.out.println(command + ": " + changed);
+                break;
+
+            case "boardChangedSinceLastCommand":
+                int changedBoardId = ((Double) data.get("data")).intValue();
+                //System.out.println("Board changed: " + changedBoardId);
+                break;
+            default:
+                System.err.println("Unknown game command: " + command);
+                break;
+        }
+    }
+
 }

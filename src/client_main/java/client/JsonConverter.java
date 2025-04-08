@@ -359,4 +359,11 @@ public class JsonConverter {
             this.value = value;
         }
     }
+    public static List<Integer> convertIntArray(int[] array) {
+        return Arrays.stream(array).boxed().toList();
+    }
+
+    public static int[] convertToIntArray(List<Integer> list) {
+        return list.stream().mapToInt(Integer::intValue).toArray();
+    }
 }
