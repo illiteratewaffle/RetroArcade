@@ -57,9 +57,9 @@ public class C4Controller implements IBoardGameController {
      * Gets the board for connect-4
      * @return Connect-4 board by calling function in C4GameLogic class.
      */
-    public C4Piece[][] getC4Board() {
-        return c4GameLogic.getC4Board().getC4Board();
-    }
+//    public C4Piece[][] getC4Board() {
+//        return c4GameLogic.getC4Board().getC4Board();
+//    }
 
     /**
      * Calls C4GameLogic class function to check whether the function
@@ -93,11 +93,12 @@ public class C4Controller implements IBoardGameController {
         };
     }*/
 
+    @Override
     public int[] getWinner() {
         return switch (c4GameLogic.gameState) {
-            case P1WIN -> new int[]{0};
-            case P2WIN -> new int[]{1};
-            case TIE -> new int[]{0, 1}; //draw
+            case P1WIN -> new int[]{1};
+            case P2WIN -> new int[]{2};
+            case TIE -> new int[]{1, 2}; //draw
             default -> new int[]{};
         };
     }
@@ -185,9 +186,9 @@ public class C4Controller implements IBoardGameController {
         return 0;
     }
 
-    public C4Piece getC4WinnerAsEnum() {
-        return c4GameLogic.getC4Winner();
-    }
+//    public C4Piece getC4WinnerAsEnum() {
+//        return c4GameLogic.getC4Winner();
+//    }
 
     public C4Piece getC4CurrentPlayer() {return c4GameLogic.getC4CurrentPlayer();}
 

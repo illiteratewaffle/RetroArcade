@@ -27,6 +27,8 @@ import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
@@ -178,7 +180,7 @@ public class C4GUIController implements Initializable {
 
     private void updateBoard() {
 //        C4Piece[][] board = gameLogic.getBoard().getC4Board(); // assuming getBoard() returns C4Board
-        C4Piece[][] board = c4Controller.getC4Board();;
+        C4Piece[][] board = getBoardEnum();
 
         c4GUIGrid.getChildren().clear();
 
@@ -211,16 +213,34 @@ public class C4GUIController implements Initializable {
             updateTurnIndicator();
 
             if (c4Controller.getC4IsGameOver()) {
-                C4Piece winner = c4Controller.getC4WinnerAsEnum();
-                if (winner == C4Piece.BLANK) {
-                   // C4Piece winner = c4Controller.getC4WinnerAsEnum();
-                    c4Controller.c4GameLogic.updateGameState();
+                int[] winner = c4Controller.getWinner();
+//                if (Arrays.equals(winner, new int[]{1, 2})) {
+//                   // C4Piece winner = c4Controller.getC4WinnerAsEnum();
+//                    c4Controller.c4GameLogic.updateGameState();
+//                    System.out.println("It's a draw!");
+//                } else if (Arrays.equals(winner, new int[]{1})) {
+//                    System.out.println("Player red wins! 🎉");
+//                    showWinImage();
+//                    c4Controller.c4GameLogic.updateGameState();
+//                } else if (Arrays.equals(winner, new int[]{2})) {
+//                    System.out.println("Player blue wins! 🎉");
+//                    showWinImage();
+//                    c4Controller.c4GameLogic.updateGameState();
+//                }
+
+                if (winner.length == 2 && winner[0] == 1 && winner[1] == 2) {
                     System.out.println("It's a draw!");
-                } else {
-                    System.out.println("Player " + winner + " wins! 🎉");
+                    c4Controller.c4GameLogic.updateGameState();
+                } else if (winner.length == 1 && winner[0] == 1) {
+                    System.out.println("Player red wins! 🎉");
+                    showWinImage();
+                    c4Controller.c4GameLogic.updateGameState();
+                } else if (winner.length == 1 && winner[0] == 2) {
+                    System.out.println("Player blue wins! 🎉");
                     showWinImage();
                     c4Controller.c4GameLogic.updateGameState();
                 }
+
                 disableAllColumnButtons();
                 c4GUIGrid.getChildren().removeIf(node ->
                         node instanceof Rectangle && "HINT".equals(node.getId())
@@ -424,5 +444,33 @@ public class C4GUIController implements Initializable {
             muteButton.setImage(new Image("unmuteButton.png"));
             AudioManager.toggleMute();
         }
+    }
+
+    public C4Piece[][] getBoardEnum() {
+        ArrayList<int[][]> boardLayers = c4Controller.getBoardCells(0); // 0 if LayerMask is ignored
+        int[][] intBoard = boardLayers.get(0); // assuming only one layer is returned
+
+        int rows = intBoard.length;
+        int cols = intBoard[0].length;
+        C4Piece[][] board = new C4Piece[rows][cols];
+
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                switch (intBoard[i][j]) {
+                    case 0:
+                        board[i][j] = C4Piece.BLANK;
+                        break;
+                    case 1:
+                        board[i][j] = C4Piece.RED;
+                        break;
+                    case 2:
+                        board[i][j] = C4Piece.BLUE;
+                        break;
+                    default:
+                        throw new IllegalStateException("Unknown board value: " + intBoard[i][j]);
+                }
+            }
+        }
+        return board;
     }
 }
