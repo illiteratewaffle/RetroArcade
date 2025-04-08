@@ -43,11 +43,14 @@ public class Main {
 //            System.out.println(s.getMessage());
 //        }
         try {
-            Profile profile = ProfileDatabaseAccess.obtainProfile(294);
-            profile.getCurrentStatus();
-
-
-        } catch (SQLException | IOException s) {
+            Profile profile = ProfileCreation.createNewProfile("usernameGUITest", "emailGUITest@gmail.com", "password");
+            int profileID = profile.getID();
+            System.out.println(profile.getCurrentStatus());
+            System.out.println(profile.getUsername());
+            ProfileDatabaseAccess.obtainProfile(profileID);
+            Authentication.logOut(profileID);
+            ProfileDatabaseAccess.removeProfile(profileID);
+        } catch (SQLException | IOException | NoSuchAlgorithmException s) {
             System.out.println(s.getMessage());
         }
     }
