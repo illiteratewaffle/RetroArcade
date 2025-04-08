@@ -23,7 +23,7 @@ public class Main {
 //                running = false;
 //        }
 
-//        //Clearing Profiles:
+        //Clearing Profiles:
 //        for (int i = 0; i < 300; i++) {
 //            try {
 //                PlayerManager.deleteProfile(i);
@@ -32,15 +32,21 @@ public class Main {
 //                log(s.getMessage());
 //            }
 //        }
+
+//        try {
+//            ProfileCreation.createNewProfile("username1", "email@email.com", "password");
+//            int id;
+//            System.out.println(id = PlayerManager.getProfileID("username1"));
+//            PlayerManager.deleteProfile(id);
+//            System.out.println("Profile deleted.");
+//            System.out.println(ProfileDatabaseAccess.obtainFriendsList(id));
+//        } catch (IOException | SQLException | NoSuchAlgorithmException s) {
+//            System.out.println(s.getMessage());
+//        }
         try {
-            ProfileCreation.createNewProfile("username1", "email@email.com", "password");
-            int id;
-            System.out.println(id = PlayerManager.getProfileID("username1"));
-            PlayerManager.deleteProfile(id);
-            System.out.println("Profile deleted.");
-            System.out.println(ProfileDatabaseAccess.obtainFriendsList(id));
-        } catch (IOException | SQLException | NoSuchAlgorithmException s) {
-            System.out.println(s.getMessage());
+            System.out.println(ProfileCreation.createNewProfile("1", "1", "1").getID());
+        } catch (SQLException | NoSuchAlgorithmException | IOException e) {
+            System.out.println(e.getMessage());
         }
     }
 }

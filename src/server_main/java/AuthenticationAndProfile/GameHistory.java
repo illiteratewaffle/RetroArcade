@@ -1,5 +1,8 @@
 package AuthenticationAndProfile;
 
+import player.PlayerManager;
+
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -12,15 +15,18 @@ import java.util.List;
 public class GameHistory{
     private List<String> gameHistory = new ArrayList<>();
     private HashMap<String, Double> achievementProgress = new HashMap<String, Double>();
-    private long id;
+    private int id;
 
     /**
      * Constructor that loads the game history for a specific profile
      */
-    public GameHistory(List<String> gameHistory, HashMap<String, Double> achievementProgress) {
+    public GameHistory(List<String> gameHistory, HashMap<String, Double> achievementProgress, int id) {
         this.gameHistory = gameHistory;
         this.achievementProgress = achievementProgress;
+        this.id = id;
     }
+
+    public GameHistory() {}
 
 
     /**
@@ -50,7 +56,15 @@ public class GameHistory{
         return achievementProgress;
     }
 
-    public void setAchievementProgress(HashMap<String, Double> achievementProgress) {
-        this.achievementProgress = achievementProgress;
+    public void setAchievementProgress(String achievementName, double progress) throws SQLException {
+        try {
+            PlayerManager.setAchievementProgress(id, achievementName, Double.toString(progress));
+        } catch (SQLException s) {
+            throw new SQLException(s.getMessage());
+        }
+    }
+
+    public void setAchievementProgress(HashMap<String, Double> achievementProgressHashMap) {
+        achievementProgress = achievementProgressHashMap;
     }
 }
