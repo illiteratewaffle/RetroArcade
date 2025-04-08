@@ -169,16 +169,18 @@ public class Profile {
      * Check if a player is in a game. If so, prints out the game they're playing (likely usable by GUI team).
      * If not, prints out "Online" if the player is online. Otherwise, prints out "Offline".
      */
-    public void getCurrentStatus() {
+    public String getCurrentStatus() {
+        String currentStatus;
         if (isOnline) {
-            if (currentGame != null) {
-                log("Online - Currently playing: " + currentGame);
+            if (currentGame == null) {
+                currentStatus = "Online";
             } else {
-                log("Online");
+                currentStatus = String.format("%s", currentGame);
             }
         } else {
-            log("Offline");
+            currentStatus = "Offline";
         }
+        return currentStatus;
     }
 
     /**
@@ -197,16 +199,6 @@ public class Profile {
      */
     public void setCurrentGame(String currentGame) throws SQLException {
         this.currentGame = currentGame;
-        try {
-            PlayerManager.updateAttribute(id, "current_game", currentGame);
-        } catch (SQLException s) {
-            throw new SQLException(s.getMessage());
-        }
-        try {
-            PlayerManager.updateAttribute(id, "current_game", currentGame);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     /**
@@ -317,9 +309,7 @@ public class Profile {
 
 
     public static void main(String[] args) {
-        //int id = PlayerManager.registerPlayer("jake2", "jake2@email.com", "1263876");
-//        System.out.println(PlayerManager.updateAttribute(158,"wins_checkers","10"));
-//        System.out.println(ProfileDatabaseAccess.obtainProfile(158).getPlayerRanking().getWins(PlayerRanking.CHECKERS_INDEX));
+
     }
 
     public int getID() {
