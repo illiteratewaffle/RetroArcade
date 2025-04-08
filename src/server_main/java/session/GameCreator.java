@@ -65,6 +65,12 @@ public class GameCreator implements Runnable {
         }
     }
 
+    public void createFriendsGame(PlayerHandler player1, PlayerHandler player2, int gameType) {
+        if ((player1 != null) && (player2 != null) && (gameType >= 0 && gameType <= 2)) {
+            createSession(player1, player2, gameType);
+        }
+    }
+
     @Override
     public void run() {
         while (true) {
