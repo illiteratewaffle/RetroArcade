@@ -107,4 +107,38 @@ public class MatchmakingTest {
         matchmaking.matchOpponents(0);
         assertEquals(0, matchmaking.getQueueSize(0));
     }
+
+    @Test
+    void testDequeueNonexistentPlayerDoesNotCrash() throws SQLException {
+        matchmaking.enqueue(0, handler1);
+
+        matchmaking.dequeue(handler2); // handler2 was never added
+
+        assertEquals(1, matchmaking.getQueueSize(0));
+        assertTrue(MatchmakingQueue.isInQueue(handler1));
+    }
+
+    @Test
+    void testIsInQueueAfterEnqueue() throws SQLException {
+        matchmaking.enqueue(0, handler1);
+        assertTrue(matchmaking.isInQueue(handler1));//Handler should be present in the matchmaking queue after enqueueing
+    }
+
+    @Test
+    void testStableSortWhenRatingsAreEqual() throws SQLException {
+        PlayerRanking.setGameRating(profile1.getID(), 0, 1500);
+        PlayerRanking.setGameRating(profile2.getID(), 0, 1500);
+        PlayerRanking.setGameRating(profile3.getID(), 0, 1500);
+
+        matchmaking.enqueue(0, handler1);
+        matchmaking.enqueue(0, handler2);
+        matchmaking.enqueue(0, handler3);
+
+        List<PlayerHandler> queue = MatchmakingQueue.getQueue(0);
+
+        // All ratings are the same – order should remain insertion order (if stable)
+        assertEquals(profile1.getID(), queue.get(0).getProfile().getID());
+        assertEquals(profile2.getID(), queue.get(1).getProfile().getID());
+        assertEquals(profile3.getID(), queue.get(2).getProfile().getID());
+    }
 }
