@@ -12,7 +12,9 @@ import javafx.scene.layout.AnchorPane;
 import leaderboard.PlayerRanking;
 import AuthenticationAndProfile.Profile;
 
+import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 
 public class profileGUIController {
     @FXML
@@ -64,7 +66,6 @@ public class profileGUIController {
     @FXML public Label name_label;
     @FXML private ScrollPane avatar_pane;
     private Object GUI_avatars;
-    private AuthenticationAndProfile.Profile Profile;
     @FXML
     public TextField nickname_label;
     @FXML
@@ -78,10 +79,11 @@ public class profileGUIController {
 
     public profileGUIController() {
         System.out.println("profileGUIController loaded");
-        //initialize(profile); //This part cannot be uncommented until I have an actual profile to test with
+        initialize(profile); //This part cannot be uncommented until I have an actual profile to test with
     }
 
     public void initialize(Profile loadedProfile) {
+        this.profile = loadedProfile;
         avatarPath = profile.getProfilePicFilePath();
         nickname = profile.getNickname();
         bio = profile.getNickname();
@@ -154,6 +156,7 @@ public class profileGUIController {
 
     //**Other profile needs this
     public void open_stats(MouseEvent mouseEvent) {
+
         //Making sure that all other lists/table is invisible so that you cannot see the other windows, only the one clicked into.
         history_list.setOpacity(0.0);
         inbox_contents.setOpacity(0.0);
@@ -166,44 +169,48 @@ public class profileGUIController {
 
         System.out.println(i + j + k);
 
-        //c4 stat labels -> getting the information needed to fill in the stats page
-        String c4Rank = Authentication.getProfileLoggedIn().getPlayerRanking().getRank(k);
-        Double c4Wlr = Double.valueOf(Authentication.getProfileLoggedIn().getPlayerRanking().getRating(k));
-        int c4Rating = Authentication.getProfileLoggedIn().getPlayerRanking().getRating(k);
-        int c4Wins = Authentication.getProfileLoggedIn().getPlayerRanking().getWins(k);
+        try {
+            //c4 stat labels -> getting the information needed to fill in the stats page
+            String c4Rank = profile.getPlayerRanking().getRank(k);
+            Double c4Wlr = Double.valueOf(profile.getPlayerRanking().getRating(k));
+            int c4Rating = profile.getPlayerRanking().getRating(k);
+            int c4Wins = profile.getPlayerRanking().getWins(k);
 
-        System.out.println(c4Rank + c4Wlr + c4Rating + c4Wins);
+            System.out.println(c4Rank + c4Wlr + c4Rating + c4Wins);
 
-        //Setting the c4 label to the numbers that retrieved above
+            //Setting the c4 label to the numbers that retrieved above
 
-        c4_rank_label.setText(String.valueOf(c4Rank));
-        c4_wlr_label.setText(String.valueOf(c4Wlr));
-        c4_rating_label.setText(String.valueOf(c4Rating));
-        c4_win_label.setText(String.valueOf(c4Wins));
+            c4_rank_label.setText(String.valueOf(c4Rank));
+            c4_wlr_label.setText(String.valueOf(c4Wlr));
+            c4_rating_label.setText(String.valueOf(c4Rating));
+            c4_win_label.setText(String.valueOf(c4Wins));
 
-        //check stat labels -> getting the information needed to fill in the stats page
-        String checkRank = Authentication.getProfileLoggedIn().getPlayerRanking().getRank(j);
-        Double checkWlr = Double.valueOf(Authentication.getProfileLoggedIn().getPlayerRanking().getRating(j));
-        int checkRating = Authentication.getProfileLoggedIn().getPlayerRanking().getRating(j);
-        int checkWins = Authentication.getProfileLoggedIn().getPlayerRanking().getWins(j);
+            //check stat labels -> getting the information needed to fill in the stats page
+            String checkRank = profile.getPlayerRanking().getRank(j);
+            Double checkWlr = Double.valueOf(profile.getPlayerRanking().getRating(j));
+            int checkRating = profile.getPlayerRanking().getRating(j);
+            int checkWins = profile.getPlayerRanking().getWins(j);
 
-        //setting checkers labels to the numbers that retrieved above
-        check_rank_label.setText(String.valueOf(checkRank));
-        check_wlr_label.setText(String.valueOf(checkWlr));
-        check_rating_label.setText(String.valueOf(checkRating));
-        check_win_label.setText(String.valueOf(checkWins));
+            //setting checkers labels to the numbers that retrieved above
+            check_rank_label.setText(String.valueOf(checkRank));
+            check_wlr_label.setText(String.valueOf(checkWlr));
+            check_rating_label.setText(String.valueOf(checkRating));
+            check_win_label.setText(String.valueOf(checkWins));
 
-        //TTT stat labels -> getting the information needed to fill in the stats page
-        String TTTRank = Authentication.getProfileLoggedIn().getPlayerRanking().getRank(i);
-        Double TTTWlr = Double.valueOf(Authentication.getProfileLoggedIn().getPlayerRanking().getRating(i));
-        int TTTRating = Authentication.getProfileLoggedIn().getPlayerRanking().getRating(i);
-        int TTTWins = Authentication.getProfileLoggedIn().getPlayerRanking().getWins(i);
+            //TTT stat labels -> getting the information needed to fill in the stats page
+            String TTTRank = profile.getPlayerRanking().getRank(i);
+            Double TTTWlr = Double.valueOf(profile.getPlayerRanking().getRating(i));
+            int TTTRating = profile.getPlayerRanking().getRating(i);
+            int TTTWins = profile.getPlayerRanking().getWins(i);
 
-        //setting checkers labels to the numbers that retrieved above
-        TTT_rank_label.setText(String.valueOf(TTTRank));
-        TTT_wlr_label.setText(String.valueOf(TTTWlr));
-        TTT_rating_label.setText(String.valueOf(TTTRating));
-        TTT_win_label.setText(String.valueOf(TTTWins));
+            //setting checkers labels to the numbers that retrieved above
+            TTT_rank_label.setText(String.valueOf(TTTRank));
+            TTT_wlr_label.setText(String.valueOf(TTTWlr));
+            TTT_rating_label.setText(String.valueOf(TTTRating));
+            TTT_win_label.setText(String.valueOf(TTTWins));
+        } catch (SQLException s) {
+            System.out.println(s.getMessage());
+        }
     }
 
     public void open_edit_profile(MouseEvent mouseEvent) {

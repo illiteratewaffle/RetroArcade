@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.shape.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="604.0" prefWidth="900.0" style="-fx-background-color: #8A006C;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI_client.otherPlayerProfileGUIController">
+<AnchorPane prefHeight="604.0" prefWidth="900.0" style="-fx-background-color: #8A006C;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI_client.otherPlayerProfileGUIController">
     <children>
         <ImageView fitHeight="570.0" fitWidth="900.0" layoutY="-1.0">
             <image>
@@ -177,17 +182,17 @@
                 <Font name="Silom" size="16.0" />
             </font>
         </TextArea>
-        <ImageView fx:id="friends_button" accessibleRole="BUTTON" fitHeight="84.0" fitWidth="158.0" layoutX="259.0" layoutY="174.0" onMouseClicked="#open_friends">
+        <ImageView fx:id="friends_button" accessibleRole="BUTTON" fitHeight="84.0" fitWidth="158.0" layoutX="259.0" layoutY="174.0" onMouseClicked="#open_friends" pickOnBounds="true">
             <image>
                 <Image url="@../profile_assets/profile_buttons/friends_button.png" />
             </image>
         </ImageView>
-        <ImageView fx:id="stats_button" accessibleRole="BUTTON" fitHeight="58.0" fitWidth="154.0" layoutX="454.0" layoutY="187.0" onMouseClicked="#open_stats">
+        <ImageView fx:id="stats_button" accessibleRole="BUTTON" fitHeight="58.0" fitWidth="154.0" layoutX="454.0" layoutY="187.0" onMouseClicked="#open_stats" pickOnBounds="true">
             <image>
                 <Image url="@../profile_assets/profile_buttons/stats_button.png" />
             </image>
         </ImageView>
-        <ImageView fx:id="history_button" accessibleRole="BUTTON" fitHeight="72.0" fitWidth="179.0" layoutX="646.0" layoutY="178.0" onMouseClicked="#open_history">
+        <ImageView fx:id="history_button" accessibleRole="BUTTON" fitHeight="72.0" fitWidth="179.0" layoutX="646.0" layoutY="178.0" onMouseClicked="#open_history" pickOnBounds="true">
             <image>
                 <Image url="@../profile_assets/profile_buttons/history_button.png" />
             </image>
