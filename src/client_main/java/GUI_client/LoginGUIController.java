@@ -24,6 +24,10 @@ public class LoginGUIController {
     public ImageView loginButton;
     @FXML
     public ImageView signUpButton;
+    @FXML
+    public ImageView exitButton;
+    @FXML
+    public ImageView backButton;
 
     //sign up user and password
     @FXML
@@ -64,6 +68,20 @@ public class LoginGUIController {
      signUpPasswordField.setDisable(false);
      signUpPage.setMouseTransparent(false);
      signUpButton.setMouseTransparent(false);
+     backButton.setVisible(true);
+
+
+    }
+    @FXML
+    private void backButtonPress() throws IOException {
+     signUpPage.setVisible(false);
+     signUpUserField.setVisible(false);
+     signUpUserField.setDisable(true);
+     signUpPasswordField.setVisible(false);
+     signUpPasswordField.setDisable(true);
+     signUpPage.setMouseTransparent(true);
+     signUpButton.setMouseTransparent(true);
+     backButton.setVisible(false);
 
     }
     public void signup_ok_clicked() throws IOException {
