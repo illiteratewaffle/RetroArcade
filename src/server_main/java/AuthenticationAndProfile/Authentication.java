@@ -28,10 +28,14 @@ public class Authentication {
             Profile profile;
             int id = PlayerManager.authenticatePlayer(username, hashedPassword);
             if (id != -1) {
-                profile = ProfileDatabaseAccess.obtainProfile(id);
-                profile.setOnlineStatus(true);
-                log(String.format("Player %d is setOnline\n", id));
-                return profile;
+                if (PlayerManager.getAttribute(id, "is_online").equals("true")) {
+                    profile = ProfileDatabaseAccess.obtainProfile(id);
+                    profile.setOnlineStatus(true);
+                    log(String.format("Player %d is setOnline\n", id));
+                    return profile;
+                } else {
+                    throw new SQLException("Profile is already logged in.");
+                }
             } else {
                 throw new SQLException("Incorrect Username or Password");
             }
