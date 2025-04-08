@@ -1,9 +1,10 @@
 package matchmaking_tests;
 
 import AuthenticationAndProfile.Profile;
-import AuthenticationAndProfile.PlayerRanking;
 import AuthenticationAndProfile.ProfileCreation;
+import AuthenticationAndProfile.PlayerRanking;
 import matchmaking.Matchmaking;
+import matchmaking.MatchmakingQueue;
 import org.junit.jupiter.api.*;
 import player.PlayerHandler;
 import player.PlayerManager;
@@ -16,26 +17,28 @@ import java.util.List;
 import java.util.concurrent.LinkedBlockingQueue;
 
 import static org.junit.jupiter.api.Assertions.*;
+
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 public class MatchmakingTest {
 
-    private PlayerHandler handler1;
-    private PlayerHandler handler2;
-    private PlayerHandler handler3;
-    private Profile profile1;
-    private Profile profile2;
-    private Profile profile3;
+    private Profile profile1, profile2, profile3;
+    private PlayerHandler handler1, handler2, handler3;
     private Matchmaking matchmaking;
 
     @BeforeEach
     void setup() throws SQLException, IOException, NoSuchAlgorithmException {
-        profile1 = ProfileCreation.createNewProfile("testUser1", "user1@email.com", "pass123");
-        profile2 = ProfileCreation.createNewProfile("testUser2", "user2@email.com", "pass123");
-        profile3 = ProfileCreation.createNewProfile("testUser3", "user3@email.com", "pass123");
+        profile1 = ProfileCreation.createNewProfile("rankUser1", "r1@email.com", "pass123");
+        profile2 = ProfileCreation.createNewProfile("rankUser2", "r2@email.com", "pass123");
+        profile3 = ProfileCreation.createNewProfile("rankUser3", "r3@email.com", "pass123");
 
         handler1 = new PlayerHandler(new Socket(), new LinkedBlockingQueue<>(), profile1);
         handler2 = new PlayerHandler(new Socket(), new LinkedBlockingQueue<>(), profile2);
         handler3 = new PlayerHandler(new Socket(), new LinkedBlockingQueue<>(), profile3);
+
+        // Set custom ratings in descending order: handler2 > handler3 > handler1
+        PlayerRanking.setGameRating(profile1.getID(), 0, 1000); // Lowest
+        PlayerRanking.setGameRating(profile2.getID(), 0, 2000); // Highest
+        PlayerRanking.setGameRating(profile3.getID(), 0, 1500); // Mid
 
         matchmaking = new Matchmaking();
     }
@@ -48,16 +51,26 @@ public class MatchmakingTest {
     }
 
     @Test
-    void testEnqueueMultiplePlayers() throws SQLException {
+    void testQueue() throws SQLException{
         matchmaking.enqueue(0, handler1);
-        matchmaking.enqueue(0, handler2);
-        matchmaking.enqueue(0, handler3);
+        assertEquals(1, matchmaking.getQueueSize(0));
+    }
+    @Test
+    void testSortedEnqueueByRanking() throws SQLException {
+        matchmaking.enqueue(0, handler1); // Rating 1000
+        matchmaking.enqueue(0, handler2); // Rating 2000
+        matchmaking.enqueue(0, handler3); // Rating 1500
 
-        assertEquals(3, matchmaking.getQueueSize(0));
+        // After quickSort, queue should be: handler2, handler3, handler1
+        List<PlayerHandler> queue = MatchmakingQueue.getQueue(0);
+
+        assertEquals(profile2.getID(), queue.get(0).getProfile().getID()); // highest
+        assertEquals(profile3.getID(), queue.get(1).getProfile().getID());
+        assertEquals(profile1.getID(), queue.get(2).getProfile().getID()); // lowest
     }
 
     @Test
-    void testMatchTwoOfThreePlayers() throws SQLException {
+    void testMatchOpponentsReturnsTopTwo() throws SQLException {
         matchmaking.enqueue(0, handler1);
         matchmaking.enqueue(0, handler2);
         matchmaking.enqueue(0, handler3);
@@ -65,56 +78,33 @@ public class MatchmakingTest {
         List<PlayerHandler> matched = matchmaking.matchOpponents(0);
 
         assertEquals(2, matched.size());
-        assertTrue(matched.contains(handler1) || matched.contains(handler2) || matched.contains(handler3));
+        assertEquals(profile2.getID(), matched.get(0).getProfile().getID()); // 2000
+        assertEquals(profile3.getID(), matched.get(1).getProfile().getID()); // 1500
 
-        // Only one should remain in the queue
-        assertEquals(1, matchmaking.getQueueSize(0));
+        assertEquals(1, matchmaking.getQueueSize(0)); // handler1 remains
     }
 
     @Test
-    void testDequeueOneOfThree() throws SQLException {
+    void testDequeueSpecificPlayer() throws SQLException {
         matchmaking.enqueue(0, handler1);
         matchmaking.enqueue(0, handler2);
         matchmaking.enqueue(0, handler3);
 
         matchmaking.dequeue(handler2);
+        assertEquals(2, matchmaking.getQueueSize(0));
+        assertFalse(MatchmakingQueue.isInQueue(handler2));
+    }
+
+    @Test
+    void testPeekAndSizeAfterMatch() throws SQLException {
+        matchmaking.enqueue(0, handler1);
+        matchmaking.enqueue(0, handler2);
 
         assertEquals(2, matchmaking.getQueueSize(0));
-        assertFalse(matchmaking.isInQueue(handler2));
-        assertTrue(matchmaking.isInQueue(handler1));
-        assertTrue(matchmaking.isInQueue(handler3));
-    }
+        PlayerHandler top = MatchmakingQueue.peek(0);
+        assertEquals(profile2.getID(), top.getProfile().getID()); // highest
 
-    @Test
-    void testMatchThenDequeueRemaining() throws SQLException {
-        matchmaking.enqueue(0, handler1);
-        matchmaking.enqueue(0, handler2);
-        matchmaking.enqueue(0, handler3);
-
-        matchmaking.matchOpponents(0); // matches two
-
-        assertEquals(1, matchmaking.getQueueSize(0));
-
-        matchmaking.dequeue(handler3);
+        matchmaking.matchOpponents(0);
         assertEquals(0, matchmaking.getQueueSize(0));
-    }
-
-    @Test
-    void testQuickSortWithPlayerRankings() throws SQLException {
-        int[] rating1 = {17, 0, 0};
-        int[] rating2 = {10,0,0};
-        int[] rating3 = {8, 1, 0};
-
-        PlayerRanking.setGameRating(profile1.getID(), 0, 35);
-        PlayerRanking.setGameRating(profile2.getID(), 0, 29);
-        PlayerRanking.setGameRating(profile3.getID(), 0, 15);
-
-        matchmaking.enqueue(0, handler1);
-        matchmaking.enqueue(0, handler2);
-        matchmaking.enqueue(0, handler3);
-
-        List<PlayerHandler> matched = matchmaking.matchOpponents(0);
-        assertEquals(handler2, matched.get(0));
-        assertEquals(handler3, matched.get(1));
     }
 }
