@@ -45,18 +45,12 @@ public class Client {
                     String type = (String) data.get("type");
                     switch (type) {
                         case "chat":
-                            System.out.println(data.get("sender") + ": " + data.get("message"));
-                            break;
                         case "game-move":
                         case "profile-info-request":
                         case "error":
-                            System.err.println("Error: " + data.get("message"));
-                            break;
                         case "exit-game":
                         case "login":
                         case "register":
-                            System.out.println("[INFO]: " + data.get("message"));
-                            break;
                         default:
                             System.out.println(msgFromServer);
                             break;
