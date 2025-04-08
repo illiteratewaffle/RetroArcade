@@ -1,8 +1,10 @@
 package matchmaking;
 
 import java.sql.SQLException;
+import java.text.BreakIterator;
 import java.util.*;
 
+import AuthenticationAndProfile.PlayerRanking;
 import player.PlayerHandler;
 
 public class MatchmakingQueue {
@@ -65,7 +67,7 @@ public class MatchmakingQueue {
      * @return true if the player is found in any of the queues, false otherwise.
      */
     public static Boolean isInQueue(PlayerHandler player) {
-        for (Map.Entry<Integer, LinkedList<PlayerHandler>> entry : gameQueues.entrySet()) {   //Loop through each queue
+        for (Map.Entry<Integer, LinkedList<PlayerHandler>> entry : gameQueues.entrySet()) {     //Loop through each queue presen
             if (entry.getValue().contains(player)) {
                 return Boolean.TRUE;
             }
@@ -86,13 +88,13 @@ public class MatchmakingQueue {
 
     /**
      * Dequeues a specific player from any of the game queues.
-     * It iterates through all game queues and removes the player if found. Then brea
+     * It iterates through all game queues and removes the player if found. Then break
      * @param handler The PlayerHandler of the player to dequeue.
      */
     public static void dequeue(PlayerHandler handler) {
         for (Map.Entry<Integer, LinkedList<PlayerHandler>> entry : gameQueues.entrySet()) {
             if (entry.getValue().remove(handler)) {
-                return; //Stop iterating through rest of the LinkedLists if found
+                return; // Exit method if handler was found and removed
             }
         }
     }
@@ -140,8 +142,10 @@ public class MatchmakingQueue {
     private static void quickSort(int gameType) throws SQLException {
 
         if (gameQueues.containsKey(gameType)) {
+            System.out.println(gameQueues);
             gameQueues.put(gameType, quickSortHelper(gameQueues.get(gameType), gameType));
         }
+        System.out.println(gameQueues);
     }
 
     /**
@@ -153,7 +157,7 @@ public class MatchmakingQueue {
      */
     private static LinkedList<PlayerHandler> quickSortHelper(LinkedList<PlayerHandler> list, int gameType) throws SQLException {
 
-
+        System.out.println();
         if (list.size() <= 1) return list;
 
         PlayerHandler pivot = list.get(list.size() / 2);
@@ -161,10 +165,10 @@ public class MatchmakingQueue {
         LinkedList<PlayerHandler> greater = new LinkedList<>();
         LinkedList<PlayerHandler> equal = new LinkedList<>();
 
-        int pivotRank = pivot.getProfile().getPlayerRanking().getRating(gameType);
+        int pivotRank = PlayerRanking.getRating( pivot.getProfile().getID(), gameType);
 
         for (PlayerHandler handler : list) {
-            int rank = handler.getProfile().getPlayerRanking().getRating(gameType);
+            int rank = PlayerRanking.getRating(handler.getProfile().getID(), gameType);
 
             if (rank > pivotRank) {
                 greater.add(handler);
