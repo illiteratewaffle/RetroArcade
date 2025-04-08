@@ -63,8 +63,8 @@ public class PlayerHandler implements Runnable {
     }
 
     /**
-     *
-     * @param recipientID
+     * Method to send a friend request to another user.
+     * @param recipientID The recipient whom the friend request is intended for.
      */
     public synchronized boolean sendFriendRequest(Integer recipientID) {
         try {
@@ -76,6 +76,10 @@ public class PlayerHandler implements Runnable {
         }
     }
 
+    /**
+     * Method to accept a friend request from another user.
+     * @param senderID The ID of the user sending the friend request.
+     */
     public synchronized void acceptFriendRequest(Integer senderID) {
         try {
             this.getProfile().getFriendsList().acceptFriendRequest(senderID);
