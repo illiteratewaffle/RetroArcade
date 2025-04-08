@@ -43,6 +43,7 @@ public class C4GUIController implements Initializable {
         c4Controller.start(); // This will print the board and start the game logic
         c4GUIGrid.setGridLinesVisible(true);
         //infoButton.setImage(new Image("C4Info.jpg"));
+        updateTurnIndicator();
 
         chatArea.clear();
         chatArea.setStyle(
@@ -73,6 +74,7 @@ public class C4GUIController implements Initializable {
         Media sound = new Media(path);
         AudioManager.mediaPlayer = new MediaPlayer(sound);
         AudioManager.mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+        AudioManager.setMuted(false);
         AudioManager.mediaPlayer.play();
         if (AudioManager.isMuted()){
             AudioManager.applyMute();
@@ -82,8 +84,8 @@ public class C4GUIController implements Initializable {
         }
 
         homeButton.setImage(new Image("home_button.png"));
-
     }
+
     @FXML
     public ImageView muteButton;
 
