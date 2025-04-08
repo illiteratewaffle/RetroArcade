@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI_client.LoginGUIController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI_client.LoginGUIController">
    <children>
 
       <!-- Background image -->
@@ -40,7 +44,7 @@
          <image>
             <Image url="@../GUI_buttons/signup_button.png" />
          </image></ImageView>
-      <ImageView fx:id="signUpPage" fitHeight="428.0" fitWidth="401.0" layoutX="259.0" layoutY="187.0" pickOnBounds="true" preserveRatio="true" visible="false">
+      <ImageView fx:id="signUpPage" fitHeight="342.0" fitWidth="407.0" layoutX="254.0" layoutY="187.0" pickOnBounds="true" visible="false">
          <image>
             <Image url="@../sign_up_page.png" />
          </image></ImageView>
@@ -52,7 +56,7 @@
          <image>
             <Image url="@../GUI_buttons/x_button.png" />
          </image></ImageView>
-      <ImageView fx:id="backButton" accessibleRole="BUTTON" fitHeight="80.0" fitWidth="53.0" layoutX="269.0" layoutY="187.0" onMouseClicked="#backButtonPress" pickOnBounds="true" preserveRatio="true" visible="false">
+      <ImageView fx:id="backButton" accessibleRole="BUTTON" fitHeight="43.0" fitWidth="45.0" layoutX="263.0" layoutY="194.0" onMouseClicked="#backButtonPress" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
             <Image url="@../GUI_buttons/back_button.PNG" />
          </image>
