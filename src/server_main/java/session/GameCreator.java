@@ -22,11 +22,14 @@ public class GameCreator implements Runnable {
     public void enqueuePlayer(PlayerHandler player, int gameType) throws SQLException {
         ServerLogger.log("GameCreator: Enqueued player " + player.getProfile().getUsername() + ":" + player.getProfile().getID());
         gameQueue.enqueue(gameType, player);
+        player.setInQueue(true);
     }
 
     public void dequeuePlayer(PlayerHandler player) {
-        gameQueue.dequeue(player);
-        ServerLogger.log("GameCreator: Dequeued player " + player.getProfile().getUsername() + ":" + player.getProfile().getID());
+        if (gameQueue.isInQueue(player)) {
+            gameQueue.dequeue(player);
+            ServerLogger.log("GameCreator: Dequeued player " + player.getProfile().getUsername() + ":" + player.getProfile().getID());
+        }
     }
 
     public void createSession(PlayerHandler player1, PlayerHandler player2, int gameType) {
@@ -58,6 +61,10 @@ public class GameCreator implements Runnable {
         List<PlayerHandler> players = gameQueue.matchOpponents(gameType);
         if (players.size() >= 2) {
             createSession(players.get(0), players.get(1), gameType);
+
+            //Set the inQueue status of both players to be false.
+            players.get(0).setInQueue(false);
+            players.get(1).setInQueue(false);
         } else {
             ServerLogger.log("GameCreator: Unable to retrieve a list of two players from Matchmaking.");
         }
