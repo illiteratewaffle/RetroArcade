@@ -1,6 +1,6 @@
 package GUI_client;
 import AuthenticationAndProfile.Authentication;
-import com.sun.javafx.menu.MenuItemBase;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -43,7 +43,7 @@ public class otherPlayerProfileGUIController {
     @FXML private ScrollPane avatar_pane;
     private Object GUI_avatars;
     private AuthenticationAndProfile.Profile Profile;
-    private MenuItemBase friends_Button;
+
 
     public otherPlayerProfileGUIController() {
         System.out.println("profileGUIController loaded");
@@ -69,10 +69,14 @@ public class otherPlayerProfileGUIController {
                 System.out.println("No Avatar found!");
             }
         }
+        //Profile.getFriendsList();
+        //get the friends
+        //if they are a friend, set the image view to be "friends" and disable it
+        //else set the image view to be "add friend" and enable it
     }
 
-    //method that shows either add friend or friends at bottom
-    //if user can add them as a friend then there must be a method to send to profile to do that
+//on mouse click on the imageview, it will send a friend request to network
+
 
     public void go_home(MouseEvent mouseEvent) {
     }

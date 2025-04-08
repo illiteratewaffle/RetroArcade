@@ -1,6 +1,6 @@
 package GUI_client;
 import AuthenticationAndProfile.Authentication;
-import com.sun.javafx.menu.MenuItemBase;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -51,7 +51,6 @@ public class profileGUIController {
     @FXML private ScrollPane avatar_pane;
     private Object GUI_avatars;
     private AuthenticationAndProfile.Profile Profile;
-    private MenuItemBase friends_Button;
 
     public profileGUIController() {
         System.out.println("profileGUIController loaded");
@@ -199,7 +198,7 @@ public class profileGUIController {
         stats_pane.setOpacity(0.0);
         avatar_pane.setOpacity(1.0);
         edit_profile_button.setOpacity(0.0);
-        friends_Button.setDisable(true);
+        friends_button.setDisable(true);
         stats_button.setDisable(true);
         inbox_button.setDisable(true);
         history_button.setDisable(true);
@@ -218,7 +217,7 @@ public class profileGUIController {
         edit_profile_button.setOpacity(1.0);
         apply_button.setOpacity(0.0);
         discard_button.setOpacity(0.0);
-        friends_Button.setDisable(false);
+        friends_button.setDisable(false);
         stats_button.setDisable(false);
         inbox_button.setDisable(false);
         history_button.setDisable(false);
@@ -237,7 +236,7 @@ public class profileGUIController {
         edit_profile_button.setOpacity(1.0);
         apply_button.setOpacity(0.0);
         discard_button.setOpacity(0.0);
-        friends_Button.setDisable(false);
+        friends_button.setDisable(false);
         stats_button.setDisable(false);
         inbox_button.setDisable(false);
         history_button.setDisable(false);
