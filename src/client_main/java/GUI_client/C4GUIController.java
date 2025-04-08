@@ -209,7 +209,7 @@ public class C4GUIController implements Initializable {
         piece.setFitHeight(30);
         piece.setOpacity(1.0);
 
-        c4GUIGrid.add(piece, col, row); // ✅ Add only the image
+        c4GUIGrid.add(piece, col, row); // Add only the image
     }
 
 
@@ -220,21 +220,9 @@ public class C4GUIController implements Initializable {
             updateTurnIndicator();
 
             if (c4Controller.getC4IsGameOver()) {
-                int winner = c4Controller.getWinner();
-//                if (Arrays.equals(winner, new int[]{1, 2})) {
-//                   // C4Piece winner = c4Controller.getC4WinnerAsEnum();
-//                    c4Controller.c4GameLogic.updateGameState();
-//                    System.out.println("It's a draw!");
-//                } else if (Arrays.equals(winner, new int[]{1})) {
-//                    System.out.println("Player red wins! 🎉");
-//                    showWinImage();
-//                    c4Controller.c4GameLogic.updateGameState();
-//                } else if (Arrays.equals(winner, new int[]{2})) {
-//                    System.out.println("Player blue wins! 🎉");
-//                    showWinImage();
-//                    c4Controller.c4GameLogic.updateGameState();
-//                }
                 c4Controller.c4GameLogic.updateGameState();
+                int winner = c4Controller.getWinner();
+
                 if (winner == 0) {
                     System.out.println("It's a draw!");
 
