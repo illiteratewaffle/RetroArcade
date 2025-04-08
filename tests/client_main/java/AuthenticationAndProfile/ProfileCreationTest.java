@@ -23,7 +23,7 @@ class ProfileCreationTest {
     }
 
     @Test
-    void blankHashedPassword() {
+    void blankHashedPassword() throws NoSuchAlgorithmException {
         try {
             String password = "";
             String hashedPassword = ProfileCreation.hashedPassword(password);
@@ -38,6 +38,29 @@ class ProfileCreationTest {
         String username = Profile.generateUsername();
         String email = username + "@example.com";
         String password = Profile.generatePassword();
+        Profile newProfile;
+        int newProfileID;
+        try {
+            newProfile = ProfileCreation.createNewProfile(username, email, password);
+            String hashedPassword = ProfileCreation.hashedPassword(password);
+            newProfileID = newProfile.getID();
+
+            assertEquals(Integer.toString(newProfileID), PlayerManager.getAttribute(newProfileID, "id"));
+            assertEquals(username, PlayerManager.getAttribute(newProfileID, "username"));
+            assertEquals(email, PlayerManager.getAttribute(newProfileID, "email"));
+            assertEquals(hashedPassword, PlayerManager.getAttribute(newProfileID, "hashed_password"));
+        } catch (SQLException s1) {
+            fail("Error with getAttribute: " + s1.getMessage());
+        } catch (NoSuchAlgorithmException | IOException n) {
+            fail(n.getMessage());
+        }
+    }
+
+    @Test
+    void createNewProfile2() {
+        String username = "login3";
+        String email = username + "@example.com";
+        String password = "password";
         Profile newProfile;
         int newProfileID;
         try {
