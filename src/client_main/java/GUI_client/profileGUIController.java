@@ -4,19 +4,27 @@ import AuthenticationAndProfile.Authentication;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import leaderboard.PlayerRanking;
 import AuthenticationAndProfile.Profile;
 
+import javax.swing.plaf.basic.BasicSplitPaneUI;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.Objects;
 
 public class profileGUIController {
+    @FXML
+    public ImageView home_button;
     @FXML
     public ImageView inbox_button;
     @FXML
@@ -400,6 +408,21 @@ public class profileGUIController {
             System.out.println("Failed to load image from path: " + path);
         }
         getAvatarPath(path);
+    }
+    public void homeButtonClicked() throws IOException {
+        AudioManager.mediaPlayer.stop();
+        Parent newRoot = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("gameMenu.fxml")));
+
+        Stage stage = (Stage) home_button.getScene().getWindow();
+
+        stage.setScene(new Scene(newRoot));
+        stage.show();
+    }
+    public void homeButtonPressed(){
+        home_button.setImage(new Image("home_button_pressed.png"));
+    }
+    public void homeButtonReleased(){
+        home_button.setImage(new Image("home_button.png"));
     }
     //------------------------------------------------------------------------------
 

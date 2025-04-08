@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.ScrollPane?>
@@ -31,16 +32,6 @@
       <ImageView fx:id="avatar" fitHeight="185.0" fitWidth="194.0" layoutX="74.0" layoutY="41.0">
          <image>
             <Image url="@../GUI_avatars/Invader_purple.PNG" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="home_button" accessibleRole="BUTTON" fitHeight="90.0" fitWidth="101.0" layoutX="-3.0" layoutY="3.0" onMouseClicked="#go_home">
-         <image>
-            <Image url="@../GUI_buttons/home_button.png" />
-         </image>
-      </ImageView>
-      <ImageView accessibleRole="BUTTON" fitHeight="89.0" fitWidth="90.0" layoutX="808.0" layoutY="2.0" onMouseClicked="#close_window" fx:id="x_button">
-         <image>
-            <Image url="@../GUI_buttons/x_button.png" />
          </image>
       </ImageView>
       <ScrollPane layoutX="32.0" layoutY="246.0" prefHeight="305.0" prefWidth="838.0" style="-fx-background-color: transparent;">
@@ -291,6 +282,14 @@
          <image>
             <Image url="@../profile_assets/profile_buttons/edit_profile_button_black.png" />
          </image>
+      </ImageView>
+      <ImageView fx:id="home_button" accessibleRole="BUTTON" fitHeight="80.0" fitWidth="83.0" layoutX="804.0" layoutY="15.0" onMouseClicked="#homeButtonClicked" onMousePressed="#homeButtonPressed" onMouseReleased="#homeButtonReleased">
+         <image>
+            <Image url="@../GUI_buttons/home_button.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="OPEN_HAND" />
+         </cursor>
       </ImageView>
       <ImageView fx:id="done_button" fitHeight="29.0" fitWidth="128.0" layoutX="55.0" layoutY="572.0" onMouseClicked="#apply_changes" opacity="0.0" pickOnBounds="true">
          <image>
