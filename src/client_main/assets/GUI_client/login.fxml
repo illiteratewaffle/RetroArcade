@@ -41,7 +41,7 @@
       </VBox>
 
       <!-- Login Button -->
-      <ImageView fx:id="loginButton" accessibleRole="BUTTON" fitHeight="60.0" fitWidth="60.0" layoutX="469.0" layoutY="320.0" onMouseClicked="#checkLogin" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="loginButton" accessibleRole="BUTTON" fitHeight="60.0" fitWidth="60.0" layoutX="469.0" layoutY="320.0" onMouseClicked="#checkLogin" onMousePressed="#loginButtonPressed" onMouseReleased="#loginButtonReleased" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../GUI_buttons/login_button.png" />
          </image>

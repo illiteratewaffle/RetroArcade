@@ -217,4 +217,12 @@ public class LoginGUIController implements Initializable {
     public void signupButtonReleased(){
         signUpButton.setImage(new Image(Objects.requireNonNull(getClass().getResource("/GUI_buttons/signup_button.png")).toExternalForm()));
     }
+
+    public void loginButtonPressed(){
+        loginButton.setImage(new Image(Objects.requireNonNull(getClass().getResource("/GUI_buttons/pressed/login_button_pressed.png")).toExternalForm()));
+    }
+
+    public void loginButtonReleased(){
+        loginButton.setImage(new Image(Objects.requireNonNull(getClass().getResource("/GUI_buttons/login_button.png")).toExternalForm()));
+    }
 }
