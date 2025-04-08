@@ -79,7 +79,7 @@ public class profileGUIController {
 
     public profileGUIController() {
         System.out.println("profileGUIController loaded");
-        initialize(profile); //This part cannot be uncommented until I have an actual profile to test with
+        //initialize(profile); //This part cannot be uncommented until I have an actual profile to test with
     }
 
     public void initialize(Profile loadedProfile) {

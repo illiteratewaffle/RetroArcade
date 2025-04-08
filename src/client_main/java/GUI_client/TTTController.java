@@ -356,10 +356,10 @@ public class TTTController implements Initializable {
         // check for game win
         if (theGame.checkWin()) {
             // if game is over, current player is the loser
-            if (theGame.getCurrentPlayer() == 2){ // if the current player is O
+            if (theGame.getCurrentPlayer() == 1){ // if the current player is O
                 Win_Lose_Banner.setImage(new Image("X_wins.png"));
                 theGame.updateGameState();  // Update the game state to P1 win
-            } else if (theGame.getCurrentPlayer() == 1){
+            } else if (theGame.getCurrentPlayer() == 2){
                 Win_Lose_Banner.setImage(new Image("O_wins.png"));
                 theGame.updateGameState();  // Update the game state to P2 win
             }

@@ -68,6 +68,14 @@
                   <Cursor fx:constant="OPEN_HAND" />
                </cursor>
             </ImageView>
+            <ImageView fx:id="profileButton" fitHeight="80.0" fitWidth="80.0" layoutX="14.0" layoutY="12.0" onMouseClicked="#profileButtonClicked" onMousePressed="#profileButtonPressed" onMouseReleased="#profileButtonReleased" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../profile_button.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="OPEN_HAND" />
+               </cursor>
+            </ImageView>
          </children>
       </AnchorPane>
    </children>
