@@ -109,6 +109,9 @@ public class TTTController implements Initializable {
     // game controller for TTT logic
     TTTGameController theGame = new TTTGameController();
 
+    // chat manager
+    ChatManager chatManager = new ChatManager();
+
     // easter egg
     private final ArrayList<Character> EEList = new ArrayList<Character>();
 
@@ -398,8 +401,12 @@ public class TTTController implements Initializable {
      */
     public void sendMessage(){
         String message = chat_input_field.getText();
-        if (!message.trim().isEmpty()){
+        if (!message.trim().isEmpty() && chatManager.isAppropriate(message)){
             chat_area.appendText("You: " + message + "\n");
+            chat_input_field.clear();
+        }
+        else{
+            chat_area.appendText("Your message contains\ninappropriate language.\nPlease try again.\n");
             chat_input_field.clear();
         }
     }

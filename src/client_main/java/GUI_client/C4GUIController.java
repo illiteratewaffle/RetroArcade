@@ -288,10 +288,16 @@ public class C4GUIController implements Initializable {
         ));
     }
 
+    ChatManager chatManager = new ChatManager();
+
     public void sendMessage(){
         String message = chatField.getText();
-        if (!message.trim().isEmpty()){
+        if (!message.trim().isEmpty() && chatManager.isAppropriate(message)){
             chatArea.appendText("You: " + message + "\n");
+            chatField.clear();
+        }
+        else{
+            chatArea.appendText("Your message contains\ninappropriate language.\nPlease try again.\n");
             chatField.clear();
         }
     }

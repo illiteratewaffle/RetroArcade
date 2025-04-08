@@ -54,6 +54,7 @@ public class CheckersGUIController implements Initializable {
     private ImageView checkerChatBg;
 
     private CheckersController gameLogic;
+    private ChatManager chatManager;
     private Stage quitPopup = new Stage();
 
     private static final int BOARD_SIZE = 8;
@@ -87,6 +88,7 @@ public class CheckersGUIController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         // relative addresses
         gameLogic = new CheckersController();
+        chatManager = new ChatManager();
         blueChecker = new Image("checkers_blue_piece.png");
         pinkChecker = new Image("checkers_pink_piece.png");
         blueKingChecker = new Image("checkers_blue_king_piece.png");
@@ -349,11 +351,16 @@ public class CheckersGUIController implements Initializable {
 
     /**
      * gets a string from chat text field and appends it to chat area
+     * checks if message is inappropriate
      */
     public void sendMessage(){
         String message = checkerChatInput.getText();
-        if (!message.trim().isEmpty()){
+        if (!message.trim().isEmpty() && chatManager.isAppropriate(message)){
             checkerChatArea.appendText("You: " + message + "\n");
+            checkerChatInput.clear();
+        }
+        else {
+            checkerChatArea.appendText("Your message contains\ninappropriate language.\nPlease try again.\n");
             checkerChatInput.clear();
         }
     }
