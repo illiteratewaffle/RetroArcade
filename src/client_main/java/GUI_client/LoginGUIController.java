@@ -2,8 +2,8 @@ package GUI_client;
 
 import AuthenticationAndProfile.Authentication;
 import javafx.fxml.FXML;
-import client.*;
 
+import client.*;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
