@@ -52,12 +52,6 @@ public class TTTController implements Initializable {
     @FXML
     public ImageView quit_image;
     @FXML
-    public ImageView play_again;
-    @FXML
-    public ImageView check_circle;
-    @FXML
-    public ImageView X_circle;
-    @FXML
     public ImageView Win_Lose_Banner;
     @FXML
     public StackPane TileBorder_0_0;
@@ -319,13 +313,16 @@ public class TTTController implements Initializable {
             }
         }
     }
+
     // easter egg stuff
     public void yellowPress(){
         EEList.add('Y');
     }
+
     public void bluePress(){
         EEList.add('B');
     }
+
     public void greenPress(){
         if (EEList.toString().equals("[B, B, Y, Y, B, Y, B, Y]")){
             board_image.setImage(new Image("EE.jpg"));
@@ -335,6 +332,7 @@ public class TTTController implements Initializable {
             EE_SFX.play();
         }
     }
+
     public void redPress(){
         EEList.clear();
         board_image.setImage(new Image("foreground.png"));
@@ -376,9 +374,6 @@ public class TTTController implements Initializable {
 
         // if game is over, set play again features
         if (!theGame.getGameOngoing()){ // if the game is not ongoing, i.e. the game is over
-            play_again.setImage(new Image("Play_Again.png"));
-            check_circle.setImage(new Image("check_circle.png"));
-            X_circle.setImage(new Image("X_circle.png"));
             turnBanner.setImage(null);
         }
     }
@@ -397,9 +392,6 @@ public class TTTController implements Initializable {
         Tile_2_0.setImage(null);
         Tile_2_1.setImage(null);
         Tile_2_2.setImage(null);
-        play_again.setImage(null);
-        check_circle.setImage(null);
-        X_circle.setImage(null);
         Win_Lose_Banner.setImage(null);
     }
 
@@ -433,6 +425,7 @@ public class TTTController implements Initializable {
         info_bg.setMouseTransparent(true);
         info_ok_button.setMouseTransparent(true);
     }
+
     public void XPressed(){
         quit_image.setImage(new Image("home_button_pressed.png"));
     }
