@@ -93,12 +93,12 @@ public class C4Controller implements IBoardGameController {
         };
     }*/
 
-    public int[] getWinner() {
+    public int getWinner() {
         return switch (c4GameLogic.gameState) {
-            case P1WIN -> new int[]{0};
-            case P2WIN -> new int[]{1};
-            case TIE -> new int[]{0, 1}; //draw
-            default -> new int[]{};
+            case P1WIN -> 0;
+            case P2WIN -> 1;
+            case TIE -> 2; //draw
+            default -> 3;
         };
     }
 

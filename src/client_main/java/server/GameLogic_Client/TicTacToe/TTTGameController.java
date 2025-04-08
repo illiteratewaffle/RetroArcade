@@ -57,12 +57,12 @@ public class TTTGameController implements IBoardGameController {
      * @return An array containing the winner's index (0 for X, 1 for O), both for tie, or empty if no winner.
      */
     @Override
-    public int[] getWinner() {
+    public int getWinner() {
         return switch (game.gameState) {
-            case P1WIN -> new int[]{0};
-            case P2WIN -> new int[]{1};
-            case TIE -> new int[]{0, 1};
-            default -> new int[]{};
+            case P1WIN -> 0;
+            case P2WIN -> 1;
+            case TIE -> 2;
+            default -> 3;
         };
     }
 

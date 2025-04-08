@@ -209,10 +209,10 @@ public class CheckersGUIController implements Initializable {
 
     private void getTurn() {
         int currentPlayer = gameLogic.getCurrentPlayer();
-        int winner [] = gameLogic.getWinner();
+        int winner = gameLogic.getWinner();
 
         // Check if the game is ongoing before checking the turns
-        if (winner.length == 0) {
+        if (winner == 3) {
             // Check turns
             if (currentPlayer == 0) {
                 screen.setImage(yourTurn);
@@ -264,20 +264,19 @@ public class CheckersGUIController implements Initializable {
      */
     private void checkWinners() {
         // used to determine who won
-        int [] winner = gameLogic.getWinner();
+        int winner = gameLogic.getWinner();
 
         // array of length one means someone one
         // TODO: send to networking
         // TODO: add graphics for win/lose/tie messages
-        if (winner.length == 1) {
-            if (winner[0] == 0) {
-                screen.setImage(winnerPink);
-            } else {
-                screen.setImage(winnerBlue);
-            }
+        if (winner == 0) {
+            screen.setImage(winnerPink);
+        } else if (winner == 1) {
+            screen.setImage(winnerBlue);
+
         // array of length two means tie
-        } else if (winner.length == 2) {
-           // screen.setImage(tie);
+        } else if (winner == 2) {
+            // screen.setImage(tie);
         }
        /* if (!gameLogic.getGameOngoing()){
             play_again.setImage(new Image("Play_Again.png"));

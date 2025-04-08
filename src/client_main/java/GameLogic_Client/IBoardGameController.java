@@ -42,7 +42,7 @@ public interface IBoardGameController
      * @return An array of integers containing the Index of the winners of the game.
      * If there are multiple winners, the game may be interpreted as a tie between said winners.
      */
-    int[] getWinner();
+    int getWinner();
 
     /**
      * @return <code>True</code> if the game is still ongoing; <code>False</code> otherwise.

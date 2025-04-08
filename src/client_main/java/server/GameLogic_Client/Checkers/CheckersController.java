@@ -657,15 +657,15 @@ public class CheckersController implements IBoardGameController
     }
 
 
-    public int[] getWinner()
+    public int getWinner()
     {
         return switch (currentGameState)
         {
-            case P1WIN -> new int[]{0};
-            case P2WIN -> new int[]{1};
-            case TIE -> new int[]{0, 1};
+            case P1WIN -> 0;
+            case P2WIN -> 1;
+            case TIE -> 2;
             // By default, declare nobody as the winner.
-            default -> new int[]{};
+            default -> 3;
         };
     }
 

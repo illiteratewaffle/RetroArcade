@@ -2,7 +2,7 @@ package client_main.java.GameLogic_Client.Connect4;
 
 import GameLogic_Client.Connect4.C4Piece;
 import GameLogic_Client.Connect4.C4WinChecker;
-import GameLogic_Client.ivec2;
+import GameLogic_Client.Ivec2;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import GameLogic_Client.Connect4.C4WinCheckerO1;
@@ -25,7 +25,7 @@ public class C4WinCheckerO1Test {
         board[2][2] = P;
         board[2][3] = P;
         board[2][4] = P;
-        assertTrue(C4WinCheckerO1.checkHorizontal(new ivec2(4, 2), P, board));
+        assertTrue(C4WinCheckerO1.checkHorizontal(new Ivec2(4, 2), P, board));
     }
 
     @Test
@@ -35,7 +35,7 @@ public class C4WinCheckerO1Test {
         board[0][1] = P;
         board[0][2] = P;
         board[0][3] = P;
-        assertTrue(C4WinCheckerO1.checkHorizontal(new ivec2(0, 0), P, board));
+        assertTrue(C4WinCheckerO1.checkHorizontal(new Ivec2(0, 0), P, board));
     }
 
     @Test
@@ -46,7 +46,7 @@ public class C4WinCheckerO1Test {
         board[3][3] = P;
         board[3][4] = P;
         board[3][5] = P;
-        assertTrue(C4WinCheckerO1.checkHorizontal(new ivec2(3, 3), P, board));
+        assertTrue(C4WinCheckerO1.checkHorizontal(new Ivec2(3, 3), P, board));
     }
 
     @Test
@@ -56,7 +56,7 @@ public class C4WinCheckerO1Test {
         board[5][4] = P;
         board[5][5] = P;
         board[5][6] = P;
-        assertTrue(C4WinCheckerO1.checkHorizontal(new ivec2(5, 5), P, board));
+        assertTrue(C4WinCheckerO1.checkHorizontal(new Ivec2(5, 5), P, board));
     }
 
     @Test
@@ -65,7 +65,7 @@ public class C4WinCheckerO1Test {
         board[1][2] = P;
         board[1][3] = P;
         board[1][4] = P;
-        assertFalse(C4WinCheckerO1.checkHorizontal(new ivec2(3, 1), P, board));
+        assertFalse(C4WinCheckerO1.checkHorizontal(new Ivec2(3, 1), P, board));
     }
 
     @Test
@@ -73,7 +73,7 @@ public class C4WinCheckerO1Test {
         C4Piece[][] board = emptyBoard();
         board[0][0] = P;
         board[0][3] = P;
-        assertFalse(C4WinCheckerO1.checkHorizontal(new ivec2(3, 0), P, board));
+        assertFalse(C4WinCheckerO1.checkHorizontal(new Ivec2(3, 0), P, board));
     }
 
     @Test
@@ -84,14 +84,14 @@ public class C4WinCheckerO1Test {
         board[4][2] = null;
         board[4][3] = P;
         board[4][4] = P;
-        assertFalse(C4WinCheckerO1.checkHorizontal(new ivec2(4, 4), P, board));
+        assertFalse(C4WinCheckerO1.checkHorizontal(new Ivec2(4, 4), P, board));
     }
 
     @Test
     void horizontalNoWin4() {
         C4Piece[][] board = emptyBoard();
         board[3][3] = P;
-        assertFalse(C4WinCheckerO1.checkHorizontal(new ivec2(3, 3), P, board));
+        assertFalse(C4WinCheckerO1.checkHorizontal(new Ivec2(3, 3), P, board));
     }
 
     @Test
@@ -101,14 +101,14 @@ public class C4WinCheckerO1Test {
         board[2][1] = P;
         board[2][2] = P;
         board[2][3] = Q;
-        assertFalse(C4WinCheckerO1.checkHorizontal(new ivec2(2, 2), P, board));
+        assertFalse(C4WinCheckerO1.checkHorizontal(new Ivec2(2, 2), P, board));
     }
 
     @Test
     void horizontalNoWin6() {
         C4Piece[][] board = emptyBoard();
         board[5][6] = P;
-        assertFalse(C4WinCheckerO1.checkHorizontal(new ivec2(6, 5), P, board));
+        assertFalse(C4WinCheckerO1.checkHorizontal(new Ivec2(6, 5), P, board));
     }
 
 
@@ -125,7 +125,7 @@ public class C4WinCheckerO1Test {
         board[2][winCol] = P;
         board[3][winCol] = P;
 
-        assertTrue(C4WinCheckerO1.checkVertical(new ivec2(2, 0), P, board));
+        assertTrue(C4WinCheckerO1.checkVertical(new Ivec2(2, 0), P, board));
     }
 
     @Test
@@ -138,7 +138,7 @@ public class C4WinCheckerO1Test {
         board[4][winCol] = P;
         board[5][winCol] = P;
 
-        assertTrue(C4WinCheckerO1.checkVertical(new ivec2(3, 2), P, board));
+        assertTrue(C4WinCheckerO1.checkVertical(new Ivec2(3, 2), P, board));
     }
 
     @Test
@@ -152,7 +152,7 @@ public class C4WinCheckerO1Test {
         board[4][winCol] = P;
         board[5][winCol] = P;
 
-        assertTrue(C4WinCheckerO1.checkVertical(new ivec2(5, 1), P, board));
+        assertTrue(C4WinCheckerO1.checkVertical(new Ivec2(5, 1), P, board));
     }
 
     @Test
@@ -166,7 +166,7 @@ public class C4WinCheckerO1Test {
         board[4][winCol] = P;
         board[5][winCol] = P;
 
-        assertFalse(C4WinCheckerO1.checkVertical(new ivec2(winCol, 1), P, board));
+        assertFalse(C4WinCheckerO1.checkVertical(new Ivec2(winCol, 1), P, board));
     }
 
     @Test
@@ -179,7 +179,7 @@ public class C4WinCheckerO1Test {
         board[4][winCol] = Q;
         board[5][winCol] = Q;
 
-        assertFalse(C4WinCheckerO1.checkVertical(new ivec2(winCol, 1), Q, board));
+        assertFalse(C4WinCheckerO1.checkVertical(new Ivec2(winCol, 1), Q, board));
     }
 
     @Test
@@ -191,7 +191,7 @@ public class C4WinCheckerO1Test {
         board[2][winCol] = Q;
         board[4][winCol] = Q;
 
-        assertFalse(C4WinCheckerO1.checkVertical(new ivec2(winCol, 1), Q, board));
+        assertFalse(C4WinCheckerO1.checkVertical(new Ivec2(winCol, 1), Q, board));
     }
 
     @Test
@@ -199,7 +199,7 @@ public class C4WinCheckerO1Test {
         C4Piece[][] board = emptyBoard();
         int winCol = 0;
 
-        assertFalse(C4WinCheckerO1.checkVertical(new ivec2(winCol, 0), P, board));
+        assertFalse(C4WinCheckerO1.checkVertical(new Ivec2(winCol, 0), P, board));
     }
 
     @Test
@@ -213,7 +213,7 @@ public class C4WinCheckerO1Test {
         board[4][winCol] = P;
         board[5][winCol] = P;
 
-        assertFalse(C4WinCheckerO1.checkVertical(new ivec2(winCol, 0), P, board));
+        assertFalse(C4WinCheckerO1.checkVertical(new Ivec2(winCol, 0), P, board));
     }
 
 
@@ -229,7 +229,7 @@ public class C4WinCheckerO1Test {
         board[1][3] = P;
         board[0][4] = P;
 
-        assertTrue(C4WinCheckerO1.checkForwardSlash(new ivec2(2, 2), P, board));
+        assertTrue(C4WinCheckerO1.checkForwardSlash(new Ivec2(2, 2), P, board));
     }
 
     @Test
@@ -241,7 +241,7 @@ public class C4WinCheckerO1Test {
         board[2][4] = P;
         board[1][5] = P;
 
-        assertTrue(C4WinCheckerO1.checkForwardSlash(new ivec2(2, 4), P, board));
+        assertTrue(C4WinCheckerO1.checkForwardSlash(new Ivec2(2, 4), P, board));
     }
 
     @Test
@@ -255,7 +255,7 @@ public class C4WinCheckerO1Test {
         board[1][4] = Q;
         board[0][5] = Q;
 
-        assertTrue(C4WinCheckerO1.checkForwardSlash(new ivec2(0, 5), Q, board));
+        assertTrue(C4WinCheckerO1.checkForwardSlash(new Ivec2(0, 5), Q, board));
     }
 
     @Test
@@ -267,7 +267,7 @@ public class C4WinCheckerO1Test {
         board[1][5] = Q;
         board[0][6] = Q; // Top-right corner
 
-        assertTrue(C4WinCheckerO1.checkForwardSlash(new ivec2(4, 2), Q, board));
+        assertTrue(C4WinCheckerO1.checkForwardSlash(new Ivec2(4, 2), Q, board));
     }
 
     @Test
@@ -279,7 +279,7 @@ public class C4WinCheckerO1Test {
         board[3][2] = P;
         board[2][3] = P; // Bottom-left corner
 
-        assertTrue(C4WinCheckerO1.checkForwardSlash(new ivec2(3, 2), P, board));
+        assertTrue(C4WinCheckerO1.checkForwardSlash(new Ivec2(3, 2), P, board));
     }
 
     @Test
@@ -291,7 +291,7 @@ public class C4WinCheckerO1Test {
         board[2][4] = P;
         board[1][5] = P;
 
-        assertFalse(C4WinCheckerO1.checkForwardSlash(new ivec2(5, 1), P, board));
+        assertFalse(C4WinCheckerO1.checkForwardSlash(new Ivec2(5, 1), P, board));
     }
 
     @Test
@@ -302,14 +302,14 @@ public class C4WinCheckerO1Test {
         board[4][2] = P;
         board[3][3] = P; // Only three in a row
 
-        assertFalse(C4WinCheckerO1.checkForwardSlash(new ivec2(3, 3), P, board));
+        assertFalse(C4WinCheckerO1.checkForwardSlash(new Ivec2(3, 3), P, board));
     }
 
     @Test
     void forwardSlashNoWin3() throws Exception {
         C4Piece[][] board = emptyBoard();
 
-        assertFalse(C4WinCheckerO1.checkForwardSlash(new ivec2(2, 2), P, board));
+        assertFalse(C4WinCheckerO1.checkForwardSlash(new Ivec2(2, 2), P, board));
     }
 
 
@@ -323,7 +323,7 @@ public class C4WinCheckerO1Test {
         board[2][3] = P;
         board[1][4] = P;
 
-        assertFalse(C4WinCheckerO1.checkForwardSlash(new ivec2(4, 1), P, board));
+        assertFalse(C4WinCheckerO1.checkForwardSlash(new Ivec2(4, 1), P, board));
     }
 
     /**
@@ -338,7 +338,7 @@ public class C4WinCheckerO1Test {
         board[1][3] = P;
         board[0][2] = P;
 
-        assertTrue(C4WinCheckerO1.checkBackSlash(new ivec2(2, 0), P, board));
+        assertTrue(C4WinCheckerO1.checkBackSlash(new Ivec2(2, 0), P, board));
     }
 
     @Test
@@ -350,7 +350,7 @@ public class C4WinCheckerO1Test {
         board[2][2] = P;
         board[1][1] = P;
 
-        assertTrue(C4WinCheckerO1.checkBackSlash(new ivec2(1, 1), P, board));
+        assertTrue(C4WinCheckerO1.checkBackSlash(new Ivec2(1, 1), P, board));
     }
 
     @Test
@@ -364,7 +364,7 @@ public class C4WinCheckerO1Test {
         board[1][1] = Q;
         board[0][0] = Q;
 
-        assertTrue(C4WinCheckerO1.checkBackSlash(new ivec2(0, 0), Q, board));
+        assertTrue(C4WinCheckerO1.checkBackSlash(new Ivec2(0, 0), Q, board));
     }
 
     @Test
@@ -376,7 +376,7 @@ public class C4WinCheckerO1Test {
         board[1][1] = Q;
         board[0][0] = Q;
 
-        assertTrue(C4WinCheckerO1.checkBackSlash(new ivec2(2, 2), Q, board));
+        assertTrue(C4WinCheckerO1.checkBackSlash(new Ivec2(2, 2), Q, board));
     }
 
     @Test
@@ -388,7 +388,7 @@ public class C4WinCheckerO1Test {
         board[3][4] = P;
         board[1][2] = P;
 
-        assertFalse(C4WinCheckerO1.checkBackSlash(new ivec2(2, 1), P, board));
+        assertFalse(C4WinCheckerO1.checkBackSlash(new Ivec2(2, 1), P, board));
     }
 
     @Test
@@ -399,14 +399,14 @@ public class C4WinCheckerO1Test {
         board[4][4] = P;
         board[3][3] = P; // Only three in a row
 
-        assertFalse(C4WinCheckerO1.checkBackSlash(new ivec2(3, 3), P, board));
+        assertFalse(C4WinCheckerO1.checkBackSlash(new Ivec2(3, 3), P, board));
     }
 
     @Test
     void backwardSlashNoWin3() throws Exception {
         C4Piece[][] board = emptyBoard();
 
-        assertFalse(C4WinCheckerO1.checkBackSlash(new ivec2(1, 1), Q, board));
+        assertFalse(C4WinCheckerO1.checkBackSlash(new Ivec2(1, 1), Q, board));
     }
 
     @Test
@@ -419,7 +419,7 @@ public class C4WinCheckerO1Test {
         board[2][2] = P;
         board[1][1] = P;
 
-        assertFalse(C4WinCheckerO1.checkBackSlash(new ivec2(1, 1), P, board));
+        assertFalse(C4WinCheckerO1.checkBackSlash(new Ivec2(1, 1), P, board));
     }
 
     @Test
@@ -431,6 +431,6 @@ public class C4WinCheckerO1Test {
         board[2][2] = P;
         board[1][1] = P;
 
-        assertFalse(C4WinCheckerO1.checkBackSlash(new ivec2(1, 1), Q, board));
+        assertFalse(C4WinCheckerO1.checkBackSlash(new Ivec2(1, 1), Q, board));
     }
 }

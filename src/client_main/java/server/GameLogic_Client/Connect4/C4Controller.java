@@ -63,12 +63,12 @@ public class C4Controller implements IBoardGameController {
     }
 
     @Override
-    public int[] getWinner() {
+    public int getWinner() {
         GameLogic_Client.Connect4.C4Piece winner = c4GameLogic.getC4Winner();
         return switch (winner) {
-            case RED -> new int[]{0};
-            case BLUE -> new int[]{1};
-            default -> new int[]{0, 1}; //draw
+            case RED -> 0;
+            case BLUE -> 1;
+            default -> 2;
         };
     }
 
