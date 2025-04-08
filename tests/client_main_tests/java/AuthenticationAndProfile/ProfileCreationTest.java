@@ -29,7 +29,7 @@ class ProfileCreationTest {
             String hashedPassword = ProfileCreation.hashedPassword(password);
             assertEquals("e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855".toUpperCase(), hashedPassword);
         } catch (NoSuchAlgorithmException n) {
-            System.out.println(n.getMessage());
+            fail(n.getMessage());
         }
     }
 
@@ -50,9 +50,9 @@ class ProfileCreationTest {
             assertEquals(email, PlayerManager.getAttribute(newProfileID, "email"));
             assertEquals(hashedPassword, PlayerManager.getAttribute(newProfileID, "hashed_password"));
         } catch (SQLException s1) {
-            System.out.println("Error with getAttribute: " + s1.getMessage());
+            fail("Error with getAttribute: " + s1.getMessage());
         } catch (NoSuchAlgorithmException | IOException n) {
-            System.out.println(n.getMessage());
+            fail(n.getMessage());
         }
     }
 }

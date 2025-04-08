@@ -22,8 +22,8 @@ public class Main {
 //                running = false;
 //        }
 
-        //Clearing Profiles:
-        for (int i = 0; i < 200; i++) {
+//        //Clearing Profiles:
+        for (int i = 0; i < 300; i++) {
             try {
                 PlayerManager.deleteProfile(i);
                 ProfileDatabaseAccess.getAllProfiles();
@@ -31,5 +31,10 @@ public class Main {
                 log(s.getMessage());
             }
         }
+//        try {
+//            PlayerManager.deleteProfile(2);
+//        } catch (SQLException s) {
+//            System.out.println(s.getMessage());
+//        }
     }
 }

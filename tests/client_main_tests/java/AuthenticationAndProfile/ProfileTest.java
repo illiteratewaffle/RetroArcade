@@ -30,7 +30,7 @@ class ProfileTest {
             int id = 0;
             profile = new Profile("test@example.com", hashedPassword, "nickname", "This is bio.", false, "currentGame", new FriendsList(friends, friendRequests, id), new PlayerRanking(), new GameHistory(gameHistory, achievementProgress), "C:profile/pic/path.png", "username", 2);
         } catch (NoSuchAlgorithmException e) {
-            System.out.println(e.getMessage());
+            fail(e.getMessage());
         }
     }
 
@@ -46,7 +46,7 @@ class ProfileTest {
             profile.setEmail("newemail@example.com");
             assertEquals("newemail@example.com", profile.getEmail());
         } catch (SQLException s) {
-            System.out.println(s.getMessage());
+            fail(s.getMessage());
         }
     }
 
@@ -65,7 +65,7 @@ class ProfileTest {
 
             assertEquals(hashedPassword, profile2.getHashedPassword());
         } catch (NoSuchAlgorithmException e) {
-            System.out.println(e.getMessage());
+            fail(e.getMessage());
         }
     }
 
@@ -75,7 +75,7 @@ class ProfileTest {
             profile.setHashedPassword("newHashedPassword");
             assertEquals(ProfileCreation.hashedPassword("newHashedPassword"), profile.getHashedPassword());
         } catch (SQLException | NoSuchAlgorithmException s) {
-            System.out.println(s.getMessage());
+            fail(s.getMessage());
         }
     }
 
@@ -90,7 +90,7 @@ class ProfileTest {
             profile.setNickname("newNickname");
             assertEquals("newNickname", profile.getNickname());
         } catch (SQLException s) {
-            System.out.println(s.getMessage());
+            fail(s.getMessage());
         }
     }
 
@@ -105,7 +105,7 @@ class ProfileTest {
             profile.setBio("newBio");
             assertEquals("newBio", profile.getBio());
         } catch (SQLException s) {
-            System.out.println(s.getMessage());
+            fail(s.getMessage());
         }
     }
 
@@ -115,7 +115,7 @@ class ProfileTest {
             profile.setOnlineStatus(false);
             assertFalse(profile.getOnlineStatus());
         } catch (SQLException s) {
-            System.out.println(s.getMessage());
+            fail(s.getMessage());
         }
     }
 
@@ -126,7 +126,7 @@ class ProfileTest {
             profile.setCurrentGame("newGame");
             profile.getCurrentStatus();
         } catch (SQLException s) {
-            System.out.println(s.getMessage());
+            fail(s.getMessage());
         }
     }
 
@@ -141,7 +141,7 @@ class ProfileTest {
             profile.setCurrentGame("newGame");
             assertEquals("newGame", profile.getCurrentGame());
         } catch (SQLException s) {
-            System.out.println(s.getMessage());
+            fail(s.getMessage());
         }
     }
 
@@ -183,12 +183,10 @@ class ProfileTest {
             String hashedPassword = ProfileCreation.hashedPassword(password);
             int newProfileID = profile1.getID();
             assertEquals(username, Profile.exportUsername(newProfileID));
-        } catch (SQLException s) {
-            System.out.println(s.getMessage());
-        }catch (NoSuchAlgorithmException n) {
-            System.out.println(n.getMessage());
+        } catch (SQLException | NoSuchAlgorithmException s) {
+            fail(s.getMessage());
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            fail(e.getMessage());
         }
     }
 
@@ -206,7 +204,7 @@ class ProfileTest {
             profile.updateUsername(newProfileID, newUsername);
             assertEquals(newUsername, profile.exportUsername(newProfileID));
         } catch (SQLException | NoSuchAlgorithmException | IOException s) {
-            System.out.println(s.getMessage());
+            fail(s.getMessage());
         }
     }
 

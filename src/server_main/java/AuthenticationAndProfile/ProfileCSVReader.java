@@ -88,12 +88,10 @@ public class ProfileCSVReader {
             // Split the line by csv section and store each field in an ArrayList<Object>
             String section = "";
             boolean inSection = false;
-            boolean firstOpenBracket = true;
             for (int j = 0; j < line.length(); j ++) {
                 Character c = Character.valueOf(line.charAt(j));
                 if (c == '{') {
                     inSection = true;
-                    firstOpenBracket = true;
                 } else if (c == ',' && !inSection) {
                     fields.add(section);
                     section = "";

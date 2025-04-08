@@ -152,4 +152,42 @@ public class PlayerRanking {
             throw new SQLException(s.getMessage());
         }
     }
+
+//    public void setWinLossRatio(int gameNumber, double ratio) throws SQLException {
+//        try {
+//            String gameName = "";
+//            if (gameNumber == TTT_INDEX) {
+//                gameName = "ttt";
+//            } else if (gameNumber == CONNECT4_INDEX) {
+//                gameName = "connect4";
+//            } else if (gameNumber == CHECKERS_INDEX) {
+//                gameName = "checkers";
+//            }
+//            String attribute = String.format("win_loss_ratio_%s", gameName);
+//            PlayerManager.updateAttribute(id, attribute, ratio);
+//            winLossRatio[gameNumber] = ratio;
+//        } catch (SQLException s) {
+//            throw new SQLException(s.getMessage());
+//        }
+//    }
+//
+//    public void setRating(int[] rating) {
+//        this.rating = rating;
+//    }
+//
+//    public void setRank(String[] rank) {
+//        this.rank = rank;
+//    }
+//
+//    public void setWins(int[] wins) {
+//        this.wins = wins;
+//    }
+//
+//    public void setLosses(int[] losses) {
+//        this.losses = losses;
+//    }
+//
+//    public void setTotal(int[] total) {
+//        this.total = total;
+//    }
 }

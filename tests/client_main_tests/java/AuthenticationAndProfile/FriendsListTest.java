@@ -12,8 +12,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 class FriendsListTest {
 
@@ -29,7 +28,7 @@ class FriendsListTest {
             profileA = new Profile("email1@email.com", hashedPassword, "bert", "Hi", false, "null", null, new PlayerRanking(), new GameHistory(gameHistory, achievementProgress), "C:profileA/pic/path.png", "username1", 2);
             profileB = new Profile("email2@email.com", hashedPassword, "ernie", "Hello", false, null, null, new PlayerRanking(), new GameHistory(gameHistory, achievementProgress), "C:profileB/pic/path.png", "username2", 3);
         } catch (NoSuchAlgorithmException n) {
-            System.out.println(n.getMessage());
+            fail(n.getMessage());
         }
     }
 
@@ -38,12 +37,12 @@ class FriendsListTest {
         try {
             PlayerManager.deleteProfile(profileA.getID());
         } catch (SQLException s){
-            System.out.println("deleteProfile error: " + s.getMessage());
+            fail("deleteProfile error: " + s.getMessage());
         }
         try {
             PlayerManager.deleteProfile(profileB.getID());
         } catch (SQLException s){
-            System.out.println("deleteProfile error: " + s.getMessage());
+            fail("deleteProfile error: " + s.getMessage());
         }
     }
 

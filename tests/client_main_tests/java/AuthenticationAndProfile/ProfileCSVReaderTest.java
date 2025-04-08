@@ -20,7 +20,7 @@ class ProfileCSVReaderTest {
 
             assertEquals(expectedOutput, ProfileCSVReader.openSingleProfileFile("tests/client_main_tests/test_resources/AuthenticationAndProfile/player_profile_19Test.csv"));
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            fail(e.getMessage());
         }
     }
 
@@ -36,7 +36,7 @@ class ProfileCSVReaderTest {
                             "TTT, Connect-4", "{1.0, TTTFirstWin}", "1, 2", "", "2025-03-27 05:22:20.752369"))));
             assertEquals(expectedOutput, ProfileCSVReader.openProfilesFile("tests/client_main_tests/test_resources/AuthenticationAndProfile/profiles_exportTest.csv"));
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            fail(e.getMessage());
         }
     }
 }

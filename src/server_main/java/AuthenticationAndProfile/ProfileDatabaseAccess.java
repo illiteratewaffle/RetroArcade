@@ -29,7 +29,7 @@ public class ProfileDatabaseAccess {
      * @param id
      * @return Profile object from data corresponding to the id from the database
      */
-    public static Profile obtainProfile(int id) throws SQLException, IOException{
+    public static Profile obtainProfile(int id) throws SQLException, IOException {
         //call method to get csv for id
         try {
             PlayerManager.getProfile(id); //method to get Profile csv with all attributes associated to the specified id
@@ -139,7 +139,7 @@ public class ProfileDatabaseAccess {
     public static FriendsList obtainFriendsListDirect(int id) throws SQLException{
         List<Integer> friends = new ArrayList<>();
         String friendsString = PlayerManager.getAttribute(id, "friends");
-        if (!friendsString.equals("")){
+        if (!friendsString.equals(null)){
             String[] fieldsList = friendsString.split(",");
             for (int i = 0 ; i < fieldsList.length; i ++){
                 friends.add(Integer.parseInt(fieldsList[i]));
@@ -147,7 +147,7 @@ public class ProfileDatabaseAccess {
         }
         List<Integer> friendRequests = new ArrayList<>();
         String friendRequestString = PlayerManager.getAttribute(id, "friend_requests");
-        if(!friendRequestString.equals("")) {
+        if(!friendRequestString.equals(null)) {
             String[] fieldsList = friendRequestString.split(",");
             for (int i = 0; i < fieldsList.length; i++) {
                 friendRequests.add(Integer.parseInt(fieldsList[i]));
@@ -244,7 +244,7 @@ public class ProfileDatabaseAccess {
         return playerRanking;
     }
 
-    public static GameHistory obtainGameHistory(int id) {
+    public static GameHistory obtainGameHistory(int id) throws IOException {
         //call method to get csv for id
         try {
             //PlayerManager.getProfileTable(id); //method to get Profile csv with all attributes associated to the specified id
@@ -262,36 +262,32 @@ public class ProfileDatabaseAccess {
             HashMap<String, Double> achievementProgress = new HashMap<>();
             String achievementProgressString = profileFields.get(ProfileCSVReader.ACHIVPROG_INDEX);
             if (!achievementProgressString.equals("")) {
+                String[] achievements = achievementProgressString.split(",");
                 String section = "";
-                boolean inSection = false;
-                for (int j = 0; j < achievementProgressString.length(); j++) {
-                    Character c = Character.valueOf(achievementProgressString.charAt(j));
-                    if (c == '{') {
-                        inSection = true;
-                    } else if (c == ',' && !inSection) {
-                        String[] entry = section.split(",");
-                        String key = entry[0];
-                        Double value = Double.parseDouble(entry[1]);
-                        achievementProgress.put(key, value);
-                        section = "";
-                    } else if (c == '}') {
-                        inSection = false;
-                    } else if (j == achievementProgressString.length() - 1) {
-                        section = section + c;
-                        String[] entry = section.split(",");
-                        String key = entry[0];
-                        Double value = Double.parseDouble(entry[1]);
-                        achievementProgress.put(key, value);
-                    } else if (c != '"') {
-                        section = section + c;
+                String key = "";
+                Double value = 0.00;
+                boolean keyComplete = false;
+                for (int j = 0; j < achievements.length; j++) {
+                    String entry = achievements[j];
+                    for (int k = 0; k < entry.length(); k++) {
+                        char c = entry.charAt(k);
+                        if (c == '=') {
+                            continue;
+                        } else if (c == '>') {
+                            keyComplete = true;
+                            key = section;
+                        } else if (c != '"') {
+                            section += c;
+                        }
                     }
+                    value = Double.parseDouble(section);
+                    achievementProgress.put(key, value);
                 }
             }
             GameHistory gameHistoryObject = new GameHistory(gameHistory, achievementProgress);
             return gameHistoryObject;
         } catch (IOException e) {
-            System.out.println("ID does not match a profile in the database.");
-            return null;
+            throw new IOException(e.getMessage());
         }
     }
 
