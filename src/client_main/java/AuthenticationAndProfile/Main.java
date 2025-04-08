@@ -1,10 +1,11 @@
 package AuthenticationAndProfile;
 
-import server.management.ServerController;
-import server.player.PlayerManager;
+import player.PlayerManager;
 
-import java.util.Scanner;
-
+import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
+import java.sql.SQLException;
+import static management.ServerLogger.log;
 public class Main {
     /**
      * Main Method to start the server
@@ -21,12 +22,33 @@ public class Main {
 //            if (sc.nextLine().equalsIgnoreCase("exit"))
 //                running = false;
 //        }
-//        for (int i = 0; i < 200; i++) {
-//            PlayerManager.deleteProfile(i);
-//            ProfileDatabaseAccess.getAllProfiles();
-//        }
-            //PlayerManager.addToFriendsList(2, 1);
-            System.out.println(ProfileDatabaseAccess.obtainFriendsList(2).getFriends());
 
+//        //Clearing Profiles:
+//        for (int i = 0; i < 300; i++) {
+//            try {
+//                PlayerManager.deleteProfile(i);
+//                ProfileDatabaseAccess.getAllProfiles();
+//            } catch (SQLException | IOException s){
+//                log(s.getMessage());
+//            }
+//        }
+//        try {
+//            ProfileCreation.createNewProfile("username1", "email@email.com", "password");
+//            int id;
+//            System.out.println(id = PlayerManager.getProfileID("username1"));
+//            PlayerManager.deleteProfile(id);
+//            System.out.println("Profile deleted.");
+//            System.out.println(ProfileDatabaseAccess.obtainFriendsList(id));
+//        } catch (IOException | SQLException | NoSuchAlgorithmException s) {
+//            System.out.println(s.getMessage());
+//        }
+        try {
+            Profile profile = ProfileDatabaseAccess.obtainProfile(294);
+            profile.getCurrentStatus()
+
+
+        } catch (SQLException | IOException | NoSuchAlgorithmException s) {
+            System.out.println(s.getMessage());
+        }
     }
 }
