@@ -9,8 +9,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
-import static management.JsonConverter.fromJson;
-import static management.JsonConverter.toJson;
+import static server.management.JsonConverter.fromJson;
+import static server.management.JsonConverter.toJson;
 
 public class TemporaryClient {
     public static void main(String[] args) {
