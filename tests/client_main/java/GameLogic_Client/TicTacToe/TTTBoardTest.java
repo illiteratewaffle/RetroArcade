@@ -1,4 +1,4 @@
-package client_main_tests.java.GameLogic_Client.TicTacToe;
+package client_main.java.GameLogic_Client.TicTacToe;
 
 
 

@@ -1,9 +1,8 @@
-package client_main_tests.java.AuthenticationAndProfile;
+package client_main.java.AuthenticationAndProfile;
 
 import AuthenticationAndProfile.*;
 import org.junit.jupiter.api.AfterEach;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import player.PlayerManager;
 
@@ -13,9 +12,6 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 class AuthenticationTest {
     private static Profile profile;
