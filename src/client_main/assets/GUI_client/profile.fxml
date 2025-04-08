@@ -15,7 +15,7 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="604.0" prefWidth="900.0" style="-fx-background-color: #8A006C;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI_client.profileGUIController">
+<AnchorPane prefHeight="604.0" prefWidth="900.0" style="-fx-background-color: #8A006C;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI_client.profileGUIController">
    <children>
       <ImageView fitHeight="570.0" fitWidth="900.0" layoutY="-1.0">
          <image>
@@ -316,7 +316,7 @@
             <Image url="@../profile_assets/profile_buttons/friends_black.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="muteButton" fitHeight="80.0" fitWidth="80.0" layoutX="717.0" layoutY="15.0" onMouseClicked="#muteButtonClicked" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="muteButton" fitHeight="80.0" fitWidth="80.0" layoutX="14.0" layoutY="12.0" onMouseClicked="#muteButtonClicked" pickOnBounds="true" preserveRatio="true">
          <cursor>
             <Cursor fx:constant="OPEN_HAND" />
          </cursor></ImageView>
