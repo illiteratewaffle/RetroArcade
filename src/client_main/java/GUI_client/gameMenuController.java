@@ -108,19 +108,39 @@ public class gameMenuController implements Initializable {
      * @throws IOException
      */
     public void quitMenuClicked() throws IOException {
-        // only show new popup if no popup is showing
+        // check if popup is already showing
         if (!quitPopup.isShowing()) {
+            // if no popup is showing make a new popup
             quitPopup = new Stage();
-            Stage owner = (Stage) gameMenu_bg_image.getScene().getWindow();
+            // get caller stage, set as popup owner
+            Stage owner = (Stage) quitMenu.getScene().getWindow();
             quitPopup.initOwner(owner);
 
-            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("quitPopup.fxml")));
+            // load popup resources
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("quitPopup.fxml"));
+            Parent root = loader.load();
             Scene scene = new Scene(root);
+            QuitPopupController controller = loader.getController();
 
             quitPopup.initStyle(StageStyle.TRANSPARENT);
             scene.setFill(Color.TRANSPARENT);
+
+            // set closeOwner false so TTT stage doesn't close
+            controller.closeOwner = false;
             quitPopup.setScene(scene);
-            quitPopup.show();
+            // show popup and wait for user input
+            quitPopup.showAndWait();
+
+            // check if user wants to close TTT game
+            if (controller.closeYes) {
+                AudioManager.mediaPlayer.stop();
+                Parent newRoot = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("login.fxml")));
+
+                Stage stage = (Stage) quitMenu.getScene().getWindow();
+
+                stage.setScene(new Scene(newRoot));
+                stage.show();
+            }
         }
     }
     public void XPressed(){

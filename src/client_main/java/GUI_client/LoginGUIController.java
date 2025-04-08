@@ -4,22 +4,32 @@ import AuthenticationAndProfile.Authentication;
 import javafx.fxml.FXML;
 
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.control.PasswordField;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 
-public class LoginGUIController {
+public class LoginGUIController implements Initializable {
 
+ private Stage quitPopup = new Stage();
  //buttons on login screen
+ @FXML
+ public ImageView muteButton;
  @FXML
  public ImageView loginButton;
  @FXML
@@ -49,7 +59,18 @@ public class LoginGUIController {
 
  @FXML
  public void initialize(URL location, ResourceBundle resources) {
-  signUpButton.setImage(new Image ("signup_button.png"));
+  //setup mute status and soundtrack for main menu
+  String path = Objects.requireNonNull(getClass().getResource("/music/loginTrack.mp3")).toExternalForm(); // or absolute path
+  Media sound = new Media(path);
+  AudioManager.mediaPlayer = new MediaPlayer(sound);
+  AudioManager.mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+  AudioManager.mediaPlayer.play();
+  if (AudioManager.isMuted()){
+   AudioManager.applyMute();
+   muteButton.setImage(new Image("muteButton.png"));
+  } else{
+   muteButton.setImage(new Image("unmuteButton.png"));
+  }
  }
 
  //for signUp pop up
@@ -95,6 +116,16 @@ public class LoginGUIController {
 
   if(username.isEmpty() || password.isEmpty()) {
    wrongLogIn.setText("Enter a username and password!");
+   // stop current soundtrack
+   AudioManager.mediaPlayer.stop();
+   // load TTT resources
+   Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("gameMenu.fxml")));
+
+   // get the current gameMenu stage
+   Stage stage = (Stage) exitButton.getScene().getWindow();
+
+   stage.setScene(new Scene(root));
+   stage.show();
    return;
   }
 
@@ -107,5 +138,36 @@ public class LoginGUIController {
 //  else{
 //   wrongLogIn.setText("Wrong username or password. Try again.");
 //  }
+ }
+ public void exitButtonClicked() throws IOException {
+  // only show new popup if no popup is showing
+  if (!quitPopup.isShowing()) {
+   quitPopup = new Stage();
+   Stage owner = (Stage) exitButton.getScene().getWindow();
+   quitPopup.initOwner(owner);
+
+   Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("quitPopup.fxml")));
+   Scene scene = new Scene(root);
+
+   quitPopup.initStyle(StageStyle.TRANSPARENT);
+   scene.setFill(Color.TRANSPARENT);
+   quitPopup.setScene(scene);
+   quitPopup.show();
+  }
+ }
+ public void exitButtonPressed(){
+  exitButton.setImage(new Image("XButtonDown.png"));
+ }
+ public void exitButtonReleased(){
+  exitButton.setImage(new Image("quit_x.png"));
+ }
+ public void muteButtonClicked(){
+  if(!AudioManager.isMuted()) {
+   muteButton.setImage(new Image("muteButton.png"));
+   AudioManager.toggleMute();
+  } else {
+   muteButton.setImage(new Image("unmuteButton.png"));
+   AudioManager.toggleMute();
+  }
  }
 }

@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI_client.LoginGUIController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI_client.LoginGUIController">
    <children>
 
       <!-- Background image -->
@@ -24,8 +29,14 @@
       <!--Username and Password Fields -->
       <VBox layoutX="370.0" layoutY="254.0" prefHeight="50.0" prefWidth="176.0" spacing="15.0">
          <children>
-            <TextField fx:id="username" promptText="Username" />
-            <PasswordField fx:id="password" promptText="Password" />
+            <TextField fx:id="username" promptText="Username">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></TextField>
+            <PasswordField fx:id="password" promptText="Password">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></PasswordField>
          </children>
       </VBox>
 
@@ -33,13 +44,19 @@
       <ImageView fx:id="loginButton" accessibleRole="BUTTON" fitHeight="60.0" fitWidth="60.0" layoutX="469.0" layoutY="320.0" onMouseClicked="#checkLogin" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../GUI_buttons/login_button.png" />
-         </image></ImageView>
+         </image>
+         <cursor>
+            <Cursor fx:constant="OPEN_HAND" />
+         </cursor></ImageView>
 
       <!-- Sign up Button -->
       <ImageView fx:id="signUpButton" accessibleRole="BUTTON" fitHeight="60.0" fitWidth="76.0" layoutX="380.0" layoutY="320.0" onMouseClicked="#signUpButtonPress" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../GUI_buttons/signup_button.png" />
-         </image></ImageView>
+         </image>
+         <cursor>
+            <Cursor fx:constant="OPEN_HAND" />
+         </cursor></ImageView>
       <ImageView fx:id="signUpPage" fitHeight="428.0" fitWidth="401.0" layoutX="259.0" layoutY="187.0" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
             <Image url="@../sign_up_page.png" />
@@ -48,10 +65,13 @@
       <PasswordField fx:id="signUpPasswordField" disable="true" layoutX="288.0" layoutY="420.0" prefHeight="25.0" prefWidth="319.0" text="" visible="false" />
       <PasswordField layoutX="285.0" layoutY="427.0" prefHeight="43.0" prefWidth="319.0" visible="false" />
       <ImageView accessibleRole="BUTTON" disable="true" fitHeight="111.0" fitWidth="255.0" layoutX="331.0" layoutY="276.0" onMouseClicked="#signup_ok_clicked" pickOnBounds="true" preserveRatio="true" visible="false" />
-      <ImageView fx:id="exitButton" accessibleRole="BUTTON" fitHeight="111.0" fitWidth="91.0" layoutX="746.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="exitButton" accessibleRole="BUTTON" fitHeight="80.0" fitWidth="80.0" layoutX="807.0" layoutY="15.0" onMouseClicked="#exitButtonClicked" onMousePressed="#exitButtonPressed" onMouseReleased="#exitButtonReleased" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../GUI_buttons/x_button.png" />
-         </image></ImageView>
+         </image>
+         <cursor>
+            <Cursor fx:constant="OPEN_HAND" />
+         </cursor></ImageView>
       <ImageView fx:id="backButton" accessibleRole="BUTTON" fitHeight="80.0" fitWidth="53.0" layoutX="269.0" layoutY="187.0" onMouseClicked="#backButtonPress" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
             <Image url="@../GUI_buttons/back_button.PNG" />
@@ -60,6 +80,11 @@
 
       <!-- Login failure message -->
       <Label fx:id="wrongLogIn" layoutX="330.0" layoutY="368.0" prefHeight="18.0" prefWidth="255.0" style="-fx-font-weight: bold;" textFill="red" />
+      <ImageView fx:id="muteButton" fitHeight="80.0" fitWidth="80.0" layoutX="717.0" layoutY="15.0" onMouseClicked="#muteButtonClicked" pickOnBounds="true" preserveRatio="true">
+         <cursor>
+            <Cursor fx:constant="OPEN_HAND" />
+         </cursor>
+      </ImageView>
 
    </children>
 </AnchorPane>
