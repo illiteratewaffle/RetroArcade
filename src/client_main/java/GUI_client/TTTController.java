@@ -240,17 +240,15 @@ public class TTTController implements Initializable {
         Image X = new Image("X.png");
         Image O = new Image("O.png");
         if (theGame.getGameOngoing())
-            if (theGame.game.board.isEmpty(new Ivec2(row, col))) {
+            if (theGame.isTileEmpty(new Ivec2(row, col))) {
                 if (theGame.getCurrentPlayer() == 1){
                     imageView.setImage(X);
                     turnBanner.setImage(new Image("OTurn.png"));
-                    theGame.game.makeMove(row, col);
-                    theGame.game.currentPlayer = 2;
+                    theGame.makeMove(row, col);
                 } else {
                     imageView.setImage(O);
                     turnBanner.setImage(new Image("XTurn.png"));
-                    theGame.game.makeMove(row, col);
-                    theGame.game.currentPlayer = 1;
+                    theGame.makeMove(row, col);
                 }
                 checkWin();
             }
@@ -264,7 +262,7 @@ public class TTTController implements Initializable {
      */
     private void hoverEvent(StackPane stackPane, int row, int col){
         if (theGame.getGameOngoing()) {
-            if (theGame.game.board.isEmpty(new Ivec2(row, col))) {
+            if (theGame.isTileEmpty(new Ivec2(row, col))) {
                 stackPane.setStyle("-fx-border-color: yellow; -fx-border-width: 3px; -fx-border-radius: 5px;");
             }
         }
@@ -356,20 +354,20 @@ public class TTTController implements Initializable {
      */
     public void checkWin(){
         // check for game win
-        if (theGame.game.checkWin(theGame.game.board)) {
+        if (theGame.checkWin()) {
             // if game is over, current player is the loser
             if (theGame.getCurrentPlayer() == 2){ // if the current player is O
                 Win_Lose_Banner.setImage(new Image("X_wins.png"));
-                theGame.game.updateGameState();  // Update the game state to P1 win
+                theGame.updateGameState();  // Update the game state to P1 win
             } else if (theGame.getCurrentPlayer() == 1){
                 Win_Lose_Banner.setImage(new Image("O_wins.png"));
-                theGame.game.updateGameState();  // Update the game state to P2 win
+                theGame.updateGameState();  // Update the game state to P2 win
             }
         }
         // check for game draw
-        else if (theGame.game.checkDraw(theGame.game.board)){
+        else if (theGame.checkDraw()){
             Win_Lose_Banner.setImage(new Image("Draw.png"));
-            theGame.game.updateGameState();  // Update the game state to TIE
+            theGame.updateGameState();  // Update the game state to TIE
         }
 
         // if game is over, set play again features
