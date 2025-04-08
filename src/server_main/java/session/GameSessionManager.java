@@ -231,7 +231,19 @@ public class GameSessionManager implements Runnable {
                     // If wanting to call getCurrentPlayer()
                     case "getCurrentPlayer":
                         // TODO: THIS MUST BE DEPENDENT ON THE PLAYER CURRENTLY PLAYING
-                        forward.put("data", gameController.getCurrentPlayer());
+                        if (gameController.getCurrentPlayer() == 0) {
+                            if (player1.getThread() == sender) {
+                                forward.put("data", 1);
+                            } else {
+                                forward.put("data", 0);
+                            }
+                        } else {
+                            if (player1.getThread() == sender) {
+                                forward.put("data", 0);
+                            } else {
+                                forward.put("data", 1);
+                            }
+                        }
                         sendMessageBack(sender, forward);
                         break;
                     // If wanting to call gameOngoingChangedSinceLastCommand()
