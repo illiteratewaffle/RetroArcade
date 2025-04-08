@@ -34,6 +34,10 @@ public class C4GUIController implements Initializable {
 
     private C4Controller c4Controller;
 
+    /**
+     * Initialize the game board GUI for Connect 4
+     */
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         assert c4GUIGrid != null : "🔥 FATAL: c4GUIGrid was NOT injected!";
@@ -176,6 +180,9 @@ public class C4GUIController implements Initializable {
     @FXML
     private GridPane c4GUIGrid;
 
+    /**
+     * Updates the GUI board with pieces colored to match the current user's move
+     */
     private void updateBoard() {
 //        C4Piece[][] board = gameLogic.getBoard().getC4Board(); // assuming getBoard() returns C4Board
         C4Piece[][] board = c4Controller.getC4Board();;
@@ -194,6 +201,7 @@ public class C4GUIController implements Initializable {
             }
         }
     }
+
 
     private void addPieceToGrid(int row, int col, String imgPath) {
         ImageView piece = new ImageView(new Image(Objects.requireNonNull(getClass().getResourceAsStream(imgPath))));
@@ -229,11 +237,21 @@ public class C4GUIController implements Initializable {
         }
     }
 
+    /**
+     *
+     * @param
+     */
     private void setupHoverEffect(Button button, int col) {
         button.setOnMouseEntered(e -> highlightColumnOnHover(col, true));
         button.setOnMouseExited(e -> highlightColumnOnHover(col, false));
     }
 
+    /**
+     * Highlight the column that the user's mouse is hovering over
+     * Display highlight in specific color (pink or blue) based on the current user's turn
+     * @param col index that the player's mouse is currently hovering over
+     * @isHovering true if the mouse is currently hovering over the column, false otherwise
+     */
     private void highlightColumnOnHover(int col, boolean isHovering) {
         if (isHovering) {
             // Get current player and assign appropriate color (for pink or blue's turn)
@@ -258,6 +276,9 @@ public class C4GUIController implements Initializable {
         }
     }
 
+    /**
+     * Updates the GUI board with a banner displaying the current user's turn
+     */
     private void updateTurnIndicator() {
         turnIndicatorImage.setImage(new Image(
                 c4Controller.getC4CurrentPlayer() == C4Piece.RED
@@ -278,7 +299,9 @@ public class C4GUIController implements Initializable {
         chatArea.appendText(message);
     }
 
-
+    /**
+     * Makes the info page image visible when the info button is clicked
+     */
     public void clickInfoButton(){
         infoImage.setImage(new Image("C4info.jpg"));
         infoImage.setVisible(true);
@@ -286,13 +309,20 @@ public class C4GUIController implements Initializable {
         info_ok_button.setMouseTransparent(false);
     }
 
+    /**
+     * Hides the info page image when OK button on info page is clicked
+     * Disables player interaction with the OK button once clicked
+     */
     public void clickInfoOkButton(){
         infoImage.setVisible(false);
         infoImage.setMouseTransparent(true);
         info_ok_button.setMouseTransparent(true);
     }
 
-
+    /**
+     * Updates the GUI board with a win message when the game has been won
+     * Disables the hint button once game has been won
+     */
     public void showWinImage() {
         if (c4Controller.getC4IsGameOver()) {
             winImage.setImage(new Image("win_image.png"));
@@ -349,6 +379,10 @@ public class C4GUIController implements Initializable {
         return null;
     }
 
+    /**
+     * Hides the info page image when OK button on info page is clicked
+     * Disables player interaction with the OK button once clicked
+     */
     public void clickHintOkButton(){
         hintMessageImage.setVisible(false);
         hintMessageImage.setMouseTransparent(true);
