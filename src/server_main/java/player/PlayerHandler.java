@@ -112,8 +112,8 @@ public class PlayerHandler implements Runnable {
     private synchronized void sendGameRequest(ThreadMessage queueMessage) {
 
         //Check to see if the message even contains the recipient id we need.
-        if (queueMessage.getContent().containsKey("id")) {
-            Integer recipientID = (Integer) queueMessage.getContent().get("id");
+        if (queueMessage.getContent().containsKey("ID")) {
+            Integer recipientID = (Integer) queueMessage.getContent().get("ID");
 
             //First, obtain the player handler of the recipient using their id.
             Thread recipientThread = ThreadRegistry.getHandler(recipientID).getThread();
