@@ -169,9 +169,21 @@ public class PlayerRanking {
 //        }
 //    }
 //
-//    public void setRating(int[] rating) {
-//        this.rating = rating;
-//    }
+    public static void setGameRating(int playerID, int gameNumber, int rating) throws SQLException {
+        String gameName = null;
+        if (gameNumber == TTT_INDEX) {
+            gameName = "ttt";
+        } else if (gameNumber == CONNECT4_INDEX) {
+            gameName = "connect4";
+        } else if (gameNumber == CHECKERS_INDEX) {
+            gameName = "checkers";
+        }
+        try {
+            PlayerManager.updateAttribute(playerID, "rating_" + gameName, rating);
+        } catch (SQLException s) {
+            throw new SQLException(s.getMessage());
+        }
+    }
 //
 //    public void setRank(String[] rank) {
 //        this.rank = rank;
