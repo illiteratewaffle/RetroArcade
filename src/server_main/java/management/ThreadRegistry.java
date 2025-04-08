@@ -6,11 +6,12 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class ThreadRegistry {
+    // TODO: MAKE THESE PRIVATE
     //A centralized registry of all threads accessible by all network managers and server controller.
     public static final ConcurrentHashMap<Thread, BlockingQueue<ThreadMessage>> threadRegistry = new ConcurrentHashMap<>();
 
     //A centralized registry of all players active containing their player ids, and the thread their player handler is on.
-    private static final ConcurrentHashMap<Integer, PlayerHandler> playerList = new ConcurrentHashMap<>();
+    public static final ConcurrentHashMap<Integer, PlayerHandler> playerList = new ConcurrentHashMap<>();
 
     /**
      * Setter method to register a thread and blocking queue combination (player handler) within the thread registry.

@@ -2,7 +2,6 @@ package session;
 
 import GameLogic_Client.IBoardGameController;
 import management.ServerController;
-import management.ServerLogger;
 import management.ThreadMessage;
 import management.ThreadRegistry;
 import player.PlayerHandler;
@@ -57,48 +56,6 @@ public class GameSessionManager implements Runnable {
     }
 
     /**
-     * The method to handle win conditions and stuff when a player disconnects.
-     * @param message The Thread Message saying a disconnection has occurred.
-     */
-    private void handleDisconnection(ThreadMessage message) {
-
-        //Find the thread of the player that was disconnected.
-        Thread sender = message.getSender();
-
-        //Check which player was the one that got disconnected.
-        if (sender == player1.getThread()) {
-
-            player2.setGameSessionManagerThread(null);
-            handleGameEnd(player2, player1);
-        } else if (sender == player2.getThread()) {
-
-            player1.setGameSessionManagerThread(null);
-            handleGameEnd(player1, player2);
-        }
-
-    }
-
-    /**
-     * Method that handles the end of a game session.
-     * @param winner The player that won the game.
-     */
-    private void handleGameEnd(PlayerHandler winner, PlayerHandler loser) {
-        try {
-            //Update the players profiles based on the result of the game.
-            winner.getProfile().getPlayerRanking().endOfMatchMethod(gameType, 1);
-            loser.getProfile().getPlayerRanking().endOfMatchMethod(gameType, 0);
-        } catch (SQLException e) {
-
-            //If there is an error, log it.
-            ServerLogger.log("GameSessionManager: Error while logging the winners and loser of a game session.", e);
-        }
-
-        //Once the game session has concluded, call the methods to end everything and log it.
-        ServerController.endGameSession(Thread.currentThread());
-        ServerLogger.log("GameSessionManager: Game session ended.");
-    }
-
-    /**
      * The method that runs on the separate Thread
      */
     public void run() {
@@ -119,9 +76,7 @@ public class GameSessionManager implements Runnable {
         while (gameController.getGameOngoing()) {
             try {
                 ThreadMessage threadMessage = myQueue.take();
-                if (threadMessage.getContent().containsKey("type") && threadMessage.getContent().get("type").equals("chat")) {
-                    handleChatMessage(threadMessage);
-                }
+                routeMessage(threadMessage);
             } catch (InterruptedException e) {
                 log("GameSessionManager: Failed to take from own BlockingQueue.");
                 // TODO: shutdown game?
@@ -130,8 +85,8 @@ public class GameSessionManager implements Runnable {
     }
 
     /**
-     *
-     * @param threadMessage
+     * Handles chat messages, routing them to the other player
+     * @param threadMessage the ThreadMessage received
      */
     private void handleChatMessage(ThreadMessage threadMessage) {
         Map<String, Object> content = threadMessage.getContent();
@@ -154,6 +109,47 @@ public class GameSessionManager implements Runnable {
         }
     }
 
+    /**
+     * Method that handles the end of a game session.
+     * @param winner The player that won the game.
+     */
+    private void handleGameEnd(PlayerHandler winner, PlayerHandler loser) {
+        try {
+            //Update the players profiles based on the result of the game.
+            winner.getProfile().getPlayerRanking().endOfMatchMethod(gameType, 1);
+            loser.getProfile().getPlayerRanking().endOfMatchMethod(gameType, 0);
+        } catch (SQLException e) {
+            //If there is an error, log it.
+            log("GameSessionManager: Error while logging the winners and loser of a game session.", e);
+        }
+
+        //Once the game session has concluded, call the methods to end everything and log it.
+        ServerController.endGameSession(Thread.currentThread());
+        log("GameSessionManager: Game session ended.");
+    }
+
+    /**
+     * The method to handle win conditions and stuff when a player disconnects.
+     * @param message The Thread Message saying a disconnection has occurred.
+     */
+    private void handleDisconnection(ThreadMessage message) {
+        //Find the thread of the player that was disconnected.
+        Thread sender = message.getSender();
+
+        //Check which player was the one that got disconnected.
+        if (sender == player1.getThread()) {
+            player2.setGameSessionManagerThread(null);
+            handleGameEnd(player2, player1);
+        } else if (sender == player2.getThread()) {
+            player1.setGameSessionManagerThread(null);
+            handleGameEnd(player1, player2);
+        }
+    }
+
+    /**
+     * Routes the ThreadMessage to the corresponding function
+     * @param threadMessage the ThreadMessage received
+     */
     private void routeMessage(ThreadMessage threadMessage) {
         Map<String, Object> content = threadMessage.getContent();
         Thread sender = threadMessage.getSender();
@@ -164,7 +160,7 @@ public class GameSessionManager implements Runnable {
             } else if (content.get("type").equals("chat")) {
                 handleChatMessage(threadMessage);
             } else if (content.get("type").equals("game")) {
-                // Now use a motha fuckin switch statement bitch
+                log("GameSessionManager: Message not recognized: " + threadMessage.getContent());
             }
         }
     }
