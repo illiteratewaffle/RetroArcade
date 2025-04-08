@@ -105,6 +105,8 @@ public class LoginGUIController implements Initializable {
   signUpPage.setImage(null);
   signUpPage.setMouseTransparent(true);
   signUpButton.setMouseTransparent(true);
+
+  //send to networking
  }
 
  //login button sends to authentication
@@ -129,7 +131,7 @@ public class LoginGUIController implements Initializable {
    return;
   }
 
-  //need to send over username and password
+
   //boolean loginSuccess = Authentication.logIn(username, password); // where networking function should be called
 
 //  if(loginSuccess) {
@@ -137,7 +139,7 @@ public class LoginGUIController implements Initializable {
 //  }
 //  else{
 //   wrongLogIn.setText("Wrong username or password. Try again.");
-//  }
+//  }*/
  }
  public void exitButtonClicked() throws IOException {
   // only show new popup if no popup is showing
