@@ -1,10 +1,14 @@
 package AuthenticationAndProfile;
 
 
+import player.PlayerManager;
+
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import static management.ServerLogger.log;
 
 /**
  * FriendsList class handles operations related to a users friends list and friend requests
@@ -116,34 +120,31 @@ public class FriendsList {
     /**
      * Adds a profile to the users friend list based on the provided username
      *
-     * @param username The username of the profile to add as a friend
+     * @param friendID The ID of the profile to add as a friend
      */
-    public void addFriend(String username) throws IOException {
+    public void addFriend(int friendID) throws SQLException {
         try {
-            int id = idFromUsername(username);
-            if (id != -1 && !friends.contains(id)) {
-                friends.add(id); // adds the id to the list of friends
-
-                updateCSV(); // updates the CSV to reflect changes
+            if (friendID != -1 && !friends.contains(friendID)) {
+                PlayerManager.addToFriendsList(id, friendID);// adds the id to the list of friends
+                friends.add(friendID);
             }
-        } catch (IOException e) {
-            throw new IOException(e.getMessage());
+        } catch (SQLException s) {
+            throw new SQLException(s.getMessage());
         }
     }
 
     /**
      * Removes a profile from the users friend list based on the provided username
      *
-     * @param username The username of the profile to remove as a friend
+     * @param friendID The ID of the profile to remove as a friend
      */
-    public void removeFriend(String username) throws IOException {
+    public void removeFriend(int friendID) throws SQLException {
         try {
-            int id = idFromUsername(username);
-            friends.remove(id); // removes the id from the list of friends
+            friends.remove(friendID); // removes the id from the list of friends
 
-            updateCSV(); // updates the CSV to reflect changes
-        } catch (IOException e) {
-            throw new IOException(e.getMessage());
+            PlayerManager.deleteFriend(id, friendID);
+        } catch (SQLException s) {
+            throw new SQLException(s.getMessage());
         }
     }
 
@@ -151,17 +152,18 @@ public class FriendsList {
      * Accept a friend request from a user and adds them to the friends list
      * The request is removes from the friend request list
      *
-     * @param username The username of the user sending the friend request
+     * @param friendID The ID of the user sending the friend request
      */
-    public void acceptFriendRequest(String username) throws IOException{
+    public void acceptFriendRequest(int friendID) throws IOException, SQLException{
         try {
-            int id = idFromUsername(username);
-            if (friendRequests.contains(id)) {
-                friendRequests.remove(id); // removes the id from the friend request list
-                addFriend(username); // adds the friend to the friend list
-
-                updateCSV(); // updates the CSV to reflect changes
+            if (friendRequests.contains(friendID)) {
+                friendRequests.remove(friendID); // removes the id from the friend request list
+                addFriend(friendID); // adds the friend to the friend list
+                ProfileDatabaseAccess.obtainProfile(friendID).getFriendsList().addFriend(id);//add the friend to the friend's friendsList
+                PlayerManager.deleteFriendRequest(id, friendID); //remove friend request from database
             }
+        } catch (SQLException s) {
+            throw new SQLException(s.getMessage());
         } catch (IOException e) {
             throw new IOException(e.getMessage());
         }
@@ -171,33 +173,18 @@ public class FriendsList {
     /**
      * Sends a friend request to the profile specified by the username
      *
-     * @param username The username of the profile to send the request to
+     * @param friendID The id of the profile to send the request to
      */
-    public void sendFriendRequest(String username) throws SQLException, IOException { // username is of the profile to send the request to
-        int recievingId = idFromUsername(username); // id to send the request to
+    public void sendFriendRequest(int friendID) throws SQLException, IOException { // username is of the profile to send the request to
+        int recievingId = friendID; // id to send the request to
         String sendingUsername;
         try {
             sendingUsername = ProfileDatabaseAccess.obtainProfile(this.id).getUsername(); // username of the user sending the request
-            int sendingId = idFromUsername(sendingUsername); // id of the user sending the request
-
+            int sendingId = this.id; // id of the user sending the request
+            String receivingUsername = PlayerManager.getAttribute(recievingId, "username");
             ArrayList<ArrayList<String>> profiles = ProfileCSVReader.openProfilesFile("profiles_export.csv");
-            for (ArrayList<String> profile : profiles) {
-                if (profile.size() > ProfileCSVReader.ID_INDEX) {
-                    int id = Integer.parseInt(profile.get(ProfileCSVReader.ID_INDEX));
-                    if (id == recievingId) {
-                        String friendRequests = profile.get(ProfileCSVReader.FREQUEST_INDEX); // get existing friend request string
-                        if (!friendRequests.contains(String.valueOf(sendingId))) {
-                            if (!friendRequests.isEmpty()) {
-                                friendRequests += ","; // adds a comma if the list is not empty
-                            }
-                            friendRequests += sendingId; // adds the id of the sender to the friend request list of the recieving user
-                            profile.set(ProfileCSVReader.FREQUEST_INDEX, friendRequests); // update the friend request list in the profile
-                        }
-                        break; // stop loop when friends list has been updated
-                    }
-                }
-            }
-            ProfileCSVReader.writeProfilesFile("profiles_export.csv", profiles); // write the updates back to the CSV
+            PlayerManager.addToFriendRequests(recievingId, sendingId);
+            log(String.format("%s has sent a friend request to %s", sendingUsername, receivingUsername));
         } catch (SQLException s) {
             throw new SQLException(s.getMessage());
         } catch (IOException e) {

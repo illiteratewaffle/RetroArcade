@@ -52,15 +52,14 @@ class FriendsListTest {
     @Test
     void addFriend() throws SQLException, NoSuchAlgorithmException, IOException {
         try{
-
             FriendsList friendsList = profileA.getFriendsList();
-            friendsList.addFriend(profileB.getUsername());
+            friendsList.addFriend(profileB.getID());
             List<Integer> friends = friendsList.getFriends();
             System.out.println(friends);
             System.out.println(friendsList);
-            assertTrue(friends.contains(profileA.getID()), "friends list should contain user with id 123");
+            assertTrue(friends.contains(profileB.getID()), String.format("friends list should contain user with id %d", profileA.getID()));
 
-        } catch (Exception e){
+        } catch (SQLException e) {
             fail(e.getMessage());
         }
     }
