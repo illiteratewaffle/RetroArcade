@@ -7,11 +7,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.control.PasswordField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 
 public class LoginGUIController {
@@ -21,6 +24,14 @@ public class LoginGUIController {
     public ImageView loginButton;
     @FXML
     public ImageView signUpButton;
+
+    //sign up user and password
+    @FXML
+    public ImageView signUpPage;
+    @FXML
+    private TextField signUpUserField;
+    @FXML
+    private PasswordField signUpPasswordField;
 
     //username and password
     @FXML
@@ -32,20 +43,33 @@ public class LoginGUIController {
     @FXML
     private Label wrongLogIn;
 
-    public void userLogin() throws IOException {
+    @FXML
+    public void initialize(URL location, ResourceBundle resources) {
+     signUpButton.setImage(new Image ("signup_button.png"));
+    }
+
+     public void userLogin() throws IOException {
      checkLogin();
     }
 
-    public void userSignUp() throws IOException {
-     signUp();
-    }
-    //for signUp pop
-    private void signUp() throws IOException {
+    //for signUp pop up
+    @FXML
+    private void signUpButtonPress() throws IOException {
      //load sign up stuff here ltr
-     String username = this.username.getText();
-     String password = this.password.getText();
-     System.out.println("Sign-up button clicked");
-     wrongLogIn.setText("Sign-up button clicked");
+     //signUpPage.setImage(new Image("sign_up_page.png"));
+     signUpPage.setVisible(true);
+     signUpUserField.setVisible(true);
+     signUpUserField.setDisable(false);
+     signUpPasswordField.setVisible(true);
+     signUpPasswordField.setDisable(false);
+     signUpPage.setMouseTransparent(false);
+     signUpButton.setMouseTransparent(false);
+
+    }
+    public void signup_ok_clicked() throws IOException {
+     signUpPage.setImage(null);
+     signUpPage.setMouseTransparent(true);
+     signUpButton.setMouseTransparent(true);
 
     }
     //login button sends to authentication
@@ -57,7 +81,7 @@ public class LoginGUIController {
       wrongLogIn.setText("enter username and password");
       return;
      }
-     boolean loginSuccess = Authentication.logIn(username, password);
+     boolean loginSuccess = Authentication.logIn(username, password); //send boolean to
      //add pop up to switch scene if succesful and then if it is not succesful another pop up will show up with ok
 
      //tyler switch scene plsssssssssssssssssssssssssssssssssssssssssssssss
