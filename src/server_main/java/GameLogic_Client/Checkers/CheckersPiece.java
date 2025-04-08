@@ -32,7 +32,6 @@ public enum CheckersPiece {
 
 
 
-
     /**
      * @param pieceID The integer ID of a piece.
      * @return True if the pieceID is equal to this enum's value; False otherwise.
