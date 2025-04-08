@@ -6,6 +6,7 @@ import matchmaking.Matchmaking;
 
 import java.io.*;
 import java.net.Socket;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.BlockingQueue;
@@ -185,6 +186,14 @@ public class PlayerHandler implements Runnable {
             //Create the thread message and send it to game session manager
             ThreadMessage disconnectMessage = new ThreadMessage(mainThread, messageMap);
             networkManager.sendMessage(gameSessionManagerThread, disconnectMessage);
+        }
+
+        //Set the players current game status to null, and their online status to false.
+        try {
+            this.getProfile().setOnlineStatus(false);
+            this.getProfile().setCurrentGame(null);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
 
         //Log that the player has disconnected.
