@@ -74,14 +74,14 @@ public class C4GUIController implements Initializable {
         AudioManager.mediaPlayer = new MediaPlayer(sound);
         AudioManager.mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
         AudioManager.mediaPlayer.play();
-//        if (AudioManager.isMuted()){
-//            AudioManager.applyMute();
-//            muteButton.setImage(new Image("muteButton.png"));
-//        } else {
-//            muteButton.setImage(new Image("unmuteButton.png"));
-//        }
-//
-//        homeButton.setImage(new Image("home_button.png"));
+        if (AudioManager.isMuted()){
+            AudioManager.applyMute();
+            muteButton.setImage(new Image("muteButton.png"));
+        } else {
+            muteButton.setImage(new Image("unmuteButton.png"));
+        }
+
+        homeButton.setImage(new Image("home_button.png"));
 
     }
     @FXML
@@ -432,12 +432,12 @@ public class C4GUIController implements Initializable {
         homeButton.setImage(new Image("home_button_pressed.png"));
     }
     public void homeButtonReleased(){ homeButton.setImage(new Image("home_button.png"));}
-    public void infoButtonPressed(){
+    /*public void infoButtonPressed(){
         infoButton.setImage(new Image("infoButtonDown.png"));
     }
     public void infoButtonReleased(){
         infoButton.setImage(new Image("info_button.png"));
-    }
+    }*/
     public void muteButtonClicked(){
         if(!AudioManager.isMuted()) {
             muteButton.setImage(new Image("muteButton.png"));
