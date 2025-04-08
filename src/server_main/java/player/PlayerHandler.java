@@ -176,7 +176,9 @@ public class PlayerHandler implements Runnable {
 
 
     /**
-     * This function disconnects the player from the server.
+     * Disconnects the player from the server by removing them from the thread registry,
+     * matchmaking queues, and notifying the game session manager if needed.
+     * Also updates the player's online status and logs the disconnection.
      */
     private void disconnectPlayer() {
         //Unregister the player from the thread registry and the player list.
@@ -209,8 +211,11 @@ public class PlayerHandler implements Runnable {
     }
 
     /**
-     * @param clientSocket the Socket that the client is connected on
-     *                     /@param queue the main message cue object that will be used to communicate between threads.
+     * Constructs a new PlayerHandler to manage communication with a connected client.
+     *
+     * @param clientSocket the socket used to communicate with the client
+     * @param queue the message queue for handling communication between threads
+     * @param profile the player's profile associated with this connection
      */
     public PlayerHandler(Socket clientSocket, BlockingQueue<ThreadMessage> queue, Profile profile) {
         this.clientSocket = clientSocket;
@@ -230,7 +235,10 @@ public class PlayerHandler implements Runnable {
     }
 
     /**
-     * The function that the thread runs, listens to the blocking queue to send information to the client
+     * The main thread execution method for the PlayerHandler.
+     * Listens to the blocking queue for messages and sends them to the client.
+     * Also starts a listener thread to handle incoming messages from the client,
+     * and sets the player's online status to true when the session begins.
      */
     public void run() {
         // Assign the mainThread to the thread created by ConnectionManager
@@ -258,7 +266,9 @@ public class PlayerHandler implements Runnable {
     }
 
     /**
-     * This is the class that will listen to client messages
+     * A listener class that runs in its own thread to handle incoming messages from the client.
+     * It processes JSON-formatted messages and routes them to the appropriate system components,
+     * such as the matchmaking queue or the game session manager.
      */
     private class PlayerHandlerListener implements Runnable {
         /**
