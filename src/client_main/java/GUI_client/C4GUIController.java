@@ -203,25 +203,6 @@ public class C4GUIController implements Initializable {
 
         c4GUIGrid.add(piece, col, row); // ✅ Add only the image
     }
-    /*private void handleColumnClick(int col) {
-        if (!c4Controller.getC4IsGameOver()) {
-            c4Controller.receiveInput(new Ivec2(col, 0));
-            updateBoard();
-
-            if (c4Controller.getC4IsGameOver()) {
-                C4Piece winner = c4Controller.getC4WinnerAsEnum();
-                if (winner == C4Piece.BLANK) {
-                    c4Controller.c4GameLogic.updateGameState();
-                    System.out.println("It's a draw!");
-                } else {
-                    System.out.println("Player " + winner + " wins! 🎉");
-                    showWinImage();
-                    c4Controller.c4GameLogic.updateGameState();
-                }
-                disableAllColumnButtons();
-            }
-        }
-    }*/
 
     private void handleColumnClick(int col) {
         if (!c4Controller.getC4IsGameOver()) {
@@ -434,12 +415,7 @@ public class C4GUIController implements Initializable {
         homeButton.setImage(new Image("home_button_pressed.png"));
     }
     public void homeButtonReleased(){ homeButton.setImage(new Image("home_button.png"));}
-    /*public void infoButtonPressed(){
-        infoButton.setImage(new Image("infoButtonDown.png"));
-    }
-    public void infoButtonReleased(){
-        infoButton.setImage(new Image("info_button.png"));
-    }*/
+
     public void muteButtonClicked(){
         if(!AudioManager.isMuted()) {
             muteButton.setImage(new Image("muteButton.png"));
