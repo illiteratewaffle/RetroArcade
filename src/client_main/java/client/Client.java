@@ -1,4 +1,5 @@
 package client_main.java.client;
+
 import java.io.*;
 import java.net.Socket;
 import java.util.HashMap;
@@ -7,37 +8,34 @@ import java.util.Scanner;
 
 public class Client {
 
-    private Socket clientSocket;
-    private BufferedReader reader;
+    private static Socket clientSocket;
+    private static BufferedReader reader;
     private static PrintWriter writer;
-    private String playerId;
+    private static String playerId;
 
-    public Client(Socket socket, String playerId) {
+    public static void connect(String serverAddress, int port, String id) {
         try {
-            this.clientSocket = socket;
-            this.reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            this.writer = new PrintWriter(socket.getOutputStream(), true);
-            this.playerId = playerId;
+            clientSocket = new Socket(serverAddress, port);
+            reader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+            writer = new PrintWriter(clientSocket.getOutputStream(), true);
+            playerId = id;
         } catch (IOException e) {
             closeEverything();
         }
     }
-    /**
-     * Sends the networking info to the associated ClientHandler.
-     */
-    public void sendMessageToServer(String message) {
+
+    public static void sendMessageToServer(String message) {
         HashMap<String, Object> data = new HashMap<>();
         data.put("type", "message");
         data.put("message", message);
         writer.println(JsonConverter.toJson(data));
     }
+
     public static void networkingMethod(HashMap<String, Object> data) {
         writer.println(JsonConverter.toJson(data));
     }
-    /**
-     * Returns the networking response to the function caller.
-     */
-    public void listenForMessages() {
+
+    public static void listenForMessages() {
         new Thread(() -> {
             try {
                 String msgFromServer;
@@ -48,25 +46,14 @@ public class Client {
                     switch (type) {
                         case "chat":
                             System.out.println(data.get("sender") + ": " + data.get("message"));
-                            String message = (String) data.get("message");
-                            String sender = (String) data.get("sender");
-                            //updateChatbox(message,sender)
                             break;
                         case "game-move":
-                            System.err.println("Error: " + data.get("message"));
-                            break;
                         case "profile-info-request":
-                            System.err.println("Error: " + data.get("message"));
-                            break;
                         case "error":
                             System.err.println("Error: " + data.get("message"));
                             break;
                         case "exit-game":
-                            System.out.println("[INFO]: " + data.get("message"));
-                            break;
                         case "login":
-                            System.out.println("[INFO]: " + data.get("message"));
-                            break;
                         case "register":
                             System.out.println("[INFO]: " + data.get("message"));
                             break;
@@ -80,10 +67,8 @@ public class Client {
             }
         }).start();
     }
-    /**
-     * Closes the client connection.
-     */
-    private void closeEverything() {
+
+    private static void closeEverything() {
         try {
             if (reader != null) reader.close();
             if (writer != null) writer.close();
@@ -110,7 +95,6 @@ public class Client {
         }
 
         authData.put("type", type);
-
         System.out.print("Enter username: ");
         authData.put("username", scanner.nextLine().trim());
 
@@ -125,9 +109,6 @@ public class Client {
         return authData;
     }
 
-    /**
-     * The function that the thread runs
-     */
     public static void main(String[] args) {
         String serverAddress = "localhost";
         int port = 5050;
@@ -141,93 +122,46 @@ public class Client {
             }
         }
 
-        try {
-            Socket socket = new Socket(serverAddress, port);
-            BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
+        connect(serverAddress, port, null);
 
-            // Send auth request
-            HashMap<String, Object> authData = getAuthData();
-            writer.println(JsonConverter.toJson(authData));
+        HashMap<String, Object> authData = getAuthData();
+        writer.println(JsonConverter.toJson(authData));
 
-            // Wait for server to assign and respond with PlayerID
-            String response;
-            String playerId = null;
-            if (playerId == null) {
-                // Start client
-                Client client = new Client(socket, null);
-                client.listenForMessages();
+        listenForMessages();
 
-                // Send messages to server
-                Scanner scanner = new Scanner(System.in);
-                while (true) {
-                    String message = scanner.nextLine();
-                    client.sendMessageToServer(message);
-                }
-            }
-            else {
+        Scanner scanner = new Scanner(System.in);
+        while (true) {
+            String message = scanner.nextLine();
+            sendMessageToServer(message);
+        }
+    }
 
-                // Start client
-                Client client = new Client(socket, playerId);
-                client.listenForMessages();
-
-                // Send messages to server
-                Scanner scanner = new Scanner(System.in);
-                while (true) {
-                    String message = scanner.nextLine();
-                    client.sendMessageToServer(message);
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }}
     public static void login(String Username, String Password) {
-        String serverAddress = "10.13.157.168";
-        int port = 5050;
-        Username = "ava";
-        Password = "password";
         try {
-            Socket socket = new Socket(serverAddress, port);
-            BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
-
-            // Send auth request
+            connect("10.13.157.168", 5050, null);
             HashMap<String, Object> authData = new HashMap<>();
             authData.put("type", "login");
             authData.put("username", Username);
             authData.put("password", Password);
             writer.println(JsonConverter.toJson(authData));
-
-            // Wait for server to assign and respond with PlayerID
-            String response;
-            // Start client
-            Client client = new Client(socket, null);
-            client.listenForMessages();
-
-        } catch (IOException e) {
+            listenForMessages();
+        } catch (Exception e) {
             e.printStackTrace();
-        }}
-    public static void register(String Username, String Password, String Email) {
-        String serverAddress = "localhost";
-        int port = 5050;
-        try {
-            Socket socket = new Socket(serverAddress, port);
-            BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
+        }
+    }
 
-            // Send auth request
+    public static void register(String Username, String Password, String Email) {
+        try {
+            connect("localhost", 5050, null);
             HashMap<String, Object> authData = new HashMap<>();
-            authData.put("type", "login");
+            authData.put("type", "register");
             authData.put("username", Username);
             authData.put("password", Password);
             authData.put("email", Email);
             writer.println(JsonConverter.toJson(authData));
-
-            // Wait for server to assign and respond with PlayerID
-            Client client = new Client(socket, null);
-            client.listenForMessages();
-        } catch (IOException e) {
+            listenForMessages();
+        } catch (Exception e) {
             e.printStackTrace();
-        }}
-
+        }
+    }
 }
