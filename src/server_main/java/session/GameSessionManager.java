@@ -2,6 +2,7 @@ package session;
 
 import GameLogic_Client.IBoardGameController;
 import management.ServerController;
+import management.ServerLogger;
 import management.ThreadMessage;
 import management.ThreadRegistry;
 import player.PlayerHandler;
@@ -116,8 +117,9 @@ public class GameSessionManager implements Runnable {
     private void handleGameEnd(PlayerHandler winner, PlayerHandler loser) {
         try {
             //Update the players profiles based on the result of the game.
-            winner.getProfile().getPlayerRanking().endOfMatchMethod(gameType, 1);
-            loser.getProfile().getPlayerRanking().endOfMatchMethod(gameType, 0);
+            winner.getProfile().getPlayerRanking().endOfMatchMethod(winner.getProfile().getID(), gameType, 1);
+            loser.getProfile().getPlayerRanking().endOfMatchMethod(loser.getProfile().getID(), gameType, 0);
+            ServerLogger.log("GameSessionManager: Game ended.");
         } catch (SQLException e) {
             //If there is an error, log it.
             log("GameSessionManager: Error while logging the winners and loser of a game session.", e);
