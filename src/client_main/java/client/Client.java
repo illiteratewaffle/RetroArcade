@@ -64,8 +64,14 @@ public class Client {
 
     public static void closeEverything() {
         try {
-            //if (reader != null) reader.close();
-            //if (writer != null) writer.close();
+            if (reader != null) {
+                reader.close();
+                reader = null;
+            }
+            if (writer != null) {
+                writer.close();
+                writer = null;
+            }
             if (clientSocket != null) clientSocket.close();
         } catch (IOException e) {
             e.printStackTrace();
