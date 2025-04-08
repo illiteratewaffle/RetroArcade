@@ -28,7 +28,8 @@ public class Authentication {
             Profile profile;
             int id = PlayerManager.authenticatePlayer(username, hashedPassword);
             if (id != -1) {
-                if (PlayerManager.getAttribute(id, "is_online").equals("false") || PlayerManager.getAttribute(id, "is_online") == null) {
+                if (Boolean.valueOf(PlayerManager.getAttribute(id, "is_online")).equals(false))
+                {
                     profile = ProfileDatabaseAccess.obtainProfile(id);
                     profile.setOnlineStatus(true);
                     log(String.format("Player %d is setOnline\n", id));
