@@ -106,7 +106,7 @@ public class PlayerRanking {
         return winLossRatio[gameNumber];
     }
 
-    public int getRating(int gameNumber) throws SQLException {
+    public int getRating(int playerID, int gameNumber) throws SQLException {
         String gameName = null;
         if (gameNumber == TTT_INDEX) {
             gameName = "ttt";
@@ -116,7 +116,7 @@ public class PlayerRanking {
             gameName = "checkers";
         }
         try {
-            return Integer.parseInt(PlayerManager.getAttribute(id, "rating_" + gameName));
+            return Integer.parseInt(PlayerManager.getAttribute(playerID, "rating_" + gameName));
         } catch (SQLException s) {
             throw new SQLException(s.getMessage());
         }
