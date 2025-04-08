@@ -122,4 +122,11 @@ class TTTGameControllerTest {
         assertEquals(1, board[0][0], "Top-left cell should be marked by Player 1");
     }
 
+    @Test
+    void changeTrackersDefaultValues() {
+        assertFalse(gameController.gameOngoingChangedSinceLastCommand());
+        assertFalse(gameController.winnersChangedSinceLastCommand());
+        assertFalse(gameController.currentPlayerChangedSinceLastCommand());
+        assertEquals(1, gameController.boardChangedSinceLastCommand());
+    }
 }
