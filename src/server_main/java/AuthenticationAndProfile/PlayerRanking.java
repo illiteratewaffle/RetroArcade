@@ -104,7 +104,7 @@ public class PlayerRanking {
         return winLossRatio[gameNumber];
     }
 
-    public int getRating(int playerID, int gameNumber) throws SQLException {
+    public static int getRating(int playerID, int gameNumber) throws SQLException {
         String gameName = null;
         if (gameNumber == TTT_INDEX) {
             gameName = "ttt";
