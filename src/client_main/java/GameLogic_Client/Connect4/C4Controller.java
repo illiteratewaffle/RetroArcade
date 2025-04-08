@@ -136,7 +136,11 @@ public class C4Controller implements IBoardGameController {
      */
     @Override
     public int getCurrentPlayer() {
-        return 0;
+        int currentPlayer = 0;
+        if (c4GameLogic.getC4CurrentPlayer() == C4Piece.BLUE) {
+            currentPlayer = 1;
+        }
+        return currentPlayer;
     }
 
     /**
