@@ -1,10 +1,10 @@
-package client_main.java.client;
+package client;
 import java.io.*;
 import java.net.Socket;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
-import client_main.java.client.JsonConverter;
+import JsonConverter;
 
 public class Client {
 
@@ -64,8 +64,14 @@ public class Client {
 
     private static void closeEverything() {
         try {
-            if (reader != null) reader.close();
-            if (writer != null) writer.close();
+            if (reader != null) {
+                reader.close();
+                reader = null;
+            }
+            if (writer != null) {
+                writer.close();
+                writer = null;
+            }
             if (clientSocket != null) clientSocket.close();
         } catch (IOException e) {
             e.printStackTrace();
