@@ -1,5 +1,6 @@
 package client_main.java.client;
 
+import client.Client;
 import org.junit.jupiter.api.*;
 
 import java.io.*;
