@@ -93,6 +93,7 @@ public class C4Controller implements IBoardGameController {
         };
     }*/
 
+    @Override
     public int getWinner() {
         return switch (c4GameLogic.gameState) {
             case TIE -> 0;
