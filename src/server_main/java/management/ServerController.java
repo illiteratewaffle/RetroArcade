@@ -39,4 +39,8 @@ public class ServerController {
         gameCreator.endSession(gameSessionManagerThread);
         ThreadRegistry.unregisterSession(gameSessionManagerThread);
     }
+
+    public static void createFriendsGame(PlayerHandler player1, PlayerHandler player2, int gameType) {
+        gameCreator.createFriendsGame(player1, player2, gameType);
+    }
 }
