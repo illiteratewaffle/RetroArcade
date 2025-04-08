@@ -214,7 +214,7 @@ public class C4GameLogic {
             //simulate move
             simulatedBoard[row][col] = currentPlayer;
 
-            if (C4WinCheckerO1.isC4Win(new ivec2(col, row), currentPlayer, simulatedBoard)) {
+            if (C4WinCheckerO1.isC4Win(new Ivec2(col, row), currentPlayer, simulatedBoard)) {
                 simulatedBoard[row][col] = C4Piece.BLANK;
                 //colHinted = col;
                 System.out.println("Place piece in " + col+1 + " to win");
@@ -233,7 +233,7 @@ public class C4GameLogic {
 
             simulatedBoard[row][col] = opponent;
 
-            if (C4WinCheckerO1.isC4Win(new ivec2(col, row), opponent, simulatedBoard)) {
+            if (C4WinCheckerO1.isC4Win(new Ivec2(col, row), opponent, simulatedBoard)) {
                 simulatedBoard[row][col] = C4Piece.BLANK;
                 return new HintResult(col, "BLOCK");
             }

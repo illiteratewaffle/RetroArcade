@@ -1,14 +1,13 @@
 package GameLogic_Client.Connect4;
 
-import GameLogic_Client.Connect4.C4Piece;
 import GameLogic_Client.IBoardGameController;
-import GameLogic_Client.ivec2;
+import GameLogic_Client.Ivec2;
 
 import java.util.ArrayList;
 
 public class C4Controller implements IBoardGameController {
 
-    private GameLogic_Client.Connect4.C4GameLogic c4GameLogic;
+    public GameLogic_Client.Connect4.C4GameLogic c4GameLogic;
 
     /**
      * Starts a new game of Connect Four.
@@ -29,7 +28,7 @@ public class C4Controller implements IBoardGameController {
      * @param input A 2D-Integer-Coordinate Input that corresponds to a Board Cell.
      */
     @Override
-    public void ReceiveInput(ivec2 input) {
+    public void receiveInput(Ivec2 input) {
 
         //this section gets the dimensions of the board to check against user inputs
 
@@ -76,7 +75,7 @@ public class C4Controller implements IBoardGameController {
      * @throws IndexOutOfBoundsException if player # is out of bounds.
      */
     @Override
-    public void RemovePlayer(int Player) throws IndexOutOfBoundsException {
+    public void removePlayer(int Player) throws IndexOutOfBoundsException {
 
     }
 
@@ -84,7 +83,7 @@ public class C4Controller implements IBoardGameController {
      * Updates the state of the game as it progresses.
      * @return array of game outcome
      */
-    @Override
+    /*@Override
     public int[] GetWinner() {
         C4Piece winner = c4GameLogic.getC4Winner();
         return switch (winner) {
@@ -92,7 +91,7 @@ public class C4Controller implements IBoardGameController {
             case BLUE -> new int[]{1};
             default -> new int[]{0, 1}; //draw
         };
-    }
+    }*/
 
     public int[] getWinner() {
         return switch (c4GameLogic.gameState) {
@@ -118,7 +117,7 @@ public class C4Controller implements IBoardGameController {
      * @return null if it's a blank, else piece's enum value.
      */
     @Override
-    public ArrayList<int[][]> GetBoardCells(int LayerMask) {
+    public ArrayList<int[][]> getBoardCells(int LayerMask) {
         return null;
     }
 
@@ -127,7 +126,7 @@ public class C4Controller implements IBoardGameController {
      * @return null if size is 0, else, returns the dimensions through function in Ivec2 class.
      */
     @Override
-    public ivec2 GetBoardSize() {
+    public Ivec2 getBoardSize() {
         return null;
     }
 
@@ -136,7 +135,7 @@ public class C4Controller implements IBoardGameController {
      * @return 0, if no player's turn, else 1 or 2.
      */
     @Override
-    public int GetCurrentPlayer() {
+    public int getCurrentPlayer() {
         return 0;
     }
 
@@ -145,22 +144,22 @@ public class C4Controller implements IBoardGameController {
      * @return
      */
     @Override
-    public boolean GameOngoingChangedSinceLastCommand() {
+    public boolean gameOngoingChangedSinceLastCommand() {
         return false;
     }
 
     @Override
-    public boolean WinnersChangedSinceLastCommand() {
+    public boolean winnersChangedSinceLastCommand() {
         return false;
     }
 
     @Override
-    public boolean CurrentPlayerChangedSinceLastCommand() {
+    public boolean currentPlayerChangedSinceLastCommand() {
         return false;
     }
 
     @Override
-    public int BoardChangedSinceLastCommand() {
+    public int boardChangedSinceLastCommand() {
         return 0;
     }
 

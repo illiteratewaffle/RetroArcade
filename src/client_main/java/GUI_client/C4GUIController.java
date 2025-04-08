@@ -1,19 +1,33 @@
 package GUI_client;
 
+import GameLogic_Client.Connect4.*;
 import GameLogic_Client.Connect4.C4Controller;
 import GameLogic_Client.Connect4.C4Piece;
-import GameLogic_Client.ivec2;
+import GameLogic_Client.Ivec2;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 
+import java.io.IOException;
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class C4GUIController implements Initializable {
@@ -37,7 +51,24 @@ public class C4GUIController implements Initializable {
         setupHoverEffect(col4Button, 4);
         setupHoverEffect(col5Button, 5);
         setupHoverEffect(col6Button, 6);
+
+        String path = Objects.requireNonNull(getClass().getResource("/music/C4Track.mp4")).toExternalForm(); // or absolute path
+        Media sound = new Media(path);
+        AudioManager.mediaPlayer = new MediaPlayer(sound);
+        AudioManager.mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+        AudioManager.mediaPlayer.play();
+        if (AudioManager.isMuted()){
+            AudioManager.applyMute();
+            muteButton.setImage(new Image("muteButton.png"));
+        } else {
+            muteButton.setImage(new Image("unmuteButton.png"));
+        }
+
+        homeButton.setImage(new Image("home_button.png"));
+
     }
+    @FXML
+    public ImageView muteButton;
 
     @FXML
     private ImageView winImage;
@@ -153,6 +184,25 @@ public class C4GUIController implements Initializable {
 
         c4GUIGrid.add(piece, col, row); // ✅ Add only the image
     }
+    /*private void handleColumnClick(int col) {
+        if (!c4Controller.getC4IsGameOver()) {
+            c4Controller.receiveInput(new Ivec2(col, 0));
+            updateBoard();
+
+            if (c4Controller.getC4IsGameOver()) {
+                C4Piece winner = c4Controller.getC4WinnerAsEnum();
+                if (winner == C4Piece.BLANK) {
+                    c4Controller.c4GameLogic.updateGameState();
+                    System.out.println("It's a draw!");
+                } else {
+                    System.out.println("Player " + winner + " wins! 🎉");
+                    showWinImage();
+                    c4Controller.c4GameLogic.updateGameState();
+                }
+                disableAllColumnButtons();
+            }
+        }
+    }*/
 
     private void handleColumnClick(int col) {
         if (!c4Controller.getC4IsGameOver()) {
@@ -163,6 +213,7 @@ public class C4GUIController implements Initializable {
             if (c4Controller.getC4IsGameOver()) {
                 C4Piece winner = c4Controller.getC4WinnerAsEnum();
                 if (winner == C4Piece.BLANK) {
+                   // C4Piece winner = c4Controller.getC4WinnerAsEnum();
                     c4Controller.c4GameLogic.updateGameState();
                     System.out.println("It's a draw!");
                 } else {
