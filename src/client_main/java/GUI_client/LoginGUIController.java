@@ -2,8 +2,8 @@ package GUI_client;
 
 import AuthenticationAndProfile.Authentication;
 import javafx.fxml.FXML;
-import client.*;
 
+import client.*;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
@@ -225,4 +225,5 @@ public class LoginGUIController implements Initializable {
     public void loginButtonReleased(){
         loginButton.setImage(new Image(Objects.requireNonNull(getClass().getResource("/GUI_buttons/login_button.png")).toExternalForm()));
     }
+
 }
