@@ -107,4 +107,12 @@ class TTTGameControllerTest {
         assertEquals(2, gameController.getCurrentPlayer(), "Player should switch after valid move");
     }
 
+    @Test
+    void receiveInputInvalidMove() {
+        Ivec2 input = new Ivec2(0, 0);
+        gameController.receiveInput(input); // valid
+        gameController.receiveInput(input); // invalid
+        assertEquals(2, gameController.getCurrentPlayer(), "Player should not switch after invalid move");
+    }
+
 }
