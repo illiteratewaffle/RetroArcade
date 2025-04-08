@@ -1,4 +1,4 @@
-package player;
+package server.player;
 
 import database.databaseConnector;
 import org.postgresql.util.HStoreConverter;
