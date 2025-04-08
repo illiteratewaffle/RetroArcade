@@ -60,6 +60,20 @@ public class MatchmakingQueue {
     }
 
     /**
+     * Checks if a specific player is currently present in any of the matchmaking queues.
+     * @param player The PlayerHandler object to check for.
+     * @return true if the player is found in any of the queues, false otherwise.
+     */
+    public static Boolean isInQueue(PlayerHandler player) {
+        for (Map.Entry<Integer, LinkedList<PlayerHandler>> entry : gameQueues.entrySet()) {   //Loop through each queue
+            if (entry.getValue().contains(player)) {
+                return Boolean.TRUE;
+            }
+        }
+        return Boolean.FALSE;
+    }
+
+    /**
      * Dequeues a specific player from the matchmaking queue for a given game type.
      * @param player   The PlayerHandler of the player to dequeue.
      * @param gameType An integer representing the game type from which to dequeue the player.
