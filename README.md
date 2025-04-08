@@ -56,7 +56,7 @@ The current version has seperate server and client files and has networking capa
 
 ### Launching the Client
 
-1. Switch to the `CLIENT` branch or open the client-side code.
+1. Switch to the `mainIt2` branch or open the client-side code.
 2. Navigate to the `GUIClient` package.
 3. Run the main application class to launch the game client.
 
