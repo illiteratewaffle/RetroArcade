@@ -50,7 +50,7 @@
          </cursor></ImageView>
 
       <!-- Sign up Button -->
-      <ImageView fx:id="signUpButton" accessibleRole="BUTTON" fitHeight="60.0" fitWidth="76.0" layoutX="380.0" layoutY="320.0" onMouseClicked="#signUpButtonPress" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="signUpButton" accessibleRole="BUTTON" fitHeight="60.0" fitWidth="76.0" layoutX="380.0" layoutY="320.0" onMouseClicked="#signUpButtonClicked" onMousePressed="#signupButtonPressed" onMouseReleased="#signupButtonReleased" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../GUI_buttons/signup_button.png" />
          </image>
@@ -72,15 +72,26 @@
          <cursor>
             <Cursor fx:constant="OPEN_HAND" />
          </cursor></ImageView>
-      <ImageView fx:id="backButton" accessibleRole="BUTTON" fitHeight="80.0" fitWidth="53.0" layoutX="269.0" layoutY="187.0" onMouseClicked="#backButtonPress" pickOnBounds="true" preserveRatio="true" visible="false">
+      <ImageView fx:id="backButton" accessibleRole="BUTTON" fitHeight="80.0" fitWidth="53.0" layoutX="269.0" layoutY="187.0" onMouseClicked="#backButtonClicked" onMousePressed="#backButtonPressed" onMouseReleased="#backButtonReleased" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
-            <Image url="@../GUI_buttons/back_button.PNG" />
+            <Image url="@../GUI_buttons/back_button.png" />
          </image>
+         <cursor>
+            <Cursor fx:constant="OPEN_HAND" />
+         </cursor>
       </ImageView>
 
       <!-- Login failure message -->
       <Label fx:id="wrongLogIn" layoutX="330.0" layoutY="368.0" prefHeight="18.0" prefWidth="255.0" style="-fx-font-weight: bold;" textFill="red" />
       <ImageView fx:id="muteButton" fitHeight="80.0" fitWidth="80.0" layoutX="717.0" layoutY="15.0" onMouseClicked="#muteButtonClicked" pickOnBounds="true" preserveRatio="true">
+         <cursor>
+            <Cursor fx:constant="OPEN_HAND" />
+         </cursor>
+      </ImageView>
+      <ImageView fx:id="createProfileButton" fitHeight="89.0" fitWidth="130.0" layoutX="385.0" layoutY="449.0" mouseTransparent="true" onMouseClicked="#createProfileClicked" onMousePressed="#createProfilePressed" onMouseReleased="#createProfileReleased" visible="false">
+         <image>
+            <Image url="@../GUI_buttons/createProfile.png" />
+         </image>
          <cursor>
             <Cursor fx:constant="OPEN_HAND" />
          </cursor>

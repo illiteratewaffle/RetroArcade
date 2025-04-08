@@ -1,5 +1,6 @@
 package GUI_client;
 
+import client.Client;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -133,6 +134,7 @@ public class gameMenuController implements Initializable {
 
             // check if user wants to close TTT game
             if (controller.closeYes) {
+
                 AudioManager.mediaPlayer.stop();
                 Parent newRoot = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("login.fxml")));
 
