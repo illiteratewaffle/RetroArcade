@@ -29,7 +29,6 @@ public class PlayerHandler implements Runnable {
     private Thread gameSessionManagerThread = null;
     private final Object gameSessionLock = new Object();
     private Thread mainThread = null;
-    private boolean inQueue;
 
     /**
      * Get the Thread that the PlayerHandler is on
@@ -37,14 +36,6 @@ public class PlayerHandler implements Runnable {
      */
     public synchronized Thread getThread() {
         return mainThread;
-    }
-
-    /**
-     * Set the inQueue status of a player.
-     * @param bool The boolean value to set the status to.
-     */
-    public synchronized void setInQueue(boolean bool) {
-        inQueue = bool;
     }
 
     /**
@@ -179,9 +170,6 @@ public class PlayerHandler implements Runnable {
      * This function disconnects the player from the server.
      */
     private void disconnectPlayer() {
-        // TODO: TEST PRINT
-//        System.out.println("Before Thread Registry: " + ThreadRegistry.threadRegistry);
-//        System.out.println("Before Player List: " + ThreadRegistry.playerList);
         //Unregister the player from the thread registry and the player list.
         ThreadRegistry.unregister(PlayerHandler.this);
 
@@ -201,7 +189,5 @@ public class PlayerHandler implements Runnable {
 
         //Log that the player has disconnected.
         ServerLogger.log("PlayerHandler: Player " + profile.getUsername() + ":" + profile.getID() + " disconnected.");
-//        System.out.println("After Thread Registry: " + ThreadRegistry.threadRegistry);
-//        System.out.println("After Player List: " + ThreadRegistry.playerList);
     }
 }
