@@ -5,6 +5,7 @@ module seng300.w25.project_tests {
     requires seng300.w25.project;
     requires org.junit.jupiter.api;
     requires java.sql;
+    requires org.checkerframework.checker.qual;
 
     //requires seng300.w25.project;
 
@@ -12,7 +13,7 @@ module seng300.w25.project_tests {
     opens matchmaking_tests;
 
     opens client_main.java.AuthenticationAndProfile;
-    //opens client_main.java.GameLogic_Client.Checkers;
+    opens client_main.java.GameLogic_Client.Checkers;
     //opens client_main.java.GameLogic_Client.Connnect4;
     //opens client_main.java.GameLogic_Client.TicTacToe;
 
