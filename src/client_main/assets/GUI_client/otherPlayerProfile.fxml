@@ -192,5 +192,6 @@
                 <Image url="@../profile_assets/profile_buttons/history_button.png" />
             </image>
         </ImageView>
+      <ImageView fx:id="friend_status_button" fitHeight="46.0" fitWidth="315.0" layoutX="553.0" layoutY="549.0" pickOnBounds="true" preserveRatio="true" />
     </children>
 </AnchorPane>
