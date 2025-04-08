@@ -52,10 +52,6 @@ public class LoginGUIController {
      signUpButton.setImage(new Image ("signup_button.png"));
     }
 
-     public void userLogin() throws IOException {
-     checkLogin();
-    }
-
     //for signUp pop up
     @FXML
     private void signUpButtonPress() throws IOException {
@@ -66,10 +62,10 @@ public class LoginGUIController {
      signUpUserField.setDisable(false);
      signUpPasswordField.setVisible(true);
      signUpPasswordField.setDisable(false);
-     signUpPage.setMouseTransparent(false);
-     signUpButton.setMouseTransparent(false);
+     wrongLogIn.setVisible(false);
+     //signUpPage.setMouseTransparent(false);
+     //signUpButton.setMouseTransparent(false);
      backButton.setVisible(true);
-
 
     }
     @FXML
@@ -79,33 +75,37 @@ public class LoginGUIController {
      signUpUserField.setDisable(true);
      signUpPasswordField.setVisible(false);
      signUpPasswordField.setDisable(true);
-     signUpPage.setMouseTransparent(true);
-     signUpButton.setMouseTransparent(true);
+     //signUpPage.setMouseTransparent(true);
+     //signUpButton.setMouseTransparent(true);
      backButton.setVisible(false);
-
     }
+
     public void signup_ok_clicked() throws IOException {
      signUpPage.setImage(null);
      signUpPage.setMouseTransparent(true);
      signUpButton.setMouseTransparent(true);
-
     }
+
     //login button sends to authentication
+    @FXML
     private void checkLogin() throws IOException {
+     wrongLogIn.setVisible(true);
      String username = this.username.getText();
      String password = this.password.getText();
 
      if(username.isEmpty() || password.isEmpty()) {
-      wrongLogIn.setText("enter username and password");
+      wrongLogIn.setText("Enter a username and password!");
       return;
      }
-     boolean loginSuccess = Authentication.logIn(username, password); //send boolean to
-     //add pop up to switch scene if succesful and then if it is not succesful another pop up will show up with ok
 
-     //tyler switch scene plsssssssssssssssssssssssssssssssssssssssssssssss
+     //need to send over username and password
+     boolean loginSuccess = Authentication.logIn(username, password); // where networking function should be called
 
-
+     if(loginSuccess) {
+      //tyler switch scene plsssssssssssssssssssssssssssssssssssssssssssssss
+     }
+     else{
+      wrongLogIn.setText("Wrong username or password. Try again.");
+     }
     }
-
-
 }
