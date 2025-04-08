@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="604.0" prefWidth="900.0" style="-fx-background-color: #8A006C;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI_client.otherPlayerProfileGUIController">
+    <children>
+        <ImageView fitHeight="570.0" fitWidth="900.0" layoutY="-1.0">
+            <image>
+                <Image url="@../profile_assets/profile_background2.PNG" />
+            </image>
+        </ImageView>
+        <Circle fill="#fffedf" layoutX="169.0" layoutY="124.0" radius="67.0" stroke="BLACK" strokeType="INSIDE" />
+        <Circle fill="#8a8a8a" layoutX="169.0" layoutY="124.0" radius="60.0" stroke="BLACK" strokeType="INSIDE" />
+        <ImageView fx:id="avatar" fitHeight="185.0" fitWidth="194.0" layoutX="74.0" layoutY="41.0">
+            <image>
+                <Image url="@../GUI_avatars/Invader_purple.PNG" />
+            </image>
+        </ImageView>
+        <ImageView fitHeight="194.0" fitWidth="595.0" layoutX="220.0" layoutY="-6.0">
+            <image>
+                <Image url="@../profile_assets/chat_bubble.PNG" />
+            </image>
+        </ImageView>
+        <ImageView fx:id="home_button" accessibleRole="BUTTON" fitHeight="90.0" fitWidth="101.0" layoutX="-3.0" layoutY="3.0" onMouseClicked="#go_home">
+            <image>
+                <Image url="@../GUI_buttons/home_button.png" />
+            </image>
+        </ImageView>
+        <ImageView accessibleRole="BUTTON" fitHeight="89.0" fitWidth="90.0" layoutX="808.0" layoutY="2.0" onMouseClicked="#close_window" fx:id="x_button">
+            <image>
+                <Image url="@../GUI_buttons/x_button.png" />
+            </image>
+        </ImageView>
+        <Label fx:id="bio_label" accessibleRole="TEXT_FIELD" alignment="TOP_LEFT" layoutX="300.0" layoutY="53.0" prefHeight="100.0" prefWidth="504.0" text="Connect4 is my lifes passion!" wrapText="true">
+            <font>
+                <Font name="Silom" size="18.0" />
+            </font>
+        </Label>
+        <Label fx:id="name_label" accessibleRole="TEXT_FIELD" alignment="TOP_LEFT" layoutX="249.0" layoutY="9.0" prefHeight="35.0" prefWidth="463.0" text="Dianna Prince " wrapText="true">
+            <font>
+                <Font name="Silom" size="18.0" />
+            </font>
+        </Label>
+        <Label fx:id="name_label1" accessibleRole="TEXT_FIELD" alignment="TOP_LEFT" layoutX="247.0" layoutY="30.0" prefHeight="29.0" prefWidth="547.0" text="(@connect4whore) " wrapText="true">
+            <font>
+                <Font name="Silom" size="18.0" />
+            </font>
+        </Label>
+        <Label alignment="TOP_LEFT" layoutX="247.0" layoutY="52.0" prefHeight="29.0" prefWidth="53.0" text="says:">
+            <font>
+                <Font name="Silom" size="18.0" />
+            </font>
+        </Label>
+        <ScrollPane layoutX="32.0" layoutY="246.0" prefHeight="305.0" prefWidth="838.0" style="-fx-background-color: transparent;">
+            <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="303.0" prefWidth="833.0">
+                    <children>
+                        <ImageView fitHeight="326.0" fitWidth="835.0" layoutY="-23.0">
+                            <image>
+                                <Image url="@../leaderboard_assets/star_background.PNG" />
+                            </image>
+                        </ImageView>
+                        <ListView fx:id="inbox_contents" opacity="0.0" prefHeight="304.0" prefWidth="821.0" style="-fx-background-color: transparent;" />
+                        <ListView fx:id="friends_list" layoutX="-3.0" layoutY="-6.0" opacity="0.0" prefHeight="311.0" prefWidth="840.0" style="-fx-background-color: transparent;" />
+                        <ListView fx:id="history_list" layoutX="7.0" layoutY="4.0" opacity="0.0" prefHeight="311.0" prefWidth="840.0" style="-fx-background-color: transparent;" />
+                        <AnchorPane fx:id="stats_pane" prefHeight="308.0" prefWidth="834.0">
+                            <children>
+                                <Label fx:id="check_rank_label" alignment="CENTER" layoutX="197.0" layoutY="232.0" prefHeight="77.0" prefWidth="163.0" textAlignment="CENTER" textFill="WHITE">
+                                    <font>
+                                        <Font name="Silom" size="30.0" />
+                                    </font>
+                                </Label>
+                                <Label fx:id="check_rating_label" alignment="CENTER" layoutX="196.0" layoutY="167.0" prefHeight="77.0" prefWidth="163.0" textAlignment="CENTER" textFill="WHITE">
+                                    <font>
+                                        <Font name="Silom" size="30.0" />
+                                    </font>
+                                </Label>
+                                <Label fx:id="check_win_label" alignment="CENTER" layoutX="197.0" layoutY="99.0" prefHeight="77.0" prefWidth="163.0" textAlignment="CENTER" textFill="WHITE">
+                                    <font>
+                                        <Font name="Silom" size="30.0" />
+                                    </font>
+                                </Label>
+                                <Label fx:id="check_wlr_label" alignment="CENTER" layoutX="195.0" layoutY="42.0" prefHeight="77.0" prefWidth="170.0" textAlignment="CENTER" textFill="WHITE">
+                                    <font>
+                                        <Font name="Silom" size="30.0" />
+                                    </font>
+                                </Label>
+                                <Label fx:id="Checkers_stats_label" alignment="CENTER" layoutX="191.0" layoutY="-12.0" prefHeight="77.0" prefWidth="163.0" text="Checkers" textAlignment="CENTER" textFill="WHITE">
+                                    <font>
+                                        <Font name="Silom" size="30.0" />
+                                    </font>
+                                </Label>
+                                <Label fx:id="TTT_rank_label" alignment="CENTER" layoutX="400.0" layoutY="232.0" prefHeight="77.0" prefWidth="194.0" textAlignment="CENTER" textFill="WHITE">
+                                    <font>
+                                        <Font name="Silom" size="30.0" />
+                                    </font>
+                                </Label>
+                                <Label fx:id="TTT_rating_label" alignment="CENTER" layoutX="399.0" layoutY="165.0" prefHeight="77.0" prefWidth="194.0" textAlignment="CENTER" textFill="WHITE">
+                                    <font>
+                                        <Font name="Silom" size="30.0" />
+                                    </font>
+                                </Label>
+                                <Label fx:id="TTT_win_label" alignment="CENTER" layoutX="400.0" layoutY="100.0" prefHeight="77.0" prefWidth="194.0" textAlignment="CENTER" textFill="WHITE">
+                                    <font>
+                                        <Font name="Silom" size="30.0" />
+                                    </font>
+                                </Label>
+                                <Label fx:id="TTT_wlr_label" alignment="CENTER" layoutX="399.0" layoutY="43.0" prefHeight="77.0" prefWidth="183.0" textAlignment="CENTER" textFill="WHITE">
+                                    <font>
+                                        <Font name="Silom" size="30.0" />
+                                    </font>
+                                </Label>
+                                <Label fx:id="TTT_stats_label" alignment="CENTER" layoutX="392.0" layoutY="-12.0" prefHeight="77.0" prefWidth="194.0" text="Tic-Tac-Toe" textAlignment="CENTER" textFill="WHITE">
+                                    <font>
+                                        <Font name="Silom" size="30.0" />
+                                    </font>
+                                </Label>
+                                <Label fx:id="c4_rank_label" alignment="CENTER" layoutX="627.0" layoutY="232.0" prefHeight="77.0" prefWidth="194.0" textAlignment="CENTER" textFill="WHITE">
+                                    <font>
+                                        <Font name="Silom" size="30.0" />
+                                    </font>
+                                </Label>
+                                <Label fx:id="c4_rating_label" alignment="CENTER" layoutX="637.0" layoutY="159.0" prefHeight="77.0" prefWidth="185.0" textAlignment="CENTER" textFill="WHITE">
+                                    <font>
+                                        <Font name="Silom" size="30.0" />
+                                    </font>
+                                </Label>
+                                <Label fx:id="c4_win_label" alignment="CENTER" layoutX="638.0" layoutY="97.0" prefHeight="77.0" prefWidth="185.0" textAlignment="CENTER" textFill="WHITE">
+                                    <font>
+                                        <Font name="Silom" size="30.0" />
+                                    </font>
+                                </Label>
+                                <Label fx:id="c4_wlr_label" alignment="CENTER" layoutX="627.0" layoutY="40.0" prefHeight="77.0" prefWidth="194.0" textAlignment="CENTER" textFill="WHITE">
+                                    <font>
+                                        <Font name="Silom" size="30.0" />
+                                    </font>
+                                </Label>
+                                <Label fx:id="C4_stats_label" alignment="CENTER" layoutX="648.0" layoutY="-12.0" prefHeight="77.0" prefWidth="163.0" text="Connect 4" textAlignment="CENTER" textFill="WHITE">
+                                    <font>
+                                        <Font name="Silom" size="30.0" />
+                                    </font>
+                                </Label>
+                                <Label fx:id="wlr_label" alignment="CENTER" layoutX="11.0" layoutY="40.0" prefHeight="77.0" prefWidth="174.0" text="Win/loss Ratio" textAlignment="CENTER" textFill="WHITE">
+                                    <font>
+                                        <Font name="Silom" size="21.0" />
+                                    </font>
+                                </Label>
+                                <Label fx:id="wins_label" alignment="CENTER" layoutX="20.0" layoutY="103.0" prefHeight="77.0" prefWidth="163.0" text="wins" textAlignment="CENTER" textFill="WHITE">
+                                    <font>
+                                        <Font name="Silom" size="21.0" />
+                                    </font>
+                                </Label>
+                                <Label fx:id="rating_label" alignment="CENTER" layoutX="20.0" layoutY="167.0" prefHeight="77.0" prefWidth="163.0" text="Rating" textAlignment="CENTER" textFill="WHITE">
+                                    <font>
+                                        <Font name="Silom" size="21.0" />
+                                    </font>
+                                </Label>
+                                <Label fx:id="rank_label" alignment="CENTER" layoutX="20.0" layoutY="233.0" prefHeight="77.0" prefWidth="163.0" text="Rank" textAlignment="CENTER" textFill="WHITE">
+                                    <font>
+                                        <Font name="Silom" size="21.0" />
+                                    </font>
+                                </Label>
+                            </children>
+                        </AnchorPane>
+                    </children>
+                </AnchorPane>
+            </content>
+        </ScrollPane>
+
+        <TextField fx:id="edit_nickname" editable="false" layoutX="242.0" layoutY="9.0" opacity="0.0" prefHeight="21.0" prefWidth="558.0" />
+        <TextArea fx:id="edit_bio" editable="false" layoutX="298.0" layoutY="55.0" opacity="0.0" prefHeight="100.0" prefWidth="498.0">
+            <font>
+                <Font name="Silom" size="16.0" />
+            </font>
+        </TextArea>
+        <ImageView fx:id="friends_button" accessibleRole="BUTTON" fitHeight="84.0" fitWidth="158.0" layoutX="259.0" layoutY="174.0" onMouseClicked="#open_friends">
+            <image>
+                <Image url="@../profile_assets/profile_buttons/friends_button.png" />
+            </image>
+        </ImageView>
+        <ImageView fx:id="stats_button" accessibleRole="BUTTON" fitHeight="58.0" fitWidth="154.0" layoutX="454.0" layoutY="187.0" onMouseClicked="#open_stats">
+            <image>
+                <Image url="@../profile_assets/profile_buttons/stats_button.png" />
+            </image>
+        </ImageView>
+        <ImageView fx:id="history_button" accessibleRole="BUTTON" fitHeight="72.0" fitWidth="179.0" layoutX="646.0" layoutY="178.0" onMouseClicked="#open_history">
+            <image>
+                <Image url="@../profile_assets/profile_buttons/history_button.png" />
+            </image>
+        </ImageView>
+      <ImageView fx:id="friend_status_button" fitHeight="46.0" fitWidth="315.0" layoutX="553.0" layoutY="549.0" pickOnBounds="true" preserveRatio="true" />
+    </children>
+</AnchorPane>

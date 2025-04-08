@@ -1,5 +1,6 @@
 package GUI_client;
 import AuthenticationAndProfile.Authentication;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -55,6 +56,15 @@ public class profileGUIController {
     @FXML
     public Label TTT_rank_label;
     //C4 labels for stats
+    @FXML public Label c4_wlr_label;
+    @FXML public Label c4_win_label;
+    @FXML public Label c4_rating_label;
+    @FXML public Label c4_rank_label;
+    @FXML public Label bio_label;
+    @FXML public Label name_label;
+    @FXML private ScrollPane avatar_pane;
+    private Object GUI_avatars;
+    private AuthenticationAndProfile.Profile Profile;
     @FXML
     public Label c4_wlr_label;
     @FXML
@@ -238,6 +248,19 @@ public class profileGUIController {
             bio_label.setVisible(true);
             getBio(bio);
 
+        apply_button.setOpacity(1.0); apply_button.setDisable(false);
+        discard_button.setOpacity(1.0); discard_button.setDisable(false);
+        history_list.setOpacity(0.0);
+        inbox_contents.setOpacity(0.0);
+        friends_list.setOpacity(0.0);
+        stats_pane.setOpacity(0.0);
+        avatar_pane.setOpacity(1.0);
+        edit_profile_button.setOpacity(0.0);
+        friends_button.setDisable(true);
+        stats_button.setDisable(true);
+        inbox_button.setDisable(true);
+        history_button.setDisable(true);
+        edit_profile_button.setDisable(true);
         String nickname = nickname_label.getText(); // gets user input
         nickname_label.setText(nickname);
         getNickname(nickname);
@@ -250,6 +273,45 @@ public class profileGUIController {
     //All methods below are used to change the profile picture based on what picture is clicked
     //during editing mode
     //------------------------------------------------------------------------------
+
+    public void discard_changes(MouseEvent mouseEvent) throws IOException {
+        history_list.setOpacity(0.0);
+        inbox_contents.setOpacity(0.0);
+        friends_list.setOpacity(0.0);
+        stats_pane.setOpacity(1.0);
+        avatar_pane.setOpacity(0.0);
+        edit_profile_button.setOpacity(1.0);
+        apply_button.setOpacity(0.0);
+        discard_button.setOpacity(0.0);
+        friends_button.setDisable(false);
+        stats_button.setDisable(false);
+        inbox_button.setDisable(false);
+        history_button.setDisable(false);
+        edit_profile_button.setDisable(false);
+        apply_button.setDisable(true);
+        discard_button.setDisable(true);
+        initializeProfile();
+    }
+
+    public void apply_changes(MouseEvent mouseEvent) {
+        history_list.setOpacity(0.0);
+        inbox_contents.setOpacity(0.0);
+        friends_list.setOpacity(0.0);
+        stats_pane.setOpacity(1.0);
+        avatar_pane.setOpacity(0.0);
+        edit_profile_button.setOpacity(1.0);
+        apply_button.setOpacity(0.0);
+        discard_button.setOpacity(0.0);
+        friends_button.setDisable(false);
+        stats_button.setDisable(false);
+        inbox_button.setDisable(false);
+        history_button.setDisable(false);
+        edit_profile_button.setDisable(false);
+        apply_button.setDisable(true);
+        discard_button.setDisable(true);
+    }
+
+    //All methods below are used to change the profile picture based on
     public void choose_poop(MouseEvent mouseEvent) {
         String path = "/GUI_avatars/poop.PNG";
         URL url = getClass().getResource(path);
