@@ -4,43 +4,57 @@ import AuthenticationAndProfile.Authentication;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
 import leaderboard.PlayerRanking;
+import AuthenticationAndProfile.Profile;
 
-import java.io.IOException;
 import java.net.URL;
 
 public class profileGUIController {
-    @FXML public ImageView inbox_button;
-    @FXML public ImageView friends_button;
-    @FXML public ImageView history_button;
-    @FXML public ImageView stats_button;
-    @FXML public ImageView avatar;
-    @FXML public ImageView edit_profile_button;
-    @FXML public ImageView apply_button;
-    @FXML public ImageView discard_button;
-    @FXML public ListView inbox_contents;
-    @FXML public ListView friends_list;
-    @FXML public ListView history_list;
-    @FXML public AnchorPane stats_pane;
+    @FXML
+    public ImageView inbox_button;
+    @FXML
+    public ImageView friends_button;
+    @FXML
+    public ImageView history_button;
+    @FXML
+    public ImageView stats_button;
+    @FXML
+    public ImageView avatar;
+    @FXML
+    public ImageView edit_profile_button;
+    @FXML
+    public ImageView done_button;
+    @FXML
+    public ListView inbox_contents;
+    @FXML
+    public ListView friends_list;
+    @FXML
+    public ListView history_list;
+    @FXML
+    public AnchorPane stats_pane;
     //Checkers labels for stats
-    @FXML public Label check_wlr_label;
-    @FXML public Label check_win_label;
-    @FXML public Label check_rating_label;
-    @FXML public Label check_rank_label;
+    @FXML
+    public Label check_wlr_label;
+    @FXML
+    public Label check_win_label;
+    @FXML
+    public Label check_rating_label;
+    @FXML
+    public Label check_rank_label;
     //TTT labels for stats
-    @FXML public Label TTT_wlr_label;
-    @FXML public Label TTT_win_label;
-    @FXML public Label TTT_rating_label;
-    @FXML public Label TTT_rank_label;
+    @FXML
+    public Label TTT_wlr_label;
+    @FXML
+    public Label TTT_win_label;
+    @FXML
+    public Label TTT_rating_label;
+    @FXML
+    public Label TTT_rank_label;
     //C4 labels for stats
     @FXML public Label c4_wlr_label;
     @FXML public Label c4_win_label;
@@ -51,36 +65,39 @@ public class profileGUIController {
     @FXML private ScrollPane avatar_pane;
     private Object GUI_avatars;
     private AuthenticationAndProfile.Profile Profile;
+    @FXML
+    public TextField nickname_label;
+    @FXML
+    private TextArea bio_text_area;
+    private Profile profile;
+    private String avatarPath;
+    private String nickname;
+    private String bio;
+
+
 
     public profileGUIController() {
         System.out.println("profileGUIController loaded");
-    }
-    //**Other profile would need this
-    public void initializeProfile(){
-        String bio = Authentication.getProfileLoggedIn().getBio();
-        String userName = Profile.getUsername();
-        String nickName = Profile.getNickname();
-        String getAvatarPath = Profile.getProfilePicFilePath();
-        setConponents(bio, userName, nickName, getAvatarPath);
-    }
-    //**Other profile would need this
-    public void setConponents(String bio, String userName, String nickName, String getAvatarPath) {
-        bio_label.setText(bio);
-        name_label.setText(nickName + "(" + userName + ")");
-        if (getAvatarPath != null) {
-            URL url = getClass().getResource(getAvatarPath);
-            if (url != null) {
-                Image profileImage = new Image(url.toExternalForm(), false);
-                avatar.setImage(profileImage);
-            } else {
-                System.out.println("No Avatar found!");
-            }
-        }
+        //initialize(profile); //This part cannot be uncommented until I have an actual profile to test with
     }
 
+    public void initialize(Profile loadedProfile) {
+        avatarPath = profile.getProfilePicFilePath();
+        nickname = profile.getNickname();
+        bio = profile.getNickname();
+        bio_text_area.setEditable(false);
+
+        avatar.setImage(new Image(avatarPath));
+        nickname_label.setText(nickname);
+        bio_text_area.setText(bio);
+    }
+
+    //maybe we can send the information to the server once the home button is clicked?
     public void go_home(MouseEvent mouseEvent) {
     }
 
+    //not sure if we should handle the case that someone is in edit mode.
+    //Depending on what we decide we may want to warn them that the changes will not be saved.
     public void close_window(MouseEvent mouseEvent) {
     }
 
@@ -92,15 +109,16 @@ public class profileGUIController {
         stats_pane.setOpacity(0.0);
 
 
-       // Using an obervable list so that it can be updated as more information is added.
+        // Using an obervable list so that it can be updated as more information is added.
         //Getting the data needed to populate the inbox (friend requests) list.
         ObservableList<Integer> requests = FXCollections.observableArrayList(
-                Authentication.getProfileLoggedIn().getFriendsList().getFriendRequests());
-       // Adding the content to the listview
+                profile.getFriendsList().getFriendRequests());
+        // Adding the content to the listview
         inbox_contents.setItems(requests);
     }
+
     //**Other profile would need this
-    public void open_friends(MouseEvent mouseEvent){
+    public void open_friends(MouseEvent mouseEvent) {
         //Making sure that all other lists/table is invisible so that you cannot see the other windows, only the one clicked into.
         inbox_contents.setOpacity(0.0);
         history_list.setOpacity(0.0);
@@ -110,12 +128,13 @@ public class profileGUIController {
         // Using an obervable list so that it can be updated as more information is added.
         //Getting the data needed to populate the friends list.
         ObservableList<Integer> friends = FXCollections.observableArrayList(
-                Authentication.getProfileLoggedIn().getFriendsList().getFriends());
+                profile.getFriendsList().getFriends());
         // Adding the content to the listview
         friends_list.setItems(friends);
 
 
     }
+
     //**Other profile needs this
     public void open_history(MouseEvent mouseEvent) {
         //Making sure that all other lists/table is invisible so that you cannot see the other windows, only the one clicked into.
@@ -127,11 +146,12 @@ public class profileGUIController {
         //Using an obervable list so that it can be updated as more information is added.
         //Getting the data needed to populate the game history list.
         ObservableList<String> history = FXCollections.observableArrayList(
-                Authentication.getProfileLoggedIn().getGameHistory().getGameHistory());
+                profile.getGameHistory().getGameHistory());
 
         //Adding the histroy content to the listview
         history_list.setItems(history);
     }
+
     //**Other profile needs this
     public void open_stats(MouseEvent mouseEvent) {
         //Making sure that all other lists/table is invisible so that you cannot see the other windows, only the one clicked into.
@@ -186,64 +206,49 @@ public class profileGUIController {
         TTT_win_label.setText(String.valueOf(TTTWins));
     }
 
-
     public void open_edit_profile(MouseEvent mouseEvent) {
         //Making sure that all other lists/table is invisible while editing profile.
-
-        apply_button.setOpacity(1.0); apply_button.setDisable(false);
-        discard_button.setOpacity(1.0); discard_button.setDisable(false);
-        history_list.setOpacity(0.0);
-        inbox_contents.setOpacity(0.0);
-        friends_list.setOpacity(0.0);
-        stats_pane.setOpacity(0.0);
-        avatar_pane.setOpacity(1.0);
-        edit_profile_button.setOpacity(0.0);
-        friends_button.setDisable(true);
-        stats_button.setDisable(true);
-        inbox_button.setDisable(true);
-        history_button.setDisable(true);
-        edit_profile_button.setDisable(true);
+        history_list.setOpacity(0.0);history_button.setDisable(false);
+        inbox_contents.setOpacity(0.0);inbox_button.setDisable(false);
+        friends_list.setOpacity(0.0);friends_button.setDisable(false);
+        stats_pane.setOpacity(0.0);stats_button.setDisable(false);
+        edit_profile_button.setOpacity(0.0);edit_profile_button.setDisable(false);
+        done_button.setOpacity(1.0);done_button.setDisable(false);
+        avatar_pane.setOpacity(1.0);avatar_pane.setDisable(false);
+        nickname_label.setEditable(true); bio_text_area.setEditable(true);
+        bio_text_area.setOpacity(1.0); nickname_label.setStyle("-fx-background-color: white;");
     }
-    public void updateProfilePicture(Image image){
+
+    //The once the done button is pressed, the editing will no longer occur.
+    public void apply_changes(MouseEvent mouseEvent) {
+        history_list.setOpacity(0.0);history_button.setDisable(false);
+        inbox_contents.setOpacity(0.0); inbox_button.setDisable(false);
+        friends_list.setOpacity(0.0);friends_button.setDisable(false);
+        stats_pane.setOpacity(1.0);stats_button.setDisable(false);
+        edit_profile_button.setOpacity(1.0);edit_profile_button.setDisable(false);
+        done_button.setOpacity(0.0);done_button.setDisable(true);
+        avatar_pane.setOpacity(0.0);avatar_pane.setDisable(true);
+        nickname_label.setEditable(false); bio_text_area.setEditable(false);
+        bio_text_area.setOpacity(1.0); nickname_label.setStyle("-fx-background-color: transparent;");
+
+        String bio = bio_text_area.getText(); // gets user input
+        bio_label.setText(bio);
+        bio_label.setVisible(true);
+        getBio(bio);
+
+        String nickname = nickname_label.getText(); // gets user input
+        nickname_label.setText(nickname);
+        getNickname(nickname);
+        getNickname(nickname);
+    }
+
+    public void updateProfilePicture(Image image) {
         avatar.setImage(image);
     }
 
-    public void discard_changes(MouseEvent mouseEvent) throws IOException {
-        history_list.setOpacity(0.0);
-        inbox_contents.setOpacity(0.0);
-        friends_list.setOpacity(0.0);
-        stats_pane.setOpacity(1.0);
-        avatar_pane.setOpacity(0.0);
-        edit_profile_button.setOpacity(1.0);
-        apply_button.setOpacity(0.0);
-        discard_button.setOpacity(0.0);
-        friends_button.setDisable(false);
-        stats_button.setDisable(false);
-        inbox_button.setDisable(false);
-        history_button.setDisable(false);
-        edit_profile_button.setDisable(false);
-        apply_button.setDisable(true);
-        discard_button.setDisable(true);
-        initializeProfile();
-    }
-
-    public void apply_changes(MouseEvent mouseEvent) {
-        history_list.setOpacity(0.0);
-        inbox_contents.setOpacity(0.0);
-        friends_list.setOpacity(0.0);
-        stats_pane.setOpacity(1.0);
-        avatar_pane.setOpacity(0.0);
-        edit_profile_button.setOpacity(1.0);
-        apply_button.setOpacity(0.0);
-        discard_button.setOpacity(0.0);
-        friends_button.setDisable(false);
-        stats_button.setDisable(false);
-        inbox_button.setDisable(false);
-        history_button.setDisable(false);
-        edit_profile_button.setDisable(false);
-        apply_button.setDisable(true);
-        discard_button.setDisable(true);
-    }
+    //All methods below are used to change the profile picture based on what picture is clicked
+    //during editing mode
+    //------------------------------------------------------------------------------
 
     //All methods below are used to change the profile picture based on
     public void choose_poop(MouseEvent mouseEvent) {
@@ -286,7 +291,7 @@ public class profileGUIController {
     }
 
 
-public void choose_pink_alien(MouseEvent mouseEvent) {
+    public void choose_pink_alien(MouseEvent mouseEvent) {
         String path = "/GUI_avatars/Invader_pink.PNG";
         URL url = getClass().getResource(path);
         if (url != null) {
@@ -389,9 +394,18 @@ public void choose_pink_alien(MouseEvent mouseEvent) {
         }
         getAvatarPath(path);
     }
-    public String getAvatarPath(String path){
-        return (path);
+    //------------------------------------------------------------------------------
+
+    //So that it can be sent to the server? idk how this works man
+    public String getAvatarPath(String path) {
+        return avatarPath;
+    }
+
+    public String getBio(String bio) {
+        return bio;
+    }
+
+    public String getNickname(String nickname) {
+        return nickname;
     }
 }
-
-
