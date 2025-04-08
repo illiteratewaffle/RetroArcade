@@ -1,5 +1,6 @@
 package session;
 
+import javafx.css.Match;
 import management.ServerLogger;
 import matchmaking.Matchmaking;
 import player.PlayerHandler;
@@ -20,8 +21,11 @@ public class GameCreator implements Runnable {
     }
 
     public void enqueuePlayer(PlayerHandler player, int gameType) throws SQLException {
-        ServerLogger.log("GameCreator: Enqueued player " + player.getProfile().getUsername() + ":" + player.getProfile().getID());
-        gameQueue.enqueue(gameType, player);
+        if (!gameQueue.isInQueue(player)) {
+            ServerLogger.log("GameCreator: Enqueued player " + player.getProfile().getUsername() + ":" + player.getProfile().getID());
+            gameQueue.enqueue(gameType, player);
+        }
+        ServerLogger.log("GameCreator: Unable to enqueue player " + player.getProfile().getUsername() + ", player is already enqueued,");
     }
 
     public void dequeuePlayer(PlayerHandler player) {
