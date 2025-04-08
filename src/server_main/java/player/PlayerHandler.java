@@ -1,8 +1,8 @@
 package player;
 
 import AuthenticationAndProfile.Profile;
+import com.almasb.fxgl.net.Server;
 import management.*;
-import matchmaking.Matchmaking;
 
 import java.io.*;
 import java.net.Socket;
@@ -60,6 +60,51 @@ public class PlayerHandler implements Runnable {
      */
     public synchronized Profile getProfile() {
         return profile;
+    }
+
+    /**
+     *
+     * @param recipientID
+     */
+    public synchronized void sendFriendRequest(Integer recipientID) {
+        try {
+            this.getProfile().getFriendsList().sendFriendRequest(recipientID);
+        } catch (SQLException | IOException e) {
+            ServerLogger.log("PlayerHandler: " + this.getProfile().getUsername() + " could not send friend request to " + recipientID);
+        }
+    }
+
+    /**
+     * This function disconnects the player from the server.
+     */
+    private void disconnectPlayer() {
+        //Unregister the player from the thread registry and the player list.
+        ThreadRegistry.unregister(PlayerHandler.this);
+
+        // Remove a player from any queues they may be in
+        ServerController.dequeuePlayer(PlayerHandler.this);
+
+        //Check if the player is in a game session, and if so handle the game session ending.
+        if (gameSessionManagerThread != null) {
+            //Create the thread message map to send to the game session manager
+            Map<String, Object> messageMap = new HashMap<>();
+            messageMap.put("type", "disconnection");
+
+            //Create the thread message and send it to game session manager
+            ThreadMessage disconnectMessage = new ThreadMessage(mainThread, messageMap);
+            networkManager.sendMessage(gameSessionManagerThread, disconnectMessage);
+        }
+
+        //Set the players current game status to null, and their online status to false.
+        try {
+            this.getProfile().setOnlineStatus(false);
+            this.getProfile().setCurrentGame(null);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        //Log that the player has disconnected.
+        ServerLogger.log("PlayerHandler: Player " + profile.getUsername() + ":" + profile.getID() + " disconnected.");
     }
 
     /**
@@ -165,38 +210,5 @@ public class PlayerHandler implements Runnable {
                 }
             }
         }
-    }
-
-    /**
-     * This function disconnects the player from the server.
-     */
-    private void disconnectPlayer() {
-        //Unregister the player from the thread registry and the player list.
-        ThreadRegistry.unregister(PlayerHandler.this);
-
-        // Remove a player from any queues they may be in
-        ServerController.dequeuePlayer(PlayerHandler.this);
-
-        //Check if the player is in a game session, and if so handle the game session ending.
-        if (gameSessionManagerThread != null) {
-            //Create the thread message map to send to the game session manager
-            Map<String, Object> messageMap = new HashMap<>();
-            messageMap.put("type", "disconnection");
-
-            //Create the thread message and send it to game session manager
-            ThreadMessage disconnectMessage = new ThreadMessage(mainThread, messageMap);
-            networkManager.sendMessage(gameSessionManagerThread, disconnectMessage);
-        }
-
-        //Set the players current game status to null, and their online status to false.
-        try {
-            this.getProfile().setOnlineStatus(false);
-            this.getProfile().setCurrentGame(null);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-
-        //Log that the player has disconnected.
-        ServerLogger.log("PlayerHandler: Player " + profile.getUsername() + ":" + profile.getID() + " disconnected.");
     }
 }
