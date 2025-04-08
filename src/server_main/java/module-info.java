@@ -29,4 +29,5 @@ module seng300.w25.project {
     exports management;
     exports launcher;
     exports session;
+    exports matchmaking;
 }

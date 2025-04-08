@@ -108,7 +108,7 @@ class ProfileDatabaseAccessTest {
 
     @Test
     void obtainPlayerRanking() {
-        try {
+        /*try {
             System.out.println(PlayerManager.updateAttribute(id, "win_loss_ratio_ttt", 0.25));
             System.out.println(PlayerManager.updateAttribute(id, "win_loss_ratio_connect4", 0.50));
             System.out.println(PlayerManager.updateAttribute(id, "win_loss_ratio_checkers", 0.75));
@@ -141,7 +141,8 @@ class ProfileDatabaseAccessTest {
             assertEquals(playerRanking.getWins(2), ProfileDatabaseAccess.obtainPlayerRanking(id).getWins(PlayerRanking.CHECKERS_INDEX));
         } catch (SQLException | IOException s) {
             fail(s.getMessage());
-        }
+        }*/
+        fail();
     }
 
     @Test
