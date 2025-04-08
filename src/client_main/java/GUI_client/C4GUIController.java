@@ -212,6 +212,7 @@ public class C4GUIController implements Initializable {
         c4GUIGrid.add(piece, col, row); // ✅ Add only the image
     }
 
+
     private void handleColumnClick(int col) {
         if (!c4Controller.getC4IsGameOver()) {
             c4Controller.receiveInput(new Ivec2(col, 0));
@@ -219,17 +220,34 @@ public class C4GUIController implements Initializable {
             updateTurnIndicator();
 
             if (c4Controller.getC4IsGameOver()) {
-                C4Piece winner = c4Controller.getC4WinnerAsEnum();
-                if (winner == C4Piece.BLANK) {
-                   // C4Piece winner = c4Controller.getC4WinnerAsEnum();
-                    c4Controller.c4GameLogic.updateGameState();
+                int winner = c4Controller.getWinner();
+//                if (Arrays.equals(winner, new int[]{1, 2})) {
+//                   // C4Piece winner = c4Controller.getC4WinnerAsEnum();
+//                    c4Controller.c4GameLogic.updateGameState();
+//                    System.out.println("It's a draw!");
+//                } else if (Arrays.equals(winner, new int[]{1})) {
+//                    System.out.println("Player red wins! 🎉");
+//                    showWinImage();
+//                    c4Controller.c4GameLogic.updateGameState();
+//                } else if (Arrays.equals(winner, new int[]{2})) {
+//                    System.out.println("Player blue wins! 🎉");
+//                    showWinImage();
+//                    c4Controller.c4GameLogic.updateGameState();
+//                }
+                c4Controller.c4GameLogic.updateGameState();
+                if (winner == 0) {
                     System.out.println("It's a draw!");
-                    showTieImage();
-                } else {
-                    System.out.println("Player " + winner + " wins! 🎉");
+
+                } else if (winner == 1) {
+                    System.out.println("Player red wins! 🎉");
                     showWinImage();
-                    c4Controller.c4GameLogic.updateGameState();
+                    // c4Controller.c4GameLogic.updateGameState();
+                } else if (winner == 2) {
+                    System.out.println("Player blue wins! 🎉");
+                    showWinImage();
+                    // c4Controller.c4GameLogic.updateGameState();
                 }
+
                 disableAllColumnButtons();
                 c4GUIGrid.getChildren().removeIf(node ->
                         node instanceof Rectangle && "HINT".equals(node.getId())
@@ -237,6 +255,7 @@ public class C4GUIController implements Initializable {
             }
         }
     }
+
 
     /**
      *
