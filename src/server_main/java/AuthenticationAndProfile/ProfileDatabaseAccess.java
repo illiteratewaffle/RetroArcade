@@ -29,7 +29,7 @@ public class ProfileDatabaseAccess {
      * @param id
      * @return Profile object from data corresponding to the id from the database
      */
-    public static Profile obtainProfile(int id) throws SQLException, IOException {
+    public static Profile obtainProfile(int id) throws SQLException, IOException, NullPointerException {
         //call method to get csv for id
         try {
             PlayerManager.getProfile(id); //method to get Profile csv with all attributes associated to the specified id
@@ -59,6 +59,8 @@ public class ProfileDatabaseAccess {
 
             Profile profile = new Profile(email, hashedPassword, nickname, bio, isOnline, currentGame, friendsList, playerRanking, gameHistory, profilePicFilePath, username, id);
             return profile;
+        } catch (NullPointerException n) {
+            throw new NullPointerException(n.getMessage());
         } catch (SQLException s) {
             throw new SQLException(s.getMessage());
         } catch (IOException e) {
@@ -342,12 +344,10 @@ public class ProfileDatabaseAccess {
      */
     public static void removeProfile(int id) throws SQLException, IOException {
         try {
-            PlayerManager.deleteProfile(id);
             Authentication.logOut(id);
+            PlayerManager.deleteProfile(id);
         } catch (SQLException s) {
             throw new SQLException(s.getMessage());
-        } catch (IOException e) {
-            throw new IOException(e.getMessage());
         }
     }
 

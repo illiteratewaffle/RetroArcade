@@ -1,6 +1,7 @@
 package client_main_tests.java.AuthenticationAndProfile;
 
 import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import player.PlayerManager;
@@ -160,6 +161,14 @@ class ProfileDatabaseAccessTest {
 
     @Test
     void removeProfile() {
+        try {
+            ProfileDatabaseAccess.removeProfile(id);
+        } catch (IOException | SQLException e) {
+            fail(e.getMessage());
+        }
+        assertThrows(NullPointerException.class, () -> {
+            ProfileDatabaseAccess.obtainProfile(id);
+        });
     }
 
     @Test
@@ -168,13 +177,5 @@ class ProfileDatabaseAccessTest {
 
     @Test
     void searchForProfile() {
-    }
-
-    @Test
-    void viewPersonalProfile() {
-    }
-
-    @Test
-    void viewOtherProfile() {
     }
 }

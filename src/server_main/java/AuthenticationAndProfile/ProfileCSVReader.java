@@ -77,7 +77,7 @@ public class ProfileCSVReader {
      *
      * @return
      */
-    public static ArrayList<String> openSingleProfileFile(String filePath) throws IOException{
+    public static ArrayList<String> openSingleProfileFile(String filePath) throws IOException, NullPointerException {
         ArrayList<String> fields = new ArrayList<>();
         try {
             BufferedReader br = new BufferedReader(new FileReader(filePath));
@@ -85,26 +85,27 @@ public class ProfileCSVReader {
             String line;
             br.readLine();
             line = br.readLine();
-            // Split the line by csv section and store each field in an ArrayList<Object>
-            String section = "";
-            boolean inSection = false;
-            for (int j = 0; j < line.length(); j ++) {
-                Character c = Character.valueOf(line.charAt(j));
-                if (c == '{') {
-                    inSection = true;
-                } else if (c == ',' && !inSection) {
-                    fields.add(section);
-                    section = "";
-                } else if (c == '}') {
-                    inSection = false;
-                } else if (j == line.length() - 1) {
-                    section = section + c;
-                    fields.add(section);
-                } else if ( c != '"') {
-                    section = section + c;
+            if (line != null) {
+                // Split the line by csv section and store each field in an ArrayList<Object>
+                String section = "";
+                boolean inSection = false;
+                for (int j = 0; j < line.length(); j++) {
+                    Character c = Character.valueOf(line.charAt(j));
+                    if (c == '{') {
+                        inSection = true;
+                    } else if (c == ',' && !inSection) {
+                        fields.add(section);
+                        section = "";
+                    } else if (c == '}') {
+                        inSection = false;
+                    } else if (j == line.length() - 1) {
+                        section = section + c;
+                        fields.add(section);
+                    } else if (c != '"') {
+                        section = section + c;
+                    }
                 }
-            }
-            br.close();
+                br.close();
 
 //            System.out.println("ID: " + fields.get(ID_INDEX)
 //                    + " Username: " + fields.get(USER_INDEX)
@@ -133,6 +134,9 @@ public class ProfileCSVReader {
 //                    + " FriendRequests: " + fields.get(FREQUEST_INDEX)
 //                    + " Creation Time: " + fields.get(FREQUEST_INDEX + 1)
 //            );
+            } else {
+                throw new NullPointerException("CSV is empty");
+            }
         } catch (IOException e) {
             throw new IOException("System can't find file");
         }

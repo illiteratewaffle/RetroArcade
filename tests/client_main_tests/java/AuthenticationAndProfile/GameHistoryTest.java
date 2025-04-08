@@ -47,4 +47,8 @@ class GameHistoryTest {
 
         assertEquals(newAchievementProgress, gh.getAchievementProgress());
     }
+
+    @Test void getAchievementProgress() {
+
+    }
 }
