@@ -32,6 +32,12 @@ public class ProfileCreation {
             if (id == -1) {
                 throw new SQLException("Invalid email or username. Credentials are already associated with an existing account.");
             } else {
+                PlayerManager.setAchievementProgress(id, "10 Wins Tick Tac Toe", "0.00");
+                PlayerManager.setAchievementProgress(id, "10 Wins Connect 4", "0.00");
+                PlayerManager.setAchievementProgress(id, "10 Wins Checkers", "0.00");
+                PlayerManager.setAchievementProgress(id, "50 Games Played Tick Tac Toe", "0.00");
+                PlayerManager.setAchievementProgress(id, "50 Games Played Connect 4", "0.00");
+                PlayerManager.setAchievementProgress(id, "50 Games Played Checkers", "0.00");
                 log("Profile registered correctly. Trying to Log In.");
                 Profile loggedInProfile = Authentication.logIn(username, password);
                 return loggedInProfile;
