@@ -1,5 +1,6 @@
 package management;
 
+import GameLogic_Client.Connect4.C4Piece;
 import GameLogic_Client.Ivec2;
 
 import java.util.ArrayList;
@@ -7,6 +8,11 @@ import java.util.Arrays;
 import java.util.List;
 
 public class ConverterTools {
+    /**
+     * Converts Ivec to List, makes it so the first coordinate is x and the second coordinate is y
+     * @param ivec the Ivec2 object
+     * @return
+     */
     public static List<Integer> ivecToList(Ivec2 ivec) {
         List<Integer> list = new ArrayList<Integer>();
         list.add(ivec.x);
@@ -15,27 +21,35 @@ public class ConverterTools {
     }
 
     /**
-     * converts list to Ivec, assumes that the first coordinate is x and second coordinate is y
-     *
-     * @param list
+     * Converts list to Ivec, assumes that the first coordinate is x and second coordinate is y
+     * @param list the List representation of an Ivec2
      * @return Ivec2 representation of a list
      */
     public static Ivec2 listToIvec(List<Integer> list) {
         return new Ivec2(list.get(0), list.get(1));
     }
 
+    /**
+     * Converts an int array to a list
+     * @param array the int array
+     * @return the corresponding list
+     */
     public static List<Integer> convertIntArrayToList(int[] array) {
         return Arrays.stream(array).boxed().toList();
     }
 
+    /**
+     * Converts a list to an int array
+     * @param list the list
+     * @return the corresponding int array
+     */
     public static int[] convertListToIntArray(List<Integer> list) {
         return list.stream().mapToInt(Integer::intValue).toArray();
     }
 
     /**
-     * converts a list of 2d arrays to a list of a list of a list of integers
-     *
-     * @param list
+     * Converts a list of 2d arrays to a list of a list of a list of integers
+     * @param list the list of 2d int arrays
      * @return a list of a list of a list of integers
      */
     public static List<List<List<Integer>>> listOf2dArrayto3dlist(List<int[][]> list) {
@@ -64,6 +78,11 @@ public class ConverterTools {
         return result;
     }
 
+    /**
+     * Returns the List of a 2d array
+     * @param list the input triple nested List of an Integer
+     * @return the List of a 2d int array
+     */
     public static List<int[][]> tripleListToListOf2dArray(List<List<List<Integer>>> list) {
         List<int[][]> result = new ArrayList<>();
         // iterate through each 2D list in the input
@@ -87,5 +106,23 @@ public class ConverterTools {
             result.add(array2D);
         }
         return result;
+    }
+
+    /**
+     * Converts C4Piece to an integer for sending over json
+     * @param c4Piece the input C4Piece
+     * @return the integer that the C4Piece represents
+     */
+    public static int C4PieceToInt(C4Piece c4Piece) {
+        return c4Piece.getValue();
+    }
+
+    /**
+     * Converts an int to a C4Piece
+     * @param value the input integer that represents the C4Piece
+     * @return the corresponding C4Piece
+     */
+    public static C4Piece intToC4Piece(int value) {
+        return C4Piece.fromInt(value);
     }
 }

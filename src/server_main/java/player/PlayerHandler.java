@@ -71,10 +71,10 @@ public class PlayerHandler implements Runnable {
     private synchronized void sendFriendRequest(ThreadMessage message) {
 
         //Check if the message contains the id of the recipient.
-        if (message.getContent().containsKey("ID")) {
+        if (message.getContent().containsKey("id")) {
 
             //If it does, then send the friend request to user associated with the id.
-            int recipientID = (int) message.getContent().get("ID");
+            int recipientID = (int) message.getContent().get("id");
             try {
                 this.getProfile().getFriendsList().sendFriendRequest(recipientID);
                 ServerLogger.log("PlayerHandler: " + this.getProfile().getUsername() + " sent friend request to " + recipientID);
@@ -94,10 +94,10 @@ public class PlayerHandler implements Runnable {
     private synchronized void acceptFriendRequest(ThreadMessage message) {
 
         //Check to make sure that the message contains the player id of the sender.
-        if (message.getContent().containsKey("ID")) {
+        if (message.getContent().containsKey("id")) {
 
             //If it does, then get the id of the sender and accept the friend request.
-            int senderID = (int) message.getContent().get("ID");
+            int senderID = (int) message.getContent().get("id");
             try {
                 this.getProfile().getFriendsList().acceptFriendRequest(senderID);
                 ServerLogger.log("PlayerHandler: " + this.getProfile().getUsername() + " accepted friend request from " + senderID);
@@ -116,8 +116,8 @@ public class PlayerHandler implements Runnable {
     private synchronized void sendGameRequest(ThreadMessage queueMessage) {
 
         //Check to see if the message even contains the recipient id we need.
-        if (queueMessage.getContent().containsKey("ID")) {
-            Integer recipientID = (Integer) queueMessage.getContent().get("ID");
+        if (queueMessage.getContent().containsKey("id")) {
+            Integer recipientID = (Integer) queueMessage.getContent().get("id");
 
             //First, obtain the player handler of the recipient using their id.
             Thread recipientThread = ThreadRegistry.getHandler(recipientID).getThread();
@@ -130,7 +130,7 @@ public class PlayerHandler implements Runnable {
                     //Create the map for the thread message containing the message type.
                     Map<String, Object> requestMap = new HashMap<>();
                     requestMap.put("type", "game-request");
-                    requestMap.put("ID", recipientID);
+                    requestMap.put("id", recipientID);
                     requestMap.put("game-type", queueMessage.getContent().get("game-type"));
 
                     //Create the actual thread message for a game request out of the request map.
@@ -156,10 +156,10 @@ public class PlayerHandler implements Runnable {
      */
     private synchronized void acceptGameRequest(ThreadMessage requestMessage) {
 
-        if (requestMessage.getContent().containsKey("ID")) {
+        if (requestMessage.getContent().containsKey("id")) {
 
             //Get the id, and by extension the player handler of the user sending the game request.
-            Integer senderID = (Integer) requestMessage.getContent().get("ID");
+            Integer senderID = (Integer) requestMessage.getContent().get("id");
             PlayerHandler sender = ThreadRegistry.getHandler(senderID);
 
             //Make sure that the request message contains the game type to be played.

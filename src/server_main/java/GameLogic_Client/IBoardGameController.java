@@ -109,10 +109,11 @@ public interface IBoardGameController
      */
     boolean getC4IsGameOver();
 
-
     C4Piece getC4WinnerAsEnum();
 
     C4Piece getC4CurrentPlayer();
+
+    // do I have to implement this??
     void printBoard();
 
     HintResult getC4ColHint();
