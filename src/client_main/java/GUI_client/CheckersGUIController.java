@@ -364,4 +364,10 @@ public class CheckersGUIController implements Initializable {
     public void getMessage(String message){
         checkerChatArea.appendText(message);
     }
+    public void sendButtonPressed(){
+        sendButton.setImage(new Image(Objects.requireNonNull(getClass().getResource("/GUI_buttons/pressed/send_button_pressed.png")).toExternalForm()));
+    }
+    public void sendButtonReleased(){
+        sendButton.setImage(new Image(Objects.requireNonNull(getClass().getResource("/GUI_buttons/send_button.png")).toExternalForm()));
+    }
 }

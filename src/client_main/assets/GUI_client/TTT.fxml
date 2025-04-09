@@ -100,12 +100,15 @@
                 </font></TextArea>
         </content>
     </ScrollPane>
-    <TextField fx:id="chat_input_field" layoutX="686.0" layoutY="434.0" prefHeight="25.0" prefWidth="161.0" promptText="Message chat" />
-    <ImageView fx:id="sendButton" fitHeight="25.0" fitWidth="35.0" layoutX="852.0" layoutY="434.0" onMouseClicked="#sendMessage" pickOnBounds="true" preserveRatio="true">
+    <TextField fx:id="chat_input_field" layoutX="686.0" layoutY="434.0" prefHeight="25.0" prefWidth="156.0" promptText="Message chat">
+      <font>
+         <Font name="Silom" size="13.0" />
+      </font></TextField>
+    <ImageView fx:id="sendButton" fitHeight="63.0" fitWidth="57.0" layoutX="843.0" layoutY="430.0" onMouseClicked="#sendMessage" onMousePressed="#sendButtonPressed" onMouseReleased="#sendButtonReleased" pickOnBounds="true" preserveRatio="true">
         <cursor>
             <Cursor fx:constant="OPEN_HAND" />
         </cursor></ImageView>
-    <ImageView fx:id="infoButton" fitHeight="80.0" fitWidth="80.0" layoutX="14.0" layoutY="12.0" onMouseClicked="#infoButtonPress" onMousePressed="#infoPressed" onMouseReleased="#infoReleased" pickOnBounds="true" preserveRatio="true">
+    <ImageView fx:id="infoButton" fitHeight="80.0" fitWidth="80.0" layoutX="14.0" layoutY="12.0" onMouseClicked="#infoButtonClicked" onMousePressed="#infoPressed" onMouseReleased="#infoReleased" pickOnBounds="true" preserveRatio="true">
         <cursor>
             <Cursor fx:constant="OPEN_HAND" />
         </cursor></ImageView>

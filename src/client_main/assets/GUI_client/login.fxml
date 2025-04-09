@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.Cursor?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.PasswordField?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI_client.LoginGUIController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI_client.LoginGUIController">
    <children>
 
       <!-- Background image -->
@@ -41,7 +38,7 @@
       </VBox>
 
       <!-- Login Button -->
-      <ImageView fx:id="loginButton" accessibleRole="BUTTON" fitHeight="60.0" fitWidth="60.0" layoutX="469.0" layoutY="320.0" onMouseClicked="#checkLogin" onMousePressed="#loginButtonPressed" onMouseReleased="#loginButtonReleased" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="loginButton" accessibleRole="BUTTON" fitHeight="66.0" fitWidth="59.0" layoutX="457.0" layoutY="320.0" onMouseClicked="#checkLogin" onMousePressed="#loginButtonPressed" onMouseReleased="#loginButtonReleased" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../GUI_buttons/login_button.png" />
          </image>
@@ -50,7 +47,7 @@
          </cursor></ImageView>
 
       <!-- Sign up Button -->
-      <ImageView fx:id="signUpButton" accessibleRole="BUTTON" fitHeight="60.0" fitWidth="76.0" layoutX="380.0" layoutY="320.0" onMouseClicked="#signUpButtonClicked" onMousePressed="#signupButtonPressed" onMouseReleased="#signupButtonReleased" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="signUpButton" accessibleRole="BUTTON" fitHeight="59.0" fitWidth="61.0" layoutX="385.0" layoutY="320.0" onMouseClicked="#signUpButtonClicked" onMousePressed="#signupButtonPressed" onMouseReleased="#signupButtonReleased" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../GUI_buttons/signup_button.png" />
          </image>
@@ -80,7 +77,10 @@
       </ImageView>
 
       <!-- Login failure message -->
-      <Label fx:id="wrongLogIn" layoutX="330.0" layoutY="368.0" prefHeight="18.0" prefWidth="255.0" style="-fx-font-weight: bold;" textFill="red" />
+      <Label fx:id="wrongLogIn" layoutX="330.0" layoutY="368.0" prefHeight="18.0" prefWidth="255.0" style="-fx-font-weight: bold;" textFill="red">
+         <font>
+            <Font name="JetBrains Mono SemiBold" size="12.0" />
+         </font></Label>
       <ImageView fx:id="muteButton" fitHeight="80.0" fitWidth="80.0" layoutX="717.0" layoutY="15.0" onMouseClicked="#muteButtonClicked" pickOnBounds="true" preserveRatio="true">
          <cursor>
             <Cursor fx:constant="OPEN_HAND" />
@@ -97,6 +97,11 @@
       <TextField fx:id="signupUsername" layoutX="298.0" layoutY="337.0" mouseTransparent="true" prefHeight="25.0" prefWidth="320.0" promptText="Username" visible="false" />
       <TextField fx:id="signupPassword" layoutX="297.0" layoutY="381.0" mouseTransparent="true" prefHeight="25.0" prefWidth="320.0" promptText="Password" visible="false" />
       <TextField fx:id="signupEmail" layoutX="297.0" layoutY="427.0" mouseTransparent="true" prefHeight="25.0" prefWidth="320.0" promptText="Email" visible="false" />
+      <Label layoutX="372.0" layoutY="214.0" prefHeight="25.0" prefWidth="176.0" text="Login to OMG Games" textAlignment="CENTER" textFill="#ebae06">
+         <font>
+            <Font name="Lucida Fax Demibold" size="15.0" />
+         </font>
+      </Label>
 
    </children>
 </AnchorPane>

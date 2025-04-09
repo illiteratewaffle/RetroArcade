@@ -2,7 +2,10 @@ package GUI_client;
 
 import GameLogic_Client.Ivec2;
 import GameLogic_Client.GameState;
+import GameLogic_Client.TicTacToe.TTTBoard;
 import GameLogic_Client.TicTacToe.TTTGameController;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -107,10 +110,12 @@ public class TTTController implements Initializable {
     public GridPane gameBoard;
 
     // game controller for TTT logic
-    TTTGameController theGame = new TTTGameController();
+    static TTTGameController theGame = new TTTGameController();
 
     // chat manager
     ChatManager chatManager = new ChatManager();
+
+    public BooleanProperty isYourTurn = new SimpleBooleanProperty(true);
 
     // easter egg
     private final ArrayList<Character> EEList = new ArrayList<Character>();
@@ -121,6 +126,11 @@ public class TTTController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // set background and foreground images
+        isYourTurn.addListener((observable, False, True) ->{
+            if (True) {
+                updateBoard();
+            }
+        });
         Image bg_image = new Image("background_retro.png");
         Image b_image = new Image("foreground.png");
         background_image.setImage(bg_image);
@@ -242,19 +252,24 @@ public class TTTController implements Initializable {
     private void setTile(int row, int col, ImageView imageView){
         Image X = new Image("X.png");
         Image O = new Image("O.png");
-        if (theGame.getGameOngoing())
-            if (theGame.isTileEmpty(new Ivec2(row, col))) {
-                if (theGame.getCurrentPlayer() == 1){
-                    imageView.setImage(X);
-                    turnBanner.setImage(new Image("OTurn.png"));
-                    theGame.makeMove(row, col);
-                } else {
-                    imageView.setImage(O);
-                    turnBanner.setImage(new Image("XTurn.png"));
-                    theGame.makeMove(row, col);
+        System.out.println(theGame.getCurrentPlayer());
+        if (theGame.yourPiece == theGame.getCurrentPlayer()) {
+            if (theGame.getGameOngoing()) {
+                if (theGame.isTileEmpty(new Ivec2(row, col))) {
+                    if (theGame.getCurrentPlayer() == 1) {
+                        imageView.setImage(X);
+                        turnBanner.setImage(new Image("OTurn.png"));
+                        theGame.makeMove(row, col);
+                    } else {
+                        imageView.setImage(O);
+                        turnBanner.setImage(new Image("XTurn.png"));
+                        theGame.makeMove(row, col);
+                    }
+                    checkWin();
+                    isYourTurn.set(false);
                 }
-                checkWin();
             }
+        }
     }
 
     /**
@@ -420,7 +435,7 @@ public class TTTController implements Initializable {
     }
 
     // button animations
-    public void infoButtonPress(){
+    public void infoButtonClicked(){
         info_bg.setImage(new Image("info_image.png"));
         info_bg.setMouseTransparent(false);
         info_ok_button.setMouseTransparent(false);
@@ -450,6 +465,38 @@ public class TTTController implements Initializable {
         } else {
             muteButton.setImage(new Image("unmuteButton.png"));
             AudioManager.toggleMute();
+        }
+    }
+    public void sendButtonPressed(){
+        sendButton.setImage(new Image(Objects.requireNonNull(getClass().getResource("/GUI_buttons/pressed/send_button_pressed.png")).toExternalForm()));
+    }
+    public void sendButtonReleased(){
+        sendButton.setImage(new Image(Objects.requireNonNull(getClass().getResource("/GUI_buttons/send_button.png")).toExternalForm()));
+    }
+    public void updateBoard(){
+        theGame.getGame().board.setPiece(new Ivec2(0, 0), 1);
+        Image x = new Image("X.png");
+        Image o = new Image("O.png");
+        updateConditional(Tile_0_0, 0, 0);
+        updateConditional(Tile_0_1, 0, 1);
+        updateConditional(Tile_0_2, 0, 2);
+        updateConditional(Tile_1_0, 1, 0);
+        updateConditional(Tile_1_1, 1, 1);
+        updateConditional(Tile_1_2, 1, 2);
+        updateConditional(Tile_2_0, 2, 0);
+        updateConditional(Tile_2_1, 2, 1);
+        updateConditional(Tile_2_2, 2, 2);
+
+
+
+    }
+    private void updateConditional(ImageView tile, int row, int col){
+        Image x = new Image("X.png");
+        Image o = new Image("O.png");
+        if (theGame.getTile(row, col) == 1){
+            tile.setImage(x);
+        } else if (theGame.getTile(row, col) == 2){
+            tile.setImage(o);
         }
     }
 }
