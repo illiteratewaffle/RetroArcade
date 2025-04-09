@@ -39,18 +39,19 @@ public class TemporaryClient {
             while (true) {
                 // Read response from the server
                 String response = input.readLine();
-                if (response != null) {
-                    // Check what type of message it is
-                    Map<String, Object> data = fromJson(response);
-                    if (data.containsKey("type") && data.get("type").equals("error")) {
-                        // if it is an error, print the error
-                        System.err.println("Error: " + data.get("message"));
-                    } else if (data.containsKey("type") && data.get("type").equals("chat")) {
-                        System.out.println(data.get("sender") + ": " + data.get("message"));
-                    } else {
-                        System.out.println(response);
-                    }
-                }
+                System.out.println(response);
+//                if (response != null) {
+//                    // Check what type of message it is
+//                    Map<String, Object> data = fromJson(response);
+//                    if (data.containsKey("type") && data.get("type").equals("error")) {
+//                        // if it is an error, print the error
+//                        System.err.println("Error: " + data.get("message"));
+//                    } else if (data.containsKey("type") && data.get("type").equals("chat")) {
+//                        System.out.println(data.get("sender") + ": " + data.get("message"));
+//                    } else {
+//                        System.out.println(response);
+//                    }
+//                }
                 // System.out.println(response);
             }
             // System.out.println("Disconnected from the server.");
@@ -72,25 +73,25 @@ public class TemporaryClient {
                 // Send a message to the server
                 Scanner scanner = new Scanner(System.in);
                 String message = scanner.nextLine();
-
-                Map<String, Object> data = new HashMap<>();
-                if (message.startsWith("enqueue")) {
-                    if (message.contains("0")) {
-                        data.put("type", "enqueue");
-                        data.put("game-type", 0);
-                    } else if (message.contains("1")) {
-                        data.put("type", "enqueue");
-                        data.put("game-type", 1);
-                    } else if (message.contains("2")) {
-                        data.put("type", "enqueue");
-                        data.put("game-type", 2);
-                    }
-                } else {
-                    data.put("type", "chat");
-                    data.put("message", message);
-                }
-
-                output.println(toJson(data));
+                output.println(message);
+//                Map<String, Object> data = new HashMap<>();
+//                if (message.startsWith("enqueue")) {
+//                    if (message.contains("0")) {
+//                        data.put("type", "enqueue");
+//                        data.put("game-type", 0);
+//                    } else if (message.contains("1")) {
+//                        data.put("type", "enqueue");
+//                        data.put("game-type", 1);
+//                    } else if (message.contains("2")) {
+//                        data.put("type", "enqueue");
+//                        data.put("game-type", 2);
+//                    }
+//                } else {
+//                    data.put("type", "chat");
+//                    data.put("message", message);
+//                }
+//
+//                output.println(toJson(data));
                 // System.out.println("Sent to server: " + message);
             }
         } catch (IOException e) {

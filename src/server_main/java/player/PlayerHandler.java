@@ -1,6 +1,7 @@
 package player;
 
 import AuthenticationAndProfile.Profile;
+import GameLogic_Client.Ivec2;
 import com.almasb.fxgl.net.Server;
 import management.*;
 
@@ -305,16 +306,7 @@ public class PlayerHandler implements Runnable {
                         // TODO: this threadMessage has to be like "sorted" to where it needs to go
                         ThreadMessage threadMessage = new ThreadMessage(mainThread, jsonMap);
                         // TODO: this code should only run if we are sending information to the gameSessionManager
-                        // Make sure that we have the GameSessionManagerThread before attempting to send information to it
-                        if (jsonMap.containsKey("type") && (jsonMap.get("type").equals("chat") || jsonMap.get("type").equals("game"))) {
-                            synchronized (gameSessionLock) {
-                                if (gameSessionManagerThread == null)
-                                    gameSessionLock.wait();
-                            }
-                            // Relay the message to the GameSessionManager
-                            // System.out.println(jsonMap);
-                            networkManager.sendMessage(gameSessionManagerThread, threadMessage);
-                        }
+                        routeMessage(threadMessage);
                     } catch (IllegalArgumentException e) {
                         // TODO: Should this be handled better? wait maybe send back a message?
                         log("PlayerHandler: Failure to parse message:", e.toString());
@@ -322,11 +314,56 @@ public class PlayerHandler implements Runnable {
                 } catch (IOException e) {
                     disconnectPlayer();
                     break;
-                } catch (InterruptedException e) {
-                    // just gotta say this should be passed in through some way man, maybe a function? idk doesn't matter
-                    log("PlayerHandler: Never received the thread for the GameSessionManager:", e.toString());
                 }
+//                catch (InterruptedException e) {
+//                    // just gotta say this should be passed in through some way man, maybe a function? idk doesn't matter
+//                    log("PlayerHandler: Never received the thread for the GameSessionManager:", e.toString());
+//                }
             }
+        }
+    }
+
+    /**
+     * Route the ThreadMessage to the corresponding function
+     * @param threadMessage the ThreadMessage that is to be routed
+     */
+    public void routeMessage(ThreadMessage threadMessage) {
+        // Get the sender and the content from the ThreadMessage
+        Map<String, Object> content = threadMessage.getContent();
+        Thread sender = threadMessage.getSender();
+        Map<String, Object> forward = new HashMap<>();
+
+        // This is nasty bro
+        switch ((String) content.get("type")) {
+            case "enqueue":
+                if (content.containsKey("game-type") && content.get("game-type") instanceof Integer gameType
+                        && (gameType > 2 || gameType < 0)) {
+                    ServerController.enqueuePlayer(PlayerHandler.this, gameType);
+                }
+                break;
+            case "send-friend-request":
+                sendFriendRequest(threadMessage);
+                break;
+            case "accept-friend-request":
+                acceptFriendRequest(threadMessage);
+                break;
+            case "send-game-request":
+                sendGameRequest(threadMessage);
+                break;
+            case "game-request":
+                acceptGameRequest(threadMessage);
+                break;
+            case "game":
+            case "chat":
+                // Wait for there to be a GameSessionManager
+//                synchronized (gameSessionLock) {
+//                    if (gameSessionManagerThread == null)
+//                        gameSessionLock.wait();
+//                }
+                networkManager.sendMessage(gameSessionManagerThread, threadMessage);
+                break;
+            default:
+                log("PlayerHandler: Message not recognized: " + threadMessage.getContent());
         }
     }
 }

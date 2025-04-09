@@ -2,14 +2,12 @@ package session;
 
 import GameLogic_Client.IBoardGameController;
 import GameLogic_Client.Ivec2;
-import management.ServerController;
-import management.ServerLogger;
-import management.ThreadMessage;
-import management.ThreadRegistry;
+import management.*;
 import player.PlayerHandler;
 
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -206,7 +204,7 @@ public class GameSessionManager implements Runnable {
                         break;
                     // If wanting to call getWinner()
                     case "getWinner":
-                        forward.put("data", gameController.getWinner());
+                        forward.put("data", ConverterTools.convertIntArrayToList(gameController.getWinner()));
                         sendMessageBack(sender, forward);
                         break;
                     // If wanting to call getGameOngoing()
@@ -225,7 +223,8 @@ public class GameSessionManager implements Runnable {
                         break;
                     // If wanting to call getBoardSize()
                     case "getBoardSize":
-                        forward.put("data", gameController.getBoardSize());
+                        // TODO: IVEC2 TO LIST
+                        forward.put("data", ConverterTools.ivecToList(gameController.getBoardSize()));
                         sendMessageBack(sender, forward);
                         break;
                     // If wanting to call getCurrentPlayer()
