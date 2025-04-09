@@ -332,7 +332,7 @@ public class GameSessionManager implements Runnable {
         if (sender == player1.getThread()) {
             ThreadRegistry.getQueue(player1.getThread()).add(forward);
         } else if (sender == player2.getThread()) {
-            ThreadRegistry.getQueue(player1.getThread()).add(forward);
+            ThreadRegistry.getQueue(player2.getThread()).add(forward);
         } else {
             log("GameSessionManager: Chat message sender not recognized: " + sender);
         }
