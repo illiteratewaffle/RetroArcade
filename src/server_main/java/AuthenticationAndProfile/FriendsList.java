@@ -69,13 +69,15 @@ public class FriendsList {
             if (friendsData != null) {
                 for (int j = 0; j < friendsData.length(); j++) {
                     char c = friendsData.charAt(j);
-                    if (!(c == '{' | c == '}')) {
+                    if (!(c == '{' | c == '}' | c == '"')) {
                         friendString += c;
                     }
                 }
                 String[] fieldsList = friendString.split(",");
                 for (int i = 0; i < fieldsList.length; i++) {
-                    newFriends.add(Integer.parseInt(fieldsList[i]));
+                    if (!fieldsList[i].equals("")) {
+                        newFriends.add(Integer.parseInt(fieldsList[i]));
+                    }
                 }
             }
             friends = newFriends;
@@ -98,15 +100,18 @@ public class FriendsList {
             if (friendRequestData != null) {
                 for (int j = 0; j < friendRequestData.length(); j++) {
                     char c = friendRequestData.charAt(j);
-                    if (!(c == '{' | c == '}')) {
+                    if (!(c == '{' | c == '}' | c == '"')) {
                         friendRequestString += c;
                     }
                 }
                 String[] fieldsList = friendRequestString.split(",");
                 for (int i = 0; i < fieldsList.length; i++) {
-                    newFriendRequests.add(Integer.parseInt(fieldsList[i]));
+                    if (!fieldsList[i].equals("")) {
+                        newFriendRequests.add(Integer.parseInt(fieldsList[i]));
+                    }
                 }
             }
+
             friendRequests = newFriendRequests;
             return friendRequests;
         } catch (SQLException e) {
@@ -181,7 +186,7 @@ public class FriendsList {
      */
     public void removeFriend(int friendID) throws SQLException {
         try {
-            if (friendID != -1 && friends.contains(friendID)) {
+            if (friends.contains(friendID)) {
                 PlayerManager.deleteFriend(id, friendID);// deletes the id to the list of friends
                 friends.remove(Integer.valueOf(friendID)); // removes the id from the list of friends
             }
