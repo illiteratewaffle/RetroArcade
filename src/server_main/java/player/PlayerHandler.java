@@ -508,6 +508,8 @@ public class PlayerHandler implements Runnable {
             int win2 = profile.getPlayerRanking().getWins(2);
             int[] win = {win0, win1, win2};
 
+            boolean onlineStatus = profile.getOnlineStatus();
+
             //Create the map for the thread message
             Map<String, Object> messageMap = new HashMap<>();
             messageMap.put("type", "view-profile");
@@ -521,6 +523,7 @@ public class PlayerHandler implements Runnable {
             messageMap.put("rating", rating);
             messageMap.put("rank", rank);
             messageMap.put("wins", win);
+            messageMap.put("onlineStatus", onlineStatus);
 
             //Create the thread message and return it.
             ThreadMessage requestMessage = new ThreadMessage(Thread.currentThread(), messageMap);
