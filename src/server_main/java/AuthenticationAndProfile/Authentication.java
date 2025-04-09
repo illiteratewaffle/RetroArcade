@@ -28,7 +28,8 @@ public class Authentication {
             Profile profile;
             int id = PlayerManager.authenticatePlayer(username, hashedPassword);
             if (id != -1) {
-                if (Boolean.valueOf(PlayerManager.getAttribute(id, "is_online")).equals(true)) {
+                boolean isOnline = Boolean.parseBoolean(PlayerManager.getAttribute(id, "is_online"));
+                if (isOnline) {
                     throw new SQLException("Profile is already logged in.");
                 }
                 else
