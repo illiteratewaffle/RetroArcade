@@ -175,6 +175,10 @@ public class PlayerHandler implements Runnable {
         }
     }
 
+    /**
+     * Method to give the client the bio of the current user.
+     * @return A Thread Message containing the bio of the current user.
+     */
     private ThreadMessage getBio() {
 
         //Get the bio from the profile.
@@ -187,6 +191,26 @@ public class PlayerHandler implements Runnable {
         messageMap.put("message", bio);
 
         //Create the thread message and return it
+        ThreadMessage requestMessage = new ThreadMessage(Thread.currentThread(), messageMap);
+        return requestMessage;
+    }
+
+    /**
+     * Method to give the client the nickname of the current user.
+     * @return A Thread Message containing the nickname of the current user.
+     */
+    private ThreadMessage getNickname() {
+
+        //Get the nickname from the profile.
+        String nickname = this.getProfile().getNickname();
+
+        //Create the hash map for the thread message.
+        Map<String, Object> messageMap = new HashMap<>();
+        messageMap.put("type", "profile-info-request");
+        messageMap.put("info", "nickname");
+        messageMap.put("message", nickname);
+
+        //Create the thread message and return it.
         ThreadMessage requestMessage = new ThreadMessage(Thread.currentThread(), messageMap);
         return requestMessage;
     }
