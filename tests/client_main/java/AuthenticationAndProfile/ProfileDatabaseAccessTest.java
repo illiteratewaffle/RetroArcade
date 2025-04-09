@@ -20,7 +20,7 @@ class ProfileDatabaseAccessTest {
     @BeforeEach
     void setUp() {
         try {
-            id = PlayerManager.registerPlayer("username11", "email11@email.com", "12345678");
+            id = PlayerManager.registerPlayer(EmailGenerator.getNewEmail(), EmailGenerator.getNewEmail(), "12345678");
             profile = ProfileDatabaseAccess.obtainProfile(id);
         } catch (SQLException s) {
             fail("register player error: " + s.getMessage());

@@ -25,8 +25,8 @@ class FriendsListTest {
     void setUp(){
         try {
             Files.copy(Paths.get("profiles_export.csv"), Paths.get("test_profiles_export.csv"), StandardCopyOption.REPLACE_EXISTING);
-            profileA = ProfileCreation.createNewProfile("UsernameA", "A@email.com", "PasswordA");
-            profileB = ProfileCreation.createNewProfile("UsernameB", "B@email.com", "PasswordB");
+            profileA = ProfileCreation.createNewProfile(EmailGenerator.getNewEmail(), EmailGenerator.getNewEmail(), "PasswordA");
+            profileB = ProfileCreation.createNewProfile(EmailGenerator.getNewEmail(), EmailGenerator.getNewEmail(), "PasswordB");
 
         } catch (Exception e) {
             fail(e.getMessage());

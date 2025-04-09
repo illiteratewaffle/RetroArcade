@@ -58,8 +58,8 @@ class ProfileCreationTest {
 
     @Test
     void createNewProfile2() {
-        String username = "login3";
-        String email = username + "@example.com";
+        String username = EmailGenerator.getNewEmail();
+        String email = username + EmailGenerator.getNewEmail();
         String password = "password";
         Profile newProfile;
         int newProfileID;

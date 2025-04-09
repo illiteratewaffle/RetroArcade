@@ -20,7 +20,7 @@ class PlayerRankingTest {
 
     @Test
     void getRating() throws SQLException, NoSuchAlgorithmException, IOException {
-        Profile profile = ProfileCreation.createNewProfile("testUser", "test@email.com", "testPassword");
+        Profile profile = ProfileCreation.createNewProfile(EmailGenerator.getNewEmail(), EmailGenerator.getNewEmail(), "testPassword");
         int rating = PlayerRanking.getRating(profile.getID(), TTT_INDEX);
         assertEquals(0, rating);
     }
