@@ -115,7 +115,7 @@ public class TTTController implements Initializable {
     // chat manager
     ChatManager chatManager = new ChatManager();
 
-    public BooleanProperty isYourTurn = new SimpleBooleanProperty(true);
+    public static BooleanProperty isYourTurn = new SimpleBooleanProperty(true);
 
     // easter egg
     private final ArrayList<Character> EEList = new ArrayList<Character>();

@@ -3,6 +3,7 @@ import java.io.*;
 import java.net.Socket;
 import java.util.*;
 
+import GUI_client.TTTController;
 import client.JsonConverter;
 import GUI_client.LoginGUIController;
 import java.util.concurrent.BlockingQueue;
@@ -307,7 +308,7 @@ public class Client {
                 int boardLayer = ((Integer) data.get("parameter")).intValue();
                 List<List<List<Integer>>> rawBoard = (List<List<List<Integer>>>) data.get("data");
                 boardCells = ConverterTools.tripleListToListOf2dArray(rawBoard);
-
+                TTTController.isYourTurn.set(true);
                 break;
 
             default:
