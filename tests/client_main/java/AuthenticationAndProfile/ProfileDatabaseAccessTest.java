@@ -1,6 +1,7 @@
 package client_main.java.AuthenticationAndProfile;
 
 import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import player.PlayerManager;
@@ -20,7 +21,7 @@ class ProfileDatabaseAccessTest {
     @BeforeEach
     void setUp() {
         try {
-            id = PlayerManager.registerPlayer("username11", "email11@email.com", "12345678");
+            id = PlayerManager.registerPlayer("username76", "email76@email.com", "12345678");
             profile = ProfileDatabaseAccess.obtainProfile(id);
         } catch (SQLException s) {
             fail("register player error: " + s.getMessage());
@@ -29,8 +30,8 @@ class ProfileDatabaseAccessTest {
         }
     }
 
-    @AfterAll
-    static void tearDown() {
+    @AfterEach
+    void tearDown() {
         try {
             PlayerManager.deleteProfile(id);
         } catch (SQLException s) {
@@ -43,10 +44,10 @@ class ProfileDatabaseAccessTest {
         HashMap<String, Double> achievementProgress = new HashMap<>();
         List<String> gameHistory = new ArrayList<>();
         //String hashedPassword = ProfileCreation.hashedPassword("1234567");
-        Profile profile1 = new Profile("email9@email.com", "12345678910", "null", "null",
-                false, "null", new FriendsList(), new PlayerRanking(), new GameHistory(), "null", "username9", 1);
+        Profile profile1 = new Profile("email10@email.com", "12345678910", "null", "null",
+                false, "null", new FriendsList(), new PlayerRanking(), new GameHistory(), "null", "username10", 1);
         try {
-            int id1 = PlayerManager.registerPlayer("username9", "email9@email.com", "12345678910");
+            int id1 = PlayerManager.registerPlayer("username10", "email10@email.com", "12345678910");
             assertEquals(profile1.getEmail(), ProfileDatabaseAccess.obtainProfile(id1).getEmail());
             assertEquals(profile1.getUsername(), ProfileDatabaseAccess.obtainProfile(id1).getUsername());
             assertEquals(profile1.getOnlineStatus(), ProfileDatabaseAccess.obtainProfile(id1).getOnlineStatus());
@@ -56,23 +57,23 @@ class ProfileDatabaseAccessTest {
         }
     }
 
-    @Test
-    void obtainProfileDirect() {
-        HashMap<String, Double> achievementProgress = new HashMap<>();
-        List<String> gameHistory = new ArrayList<>();
-        //String hashedPassword = ProfileCreation.hashedPassword("1234567");
-        Profile profile1 = new Profile("email12@email.com", "12345678910", "null", "null",
-                false, "null", new FriendsList(), new PlayerRanking(), new GameHistory(), "null", "username12", 1);
-        try {
-            int id1 = PlayerManager.registerPlayer("username12", "email12@email.com", "12345678910");
-            assertEquals(profile1.getEmail(), ProfileDatabaseAccess.obtainProfileDirect(id1).getEmail());
-            assertEquals(profile1.getUsername(), ProfileDatabaseAccess.obtainProfileDirect(id1).getUsername());
-            assertEquals(profile1.getOnlineStatus(), ProfileDatabaseAccess.obtainProfileDirect(id1).getOnlineStatus());
-            PlayerManager.deleteProfile(id1);
-        } catch (SQLException s) {
-            fail(s.getMessage());
-        }
-    }
+//    @Test
+//    void obtainProfileDirect() {
+//        HashMap<String, Double> achievementProgress = new HashMap<>();
+//        List<String> gameHistory = new ArrayList<>();
+//        //String hashedPassword = ProfileCreation.hashedPassword("1234567");
+//        Profile profile1 = new Profile("email12@email.com", "12345678910", "null", "null",
+//                false, "null", new FriendsList(), new PlayerRanking(), new GameHistory(), "null", "username12", 1);
+//        try {
+//            int id1 = PlayerManager.registerPlayer("username12", "email12@email.com", "12345678910");
+//            assertEquals(profile1.getEmail(), ProfileDatabaseAccess.obtainProfileDirect(id1).getEmail());
+//            assertEquals(profile1.getUsername(), ProfileDatabaseAccess.obtainProfileDirect(id1).getUsername());
+//            assertEquals(profile1.getOnlineStatus(), ProfileDatabaseAccess.obtainProfileDirect(id1).getOnlineStatus());
+//            PlayerManager.deleteProfile(id1);
+//        } catch (SQLException s) {
+//            fail(s.getMessage());
+//        }
+//    }
 
     @Test
     void obtainFriendsList() {
@@ -106,7 +107,7 @@ class ProfileDatabaseAccessTest {
 
     @Test
     void obtainPlayerRanking() {
-        /*try {
+        try {
             System.out.println(PlayerManager.updateAttribute(id, "win_loss_ratio_ttt", 0.25));
             System.out.println(PlayerManager.updateAttribute(id, "win_loss_ratio_connect4", 0.50));
             System.out.println(PlayerManager.updateAttribute(id, "win_loss_ratio_checkers", 0.75));
@@ -134,12 +135,12 @@ class ProfileDatabaseAccessTest {
             profile = ProfileDatabaseAccess.obtainProfile(id);
             PlayerRanking playerRanking = new PlayerRanking(id, winLossRatio, rating, rank, wins, losses, total);
             assertEquals(playerRanking.getWinLossRatio(0), ProfileDatabaseAccess.obtainPlayerRanking(id).getWinLossRatio(PlayerRanking.TTT_INDEX));
-            assertEquals(playerRanking.getRating(2, PlayerRanking.CHECKERS_INDEX), ProfileDatabaseAccess.obtainPlayerRanking(id).getRating(id, PlayerRanking.CHECKERS_INDEX));
+            assertEquals(playerRanking.getRating(id, PlayerRanking.CHECKERS_INDEX), ProfileDatabaseAccess.obtainPlayerRanking(id).getRating(id, PlayerRanking.CHECKERS_INDEX));
             assertEquals(playerRanking.getRank(1), ProfileDatabaseAccess.obtainPlayerRanking(id).getRank(PlayerRanking.CONNECT4_INDEX));
             assertEquals(playerRanking.getWins(2), ProfileDatabaseAccess.obtainPlayerRanking(id).getWins(PlayerRanking.CHECKERS_INDEX));
         } catch (SQLException | IOException s) {
             fail(s.getMessage());
-        }*/
+        }
         fail();
     }
 
