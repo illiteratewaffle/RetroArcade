@@ -245,7 +245,7 @@ public class Client {
     public static void acceptFriendRequest(int username) {
         HashMap<String, Object> data = new HashMap<>();
         data.put("type", "accept-friend-request");
-        data.put("Username", username);
+        data.put("username", username);
         networkingMethod(data);
     }
 
