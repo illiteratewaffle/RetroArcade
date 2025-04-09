@@ -1,6 +1,6 @@
 # Thread Message Types Documentation
 
-This document describes the various message types used for inter-thread communication within the system. Every message is constructed as a `Map<String, Object>` using the `ThreadMessage` class. Each message **must** include a `"type"` key to identify the message type and other required keys as specified below. All keys listed below are mandatory and include the expected data type for their associated value.
+This document describes the various message types used for inter-thread communication within the system. Every message is constructed as a `Map<String, Object>` using the `ThreadMessage` class. Each message **must** include a "type" key to identify the message type and other required keys as specified below. All keys listed below are mandatory and include the expected data type for their associated value.
 
 This documentation is intended to help developers maintain or extend the messaging system, ensuring consistency when constructing, parsing, and handling messages.
 
@@ -28,8 +28,7 @@ Every thread message follows this basic structure:
 | **game-request**          | `type`: String, `ID`: Integer, `game-type`: Integer                     | Sent by sendGameRequest to another player handler to invite that client to a friend game. Used as the input for acceptGameRequest.                                                       |
 | **chat**                  | `type`: String, `message`: String                                       | Used for in-game chat messages. The `message` key holds the chat text.                                                                                                                   |
 | **disconnection**         | `type`: String                                                          | Indicates that a client has disconnected from the server. No other keys are required.                                                                                                    |
-| **game**                  | `type`: String                                                          | A generic type for in-game actions (such as moves). Additional keys will be defined by game-specific protocols.                                                                          |
-
+| **game**                  | `type`: String, `command`: String, `parameter`: varies (optional)       | A generic type for in-game actions such as sending inputs or requesting game data. `command` defines the specific game action, and `parameter` varies depending on command.             |
 
 ---
 
@@ -43,5 +42,4 @@ Every thread message follows this basic structure:
 ---
 
 *Keep this document updated as the project evolves to ensure consistent and robust inter-thread communication across the system!*
-
 
