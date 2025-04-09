@@ -262,7 +262,7 @@ public class PlayerHandler implements Runnable {
      * Method to give the client the friends list of the current user.
      * @return A Thread Message containing the friends list of the user.
      */
-    private ThreadMessage getFriends() {
+    private ThreadMessage getFriends() throws SQLException {
 
         //Get the friends list from the profile.
         List<Integer> friendIDS = (List<Integer>) this.getProfile().getFriendsList().getFriends();
@@ -690,6 +690,8 @@ public class PlayerHandler implements Runnable {
                     } catch (IllegalArgumentException e) {
                         // TODO: Should this be handled better? wait maybe send back a message?
                         log("PlayerHandler: Failure to parse message:", e.toString());
+                    } catch (SQLException e) {
+                        throw new RuntimeException(e);
                     }
                 } catch (IOException e) {
                     disconnectPlayer();
@@ -707,7 +709,7 @@ public class PlayerHandler implements Runnable {
      * Route the ThreadMessage to the corresponding function
      * @param threadMessage the ThreadMessage that is to be routed
      */
-    public void routeMessage(ThreadMessage threadMessage) {
+    public void routeMessage(ThreadMessage threadMessage) throws SQLException {
         // Get the sender and the content from the ThreadMessage
         Map<String, Object> content = threadMessage.getContent();
         Thread sender = threadMessage.getSender();

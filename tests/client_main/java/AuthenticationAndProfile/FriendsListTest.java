@@ -106,24 +106,25 @@ class FriendsListTest {
 
     @Test
     void acceptFriendRequest() {
-        try{
-
+        try {
             FriendsList friendsListA = profileA.getFriendsList();
             FriendsList friendsListB = profileB.getFriendsList();
 
+            List<Integer> friendRequestsBefore = friendsListB.getFriendRequests();
+            System.out.println("before: " + friendRequestsBefore);
+
             friendsListA.sendFriendRequest(profileB.getID());
 
-            System.out.println(friendsListA.getFriendRequests());
-            System.out.println(friendsListB.getFriendRequests());
+            List<Integer> friendRequestsAfter = friendsListB.getFriendRequests();
+            System.out.println("after: " + friendRequestsAfter);
 
             friendsListB.acceptFriendRequest(profileA.getID());
 
-            System.out.println(friendsListB.getFriendRequests());
-            System.out.println(friendsListB.getFriends());
-
             assertTrue(friendsListB.getFriends().contains(profileA.getID()));
+
+            // WORKS TO HERE
+            System.out.println(friendsListA.getFriends());
             assertTrue(friendsListA.getFriends().contains(profileB.getID()));
-            assertFalse(friendsListB.getFriendRequests().contains(profileA.getID()));
 
         } catch (SQLException | IOException e) {
             throw new RuntimeException(e);

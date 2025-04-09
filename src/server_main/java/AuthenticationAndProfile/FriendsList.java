@@ -60,8 +60,29 @@ public class FriendsList {
      *
      * @return A list of the friends id numbers
      */
-    public List<Integer> getFriends() {
-        return friends;
+    public List<Integer> getFriends() throws SQLException {
+//        return friends;
+        try {
+            String friendsData = PlayerManager.getAttribute(id, "friends");
+            List<Integer> newFriends = new ArrayList<>();
+            String friendString = "";
+            if (friendsData != null) {
+                for (int j = 0; j < friendsData.length(); j++) {
+                    char c = friendsData.charAt(j);
+                    if (!(c == '{' | c == '}')) {
+                        friendString += c;
+                    }
+                }
+                String[] fieldsList = friendString.split(",");
+                for (int i = 0; i < fieldsList.length; i++) {
+                    newFriends.add(Integer.parseInt(fieldsList[i]));
+                }
+            }
+            friends = newFriends;
+            return friends;
+        } catch (SQLException e) {
+            throw new SQLException(e.getMessage());
+        }
     }
 
     /**
