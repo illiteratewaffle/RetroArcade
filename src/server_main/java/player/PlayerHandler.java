@@ -618,6 +618,35 @@ public class PlayerHandler implements Runnable {
 //                }
                 networkManager.sendMessage(gameSessionManagerThread, threadMessage);
                 break;
+            case "profile-info-request":
+
+                //Check the profile info being requested
+               switch ((String) content.get("info")) {
+
+                   //TODO: Send this information to the client
+                   case "bio":
+                       getBio();
+                   case "nickname":
+                       getNickname();
+                   case "username":
+                       getUsername();
+                   case "profilePath":
+                       getProfilePath();
+                   case "friends":
+                       getFriends();
+                   case "friendRequests":
+                       getFriendRequests();
+                   case "gameHistory":
+                       getGameHistory();
+                   case "winLossRatio":
+                       getWinLossRatio();
+                   case "rating":
+                        getRating();
+                   case "rank":
+                       getRank();
+                   case "wins":
+                       getWins();
+               }
             default:
                 log("PlayerHandler: Message not recognized: " + threadMessage.getContent());
         }
