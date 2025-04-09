@@ -1,13 +1,14 @@
-package server.management;
+package networking_main.management;
 
 import org.junit.jupiter.api.Test;
+import management.JsonConverter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static server.management.JsonConverter.fromJson;
+import static management.JsonConverter.fromJson;
 
 class JsonConverterTest {
 

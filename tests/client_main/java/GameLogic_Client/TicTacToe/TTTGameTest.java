@@ -4,7 +4,6 @@ package client_main.java.GameLogic_Client.TicTacToe;
  * Author: Vicente David - Game Logic Team
  */
 
-import GameLogic_Client.TicTacToe.TTTBoard;
 import GameLogic_Client.TicTacToe.TTTGame;
 import GameLogic_Client.TicTacToe.TTTPiece;
 import GameLogic_Client.Ivec2;

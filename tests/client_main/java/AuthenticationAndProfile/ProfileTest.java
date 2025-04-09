@@ -1,10 +1,11 @@
 package client_main.java.AuthenticationAndProfile;
 
-import leaderboard.PlayerRanking;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -19,13 +20,18 @@ class ProfileTest {
 
     @BeforeEach
     void setUp() {
-        HashMap<String, Double> achievementProgress = new HashMap<>();
-        List<String> gameHistory = new ArrayList<>();
-        List<Integer> friends = Arrays.asList(101, 102, 103);
-        List<Integer> friendRequests = Arrays.asList(201, 202);
-        String password = "1234567";
-        String hashedPassword = ProfileCreation.hashedPassword(password);
-        profile = new Profile("test@example.com", hashedPassword,"nickname", "This is bio.", false, "currentGame", new FriendsList(friends, friendRequests), new PlayerRanking(), new GameHistory(gameHistory, achievementProgress), "C:profile/pic/path.png", "username", 2 );
+        try {
+            HashMap<String, Double> achievementProgress = new HashMap<>();
+            List<String> gameHistory = new ArrayList<>();
+            List<Integer> friends = Arrays.asList(101, 102, 103);
+            List<Integer> friendRequests = Arrays.asList(201, 202);
+            String password = "1234567";
+            String hashedPassword = ProfileCreation.hashedPassword(password);
+            int id = 0;
+            profile = new Profile("test@example.com", hashedPassword, "nickname", "This is bio.", false, "currentGame", new FriendsList(), new PlayerRanking(), new GameHistory(), "C:profile/pic/path.png", "username", 2);
+        } catch (NoSuchAlgorithmException e) {
+            fail(e.getMessage());
+        }
     }
 
 
@@ -36,28 +42,41 @@ class ProfileTest {
 
     @Test
     void setEmail() {
-        profile.setEmail("newemail@example.com");
-        assertEquals("newemail@example.com", profile.getEmail());
+        try {
+            profile.setEmail("newemail@example.com");
+            assertEquals("newemail@example.com", profile.getEmail());
+        } catch (SQLException s) {
+            fail(s.getMessage());
+        }
     }
 
     @Test
     void getHashedPassword() {
-        HashMap<String, Double> achievementProgress = new HashMap<>();
-        List<String> gameHistory = new ArrayList<>();
-        List<Integer> friends = Arrays.asList(101, 102, 103);
-        List<Integer> friendRequests = Arrays.asList(201, 202);
-        String password = "WhatAGoodPassword!";
-        String hashedPassword = ProfileCreation.hashedPassword(password);
-        Profile profile2 = new Profile("test@example.com", hashedPassword, "nick", "This is bio.", false, "currentGame", new FriendsList(friends, friendRequests), new PlayerRanking(), new GameHistory(gameHistory, achievementProgress), "C:profile/pic/path.png", "username", 2);
+        try {
+            List<String> gameHistory = new ArrayList<>();
+            HashMap<String, Double> achievementProgress = new HashMap<>();
+            List<Integer> friends = Arrays.asList(101, 102, 103);
+            List<Integer> friendRequests = Arrays.asList(201, 202);
+            String password = "WhatAGoodPassword!";
+            String hashedPassword = ProfileCreation.hashedPassword(password);
+            int id = 0;
+            Profile profile2 = new Profile("test@example.com", hashedPassword, "nick", "This is bio.", false, "currentGame", new FriendsList(friends, friendRequests, id), new PlayerRanking(), new GameHistory(gameHistory, achievementProgress, id), "C:profile/pic/path.png", "username", 2);
 
 
-        assertEquals(hashedPassword, profile2.getHashedPassword());
+            assertEquals(hashedPassword, profile2.getHashedPassword());
+        } catch (NoSuchAlgorithmException e) {
+            fail(e.getMessage());
+        }
     }
 
     @Test
     void setHashedPassword() {
-        profile.setHashedPassword("newHashedPassword");
-        assertEquals("newHashedPassword", profile.getHashedPassword());
+        try {
+            profile.setHashedPassword("newHashedPassword");
+            assertEquals(ProfileCreation.hashedPassword("newHashedPassword"), profile.getHashedPassword());
+        } catch (SQLException | NoSuchAlgorithmException s) {
+            fail(s.getMessage());
+        }
     }
 
     @Test
@@ -67,8 +86,12 @@ class ProfileTest {
 
     @Test
     void setNickname() {
-        profile.setNickname("newNickname");
-        assertEquals("newNickname", profile.getNickname());
+        try {
+            profile.setNickname("newNickname");
+            assertEquals("newNickname", profile.getNickname());
+        } catch (SQLException s) {
+            fail(s.getMessage());
+        }
     }
 
     @Test
@@ -78,21 +101,33 @@ class ProfileTest {
 
     @Test
     void setBio() {
-        profile.setBio("newBio");
-        assertEquals("newBio", profile.getBio());
+        try {
+            profile.setBio("newBio");
+            assertEquals("newBio", profile.getBio());
+        } catch (SQLException s) {
+            fail(s.getMessage());
+        }
     }
 
     @Test
     void setOnlineStatus() {
-        profile.setOnlineStatus(false);
-        assertFalse(profile.getOnlineStatus());
+        try {
+            profile.setOnlineStatus(false);
+            assertFalse(profile.getOnlineStatus());
+        } catch (SQLException s) {
+            fail(s.getMessage());
+        }
     }
 
     @Test
     void getCurrentStatus() {
-        profile.setOnlineStatus(true);
-        profile.setCurrentGame("newGame");
-        profile.getCurrentStatus();
+        try {
+            profile.setOnlineStatus(true);
+            profile.setCurrentGame("newGame");
+            profile.getCurrentStatus();
+        } catch (SQLException s) {
+            fail(s.getMessage());
+        }
     }
 
     @Test
@@ -102,8 +137,12 @@ class ProfileTest {
 
     @Test
     void setCurrentGame() {
-        profile.setCurrentGame("newGame");
-        assertEquals("newGame", profile.getCurrentGame());
+        try {
+            profile.setCurrentGame("newGame");
+            assertEquals("newGame", profile.getCurrentGame());
+        } catch (SQLException s) {
+            fail(s.getMessage());
+        }
     }
 
     @Test
@@ -114,7 +153,10 @@ class ProfileTest {
     @Test
     void setGamesPlayed() {
         List<String> gameHistory = new ArrayList<>();
-        GameHistory newGamesPlayed = new GameHistory(gameHistory);
+        HashMap<String, Double> achievementProgress = new HashMap<>();
+        achievementProgress.put("Win_Streak", 0.75);
+        achievementProgress.put("Matches_Played", 0.50);
+        GameHistory newGamesPlayed = new GameHistory(gameHistory, achievementProgress, profile.getID());
         profile.setGameHistory(newGamesPlayed);
         assertEquals(newGamesPlayed, profile.getGameHistory());
     }
@@ -133,20 +175,45 @@ class ProfileTest {
 
     @Test
     void exportUsername() {
-        assertEquals("username", Profile.exportUsername(1));
+        String username = Profile.generateUsername();
+        String email = username + "@example.com";
+        String password = Profile.generatePassword();
+        try {
+            Profile profile1 = ProfileCreation.createNewProfile(username, email, password);
+            String hashedPassword = ProfileCreation.hashedPassword(password);
+            int newProfileID = profile1.getID();
+            assertEquals(username, Profile.exportUsername(newProfileID));
+        } catch (SQLException | NoSuchAlgorithmException s) {
+            fail(s.getMessage());
+        } catch (IOException e) {
+            fail(e.getMessage());
+        }
     }
 
     @Test
     void updateUsernameInDatabase() {
-        profile.updateUsername(6, "Alice");
-        assertEquals("Alice", profile.exportUsername(6));
+        String username = Profile.generateUsername();
+        String newUsername = Profile.generateUsername();
+        String email = username + "@example.com";
+        String password = Profile.generatePassword();
+        try {
+            Profile profile1 = ProfileCreation.createNewProfile(username, email, password);
+            String hashedPassword = ProfileCreation.hashedPassword(password);
+            int newProfileID = profile1.getID();
+            assertEquals(username, Profile.exportUsername(newProfileID));
+            profile.updateUsername(newProfileID, newUsername);
+            assertEquals(newUsername, profile.exportUsername(newProfileID));
+        } catch (SQLException | NoSuchAlgorithmException | IOException s) {
+            fail(s.getMessage());
+        }
     }
 
     @Test
     void setAndGetFriendsList() {
         List<Integer> friends = Arrays.asList(101, 102);
         List<Integer> friendRequests = Arrays.asList(201, 202);
-        FriendsList friendsList = new FriendsList(friends, friendRequests);
+        int id = 1;
+        FriendsList friendsList = new FriendsList(friends, friendRequests, id);
         profile.setFriendsList(friendsList);
         assertEquals(friendsList, profile.getFriendsList());
     }

@@ -41,8 +41,7 @@ build/
 
 ### Mac OS ###
 .DS_Store
+/out/
 /.idea/
-out/
 *.xml
-*.iml
-.idea/
+/logs/

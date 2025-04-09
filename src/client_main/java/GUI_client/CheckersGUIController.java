@@ -76,7 +76,6 @@ public class CheckersGUIController implements Initializable {
     private Image winnerBlue;
     private Image winnerPink;
     private Image tie;
-    //private Image tie;
 
     private StackPane previouslySelectedTile = null;
     private int lastClickedRow = -1;
@@ -215,21 +214,20 @@ public class CheckersGUIController implements Initializable {
 
     private void getTurn() {
         int currentPlayer = gameLogic.getCurrentPlayer();
-        int winner = gameLogic.getWinner();
 
         // Check if the game is ongoing before checking the turns
-        if (winner == 3) {
+        if (gameLogic.getGameOngoing()) {
             // Check turns
             if (currentPlayer == 0) {
                 screen.setImage(yourTurn);
             }
+
             else {
                 screen.setImage(opponentTurn);
             }
         }
     }
 
-    
 
     /**
      * Gets the board cells and updates the pieces and highlights on the board based on that
@@ -270,16 +268,21 @@ public class CheckersGUIController implements Initializable {
      */
     private void checkWinners() {
         // used to determine who won
-        int winner = gameLogic.getWinner();
+        int [] winner = gameLogic.getWinner();
 
         // array of length one means someone one
-        if (winner == 0) {
-            screen.setImage(winnerPink);
-        } else if (winner == 1) {
-            screen.setImage(winnerBlue);
-        } else if (winner == 2) {
-             screen.setImage(tie);
+        // TODO: send to networking
+        if (winner.length == 1) {
+            if (winner[0] == 0) {
+                screen.setImage(winnerPink);
+            } else {
+                screen.setImage(winnerBlue);
+            }
+        // array of length two means tie
+        } else if (winner.length == 2) {
+           screen.setImage(tie);
         }
+        // otherwise do nothing and keep playing
     }
     public void XPressed(){
         quitButton.setImage(new Image("home_button_pressed.png"));
