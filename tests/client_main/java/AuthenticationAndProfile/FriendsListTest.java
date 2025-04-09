@@ -58,7 +58,7 @@ class FriendsListTest {
             List<Integer> friends = friendsList.getFriends(); // retrieves updated list of friends
 
             // checks to ensure that profile B is present in profile A's friend list
-            assertTrue(friends.contains(profileB.getID()), String.format("friends list should contain user with id %d", profileA.getID()));
+            assertTrue(friends.contains(profileB.getID()), String.format("friends list should contain user with id %d", profileB.getID()));
 
         } catch (SQLException e) {
             fail(e.getMessage()); // fails the test if any error occurs

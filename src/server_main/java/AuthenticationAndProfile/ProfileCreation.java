@@ -37,7 +37,7 @@ public class ProfileCreation {
                 return loggedInProfile;
             }
         } catch (SQLException s) {
-            throw new SQLException("Login Unsuccessful: " + s.getMessage());
+            throw new SQLException("Profile creation failed: " + s.getMessage());
         } catch (NoSuchAlgorithmException e) {
             throw new NoSuchAlgorithmException(e.getMessage());
         } catch (IOException i) {
