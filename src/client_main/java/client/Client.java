@@ -279,43 +279,53 @@ public class Client {
         data.put("type", "profile-info-request");
         data.put("info", "bio");
         networkingMethod(data);
-        data = new HashMap<>();
+
+        data.clear();
         data.put("type", "profile-info-request");
         data.put("info", "nickname");
         networkingMethod(data);
-        data = new HashMap<>();
+
+        data.clear();
         data.put("type", "profile-info-request");
         data.put("info", "username");
         networkingMethod(data);
-        data = new HashMap<>();
+
+        data.clear();
         data.put("type", "profile-info-request");
         data.put("info", "profilePath");
         networkingMethod(data);
-        data = new HashMap<>();
+
+        data.clear();
         data.put("type", "profile-info-request");
         data.put("info", "friends");
         networkingMethod(data);
-        data = new HashMap<>();
+
+        data.clear();
         data.put("type", "profile-info-request");
         data.put("info", "friendRequests");
         networkingMethod(data);
-        data = new HashMap<>();
+
+        data.clear();
         data.put("type", "profile-info-request");
         data.put("info", "gameHistory");
         networkingMethod(data);
-        data = new HashMap<>();
+
+        data.clear();
         data.put("type", "profile-info-request");
         data.put("info", "winLossRatio");
         networkingMethod(data);
-        data = new HashMap<>();
+
+        data.clear();
         data.put("type", "profile-info-request");
         data.put("info", "rating");
         networkingMethod(data);
-        data = new HashMap<>();
+
+        data.clear();
         data.put("type", "profile-info-request");
         data.put("info", "rank");
         networkingMethod(data);
-        data = new HashMap<>();
+
+        data.clear();
         data.put("type", "profile-info-request");
         data.put("info", "wins");
         networkingMethod(data);
