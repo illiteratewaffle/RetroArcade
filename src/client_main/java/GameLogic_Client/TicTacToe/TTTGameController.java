@@ -1,10 +1,13 @@
 package GameLogic_Client.TicTacToe;
 
+import GUI_client.TTTController;
 import GameLogic_Client.Connect4.C4Piece;
 import GameLogic_Client.Connect4.HintResult;
 import GameLogic_Client.GameState;
 import GameLogic_Client.IBoardGameController;
 import GameLogic_Client.Ivec2;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 
 import java.util.ArrayList;
 
@@ -19,7 +22,7 @@ public class TTTGameController implements IBoardGameController {
      * The Tic-Tac-Toe game instance.
      */
     private TTTGame game;
-
+    public int yourPiece = 1;
     /**
      * Initializes the game controller by creating a new game instance.
      */
@@ -220,5 +223,8 @@ public class TTTGameController implements IBoardGameController {
 
     public HintResult getC4ColHint() {
         return null;
+    }
+    public int getTile(int row, int col){
+        return this.game.board.getPiece(new Ivec2(row, col));
     }
 }

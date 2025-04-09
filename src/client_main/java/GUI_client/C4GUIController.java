@@ -79,7 +79,6 @@ public class C4GUIController implements Initializable {
         Media sound = new Media(path);
         AudioManager.mediaPlayer = new MediaPlayer(sound);
         AudioManager.mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
-        AudioManager.setMuted(false);
         AudioManager.mediaPlayer.play();
         if (AudioManager.isMuted()){
             AudioManager.applyMute();
@@ -386,6 +385,7 @@ public class C4GUIController implements Initializable {
     @FXML
     private void clickHintButton() {
         HintResult hint = c4Controller.getC4ColHint();
+        hint_ok_button.setMouseTransparent(false);
         hintMessageImage.setVisible(false);
         noHintMessageImage.setVisible(false);
         if (hint.col != -1) {
@@ -439,6 +439,7 @@ public class C4GUIController implements Initializable {
         hint_ok_button.setVisible(false);
         hint_ok_button.setMouseTransparent(true);
         resetColumnHighlights();
+        hint_ok_button.setMouseTransparent(true);
     }
 
     /**
@@ -546,5 +547,17 @@ public class C4GUIController implements Initializable {
             muteButton.setImage(new Image("unmuteButton.png"));
             AudioManager.toggleMute();
         }
+    }
+    public void infoButtonPressed(){
+        infoButton.setImage(new Image(Objects.requireNonNull(getClass().getResource("/GUI_buttons/pressed/info_button_pressed.PNG")).toExternalForm()));
+    }
+    public void infoButtonReleased(){
+        infoButton.setImage(new Image(Objects.requireNonNull(getClass().getResource("/GUI_buttons/info_button.png")).toExternalForm()));
+    }
+    public void sendButtonPressed(){
+        sendButton.setImage(new Image(Objects.requireNonNull(getClass().getResource("/GUI_buttons/pressed/send_button_pressed.png")).toExternalForm()));
+    }
+    public void sendButtonReleased(){
+        sendButton.setImage(new Image(Objects.requireNonNull(getClass().getResource("/GUI_buttons/send_button.png")).toExternalForm()));
     }
 }

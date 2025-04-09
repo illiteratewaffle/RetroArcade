@@ -321,11 +321,11 @@
             <content>
                 <TextArea fx:id="checkerChatArea" mouseTransparent="true" prefHeight="293.0" prefWidth="200.0" />
             </content></ScrollPane>
-        <TextField fx:id="checkerChatInput" layoutX="684.0" layoutY="437.0" prefHeight="25.0" prefWidth="151.0" promptText="send to chat">
+        <TextField fx:id="checkerChatInput" layoutX="684.0" layoutY="437.0" prefHeight="25.0" prefWidth="147.0" promptText="send to chat">
          <font>
             <Font name="Silom" size="13.0" />
          </font></TextField>
-        <ImageView fx:id="sendButton" fitHeight="41.0" fitWidth="62.0" layoutX="831.0" layoutY="432.0" onMouseClicked="#sendMessage" pickOnBounds="true" preserveRatio="true">
+        <ImageView fx:id="sendButton" fitHeight="41.0" fitWidth="62.0" layoutX="831.0" layoutY="432.0" onMouseClicked="#sendMessage" onMousePressed="#sendButtonPressed" onMouseReleased="#sendButtonReleased" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@../send_button.png" />
             </image>
