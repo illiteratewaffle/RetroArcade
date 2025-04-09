@@ -187,8 +187,8 @@ public class GameSessionManager implements Runnable {
                 switch ((String) content.get("command")) {
                     // If wanting to call receiveInput()
                     case "receiveInput":
-                        if (content.containsKey("parameter") && content.get("parameter") instanceof int[] parameter) {
-                            Ivec2 ivec2 = new Ivec2(parameter[0], parameter[1]);
+                        if (content.containsKey("parameter") && content.get("parameter") instanceof List<?> parameter) {
+                            Ivec2 ivec2 = new Ivec2((int) parameter.get(0), (int) parameter.get(1));
                             gameController.receiveInput(ivec2);
                         } else {
                             log("GameSessionManager: Message not recognized: " + threadMessage.getContent());
@@ -204,7 +204,7 @@ public class GameSessionManager implements Runnable {
                         break;
                     // If wanting to call getWinner()
                     case "getWinner":
-                        // forward.put("data", ConverterTools.convertIntArrayToList(gameController.getWinner()));
+                        forward.put("data", gameController.getWinner());
                         sendMessageBack(sender, forward);
                         break;
                     // If wanting to call getGameOngoing()
@@ -215,7 +215,7 @@ public class GameSessionManager implements Runnable {
                     // If wanting to call getBoardCells()
                     case "getBoardCells":
                         if (content.containsKey("parameter") && content.get("parameter") instanceof Integer parameter) {
-                            forward.put("data", gameController.getBoardCells(parameter));
+                            forward.put("data", ConverterTools.listOf2dArrayto3dlist(gameController.getBoardCells(parameter)));
                             sendMessageBack(sender, forward);
                         } else {
                             log("GameSessionManager: Message not recognized: " + threadMessage.getContent());
@@ -223,7 +223,6 @@ public class GameSessionManager implements Runnable {
                         break;
                     // If wanting to call getBoardSize()
                     case "getBoardSize":
-                        // TODO: IVEC2 TO LIST
                         forward.put("data", ConverterTools.ivecToList(gameController.getBoardSize()));
                         sendMessageBack(sender, forward);
                         break;
@@ -264,6 +263,51 @@ public class GameSessionManager implements Runnable {
                     case "boardChangedSinceLastCommand":
                         forward.put("data", gameController.boardChangedSinceLastCommand());
                         sendMessageBack(sender, forward);
+                        break;
+                    case "getC4Board":
+                        forward.put("data", ConverterTools.c4Piece2dArrayTo2dList(gameController.getC4Board()));
+                        sendMessageBack(sender, forward);
+                        break;
+                    case "getC4IsGameOver":
+                        forward.put("data", gameController.getC4IsGameOver());
+                        sendMessageBack(sender, forward);
+                        break;
+                    case "getC4WinnerAsEnum":
+                        forward.put("data", ConverterTools.C4PieceToInt(gameController.getC4WinnerAsEnum()));
+                        sendMessageBack(sender, forward);
+                        break;
+                    case "getC4CurrentPlayer":
+                        forward.put("data", ConverterTools.C4PieceToInt(gameController.getC4CurrentPlayer()));
+                        sendMessageBack(sender, forward);
+                        break;
+                    case "getC4ColHint":
+                        forward.put("data", ConverterTools.hintResultToList(gameController.getC4ColHint()));
+                        sendMessageBack(sender, forward);
+                        break;
+                    case "isTileEmpty":
+                        if (content.containsKey("parameter") && content.get("parameter") instanceof List<?> parameter) {
+                            forward.put("data", gameController.isTileEmpty(ConverterTools.listToIvec((List<Integer>) parameter)));
+                            sendMessageBack(sender, forward);
+                        } else {
+                            log("GameSessionManager: Message not recognized: " + threadMessage.getContent());
+                        }
+                        break;
+                    case "makeMove":
+                        if (content.containsKey("parameter") && content.get("parameter") instanceof List<?> parameter) {
+                            forward.put("data", gameController.makeMove((int) parameter.get(0), (int) parameter.get(1)));
+                            sendMessageBack(sender, forward);
+                        }
+                        break;
+                    case "checkWin":
+                        forward.put("data", gameController.checkWin());
+                        sendMessageBack(sender, forward);
+                        break;
+                    case "checkDraw":
+                        forward.put("data", gameController.checkDraw());
+                        sendMessageBack(sender, forward);
+                        break;
+                    case "updateGameState":
+                        gameController.updateGameState();
                         break;
                     default:
                         log("GameSessionManager: Message not recognized: " + threadMessage.getContent());

@@ -207,4 +207,27 @@ public class C4Controller implements IBoardGameController {
         }
         return c4GameLogic.getC4HintColumn();
     }
+
+    @Override
+    public boolean isTileEmpty(Ivec2 tile) {
+        return false;
+    }
+
+    @Override
+    public boolean makeMove(int row, int col) {
+        return false;
+    }
+
+    @Override
+    public boolean checkWin() {
+        return false;
+    }
+
+    @Override
+    public boolean checkDraw() {
+        return false;
+    }
+
+    @Override
+    public void updateGameState() {}
 }

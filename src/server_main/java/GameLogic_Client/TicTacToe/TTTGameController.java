@@ -5,6 +5,7 @@ import GameLogic_Client.Connect4.HintResult;
 import GameLogic_Client.GameState;
 import GameLogic_Client.IBoardGameController;
 import GameLogic_Client.Ivec2;
+import org.intellij.lang.annotations.Identifier;
 
 import java.util.ArrayList;
 
@@ -32,6 +33,7 @@ public class TTTGameController implements IBoardGameController {
      * @param tile Ivec2 coordinates of the tile that you want to check if empty.
      * @return returns true if empty, false if not empty.
      */
+    @Override
     public boolean isTileEmpty(Ivec2 tile) {
         return game.board.isEmpty(tile);
     }
@@ -42,6 +44,7 @@ public class TTTGameController implements IBoardGameController {
      * @param col the col coordinate of the move.
      * @return returns true if the move is valid. False if invalid.
      */
+    @Override
     public boolean makeMove(int row, int col) {
         return game.makeMove(row, col);
     }
@@ -50,6 +53,7 @@ public class TTTGameController implements IBoardGameController {
      * checks if a win condition has been reached by either player.
      * @return returns true if a player has won, false if nobody has won yet.
      */
+    @Override
     public boolean checkWin() {
         return game.checkWin(game.board);
     }
@@ -58,6 +62,7 @@ public class TTTGameController implements IBoardGameController {
      * checks if a draw condition has been reached in-game.
      * @return returns true if there's a draw, false otherwise.
      */
+    @Override
     public boolean checkDraw() {
         return game.checkDraw(game.board);
     }
@@ -65,6 +70,7 @@ public class TTTGameController implements IBoardGameController {
     /**
      * updates the game state via the game logic.
      */
+    @Override
     public void updateGameState() {
         game.updateGameState();
     }

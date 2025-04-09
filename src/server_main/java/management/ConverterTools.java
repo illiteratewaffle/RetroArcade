@@ -1,6 +1,7 @@
 package management;
 
 import GameLogic_Client.Connect4.C4Piece;
+import GameLogic_Client.Connect4.HintResult;
 import GameLogic_Client.Ivec2;
 
 import java.util.ArrayList;
@@ -124,5 +125,48 @@ public class ConverterTools {
      */
     public static C4Piece intToC4Piece(int value) {
         return C4Piece.fromInt(value);
+    }
+
+    /**
+     * Converts a HintResult to a list
+     * @param hintResult the input HintResult
+     * @return the corresponding List
+     */
+    public static List<Object> hintResultToList(HintResult hintResult) {
+        return List.of(hintResult);
+    }
+
+    /**
+     * Converts a List to HintResult
+     * @param list the input list
+     * @return the corresponding HintResult
+     */
+    public static HintResult intToHintResult(List<Object> list) {
+        return new HintResult((int) list.get(0), (String) list.get(1));
+    }
+
+    public static List<List<Integer>> c4Piece2dArrayTo2dList(C4Piece[][] array) {
+        List<List<Integer>> result = new ArrayList<>();
+        for (C4Piece[] row : array) {
+            List<Integer> rowList = new ArrayList<>();
+            for (C4Piece c4Piece : row) {
+                rowList.add(c4Piece.getValue());
+            }
+            result.add(rowList);
+        }
+        return result;
+    }
+
+    public static C4Piece[][] c4Piece2dListTo2dArray(List<List<Integer>> list) {
+        C4Piece[][] result = new C4Piece[list.size()][];
+        for (int i = 0; i < list.size(); i++) {
+            List<Integer> rowList = list.get(i);
+            C4Piece[] row = new C4Piece[rowList.size()];
+            for (int j = 0; j < rowList.size(); j++) {
+                row[j] = intToC4Piece(rowList.get(j));
+            }
+            result[i] = row;
+        }
+        return result;
     }
 }

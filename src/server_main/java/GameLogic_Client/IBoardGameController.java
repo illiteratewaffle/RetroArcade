@@ -117,4 +117,14 @@ public interface IBoardGameController
     void printBoard();
 
     HintResult getC4ColHint();
+
+    boolean isTileEmpty(Ivec2 tile);
+
+    boolean makeMove(int row, int col);
+
+    boolean checkWin();
+
+    boolean checkDraw();
+
+    void updateGameState();
 }
