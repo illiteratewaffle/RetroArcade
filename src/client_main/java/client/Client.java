@@ -250,6 +250,13 @@ public class Client {
         data.put("game-type", gameType);
         networkingMethod(data);
     }
+    public static void acceptGameRequest(int id, int gameType) {
+        HashMap<String, Object> data = new HashMap<>();
+        data.put("type", "accept-game-request");
+        data.put("id", id);
+        data.put("game-type", gameType);
+        networkingMethod(data);
+    }
 
     private static void handleGameCommand(HashMap<String, Object> data) {
         String command = (String) data.get("command");
