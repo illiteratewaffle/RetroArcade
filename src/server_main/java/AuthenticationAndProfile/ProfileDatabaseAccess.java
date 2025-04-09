@@ -53,6 +53,7 @@ public class ProfileDatabaseAccess {
             } else {
                 isOnline = false;
             }
+            delete(Paths.get(String.format("player_profile_%d.csv", id)));
 
             //Call methods to create the FriendsList, GameHistory, and PlayerRanking objects from database attached to profile id
             FriendsList friendsList = obtainFriendsList(id);
@@ -60,7 +61,6 @@ public class ProfileDatabaseAccess {
             PlayerRanking playerRanking = obtainPlayerRanking(id);
 
             Profile profile = new Profile(email, hashedPassword, nickname, bio, isOnline, currentGame, friendsList, playerRanking, gameHistory, profilePicFilePath, username, id);
-            delete(Paths.get(String.format("player_profile_%d.csv", id)));
             return profile;
         } catch (NullPointerException n) {
             throw new NullPointerException(n.getMessage());
@@ -133,6 +133,7 @@ public class ProfileDatabaseAccess {
                 }
             }
             FriendsList friendsList = new FriendsList(friends, friendRequests, id);
+            delete(Paths.get(String.format("player_profile_%d.csv", id)));
             return friendsList;
         } catch (SQLException s) {
             throw new SQLException(s.getMessage());
@@ -165,6 +166,7 @@ public class ProfileDatabaseAccess {
     public static PlayerRanking obtainPlayerRanking(int id) {
         //call method to get csv for id
         try {
+            PlayerManager.getProfile(id);
             String csvProfileFilePath = String.format("player_profile_%d.csv", id); //csv file saved to the main project directory
 
             ArrayList<String> profileFields = openSingleProfileFile(csvProfileFilePath);
@@ -202,8 +204,9 @@ public class ProfileDatabaseAccess {
             total[2] = Integer.parseInt(profileFields.get(ProfileCSVReader.TOTAL_CHECKERS_INDEX));
 
             PlayerRanking playerRanking = new PlayerRanking(id, winLossRatio, rating, rank, wins, losses, total);
+            delete(Paths.get(String.format("player_profile_%d.csv", id)));
             return playerRanking;
-        } catch (IOException e){
+        } catch (SQLException | IOException e){
             System.out.println("ID does not match a profile in the database.");
             return null;
         }
@@ -252,14 +255,14 @@ public class ProfileDatabaseAccess {
     public static GameHistory obtainGameHistory(int id) throws IOException {
         //call method to get csv for id
         try {
-            //PlayerManager.getProfileTable(id); //method to get Profile csv with all attributes associated to the specified id
+            PlayerManager.getProfile(id); //method to get Profile csv with all attributes associated to the specified id
             String csvProfileFilePath = String.format("player_profile_%d.csv", id); //csv file saved to the main project directory
 
             ArrayList<String> profileFields = openSingleProfileFile(csvProfileFilePath);
             List<String> gameHistory = new ArrayList<>();
             String gameHistoryString = profileFields.get(ProfileCSVReader.GHIST_INDEX);
             if (!gameHistoryString.equals("")) {
-                String[] fieldsList = gameHistoryString.split(", ");
+                String[] fieldsList = gameHistoryString.split(",");
                 for (int i = 0; i < fieldsList.length; i++) {
                     gameHistory.add(fieldsList[i]);
                 }
@@ -271,27 +274,36 @@ public class ProfileDatabaseAccess {
                 String section = "";
                 String key = "";
                 Double value = 0.00;
-                boolean keyComplete = false;
+                int keyComplete = 0;
                 for (int j = 0; j < achievements.length; j++) {
                     String entry = achievements[j];
                     for (int k = 0; k < entry.length(); k++) {
                         char c = entry.charAt(k);
                         if (c == '=') {
-                            continue;
+                            keyComplete += 1;
                         } else if (c == '>') {
-                            keyComplete = true;
-                            key = section;
-                        } else if (c != '"') {
+                            keyComplete += 1;
+                            key += section;
+                            section = "";
+                        }else if ( c == ',') {
+                            value = Double.parseDouble(section);
+                            achievementProgress.put(key, value);
+                            key = "";
+                            section = "";
+                        } else if (!(c == '"' | c == ' ')) {
                             section += c;
                         }
                     }
                     value = Double.parseDouble(section);
                     achievementProgress.put(key, value);
+                    section = "";
+                    key = "";
                 }
             }
             GameHistory gameHistoryObject = new GameHistory(gameHistory, achievementProgress, id);
+            delete(Paths.get(String.format("player_profile_%d.csv", id)));
             return gameHistoryObject;
-        } catch (IOException e) {
+        } catch (SQLException| IOException e) {
             throw new IOException(e.getMessage());
         }
     }

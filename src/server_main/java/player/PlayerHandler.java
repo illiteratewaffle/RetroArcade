@@ -744,36 +744,53 @@ public class PlayerHandler implements Runnable {
 //                }
                 networkManager.sendMessage(gameSessionManagerThread, threadMessage);
                 break;
+
             case "profile-info-request":
 
                 //Check the profile info being requested
-               switch ((String) content.get("info")) {
+                switch ((String) content.get("info")) {
 
-                   case "bio":
-                       sendToClient(getBio());
-                   case "nickname":
-                       sendToClient(getNickname());
-                   case "username":
-                       sendToClient(getUsername());
-                   case "profilePath":
-                       sendToClient(getProfilePath());
-                   case "friends":
-                       sendToClient(getFriends());
-                   case "friendRequests":
-                       sendToClient(getFriendRequests());
-                   case "gameHistory":
-                       sendToClient(getGameHistory());
-                   case "winLossRatio":
-                       sendToClient(getWinLossRatio());
-                   case "rating":
-                       sendToClient(getRating());
-                   case "rank":
-                       sendToClient(getRank());
-                   case "wins":
-                       sendToClient(getWins());
-               }
+                    case "bio":
+                        sendToClient(getBio());
+                        break;
+                    case "nickname":
+                        sendToClient(getNickname());
+                        break;
+                    case "username":
+                        sendToClient(getUsername());
+                        break;
+                    case "profilePath":
+                        sendToClient(getProfilePath());
+                        break;
+                    case "friends":
+                        sendToClient(getFriends());
+                        break;
+                    case "friendRequests":
+                        sendToClient(getFriendRequests());
+                        break;
+                    case "gameHistory":
+                        sendToClient(getGameHistory());
+                        break;
+                    case "winLossRatio":
+                        sendToClient(getWinLossRatio());
+                        break;
+                    case "rating":
+                        sendToClient(getRating());
+                        break;
+                    case "rank":
+                        sendToClient(getRank());
+                        break;
+                    case "wins":
+                        sendToClient(getWins());
+                        break;
+                    default:
+                        ServerLogger.log("PlayerHandler: Profile Info Request not recognized.");
+                    break;
+                }
+                break;
             case "view-profile":
                 sendToClient(viewProfile(threadMessage));
+                break;
             default:
                 log("PlayerHandler: Message not recognized: " + threadMessage.getContent());
         }
