@@ -76,4 +76,42 @@ public class CheckersMove {
      * @return <code>True</code> if this move will result in a capture; <code>False</code> otherwise.
      */
     public boolean isCapture() { return captureCoordinate != null; }
+
+
+    /**
+     * @return The Hash Code of this <code>CheckersMov</code> object for hash-related operations.
+     */
+    @Override
+    public int hashCode()
+    {
+        int startHash = startCoordinate.hashCode();
+        int targetHash = targetCoordinate.hashCode();
+        return (((startHash + (targetHash >> 16)) << 16) + (startHash >> 16) + ((targetHash << 16) >> 16)
+                ^ (isCapture() ? captureCoordinate.hashCode() : 0));
+    }
+
+
+    /**
+     * Compare 2 instances of <code>CheckersMove</code> together.
+     * @param obj The other <code>CheckersMove</code> object to compare with this one.
+     * @return
+     * <code>True</code> if the coordinates of each part of the move
+     * of both <code>CheckersMove</code> objects are the same;
+     * <code>False</code> otherwise.
+     */
+    @Override
+    public boolean equals(Object obj)
+    {
+        // Only compare this with other CheckersMove instance.
+        if (obj instanceof CheckersMove other)
+        {
+            if ((isCapture() && other.isCapture() && captureCoordinate.equals(other.captureCoordinate))
+                || (!isCapture() && !other.isCapture()))
+            {
+                return (startCoordinate.equals(other.startCoordinate) &&
+                        targetCoordinate.equals(other.targetCoordinate));
+            }
+        }
+        return false;
+    }
 }
