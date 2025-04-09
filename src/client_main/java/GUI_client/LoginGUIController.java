@@ -50,7 +50,11 @@ public class LoginGUIController implements Initializable {
     @FXML
     private TextField signUpUserField;
     @FXML
-    private PasswordField signUpPasswordField;
+    public TextField signupUsername;
+    @FXML
+    public TextField signupPassword;
+    @FXML
+    public TextField signupEmail;
 
     //username and password
     @FXML
@@ -84,10 +88,15 @@ public class LoginGUIController implements Initializable {
         //load sign up stuff here ltr
         //signUpPage.setImage(new Image("sign_up_page.png"));
         signUpPage.setVisible(true);
-        signUpUserField.setVisible(true);
-        signUpUserField.setDisable(false);
-        signUpPasswordField.setVisible(true);
-        signUpPasswordField.setDisable(false);
+        signupUsername.setVisible(true);
+        signupUsername.setDisable(false);
+        signupUsername.setMouseTransparent(false);
+        signupPassword.setVisible(true);
+        signupPassword.setDisable(false);
+        signupPassword.setMouseTransparent(false);
+        signupEmail.setVisible(true);
+        signupEmail.setDisable(false);
+        signupEmail.setMouseTransparent(false);
         wrongLogIn.setVisible(false);
         createProfileButton.setMouseTransparent(false);
         createProfileButton.setVisible(true);
@@ -99,12 +108,12 @@ public class LoginGUIController implements Initializable {
     @FXML
     private void backButtonClicked() throws IOException {
         signUpPage.setVisible(false);
-        signUpUserField.setVisible(false);
-        signUpUserField.setDisable(true);
-        signUpPasswordField.setVisible(false);
-        signUpPasswordField.setDisable(true);
-        //signUpPage.setMouseTransparent(true);
-        //signUpButton.setMouseTransparent(true);
+        signupUsername.setVisible(false);
+        signupUsername.setDisable(true);
+        signupPassword.setVisible(false);
+        signupPassword.setDisable(true);
+        signupEmail.setVisible(false);
+        signupEmail.setDisable(true);
         backButton.setVisible(false);
         createProfileButton.setVisible(false);
         createProfileButton.setMouseTransparent(true);
@@ -194,8 +203,40 @@ public class LoginGUIController implements Initializable {
         }
     }
 
-    public void createProfileClicked(){
+    public void createProfileClicked() throws IOException, InterruptedException {
+        String username = signupUsername.getText();
+        String password = signupPassword.getText();
+        String email = signupEmail.getText();
 
+        Client.register(username, password, email);
+        Thread.sleep(100);
+
+        signUpPage.setVisible(false);
+        signupUsername.setVisible(false);
+        signupUsername.setDisable(true);
+        signupPassword.setVisible(false);
+        signupPassword.setDisable(true);
+        signupEmail.setVisible(false);
+        signupEmail.setDisable(true);
+        backButton.setVisible(false);
+        createProfileButton.setVisible(false);
+        createProfileButton.setMouseTransparent(true);
+
+        if (loginSuccess) {
+            // stop current soundtrack
+            AudioManager.mediaPlayer.stop();
+            // load TTT resources
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("gameMenu.fxml")));
+
+            // get the current gameMenu stage
+            Stage stage = (Stage) exitButton.getScene().getWindow();
+
+            stage.setScene(new Scene(root));
+            stage.show();
+        } else{
+            System.out.println("hi");
+            wrongLogIn.setText("profile already exists");
+        }
     }
 
     public void createProfilePressed(){
