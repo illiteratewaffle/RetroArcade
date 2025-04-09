@@ -2,7 +2,7 @@ package client_main.java.GameLogic_Client.Checkers;
 
 import GameLogic_Client.Checkers.*;
 
-import GameLogic_Client.Checkers.GameState;
+import GameLogic_Client.GameState;
 import GameLogic_Client.Ivec2;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -57,7 +57,7 @@ public class CheckersControllerTest {
         // The game should still be ongoing.
         assertTrue(gameLogic.getGameOngoing());
         // There should be no winners yet.
-        assertEquals(0, gameLogic.getWinner().length);
+        assertEquals(-1, gameLogic.getWinner());
     }
 
     @Test
@@ -1173,9 +1173,7 @@ public class CheckersControllerTest {
         // This should result in a win for player 1.
         assertFalse(gameLogic.getGameOngoing());
         // There should be exactly 1 winner.
-        assertEquals(1, gameLogic.getWinner().length);
-        // This should be player 1 (represented by index 0).
-        assertEquals(0, gameLogic.getWinner()[0]);
+        assertEquals(0, gameLogic.getWinner());
 
         // After a win, there should be no valid inputs left.
         assertTrue(gameLogic.updateValidInputsPublic().isEmpty());
@@ -1236,9 +1234,9 @@ public class CheckersControllerTest {
         // This should result in a win for player 1.
         assertFalse(gameLogic.getGameOngoing());
         // There should be exactly 1 winner.
-        assertEquals(1, gameLogic.getWinner().length);
+        assertEquals(0, gameLogic.getWinner());
         // This should be player 1 (represented by index 0).
-        assertEquals(0, gameLogic.getWinner()[0]);
+        assertEquals(0, gameLogic.getWinner());
 
         // After a win, there should be no valid inputs left.
         assertTrue(gameLogic.updateValidInputsPublic().isEmpty());
@@ -1296,18 +1294,7 @@ public class CheckersControllerTest {
 
         // No players should be able to make any other moves.
         assertFalse(gameLogic.getGameOngoing());
-        // There should be exactly 2 winners (tie).
-        assertEquals(2, gameLogic.getWinner().length);
-
-        // This should be player 1 and 2, (represented by indices 0 and 1).
-        HashSet<Integer> expectedWinners = new HashSet<>();
-        expectedWinners.add(0);
-        expectedWinners.add(1);
-
-        HashSet<Integer> actualWinners = new HashSet<>();
-        for (int i : gameLogic.getWinner()) actualWinners.add(i);
-
-        assertEquals(expectedWinners, actualWinners);
+        assertEquals(2, gameLogic.getWinner());
 
         // After a win, there should be no valid inputs left.
         assertTrue(gameLogic.updateValidInputsPublic().isEmpty());
