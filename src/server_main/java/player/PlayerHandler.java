@@ -1,6 +1,7 @@
 package player;
 
 import AuthenticationAndProfile.Profile;
+import AuthenticationAndProfile.ProfileDatabaseAccess;
 import GameLogic_Client.Ivec2;
 import com.almasb.fxgl.net.Server;
 import management.*;
@@ -8,6 +9,7 @@ import management.*;
 import java.io.*;
 import java.net.Socket;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -263,7 +265,21 @@ public class PlayerHandler implements Runnable {
     private ThreadMessage getFriends() {
 
         //Get the friends list from the profile.
-        List<Integer> friends = (List<Integer>) this.getProfile().getFriendsList().getFriends();
+        List<Integer> friendIDS = (List<Integer>) this.getProfile().getFriendsList().getFriends();
+
+        //Convert the friendIDS that we get from profile into their usernames.
+        List<String> friends = new ArrayList<>();
+        for (Integer friendID : friendIDS) {
+            String name = null;
+
+            try {
+                name = PlayerManager.getUsername(friendID);
+            } catch (SQLException e) {
+                ServerLogger.log("PlayerHandler: " + this.getProfile().getUsername() + " unable to get username for friend " + friendID);
+            }
+
+            friends.add(name);
+        }
 
         //Create the hashmap for the thread message.
         Map<String, Object> messageMap = new HashMap<>();
@@ -283,7 +299,21 @@ public class PlayerHandler implements Runnable {
     private ThreadMessage getFriendRequests() {
 
         //Get the friend request list of the user.
-        List<Integer> friendRequests = this.getProfile().getFriendsList().getFriendRequests();
+        List<Integer> friendRequestIDS = this.getProfile().getFriendsList().getFriendRequests();
+
+        //Convert the friendRequestIDS that we get from profile into their usernames.
+        List<String> friendRequests = new ArrayList<>();
+        for (Integer friendRequest : friendRequestIDS) {
+            String name = null;
+
+            try {
+                name = PlayerManager.getUsername(friendRequest);
+            } catch (SQLException e) {
+                ServerLogger.log("PlayerHandler: " + this.getProfile().getUsername() + " unable to get username for friend " + friendRequest);
+            }
+
+            friendRequests.add(name);
+        }
 
         //Create the hashmap for the thread message.
         Map<String, Object> messageMap = new HashMap<>();
@@ -427,6 +457,73 @@ public class PlayerHandler implements Runnable {
             return requestMessage;
         } catch (SQLException e) {
             ServerLogger.log("PlayerHandler: " + this.getProfile().getUsername() + " could not get wins.");
+        }
+        return null;
+    }
+
+    private ThreadMessage viewProfile(ThreadMessage message) {
+
+        //Get the profile of the user whose information we want to put in the thread message.
+        String username = (String) message.getContent().get("username");
+        try {
+            int id = PlayerManager.getProfileID(username);
+            Profile profile = ProfileDatabaseAccess.obtainProfile(id);
+
+            //Get all the profile data we need to be displayed
+            String bio = profile.getBio();
+            String nickname = profile.getNickname();
+            String profilePath = profile.getProfilePicFilePath();
+            List<Integer> friendIDS = profile.getFriendsList().getFriends();
+
+            //Convert the friendIDS that we get from profile into their usernames.
+            List<String> friends = new ArrayList<>();
+            for (Integer friendID : friendIDS) {
+                String name = PlayerManager.getUsername(friendID);
+                friends.add(name);
+            }
+
+            List<String> gameHistory = profile.getGameHistory().getGameHistory();
+
+            double ratio0 = profile.getPlayerRanking().getWinLossRatio(0);
+            double ratio1 = profile.getPlayerRanking().getWinLossRatio(1);
+            double ratio2 = profile.getPlayerRanking().getWinLossRatio(2);
+            double[] ratio = {ratio0, ratio1, ratio2};
+
+            int rating0 = profile.getPlayerRanking().getRating(id, 0);
+            int rating1 = profile.getPlayerRanking().getRating(id, 1);
+            int rating2 = profile.getPlayerRanking().getRating(id, 2);
+            int[] rating = {rating0, rating1, rating2};
+
+            String ranking0 = profile.getPlayerRanking().getRank(rating0);
+            String ranking1 = profile.getPlayerRanking().getRank(rating1);
+            String ranking2 = profile.getPlayerRanking().getRank(rating2);
+            String[] rank = {ranking0, ranking1, ranking2};
+
+            int win0 = profile.getPlayerRanking().getWins(0);
+            int win1 = profile.getPlayerRanking().getWins(1);
+            int win2 = profile.getPlayerRanking().getWins(2);
+            int[] win = {win0, win1, win2};
+
+            //Create the map for the thread message
+            Map<String, Object> messageMap = new HashMap<>();
+            messageMap.put("type", "view-profile");
+            messageMap.put("bio", bio);
+            messageMap.put("nickname", nickname);
+            messageMap.put("username", username);
+            messageMap.put("profilePath", profilePath);
+            messageMap.put("friends", friends);
+            messageMap.put("gameHistory", gameHistory);
+            messageMap.put("winLossRatio", ratio);
+            messageMap.put("rating", rating);
+            messageMap.put("rank", rank);
+            messageMap.put("wins", win);
+
+            //Create the thread message and return it.
+            ThreadMessage requestMessage = new ThreadMessage(Thread.currentThread(), messageMap);
+            return requestMessage;
+
+        } catch (SQLException | IOException e) {
+            ServerLogger.log("PlayerHandler: " + this.getProfile().getUsername() + " could not obtain the ID of the user whose profile we are trying to view.");
         }
         return null;
     }
@@ -647,6 +744,8 @@ public class PlayerHandler implements Runnable {
                    case "wins":
                        getWins();
                }
+            case "view-profile":
+                viewProfile(threadMessage);
             default:
                 log("PlayerHandler: Message not recognized: " + threadMessage.getContent());
         }
