@@ -204,7 +204,7 @@ public class GameSessionManager implements Runnable {
                         break;
                     // If wanting to call getWinner()
                     case "getWinner":
-                        forward.put("data", ConverterTools.convertIntArrayToList(gameController.getWinner()));
+                        // forward.put("data", ConverterTools.convertIntArrayToList(gameController.getWinner()));
                         sendMessageBack(sender, forward);
                         break;
                     // If wanting to call getGameOngoing()
