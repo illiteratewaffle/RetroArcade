@@ -1,5 +1,7 @@
 package GameLogic_Client.TicTacToe;
 
+import GameLogic_Client.Connect4.C4Piece;
+import GameLogic_Client.Connect4.HintResult;
 import GameLogic_Client.GameState;
 import GameLogic_Client.IBoardGameController;
 import GameLogic_Client.Ivec2;
@@ -16,13 +18,55 @@ public class TTTGameController implements IBoardGameController {
     /**
      * The Tic-Tac-Toe game instance.
      */
-    public TTTGame game;
+    private TTTGame game;
 
     /**
      * Initializes the game controller by creating a new game instance.
      */
     public TTTGameController() {
         this.game = new TTTGame();
+    }
+
+    /**
+     * Checks if a given tile on the board is empty.
+     * @param tile Ivec2 coordinates of the tile that you want to check if empty.
+     * @return returns true if empty, false if not empty.
+     */
+    public boolean isTileEmpty(Ivec2 tile) {
+        return game.board.isEmpty(tile);
+    }
+
+    /**
+     * Makes the move via the game logic and switches the players turn if the move is valid.
+     * @param row the row coordinate of the move.
+     * @param col the col coordinate of the move.
+     * @return returns true if the move is valid. False if invalid.
+     */
+    public boolean makeMove(int row, int col) {
+        return game.makeMove(row, col);
+    }
+
+    /**
+     * checks if a win condition has been reached by either player.
+     * @return returns true if a player has won, false if nobody has won yet.
+     */
+    public boolean checkWin() {
+        return game.checkWin(game.board);
+    }
+
+    /**
+     * checks if a draw condition has been reached in-game.
+     * @return returns true if there's a draw, false otherwise.
+     */
+    public boolean checkDraw() {
+        return game.checkDraw(game.board);
+    }
+
+    /**
+     * updates the game state via the game logic.
+     */
+    public void updateGameState() {
+        game.updateGameState();
     }
 
     /**
@@ -56,12 +100,12 @@ public class TTTGameController implements IBoardGameController {
      * @return An array containing the winner's index (0 for X, 1 for O), both for tie, or empty if no winner.
      */
     @Override
-    public int[] getWinner() {
+    public int getWinner() {
         return switch (game.gameState) {
-            case P1WIN -> new int[]{0};
-            case P2WIN -> new int[]{1};
-            case TIE -> new int[]{0, 1};
-            default -> new int[]{};
+            case P1WIN -> 0;
+            case P2WIN -> 1;
+            case TIE -> 2;
+            default -> 3;
         };
     }
 
@@ -146,5 +190,35 @@ public class TTTGameController implements IBoardGameController {
     @Override
     public int boardChangedSinceLastCommand() {
         return 1;
+    }
+
+    /**
+     * Ignored
+     */
+    public C4Piece[][] getC4Board() {
+        return null;
+    }
+
+    /**
+     * Ignored
+     */
+    public boolean getC4IsGameOver() {
+        return false;
+    }
+
+    public C4Piece getC4WinnerAsEnum() {
+        return null;
+    }
+
+    public C4Piece getC4CurrentPlayer() {
+        return null;
+    }
+
+    public void printBoard() {
+
+    }
+
+    public HintResult getC4ColHint() {
+        return null;
     }
 }
