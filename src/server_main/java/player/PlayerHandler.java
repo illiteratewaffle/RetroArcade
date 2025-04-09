@@ -356,7 +356,8 @@ public class PlayerHandler implements Runnable {
         double ratio0 = this.getProfile().getPlayerRanking().getWinLossRatio(0);
         double ratio1 = this.getProfile().getPlayerRanking().getWinLossRatio(1);
         double ratio2 = this.getProfile().getPlayerRanking().getWinLossRatio(2);
-        double[] ratio = {ratio0, ratio1, ratio2};
+        double[] ratioArray = {ratio0, ratio1, ratio2};
+        List<Double> ratio = ConverterTools.convertDoubleArrayToDoubleList(ratioArray);
 
         //Create the hashmap for the thread message.
         Map<String, Object> messageMap = new HashMap<>();
@@ -381,7 +382,8 @@ public class PlayerHandler implements Runnable {
             int rating0 = this.getProfile().getPlayerRanking().getRating(id, 0);
             int rating1 = this.getProfile().getPlayerRanking().getRating(id, 1);
             int rating2 = this.getProfile().getPlayerRanking().getRating(id, 2);
-            int[] rating = {rating0, rating1, rating2};
+            int[] ratingArray = {rating0, rating1, rating2};
+            List<Integer> rating = ConverterTools.convertIntArrayToList(ratingArray);
 
             //Create the hashmap for the thread message.
             Map<String, Object> messageMap = new HashMap<>();
@@ -415,7 +417,8 @@ public class PlayerHandler implements Runnable {
             String ranking0 = this.getProfile().getPlayerRanking().getRank(rating0);
             String ranking1 = this.getProfile().getPlayerRanking().getRank(rating1);
             String ranking2 = this.getProfile().getPlayerRanking().getRank(rating2);
-            String[] rank = {ranking0, ranking1, ranking2};
+            String[] rankArray = {ranking0, ranking1, ranking2};
+            List<String> rank = ConverterTools.convertStringArrayToStringList(rankArray);
 
             //Create the hashmap for the thread message.
             Map<String, Object> messageMap = new HashMap<>();
@@ -444,7 +447,8 @@ public class PlayerHandler implements Runnable {
             int win0 = this.getProfile().getPlayerRanking().getWins(0);
             int win1 = this.getProfile().getPlayerRanking().getWins(1);
             int win2 = this.getProfile().getPlayerRanking().getWins(2);
-            int[] win = {win0, win1, win2};
+            int[] winArray = {win0, win1, win2};
+            List<Integer> win = ConverterTools.convertIntArrayToList(winArray);
 
             //Create the hashmap for the thread message.
             Map<String, Object> messageMap = new HashMap<>();
