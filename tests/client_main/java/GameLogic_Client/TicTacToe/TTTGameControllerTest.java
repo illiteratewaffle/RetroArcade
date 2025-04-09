@@ -39,7 +39,7 @@ class TTTGameControllerTest {
 
     @Test
     void getWinnerNone() {
-        assertArrayEquals(new int[0], gameController.getWinner()); //should return the empty array as no winning conditions are met
+        assertArrayEquals(new int[0], new int[]{gameController.getWinner()}); //should return the empty array as no winning conditions are met
     }
 
     @Test
@@ -49,7 +49,7 @@ class TTTGameControllerTest {
         gameController.makeMove(1, 0);
         gameController.makeMove(1, 1);
         gameController.makeMove(2, 0); // player 1 should win here
-        assertArrayEquals(new int[] {0}, gameController.getWinner());
+        assertArrayEquals(new int[] {0}, new int[]{gameController.getWinner()});
     }
 
     @Test
@@ -60,7 +60,7 @@ class TTTGameControllerTest {
         gameController.makeMove(1, 1);
         gameController.makeMove(2, 2);
         gameController.makeMove(2, 1); // Player 2 should win here
-        assertArrayEquals(new int[] {1}, gameController.getWinner());
+        assertArrayEquals(new int[] {1}, new int[]{gameController.getWinner()});
     }
 
     @Test
@@ -75,7 +75,7 @@ class TTTGameControllerTest {
         gameController.makeMove(2,0);  //player 2
         gameController.makeMove(2,2);  //player 1
         // this should result in a draw
-        assertArrayEquals(new int[] {0, 1}, gameController.getWinner());
+        assertArrayEquals(new int[] {0, 1}, new int[]{gameController.getWinner()});
     }
 
     @Test
