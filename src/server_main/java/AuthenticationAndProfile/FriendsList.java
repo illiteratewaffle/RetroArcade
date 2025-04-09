@@ -60,8 +60,29 @@ public class FriendsList {
      *
      * @return A list of the friends id numbers
      */
-    public List<Integer> getFriends() {
-        return friends;
+    public List<Integer> getFriends() throws SQLException {
+//        return friends;
+        try {
+            String friendsData = PlayerManager.getAttribute(id, "friends");
+            List<Integer> newFriends = new ArrayList<>();
+            String friendString = "";
+            if (friendsData != null) {
+                for (int j = 0; j < friendsData.length(); j++) {
+                    char c = friendsData.charAt(j);
+                    if (!(c == '{' | c == '}')) {
+                        friendString += c;
+                    }
+                }
+                String[] fieldsList = friendString.split(",");
+                for (int i = 0; i < fieldsList.length; i++) {
+                    newFriends.add(Integer.parseInt(fieldsList[i]));
+                }
+            }
+            friends = newFriends;
+            return friends;
+        } catch (SQLException e) {
+            throw new SQLException(e.getMessage());
+        }
     }
 
     /**
@@ -69,8 +90,28 @@ public class FriendsList {
      *
      * @return A list of the friend request id numbers
      */
-    public List<Integer> getFriendRequests() {
-        return friendRequests;
+    public List<Integer> getFriendRequests() throws SQLException {
+        try {
+            String friendRequestData = PlayerManager.getAttribute(id, "friend_requests");
+            List<Integer> newFriendRequests = new ArrayList<>();
+            String friendRequestString = "";
+            if (friendRequestData != null) {
+                for (int j = 0; j < friendRequestData.length(); j++) {
+                    char c = friendRequestData.charAt(j);
+                    if (!(c == '{' | c == '}')) {
+                        friendRequestString += c;
+                    }
+                }
+                String[] fieldsList = friendRequestString.split(",");
+                for (int i = 0; i < fieldsList.length; i++) {
+                    newFriendRequests.add(Integer.parseInt(fieldsList[i]));
+                }
+            }
+            friendRequests = newFriendRequests;
+            return friendRequests;
+        } catch (SQLException e) {
+            throw new SQLException(e.getMessage());
+        }
     }
 
     /**
@@ -140,9 +181,10 @@ public class FriendsList {
      */
     public void removeFriend(int friendID) throws SQLException {
         try {
-            friends.remove(friendID); // removes the id from the list of friends
-
-            PlayerManager.deleteFriend(id, friendID);
+            if (friendID != -1 && friends.contains(friendID)) {
+                PlayerManager.deleteFriend(id, friendID);// deletes the id to the list of friends
+                friends.remove(Integer.valueOf(friendID)); // removes the id from the list of friends
+            }
         } catch (SQLException s) {
             throw new SQLException(s.getMessage());
         }
@@ -157,7 +199,7 @@ public class FriendsList {
     public void acceptFriendRequest(int friendID) throws IOException, SQLException{
         try {
             if (friendRequests.contains(friendID)) {
-                friendRequests.remove(friendID); // removes the id from the friend request list
+                //friendRequests.remove(friendID); // removes the id from the friend request list
                 addFriend(friendID); // adds the friend to the friend list
                 ProfileDatabaseAccess.obtainProfile(friendID).getFriendsList().addFriend(id);//add the friend to the friend's friendsList
                 PlayerManager.deleteFriendRequest(id, friendID); //remove friend request from database
@@ -171,7 +213,7 @@ public class FriendsList {
 
     public void rejectFriendRequest(int friendID) throws SQLException {
         try {
-            friendRequests.remove(friendID);
+            //friendRequests.remove(friendID);
             PlayerManager.deleteFriendRequest(id, friendID);
         } catch (SQLException s) {
             throw new SQLException(s.getMessage());
@@ -190,9 +232,15 @@ public class FriendsList {
             sendingUsername = ProfileDatabaseAccess.obtainProfile(this.id).getUsername(); // username of the user sending the request
             int sendingId = this.id; // id of the user sending the request
             String receivingUsername = PlayerManager.getAttribute(recievingId, "username");
-            ArrayList<ArrayList<String>> profiles = ProfileCSVReader.openProfilesFile("profiles_export.csv");
+            //ArrayList<ArrayList<String>> profiles = ProfileCSVReader.openProfilesFile("profiles_export.csv");
             PlayerManager.addToFriendRequests(recievingId, sendingId);
             log(String.format("%s has sent a friend request to %s", sendingUsername, receivingUsername));
+
+            // printing for testing purposes
+            FriendsList receiverFriendsList = ProfileDatabaseAccess.obtainProfile(recievingId).getFriendsList();
+            List<Integer> recievingFriendRequests = receiverFriendsList.getFriendRequests();
+            System.out.println(recievingFriendRequests);
+
         } catch (SQLException s) {
             throw new SQLException(s.getMessage());
         } catch (IOException e) {

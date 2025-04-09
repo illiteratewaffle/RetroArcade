@@ -58,10 +58,7 @@ public class MatchmakingQueue {
      */
     public static void enqueue(PlayerHandler handler, int gameType) throws SQLException {
         gameQueues.get(gameType).add(handler);
-        if (gameQueues.get(gameType).size() > 1) {
-            System.out.println(gameQueues.get(gameType).size());
-            quickSort(gameType);
-        }
+        quickSort(gameType);
     }
 
     /**
@@ -159,19 +156,20 @@ public class MatchmakingQueue {
      * @return A new LinkedList containing the PlayerHandler objects sorted in ascending order of their rating for the given game type.
      */
     private static LinkedList<PlayerHandler> quickSortHelper(LinkedList<PlayerHandler> list, int gameType) throws SQLException {
-        if (list == null || list.size() <= 1) return list; // <--- add null check
 
-        int size = list.size();
-        PlayerHandler pivot = list.get(size / 2); // safe now
+        System.out.println();
+        if (list.size() <= 1) return list;
 
+        PlayerHandler pivot = list.get(list.size() / 2);
         LinkedList<PlayerHandler> lesser = new LinkedList<>();
         LinkedList<PlayerHandler> greater = new LinkedList<>();
         LinkedList<PlayerHandler> equal = new LinkedList<>();
 
-        int pivotRank = PlayerRanking.getRating(pivot.getProfile().getID(), gameType);
+        int pivotRank = PlayerRanking.getRating( pivot.getProfile().getID(), gameType);
 
         for (PlayerHandler handler : list) {
             int rank = PlayerRanking.getRating(handler.getProfile().getID(), gameType);
+
             if (rank > pivotRank) {
                 greater.add(handler);
             } else if (rank < pivotRank) {
@@ -186,6 +184,15 @@ public class MatchmakingQueue {
         sorted.addAll(equal);
         sorted.addAll(quickSortHelper(lesser, gameType));
         return sorted;
+
     }
 
+    /**
+     * Used in testing to clear out all queues
+     */
+    public static void clearAll(){
+        gameQueues.get(0).clear();
+        gameQueues.get(1).clear();
+        gameQueues.get(2).clear();
+    }
 }

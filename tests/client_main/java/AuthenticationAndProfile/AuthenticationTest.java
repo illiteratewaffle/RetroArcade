@@ -27,29 +27,32 @@ class AuthenticationTest {
 //        } catch (NoSuchAlgorithmException n) {
 //            System.out.println(n.getMessage());
 //        }
+////    }
+//
+//    @AfterEach
+//    void tearDown() {
+//        try {
+//            PlayerManager.deleteProfile(profile.getID());
+//            profile = null;
+//        } catch (SQLException s) {
+//            fail("deleteProfile error: " + s.getMessage());
+//        }
 //    }
-
-    @AfterEach
-    void tearDown() {
-        try {
-            PlayerManager.deleteProfile(profile.getID());
-            profile = null;
-        } catch (SQLException s) {
-            fail("deleteProfile error: " + s.getMessage());
-        }
-    }
 
     @Test
     void logIn() {
+        String username = Profile.generateUsername();
+        String newUsername = Profile.generateUsername();
+        String email = username + "@example.com";
+        String password = Profile.generatePassword();
         try {
-            int id = PlayerManager.registerPlayer("username5", "email5@email.com", ProfileCreation.hashedPassword("1234567"));
-            profile = ProfileDatabaseAccess.obtainProfile(id);
-            assertEquals("username5", Authentication.logIn("username5", "1234567").getUsername());
-            assertEquals("email5@email.com", Authentication.logIn("username5", "1234567").getEmail());
-        } catch (SQLException s) {
-            fail("registerPlayer or logIn error: " + s.getMessage());
-        } catch (NoSuchAlgorithmException | IOException e) {
-            fail(e.getMessage());
+            Profile createdProfile = ProfileCreation.createNewProfile(username, email, password);
+            Profile loggedInProfile = Authentication.logIn(username, password);
+            assertEquals(username, Authentication.logIn(username, password).getUsername());
+            assertEquals(email, Authentication.logIn(username, password).getEmail());
+            assertEquals(createdProfile.getCurrentStatus(), Authentication.logIn(username, password).getCurrentStatus());
+        } catch (SQLException | NoSuchAlgorithmException | IOException s) {
+            fail(s.getMessage());
         }
     }
 

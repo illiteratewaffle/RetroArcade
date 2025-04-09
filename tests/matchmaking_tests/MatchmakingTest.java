@@ -3,6 +3,7 @@ package matchmaking_tests;
 import AuthenticationAndProfile.Profile;
 import AuthenticationAndProfile.ProfileCreation;
 import AuthenticationAndProfile.PlayerRanking;
+import client_main.java.AuthenticationAndProfile.EmailGenerator;
 import matchmaking.Matchmaking;
 import matchmaking.MatchmakingQueue;
 import org.junit.jupiter.api.*;
@@ -27,9 +28,9 @@ public class MatchmakingTest {
 
     @BeforeEach
     void setup() throws SQLException, IOException, NoSuchAlgorithmException {
-        profile1 = ProfileCreation.createNewProfile("rankUser1", "r1@email.com", "pass123");
-        profile2 = ProfileCreation.createNewProfile("rankUser2", "r2@email.com", "pass123");
-        profile3 = ProfileCreation.createNewProfile("rankUser3", "r3@email.com", "pass123");
+        profile1 = ProfileCreation.createNewProfile(EmailGenerator.getNewEmail(), EmailGenerator.getNewEmail(), "pass123");
+        profile2 = ProfileCreation.createNewProfile(EmailGenerator.getNewEmail(), EmailGenerator.getNewEmail(), "pass123");
+        profile3 = ProfileCreation.createNewProfile(EmailGenerator.getNewEmail(), EmailGenerator.getNewEmail(), "pass123");
 
         handler1 = new PlayerHandler(new Socket(), new LinkedBlockingQueue<>(), profile1);
         handler2 = new PlayerHandler(new Socket(), new LinkedBlockingQueue<>(), profile2);
@@ -48,6 +49,7 @@ public class MatchmakingTest {
         PlayerManager.deleteProfile(profile1.getID());
         PlayerManager.deleteProfile(profile2.getID());
         PlayerManager.deleteProfile(profile3.getID());
+        MatchmakingQueue.clearAll();
     }
 
     @Test

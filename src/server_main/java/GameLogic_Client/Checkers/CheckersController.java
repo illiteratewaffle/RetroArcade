@@ -1,5 +1,7 @@
 package GameLogic_Client.Checkers;
 
+import GameLogic_Client.Connect4.C4Piece;
+import GameLogic_Client.Connect4.HintResult;
 import GameLogic_Client.GameState;
 import GameLogic_Client.IBoardGameController;
 import GameLogic_Client.Ivec2;
@@ -260,25 +262,25 @@ public class CheckersController implements IBoardGameController
     }
 
 
-// Default variables for starting a game.
+    // Default variables for starting a game.
     final static int defaultWidth = 8;
     final static int defaultHeight = 8;
 
     // Player 1's pieces begin at the bottom of the board, moving upwards.
     final static Ivec2[] defaultInitLocationsP1 = new Ivec2[]
-        {
-                new Ivec2(1, 7), new Ivec2(3, 7), new Ivec2(5, 7), new Ivec2(7, 7),
-                new Ivec2(0, 6), new Ivec2(2, 6), new Ivec2(4, 6), new Ivec2(6, 6),
-                new Ivec2(1, 5), new Ivec2(3, 5), new Ivec2(5, 5), new Ivec2(7, 5)
-        };
+            {
+                    new Ivec2(1, 7), new Ivec2(3, 7), new Ivec2(5, 7), new Ivec2(7, 7),
+                    new Ivec2(0, 6), new Ivec2(2, 6), new Ivec2(4, 6), new Ivec2(6, 6),
+                    new Ivec2(1, 5), new Ivec2(3, 5), new Ivec2(5, 5), new Ivec2(7, 5)
+            };
 
     // Player 2's pieces begin at the top of the board, moving downwards.
     final static Ivec2[] defaultInitLocationsP2 = new Ivec2[]
-        {
-                new Ivec2(0, 0), new Ivec2(2, 0), new Ivec2(4, 0), new Ivec2(6, 0),
-                new Ivec2(1, 1), new Ivec2(3, 1), new Ivec2(5, 1), new Ivec2(7, 1),
-                new Ivec2(0, 2), new Ivec2(2, 2), new Ivec2(4, 2), new Ivec2(6, 2)
-        };
+            {
+                    new Ivec2(0, 0), new Ivec2(2, 0), new Ivec2(4, 0), new Ivec2(6, 0),
+                    new Ivec2(1, 1), new Ivec2(3, 1), new Ivec2(5, 1), new Ivec2(7, 1),
+                    new Ivec2(0, 2), new Ivec2(2, 2), new Ivec2(4, 2), new Ivec2(6, 2)
+            };
 
 
     /**
@@ -307,32 +309,36 @@ public class CheckersController implements IBoardGameController
      * Reworked into a test method for showing the board
      * until I figure out how to get the GUI working on my local device. - Leo
      */
-   public void printBoard()
-   {
-       for (int y = defaultHeight - 1; y >= 0; y--)
-       {
-           int x = 0;
-           String Cell;
-           for (; x < defaultWidth - 1; x++)
-           {
-               Cell = "[ " + String.valueOf(board.getPiece(new Ivec2(x, y))) + " ]";
-               System.out.print(Cell);
-           }
-           Cell = "[ " + String.valueOf(board.getPiece(new Ivec2(x, y))) + " ]\n";
-           System.out.print(Cell);
-       }
-   }
+    public void printBoard()
+    {
+        for (int y = defaultHeight - 1; y >= 0; y--)
+        {
+            int x = 0;
+            String Cell;
+            for (; x < defaultWidth - 1; x++)
+            {
+                Cell = "[ " + String.valueOf(board.getPiece(new Ivec2(x, y))) + " ]";
+                System.out.print(Cell);
+            }
+            Cell = "[ " + String.valueOf(board.getPiece(new Ivec2(x, y))) + " ]\n";
+            System.out.print(Cell);
+        }
+    }
+
+    public HintResult getC4ColHint() {
+        return null;
+    }
 
 
-   public static void main(String[] args)
-   {
-       CheckersController test = new CheckersController();
-       test.receiveInput(new Ivec2(1, 2));
-       test.receiveInput(new Ivec2(1, 3));
-       test.receiveInput(new Ivec2(1, 2));
-       test.receiveInput(new Ivec2(2, 3));
-       test.printBoard();
-   }
+    public static void main(String[] args)
+    {
+        CheckersController test = new CheckersController();
+        test.receiveInput(new Ivec2(1, 2));
+        test.receiveInput(new Ivec2(1, 3));
+        test.receiveInput(new Ivec2(1, 2));
+        test.receiveInput(new Ivec2(2, 3));
+        test.printBoard();
+    }
 
 
 
@@ -576,7 +582,7 @@ public class CheckersController implements IBoardGameController
     }
 
 
-// Interface implementation.
+    // Interface implementation.
     protected boolean gameOngoingChanged = false;
     protected boolean winnersChanged = false;
     protected boolean currentPlayerChanged = false;
@@ -652,15 +658,15 @@ public class CheckersController implements IBoardGameController
     }
 
 
-    public int[] getWinner()
+    public int getWinner()
     {
         return switch (currentGameState)
         {
-            case P1WIN -> new int[]{0};
-            case P2WIN -> new int[]{1};
-            case TIE -> new int[]{0, 1};
+            case P1WIN -> 0;
+            case P2WIN -> 1;
+            case TIE -> 2;
             // By default, declare nobody as the winner.
-            default -> new int[]{};
+            default -> 3;
         };
     }
 
@@ -717,8 +723,56 @@ public class CheckersController implements IBoardGameController
         return currentPlayerChanged;
     }
 
-    public int boardChangedSinceLastCommand()
-    {
+    public int boardChangedSinceLastCommand() {
         return boardChanged;
     }
+
+    /**
+     * Ignored
+     */
+    @Override
+    public C4Piece[][] getC4Board() {
+        return null;
+    }
+
+    /**
+     * Ignored
+     */
+    @Override
+    public boolean getC4IsGameOver() {
+        return false;
+    }
+
+    @Override
+    public C4Piece getC4WinnerAsEnum() {
+        return null;
+    }
+
+    @Override
+    public C4Piece getC4CurrentPlayer() {
+        return null;
+    }
+
+    @Override
+    public boolean isTileEmpty(Ivec2 tile) {
+        return false;
+    }
+
+    @Override
+    public boolean makeMove(int row, int col) {
+        return false;
+    }
+
+    @Override
+    public boolean checkWin() {
+        return false;
+    }
+
+    @Override
+    public boolean checkDraw() {
+        return false;
+    }
+
+    @Override
+    public void updateGameState() {}
 }

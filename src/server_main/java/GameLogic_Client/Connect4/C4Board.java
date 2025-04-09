@@ -16,15 +16,22 @@ public class C4Board extends AbstractBoard {
         initBlankBoard(); // fills board with BLANK pieces
     }
 
+
     /**
-     * Place a token at a specified location (coordinates) on the board.
+     * Place a token at a specified location (coordinates) on the board
+     * by getting the enum value of the piece.
+     * @param point coordinate of piece
+     * @param piece RED/BLUE/BLANK
      */
     public void setC4Piece(Ivec2 point, C4Piece piece) {
         setPiece(point, piece.getValue());;
     }
 
+
     /**
      * Get the coordinates of a placed token on the board.
+     * @param point coordinates of piece
+     * @return piece RED/BLUE/BLANK
      */
     public C4Piece getC4Piece(Ivec2 point) {
         return C4Piece.fromInt(getPiece(point));
@@ -47,16 +54,6 @@ public class C4Board extends AbstractBoard {
         return result;
     }
 
-    /**
-     * Function to create a blank board [2-D array filled with blanks].
-     */
-//    void initC4BlankBoard() {
-//        for (int i = 0; i < c4Board.length; i++) {
-//            for (int j = 0; j < c4Board[i].length; j++) {
-//                c4Board[i][j] = GameLogic.Connect4.C4Piece.BLANK; // Initialize all cells as BLANK
-//            }
-//        }
-//    }
 
     /**
      * Console representation of the current board state with all the pieces.
@@ -81,36 +78,5 @@ public class C4Board extends AbstractBoard {
 
         return sb.toString();
     }
-
-
-//    @Override
-//    public String toString() {
-//        StringBuilder sb = new StringBuilder();
-//
-//        // Construct 2D board grid representation in the console
-//        for (int i = 0; i < c4Board.length; i++) {
-//            for (int j = 0; j < c4Board[i].length; j++) {
-//                String pieceRepresentation;
-//
-//                if (c4Board[i][j] == null || c4Board[i][j] == GameLogic.Connect4.C4Piece.BLANK) {
-//                    pieceRepresentation = "_";  // Empty slot
-//                } else if (c4Board[i][j] == GameLogic.Connect4.C4Piece.RED) {
-//                    pieceRepresentation = "R";  // Red piece
-//                } else if (c4Board[i][j] == GameLogic.Connect4.C4Piece.BLUE) {
-//                    pieceRepresentation = "B";  // Blue piece
-//                } else {
-//                    pieceRepresentation = "?";  // Fallback in case of an unknown piece type
-//                }
-//
-//                sb.append(pieceRepresentation);
-//                sb.append(" "); // Space between pieces for readability
-//            }
-//            sb.append("\n"); // New line after each row
-//        }
-//        return sb.toString();
-//    }
-
-
-
 
 }
