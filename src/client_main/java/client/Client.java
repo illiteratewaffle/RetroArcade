@@ -11,6 +11,13 @@ import GUI_client.LoginGUIController;
 public class Client {
 
     private static boolean loginSuccess = true;
+    private static String bio;
+    private static String nickname;
+    private static String username;
+    private static String profilePath;
+
+
+
     private static Socket clientSocket;
     private static BufferedReader reader;
     private static PrintWriter writer;
@@ -55,6 +62,7 @@ public class Client {
                             handleGameCommand(data);
                             break;
                         case "profile-info-request":
+
                         case "error":
                             if (data.get("message").equals("java.sql.SQLException: Incorrect Username or Password")){
                                 loginSuccess = false;
