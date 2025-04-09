@@ -325,7 +325,7 @@ public class Client {
                 break;
 
             case "rating":
-                List<Integer> ratingRaw = (List<Integer>) data.get("data");
+                List<Integer> ratingRaw = (List<Integer>) data.get("message");
                 rating = JsonConverter.convertToIntArray(ratingRaw);
                 break;
 
@@ -334,7 +334,7 @@ public class Client {
                 break;
 
             case "wins":
-                List<Integer> winsRaw = (List<Integer>) data.get("data");
+                List<Integer> winsRaw = (List<Integer>) data.get("message");
                 wins = JsonConverter.convertToIntArray(winsRaw);
                 break;
             default:
