@@ -742,7 +742,6 @@ public class PlayerHandler implements Runnable {
                 //Check the profile info being requested
                switch ((String) content.get("info")) {
 
-                   //TODO: Send this information to the client
                    case "bio":
                        sendToClient(getBio());
                    case "nickname":
