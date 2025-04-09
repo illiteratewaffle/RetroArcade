@@ -338,7 +338,7 @@ public class Client {
                 wins = JsonConverter.convertToIntArray(winsRaw);
                 break;
             default:
-                System.err.println("Unknown game command: " + command);
+                System.err.println("Unknown profile command: " + command);
                 break;
         }
     }
