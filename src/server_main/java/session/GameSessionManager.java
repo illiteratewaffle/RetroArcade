@@ -25,7 +25,7 @@ public class GameSessionManager implements Runnable {
      *
      * @param player1  The first player's PlayerHandler
      * @param player2  The second player's PlayerHandler
-     * @param gameType
+     * @param gameType The int representing the game type
      */
     public GameSessionManager(PlayerHandler player1, PlayerHandler player2, int gameType) {
         this.player1 = player1;
@@ -264,6 +264,7 @@ public class GameSessionManager implements Runnable {
                         forward.put("data", gameController.boardChangedSinceLastCommand());
                         sendMessageBack(sender, forward);
                         break;
+                        // TODO: UP TO HERE
                     case "getC4Board":
                         forward.put("data", ConverterTools.c4Piece2dArrayTo2dList(gameController.getC4Board()));
                         sendMessageBack(sender, forward);
