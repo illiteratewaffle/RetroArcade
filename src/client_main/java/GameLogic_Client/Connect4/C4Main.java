@@ -1,35 +1,30 @@
 package GameLogic_Client.Connect4;
-import GameLogic_Client.Ivec2;
 
-public class C4Main {
+import GameLogic_Client.Connect4.C4Controller;
+import GUI_client.Connect4.C4GUIController;
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
-    /**
-     * The main method to start the Connect-4 game.
-     */
+public class C4Main extends Application {
+
+    @Override
+    public void start(Stage stage) throws Exception {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/GUI_client/connect4.fxml"));
+
+        Scene scene = new Scene(fxmlLoader.load(), 800, 600);
+        C4GUIController GUIcontroller = fxmlLoader.getController();
+
+        stage.setTitle("Connect 4 - JavaFX UI");
+        stage.setScene(scene);
+        stage.show();
+    }
+
     public static void main(String[] args) {
         C4Controller c4Controller = new C4Controller();
         c4Controller.start();
+        launch(args);
 
-        // Testing a full column
-//        c4Controller.ReceiveInput(new ivec2(0, 0));
-//        c4Controller.ReceiveInput(new ivec2(0, 0));
-//        c4Controller.ReceiveInput(new ivec2(0, 0));
-//        c4Controller.ReceiveInput(new ivec2(0, 0));
-//        c4Controller.ReceiveInput(new ivec2(0, 0));
-//        c4Controller.ReceiveInput(new ivec2(0, 0));
-//        c4Controller.ReceiveInput(new ivec2(0, 0)); // Column full here
-//        c4Controller.ReceiveInput(new ivec2(0, 0));
-//        c4Controller.ReceiveInput(new ivec2(1, 0));
-//        c4Controller.ReceiveInput(new ivec2(-1, 0));
-//        c4Controller.ReceiveInput(new ivec2(7, 0));
-
-        // Testing for a win
-        c4Controller.receiveInput(new Ivec2(0, 0));
-        c4Controller.receiveInput(new Ivec2(1, 0));
-        c4Controller.receiveInput(new Ivec2(0, 0));
-        c4Controller.receiveInput(new Ivec2(1, 0));
-        c4Controller.receiveInput(new Ivec2(0, 0));
-        c4Controller.receiveInput(new Ivec2(1, 0));
-        c4Controller.receiveInput(new Ivec2(0, 0));
     }
 }
