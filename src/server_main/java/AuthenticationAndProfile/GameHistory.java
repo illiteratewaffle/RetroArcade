@@ -34,6 +34,7 @@ public class GameHistory{
      * @return list of game history
      */
     public List<String> getGameHistory(){
+
         return new ArrayList<>(gameHistory); // returns a copy of the game history list
     }
 
