@@ -18,7 +18,7 @@ class ProfileDatabaseAccessTest {
 
     @BeforeEach
     void setUp() {
-        id = PlayerManager.registerPlayer("username", "email@email.com", "12345678");
+        id = PlayerManager.registerPlayer(EmailGenerator.getNewEmail(), EmailGenerator.getNewEmail(), "12345678");
         profile = ProfileDatabaseAccess.obtainProfile(id);
     }
 

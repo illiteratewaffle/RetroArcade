@@ -31,7 +31,7 @@ class AuthenticationTest {
 
     @Test
     void logIn() {
-        int id = PlayerManager.registerPlayer("username1", "email@email.com", ProfileCreation.hashedPassword("1234567"));
+        int id = PlayerManager.registerPlayer("username1", EmailGenerator.getNewEmail(), ProfileCreation.hashedPassword("1234567"));
         assertTrue(Authentication.logIn("username1", "1234567"));
         ProfileDatabaseAccess.removeProfile(id);
     }
