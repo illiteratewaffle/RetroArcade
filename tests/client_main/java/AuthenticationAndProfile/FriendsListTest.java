@@ -26,8 +26,8 @@ class FriendsListTest {
         try {
             Files.copy(Paths.get("profiles_export.csv"), Paths.get("test_profiles_export.csv"), StandardCopyOption.REPLACE_EXISTING);
             // two profiles created for testing purposes
-            profileA = ProfileCreation.createNewProfile("userA", "userA@email.com", "PasswordUserA");
-            profileB = ProfileCreation.createNewProfile("userB", "userB@email.com", "PasswordUserB");
+            profileA = ProfileCreation.createNewProfile("UserA2", "userA3@email.com", "PasswordUserA");
+            profileB = ProfileCreation.createNewProfile("UserB2", "userB3@email.com", "PasswordUserB");
 
         } catch (Exception e) {
             fail(e.getMessage()); // fail setup if any exceptions occur
@@ -92,12 +92,12 @@ class FriendsListTest {
             FriendsList friendsListB = profileB.getFriendsList();
 
             List<Integer> friendRequestsBefore = friendsListB.getFriendRequests();
-            System.out.println(friendRequestsBefore);
+            System.out.println("before: " + friendRequestsBefore);
 
             friendsListA.sendFriendRequest(profileB.getID());
 
             List<Integer> friendRequestsAfter = friendsListB.getFriendRequests();
-            System.out.println(friendRequestsAfter);
+            System.out.println("after: " + friendRequestsAfter);
             assertTrue(friendRequestsAfter.contains(profileA.getID()), "Friend request should be sent and appear in receiver’s list");
         } catch (Exception e) {
             fail("sendFriendRequest error: " + e.getMessage());

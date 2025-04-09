@@ -299,7 +299,12 @@ public class PlayerHandler implements Runnable {
     private ThreadMessage getFriendRequests() {
 
         //Get the friend request list of the user.
-        List<Integer> friendRequestIDS = this.getProfile().getFriendsList().getFriendRequests();
+        List<Integer> friendRequestIDS = new ArrayList<>();
+        try {
+            friendRequestIDS = this.getProfile().getFriendsList().getFriendRequests();
+        } catch (SQLException s) {
+            ServerLogger.log("PlayerHandler: " + this.getProfile().getUsername() + " unable to get friend requests.");
+        }
 
         //Convert the friendRequestIDS that we get from profile into their usernames.
         List<String> friendRequests = new ArrayList<>();

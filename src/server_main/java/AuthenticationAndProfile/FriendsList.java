@@ -69,8 +69,28 @@ public class FriendsList {
      *
      * @return A list of the friend request id numbers
      */
-    public List<Integer> getFriendRequests() {
-        return friendRequests;
+    public List<Integer> getFriendRequests() throws SQLException {
+        try {
+            String friendRequestData = PlayerManager.getAttribute(id, "friend_requests");
+            List<Integer> newFriendRequests = new ArrayList<>();
+            String friendRequestString = "";
+            if (friendRequestData != null) {
+                for (int j = 0; j < friendRequestData.length(); j++) {
+                    char c = friendRequestData.charAt(j);
+                    if (!(c == '{' | c == '}')) {
+                        friendRequestString += c;
+                    }
+                }
+                String[] fieldsList = friendRequestString.split(",");
+                for (int i = 0; i < fieldsList.length; i++) {
+                    newFriendRequests.add(Integer.parseInt(fieldsList[i]));
+                }
+            }
+            friendRequests = newFriendRequests;
+            return friendRequests;
+        } catch (SQLException e) {
+            throw new SQLException(e.getMessage());
+        }
     }
 
     /**
@@ -158,7 +178,7 @@ public class FriendsList {
     public void acceptFriendRequest(int friendID) throws IOException, SQLException{
         try {
             if (friendRequests.contains(friendID)) {
-                friendRequests.remove(friendID); // removes the id from the friend request list
+                //friendRequests.remove(friendID); // removes the id from the friend request list
                 addFriend(friendID); // adds the friend to the friend list
                 ProfileDatabaseAccess.obtainProfile(friendID).getFriendsList().addFriend(id);//add the friend to the friend's friendsList
                 PlayerManager.deleteFriendRequest(id, friendID); //remove friend request from database
@@ -172,7 +192,7 @@ public class FriendsList {
 
     public void rejectFriendRequest(int friendID) throws SQLException {
         try {
-            friendRequests.remove(friendID);
+            //friendRequests.remove(friendID);
             PlayerManager.deleteFriendRequest(id, friendID);
         } catch (SQLException s) {
             throw new SQLException(s.getMessage());
