@@ -730,6 +730,7 @@ public class CheckersController implements IBoardGameController
     /**
      * Ignored
      */
+    @Override
     public C4Piece[][] getC4Board() {
         return null;
     }
@@ -742,11 +743,36 @@ public class CheckersController implements IBoardGameController
         return false;
     }
 
+    @Override
     public C4Piece getC4WinnerAsEnum() {
         return null;
     }
 
+    @Override
     public C4Piece getC4CurrentPlayer() {
         return null;
     }
+
+    @Override
+    public boolean isTileEmpty(Ivec2 tile) {
+        return false;
+    }
+
+    @Override
+    public boolean makeMove(int row, int col) {
+        return false;
+    }
+
+    @Override
+    public boolean checkWin() {
+        return false;
+    }
+
+    @Override
+    public boolean checkDraw() {
+        return false;
+    }
+
+    @Override
+    public void updateGameState() {}
 }
