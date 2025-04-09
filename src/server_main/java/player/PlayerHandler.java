@@ -285,7 +285,7 @@ public class PlayerHandler implements Runnable {
         Map<String, Object> messageMap = new HashMap<>();
         messageMap.put("type", "profile-info-request");
         messageMap.put("info", "friends");
-        messageMap.put("friends", friends);
+        messageMap.put("message", friends);
 
         //Create the thread message and return it.
         ThreadMessage requestMessage = new ThreadMessage(Thread.currentThread(), messageMap);
@@ -319,7 +319,7 @@ public class PlayerHandler implements Runnable {
         Map<String, Object> messageMap = new HashMap<>();
         messageMap.put("type", "profile-info-request");
         messageMap.put("info", "friendRequests");
-        messageMap.put("friendRequests", friendRequests);
+        messageMap.put("message", friendRequests);
 
         //Create the thread message and return it.
         ThreadMessage requestMessage = new ThreadMessage(Thread.currentThread(), messageMap);
@@ -339,7 +339,7 @@ public class PlayerHandler implements Runnable {
         Map<String, Object> messageMap = new HashMap<>();
         messageMap.put("type", "profile-info-request");
         messageMap.put("info", "gameHistory");
-        messageMap.put("gameHistory", gameHistory);
+        messageMap.put("message", gameHistory);
 
         //Create the thread message and return it.
         ThreadMessage requestMessage = new ThreadMessage(Thread.currentThread(), messageMap);
@@ -363,7 +363,7 @@ public class PlayerHandler implements Runnable {
         Map<String, Object> messageMap = new HashMap<>();
         messageMap.put("type", "profile-info-request");
         messageMap.put("info", "winLossRatio");
-        messageMap.put("winLossRatio", ratio);
+        messageMap.put("message", ratio);
 
         //Create the thread message and return it.
         ThreadMessage requestMessage = new ThreadMessage(Thread.currentThread(), messageMap);
@@ -389,7 +389,7 @@ public class PlayerHandler implements Runnable {
             Map<String, Object> messageMap = new HashMap<>();
             messageMap.put("type", "profile-info-request");
             messageMap.put("info", "rank");
-            messageMap.put("rank", rating);
+            messageMap.put("message", rating);
 
             //Create the thread message and return it.
             ThreadMessage requestMessage = new ThreadMessage(Thread.currentThread(), messageMap);
@@ -424,7 +424,7 @@ public class PlayerHandler implements Runnable {
             Map<String, Object> messageMap = new HashMap<>();
             messageMap.put("type", "profile-info-request");
             messageMap.put("info", "rank");
-            messageMap.put("rank", rank);
+            messageMap.put("message", rank);
 
             //Create the thread message and return it.
             ThreadMessage requestMessage = new ThreadMessage(Thread.currentThread(), messageMap);
@@ -454,7 +454,7 @@ public class PlayerHandler implements Runnable {
             Map<String, Object> messageMap = new HashMap<>();
             messageMap.put("type", "profile-info-request");
             messageMap.put("info", "wins");
-            messageMap.put("wins", win);
+            messageMap.put("message", win);
 
             //Create the thread message and return it.
             ThreadMessage requestMessage = new ThreadMessage(Thread.currentThread(), messageMap);
@@ -741,30 +741,30 @@ public class PlayerHandler implements Runnable {
 
                    //TODO: Send this information to the client
                    case "bio":
-                       getBio();
+                       sendToClient(getBio());
                    case "nickname":
-                       getNickname();
+                       sendToClient(getNickname());
                    case "username":
-                       getUsername();
+                       sendToClient(getUsername());
                    case "profilePath":
-                       getProfilePath();
+                       sendToClient(getProfilePath());
                    case "friends":
-                       getFriends();
+                       sendToClient(getFriends());
                    case "friendRequests":
-                       getFriendRequests();
+                       sendToClient(getFriendRequests());
                    case "gameHistory":
-                       getGameHistory();
+                       sendToClient(getGameHistory());
                    case "winLossRatio":
-                       getWinLossRatio();
+                       sendToClient(getWinLossRatio());
                    case "rating":
-                        getRating();
+                       sendToClient(getRating());
                    case "rank":
-                       getRank();
+                       sendToClient(getRank());
                    case "wins":
-                       getWins();
+                       sendToClient(getWins());
                }
             case "view-profile":
-                viewProfile(threadMessage);
+                sendToClient(viewProfile(threadMessage));
             default:
                 log("PlayerHandler: Message not recognized: " + threadMessage.getContent());
         }
