@@ -175,6 +175,22 @@ public class PlayerHandler implements Runnable {
         }
     }
 
+    private ThreadMessage getBio() {
+
+        //Get the bio from the profile.
+       String bio = this.getProfile().getBio();
+
+        //Create the hash map for the thread message
+        Map<String, Object> messageMap = new HashMap<>();
+        messageMap.put("type", "profile-info-request");
+        messageMap.put("info", "bio");
+        messageMap.put("message", bio);
+
+        //Create the thread message and return it
+        ThreadMessage requestMessage = new ThreadMessage(Thread.currentThread(), messageMap);
+        return requestMessage;
+    }
+
 
     /**
      * Disconnects the player from the server by removing them from the thread registry,
