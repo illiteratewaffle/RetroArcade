@@ -62,8 +62,6 @@
             <Image url="@../sign_up_page.png" />
          </image></ImageView>
       <TextField fx:id="signUpUserField" disable="true" layoutX="288.0" layoutY="390.0" prefHeight="25.0" prefWidth="319.0" promptText="Create Username" visible="false" />
-      <PasswordField fx:id="signUpPasswordField" disable="true" layoutX="288.0" layoutY="420.0" prefHeight="25.0" prefWidth="319.0" text="" visible="false" />
-      <PasswordField layoutX="285.0" layoutY="427.0" prefHeight="43.0" prefWidth="319.0" visible="false" />
       <ImageView accessibleRole="BUTTON" disable="true" fitHeight="111.0" fitWidth="255.0" layoutX="331.0" layoutY="276.0" onMouseClicked="#signup_ok_clicked" pickOnBounds="true" preserveRatio="true" visible="false" />
       <ImageView fx:id="exitButton" accessibleRole="BUTTON" fitHeight="80.0" fitWidth="80.0" layoutX="807.0" layoutY="15.0" onMouseClicked="#exitButtonClicked" onMousePressed="#exitButtonPressed" onMouseReleased="#exitButtonReleased" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -96,6 +94,9 @@
             <Cursor fx:constant="OPEN_HAND" />
          </cursor>
       </ImageView>
+      <TextField fx:id="signupUsername" layoutX="298.0" layoutY="337.0" mouseTransparent="true" prefHeight="25.0" prefWidth="320.0" promptText="Username" visible="false" />
+      <TextField fx:id="signupPassword" layoutX="297.0" layoutY="381.0" mouseTransparent="true" prefHeight="25.0" prefWidth="320.0" promptText="Password" visible="false" />
+      <TextField fx:id="signupEmail" layoutX="297.0" layoutY="427.0" mouseTransparent="true" prefHeight="25.0" prefWidth="320.0" promptText="Email" visible="false" />
 
    </children>
 </AnchorPane>
