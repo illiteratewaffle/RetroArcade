@@ -28,7 +28,7 @@ public class ConverterTools {
         return null;
     }
 
-    public static List<int[][]> convertListTo3dArray(List<List<List<Integer>>>) {
+    public static List<int[][]> convertListTo3dArray(List<List<List<Integer>>> list) {
         return null;
     }
 }
