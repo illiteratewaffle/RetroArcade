@@ -6,9 +6,9 @@ public class C4WinCheckerO1 {
         C4GameLogic game = new C4GameLogic();
         game.updateGameState();
         return checkHorizontal(lastCoordinate, piece, board) ||
-            checkVertical(lastCoordinate, piece, board) ||
-            checkForwardSlash(lastCoordinate, piece, board) ||
-            checkBackSlash(lastCoordinate, piece, board);
+                checkVertical(lastCoordinate, piece, board) ||
+                checkForwardSlash(lastCoordinate, piece, board) ||
+                checkBackSlash(lastCoordinate, piece, board);
     }
 
     public static boolean checkHorizontal(Ivec2 last, C4Piece piece, C4Piece[][] board) {
@@ -23,7 +23,7 @@ public class C4WinCheckerO1 {
         return count >= 4;
     }
 
-    private static boolean checkVertical(Ivec2 last, C4Piece piece, C4Piece[][] board) {
+    public static boolean checkVertical(Ivec2 last, C4Piece piece, C4Piece[][] board) {
         int count = 1;
 
         // Check down only (it is impossible to have a piece above last played piece
@@ -32,7 +32,7 @@ public class C4WinCheckerO1 {
         return count >= 4;
     }
 
-    private static boolean checkForwardSlash(Ivec2 last, C4Piece piece, C4Piece[][] board) {
+    public static boolean checkForwardSlash(Ivec2 last, C4Piece piece, C4Piece[][] board) {
         int count = 1;
 
         // Check top right
@@ -52,7 +52,7 @@ public class C4WinCheckerO1 {
         return count >= 4;
     }
 
-    private static boolean checkBackSlash(Ivec2 last, C4Piece piece, C4Piece[][] board) {
+    public static boolean checkBackSlash(Ivec2 last, C4Piece piece, C4Piece[][] board) {
         int count = 1;
 
         // Check top left
