@@ -37,25 +37,27 @@ public class C4WinChecker {
      * Checks for a horizontal win condition.
      *
      * @param row     the row to check.
+     * @param col     the column to check.
      * @param piece   the piece placed.
      * @param c4Board the 2-d representation of the board.
      * @return true if a horizontal win is detected, false otherwise.
      */
-    public static boolean checkC4Horizontal(int row, C4Piece piece, C4Piece[][] c4Board) {
-        int pieceCounter = 0;
+    public static boolean checkC4Horizontal(int row, int col, C4Piece piece, C4Piece[][] c4Board) {
+        int pieceCounter = 0;  // Start at 0
 
-        // Iterate through the entire row
-        for (int j = 0; j < c4Board[0].length; j++) {
-            if (c4Board[row][j] == piece) {
-                pieceCounter++;
-                if (pieceCounter >= 4) {
-                    return true; // Found four in a row
-                }
-            } else {
-                pieceCounter = 0; // Reset counter if interrupted
-            }
+        // Check left (including current position)
+        for (int i = col; i >= 0; i--) {
+            if (c4Board[row][i] != piece) break;
+            pieceCounter++;
         }
-        return false;
+
+        // Check right (excluding current position)
+        for (int j = col + 1; j < c4Board[0].length; j++) {
+            if (c4Board[row][j] != piece) break;
+            pieceCounter++;
+        }
+
+        return pieceCounter >= 4;
     }
 
     /**
@@ -75,11 +77,11 @@ public class C4WinChecker {
         for(int i = row+1; i < c4Board.length; i++){
             if(c4Board[i][col] == piece){
                 pieceCounter += 1;              // Increment piece counter if piece found.
-                if(pieceCounter >= 4) {
-                    return true;                    // Returns true if there is 4 in a row consecutively.
-                }
             } else {
-                pieceCounter = 0;                 // Else reset it to just 0, so it only takes consecutive pieces into account for win.
+                break;                          // Else reset it to just 0, so it only takes consecutive pieces into account for win.
+            }
+            if(pieceCounter >= 4) {
+                return true;                    // Returns true if there is 4 in a row consecutively.
             }
         }
 

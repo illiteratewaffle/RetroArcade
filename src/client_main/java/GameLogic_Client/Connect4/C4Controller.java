@@ -2,6 +2,7 @@ package GameLogic_Client.Connect4;
 
 import GameLogic_Client.IBoardGameController;
 import GameLogic_Client.Ivec2;
+import server.GameLogic_Client.Connect4.C4Board;
 
 import java.util.ArrayList;
 
@@ -18,15 +19,7 @@ public class C4Controller implements IBoardGameController {
         printBoard();
     }
 
-    /**
-     * Receives user input during the game.
-     * @param input A 2D-Integer-Coordinate Input that corresponds to a Board Cell.
-     */
 
-    /**
-     * Receives user input during the game.
-     * @param input A 2D-Integer-Coordinate Input that corresponds to a Board Cell.
-     */
     @Override
     public void receiveInput(Ivec2 input) {
 
@@ -69,11 +62,6 @@ public class C4Controller implements IBoardGameController {
         return c4GameLogic.getC4IsGameOver();
     }
 
-    /**
-     * Removes player from game (it is inherited from interface)
-     * @param Player The index of the player to remove.
-     * @throws IndexOutOfBoundsException if player # is out of bounds.
-     */
     @Override
     public void removePlayer(int Player) throws IndexOutOfBoundsException {
 
@@ -90,10 +78,8 @@ public class C4Controller implements IBoardGameController {
         };
     }
 
-    /**
-     * Checks whether the game is ongoing or not.
-     * @return true or false based on whether the game is ongoing or not.
-     */
+
+
     @Override
     public boolean getGameOngoing() {
         return !c4GameLogic.getC4IsGameOver();
@@ -127,20 +113,11 @@ public class C4Controller implements IBoardGameController {
         return sendBoard;
     }
 
-
-    /**
-     * Returns the size of our Connect-4 board.
-     * @return null if size is 0, else, returns the dimensions through function in Ivec2 class.
-     */
     @Override
-    public Ivec2 getBoardSize() {
-        return null;
+    public ivec2 GetBoardSize() {
+        return C4Board.getSize();
     }
 
-    /**
-     * Returns the current player's integer value.
-     * @return 0, if no player's turn, else 1 or 2.
-     */
     @Override
     public int getCurrentPlayer() {
         int currentPlayer = 0;
@@ -170,12 +147,6 @@ public class C4Controller implements IBoardGameController {
     public int boardChangedSinceLastCommand() {
         return 0;
     }
-
-//    public C4Piece getC4WinnerAsEnum() {
-//        return c4GameLogic.getC4Winner();
-//    }
-
-    public C4Piece getC4CurrentPlayer() {return c4GameLogic.getC4CurrentPlayer();}
 
     /**
      * Prints current state of board (at any point).
