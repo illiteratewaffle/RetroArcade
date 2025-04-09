@@ -115,7 +115,7 @@ public class TTTController implements Initializable {
     // chat manager
     ChatManager chatManager = new ChatManager();
 
-    public BooleanProperty isYourTurn = new SimpleBooleanProperty(true);
+    public static BooleanProperty isYourTurn = new SimpleBooleanProperty(true);
 
     // easter egg
     private final ArrayList<Character> EEList = new ArrayList<Character>();
@@ -266,6 +266,7 @@ public class TTTController implements Initializable {
                         theGame.makeMove(row, col);
                     }
                     checkWin();
+                    isYourTurn.set(false);
                 }
             }
         }
@@ -434,7 +435,7 @@ public class TTTController implements Initializable {
     }
 
     // button animations
-    public void infoButtonPress(){
+    public void infoButtonClicked(){
         info_bg.setImage(new Image("info_image.png"));
         info_bg.setMouseTransparent(false);
         info_ok_button.setMouseTransparent(false);
@@ -473,18 +474,29 @@ public class TTTController implements Initializable {
         sendButton.setImage(new Image(Objects.requireNonNull(getClass().getResource("/GUI_buttons/send_button.png")).toExternalForm()));
     }
     public void updateBoard(){
+        theGame.getGame().board.setPiece(new Ivec2(0, 0), 1);
         Image x = new Image("X.png");
         Image o = new Image("O.png");
-        Tile_0_0.setImage(theGame.getTile(0, 0) == 1 ? x : o);
-        Tile_0_1.setImage(theGame.getTile(0, 1) == 1 ? x : o);
-        Tile_0_2.setImage(theGame.getTile(0, 2) == 1 ? x : o);
-        Tile_1_0.setImage(theGame.getTile(1, 0) == 1 ? x : o);
-        Tile_1_1.setImage(theGame.getTile(1, 1) == 1 ? x : o);
-        Tile_1_2.setImage(theGame.getTile(1, 2) == 1 ? x : o);
-        Tile_2_0.setImage(theGame.getTile(2, 0) == 1 ? x : o);
-        Tile_2_1.setImage(theGame.getTile(2, 1) == 1 ? x : o);
-        Tile_2_2.setImage(theGame.getTile(2, 2) == 1 ? x : o);
+        updateConditional(Tile_0_0, 0, 0);
+        updateConditional(Tile_0_1, 0, 1);
+        updateConditional(Tile_0_2, 0, 2);
+        updateConditional(Tile_1_0, 1, 0);
+        updateConditional(Tile_1_1, 1, 1);
+        updateConditional(Tile_1_2, 1, 2);
+        updateConditional(Tile_2_0, 2, 0);
+        updateConditional(Tile_2_1, 2, 1);
+        updateConditional(Tile_2_2, 2, 2);
 
 
+
+    }
+    private void updateConditional(ImageView tile, int row, int col){
+        Image x = new Image("X.png");
+        Image o = new Image("O.png");
+        if (theGame.getTile(row, col) == 1){
+            tile.setImage(x);
+        } else if (theGame.getTile(row, col) == 2){
+            tile.setImage(o);
+        }
     }
 }

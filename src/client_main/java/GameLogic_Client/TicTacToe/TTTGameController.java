@@ -227,4 +227,7 @@ public class TTTGameController implements IBoardGameController {
     public int getTile(int row, int col){
         return this.game.board.getPiece(new Ivec2(row, col));
     }
+    public TTTGame getGame(){
+        return this.game;
+    }
 }

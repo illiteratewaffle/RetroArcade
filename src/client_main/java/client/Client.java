@@ -3,6 +3,7 @@ import java.io.*;
 import java.net.Socket;
 import java.util.*;
 
+import GUI_client.TTTController;
 import client.JsonConverter;
 import GUI_client.LoginGUIController;
 import java.util.concurrent.BlockingQueue;
@@ -16,21 +17,30 @@ public class Client {
     private static String nickname;
     private static String username;
     private static String profilePath;
-    private static List<String> friends = new ArrayList<>(); // stores list of friends as ids
-    private static List<String> friendRequests = new ArrayList<>(); // stores list of friend requests as ids
+    private static List<String> friends = new ArrayList<>();
+    private static List<String> friendRequests = new ArrayList<>();
     private static String friendUsername;
     private static List<String> gameHistory = new ArrayList<>();
     private static double[] winLossRatio = new double[3];
     private static int[] rating = new int[3];
     private static String[] rank = new String[3];
     private static int[] wins = new int[3];
-    private static int[][][] boardCells;
+    private static List<int[][]> boardCells;
     private static boolean gameOngoing;
     private static int[] currentWinner;
     private static int otherPlayerId;
     private static int gameType;
-
-
+    private static String otherBio;
+    private static String otherNickname;
+    private static String otherUsername;
+    private static String otherProfilePath;
+    private static List<String> otherFriends = new ArrayList<>();
+    private static List<String> otherGameHistory = new ArrayList<>();
+    private static double[] otherWinLossRatio = new double[3];
+    private static int[] otherRating = new int[3];
+    private static String[] otherRank = new String[3];
+    private static int[] otherWins = new int[3];
+    private static boolean otherOnlineStatus;
     private static Socket clientSocket;
     private static BufferedReader reader;
     private static PrintWriter writer;
@@ -100,6 +110,19 @@ public class Client {
                             break;
                         case "profile-info-request":
                             handleProfileCommand(data);
+                            break;
+                        case "view-profile":
+                            otherBio = (String) data.get("bio");
+                            otherNickname = (String) data.get("nickname");
+                            otherUsername = (String) data.get("username");
+                            otherProfilePath = (String) data.get("profilePath");
+                            otherFriends = (List<String>) data.get("friends");
+                            otherGameHistory = (List<String>) data.get("gameHistory");
+                            otherWinLossRatio = (double[]) data.get("winLossRatio");
+                            otherRating = (int[]) data.get("rating");
+                            otherRank = (String[]) data.get("rank");
+                            otherWins = (int[]) data.get("wins");
+                            otherOnlineStatus = (boolean) data.get("onlineStatus");
                             break;
                         case "error":
                             if (data.get("message").equals("java.sql.SQLException: Incorrect Username or Password")){
@@ -241,6 +264,12 @@ public class Client {
         data.put("username", username);
         networkingMethod(data);
     }
+    public static void getOtherProfileInfo(String username) {
+        HashMap<String, Object> data = new HashMap<>();
+        data.put("type", "view-profile");
+        data.put("username", username);
+        networkingMethod(data);
+    }
 
     public static void acceptFriendRequest(int username) {
         HashMap<String, Object> data = new HashMap<>();
@@ -277,9 +306,9 @@ public class Client {
                 break;
             case "getBoardCells":
                 int boardLayer = ((Integer) data.get("parameter")).intValue();
-                ArrayList<ArrayList<List<Integer>>> rawBoard = (ArrayList<ArrayList<List<Integer>>>) data.get("data");
-               // boardCells = JsonConverter.convertListTo3dArray(rawBoard);
-
+                List<List<List<Integer>>> rawBoard = (List<List<List<Integer>>>) data.get("data");
+                boardCells = ConverterTools.tripleListToListOf2dArray(rawBoard);
+                TTTController.isYourTurn.set(true);
                 break;
 
             default:
@@ -354,7 +383,7 @@ public class Client {
         return currentWinner;
     }
 
-    public static int[][][] getBoardCells() {
+    public static List<int[][]> getBoardCells() {
         return boardCells;
     }
 
@@ -404,6 +433,50 @@ public class Client {
 
     public static int getWins(int index) {
         return wins[index];
+    }
+
+    public static String getOtherBio() {
+        return otherBio;
+    }
+
+    public static String getOtherNickname() {
+        return otherNickname;
+    }
+
+    public static String getOtherUsername() {
+        return otherUsername;
+    }
+
+    public static String getOtherProfilePath() {
+        return otherProfilePath;
+    }
+
+    public static List<String> getOtherFriends() {
+        return otherFriends;
+    }
+
+    public static List<String> getOtherGameHistory() {
+        return otherGameHistory;
+    }
+
+    public static double getOtherWinLossRatio(int index) {
+        return otherWinLossRatio[index];
+    }
+
+    public static int getOtherRating(int index) {
+        return otherRating[index];
+    }
+
+    public static String getOtherRank(int index) {
+        return otherRank[index];
+    }
+
+    public static int getOtherWins(int index) {
+        return otherWins[index];
+    }
+
+    public static int[] getOtherWins() {
+        return otherWins;
     }
 
 }
