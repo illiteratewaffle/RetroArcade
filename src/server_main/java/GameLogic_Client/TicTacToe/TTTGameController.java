@@ -214,9 +214,7 @@ public class TTTGameController implements IBoardGameController {
         return null;
     }
 
-    public void printBoard() {
-
-    }
+    public void printBoard() {}
 
     public HintResult getC4ColHint() {
         return null;
