@@ -139,9 +139,14 @@ class FriendsListTest {
             listA.sendFriendRequest(profileB.getID());
             listB.rejectFriendRequest(profileA.getID());
 
+            // print out the friend request list to check its state
+            System.out.println("Friend requests in listB after rejection: " + listB.getFriendRequests());
+
+            // Verify that the friend request has been removed
             assertFalse(listB.getFriendRequests().contains(profileA.getID()), "Friend request should be removed after rejection");
         } catch (Exception e) {
             fail(e.getMessage());
         }
     }
+
 }
