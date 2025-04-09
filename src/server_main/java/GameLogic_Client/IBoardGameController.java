@@ -1,4 +1,7 @@
 package GameLogic_Client;
+package GameLogic_Client;
+import GameLogic_Client.ivec2;
+
 import java.util.ArrayList;
 
 /**
@@ -21,9 +24,9 @@ public interface IBoardGameController
     void receiveInput(Ivec2 input);
 
     /**
-     * Remove the player of a given Index (counting from 0) from the game.
+     * Remove the Player of a given Index (counting from 0) from the game.
      * This will not change the index of other Players.
-     * @param player The index of the player to remove.
+     * @param Player The index of the Player to remove.
      * @throws IndexOutOfBoundsException If no players with the given Index exists.
      */
     void removePlayer(int player) throws IndexOutOfBoundsException;
