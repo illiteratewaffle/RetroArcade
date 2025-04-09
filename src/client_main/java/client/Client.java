@@ -284,6 +284,11 @@ public class Client {
         data.put("type", "profile-info-request");
         data.put("info", "nickname");
         networkingMethod(data);}
+    public static void userRequest() {
+        HashMap<String, Object> data = new HashMap<>();
+        data.put("type", "profile-info-request");
+        data.put("info", "username");
+        networkingMethod(data);}
     public static void profileRequest() {
         HashMap<String, Object> data = new HashMap<>();
         data.put("type", "profile-info-request");
@@ -294,6 +299,7 @@ public class Client {
         bioRequest();
         profileRequest();
         nickRequest();
+        userRequest();
     }
 
         public static void getProfileInfo2() {
