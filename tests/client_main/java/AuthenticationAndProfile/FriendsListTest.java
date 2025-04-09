@@ -145,7 +145,7 @@ class FriendsListTest {
 
             // Verify that the friend request has been removed
             assertFalse(listB.getFriendRequests().contains(profileA.getID()), "Friend request should be removed after rejection");
-        } catch (Exception e) {
+        } catch (SQLException | IOException e) {
             fail(e.getMessage());
         }
     }
