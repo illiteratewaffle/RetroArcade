@@ -24,8 +24,8 @@ public class FriendsList {
     /**
      * Constructor initializing the friends and friend request lists
      *
-     * @param friends
-     * @param friendRequests
+     * @param friends List of friends ids
+     * @param friendRequests List of friend request ids
      */
     public FriendsList(List<Integer> friends, List<Integer> friendRequests, int id) {
         this.friends = friends;
