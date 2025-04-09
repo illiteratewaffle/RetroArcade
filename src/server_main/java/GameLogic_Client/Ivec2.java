@@ -170,4 +170,9 @@ final public class Ivec2
     {
         return new Ivec2(x / denominator, y / denominator);
     }
+
+    @Override
+    public String toString() {
+        return "(" + x.toString() + "," + y.toString() + ")";
+    }
 }
