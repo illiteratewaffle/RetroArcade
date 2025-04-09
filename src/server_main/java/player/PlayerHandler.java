@@ -403,6 +403,34 @@ public class PlayerHandler implements Runnable {
         return null;
     }
 
+    /**
+     * Method to give the client the wins of the current user.
+     * @return A Thread Message containing the wins of the current user.
+     */
+    private ThreadMessage getWins() {
+
+        //Get the wins of the user
+        try {
+            int win0 = this.getProfile().getPlayerRanking().getWins(0);
+            int win1 = this.getProfile().getPlayerRanking().getWins(1);
+            int win2 = this.getProfile().getPlayerRanking().getWins(2);
+            int[] win = {win0, win1, win2};
+
+            //Create the hashmap for the thread message.
+            Map<String, Object> messageMap = new HashMap<>();
+            messageMap.put("type", "profile-info-request");
+            messageMap.put("info", "wins");
+            messageMap.put("wins", win);
+
+            //Create the thread message and return it.
+            ThreadMessage requestMessage = new ThreadMessage(Thread.currentThread(), messageMap);
+            return requestMessage;
+        } catch (SQLException e) {
+            ServerLogger.log("PlayerHandler: " + this.getProfile().getUsername() + " could not get wins.");
+        }
+        return null;
+    }
+
 
     /**
      * Disconnects the player from the server by removing them from the thread registry,
