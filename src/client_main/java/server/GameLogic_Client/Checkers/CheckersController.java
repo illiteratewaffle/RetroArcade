@@ -5,6 +5,8 @@ import GameLogic_Client.Checkers.CheckersHighlightBoard;
 import GameLogic_Client.Checkers.CheckersHighlightType;
 import GameLogic_Client.Checkers.CheckersMove;
 import GameLogic_Client.Checkers.CheckersPiece;
+import GameLogic_Client.Connect4.C4Piece;
+import GameLogic_Client.Connect4.HintResult;
 import GameLogic_Client.GameState;
 import GameLogic_Client.IBoardGameController;
 import GameLogic_Client.Ivec2;
@@ -328,8 +330,12 @@ public class CheckersController implements IBoardGameController
        }
    }
 
+    public HintResult getC4ColHint() {
+        return null;
+    }
 
-   public static void main(String[] args)
+
+    public static void main(String[] args)
    {
        CheckersController test = new CheckersController();
        test.receiveInput(new Ivec2(1, 2));
@@ -725,5 +731,33 @@ public class CheckersController implements IBoardGameController
     public int boardChangedSinceLastCommand()
     {
         return boardChanged;
+    }
+
+    /**
+     * Ignored
+     */
+    public C4Piece[][] getC4Board() {
+        return null;
+    }
+
+    /**
+     * Ignored
+     */
+    public boolean getC4IsGameOver() {
+        return false;
+    }
+
+    /**
+     * Ignored.
+     */
+    public C4Piece getC4WinnerAsEnum() {
+        return null;
+    }
+
+    /**
+     * Ignored.
+     */
+    public C4Piece getC4CurrentPlayer() {
+        return null;
     }
 }

@@ -1,5 +1,7 @@
 package GameLogic_Client.TicTacToe;
 
+import GameLogic_Client.Connect4.C4Piece;
+import GameLogic_Client.Connect4.HintResult;
 import GameLogic_Client.GameState;
 import GameLogic_Client.IBoardGameController;
 import GameLogic_Client.Ivec2;
@@ -188,5 +190,35 @@ public class TTTGameController implements IBoardGameController {
     @Override
     public int boardChangedSinceLastCommand() {
         return 1;
+    }
+
+    /**
+     * Ignored
+     */
+    public C4Piece[][] getC4Board() {
+        return null;
+    }
+
+    /**
+     * Ignored
+     */
+    public boolean getC4IsGameOver() {
+        return false;
+    }
+
+    public C4Piece getC4WinnerAsEnum() {
+        return null;
+    }
+
+    public C4Piece getC4CurrentPlayer() {
+        return null;
+    }
+
+    public void printBoard() {
+
+    }
+
+    public HintResult getC4ColHint() {
+        return null;
     }
 }
