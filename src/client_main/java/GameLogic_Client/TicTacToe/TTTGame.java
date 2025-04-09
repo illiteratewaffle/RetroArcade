@@ -14,9 +14,6 @@ public class TTTGame {
      */
     public TTTBoard board;
 
-    public int yourPiece;
-    public int opponentPiece;
-
     /**
      * The current player (1 for X, 2 for O).
      */
