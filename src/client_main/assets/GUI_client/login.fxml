@@ -1,15 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.Cursor?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.PasswordField?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI_client.LoginGUIController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI_client.LoginGUIController">
    <children>
 
       <!-- Background image -->
@@ -57,13 +53,18 @@
          <cursor>
             <Cursor fx:constant="OPEN_HAND" />
          </cursor></ImageView>
-      <ImageView fx:id="signUpPage" fitHeight="428.0" fitWidth="401.0" layoutX="259.0" layoutY="187.0" pickOnBounds="true" preserveRatio="true" visible="false">
+      <ImageView fx:id="signUpPage" fitHeight="400.0" fitWidth="401.0" layoutX="259.0" layoutY="187.0" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
             <Image url="@../sign_up_page.png" />
          </image></ImageView>
-      <TextField fx:id="signUpUserField" disable="true" layoutX="288.0" layoutY="390.0" prefHeight="25.0" prefWidth="319.0" promptText="Create Username" visible="false" />
-      <PasswordField fx:id="signUpPasswordField" disable="true" layoutX="288.0" layoutY="420.0" prefHeight="25.0" prefWidth="319.0" text="" visible="false" />
-      <PasswordField layoutX="285.0" layoutY="427.0" prefHeight="43.0" prefWidth="319.0" visible="false" />
+
+      <!-- sign up username textfield-->
+      <TextField fx:id="signUpUserField" layoutX="300.0" layoutY="386.0" prefHeight="25.0" prefWidth="319.0" promptText="Create a username" visible="false" />
+
+      <!-- sign up passwordfield-->
+      <PasswordField fx:id="signUpPasswordField" layoutX="300.0" layoutY="436.0" prefHeight="25.0" prefWidth="319.0" promptText="Create a password" text="" visible="false" />
+
+      <!--back button -->
       <ImageView accessibleRole="BUTTON" disable="true" fitHeight="111.0" fitWidth="255.0" layoutX="331.0" layoutY="276.0" onMouseClicked="#signup_ok_clicked" pickOnBounds="true" preserveRatio="true" visible="false" />
       <ImageView fx:id="exitButton" accessibleRole="BUTTON" fitHeight="80.0" fitWidth="80.0" layoutX="807.0" layoutY="15.0" onMouseClicked="#exitButtonClicked" onMousePressed="#exitButtonPressed" onMouseReleased="#exitButtonReleased" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -74,7 +75,7 @@
          </cursor></ImageView>
       <ImageView fx:id="backButton" accessibleRole="BUTTON" fitHeight="80.0" fitWidth="53.0" layoutX="269.0" layoutY="187.0" onMouseClicked="#backButtonClicked" onMousePressed="#backButtonPressed" onMouseReleased="#backButtonReleased" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
-            <Image url="@../GUI_buttons/back_button.png" />
+            <Image url="@../GUI_buttons/back_button.PNG" />
          </image>
          <cursor>
             <Cursor fx:constant="OPEN_HAND" />
@@ -88,7 +89,7 @@
             <Cursor fx:constant="OPEN_HAND" />
          </cursor>
       </ImageView>
-      <ImageView fx:id="createProfileButton" fitHeight="89.0" fitWidth="130.0" layoutX="385.0" layoutY="449.0" mouseTransparent="true" onMouseClicked="#createProfileClicked" onMousePressed="#createProfilePressed" onMouseReleased="#createProfileReleased" visible="false">
+      <ImageView fx:id="createProfileButton" fitHeight="80.0" fitWidth="158.0" layoutX="381.0" layoutY="506.0" mouseTransparent="true" onMouseClicked="#createProfileClicked" onMousePressed="#createProfilePressed" onMouseReleased="#createProfileReleased" visible="false">
          <image>
             <Image url="@../GUI_buttons/createProfile.png" />
          </image>
@@ -96,6 +97,9 @@
             <Cursor fx:constant="OPEN_HAND" />
          </cursor>
       </ImageView>
+
+      <!-- signup email textfield-->
+      <TextField fx:id="signUpEmailField" layoutX="300.0" layoutY="337.0" prefHeight="25.0" prefWidth="319.0" promptText="Enter your email" visible="false" />
 
    </children>
 </AnchorPane>

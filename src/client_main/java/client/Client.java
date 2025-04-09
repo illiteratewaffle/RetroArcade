@@ -6,9 +6,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 import client.JsonConverter;
+import GUI_client.LoginGUIController;
 
 public class Client {
 
+    private static boolean loginSuccess = true;
     private static Socket clientSocket;
     private static BufferedReader reader;
     private static PrintWriter writer;
@@ -40,6 +42,7 @@ public class Client {
         new Thread(() -> {
             try {
                 String msgFromServer;
+                LoginGUIController.loginSuccess = true;
                 while ((msgFromServer = reader.readLine()) != null) {
                     HashMap<String, Object> data = (HashMap<String, Object>) JsonConverter.fromJson(msgFromServer);
 
@@ -53,6 +56,14 @@ public class Client {
                             break;
                         case "profile-info-request":
                         case "error":
+                            if (data.get("message").equals("java.sql.SQLException: Incorrect Username or Password")){
+                                loginSuccess = false;
+                                LoginGUIController.loginSuccess = false;
+                                break;
+                            } else{
+                                loginSuccess = true;
+                                break;
+                            }
                         case "exit-game":
                         case "login":
                         case "register":
@@ -137,7 +148,7 @@ public class Client {
 
     public static void login(String Username, String Password) {
         try {
-            connect("10.13.94.60", 5050, null);
+            connect("10.9.125.187", 5050, null);
             HashMap<String, Object> authData = new HashMap<>();
             authData.put("type", "login");
             authData.put("username", Username);
@@ -162,6 +173,12 @@ public class Client {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    public static BufferedReader getReader(){
+        return reader;
+    }
+    public static PrintWriter getWriter(){
+        return writer;
     }
     private static void handleGameCommand(HashMap<String, Object> data) {
         String command = (String) data.get("command");
@@ -224,5 +241,7 @@ public class Client {
                 break;
         }
     }
-
+    public static boolean getLoginSuccess(){
+        return loginSuccess;
+    }
 }
