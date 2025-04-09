@@ -283,7 +283,7 @@
             <Image url="@../profile_assets/profile_buttons/edit_profile_button_black.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="home_button" accessibleRole="BUTTON" fitHeight="94.0" fitWidth="100.0" layoutX="800.0" layoutY="7.0" onMouseClicked="#homeButtonClicked" onMousePressed="#homeButtonPressed" onMouseReleased="#homeButtonReleased">
+      <ImageView fx:id="home_button" accessibleRole="BUTTON" fitHeight="80.0" fitWidth="80.0" layoutX="800.0" layoutY="7.0" onMouseClicked="#homeButtonClicked" onMousePressed="#homeButtonPressed" onMouseReleased="#homeButtonReleased">
          <image>
             <Image url="@../GUI_buttons/home_button.png" />
          </image>
@@ -293,10 +293,10 @@
       </ImageView>
       <ImageView fx:id="done_button" fitHeight="29.0" fitWidth="128.0" layoutX="55.0" layoutY="572.0" onMouseClicked="#apply_changes" opacity="0.0" pickOnBounds="true">
          <image>
-            <Image url="@../profile_assets/done_button.png" />
+            <Image url="@../profile_assets/profile_buttons/done_button.png" />
          </image>
       </ImageView>
-      <TextField fx:id="search_friend" layoutX="28.0" layoutY="568.0" prefHeight="45.0" prefWidth="274.0" promptText="Search for a friend!">
+      <TextField fx:id="search_friend" layoutX="28.0" layoutY="568.0" prefHeight="45.0" prefWidth="274.0" promptText="Search for a friend!" style="-fx-background-color: transparent; -fx-text-fill: pink; -fx-prompt-text-fill: pink; -fx-border-color: pink; -fx-border-width: px;">
          <font>
             <Font name="Silom" size="16.0" />
          </font>

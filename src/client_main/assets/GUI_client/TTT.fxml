@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="backgroundImage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI_client.TTTController">
+<AnchorPane id="backgroundImage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI_client.TTTController">
     <ImageView id="background_image" fx:id="background_image" fitHeight="600.0" fitWidth="900.0" pickOnBounds="true" preserveRatio="true" />
     <ImageView fx:id="board_image" fitHeight="600.0" fitWidth="598.0" layoutX="148.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true">
         <image>
@@ -100,8 +100,11 @@
                 </font></TextArea>
         </content>
     </ScrollPane>
-    <TextField fx:id="chat_input_field" layoutX="686.0" layoutY="434.0" prefHeight="25.0" prefWidth="161.0" promptText="Message chat" />
-    <ImageView fx:id="sendButton" fitHeight="25.0" fitWidth="35.0" layoutX="852.0" layoutY="434.0" onMouseClicked="#sendMessage" pickOnBounds="true" preserveRatio="true">
+    <TextField fx:id="chat_input_field" layoutX="686.0" layoutY="434.0" prefHeight="25.0" prefWidth="161.0" promptText="Message chat">
+      <font>
+         <Font name="Silom" size="13.0" />
+      </font></TextField>
+    <ImageView fx:id="sendButton" fitHeight="63.0" fitWidth="57.0" layoutX="843.0" layoutY="430.0" onMouseClicked="#sendMessage" pickOnBounds="true" preserveRatio="true">
         <cursor>
             <Cursor fx:constant="OPEN_HAND" />
         </cursor></ImageView>

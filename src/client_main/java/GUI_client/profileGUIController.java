@@ -214,6 +214,9 @@ public class profileGUIController {
         history_list.setItems(history);
     }
 
+    public void visit_friend(MouseEvent mouseEvent) {
+    }
+
     //the stats button is pressed.
     public void open_stats(MouseEvent mouseEvent) {
 

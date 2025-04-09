@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI_client.LoginGUIController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI_client.LoginGUIController">
    <children>
 
       <!-- Background image -->
@@ -41,7 +41,7 @@
       </VBox>
 
       <!-- Login Button -->
-      <ImageView fx:id="loginButton" accessibleRole="BUTTON" fitHeight="60.0" fitWidth="60.0" layoutX="469.0" layoutY="320.0" onMouseClicked="#checkLogin" onMousePressed="#loginButtonPressed" onMouseReleased="#loginButtonReleased" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="loginButton" accessibleRole="BUTTON" fitHeight="111.0" fitWidth="80.0" layoutX="472.0" layoutY="320.0" onMouseClicked="#checkLogin" onMousePressed="#loginButtonPressed" onMouseReleased="#loginButtonReleased" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../GUI_buttons/login_button.png" />
          </image>
@@ -50,7 +50,7 @@
          </cursor></ImageView>
 
       <!-- Sign up Button -->
-      <ImageView fx:id="signUpButton" accessibleRole="BUTTON" fitHeight="60.0" fitWidth="76.0" layoutX="380.0" layoutY="320.0" onMouseClicked="#signUpButtonClicked" onMousePressed="#signupButtonPressed" onMouseReleased="#signupButtonReleased" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="signUpButton" accessibleRole="BUTTON" fitHeight="80.0" fitWidth="80.0" layoutX="359.0" layoutY="320.0" onMouseClicked="#signUpButtonClicked" onMousePressed="#signupButtonPressed" onMouseReleased="#signupButtonReleased" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../GUI_buttons/signup_button.png" />
          </image>
