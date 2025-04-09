@@ -11,5 +11,5 @@ public class EmailGenerator {
         id += 1;
         return "genEmail" + id.toString() + "_" + rand.toString() + "@email.com";
     }
-    //EmailGenerator.getNewEmail()
+
 }
