@@ -3,6 +3,7 @@ import AuthenticationAndProfile.Authentication;
 
 import AuthenticationAndProfile.ProfileCreation;
 import AuthenticationAndProfile.ProfileDatabaseAccess;
+import client.Client;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -92,28 +93,32 @@ public class profileGUIController {
     private String avatarPath;
     private String nickname;
     private String bio;
-
+    private String username;
 
 
     public profileGUIController() {
-        //this.profile = ProfileCreation.createNewProfile("");
-//        try{
-//            this.profile = ProfileDatabaseAccess.obtainProfile(435);} catch (SQLException e) {
-//        } catch (IOException s) {
-//            System.out.println(s.getMessage());
-//        }
+        try{
+            //this is currently retrieving id 435, we will have to talk to the server to see who is logged
+            // in and put it here instead.
+         this.profile = ProfileDatabaseAccess.obtainProfile(435);} catch (SQLException e) {
+       } catch (IOException s) {
+           System.out.println(s.getMessage());
+        }
         System.out.println("profileGUIController loaded");
         //initialize(this.profile); //This part cannot be uncommented until I have an actual profile to test with
     }
 
     public void initialize(Profile loadedProfile) {
-        avatarPath = profile.getProfilePicFilePath();
-        nickname = profile.getNickname();
-        bio = profile.getBio();
+        avatarPath = Client.getProfilePath();
+        username = Client.getUsername();
+        nickname = Client.getNickname();
+        bio = Client.getBio();
         System.out.println(avatarPath);
         URL url = getClass().getResource(avatarPath);
 
-
+        //This is to set the initial profile scene before any changes are made.
+        //profile creation may be initializing a default avatar, this is my attempt,
+        //at doing so with no luck.
         if (url != null) {
                 Image image = new Image(url.toExternalForm(), false);
                 updateProfilePicture(image);
@@ -157,11 +162,7 @@ public class profileGUIController {
     public void go_home(MouseEvent mouseEvent) {
     }
 
-    //not sure if we should handle the case that someone is in edit mode.
-    //Depending on what we decide we may want to warn them that the changes will not be saved.
-    public void close_window(MouseEvent mouseEvent) {
-    }
-
+    //The inbox button is pressed, the friend requests should be displayed.
     public void open_inbox(MouseEvent mouseEvent) {
         //Making sure that all other lists/table is invisible so that you cannot see the other windows, only the one clicked into.
         inbox_contents.setOpacity(1.0);
@@ -173,12 +174,12 @@ public class profileGUIController {
         // Using an obervable list so that it can be updated as more information is added.
         //Getting the data needed to populate the inbox (friend requests) list.
         ObservableList<Integer> requests = FXCollections.observableArrayList(
-                profile.getFriendsList().getFriendRequests());
+                Client.getFriendRequests());
         // Adding the content to the listview
         inbox_contents.setItems(requests);
     }
 
-    //**Other profile would need this
+    //The friends button is pressed
     public void open_friends(MouseEvent mouseEvent) {
         //Making sure that all other lists/table is invisible so that you cannot see the other windows, only the one clicked into.
         inbox_contents.setOpacity(0.0);
@@ -189,14 +190,14 @@ public class profileGUIController {
         // Using an obervable list so that it can be updated as more information is added.
         //Getting the data needed to populate the friends list.
         ObservableList<Integer> friends = FXCollections.observableArrayList(
-                profile.getFriendsList().getFriends());
+                Client.getFriends());
         // Adding the content to the listview
         friends_list.setItems(friends);
 
 
     }
 
-    //**Other profile needs this
+    //The history button is pressed.
     public void open_history(MouseEvent mouseEvent) {
         //Making sure that all other lists/table is invisible so that you cannot see the other windows, only the one clicked into.
         history_list.setOpacity(1.0);
@@ -207,13 +208,13 @@ public class profileGUIController {
         //Using an obervable list so that it can be updated as more information is added.
         //Getting the data needed to populate the game history list.
         ObservableList<String> history = FXCollections.observableArrayList(
-                profile.getGameHistory().getGameHistory());
+                Client.getGameHistory());
 
         //Adding the histroy content to the listview
         history_list.setItems(history);
     }
 
-    //**Other profile needs this
+    //the stats button is pressed.
     public void open_stats(MouseEvent mouseEvent) {
 
         //Making sure that all other lists/table is invisible so that you cannot see the other windows, only the one clicked into.
@@ -228,50 +229,46 @@ public class profileGUIController {
 
         System.out.println(i + j + k);
 
-        try {
-            //c4 stat labels -> getting the information needed to fill in the stats page
-            String c4Rank = profile.getPlayerRanking().getRank(k);
-            Double c4Wlr = Double.valueOf(profile.getPlayerRanking().getRating(k));
-            int c4Rating = profile.getPlayerRanking().getRating(k);
-            int c4Wins = profile.getPlayerRanking().getWins(k);
+        //c4 stat labels -> getting the information needed to fill in the stats page
+        String c4Rank = Client.getRank(k);
+        Double c4Wlr = Double.valueOf(Client.getWinLossRatio(k));
+        int c4Rating = Client.getRating(k);
+        int c4Wins = Client.getWins(k);
 
-            System.out.println(c4Rank + c4Wlr + c4Rating + c4Wins);
+        System.out.println(c4Rank + c4Wlr + c4Rating + c4Wins);
 
-            //Setting the c4 label to the numbers that retrieved above
+        //Setting the c4 label to the numbers that retrieved above
+        c4_rank_label.setText(String.valueOf(c4Rank));
+        c4_wlr_label.setText(String.valueOf(c4Wlr));
+        c4_rating_label.setText(String.valueOf(c4Rating));
+        c4_win_label.setText(String.valueOf(c4Wins));
 
-            c4_rank_label.setText(String.valueOf(c4Rank));
-            c4_wlr_label.setText(String.valueOf(c4Wlr));
-            c4_rating_label.setText(String.valueOf(c4Rating));
-            c4_win_label.setText(String.valueOf(c4Wins));
+        //check stat labels -> getting the information needed to fill in the stats page
+        String checkRank = Client.getRank(j);
+        Double checkWlr = Double.valueOf(Client.getWinLossRatio(j));
+        int checkRating = Client.getRating(j);
+        int checkWins = Client.getWins(j);
 
-            //check stat labels -> getting the information needed to fill in the stats page
-            String checkRank = profile.getPlayerRanking().getRank(j);
-            Double checkWlr = Double.valueOf(profile.getPlayerRanking().getRating(j));
-            int checkRating = profile.getPlayerRanking().getRating(j);
-            int checkWins = profile.getPlayerRanking().getWins(j);
+        //setting checkers labels to the numbers that retrieved above
+        check_rank_label.setText(String.valueOf(checkRank));
+        check_wlr_label.setText(String.valueOf(checkWlr));
+        check_rating_label.setText(String.valueOf(checkRating));
+        check_win_label.setText(String.valueOf(checkWins));
 
-            //setting checkers labels to the numbers that retrieved above
-            check_rank_label.setText(String.valueOf(checkRank));
-            check_wlr_label.setText(String.valueOf(checkWlr));
-            check_rating_label.setText(String.valueOf(checkRating));
-            check_win_label.setText(String.valueOf(checkWins));
+        //TTT stat labels -> getting the information needed to fill in the stats page
+        String TTTRank = Client.getRank(i);
+        Double TTTWlr = Double.valueOf(Client.getWinLossRatio(i));
+        int TTTRating = Client.getRating(i);
+        int TTTWins = Client.getWins(i);
 
-            //TTT stat labels -> getting the information needed to fill in the stats page
-            String TTTRank = profile.getPlayerRanking().getRank(i);
-            Double TTTWlr = Double.valueOf(profile.getPlayerRanking().getRating(i));
-            int TTTRating = profile.getPlayerRanking().getRating(i);
-            int TTTWins = profile.getPlayerRanking().getWins(i);
-
-            //setting checkers labels to the numbers that retrieved above
-            TTT_rank_label.setText(String.valueOf(TTTRank));
-            TTT_wlr_label.setText(String.valueOf(TTTWlr));
-            TTT_rating_label.setText(String.valueOf(TTTRating));
-            TTT_win_label.setText(String.valueOf(TTTWins));
-        } catch (SQLException s) {
-            System.out.println(s.getMessage());
-        }
+        //setting checkers labels to the numbers that retrieved above
+        TTT_rank_label.setText(String.valueOf(TTTRank));
+        TTT_wlr_label.setText(String.valueOf(TTTWlr));
+        TTT_rating_label.setText(String.valueOf(TTTRating));
+        TTT_win_label.setText(String.valueOf(TTTWins));
     }
 
+    //edit button is pressed.
     public void open_edit_profile(MouseEvent mouseEvent) {
         //Making sure that all other lists/table is invisible while editing profile.
         history_list.setOpacity(0.0);history_button.setDisable(false);
@@ -285,10 +282,12 @@ public class profileGUIController {
         bio_text_area.setOpacity(1.0); nickname_label.setStyle("-fx-background-color: white;");
         confirm_search.setOpacity(0.0); confirm_search.setDisable(true);
         search_friend.setOpacity(0.0); search_friend.setDisable(true);
+        home_button.setOpacity(0.0); home_button.setDisable(true); //force person to finish editing before exiting the page
 
     }
 
     //The once the done button is pressed, the editing will no longer occur.
+    //my idea is to have the done button click be what will initiate sending to the server.
     public void apply_changes(MouseEvent mouseEvent) {
         history_list.setOpacity(0.0);history_button.setDisable(false);
         inbox_contents.setOpacity(0.0); inbox_button.setDisable(false);
@@ -317,11 +316,30 @@ public class profileGUIController {
         avatar.setImage(image);
     }
 
+    //For the search button, it will get the text from the search bar next to it.
+    public String username_search(MouseEvent mouseEvent) {
+        String friend = search_friend.getText();
+        //we will need to retrieve information from the server
+        return friend;
+    }
+
+    //For the "add friend" button that will become visible when
+    public void send_request(MouseEvent mouseEvent) {
+        //need code here for sending the request to the server once the "add friend" button
+        //is clicked
+    }
+
+    //clicking on a friend from the friends list should take the person to their profile.
+    public void click_friend(MouseEvent mouseEvent) {
+        //I am not entirely sure if we can retrieve the information about which friend was clicked
+        //from a ListView.
+        //we will need to get the id of the friend that is clicked to send to the server,
+        //then we can put another fxml loader to load their profile.
+    }
+
     //All methods below are used to change the profile picture based on what picture is clicked
     //during editing mode
     //------------------------------------------------------------------------------
-
-    //All methods below are used to change the profile picture based on
     public void choose_poop(MouseEvent mouseEvent) {
         String path = "/GUI_avatars/poop.PNG";
         URL url = getClass().getResource(path);
@@ -490,8 +508,6 @@ public class profileGUIController {
         }
     }
 
-    public void click_friend(MouseEvent mouseEvent) {
-    }
     //------------------------------------------------------------------------------
 
     //So that it can be sent to the server? idk how this works man
@@ -502,14 +518,11 @@ public class profileGUIController {
     public String getBio(String bio) {
         return bio;
     }
-
     public String getNickname(String nickname) {
         return nickname;
     }
-
-    public void friend_search(MouseEvent mouseEvent) {
+    public String getFriedSearch(String friend){
+        return friend;
     }
 
-    public void send_request(MouseEvent mouseEvent) {
-    }
 }

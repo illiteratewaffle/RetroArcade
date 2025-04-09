@@ -15,7 +15,7 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="604.0" prefWidth="900.0" style="-fx-background-color: #8A006C;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI_client.profileGUIController">
+<AnchorPane prefHeight="604.0" prefWidth="900.0" style="-fx-background-color: #8A006C;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI_client.profileGUIController">
    <children>
       <ImageView fitHeight="570.0" fitWidth="900.0" layoutY="-1.0">
          <image>
@@ -34,16 +34,6 @@
             <Image url="@../GUI_avatars/Invader_purple.PNG" />
          </image>
       </ImageView>
-      <ScrollPane layoutX="37.0" layoutY="247.0" prefHeight="299.0" prefWidth="829.0">
-        <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
-        </content>
-      </ScrollPane>
-      <AnchorPane prefHeight="200.0" prefWidth="869.0">
-         <children>
-            <ListView fx:id="friend_search" layoutX="33.0" layoutY="246.0" onMouseClicked="#click_friend" prefHeight="306.0" prefWidth="837.0" />
-         </children>
-      </AnchorPane>
       <ScrollPane layoutX="32.0" layoutY="246.0" prefHeight="305.0" prefWidth="838.0" style="-fx-background-color: transparent;">
          <content>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="303.0" prefWidth="833.0">
@@ -53,7 +43,7 @@
                         <Image url="@../leaderboard_assets/star_background.PNG" />
                      </image>
                   </ImageView>
-                  <ListView fx:id="inbox_contents" opacity="0.0" prefHeight="304.0" prefWidth="821.0" style="-fx-background-color: transparent;" />
+                  <ListView fx:id="inbox_contents" onMouseClicked="#visit_friend" opacity="0.0" prefHeight="304.0" prefWidth="821.0" style="-fx-background-color: transparent;" />
                   <ListView fx:id="friends_list" layoutX="-3.0" layoutY="-6.0" opacity="0.0" prefHeight="311.0" prefWidth="840.0" style="-fx-background-color: transparent;" />
                   <ListView fx:id="history_list" layoutX="7.0" layoutY="4.0" opacity="0.0" prefHeight="311.0" prefWidth="840.0" style="-fx-background-color: transparent;" />
                   <AnchorPane fx:id="stats_pane" prefHeight="308.0" prefWidth="834.0">
@@ -248,7 +238,7 @@
             <Font name="Silom" size="17.0" />
          </font>
       </Label>
-      <TextArea fx:id="bio_text_area" editable="false" layoutX="298.0" layoutY="54.0" prefHeight="92.0" prefWidth="506.0" style="-fx-background-color: #FAF3E1;" wrapText="true">
+      <TextArea fx:id="bio_text_area" editable="false" layoutX="298.0" layoutY="54.0" prefHeight="87.0" prefWidth="505.0" style="-fx-background-color: #FAF3E1;" wrapText="true">
          <font>
             <Font name="Silom" size="18.0" />
          </font>
@@ -293,7 +283,7 @@
             <Image url="@../profile_assets/profile_buttons/edit_profile_button_black.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="home_button" accessibleRole="BUTTON" fitHeight="80.0" fitWidth="83.0" layoutX="804.0" layoutY="15.0" onMouseClicked="#homeButtonClicked" onMousePressed="#homeButtonPressed" onMouseReleased="#homeButtonReleased">
+      <ImageView fx:id="home_button" accessibleRole="BUTTON" fitHeight="94.0" fitWidth="100.0" layoutX="800.0" layoutY="7.0" onMouseClicked="#homeButtonClicked" onMousePressed="#homeButtonPressed" onMouseReleased="#homeButtonReleased">
          <image>
             <Image url="@../GUI_buttons/home_button.png" />
          </image>
@@ -301,9 +291,9 @@
             <Cursor fx:constant="OPEN_HAND" />
          </cursor>
       </ImageView>
-      <ImageView fx:id="done_button" fitHeight="44.0" fitWidth="128.0" layoutX="55.0" layoutY="572.0" onMouseClicked="#apply_changes" opacity="0.0" pickOnBounds="true">
+      <ImageView fx:id="done_button" fitHeight="29.0" fitWidth="128.0" layoutX="55.0" layoutY="572.0" onMouseClicked="#apply_changes" opacity="0.0" pickOnBounds="true">
          <image>
-            <Image url="@../profile_assets/profile_buttons/done_button.png"/>
+            <Image url="@../profile_assets/done_button.png" />
          </image>
       </ImageView>
       <TextField fx:id="search_friend" layoutX="28.0" layoutY="568.0" prefHeight="45.0" prefWidth="274.0" promptText="Search for a friend!">
@@ -320,12 +310,12 @@
          <cursor>
             <Cursor fx:constant="OPEN_HAND" />
          </cursor></ImageView>
-      <ImageView fx:id="confirm_search" fitHeight="89.0" fitWidth="111.0" layoutX="300.0" layoutY="548.0" onMouseClicked="#friend_search">
+      <ImageView fx:id="confirm_search" fitHeight="89.0" fitWidth="111.0" layoutX="300.0" layoutY="549.0" onMouseClicked="#username_search">
          <image>
             <Image url="@../leaderboard_assets/search_button.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="add_friend" disable="true" fitHeight="75.0" fitWidth="214.0" layoutX="596.0" layoutY="552.0" onMouseClicked="#send_request" opacity="0.0" pickOnBounds="true">
+      <ImageView fx:id="add_friend" fitHeight="75.0" fitWidth="214.0" layoutX="596.0" layoutY="552.0" onMouseClicked="#send_request" opacity="0.0" pickOnBounds="true">
          <image>
             <Image url="@../profile_assets/profile_buttons/add_friend_button.png" />
          </image>
