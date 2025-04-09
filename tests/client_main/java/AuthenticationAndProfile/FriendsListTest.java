@@ -24,10 +24,16 @@ class FriendsListTest {
     @BeforeEach
     void setUp(){
         try {
+            String username1 = Profile.generateUsername();
+            String email1 = username1 + "@example.com";
+            String password1 = Profile.generatePassword();
+            String username2 = Profile.generateUsername();
+            String email2 = username2 + "@example.com";
+            String password2 = Profile.generatePassword();
             Files.copy(Paths.get("profiles_export.csv"), Paths.get("test_profiles_export.csv"), StandardCopyOption.REPLACE_EXISTING);
             // two profiles created for testing purposes
-            profileA = ProfileCreation.createNewProfile("UserA2", "userA3@email.com", "PasswordUserA");
-            profileB = ProfileCreation.createNewProfile("UserB2", "userB3@email.com", "PasswordUserB");
+            profileA = ProfileCreation.createNewProfile(username1, email1, password1);
+            profileB = ProfileCreation.createNewProfile(username2, email2, password2);
 
         } catch (Exception e) {
             fail(e.getMessage()); // fail setup if any exceptions occur
