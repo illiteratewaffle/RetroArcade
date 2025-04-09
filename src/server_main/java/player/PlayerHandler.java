@@ -565,6 +565,21 @@ public class PlayerHandler implements Runnable {
     }
 
     /**
+     * Method to send a thread message to the client over the client socket.
+     * @param message The Thread Message being sent over to the client side.
+     */
+    public void sendToClient(ThreadMessage message) {
+        try {
+            String jsonString = JsonConverter.toJson(message.getContent());
+            printWriter.println(jsonString);
+            printWriter.flush();
+        } catch (IllegalArgumentException e) {
+            ServerLogger.log("PlayerHandler: " + this.getProfile().getUsername() + " could not send message to client.");
+        }
+    }
+
+
+    /**
      * Constructs a new PlayerHandler to manage communication with a connected client.
      *
      * @param clientSocket the socket used to communicate with the client
