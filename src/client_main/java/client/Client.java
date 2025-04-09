@@ -4,6 +4,7 @@ import java.net.Socket;
 import java.util.*;
 
 import GUI_client.TTTController;
+import GameLogic_Client.TicTacToe.TTTGameController;
 import client.JsonConverter;
 import GUI_client.LoginGUIController;
 import java.util.concurrent.BlockingQueue;
@@ -61,7 +62,7 @@ public class Client {
 
     public static void sendMessageToServer(String message) {
         HashMap<String, Object> data = new HashMap<>();
-        data.put("type", "message");
+        data.put("type", "chat");
         data.put("message", message);
         writer.println(JsonConverter.toJson(data));
     }
@@ -99,8 +100,11 @@ public class Client {
                     String type = (String) data.get("type");
                     switch (type) {
                         case "chat":
-                            String sender = (String) data.get("id");
+                            String sender = (String) data.get("sender");
                             String message = (String) data.get("message");
+                            TTTController.currentMessage = String.format("%s: %s\n", sender, message);;
+                            TTTController.msgReceived.set(true);
+                            break;
                         case "game-request":
                             otherPlayerId = (int) data.get("sender");
                             gameType = (int) data.get("game-type");
@@ -218,7 +222,7 @@ public class Client {
 
     public static void login(String Username, String Password) {
         try {
-            connect("10.9.125.187", 5050, null);
+            connect("10.13.63.30", 5050, null);
             HashMap<String, Object> authData = new HashMap<>();
             authData.put("type", "login");
             authData.put("username", Username);

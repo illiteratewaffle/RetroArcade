@@ -25,6 +25,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
+import client.*;
 
 public class CheckersGUIController implements Initializable {
     @FXML
@@ -80,6 +81,7 @@ public class CheckersGUIController implements Initializable {
     private StackPane previouslySelectedTile = null;
     private int lastClickedRow = -1;
     private int lastClickedCol = -1;
+    private CheckersClient checkersClient;
 
     /**
     Initializes the GUI board
@@ -88,6 +90,7 @@ public class CheckersGUIController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // relative addresses
+        checkersClient = new CheckersClient();
         gameLogic = new CheckersController();
         chatManager = new ChatManager();
         blueChecker = new Image("checkers_blue_piece.png");
@@ -199,7 +202,7 @@ public class CheckersGUIController implements Initializable {
 
         Ivec2 tileClicked = new Ivec2(col, row);
 
-        gameLogic.receiveInput(tileClicked);
+        checkersClient.receiveInput(tileClicked);
 
         refreshBoard();
         getTurn();

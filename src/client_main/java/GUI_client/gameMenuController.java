@@ -66,6 +66,7 @@ public class gameMenuController implements Initializable {
      * @throws IOException
      */
     public void play_TTT() throws IOException {
+        Client.enqueue(0);
         // stop current soundtrack
         AudioManager.mediaPlayer.stop();
         // load TTT resources

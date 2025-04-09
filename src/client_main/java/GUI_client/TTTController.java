@@ -4,6 +4,8 @@ import GameLogic_Client.Ivec2;
 import GameLogic_Client.GameState;
 import GameLogic_Client.TicTacToe.TTTBoard;
 import GameLogic_Client.TicTacToe.TTTGameController;
+import client.Client;
+import client.TTTClient;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
@@ -116,16 +118,23 @@ public class TTTController implements Initializable {
     ChatManager chatManager = new ChatManager();
 
     public static BooleanProperty isYourTurn = new SimpleBooleanProperty(true);
-
+    public static BooleanProperty msgReceived = new SimpleBooleanProperty(false);
+    public static String currentMessage;
     // easter egg
     private final ArrayList<Character> EEList = new ArrayList<Character>();
 
     // stage for "are you sure?" popup
     private Stage quitPopup = new Stage();
 
+    public TTTClient tttClient;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        tttClient = new TTTClient();
         // set background and foreground images
+        msgReceived.addListener((observableValue, False, True) -> {
+            getMessage(currentMessage);
+        });
         isYourTurn.addListener((observable, False, True) ->{
             if (True) {
                 updateBoard();
@@ -266,6 +275,7 @@ public class TTTController implements Initializable {
                         theGame.makeMove(row, col);
                     }
                     checkWin();
+                    TTTClient.receiveInput(new Ivec2(row, col));
                     isYourTurn.set(false);
                 }
             }
@@ -419,6 +429,7 @@ public class TTTController implements Initializable {
         if (!message.trim().isEmpty() && chatManager.isAppropriate(message)){
             chat_area.appendText("You: " + message + "\n");
             chat_input_field.clear();
+            Client.sendMessageToServer(message);
         }
         else{
             chat_area.appendText("Your message contains\ninappropriate language.\nPlease try again.\n");
@@ -431,6 +442,7 @@ public class TTTController implements Initializable {
      * @param message
      */
     public void getMessage(String message){
+        System.out.println(message);
         chat_area.appendText(message);
     }
 

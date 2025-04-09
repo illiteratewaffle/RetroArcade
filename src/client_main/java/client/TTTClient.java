@@ -3,7 +3,7 @@ package client;
 import java.util.HashMap;
 
 public class TTTClient {
-    public void receiveInput(GameLogic_Client.Ivec2 input) {
+    public static void receiveInput(GameLogic_Client.Ivec2 input) {
         // Convert the move to a string format like "x,y"
         String x = String.valueOf(input.x);
         String y = String.valueOf(input.y);
