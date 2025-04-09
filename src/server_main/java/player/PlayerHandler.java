@@ -296,6 +296,26 @@ public class PlayerHandler implements Runnable {
         return requestMessage;
     }
 
+    /**
+     * Method to give the client the game history of the current user.
+     * @return A Thread Message containing the game history of the current user.
+     */
+    private ThreadMessage getGameHistory() {
+
+        //Get the game history of the user.
+        List<String> gameHistory = this.getProfile().getGameHistory().getGameHistory();
+
+        //Create the hashmap for the thread message.
+        Map<String, Object> messageMap = new HashMap<>();
+        messageMap.put("type", "profile-info-request");
+        messageMap.put("info", "gameHistory");
+        messageMap.put("gameHistory", gameHistory);
+
+        //Create the thread message and return it.
+        ThreadMessage requestMessage = new ThreadMessage(Thread.currentThread(), messageMap);
+        return requestMessage;
+    }
+
 
     /**
      * Disconnects the player from the server by removing them from the thread registry,
