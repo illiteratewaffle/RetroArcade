@@ -173,7 +173,7 @@ public class profileGUIController {
 
         // Using an obervable list so that it can be updated as more information is added.
         //Getting the data needed to populate the inbox (friend requests) list.
-        ObservableList<Integer> requests = FXCollections.observableArrayList(
+        ObservableList<String> requests = FXCollections.observableArrayList(
                 Client.getFriendRequests());
         // Adding the content to the listview
         inbox_contents.setItems(requests);
@@ -189,7 +189,7 @@ public class profileGUIController {
 
         // Using an obervable list so that it can be updated as more information is added.
         //Getting the data needed to populate the friends list.
-        ObservableList<Integer> friends = FXCollections.observableArrayList(
+        ObservableList<String> friends = FXCollections.observableArrayList(
                 Client.getFriends());
         // Adding the content to the listview
         friends_list.setItems(friends);
