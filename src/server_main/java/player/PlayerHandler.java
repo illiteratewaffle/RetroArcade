@@ -235,6 +235,26 @@ public class PlayerHandler implements Runnable {
         return requestMessage;
     }
 
+    /**
+     * Method to give the client the profile picture path of teh current user.
+     * @return A Thread Message containing the profile path.
+     */
+    private ThreadMessage getProfilePath() {
+
+        //Get the profile picture path from the profile.
+        String profilePath = this.getProfile().getProfilePicFilePath();
+
+        //Create the hashmap for the thread message.
+        Map<String, Object> messageMap = new HashMap<>();
+        messageMap.put("type", "profile-info-request");
+        messageMap.put("info", "profile-path");
+        messageMap.put("message", profilePath);
+
+        //Create the thread message and return it.
+        ThreadMessage requestMessage = new ThreadMessage(Thread.currentThread(), messageMap);
+        return requestMessage;
+    }
+
 
     /**
      * Disconnects the player from the server by removing them from the thread registry,
