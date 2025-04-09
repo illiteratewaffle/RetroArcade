@@ -36,6 +36,7 @@ public class C4GUIController implements Initializable {
 
     /**
      * Initialize the game board GUI for Connect 4
+     * Sets up game board, audio, button actions, and UI styles
      */
 
     @Override
@@ -181,7 +182,7 @@ public class C4GUIController implements Initializable {
     private GridPane c4GUIGrid;
 
     /**
-     * Updates the GUI board with pieces colored to match the current user's move
+     * Updates the GUI board display with based on the current game state
      */
     private void updateBoard() {
 //        C4Piece[][] board = gameLogic.getBoard().getC4Board(); // assuming getBoard() returns C4Board
@@ -202,16 +203,28 @@ public class C4GUIController implements Initializable {
         }
     }
 
-
+    /**
+     * Adds a piece image to the game grid at the specified position
+     * @param row index of the row that piece image must be placed
+     * @param col column index of current player turn selection
+     * @param imgPath image resource path for the piece
+     * */
     private void addPieceToGrid(int row, int col, String imgPath) {
         ImageView piece = new ImageView(new Image(Objects.requireNonNull(getClass().getResourceAsStream(imgPath))));
         piece.setFitWidth(30);
         piece.setFitHeight(30);
         piece.setOpacity(1.0);
 
-        c4GUIGrid.add(piece, col, row); // ✅ Add only the image
+        c4GUIGrid.add(piece, col, row); // Add only the image
     }
 
+
+    /**
+     * Handles logic after a player clicks a column
+     * Displays win image or tie image based on game results
+     * Disables column buttons once game is over
+     * @param col the index of the column clicked by the user
+     */
     private void handleColumnClick(int col) {
         if (!c4Controller.getC4IsGameOver()) {
             c4Controller.receiveInput(new Ivec2(col, 0));
@@ -219,17 +232,22 @@ public class C4GUIController implements Initializable {
             updateTurnIndicator();
 
             if (c4Controller.getC4IsGameOver()) {
-                C4Piece winner = c4Controller.getC4WinnerAsEnum();
-                if (winner == C4Piece.BLANK) {
-                   // C4Piece winner = c4Controller.getC4WinnerAsEnum();
-                    c4Controller.c4GameLogic.updateGameState();
+                c4Controller.c4GameLogic.updateGameState();
+                int winner = c4Controller.getWinner();
+
+                if (winner == 0) {
                     System.out.println("It's a draw!");
-                    showTieImage();
-                } else {
-                    System.out.println("Player " + winner + " wins! 🎉");
+
+                } else if (winner == 1) {
+                    System.out.println("Player red wins! 🎉");
                     showWinImage();
-                    c4Controller.c4GameLogic.updateGameState();
+                    // c4Controller.c4GameLogic.updateGameState();
+                } else if (winner == 2) {
+                    System.out.println("Player blue wins! 🎉");
+                    showWinImage();
+                    // c4Controller.c4GameLogic.updateGameState();
                 }
+
                 disableAllColumnButtons();
                 c4GUIGrid.getChildren().removeIf(node ->
                         node instanceof Rectangle && "HINT".equals(node.getId())
@@ -238,9 +256,12 @@ public class C4GUIController implements Initializable {
         }
     }
 
+
     /**
-     *
-     * @param
+     * Attaches mouse enter and exit event handlers to a column button
+     * When hovered, the corresponding column in the game grid is visually highlighted
+     * @param button the Button representing the column
+     * @param col the index of the column associated with this button
      */
     private void setupHoverEffect(Button button, int col) {
         button.setOnMouseEntered(e -> highlightColumnOnHover(col, true));
@@ -278,7 +299,7 @@ public class C4GUIController implements Initializable {
     }
 
     /**
-     * Updates the GUI board with a banner displaying the current user's turn
+     * Updates the GUI board with turn indicator banner displaying the current player's turn
      */
     private void updateTurnIndicator() {
         turnIndicatorImage.setImage(new Image(
@@ -290,6 +311,9 @@ public class C4GUIController implements Initializable {
 
     ChatManager chatManager = new ChatManager();
 
+    /**
+     * Sends the message typed in the chatField to the chatArea
+     * */
     public void sendMessage(){
         String message = chatField.getText();
         if (!message.trim().isEmpty() && chatManager.isAppropriate(message)){
@@ -302,6 +326,10 @@ public class C4GUIController implements Initializable {
         }
     }
 
+    /**
+     * Appends a received message to the chat area.
+     * @param message the message to display
+     */
     public void getMessage(String message){
         chatArea.appendText(message);
     }
@@ -350,6 +378,11 @@ public class C4GUIController implements Initializable {
         }
     }
 
+
+    /**
+     * Highlights the hint column suggested by the game logic
+     * Displays corresponding hint image based on player turn
+     */
     @FXML
     private void clickHintButton() {
         HintResult hint = c4Controller.getC4ColHint();
@@ -373,6 +406,10 @@ public class C4GUIController implements Initializable {
         hint_ok_button.setMouseTransparent(false);
     }
 
+    /**
+     * Highlights the given column in yellow as a hint
+     * @param col the column index to highlight
+     */
     private void highlightHintColumn(int col) {
         c4GUIGrid.getChildren().removeIf(node ->
                 node instanceof Rectangle &&
@@ -389,18 +426,10 @@ public class C4GUIController implements Initializable {
         }
     }
 
-    public Node getNodeFromGridPane(GridPane grid, int col, int row) {
-        for (Node node : grid.getChildren()) {
-            if (GridPane.getColumnIndex(node) == col && GridPane.getRowIndex(node) == row) {
-                return node;
-            }
-        }
-        return null;
-    }
-
     /**
      * Hides the info page image when OK button on info page is clicked
      * Disables player interaction with the OK button once clicked
+     * Resets column highlights when OK is clicked
      */
     public void clickHintOkButton(){
         hintMessageImage.setVisible(false);
@@ -412,6 +441,25 @@ public class C4GUIController implements Initializable {
         resetColumnHighlights();
     }
 
+    /**
+     * Returns a specific node from the GridPane based on column and row
+     * @param grid the grid pane to search
+     * @param col column index
+     * @param row row index
+     * @return Node at the specified position, or null if not found
+     */
+    public Node getNodeFromGridPane(GridPane grid, int col, int row) {
+        for (Node node : grid.getChildren()) {
+            if (GridPane.getColumnIndex(node) == col && GridPane.getRowIndex(node) == row) {
+                return node;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Removes highlight borders from all columns
+     */
     public void resetColumnHighlights() {
         for (int row = 0; row < 6; row++) {
             for (int col = 0; col < 7; col++) {
@@ -424,6 +472,9 @@ public class C4GUIController implements Initializable {
         }
     }
 
+    /**
+     * Disables all column input buttons once the game is over
+     */
     @FXML private Button col0Button, col1Button, col2Button, col3Button, col4Button, col5Button, col6Button;
     private void disableAllColumnButtons() {
         col0Button.setDisable(true);
@@ -435,6 +486,11 @@ public class C4GUIController implements Initializable {
         col6Button.setDisable(true);
     }
 
+    /**
+     * Handles logic when the home button is clicked. Opens quit confirmation popup
+     * If confirmed, returns to main menu
+     * @throws IOException if FXML loading fails
+     */
     public void homeButtonClicked() throws IOException {
         if (!quitPopup.isShowing()) {
             quitPopup = new Stage();
@@ -464,11 +520,24 @@ public class C4GUIController implements Initializable {
             }
         }
     }
+
+    /**
+     * Changes the home button image when pressed.
+     */
     public void homeButtonPressed(){
         homeButton.setImage(new Image("home_button_pressed.png"));
     }
-    public void homeButtonReleased(){ homeButton.setImage(new Image("home_button.png"));}
 
+    /**
+     * Resets the home button image when released.
+     */
+    public void homeButtonReleased(){
+        homeButton.setImage(new Image("home_button.png"));
+    }
+
+    /**
+     * Toggles game audio mute state and updates button image accordingly.
+     */
     public void muteButtonClicked(){
         if(!AudioManager.isMuted()) {
             muteButton.setImage(new Image("muteButton.png"));

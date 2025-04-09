@@ -93,11 +93,12 @@ public class C4Controller implements IBoardGameController {
         };
     }*/
 
+    @Override
     public int getWinner() {
         return switch (c4GameLogic.gameState) {
-            case P1WIN -> 0;
-            case P2WIN -> 1;
-            case TIE -> 2; //draw
+            case TIE -> 0;
+            case P1WIN -> 1;
+            case P2WIN -> 2; //draw
             default -> 3;
         };
     }
@@ -118,8 +119,32 @@ public class C4Controller implements IBoardGameController {
      */
     @Override
     public ArrayList<int[][]> getBoardCells(int LayerMask) {
-        return null;
+        ArrayList<int[][]> sendBoard = new ArrayList<>();
+        C4Piece[][] currentBoardEnum = c4GameLogic.getC4Board().getC4Board();
+
+        int rows = currentBoardEnum.length;
+        int cols = currentBoardEnum[0].length;
+        int[][] intBoard = new int[rows][cols];
+
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                switch (currentBoardEnum[i][j]) {
+                    case BLANK:
+                        intBoard[i][j] = 0;
+                        break;
+                    case RED:
+                        intBoard[i][j] = 1;
+                        break;
+                    case BLUE:
+                        intBoard[i][j] = 2;
+                        break;
+                }
+            }
+        }
+        sendBoard.add(intBoard);
+        return sendBoard;
     }
+
 
     /**
      * Returns the size of our Connect-4 board.
