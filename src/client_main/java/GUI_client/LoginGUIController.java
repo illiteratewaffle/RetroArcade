@@ -28,6 +28,8 @@ import java.util.ResourceBundle;
 public class LoginGUIController implements Initializable {
 
     private Stage quitPopup = new Stage();
+    public static boolean loginSuccess = true;
+
     //buttons on login screen
     @FXML
     public ImageView createProfileButton;
@@ -116,21 +118,24 @@ public class LoginGUIController implements Initializable {
 
     //login button sends to authentication
     @FXML
-    private void checkLogin() throws IOException {
+    private void checkLogin() throws IOException, InterruptedException {
         wrongLogIn.setVisible(true);
         String username = this.username.getText();
         String password = this.password.getText();
+
         if (username.equals("admin") & password.equals("admin")){
 
         } else {
             Client.login(username, password);
+            Thread.sleep(100);
         }
 
-        boolean loginSuccess = true;
         if(username.isEmpty() || password.isEmpty()) {
             wrongLogIn.setText("Enter a username and password!");
             return;
-        } else if (loginSuccess){
+        } else if (!loginSuccess){
+            wrongLogIn.setText("Invalid username or password");
+        } else {
             // stop current soundtrack
             AudioManager.mediaPlayer.stop();
             // load TTT resources
