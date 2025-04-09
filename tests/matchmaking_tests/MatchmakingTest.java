@@ -3,6 +3,7 @@ package matchmaking_tests;
 import AuthenticationAndProfile.Profile;
 import AuthenticationAndProfile.ProfileCreation;
 import AuthenticationAndProfile.PlayerRanking;
+import client_main.java.AuthenticationAndProfile.EmailGenerator;
 import matchmaking.Matchmaking;
 import matchmaking.MatchmakingQueue;
 import org.junit.jupiter.api.*;
@@ -24,34 +25,31 @@ public class MatchmakingTest {
     private Profile profile1, profile2, profile3;
     private PlayerHandler handler1, handler2, handler3;
     private Matchmaking matchmaking;
-    private boolean createdProfiles = false;
 
     @BeforeEach
     void setup() throws SQLException, IOException, NoSuchAlgorithmException {
-        if (!createdProfiles){
-            profile1 = ProfileCreation.createNewProfile("rankUser1", "r1@email.com", "pass123");
-            profile2 = ProfileCreation.createNewProfile("rankUser2", "r2@email.com", "pass123");
-            profile3 = ProfileCreation.createNewProfile("rankUser3", "r3@email.com", "pass123");
+        profile1 = ProfileCreation.createNewProfile(EmailGenerator.getNewEmail(), EmailGenerator.getNewEmail(), "pass123");
+        profile2 = ProfileCreation.createNewProfile(EmailGenerator.getNewEmail(), EmailGenerator.getNewEmail(), "pass123");
+        profile3 = ProfileCreation.createNewProfile(EmailGenerator.getNewEmail(), EmailGenerator.getNewEmail(), "pass123");
 
-            handler1 = new PlayerHandler(new Socket(), new LinkedBlockingQueue<>(), profile1);
-            handler2 = new PlayerHandler(new Socket(), new LinkedBlockingQueue<>(), profile2);
-            handler3 = new PlayerHandler(new Socket(), new LinkedBlockingQueue<>(), profile3);
+        handler1 = new PlayerHandler(new Socket(), new LinkedBlockingQueue<>(), profile1);
+        handler2 = new PlayerHandler(new Socket(), new LinkedBlockingQueue<>(), profile2);
+        handler3 = new PlayerHandler(new Socket(), new LinkedBlockingQueue<>(), profile3);
 
-            // Set custom ratings in descending order: handler2 > handler3 > handler1
-            PlayerRanking.setGameRating(profile1.getID(), 0, 1000); // Lowest
-            PlayerRanking.setGameRating(profile2.getID(), 0, 2000); // Highest
-            PlayerRanking.setGameRating(profile3.getID(), 0, 1500); // Mid
+        // Set custom ratings in descending order: handler2 > handler3 > handler1
+        PlayerRanking.setGameRating(profile1.getID(), 0, 1000); // Lowest
+        PlayerRanking.setGameRating(profile2.getID(), 0, 2000); // Highest
+        PlayerRanking.setGameRating(profile3.getID(), 0, 1500); // Mid
 
-            matchmaking = new Matchmaking();
-            createdProfiles = true;
-        }
+        matchmaking = new Matchmaking();
     }
 
     @AfterEach
     void teardown() throws SQLException {
-        //PlayerManager.deleteProfile(profile1.getID());
-        //PlayerManager.deleteProfile(profile2.getID());
-        //PlayerManager.deleteProfile(profile3.getID());
+        PlayerManager.deleteProfile(profile1.getID());
+        PlayerManager.deleteProfile(profile2.getID());
+        PlayerManager.deleteProfile(profile3.getID());
+        MatchmakingQueue.clearAll();
     }
 
     @Test

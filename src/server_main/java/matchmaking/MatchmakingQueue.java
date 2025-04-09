@@ -186,4 +186,13 @@ public class MatchmakingQueue {
         return sorted;
 
     }
+
+    /**
+     * Used in testing to clear out all queues
+     */
+    public static void clearAll(){
+        gameQueues.get(0).clear();
+        gameQueues.get(1).clear();
+        gameQueues.get(2).clear();
+    }
 }
