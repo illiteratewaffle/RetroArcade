@@ -9,6 +9,7 @@ import java.io.*;
 import java.net.Socket;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.BlockingQueue;
 
@@ -249,6 +250,26 @@ public class PlayerHandler implements Runnable {
         messageMap.put("type", "profile-info-request");
         messageMap.put("info", "profile-path");
         messageMap.put("message", profilePath);
+
+        //Create the thread message and return it.
+        ThreadMessage requestMessage = new ThreadMessage(Thread.currentThread(), messageMap);
+        return requestMessage;
+    }
+
+    /**
+     * Method to give the client the friends list of the current user.
+     * @return A Thread Message containing the friends list of the user.
+     */
+    private ThreadMessage getFriends() {
+
+        //Get the friends list from the profile.
+        List<Integer> friends = (List<Integer>) this.getProfile().getFriendsList();
+
+        //Create the hashmap for the thread message.
+        Map<String, Object> messageMap = new HashMap<>();
+        messageMap.put("type", "profile-info-request");
+        messageMap.put("info", "friends");
+        messageMap.put("friends", friends);
 
         //Create the thread message and return it.
         ThreadMessage requestMessage = new ThreadMessage(Thread.currentThread(), messageMap);
