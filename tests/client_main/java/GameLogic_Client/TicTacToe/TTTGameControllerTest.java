@@ -1,7 +1,6 @@
 package client_main.java.GameLogic_Client.TicTacToe;
 
 import GameLogic_Client.TicTacToe.TTTGameController;
-import GameLogic_Client.Ivec2;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -39,7 +38,7 @@ class TTTGameControllerTest {
 
     @Test
     void getWinnerNone() {
-        assertArrayEquals(new int[0], new int[]{gameController.getWinner()}); //should return the empty array as no winning conditions are met
+        assertArrayEquals(new int[0], gameController.GetWinner()); //should return the empty array as no winning conditions are met
     }
 
     @Test
@@ -49,7 +48,7 @@ class TTTGameControllerTest {
         gameController.makeMove(1, 0);
         gameController.makeMove(1, 1);
         gameController.makeMove(2, 0); // player 1 should win here
-        assertArrayEquals(new int[] {0}, new int[]{gameController.getWinner()});
+        assertArrayEquals(new int[] {0}, gameController.getWinner());
     }
 
     @Test
@@ -59,23 +58,8 @@ class TTTGameControllerTest {
         gameController.makeMove(1, 0);
         gameController.makeMove(1, 1);
         gameController.makeMove(2, 2);
-        gameController.makeMove(2, 1); // Player 2 should win here
-        assertArrayEquals(new int[] {1}, new int[]{gameController.getWinner()});
-    }
-
-    @Test
-    void getWinnerDraw() {
-        gameController.makeMove(0, 0); //player 1
-        gameController.makeMove(0,1);  //player 2
-        gameController.makeMove(0,2);  //player 1
-        gameController.makeMove(1,1);  //player 2
-        gameController.makeMove(1,0);  //player 1
-        gameController.makeMove(1,2);  //player 2
-        gameController.makeMove(2,1);  //player 1
-        gameController.makeMove(2,0);  //player 2
-        gameController.makeMove(2,2);  //player 1
-        // this should result in a draw
-        assertArrayEquals(new int[] {0, 1}, new int[]{gameController.getWinner()});
+        gameController.makeMove(2, 1); // O should win here
+        assertArrayEquals(new int[] {2}, gameController.GetWinner());
     }
 
     @Test

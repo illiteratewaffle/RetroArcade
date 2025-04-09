@@ -100,16 +100,15 @@ public class TTTGameController implements IBoardGameController {
     /**
      * Determines if there is a winner.
      *
-     * @return An array containing the winner's index (0 for X, 1 for O), both for tie, or empty if no winner.
+     * @return An array containing the winner's index (1 for X, 2 for O), or an empty array if no winner.
      */
     @Override
-    public int getWinner() {
-        return switch (game.gameState) {
-            case P1WIN -> 0;
-            case P2WIN -> 1;
-            case TIE -> 2;
-            default -> 3;
-        };
+    public int[] GetWinner() {
+        if (game.checkWin(game.board)) {
+            gameOngoing = false;
+            return new int[] { game.currentPlayer };
+        }
+        return new int[0];
     }
 
     /**
