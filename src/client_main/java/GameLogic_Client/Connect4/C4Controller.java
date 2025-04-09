@@ -57,6 +57,7 @@ public class C4Controller implements IBoardGameController {
      * Gets the board for connect-4
      * @return Connect-4 board by calling function in C4GameLogic class.
      */
+    @Override
     public C4Piece[][] getC4Board() {
         return c4GameLogic.getC4Board().getC4Board();
     }
@@ -81,18 +82,8 @@ public class C4Controller implements IBoardGameController {
 
     /**
      * Updates the state of the game as it progresses.
-     * @return array of game outcome
+     * @return integer of game outcome
      */
-    /*@Override
-    public int[] GetWinner() {
-        C4Piece winner = c4GameLogic.getC4Winner();
-        return switch (winner) {
-            case RED -> new int[]{0};
-            case BLUE -> new int[]{1};
-            default -> new int[]{0, 1}; //draw
-        };
-    }*/
-
     @Override
     public int getWinner() {
         return switch (c4GameLogic.gameState) {
@@ -168,10 +159,7 @@ public class C4Controller implements IBoardGameController {
         return currentPlayer;
     }
 
-    /**
-     *
-     * @return
-     */
+
     @Override
     public boolean gameOngoingChangedSinceLastCommand() {
         return false;
@@ -201,7 +189,8 @@ public class C4Controller implements IBoardGameController {
     /**
      * Prints current state of board (at any point).
      */
-    void printBoard() {
+    @Override
+    public void printBoard() {
         System.out.println(c4GameLogic);
     }
 
@@ -210,6 +199,7 @@ public class C4Controller implements IBoardGameController {
      * Function to give users hints if needed during the game based on which column is an ideal pick.
      * @return hint to user
      */
+    @Override
     public HintResult getC4ColHint() {
         if (c4GameLogic == null) {
             System.out.println("Game not started. No hint available.");
