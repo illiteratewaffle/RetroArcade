@@ -21,4 +21,14 @@ public class ConverterTools {
     public static int[] convertListToIntArray(List<Integer> list) {
         return list.stream().mapToInt(Integer::intValue).toArray();
     }
+
+    // this is fucking disgusting but needed i guess :(
+    // n cubed big o motha fucka
+    public static List<List<List<Integer>>> convert3dArrayToList(List<int[][]> list) {
+        return null;
+    }
+
+    public static List<int[][]> convertListTo3dArray(List<List<List<Integer>>>) {
+        return null;
+    }
 }
