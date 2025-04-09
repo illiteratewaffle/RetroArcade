@@ -10,7 +10,7 @@ public class ConverterTools {
         return null;
     }
 
-    public static Ivec2 listToIvec2(List<Integer> list) {
+    public static Ivec2 listToIvec(List<Integer> list) {
         return null;
     }
 

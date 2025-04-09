@@ -204,7 +204,7 @@ public class GameSessionManager implements Runnable {
                         break;
                     // If wanting to call getWinner()
                     case "getWinner":
-                        forward.put("data", JsonConverter.convertIntArray(gameController.getWinner()));
+                        forward.put("data", ConverterTools.convertIntArrayToList(gameController.getWinner()));
                         sendMessageBack(sender, forward);
                         break;
                     // If wanting to call getGameOngoing()
@@ -224,8 +224,7 @@ public class GameSessionManager implements Runnable {
                     // If wanting to call getBoardSize()
                     case "getBoardSize":
                         // TODO: IVEC2 TO LIST
-                        Ivec2 thing = gameController.getBoardSize();
-                        forward.put("data", thing);
+                        forward.put("data", ConverterTools.ivecToList(gameController.getBoardSize()));
                         sendMessageBack(sender, forward);
                         break;
                     // If wanting to call getCurrentPlayer()
