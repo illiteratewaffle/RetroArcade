@@ -1,12 +1,13 @@
 package client;
 import java.io.*;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
+
 import client.JsonConverter;
 import GUI_client.LoginGUIController;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
+
 
 public class Client {
 
@@ -15,13 +16,27 @@ public class Client {
     private static String nickname;
     private static String username;
     private static String profilePath;
-
+    private static List<Integer> friends = new ArrayList<>(); // stores list of friends as ids
+    private static List<Integer> friendRequests = new ArrayList<>(); // stores list of friend requests as ids
+    private static int friendId;
+    private static List<String> gameHistory = new ArrayList<>();
+    private static double[] winLossRatio = new double[3];
+    private static int[] rating = new int[3];
+    private static String[] rank = new String[3];
+    private static int[] wins = new int[3];
+    private static int[][][] boardCells;
+    private static boolean gameOngoing;
+    private static int[] currentWinner;
+    private static int otherPlayerId;
+    private static int gameType;
 
 
     private static Socket clientSocket;
     private static BufferedReader reader;
     private static PrintWriter writer;
     private static String playerId;
+    private static BlockingQueue<HashMap<String, Object>> messageQueue = new LinkedBlockingQueue<>();
+    private static volatile boolean running = false;
 
     public static void connect(String serverAddress, int port, String id) {
         try {
@@ -40,10 +55,28 @@ public class Client {
         data.put("message", message);
         writer.println(JsonConverter.toJson(data));
     }
+    private static void startNetworkingThread() {
+        running = true;
+        new Thread(() -> {
+            while (running) {
+                try {
+                    HashMap<String, Object> data = messageQueue.take(); // waits if queue is empty
+                    synchronized (writer) {
+                        writer.println(JsonConverter.toJson(data));
+                    }
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                }
+            }
+        }, "NetworkingThread").start();
+    }
 
     public static void networkingMethod(HashMap<String, Object> data) {
-        writer.println(JsonConverter.toJson(data));
+        if (running) {
+            messageQueue.offer(data); // adds to the queue
+        }
     }
+
 
     public static void listenForMessages() {
         new Thread(() -> {
@@ -56,13 +89,18 @@ public class Client {
                     String type = (String) data.get("type");
                     switch (type) {
                         case "chat":
-                            String sender = (String) data.get("sender");
+                            String sender = (String) data.get("id");
                             String message = (String) data.get("message");
+                        case "game-request":
+                            otherPlayerId = (int) data.get("sender");
+                            gameType = (int) data.get("game-type");
+                            break;
                         case "game-move":
                             handleGameCommand(data);
                             break;
                         case "profile-info-request":
-
+                            handleProfileCommand(data);
+                            break;
                         case "error":
                             if (data.get("message").equals("java.sql.SQLException: Incorrect Username or Password")){
                                 loginSuccess = false;
@@ -89,6 +127,7 @@ public class Client {
         try {
                 reader = null;
                 writer = null;
+                running = false;
             if (clientSocket != null) clientSocket.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -145,6 +184,7 @@ public class Client {
         writer.println(JsonConverter.toJson(authData));
 
         listenForMessages();
+        startNetworkingThread();
 
         Scanner scanner = new Scanner(System.in);
         while (true) {
@@ -162,6 +202,7 @@ public class Client {
             authData.put("password", Password);
             writer.println(JsonConverter.toJson(authData));
             listenForMessages();
+            startNetworkingThread();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -177,6 +218,7 @@ public class Client {
             authData.put("email", Email);
             writer.println(JsonConverter.toJson(authData));
             listenForMessages();
+            startNetworkingThread();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -187,61 +229,100 @@ public class Client {
     public static PrintWriter getWriter(){
         return writer;
     }
+    public static void sendFriendRequest(int id) {
+        HashMap<String, Object> data = new HashMap<>();
+        data.put("type", "send-friend-request");
+        data.put("id", id);
+        networkingMethod(data);
+    }
+
+    public static void acceptFriendRequest(int id) {
+        HashMap<String, Object> data = new HashMap<>();
+        data.put("type", "accept-friend-request");
+        data.put("id", id);
+        networkingMethod(data);
+    }
+
+    public static void sendGameRequest(int id, int gameType) {
+        HashMap<String, Object> data = new HashMap<>();
+        data.put("type", "send-game-request");
+        data.put("id", id);
+        data.put("game-type", gameType);
+        networkingMethod(data);
+    }
+
     private static void handleGameCommand(HashMap<String, Object> data) {
         String command = (String) data.get("command");
 
         switch (command) {
-            case "receiveInput":
-                ArrayList<Double> inputParams = (ArrayList<Double>) data.get("parameter");
-
-                int x = inputParams.get(0).intValue();
-                int y = inputParams.get(1).intValue();
-                //gameLogic.receiveInput(new int[]{x, y});  // assuming you have this
-                break;
-
-            case "removePlayer":
-                int playerToRemove = ((Double) data.get("parameter")).intValue();
-                //gameLogic.removePlayer(playerToRemove);  // assuming you have this
-                break;
-
             case "getWinner":
-                ArrayList<Double> winnersRaw = (ArrayList<Double>) data.get("data");
-                //List<Integer> winners = winnersRaw.stream().map(Double::intValue).toList();
-                //System.out.println("Winner(s): " + winners);
+                List<Integer> winnersRaw = (List<Integer>) data.get("data");
+                    currentWinner = JsonConverter.convertToIntArray(winnersRaw);
                 break;
-
             case "getGameOngoing":
-                boolean ongoing = (Boolean) data.get("data");
-                //System.out.println("Game ongoing: " + ongoing);
+                gameOngoing = (Boolean) data.get("data");
                 break;
-
             case "getBoardCells":
-                int boardId = ((Double) data.get("parameter")).intValue();
+                int boardLayer = ((Integer) data.get("parameter")).intValue();
+                ArrayList<ArrayList<List<Integer>>> rawBoard = (ArrayList<ArrayList<List<Integer>>>) data.get("data");
+               // boardCells = JsonConverter.convertListTo3dArray(rawBoard);
 
                 break;
 
-            case "getBoardSize":
-                ArrayList<Double> sizeRaw = (ArrayList<Double>) data.get("data");
-                int width = sizeRaw.get(0).intValue();
-                int height = sizeRaw.get(1).intValue();
-                System.out.println("Board size: " + width + "x" + height);
+            default:
+                System.err.println("Unknown game command: " + command);
+                break;
+        }
+    }
+    private static void handleProfileCommand(HashMap<String, Object> data) {
+        String command = (String) data.get("info");
+
+        switch (command) {
+            case "bio":
+                bio = (String) data.get("message");
+                break;
+            case "nickname":
+                 nickname = (String) data.get("message");
+                 break;
+            case "username":
+                username = (String) data.get("message");
+                break;
+            case "profilePath":
+                profilePath = (String) data.get("message");
                 break;
 
-            case "getCurrentPlayer":
-                int currentPlayer = ((Double) data.get("data")).intValue();
-                System.out.println("Current player: " + currentPlayer);
+            case "friends":
+                friends = (List<Integer>) data.get("message");
                 break;
 
-            case "gameOngoingChangedSinceLastCommand":
-            case "winnersChangedSinceLastCommand":
-            case "currentPlayerChangedSinceLastCommand":
-                boolean changed = (Boolean) data.get("data");
-                //System.out.println(command + ": " + changed);
+            case "friendRequests":
+                friendRequests = (List<Integer>) data.get("message");
                 break;
 
-            case "boardChangedSinceLastCommand":
-                int changedBoardId = ((Double) data.get("data")).intValue();
-                //System.out.println("Board changed: " + changedBoardId);
+            case "friendId":
+                friendId = ((Double) data.get("message")).intValue(); // assuming it's coming as a Double
+                break;
+
+            case "gameHistory":
+                gameHistory = (List<String>) data.get("message");
+                break;
+
+            case "winLossRatio":
+                winLossRatio = (double[]) data.get("message");
+                break;
+
+            case "rating":
+                List<Integer> ratingRaw = (List<Integer>) data.get("data");
+                rating = JsonConverter.convertToIntArray(ratingRaw);
+                break;
+
+            case "rank":
+                rank = (String[]) data.get("message");
+                break;
+
+            case "wins":
+                List<Integer> winsRaw = (List<Integer>) data.get("data");
+                wins = JsonConverter.convertToIntArray(winsRaw);
                 break;
             default:
                 System.err.println("Unknown game command: " + command);
@@ -251,4 +332,65 @@ public class Client {
     public static boolean getLoginSuccess(){
         return loginSuccess;
     }
+
+    public static boolean getGameOngoing() {
+        return gameOngoing;
+    }
+
+    public static int[] checkWinners() {
+        return currentWinner;
+    }
+
+    public static int[][][] getBoardCells() {
+        return boardCells;
+    }
+
+    public static String getBio() {
+        return bio;
+    }
+
+    public static String getNickname() {
+        return nickname;
+    }
+
+    public static String getUsername() {
+        return username;
+    }
+
+    public static String getProfilePath() {
+        return profilePath;
+    }
+
+    public static List<Integer> getFriends() {
+        return friends;
+    }
+
+    public static List<Integer> getFriendRequests() {
+        return friendRequests;
+    }
+
+    public static int getFriendId() {
+        return friendId;
+    }
+
+    public static List<String> getGameHistory() {
+        return gameHistory;
+    }
+
+    public static double getWinLossRatio(int index) {
+        return winLossRatio[index];
+    }
+
+    public static int getRating(int index) {
+        return rating[index];
+    }
+
+    public static String getRank(int index) {
+        return rank[index];
+    }
+
+    public static int getWins(int index) {
+        return wins[index];
+    }
+
 }
