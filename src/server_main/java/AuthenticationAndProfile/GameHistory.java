@@ -34,6 +34,7 @@ public class GameHistory{
      * @return list of game history
      */
     public List<String> getGameHistory(){
+
         return new ArrayList<>(gameHistory); // returns a copy of the game history list
     }
 
@@ -55,8 +56,45 @@ public class GameHistory{
     /**
      * Gets the player's achievement progress
      */
-    public HashMap<String, Double> getAchievementProgress() {
-        return achievementProgress;
+    public HashMap<String, Double> getAchievementProgress() throws SQLException {
+        try {
+            HashMap<String, Double> achievementProgress = new HashMap<>();
+            String achievementProgressString = PlayerManager.getAttribute(id, "achievement_progress");
+            if (!(achievementProgressString == null | achievementProgressString.equals(""))) {
+                String[] achievements = achievementProgressString.split(",");
+                String section = "";
+                String key = "";
+                Double value = 0.00;
+                int keyComplete = 0;
+                for (int j = 0; j < achievements.length; j++) {
+                    String entry = achievements[j];
+                    for (int k = 0; k < entry.length(); k++) {
+                        char c = entry.charAt(k);
+                        if (c == '=' | c == '{' | c == '}') {
+                            keyComplete += 1;
+                        } else if (c == '>') {
+                            keyComplete += 1;
+                            key += section;
+                            section = "";
+                        } else if (c == ',') {
+                            value = Double.parseDouble(section);
+                            achievementProgress.put(key, value);
+                            key = "";
+                            section = "";
+                        } else if (!(c == '"' | c == ' ')) {
+                            section += c;
+                        }
+                    }
+                    value = Double.parseDouble(section);
+                    achievementProgress.put(key, value);
+                    section = "";
+                    key = "";
+                }
+            }
+            return achievementProgress;
+        } catch (SQLException s) {
+            throw new SQLException(s.getMessage());
+        }
     }
 
     /**

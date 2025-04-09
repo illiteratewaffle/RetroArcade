@@ -162,12 +162,12 @@ public class ProfileCSVReader {
                 boolean inSection = false;
                 for (int j = 0; j < line.length(); j ++){
                     Character c = Character.valueOf(line.charAt(j));
-                    if (c == '['){
+                    if (c == '{'){
                         inSection = true;
                     } else if (c == ',' && !inSection){
                         fieldsList.add(section);
                         section = "";
-                    }else if (c == ']') {
+                    }else if (c == '}') {
                         inSection = false;
                     } else if (j == line.length()-1) {
                         section = section + c;
@@ -198,7 +198,7 @@ public class ProfileCSVReader {
 
                 switch (j){
                     case BIO_INDEX, GHIST_INDEX, ACHIVPROG_INDEX, FRIENDS_INDEX, FREQUEST_INDEX:
-                        csvLine += "[" + profiles.get(i).get(j) + "]";
+                        csvLine += "{" + profiles.get(i).get(j) + "}";
                         break;
                 }
                 csvLine += profiles.get(i).get(j) + ",";

@@ -59,10 +59,11 @@ class AuthenticationTest {
     @Test
     void logOut() {
         try {
-            int id = PlayerManager.registerPlayer("username5", "email5@email.com", ProfileCreation.hashedPassword("1234567"));
+            int id = PlayerManager.registerPlayer("username8", "email8@email.com", ProfileCreation.hashedPassword("1234567"));
             profile = ProfileDatabaseAccess.obtainProfile(id);
             Authentication.logOut(id);
             assertFalse(ProfileDatabaseAccess.obtainProfile(id).getOnlineStatus());
+            PlayerManager.deleteProfile(id);
         } catch (SQLException | NoSuchAlgorithmException | IOException e) {
             fail(e.getMessage());
         }

@@ -21,7 +21,7 @@ class ProfileDatabaseAccessTest {
     @BeforeEach
     void setUp() {
         try {
-            id = PlayerManager.registerPlayer("username76", "email76@email.com", "12345678");
+            id = PlayerManager.registerPlayer("username77", "email77@email.com", "12345678");
             profile = ProfileDatabaseAccess.obtainProfile(id);
         } catch (SQLException s) {
             fail("register player error: " + s.getMessage());
@@ -141,7 +141,6 @@ class ProfileDatabaseAccessTest {
         } catch (SQLException | IOException s) {
             fail(s.getMessage());
         }
-        fail();
     }
 
     @Test
@@ -150,7 +149,8 @@ class ProfileDatabaseAccessTest {
             System.out.println(PlayerManager.updateAttribute(id, "games_played", new String[]{"TTT", "Checkers", "Connect4", "Checkers"}));
             HashMap<String, Double> achievements = new HashMap<>(Map.ofEntries(entry("Have100Cat'sInTTT", 0.75), entry("WinCheckersWithoutLosingOnePiece", 0.00)));
 
-            System.out.println(PlayerManager.updateAttribute(id, "achievement_progress", "[{Have100Cat'sInTTT, 0.75}, {WinCheckersWithoutLosingOnePiece, 0.00}]"));
+            System.out.println(PlayerManager.setAchievementProgress(id, "Have100Cat'sInTTT", "0.75"));
+            System.out.println(PlayerManager.setAchievementProgress(id, "WinCheckersWithoutLosingOnePiece", "0.00"));
             List<String> gameHistory = new ArrayList<>(Arrays.asList("TTT", "Checkers", "Connect4", "Checkers"));
             GameHistory gameHistory1 = new GameHistory(gameHistory, achievements, id);
             assertEquals(gameHistory1.getGameHistory(), ProfileDatabaseAccess.obtainGameHistory(id).getGameHistory());
