@@ -33,7 +33,7 @@ class PlayerRankingTest {
         playerRanking.endOfMatchMethod(playerID, TTT_INDEX, 1);
         assertEquals(1050, playerRanking.getRating(playerID, TTT_INDEX));
         assertEquals(1, playerRanking.getWins(TTT_INDEX));
-        assertEquals(1, playerRanking.getTotal(playerID, TTT_INDEX));
+        assertEquals(1, playerRanking.getTotal(TTT_INDEX));
 
 //        assertTrue(profile.getGameHistory().getAchievementProgress().containsKey("10 Wins ttt"));
 //        assertTrue(profile.getGameHistory().getAchievementProgress().containsKey("50 Games Played ttt"));

@@ -142,7 +142,7 @@ public class PlayerRanking {
             gameName = "checkers";
         }
         try {
-            return Integer.parseInt(PlayerManager.getAttribute(id, "wins" + gameName));
+            return Integer.parseInt(PlayerManager.getAttribute(id, "wins_" + gameName));
         } catch (SQLException s) {
             throw new SQLException(s.getMessage());
         }
@@ -197,4 +197,20 @@ public class PlayerRanking {
 //    public void setTotal(int[] total) {
 //        this.total = total;
 //    }
+
+    public int getTotal(int gameNumber) throws SQLException{
+        String gameName = null;
+        if (gameNumber == TTT_INDEX) {
+            gameName = "ttt";
+        } else if (gameNumber == CONNECT4_INDEX) {
+            gameName = "connect4";
+        } else if (gameNumber == CHECKERS_INDEX) {
+            gameName = "checkers";
+        }
+        try {
+            return Integer.parseInt(PlayerManager.getAttribute(id, "total_" + gameName));
+        } catch (SQLException s) {
+            throw new SQLException(s.getMessage());
+        }
+    }
 }
