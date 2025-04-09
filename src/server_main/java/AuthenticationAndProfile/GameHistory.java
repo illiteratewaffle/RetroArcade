@@ -52,10 +52,19 @@ public class GameHistory{
         }
     }
 
+    /**
+     * Gets the player's achievement progress
+     */
     public HashMap<String, Double> getAchievementProgress() {
         return achievementProgress;
     }
 
+    /**
+     * Sets the player's achievement progress
+     *
+     * @param achievementName the name of the achievement
+     * @param progress the progress of the achievement
+     */
     public void setAchievementProgress(String achievementName, double progress) throws SQLException {
         try {
             PlayerManager.setAchievementProgress(id, achievementName, Double.toString(progress));
@@ -64,6 +73,12 @@ public class GameHistory{
         }
     }
 
+
+    /**
+     * Alternatively sets the player's achievement progress using a hashmap
+     *
+     * @param achievementProgressHashMap the hashmap containing the achievement progress
+     */
     public void setAchievementProgress(HashMap<String, Double> achievementProgressHashMap) {
         achievementProgress = achievementProgressHashMap;
     }
