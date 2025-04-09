@@ -9,6 +9,7 @@ import java.io.*;
 import java.net.Socket;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.BlockingQueue;
 
@@ -173,6 +174,261 @@ public class PlayerHandler implements Runnable {
         } else {
             ServerLogger.log("PlayerHandler: " + this.getProfile().getUsername() + " unable to accept game request because message does not contain a sender id.");
         }
+    }
+
+    /**
+     * Method to give the client the bio of the current user.
+     * @return A Thread Message containing the bio of the current user.
+     */
+    private ThreadMessage getBio() {
+
+        //Get the bio from the profile.
+       String bio = this.getProfile().getBio();
+
+        //Create the hash map for the thread message
+        Map<String, Object> messageMap = new HashMap<>();
+        messageMap.put("type", "profile-info-request");
+        messageMap.put("info", "bio");
+        messageMap.put("message", bio);
+
+        //Create the thread message and return it
+        ThreadMessage requestMessage = new ThreadMessage(Thread.currentThread(), messageMap);
+        return requestMessage;
+    }
+
+    /**
+     * Method to give the client the nickname of the current user.
+     * @return A Thread Message containing the nickname of the current user.
+     */
+    private ThreadMessage getNickname() {
+
+        //Get the nickname from the profile.
+        String nickname = this.getProfile().getNickname();
+
+        //Create the hash map for the thread message.
+        Map<String, Object> messageMap = new HashMap<>();
+        messageMap.put("type", "profile-info-request");
+        messageMap.put("info", "nickname");
+        messageMap.put("message", nickname);
+
+        //Create the thread message and return it.
+        ThreadMessage requestMessage = new ThreadMessage(Thread.currentThread(), messageMap);
+        return requestMessage;
+    }
+
+    /**
+     * Method to return the username of the current user.
+     * @return A Thread Message containing the username of the user.
+     */
+    private ThreadMessage getUsername() {
+
+        //Get the username from the profile.
+        String username = this.getProfile().getUsername();
+
+        //Create the hashmap for the thread message.
+        Map<String, Object> messageMap = new HashMap<>();
+        messageMap.put("type", "profile-info-request");
+        messageMap.put("info", "username");
+        messageMap.put("message", username);
+
+        //Create the thread message and return it.
+        ThreadMessage requestMessage = new ThreadMessage(Thread.currentThread(), messageMap);
+        return requestMessage;
+    }
+
+    /**
+     * Method to give the client the profile picture path of teh current user.
+     * @return A Thread Message containing the profile path.
+     */
+    private ThreadMessage getProfilePath() {
+
+        //Get the profile picture path from the profile.
+        String profilePath = this.getProfile().getProfilePicFilePath();
+
+        //Create the hashmap for the thread message.
+        Map<String, Object> messageMap = new HashMap<>();
+        messageMap.put("type", "profile-info-request");
+        messageMap.put("info", "profile-path");
+        messageMap.put("message", profilePath);
+
+        //Create the thread message and return it.
+        ThreadMessage requestMessage = new ThreadMessage(Thread.currentThread(), messageMap);
+        return requestMessage;
+    }
+
+    /**
+     * Method to give the client the friends list of the current user.
+     * @return A Thread Message containing the friends list of the user.
+     */
+    private ThreadMessage getFriends() {
+
+        //Get the friends list from the profile.
+        List<Integer> friends = (List<Integer>) this.getProfile().getFriendsList().getFriends();
+
+        //Create the hashmap for the thread message.
+        Map<String, Object> messageMap = new HashMap<>();
+        messageMap.put("type", "profile-info-request");
+        messageMap.put("info", "friends");
+        messageMap.put("friends", friends);
+
+        //Create the thread message and return it.
+        ThreadMessage requestMessage = new ThreadMessage(Thread.currentThread(), messageMap);
+        return requestMessage;
+    }
+
+    /**
+     * Method to give the client the friend requests list of the current user.
+     * @return A Thread Message containing the friend requests list of the user.
+     */
+    private ThreadMessage getFriendRequests() {
+
+        //Get the friend request list of the user.
+        List<Integer> friendRequests = this.getProfile().getFriendsList().getFriendRequests();
+
+        //Create the hashmap for the thread message.
+        Map<String, Object> messageMap = new HashMap<>();
+        messageMap.put("type", "profile-info-request");
+        messageMap.put("info", "friendRequests");
+        messageMap.put("friendRequests", friendRequests);
+
+        //Create the thread message and return it.
+        ThreadMessage requestMessage = new ThreadMessage(Thread.currentThread(), messageMap);
+        return requestMessage;
+    }
+
+    /**
+     * Method to give the client the game history of the current user.
+     * @return A Thread Message containing the game history of the current user.
+     */
+    private ThreadMessage getGameHistory() {
+
+        //Get the game history of the user.
+        List<String> gameHistory = this.getProfile().getGameHistory().getGameHistory();
+
+        //Create the hashmap for the thread message.
+        Map<String, Object> messageMap = new HashMap<>();
+        messageMap.put("type", "profile-info-request");
+        messageMap.put("info", "gameHistory");
+        messageMap.put("gameHistory", gameHistory);
+
+        //Create the thread message and return it.
+        ThreadMessage requestMessage = new ThreadMessage(Thread.currentThread(), messageMap);
+        return requestMessage;
+    }
+
+    /**
+     * Method to give the client the win loss ratio of the current user.
+     * @return A Thread Message containing the win loss ratio of the user.
+     */
+    private ThreadMessage getWinLossRatio() {
+
+        //Get the win loss ratios of the user.
+        double ratio0 = this.getProfile().getPlayerRanking().getWinLossRatio(0);
+        double ratio1 = this.getProfile().getPlayerRanking().getWinLossRatio(1);
+        double ratio2 = this.getProfile().getPlayerRanking().getWinLossRatio(2);
+        double[] ratio = {ratio0, ratio1, ratio2};
+
+        //Create the hashmap for the thread message.
+        Map<String, Object> messageMap = new HashMap<>();
+        messageMap.put("type", "profile-info-request");
+        messageMap.put("info", "winLossRatio");
+        messageMap.put("winLossRatio", ratio);
+
+        //Create the thread message and return it.
+        ThreadMessage requestMessage = new ThreadMessage(Thread.currentThread(), messageMap);
+        return requestMessage;
+    }
+
+    /**
+     * Method to give the client the rating of the current user.
+     * @return A Thread Message containing the rating of the user.
+     */
+    private ThreadMessage getRating() {
+
+        //Get the rating of the user.
+        int id = this.getProfile().getID();
+        try {
+            int rating0 = this.getProfile().getPlayerRanking().getRating(id, 0);
+            int rating1 = this.getProfile().getPlayerRanking().getRating(id, 1);
+            int rating2 = this.getProfile().getPlayerRanking().getRating(id, 2);
+            int[] rating = {rating0, rating1, rating2};
+
+            //Create the hashmap for the thread message.
+            Map<String, Object> messageMap = new HashMap<>();
+            messageMap.put("type", "profile-info-request");
+            messageMap.put("info", "rank");
+            messageMap.put("rank", rating);
+
+            //Create the thread message and return it.
+            ThreadMessage requestMessage = new ThreadMessage(Thread.currentThread(), messageMap);
+            return requestMessage;
+        } catch (SQLException e) {
+            ServerLogger.log("PlayerHandler: " + this.getProfile().getUsername() + " could not get ratings.");
+        }
+        return null;
+    }
+
+    /**
+     * Method to give the client the rank of the current user.
+     * @return A Thread Message containing the rank of the current user.
+     */
+    private ThreadMessage getRank() {
+
+        //Get the ratings of the user
+        int id = this.getProfile().getID();
+        try {
+            int rating0 = this.getProfile().getPlayerRanking().getRating(id, 0);
+            int rating1 = this.getProfile().getPlayerRanking().getRating(id, 1);
+            int rating2 = this.getProfile().getPlayerRanking().getRating(id, 2);
+
+            //Get the ranks of the user
+            String ranking0 = this.getProfile().getPlayerRanking().getRank(rating0);
+            String ranking1 = this.getProfile().getPlayerRanking().getRank(rating1);
+            String ranking2 = this.getProfile().getPlayerRanking().getRank(rating2);
+            String[] rank = {ranking0, ranking1, ranking2};
+
+            //Create the hashmap for the thread message.
+            Map<String, Object> messageMap = new HashMap<>();
+            messageMap.put("type", "profile-info-request");
+            messageMap.put("info", "rank");
+            messageMap.put("rank", rank);
+
+            //Create the thread message and return it.
+            ThreadMessage requestMessage = new ThreadMessage(Thread.currentThread(), messageMap);
+            return requestMessage;
+
+        } catch (SQLException e) {
+            ServerLogger.log("PlayerHandler: " + this.getProfile().getUsername() + " could not get rank.");
+        }
+        return null;
+    }
+
+    /**
+     * Method to give the client the wins of the current user.
+     * @return A Thread Message containing the wins of the current user.
+     */
+    private ThreadMessage getWins() {
+
+        //Get the wins of the user
+        try {
+            int win0 = this.getProfile().getPlayerRanking().getWins(0);
+            int win1 = this.getProfile().getPlayerRanking().getWins(1);
+            int win2 = this.getProfile().getPlayerRanking().getWins(2);
+            int[] win = {win0, win1, win2};
+
+            //Create the hashmap for the thread message.
+            Map<String, Object> messageMap = new HashMap<>();
+            messageMap.put("type", "profile-info-request");
+            messageMap.put("info", "wins");
+            messageMap.put("wins", win);
+
+            //Create the thread message and return it.
+            ThreadMessage requestMessage = new ThreadMessage(Thread.currentThread(), messageMap);
+            return requestMessage;
+        } catch (SQLException e) {
+            ServerLogger.log("PlayerHandler: " + this.getProfile().getUsername() + " could not get wins.");
+        }
+        return null;
     }
 
 
