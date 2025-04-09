@@ -274,6 +274,61 @@ public class Client {
         data.put("username", username);
         networkingMethod(data);
     }
+    public static void getProfileInfo() {
+        HashMap<String, Object> data = new HashMap<>();
+        data.put("type", "profile-info-request");
+        data.put("info", "bio");
+        networkingMethod(data);
+        data = new HashMap<>();
+        data.put("type", "profile-info-request");
+        data.put("info", "nickname");
+        networkingMethod(data);
+        data = new HashMap<>();
+        data.put("type", "profile-info-request");
+        data.put("info", "username");
+        networkingMethod(data);
+        data = new HashMap<>();
+        data.put("type", "profile-info-request");
+        data.put("info", "profilePath");
+        networkingMethod(data);
+        data = new HashMap<>();
+        data.put("type", "profile-info-request");
+        data.put("info", "friends");
+        networkingMethod(data);
+        data = new HashMap<>();
+        data.put("type", "profile-info-request");
+        data.put("info", "friendRequests");
+        networkingMethod(data);
+        data = new HashMap<>();
+        data.put("type", "profile-info-request");
+        data.put("info", "gameHistory");
+        networkingMethod(data);
+        data = new HashMap<>();
+        data.put("type", "profile-info-request");
+        data.put("info", "winLossRatio");
+        networkingMethod(data);
+        data = new HashMap<>();
+        data.put("type", "profile-info-request");
+        data.put("info", "rating");
+        networkingMethod(data);
+        data = new HashMap<>();
+        data.put("type", "profile-info-request");
+        data.put("info", "rank");
+        networkingMethod(data);
+        data = new HashMap<>();
+        data.put("type", "profile-info-request");
+        data.put("info", "wins");
+        networkingMethod(data);
+    }
+    public static void updateProfileInfo(String nickname, String bio, String profilePath) {
+        HashMap<String, Object> data = new HashMap<>();
+        data.put("type", "update-profile");
+        data.put("nickname", nickname);
+        data.put("bio", bio);
+        data.put("profilePath", profilePath);
+
+        networkingMethod(data);
+    }
 
     public static void acceptFriendRequest(int username) {
         HashMap<String, Object> data = new HashMap<>();
@@ -296,6 +351,7 @@ public class Client {
         data.put("game-type", gameType);
         networkingMethod(data);
     }
+
 
     private static void handleGameCommand(HashMap<String, Object> data) {
         String command = (String) data.get("command");
