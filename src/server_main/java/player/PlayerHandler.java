@@ -263,13 +263,33 @@ public class PlayerHandler implements Runnable {
     private ThreadMessage getFriends() {
 
         //Get the friends list from the profile.
-        List<Integer> friends = (List<Integer>) this.getProfile().getFriendsList();
+        List<Integer> friends = (List<Integer>) this.getProfile().getFriendsList().getFriends();
 
         //Create the hashmap for the thread message.
         Map<String, Object> messageMap = new HashMap<>();
         messageMap.put("type", "profile-info-request");
         messageMap.put("info", "friends");
         messageMap.put("friends", friends);
+
+        //Create the thread message and return it.
+        ThreadMessage requestMessage = new ThreadMessage(Thread.currentThread(), messageMap);
+        return requestMessage;
+    }
+
+    /**
+     * Method to give the client the friend requests list of the current user.
+     * @return A Thread Message containing the friend requests list of the user.
+     */
+    private ThreadMessage getFriendRequests() {
+
+        //Get the friend request list of the user.
+        List<Integer> friendRequests = this.getProfile().getFriendsList().getFriendRequests();
+
+        //Create the hashmap for the thread message.
+        Map<String, Object> messageMap = new HashMap<>();
+        messageMap.put("type", "profile-info-request");
+        messageMap.put("info", "friendRequests");
+        messageMap.put("friendRequests", friendRequests);
 
         //Create the thread message and return it.
         ThreadMessage requestMessage = new ThreadMessage(Thread.currentThread(), messageMap);
