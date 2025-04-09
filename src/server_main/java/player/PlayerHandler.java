@@ -285,7 +285,7 @@ public class PlayerHandler implements Runnable {
         Map<String, Object> messageMap = new HashMap<>();
         messageMap.put("type", "profile-info-request");
         messageMap.put("info", "friends");
-        messageMap.put("friends", friends);
+        messageMap.put("message", friends);
 
         //Create the thread message and return it.
         ThreadMessage requestMessage = new ThreadMessage(Thread.currentThread(), messageMap);
@@ -319,7 +319,7 @@ public class PlayerHandler implements Runnable {
         Map<String, Object> messageMap = new HashMap<>();
         messageMap.put("type", "profile-info-request");
         messageMap.put("info", "friendRequests");
-        messageMap.put("friendRequests", friendRequests);
+        messageMap.put("message", friendRequests);
 
         //Create the thread message and return it.
         ThreadMessage requestMessage = new ThreadMessage(Thread.currentThread(), messageMap);
@@ -339,7 +339,7 @@ public class PlayerHandler implements Runnable {
         Map<String, Object> messageMap = new HashMap<>();
         messageMap.put("type", "profile-info-request");
         messageMap.put("info", "gameHistory");
-        messageMap.put("gameHistory", gameHistory);
+        messageMap.put("message", gameHistory);
 
         //Create the thread message and return it.
         ThreadMessage requestMessage = new ThreadMessage(Thread.currentThread(), messageMap);
@@ -356,13 +356,14 @@ public class PlayerHandler implements Runnable {
         double ratio0 = this.getProfile().getPlayerRanking().getWinLossRatio(0);
         double ratio1 = this.getProfile().getPlayerRanking().getWinLossRatio(1);
         double ratio2 = this.getProfile().getPlayerRanking().getWinLossRatio(2);
-        double[] ratio = {ratio0, ratio1, ratio2};
+        double[] ratioArray = {ratio0, ratio1, ratio2};
+        List<Double> ratio = ConverterTools.convertDoubleArrayToDoubleList(ratioArray);
 
         //Create the hashmap for the thread message.
         Map<String, Object> messageMap = new HashMap<>();
         messageMap.put("type", "profile-info-request");
         messageMap.put("info", "winLossRatio");
-        messageMap.put("winLossRatio", ratio);
+        messageMap.put("message", ratio);
 
         //Create the thread message and return it.
         ThreadMessage requestMessage = new ThreadMessage(Thread.currentThread(), messageMap);
@@ -381,13 +382,14 @@ public class PlayerHandler implements Runnable {
             int rating0 = this.getProfile().getPlayerRanking().getRating(id, 0);
             int rating1 = this.getProfile().getPlayerRanking().getRating(id, 1);
             int rating2 = this.getProfile().getPlayerRanking().getRating(id, 2);
-            int[] rating = {rating0, rating1, rating2};
+            int[] ratingArray = {rating0, rating1, rating2};
+            List<Integer> rating = ConverterTools.convertIntArrayToList(ratingArray);
 
             //Create the hashmap for the thread message.
             Map<String, Object> messageMap = new HashMap<>();
             messageMap.put("type", "profile-info-request");
             messageMap.put("info", "rank");
-            messageMap.put("rank", rating);
+            messageMap.put("message", rating);
 
             //Create the thread message and return it.
             ThreadMessage requestMessage = new ThreadMessage(Thread.currentThread(), messageMap);
@@ -415,13 +417,14 @@ public class PlayerHandler implements Runnable {
             String ranking0 = this.getProfile().getPlayerRanking().getRank(rating0);
             String ranking1 = this.getProfile().getPlayerRanking().getRank(rating1);
             String ranking2 = this.getProfile().getPlayerRanking().getRank(rating2);
-            String[] rank = {ranking0, ranking1, ranking2};
+            String[] rankArray = {ranking0, ranking1, ranking2};
+            List<String> rank = ConverterTools.convertStringArrayToStringList(rankArray);
 
             //Create the hashmap for the thread message.
             Map<String, Object> messageMap = new HashMap<>();
             messageMap.put("type", "profile-info-request");
             messageMap.put("info", "rank");
-            messageMap.put("rank", rank);
+            messageMap.put("message", rank);
 
             //Create the thread message and return it.
             ThreadMessage requestMessage = new ThreadMessage(Thread.currentThread(), messageMap);
@@ -444,13 +447,14 @@ public class PlayerHandler implements Runnable {
             int win0 = this.getProfile().getPlayerRanking().getWins(0);
             int win1 = this.getProfile().getPlayerRanking().getWins(1);
             int win2 = this.getProfile().getPlayerRanking().getWins(2);
-            int[] win = {win0, win1, win2};
+            int[] winArray = {win0, win1, win2};
+            List<Integer> win = ConverterTools.convertIntArrayToList(winArray);
 
             //Create the hashmap for the thread message.
             Map<String, Object> messageMap = new HashMap<>();
             messageMap.put("type", "profile-info-request");
             messageMap.put("info", "wins");
-            messageMap.put("wins", win);
+            messageMap.put("message", win);
 
             //Create the thread message and return it.
             ThreadMessage requestMessage = new ThreadMessage(Thread.currentThread(), messageMap);
@@ -504,6 +508,8 @@ public class PlayerHandler implements Runnable {
             int win2 = profile.getPlayerRanking().getWins(2);
             int[] win = {win0, win1, win2};
 
+            boolean onlineStatus = profile.getOnlineStatus();
+
             //Create the map for the thread message
             Map<String, Object> messageMap = new HashMap<>();
             messageMap.put("type", "view-profile");
@@ -517,6 +523,7 @@ public class PlayerHandler implements Runnable {
             messageMap.put("rating", rating);
             messageMap.put("rank", rank);
             messageMap.put("wins", win);
+            messageMap.put("onlineStatus", onlineStatus);
 
             //Create the thread message and return it.
             ThreadMessage requestMessage = new ThreadMessage(Thread.currentThread(), messageMap);
@@ -563,6 +570,21 @@ public class PlayerHandler implements Runnable {
         //Log that the player has disconnected.
         ServerLogger.log("PlayerHandler: Player " + profile.getUsername() + ":" + profile.getID() + " disconnected.");
     }
+
+    /**
+     * Method to send a thread message to the client over the client socket.
+     * @param message The Thread Message being sent over to the client side.
+     */
+    public void sendToClient(ThreadMessage message) {
+        try {
+            String jsonString = JsonConverter.toJson(message.getContent());
+            printWriter.println(jsonString);
+            printWriter.flush();
+        } catch (IllegalArgumentException e) {
+            ServerLogger.log("PlayerHandler: " + this.getProfile().getUsername() + " could not send message to client.");
+        }
+    }
+
 
     /**
      * Constructs a new PlayerHandler to manage communication with a connected client.
@@ -720,32 +742,31 @@ public class PlayerHandler implements Runnable {
                 //Check the profile info being requested
                switch ((String) content.get("info")) {
 
-                   //TODO: Send this information to the client
                    case "bio":
-                       getBio();
+                       sendToClient(getBio());
                    case "nickname":
-                       getNickname();
+                       sendToClient(getNickname());
                    case "username":
-                       getUsername();
+                       sendToClient(getUsername());
                    case "profilePath":
-                       getProfilePath();
+                       sendToClient(getProfilePath());
                    case "friends":
-                       getFriends();
+                       sendToClient(getFriends());
                    case "friendRequests":
-                       getFriendRequests();
+                       sendToClient(getFriendRequests());
                    case "gameHistory":
-                       getGameHistory();
+                       sendToClient(getGameHistory());
                    case "winLossRatio":
-                       getWinLossRatio();
+                       sendToClient(getWinLossRatio());
                    case "rating":
-                        getRating();
+                       sendToClient(getRating());
                    case "rank":
-                       getRank();
+                       sendToClient(getRank());
                    case "wins":
-                       getWins();
+                       sendToClient(getWins());
                }
             case "view-profile":
-                viewProfile(threadMessage);
+                sendToClient(viewProfile(threadMessage));
             default:
                 log("PlayerHandler: Message not recognized: " + threadMessage.getContent());
         }

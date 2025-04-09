@@ -58,7 +58,7 @@ class ProfileCreationTest {
 
     @Test
     void createNewProfile2() {
-        String username = "login3";
+        String username = "login4";
         String email = username + "@example.com";
         String password = "password";
         Profile newProfile;
@@ -72,6 +72,7 @@ class ProfileCreationTest {
             assertEquals(username, PlayerManager.getAttribute(newProfileID, "username"));
             assertEquals(email, PlayerManager.getAttribute(newProfileID, "email"));
             assertEquals(hashedPassword, PlayerManager.getAttribute(newProfileID, "hashed_password"));
+            PlayerManager.deleteProfile(newProfileID);
         } catch (SQLException s1) {
             fail("Error with getAttribute: " + s1.getMessage());
         } catch (NoSuchAlgorithmException | IOException n) {

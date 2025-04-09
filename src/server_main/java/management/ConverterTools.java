@@ -40,6 +40,46 @@ public class ConverterTools {
     }
 
     /**
+     * Converts a double int array to a list.
+     * @param array The double int array.
+     * @return The corresponding list.
+     */
+    public static List<Double> convertDoubleArrayToDoubleList(double[] array) {
+        return Arrays.stream(array).boxed().toList();
+    }
+
+    /**
+     * Converts a list of doubles into a double array.
+     * @param list The double list.
+     * @return The corresponding array.
+     */
+    public static double[] convertDoublelistToDoubleArray(List<Double> list) {
+        double[] arr = new double[list.size()];
+        for (int i = 0; i < list.size(); i++) {
+            arr[i] = list.get(i);
+        }
+        return arr;
+    }
+
+    /**
+     * Converts a List of Strings into a String array.
+     * @param list the list of Strings to convert.
+     * @return a String[] containing the values from the list.
+     */
+    public static String[] convertStringListToStringArray(List<String> list) {
+        return list.toArray(new String[0]);
+    }
+
+    /**
+     * Converts a String array into a List of Strings.
+     * @param array the String array to convert.
+     * @return a List<String> containing the values from the array.
+     */
+    public static List<String> convertStringArrayToStringList(String[] array) {
+        return Arrays.asList(array);
+    }
+
+    /**
      * Converts a list to an int array
      * @param list the list
      * @return the corresponding int array
