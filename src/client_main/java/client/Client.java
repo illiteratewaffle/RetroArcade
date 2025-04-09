@@ -16,9 +16,9 @@ public class Client {
     private static String nickname;
     private static String username;
     private static String profilePath;
-    private static List<Integer> friends = new ArrayList<>(); // stores list of friends as ids
-    private static List<Integer> friendRequests = new ArrayList<>(); // stores list of friend requests as ids
-    private static int friendId;
+    private static List<String> friends = new ArrayList<>(); // stores list of friends as ids
+    private static List<String> friendRequests = new ArrayList<>(); // stores list of friend requests as ids
+    private static String friendUsername;
     private static List<String> gameHistory = new ArrayList<>();
     private static double[] winLossRatio = new double[3];
     private static int[] rating = new int[3];
@@ -235,31 +235,31 @@ public class Client {
         data.put("game-type", gameType);
         networkingMethod(data);
     }
-    public static void sendFriendRequest(int id) {
+    public static void sendFriendRequest(String username) {
         HashMap<String, Object> data = new HashMap<>();
         data.put("type", "send-friend-request");
-        data.put("id", id);
+        data.put("username", username);
         networkingMethod(data);
     }
 
-    public static void acceptFriendRequest(int id) {
+    public static void acceptFriendRequest(int username) {
         HashMap<String, Object> data = new HashMap<>();
         data.put("type", "accept-friend-request");
-        data.put("id", id);
+        data.put("Username", username);
         networkingMethod(data);
     }
 
-    public static void sendGameRequest(int id, int gameType) {
+    public static void sendGameRequest(String username, int gameType) {
         HashMap<String, Object> data = new HashMap<>();
         data.put("type", "send-game-request");
-        data.put("id", id);
+        data.put("username", username);
         data.put("game-type", gameType);
         networkingMethod(data);
     }
-    public static void acceptGameRequest(int id, int gameType) {
+    public static void acceptGameRequest(String username, int gameType) {
         HashMap<String, Object> data = new HashMap<>();
         data.put("type", "accept-game-request");
-        data.put("id", id);
+        data.put("username", username);
         data.put("game-type", gameType);
         networkingMethod(data);
     }
@@ -305,15 +305,15 @@ public class Client {
                 break;
 
             case "friends":
-                friends = (List<Integer>) data.get("message");
+                friends = (List<String>) data.get("message");
                 break;
 
             case "friendRequests":
-                friendRequests = (List<Integer>) data.get("message");
+                friendRequests = (List<String>) data.get("message");
                 break;
 
             case "friendId":
-                friendId = (int) data.get("message");
+                friendUsername = (String) data.get("message");
                 break;
 
             case "gameHistory":
@@ -374,16 +374,16 @@ public class Client {
         return profilePath;
     }
 
-    public static List<Integer> getFriends() {
+    public static List<String> getFriends() {
         return friends;
     }
 
-    public static List<Integer> getFriendRequests() {
+    public static List<String> getFriendRequests() {
         return friendRequests;
     }
 
-    public static int getFriendId() {
-        return friendId;
+    public static String getFriendUsername() {
+        return friendUsername;
     }
 
     public static List<String> getGameHistory() {
