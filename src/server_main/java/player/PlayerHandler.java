@@ -339,6 +339,35 @@ public class PlayerHandler implements Runnable {
         return requestMessage;
     }
 
+    /**
+     * Method to give the client the rating of the current user.
+     * @return A Thread Message containing the rating of the user.
+     */
+    private ThreadMessage getRating() {
+
+        //Get the rating of the user.
+        int id = this.getProfile().getID();
+        try {
+            int rating0 = this.getProfile().getPlayerRanking().getRating(id, 0);
+            int rating1 = this.getProfile().getPlayerRanking().getRating(id, 1);
+            int rating2 = this.getProfile().getPlayerRanking().getRating(id, 2);
+            int[] rating = {rating0, rating1, rating2};
+
+            //Create the hashmap for the thread message.
+            Map<String, Object> messageMap = new HashMap<>();
+            messageMap.put("type", "profile-info-request");
+            messageMap.put("info", "rank");
+            messageMap.put("rank", rating);
+
+            //Create the thread message and return it.
+            ThreadMessage requestMessage = new ThreadMessage(Thread.currentThread(), messageMap);
+            return requestMessage;
+        } catch (SQLException e) {
+            ServerLogger.log("PlayerHandler: " + this.getProfile().getUsername() + " could not get ratings.");
+        }
+        return null;
+    }
+
 
     /**
      * Disconnects the player from the server by removing them from the thread registry,
