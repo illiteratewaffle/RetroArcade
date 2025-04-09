@@ -313,7 +313,7 @@ public class Client {
                 break;
 
             case "friendId":
-                friendId = ((Double) data.get("message")).intValue(); // assuming it's coming as a Double
+                friendId = (int) data.get("message");
                 break;
 
             case "gameHistory":
