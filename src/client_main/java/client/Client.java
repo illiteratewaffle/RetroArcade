@@ -229,6 +229,12 @@ public class Client {
     public static PrintWriter getWriter(){
         return writer;
     }
+    public static void enqueue(int gameType) {
+        HashMap<String, Object> data = new HashMap<>();
+        data.put("type", "enqueue");
+        data.put("game-type", gameType);
+        networkingMethod(data);
+    }
     public static void sendFriendRequest(int id) {
         HashMap<String, Object> data = new HashMap<>();
         data.put("type", "send-friend-request");
