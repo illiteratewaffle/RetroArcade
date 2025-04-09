@@ -266,6 +266,7 @@ public class TTTController implements Initializable {
                         theGame.makeMove(row, col);
                     }
                     checkWin();
+                    isYourTurn.set(false);
                 }
             }
         }
