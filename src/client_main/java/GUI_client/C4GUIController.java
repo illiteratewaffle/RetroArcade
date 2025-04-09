@@ -27,6 +27,8 @@ import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
@@ -184,16 +186,15 @@ public class C4GUIController implements Initializable {
      * Updates the GUI board display with based on the current game state
      */
     private void updateBoard() {
-//        C4Piece[][] board = gameLogic.getBoard().getC4Board(); // assuming getBoard() returns C4Board
-        C4Piece[][] board = c4Controller.getC4Board();;
+        int[][] board = c4Controller.getBoardCells(0b01).getFirst();;
 
         c4GUIGrid.getChildren().clear();
 
         for (int row = 0; row < board.length; row++) {
             for (int col = 0; col < board[0].length; col++) {
                 C4Piece piece = board[row][col];
-                if (piece != C4Piece.BLANK) {
-                    String imgPath = piece == C4Piece.RED
+                if (piece != C4Piece.BLANK.getValue()) {
+                    String imgPath = piece == C4Piece.RED.getValue()
                             ? "/connect_4_assets/c4_pink_piece.png"
                             : "/connect_4_assets/c4_blue_piece.png";
                     addPieceToGrid(row, col, imgPath);
@@ -231,20 +232,32 @@ public class C4GUIController implements Initializable {
             updateTurnIndicator();
 
             if (c4Controller.getC4IsGameOver()) {
-                c4Controller.c4GameLogic.updateGameState();
-                int winner = c4Controller.getWinner();
+                int[] winner = c4Controller.getWinner();
+//                if (Arrays.equals(winner, new int[]{1, 2})) {
+//                   // C4Piece winner = c4Controller.getC4WinnerAsEnum();
+//                    c4Controller.c4GameLogic.updateGameState();
+//                    System.out.println("It's a draw!");
+//                } else if (Arrays.equals(winner, new int[]{1})) {
+//                    System.out.println("Player red wins! 🎉");
+//                    showWinImage();
+//                    c4Controller.c4GameLogic.updateGameState();
+//                } else if (Arrays.equals(winner, new int[]{2})) {
+//                    System.out.println("Player blue wins! 🎉");
+//                    showWinImage();
+//                    c4Controller.c4GameLogic.updateGameState();
+//                }
 
-                if (winner == 0) {
+                if (winner.length == 2 && winner[0] == 1 && winner[1] == 2) {
                     System.out.println("It's a draw!");
-
-                } else if (winner == 1) {
+                    c4Controller.c4GameLogic.updateGameState();
+                } else if (winner.length == 1 && winner[0] == 1) {
                     System.out.println("Player red wins! 🎉");
                     showWinImage();
-                    // c4Controller.c4GameLogic.updateGameState();
-                } else if (winner == 2) {
+                    c4Controller.c4GameLogic.updateGameState();
+                } else if (winner.length == 1 && winner[0] == 2) {
                     System.out.println("Player blue wins! 🎉");
                     showWinImage();
-                    // c4Controller.c4GameLogic.updateGameState();
+                    c4Controller.c4GameLogic.updateGameState();
                 }
 
                 disableAllColumnButtons();

@@ -57,10 +57,9 @@ public class C4Controller implements IBoardGameController {
      * Gets the board for connect-4
      * @return Connect-4 board by calling function in C4GameLogic class.
      */
-    @Override
-    public C4Piece[][] getC4Board() {
-        return c4GameLogic.getC4Board().getC4Board();
-    }
+//    public C4Piece[][] getC4Board() {
+//        return c4GameLogic.getC4Board().getC4Board();
+//    }
 
     /**
      * Calls C4GameLogic class function to check whether the function
@@ -80,17 +79,14 @@ public class C4Controller implements IBoardGameController {
 
     }
 
-    /**
-     * Updates the state of the game as it progresses.
-     * @return integer of game outcome
-     */
+
     @Override
-    public int getWinner() {
+    public int[] getWinner() {
         return switch (c4GameLogic.gameState) {
-            case TIE -> 0;
-            case P1WIN -> 1;
-            case P2WIN -> 2; //draw
-            default -> 3;
+            case P1WIN -> new int[]{0};
+            case P2WIN -> new int[]{1};
+            case TIE -> new int[]{0, 1}; //draw
+            default -> new int[]{};
         };
     }
 
@@ -103,11 +99,6 @@ public class C4Controller implements IBoardGameController {
         return !c4GameLogic.getC4IsGameOver();
     }
 
-    /**
-     * Gets board's cells, used in GUI.
-     * @param LayerMask A bit-string, where the bits of all the layers to query are set to 1.
-     * @return null if it's a blank, else piece's enum value.
-     */
     @Override
     public ArrayList<int[][]> getBoardCells(int LayerMask) {
         ArrayList<int[][]> sendBoard = new ArrayList<>();
@@ -180,26 +171,23 @@ public class C4Controller implements IBoardGameController {
         return 0;
     }
 
-    public C4Piece getC4WinnerAsEnum() {
-        return c4GameLogic.getC4Winner();
-    }
+//    public C4Piece getC4WinnerAsEnum() {
+//        return c4GameLogic.getC4Winner();
+//    }
 
     public C4Piece getC4CurrentPlayer() {return c4GameLogic.getC4CurrentPlayer();}
 
     /**
      * Prints current state of board (at any point).
      */
-    @Override
-    public void printBoard() {
+    void printBoard() {
         System.out.println(c4GameLogic);
     }
-
 
     /**
      * Function to give users hints if needed during the game based on which column is an ideal pick.
      * @return hint to user
      */
-    @Override
     public HintResult getC4ColHint() {
         if (c4GameLogic == null) {
             System.out.println("Game not started. No hint available.");
