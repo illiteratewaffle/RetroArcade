@@ -316,6 +316,29 @@ public class PlayerHandler implements Runnable {
         return requestMessage;
     }
 
+    /**
+     * Method to give the client the win loss ratio of the current user.
+     * @return A Thread Message containing the win loss ratio of the user.
+     */
+    private ThreadMessage getWinLossRatio() {
+
+        //Get the win loss ratios of the user.
+        double ratio0 = this.getProfile().getPlayerRanking().getWinLossRatio(0);
+        double ratio1 = this.getProfile().getPlayerRanking().getWinLossRatio(1);
+        double ratio2 = this.getProfile().getPlayerRanking().getWinLossRatio(2);
+        double[] ratio = {ratio0, ratio1, ratio2};
+
+        //Create the hashmap for the thread message.
+        Map<String, Object> messageMap = new HashMap<>();
+        messageMap.put("type", "profile-info-request");
+        messageMap.put("info", "winLossRatio");
+        messageMap.put("winLossRatio", ratio);
+
+        //Create the thread message and return it.
+        ThreadMessage requestMessage = new ThreadMessage(Thread.currentThread(), messageMap);
+        return requestMessage;
+    }
+
 
     /**
      * Disconnects the player from the server by removing them from the thread registry,
