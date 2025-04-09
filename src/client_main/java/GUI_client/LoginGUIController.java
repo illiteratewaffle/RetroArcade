@@ -50,6 +50,8 @@ public class LoginGUIController implements Initializable {
     @FXML
     private TextField signUpUserField;
     @FXML
+    private TextField signUpEmailField;
+    @FXML
     private PasswordField signUpPasswordField;
 
     //username and password
@@ -86,6 +88,8 @@ public class LoginGUIController implements Initializable {
         signUpPage.setVisible(true);
         signUpUserField.setVisible(true);
         signUpUserField.setDisable(false);
+        signUpEmailField.setVisible(true);
+        signUpEmailField.setDisable(false);
         signUpPasswordField.setVisible(true);
         signUpPasswordField.setDisable(false);
         wrongLogIn.setVisible(false);
@@ -103,8 +107,8 @@ public class LoginGUIController implements Initializable {
         signUpUserField.setDisable(true);
         signUpPasswordField.setVisible(false);
         signUpPasswordField.setDisable(true);
-        //signUpPage.setMouseTransparent(true);
-        //signUpButton.setMouseTransparent(true);
+        signUpEmailField.setVisible(false);
+        signUpEmailField.setDisable(true);
         backButton.setVisible(false);
         createProfileButton.setVisible(false);
         createProfileButton.setMouseTransparent(true);
