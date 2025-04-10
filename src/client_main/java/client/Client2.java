@@ -405,6 +405,16 @@ public class Client2 {
         return (boolean) otherProfileData.get("online");
     }
 
+    public static void acceptRequest(String username) {
+
+        //Create the map for the thread message
+        Map<String, Object> messageMap = new HashMap<>();
+        messageMap.put("type", "accept-friend-request");
+        messageMap.put("username", username);
+        forwardToServer(messageMap);
+
+    }
+
     public static void sendChatMessage(String message) {
         // Send message to server
         Map<String, Object> forward = new HashMap<>();
