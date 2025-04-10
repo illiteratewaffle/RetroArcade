@@ -25,6 +25,8 @@ public class Client {
     private static final ConcurrentLinkedQueue<Map<String, Object>> messages = new ConcurrentLinkedQueue<>();
     private static boolean running = true;
 
+    public int yourplayer = 0;
+
     /**
      * Login to the server
      * @param serverAddress the server ip address
@@ -144,6 +146,7 @@ public class Client {
     private static void receivedStartGame(int piece) {
         // TODO: GUI SHIT HERE
         System.out.println("Game started: "+piece);
+
     }
 
     private static void forwardToServer(Map<String, Object> forward) {

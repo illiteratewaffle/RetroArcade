@@ -1,5 +1,6 @@
 package client.test;
 
+import GameLogic_Client.Ivec2;
 import client.Client;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -135,6 +136,50 @@ class ClientTest {
 
     @Test
     void receiveInput() {
+        this.client1.login(serverAddress, serverPort, username1, password1);
+
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+        this.client1.enqueue(gametype);
+
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+        this.client2.login(serverAddress, serverPort, username2, password2);
+
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+        this.client2.enqueue(gametype);
+
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+        Ivec2 ivec = new Ivec2(0, 0);
+        this.client1.receiveInput(ivec);
+
+        try {
+            Thread.sleep(5000);
+            this.client2.getBoardCells(0);
+            Thread.sleep(5000);
+            this.client2.getCurrentPlayer();
+        } catch (TimeoutException | InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
     @Test
@@ -193,6 +238,47 @@ class ClientTest {
 
     @Test
     void getBoardCells() {
+        this.client1.login(serverAddress, serverPort, username1, password1);
+
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+        this.client1.enqueue(gametype);
+
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+        this.client2.login(serverAddress, serverPort, username2, password2);
+
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+
+
+
+        this.client2.enqueue(gametype);
+
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+
+        try {
+            this.client2.getBoardCells(0);
+        } catch (TimeoutException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Test
