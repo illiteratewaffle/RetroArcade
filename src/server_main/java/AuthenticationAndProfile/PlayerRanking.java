@@ -1,7 +1,6 @@
 package AuthenticationAndProfile;
 
 import player.PlayerManager;
-
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -89,7 +88,6 @@ public class PlayerRanking {
                     double progress = Math.min(currentGamesPlayed / 50.0, 1.0);
                     achievementProgress.put(gamesPlayedAchievement, progress);
                 }
-
                 profile.getGameHistory().setAchievementProgress(achievementProgress);
             }
         } catch (IOException e) {
@@ -165,7 +163,7 @@ public class PlayerRanking {
 //            throw new SQLException(s.getMessage());
 //        }
 //    }
-//
+
     public static void setGameRating(int playerID, int gameNumber, int rating) throws SQLException {
         String gameName = null;
         if (gameNumber == TTT_INDEX) {
@@ -181,7 +179,7 @@ public class PlayerRanking {
             throw new SQLException(s.getMessage());
         }
     }
-//
+
 //    public void setRank(String[] rank) {
 //        this.rank = rank;
 //    }
