@@ -95,11 +95,20 @@ public class Client {
             try {
                 // Take a response
                 Map<String, Object> response = fromJson(input.readLine());
-                // Check if message is "type":"chat"
                 // TODO: ADD SUPPORT FOR GAME STARTTURN AND GAME STARTGAME
                 if (response.get("type") instanceof String && response.get("type").equals("chat")) {
-                    Thread thread = Thread.ofVirtual().start(() -> receivedChatMessage(response));
+                    // If the message is a chat, tell the GUI
+                    Thread.ofVirtual().start(() -> receivedChatMessage(response));
+                } else if (response.get("type") instanceof String && response.get("type").equals("game") &&
+                        response.get("command") instanceof String && response.get("command").equals("startTurn")) {
+                    // If the message is a startGame, tell the GUI
+                    Thread.ofVirtual().start(() -> receivedStartGame((int) response.get("data")));
+                } else if (response.get("type") instanceof String && response.get("type").equals("game") &&
+                        response.get("command") instanceof String && response.get("command").equals("startTurn")) {
+                    // If the message is a startTurn, tell the GUI
+                    Thread.ofVirtual().start(Client::receivedStartTurn);
                 } else {
+                    // Otherwise, put it in the message queue
                     synchronized (messages) {
                         messages.add(response);
                         messages.notifyAll();
@@ -123,7 +132,7 @@ public class Client {
         // TODO: GUI SHIT HERE
     }
 
-    private static void receivedStartTurn(Map<String, Object> response) {
+    private static void receivedStartTurn() {
         // TODO: GUI SHIT HERE
     }
 
