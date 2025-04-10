@@ -21,7 +21,7 @@ public class TTTGameController implements IBoardGameController {
     /**
      * The Tic-Tac-Toe game instance.
      */
-    private TTTGame game;
+    public TTTGame game;
     public int yourPiece = 1;
     /**
      * Initializes the game controller by creating a new game instance.

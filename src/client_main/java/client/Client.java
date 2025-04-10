@@ -28,7 +28,8 @@ public class Client {
     private static int[] wins = new int[3];
     private static List<int[][]> boardCells;
     private static boolean gameOngoing;
-    private static int[] currentWinner;
+    public static int currentWinner;
+    public static int currentPlayer;
     private static int otherPlayerId;
     private static int gameType;
     private static String otherBio;
@@ -392,8 +393,10 @@ public class Client {
 
         switch (command) {
             case "getWinner":
-                List<Integer> winnersRaw = (List<Integer>) data.get("data");
-                    currentWinner = JsonConverter.convertToIntArray(winnersRaw);
+                currentWinner = (int) data.get("data");
+                break;
+            case "getCurrentPlayer":
+                currentPlayer = (int) data.get("data");
                 break;
             case "getGameOngoing":
                 gameOngoing = (Boolean) data.get("data");
@@ -473,7 +476,7 @@ public class Client {
         return gameOngoing;
     }
 
-    public static int[] checkWinners() {
+    public static int checkWinners() {
         return currentWinner;
     }
 

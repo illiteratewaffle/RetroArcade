@@ -7,7 +7,7 @@ package GameLogic_Client;
 public abstract class AbstractBoard {
     private int rows;
     private int cols;
-    private int[][] board;
+    public int[][] board;
 
     /**
      * Standard constructor to initialize AbstractBoard class.
