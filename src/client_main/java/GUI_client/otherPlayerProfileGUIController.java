@@ -14,6 +14,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 import leaderboard.PlayerRanking;
 import AuthenticationAndProfile.Profile;
@@ -81,6 +82,8 @@ public class otherPlayerProfileGUIController {
     public Label c4_rank_label;
     @FXML
     public Label bio_label;
+    @FXML
+    public Circle game_status;
     @FXML
     public Label name_label;
     @FXML Label notification;
@@ -158,14 +161,13 @@ public class otherPlayerProfileGUIController {
         }
     }
 
-    //TODO: Uncomment this.
-//    public void send_request(MouseEvent mouseEvent){
-//        notification.setOpacity(1.0);
-//        add_friend.setOpacity(0.0); add_friend.setDisable(true);
-//
-//        Client2.sendOtherRequest(selectedFriend); //Sends the name of the friend whose profile your on to the server.
-//
-//    }
+    public void send_request(MouseEvent mouseEvent){
+        notification.setOpacity(1.0);
+        add_friend.setOpacity(0.0); add_friend.setDisable(true);
+
+        Client2.sendOtherRequest(selectedFriend); //Sends the name of the friend whose profile your on to the server.
+
+    }
 
 
     //the stats button is pressed.
@@ -260,13 +262,13 @@ public class otherPlayerProfileGUIController {
 
 //    //This will just set the little green circle to 100% opacity if the person is online.
 //    //I am expecting that you will send a boolean, but I am not 100% sure.
-//    public void onlineStatus() {
-//        boolean status = Client2.getOtherOnlineStatus(); //need this method made.
-//        if (status) {
-//            game_status.setOpacity(1.0);
-//        }
-//        else{
-//            game_status.setOpacity(0.0);
-//        }
-//    }
+    public void onlineStatus() {
+        boolean status = Client2.getOtherOnlineStatus(); //need this method made.
+        if (status) {
+            game_status.setOpacity(1.0);
+        }
+        else{
+            game_status.setOpacity(0.0);
+        }
+    }
 }
