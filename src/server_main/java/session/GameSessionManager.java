@@ -100,6 +100,20 @@ public class GameSessionManager implements Runnable {
             try {
                 ThreadMessage threadMessage = myQueue.take();
                 routeMessage(threadMessage);
+                // If it is now the senders turn
+                Map<String, Object> response = new HashMap<>();
+                response.put("type", "game");
+                response.put("command", "startTurn");
+                // If it is the sender's turn, send "startTurn"
+                if (checkTurn(threadMessage.getSender()) == 1) {
+                    ThreadRegistry.getQueue(threadMessage.getSender()).add(new ThreadMessage(Thread.currentThread(), forward));
+                } else {
+                    if (player1.getThread() == threadMessage.getSender()) {
+                        ThreadRegistry.getQueue(player2.getThread()).add(new ThreadMessage(Thread.currentThread(), forward));
+                    } else {
+                        ThreadRegistry.getQueue(player1.getThread()).add(new ThreadMessage(Thread.currentThread(), forward));
+                    }
+                }
             } catch (InterruptedException e) {
                 log("GameSessionManager: Failed to take from own BlockingQueue.");
                 // TODO: shutdown game?
@@ -236,19 +250,7 @@ public class GameSessionManager implements Runnable {
                     // If wanting to call getCurrentPlayer()
                     case "getCurrentPlayer":
                         // TODO: THIS MUST BE DEPENDENT ON THE PLAYER CURRENTLY PLAYING
-                        if (gameController.getCurrentPlayer() == 0) {
-                            if (player1.getThread() == sender) {
-                                forward.put("data", 1);
-                            } else {
-                                forward.put("data", 0);
-                            }
-                        } else {
-                            if (player1.getThread() == sender) {
-                                forward.put("data", 0);
-                            } else {
-                                forward.put("data", 1);
-                            }
-                        }
+                        forward.put("data", checkTurn(sender));
                         sendMessageBack(sender, forward);
                         break;
                     // If wanting to call gameOngoingChangedSinceLastCommand()
@@ -343,6 +345,22 @@ public class GameSessionManager implements Runnable {
             ThreadRegistry.getQueue(player2.getThread()).add(forward);
         } else {
             log("GameSessionManager: Chat message sender not recognized: " + sender);
+        }
+    }
+
+    private int checkTurn(Thread playerThread) {
+        if (gameController.getCurrentPlayer() == 0) {
+            if (player1.getThread() == playerThread) {
+                return 1;
+            } else {
+                return 0;
+            }
+        } else {
+            if (player1.getThread() == playerThread) {
+                return 0;
+            } else {
+                return 1;
+            }
         }
     }
 }
