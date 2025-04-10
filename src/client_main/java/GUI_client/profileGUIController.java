@@ -471,7 +471,7 @@ public class profileGUIController {
     }
 
     //clicking on a friend from the friends list should take the person to their profile.
-    public void select_friend(MouseEvent mouseEvent) {
+    public void click_friend_list(MouseEvent mouseEvent) {
         add_friend.setOpacity(0.0);
         add_friend.setDisable(true);
         decline_friend.setOpacity(0.0);
@@ -609,17 +609,17 @@ public class profileGUIController {
     }
 
     //------------------------------------------------------------------------------
-//    public static void setNickname(String nickname) {
-//        currentProfile.setNickname(nickname);
-//
-//    }
-//
-//    public static void setBio(String bio) {
-//        currentProfile.setBio(bio);
-//    }
-//
-//    public static void setProfilePath(String path) {
-//        currentProfile.setProfilePath(path);
-}
+    public static void setNickname(String nickname) {
+        //currentProfile.setNickname(nickname);
+
+    }
+
+    public static void setBio(String bio) {
+        //currentProfile.setBio(bio);
+    }
+
+    public static void setProfilePath(String path) {
+        //currentProfile.setProfilePath(path);
+}}
 
 
