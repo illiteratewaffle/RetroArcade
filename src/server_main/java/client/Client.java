@@ -17,7 +17,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import static management.JsonConverter.fromJson;
 import static management.JsonConverter.toJson;
 
-public class ClientV2 {
+public class Client {
     private static BufferedReader input;
     private static PrintWriter output;
     private static final ConcurrentLinkedQueue<Map<String, Object>> messages = new ConcurrentLinkedQueue<>();
@@ -206,6 +206,7 @@ public class ClientV2 {
         Map<String, Object> forward = new HashMap<>();
         forward.put("type", "game");
         forward.put("command", "getBoardSize");
+        forward.put("parameter", layerMask);
         forwardToServer(forward);
         // Now wait until the correct response comes back
         Map<String, Object> response = getResponseFromServer("command", "getBoardSize");
