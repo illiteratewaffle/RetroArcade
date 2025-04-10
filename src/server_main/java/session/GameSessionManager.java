@@ -68,6 +68,13 @@ public class GameSessionManager implements Runnable {
         player1.setGameSessionManagerThread(Thread.currentThread());
         player2.setGameSessionManagerThread(Thread.currentThread());
 
+        // Send "startTurn" to the players
+        Map<String, Object> forward = new HashMap<>();
+        forward.put("type", "game");
+        forward.put("command", "startGame");
+        ThreadRegistry.getQueue(player1.getThread()).add(new ThreadMessage(Thread.currentThread(), forward));
+        ThreadRegistry.getQueue(player2.getThread()).add(new ThreadMessage(Thread.currentThread(), forward));
+
         //Set the game status pf the two players
         try {
             if (gameType == 0) {
