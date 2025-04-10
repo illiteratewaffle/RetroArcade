@@ -132,7 +132,10 @@ public class TTTController implements Initializable {
         tttClient = new TTTClient();
         // set background and foreground images
         msgReceived.addListener((observableValue, False, True) -> {
-            getMessage(currentMessage);
+            if (True) {
+                getMessage(currentMessage);
+                msgReceived.set(false);
+            }
         });
         isYourTurn.addListener((observable, False, True) -> {
             if (True) {
@@ -386,11 +389,11 @@ public class TTTController implements Initializable {
      * @param col
      */
     private void hoverEvent(StackPane stackPane, int row, int col) throws InterruptedException {
-        if (tttClient.getGameOngoing()) {
-            if (tttClient.getBoardCells()[row][col] == 0) {
+        //if (tttClient.getGameOngoing()) {
+            //if (tttClient.getBoardCells()[row][col] == 0) {
                 stackPane.setStyle("-fx-border-color: yellow; -fx-border-width: 3px; -fx-border-radius: 5px;");
-            }
-        }
+            //}
+        //}
     }
 
     /**
@@ -466,11 +469,11 @@ public class TTTController implements Initializable {
      */
     public void checkWin() throws InterruptedException {
         // check for game win
-        if (tttClient.getWinner() != 0) {
+        if (tttClient.getWinner()) {
             // if game is over, current player is the loser
-            if (tttClient.getWinner() == 1){ // if the current player is O
+            if (tttClient.getCurrentPlayer() == 1){ // if the current player is O
                 Win_Lose_Banner.setImage(new Image("X_wins.png"));
-            } else if (tttClient.getWinner() == 2){
+            } else if (tttClient.getCurrentPlayer() == 2){
                 Win_Lose_Banner.setImage(new Image("O_wins.png"));
             }
         }

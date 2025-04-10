@@ -26,7 +26,7 @@ public class TTTClient {
         Thread.sleep(300);
         return Client.currentPlayer;
     }
-    public int getWinner() throws InterruptedException {
+    public boolean getWinner() throws InterruptedException {
         HashMap<String, Object> data = new HashMap<>();
         data.put("type", "game-move");
         data.put("command", "getWinner");
