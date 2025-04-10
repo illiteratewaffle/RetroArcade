@@ -168,6 +168,7 @@ public class profileGUIController {
 
     //The inbox button is pressed, the friend requests should be displayed.
     public void open_inbox(MouseEvent mouseEvent) {
+        inbox_contents.getItems().clear();
         //Making sure that all other lists/table is invisible so that you cannot see the other windows, only the one clicked into.
         inbox_contents.setOpacity(1.0);
         history_list.setOpacity(0.0);
@@ -188,6 +189,7 @@ public class profileGUIController {
 
     //The friends button is pressed
     public void open_friends(MouseEvent mouseEvent) {
+        friends_list.getItems().clear();
         //Making sure that all other lists/table is invisible so that you cannot see the other windows, only the one clicked into.
         inbox_contents.setOpacity(0.0);
         history_list.setOpacity(0.0);
@@ -211,6 +213,7 @@ public class profileGUIController {
 
     //The history button is pressed.
     public void open_history(MouseEvent mouseEvent) {
+        history_list.getItems().clear();
         //Making sure that all other lists/table is invisible so that you cannot see the other windows, only the one clicked into.
         history_list.setOpacity(1.0);
         inbox_contents.setOpacity(0.0);
