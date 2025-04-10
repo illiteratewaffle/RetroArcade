@@ -21,6 +21,8 @@ public class Client2 {
     private static PrintWriter output;
     private static final ConcurrentLinkedQueue<Map<String, Object>> messages = new ConcurrentLinkedQueue<>();
     private static boolean running = true;
+    private static Map<String, Object> profileData = new HashMap<>();
+    private static Map<String, Object> otherProfileData = new HashMap<>();
 
     /**
      * Login to the server
@@ -176,6 +178,229 @@ public class Client2 {
     }
 
     // NOW WE DO THE FUCKING CALL FUNCTIONS BABY WOO!!!
+
+    public static void getProfileInfo() {
+        // Send the bio request to the server.
+        Map<String, Object> forwardBio = new HashMap<>();
+        forwardBio.put("type", "profile-info-request");
+        forwardBio.put("info", "bio");
+        forwardToServer(forwardBio);
+        Map<String, Object> messageBio = getResponseFromServer("info", "bio");
+        profileData.put("bio", messageBio);
+
+        // Send the nickname request to the server
+        Map<String, Object> forwardNickname = new HashMap<>();
+        forwardNickname.put("type", "profile-info-request");
+        forwardNickname.put("info", "nickname");
+        forwardToServer(forwardNickname);
+        Map<String, Object> messageNickname = getResponseFromServer("info", "nickname");
+        profileData.put("nickname", messageNickname);
+
+        // Send the username request to the server
+        Map<String, Object> forwardUsername = new HashMap<>();
+        forwardUsername.put("type", "profile-info-request");
+        forwardUsername.put("info", "nickname");
+        forwardToServer(forwardUsername);
+        Map<String, Object> messageUsername = getResponseFromServer("info", "username");
+        profileData.put("username", messageUsername);
+
+        // Send the profile path request to the server
+        Map<String, Object> forwardProfilePath = new HashMap<>();
+        forwardProfilePath.put("type", "profile-info-request");
+        forwardProfilePath.put("info", "profile-path");
+        forwardToServer(forwardProfilePath);
+        Map<String, Object> messageProfilePath = getResponseFromServer("info", "profile-path");
+        profileData.put("profile-path", messageProfilePath);
+
+        // Send the friends list request to the server
+        Map<String, Object> forwardFriends = new HashMap<>();
+        forwardFriends.put("type", "profile-info-request");
+        forwardFriends.put("info", "friends");
+        forwardToServer(forwardFriends);
+        Map<String, Object> messageFriends = getResponseFromServer("info", "friends");
+        profileData.put("friends", messageFriends);
+
+        // Send the friend requests, request to the server
+        Map<String, Object> forwardFriendRequests = new HashMap<>();
+        forwardFriendRequests.put("type", "profile-info-request");
+        forwardFriendRequests.put("info", "friendRequests");
+        forwardToServer(forwardFriendRequests);
+        Map<String, Object> messageFriendRequest = getResponseFromServer("info", "friendRequests");
+        profileData.put("friendRequests", messageFriendRequest);
+
+        // Send the game history request to the server
+        Map<String, Object> forwardGameHistory = new HashMap<>();
+        forwardGameHistory.put("type", "profile-info-request");
+        forwardGameHistory.put("info", "gameHistory");
+        forwardToServer(forwardGameHistory);
+        Map<String, Object> messageGameHistory = getResponseFromServer("info", "gameHistory");
+        profileData.put("gameHistory", messageGameHistory);
+
+        // Send the win loss ratio request to the server.
+        Map<String, Object> forwardRatio = new HashMap<>();
+        forwardRatio.put("type", "profile-info-request");
+        forwardRatio.put("info", "winLossRatio");
+        forwardToServer(forwardRatio);
+        Map<String, Object> messageRatio = getResponseFromServer("info", "winLossRatio");
+        profileData.put("winLossRatio", messageRatio);
+
+        // Send the rating request to the server.
+        Map<String, Object> forwardRating = new HashMap<>();
+        forwardRating.put("type", "profile-info-request");
+        forwardRating.put("info", "rating");
+        forwardToServer(forwardRating);
+        Map<String, Object> messageRating = getResponseFromServer("info", "rating");
+        profileData.put("rating", messageRating);
+
+        // Send the rank request to the server.
+        Map<String, Object> forwardRank = new HashMap<>();
+        forwardRank.put("type", "profile-info-request");
+        forwardRank.put("info", "rank");
+        forwardToServer(forwardRank);
+        Map<String, Object> messageRank = getResponseFromServer("info", "rank");
+        profileData.put("rank", messageRank);
+
+        // Send the wins request to the server
+        Map<String, Object> forwardWins = new HashMap<>();
+        forwardWins.put("type", "profile-info-request");
+        forwardWins.put("info", "wins");
+        forwardToServer(forwardWins);
+        Map<String, Object> messageWins = getResponseFromServer("info", "wins");
+        profileData.put("wins", messageWins);
+    }
+
+    public static String getBio() {
+        return (String) profileData.get("bio");
+    }
+
+    public static String getNickname() {
+        return (String) profileData.get("nickname");
+    }
+
+    public static String getUsername() {
+        return (String) profileData.get("username");
+    }
+
+    public static String getProfilePath() {
+        return (String) profileData.get("profile-path");
+    }
+
+    public static List<String> getFriends() {
+        return (List<String>) profileData.get("friends");
+    }
+
+    public static List<String> getFriendRequests() {
+        return (List<String>) profileData.get("friendRequests");
+    }
+
+    public static List<String> getGameHistory() {
+        return (List<String>) profileData.get("gameHistory");
+    }
+
+    public static Double getWinLossRatio(int i) {
+        List<Double> winLossRatio = (List<Double>) profileData.get("winLossRatio");
+        return winLossRatio.get(i);
+    }
+
+    public static Integer getRating(int i) {
+        List<Integer> rating = (List<Integer>) profileData.get("rating");
+        return rating.get(i);
+    }
+
+    public static String getRank(int i) {
+        List<String> ranks = (List<String>) profileData.get("rank");
+        return ranks.get(i);
+    }
+
+    public static int getWins(int i) {
+        List<Integer> wins = (List<Integer>) profileData.get("wins");
+        return wins.get(i);
+    }
+
+    public static void getOtherProfileInfo(String username) {
+
+        // Send the request to the server for the other profiles info.
+        Map<String, Object> viewProfileForward = new HashMap<>();
+        viewProfileForward.put("type", "view-profile");
+        viewProfileForward.put("username", username);
+        forwardToServer(viewProfileForward);
+
+        // Wait to receive the info
+        Map<String, Object> otherProfile = getResponseFromServer("type", "view-profile");
+
+        //Retrieve all the data in the correct form from the other profile.
+        String otherBio = (String) otherProfile.get("bio");
+        String otherUsername = (String) otherProfile.get("username");
+        String otherNickname = (String) otherProfile.get("nickname");
+        String otherProfilePath = (String) otherProfile.get("profile-path");
+        List<String> otherFriends = (List<String>) otherProfile.get("friends");
+        List<String> otherGameHistory = (List<String>) otherProfile.get("gameHistory");
+        List<Double> otherWinLossRatio = (List<Double>) otherProfile.get("winLossRatio");
+        List<Integer> otherRating = (List<Integer>) otherProfile.get("rating");
+        List<String> otherRank = (List<String>) otherProfile.get("rank");
+        List<Integer> otherWins = (List<Integer>) otherProfile.get("wins");
+
+        // Put the other profile data in the attribute.
+        otherProfile.put("bio", otherBio);
+        otherProfile.put("username", otherUsername);
+        otherProfile.put("nickname", otherNickname);
+        otherProfile.put("profile-path", otherProfilePath);
+        otherProfile.put("friends", otherFriends);
+        otherProfile.put("gameHistory", otherGameHistory);
+        otherProfile.put("wins", otherWins);
+        otherProfile.put("rating", otherRating);
+        otherProfile.put("rank", otherRank);
+        otherProfile.put("wins", otherWins);
+    }
+
+    public static String getOtherBio() {
+        return (String) otherProfileData.get("bio");
+    }
+
+    public static String getOtherNickname() {
+        return (String) otherProfileData.get("nickname");
+    }
+
+    public static String getOtherUsername() {
+        return (String) otherProfileData.get("username");
+    }
+
+    public static String getOtherProfilePath() {
+        return (String) otherProfileData.get("profile-path");
+    }
+
+    public static List<String> getOtherFriends() {
+        return (List<String>) otherProfileData.get("friends");
+    }
+
+
+    public static List<String> getOtherGameHistory() {
+        return (List<String>) otherProfileData.get("gameHistory");
+    }
+
+    public static Double getOtherWinLossRatio(int i) {
+        List<Double> winLossRatio = (List<Double>) otherProfileData.get("winLossRatio");
+        return winLossRatio.get(i);
+    }
+
+    public static Integer getOtherRating(int i) {
+        List<Integer> rating = (List<Integer>) otherProfileData.get("rating");
+        return rating.get(i);
+    }
+
+    public static String getOtherRank(int i) {
+        List<String> ranks = (List<String>) otherProfileData.get("rank");
+        return ranks.get(i);
+    }
+
+    public static int getOtherWins(int i) {
+        List<Integer> wins = (List<Integer>) otherProfileData.get("wins");
+        return wins.get(i);
+    }
+
+    public static boolean getOtherOnlineStatus() {
+        return (boolean) otherProfileData.get("online");
+    }
 
     public static void sendChatMessage(String message) {
         // Send message to server
