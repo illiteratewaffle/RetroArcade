@@ -116,17 +116,39 @@ public class TTTController implements Initializable {
     // chat manager
     ChatManager chatManager = new ChatManager();
 
+    /**
+     * Boolean property that indicates if it is the player's turn.
+     */
     public static BooleanProperty isYourTurn = new SimpleBooleanProperty(true);
+
+    /**
+     * Boolean property that indicates if a message has been received.
+     */
     public static BooleanProperty msgReceived = new SimpleBooleanProperty(false);
+
+    /**
+     * The current message received from the opponent.
+     */
     public static String currentMessage;
+
     // easter egg
     private final ArrayList<Character> EEList = new ArrayList<Character>();
 
     // stage for "are you sure?" popup
     private Stage quitPopup = new Stage();
 
+    /**
+     * The TTTClient instance that manages the communication with the server.
+     */
     public TTTClient tttClient;
 
+    /**
+     * Initializes the client application.
+     * Sets up the images, sound, chat, and event listeners for the game.
+     *
+     * @param url URL for loading resources
+     * @param resourceBundle Resource bundle for localization
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         tttClient = new TTTClient();
@@ -354,12 +376,12 @@ public class TTTController implements Initializable {
         }
 
     /**
-     * gets the row and column index of game tile
-     * checks to make sure tile is empty before setting its piece
-     * sets array piece char and image of tile imageView
-     * @param row int
-     * @param col int
-     * @param imageView ImageView
+     * Sets the tile at the given row and column index with the respective player's piece.
+     *
+     * @param row The row index of the tile.
+     * @param col The column index of the tile.
+     * @param imageView The imageView representing the tile.
+     * @throws InterruptedException If the thread is interrupted during the operation.
      */
     private void setTile(int row, int col, ImageView imageView) throws InterruptedException {
         Image X = new Image("X.png");
@@ -382,11 +404,13 @@ public class TTTController implements Initializable {
         }
     }
 
-    /**
-     * shows a yellow border on valid game tiles when hovering over them
-     * @param stackPane
-     * @param row
-     * @param col
+     /**
+     * Highlights a valid game tile with a yellow border when hovering over it.
+     *
+     * @param stackPane The StackPane representing the tile.
+     * @param row The row index of the tile.
+     * @param col The column index of the tile.
+     * @throws InterruptedException If the thread is interrupted during the operation.
      */
     private void hoverEvent(StackPane stackPane, int row, int col) throws InterruptedException {
         //if (tttClient.getGameOngoing()) {
@@ -397,11 +421,9 @@ public class TTTController implements Initializable {
     }
 
     /**
-     * triggered by x button click
-     * prompts for confirmation
-     * returns user to game menu
-     * should also forfeit active matches
-     * @throws IOException
+     * Handles quitting the game, prompting the user for confirmation, and returning to the game menu.
+     *
+     * @throws IOException If there is an issue with loading the game menu.
      */
     public void quit_TTT() throws IOException {
         // check if popup is already showing
@@ -465,7 +487,10 @@ public class TTTController implements Initializable {
     }
 
     /**
-     * Game logic win checker.
+     * Checks if there is a winner or a draw in the game.
+     * Updates the game banner accordingly.
+     *
+     * @throws InterruptedException If the thread is interrupted during the operation.
      */
     public void checkWin() throws InterruptedException {
         // check for game win
@@ -490,7 +515,7 @@ public class TTTController implements Initializable {
 
 
     /**
-     * clears all board images and play again images
+     * Clears all the board images and the win/loss banners.
      */
     public void clearBoard(){
         Tile_0_0.setImage(null);
@@ -506,7 +531,7 @@ public class TTTController implements Initializable {
     }
 
     /**
-     * gets a string from chat text field and appends it to chat area
+     * Gets the string from the chat input field and appends it to the chat area.
      */
     public void sendMessage(){
         String message = chat_input_field.getText();
@@ -522,8 +547,8 @@ public class TTTController implements Initializable {
     }
 
     /**
-     * function for networking to get string messages from opponents and update chat
-     * @param message
+     * Function to receive messages from the opponent and update the chat area.
+     * @param message The message received from the opponent.
      */
     public void getMessage(String message){
         System.out.println(message);
@@ -554,6 +579,11 @@ public class TTTController implements Initializable {
     public void infoReleased(){
         infoButton.setImage(new Image("info_button.png"));
     }
+
+    /**
+     * Handles the mute button click to toggle audio mute.
+     * Changes the button image based on the mute state.
+     */
     public void muteButtonClick(){
         if(!AudioManager.isMuted()) {
             muteButton.setImage(new Image("muteButton.png"));
@@ -563,12 +593,27 @@ public class TTTController implements Initializable {
             AudioManager.toggleMute();
         }
     }
+
+    /**
+     * Handles the event when the send button is pressed.
+     * Changes the button's image to a pressed state.
+     */
     public void sendButtonPressed(){
         sendButton.setImage(new Image(Objects.requireNonNull(getClass().getResource("/GUI_buttons/pressed/send_button_pressed.png")).toExternalForm()));
     }
+
+    /**
+     * Handles the event when the send button is released.
+     * Changes the button's image back to the normal state.
+     */
     public void sendButtonReleased(){
         sendButton.setImage(new Image(Objects.requireNonNull(getClass().getResource("/GUI_buttons/send_button.png")).toExternalForm()));
     }
+
+    /**
+     * Updates the board with new images based on the board state.
+     * @param board 2D array representing the current state of the board.
+     */
     public void updateBoard(int[][] board){
         Image x = new Image("X.png");
         Image o = new Image("O.png");
@@ -582,9 +627,15 @@ public class TTTController implements Initializable {
         updateConditional(Tile_2_1, 2, 1, board);
         updateConditional(Tile_2_2, 2, 2, board);
 
-
-
     }
+
+    /**
+     * Helper method to update a specific tile based on the board state.
+     * @param tile The tile to update.
+     * @param row The row index of the tile.
+     * @param col The column index of the tile.
+     * @param board 2D array representing the current state of the board.
+     */
     private void updateConditional(ImageView tile, int row, int col, int[][] board){
         Image x = new Image("X.png");
         Image o = new Image("O.png");
