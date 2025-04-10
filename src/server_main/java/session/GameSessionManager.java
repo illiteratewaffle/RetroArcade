@@ -106,12 +106,12 @@ public class GameSessionManager implements Runnable {
                 response.put("command", "startTurn");
                 // If it is the sender's turn, send "startTurn"
                 if (checkTurn(threadMessage.getSender()) == 1) {
-                    ThreadRegistry.getQueue(threadMessage.getSender()).add(new ThreadMessage(Thread.currentThread(), forward));
+                    ThreadRegistry.getQueue(threadMessage.getSender()).add(new ThreadMessage(Thread.currentThread(), response));
                 } else {
                     if (player1.getThread() == threadMessage.getSender()) {
-                        ThreadRegistry.getQueue(player2.getThread()).add(new ThreadMessage(Thread.currentThread(), forward));
+                        ThreadRegistry.getQueue(player2.getThread()).add(new ThreadMessage(Thread.currentThread(), response));
                     } else {
-                        ThreadRegistry.getQueue(player1.getThread()).add(new ThreadMessage(Thread.currentThread(), forward));
+                        ThreadRegistry.getQueue(player1.getThread()).add(new ThreadMessage(Thread.currentThread(), response));
                     }
                 }
             } catch (InterruptedException e) {
