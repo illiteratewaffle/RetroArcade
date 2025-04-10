@@ -53,7 +53,7 @@ public class TTTGameController implements IBoardGameController {
      * checks if a win condition has been reached by either player.
      * @return returns true if a player has won, false if nobody has won yet.
      */
-    public boolean checkWin() {
+    public int checkWin() {
         return game.checkWin(game.board);
     }
 

@@ -26,8 +26,9 @@ public class Client {
     private static int[] rating = new int[3];
     private static String[] rank = new String[3];
     private static int[] wins = new int[3];
-    private static List<int[][]> boardCells;
-    private static boolean gameOngoing;
+    public static List<int[][]> boardCells;
+    public static boolean isDraw;
+    public static boolean gameOngoing;
     public static int currentWinner;
     public static int currentPlayer;
     private static int otherPlayerId;
@@ -223,7 +224,7 @@ public class Client {
 
     public static void login(String Username, String Password) {
         try {
-            connect("10.13.63.30", 5050, null);
+            connect("10.12.145.124", 5050, null);
             HashMap<String, Object> authData = new HashMap<>();
             authData.put("type", "login");
             authData.put("username", Username);
@@ -405,7 +406,13 @@ public class Client {
                 int boardLayer = ((Integer) data.get("parameter")).intValue();
                 List<List<List<Integer>>> rawBoard = (List<List<List<Integer>>>) data.get("data");
                 boardCells = ConverterTools.tripleListToListOf2dArray(rawBoard);
+                break;
+            case "startTurn":
                 TTTController.isYourTurn.set(true);
+                break;
+
+            case "checkDraw":
+                isDraw = (boolean) data.get("data");
                 break;
 
             default:

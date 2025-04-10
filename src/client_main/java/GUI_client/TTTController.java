@@ -111,8 +111,6 @@ public class TTTController implements Initializable {
     @FXML
     public GridPane gameBoard;
 
-    // game controller for TTT logic
-    static TTTGameController theGame = new TTTGameController();
 
     public static int yourPiece;
     // chat manager
@@ -198,7 +196,13 @@ public class TTTController implements Initializable {
                     throw new RuntimeException(e);
                 }
             });
-            Tile_0_0.setOnMouseEntered(event -> hoverEvent(TileBorder_0_0, 0, 0));
+            Tile_0_0.setOnMouseEntered(event -> {
+                try {
+                    hoverEvent(TileBorder_0_0, 0, 0);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            });
             Tile_0_0.setOnMouseExited(event -> TileBorder_0_0.setStyle("-fx-border-color: transparent;"));
 
 
@@ -210,7 +214,13 @@ public class TTTController implements Initializable {
                     throw new RuntimeException(e);
                 }
             });
-            Tile_0_1.setOnMouseEntered(event -> hoverEvent(TileBorder_0_1, 0, 1));
+            Tile_0_1.setOnMouseEntered(event -> {
+                try {
+                    hoverEvent(TileBorder_0_1, 0, 1);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            });
             Tile_0_1.setOnMouseExited(event -> TileBorder_0_1.setStyle("-fx-border-color: transparent;"));
 
 
@@ -222,7 +232,13 @@ public class TTTController implements Initializable {
                     throw new RuntimeException(e);
                 }
             });
-            Tile_0_2.setOnMouseEntered(event -> hoverEvent(TileBorder_0_2, 0, 2));
+            Tile_0_2.setOnMouseEntered(event -> {
+                try {
+                    hoverEvent(TileBorder_0_2, 0, 2);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            });
             Tile_0_2.setOnMouseExited(event -> TileBorder_0_2.setStyle("-fx-border-color: transparent;"));
 
 
@@ -234,7 +250,13 @@ public class TTTController implements Initializable {
                     throw new RuntimeException(e);
                 }
             });
-            Tile_1_0.setOnMouseEntered(event -> hoverEvent(TileBorder_1_0, 1, 0));
+            Tile_1_0.setOnMouseEntered(event -> {
+                try {
+                    hoverEvent(TileBorder_1_0, 1, 0);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            });
             Tile_1_0.setOnMouseExited(event -> TileBorder_1_0.setStyle("-fx-border-color: transparent;"));
 
 
@@ -246,7 +268,13 @@ public class TTTController implements Initializable {
                     throw new RuntimeException(e);
                 }
             });
-            Tile_1_1.setOnMouseEntered(event -> hoverEvent(TileBorder_1_1, 1, 1));
+            Tile_1_1.setOnMouseEntered(event -> {
+                try {
+                    hoverEvent(TileBorder_1_1, 1, 1);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            });
             Tile_1_1.setOnMouseExited(event -> TileBorder_1_1.setStyle("-fx-border-color: transparent;"));
 
 
@@ -258,7 +286,13 @@ public class TTTController implements Initializable {
                     throw new RuntimeException(e);
                 }
             });
-            Tile_1_2.setOnMouseEntered(event -> hoverEvent(TileBorder_1_2, 1, 2));
+            Tile_1_2.setOnMouseEntered(event -> {
+                try {
+                    hoverEvent(TileBorder_1_2, 1, 2);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            });
             Tile_1_2.setOnMouseExited(event -> TileBorder_1_2.setStyle("-fx-border-color: transparent;"));
 
 
@@ -270,7 +304,13 @@ public class TTTController implements Initializable {
                     throw new RuntimeException(e);
                 }
             });
-            Tile_2_0.setOnMouseEntered(event -> hoverEvent(TileBorder_2_0, 2, 0));
+            Tile_2_0.setOnMouseEntered(event -> {
+                try {
+                    hoverEvent(TileBorder_2_0, 2, 0);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            });
             Tile_2_0.setOnMouseExited(event -> TileBorder_2_0.setStyle("-fx-border-color: transparent;"));
 
 
@@ -282,7 +322,13 @@ public class TTTController implements Initializable {
                     throw new RuntimeException(e);
                 }
             });
-            Tile_2_1.setOnMouseEntered(event -> hoverEvent(TileBorder_2_1, 2, 1));
+            Tile_2_1.setOnMouseEntered(event -> {
+                try {
+                    hoverEvent(TileBorder_2_1, 2, 1);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            });
             Tile_2_1.setOnMouseExited(event -> TileBorder_2_1.setStyle("-fx-border-color: transparent;"));
 
 
@@ -294,7 +340,13 @@ public class TTTController implements Initializable {
                     throw new RuntimeException(e);
                 }
             });
-            Tile_2_2.setOnMouseEntered(event -> hoverEvent(TileBorder_2_2, 2, 2));
+            Tile_2_2.setOnMouseEntered(event -> {
+                try {
+                    hoverEvent(TileBorder_2_2, 2, 2);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            });
             Tile_2_2.setOnMouseExited(event -> TileBorder_2_2.setStyle("-fx-border-color: transparent;"));
         }
 
@@ -309,10 +361,10 @@ public class TTTController implements Initializable {
     private void setTile(int row, int col, ImageView imageView) throws InterruptedException {
         Image X = new Image("X.png");
         Image O = new Image("O.png");
-        if (yourPiece == tttClient.getCurrentPlayer()) {
-            if (theGame.getGameOngoing()) {
-                if (theGame.isTileEmpty(new Ivec2(row, col))) {
-                    if (tttClient.getCurrentPlayer() == 1) {
+        if (tttClient.getCurrentPlayer() == 1) {
+            if (tttClient.getGameOngoing()) {
+                if (tttClient.getBoardCells()[row][col] == 0) {
+                    if (yourPiece == 1) {
                         imageView.setImage(X);
                         turnBanner.setImage(new Image("OTurn.png"));
                     } else {
@@ -333,9 +385,9 @@ public class TTTController implements Initializable {
      * @param row
      * @param col
      */
-    private void hoverEvent(StackPane stackPane, int row, int col){
-        if (theGame.getGameOngoing()) {
-            if (theGame.isTileEmpty(new Ivec2(row, col))) {
+    private void hoverEvent(StackPane stackPane, int row, int col) throws InterruptedException {
+        if (tttClient.getGameOngoing()) {
+            if (tttClient.getBoardCells()[row][col] == 0) {
                 stackPane.setStyle("-fx-border-color: yellow; -fx-border-width: 3px; -fx-border-radius: 5px;");
             }
         }
@@ -410,24 +462,11 @@ public class TTTController implements Initializable {
     }
 
     /**
-     * play again function
-     * essentially just clears board for now
-     * might remove
-     */
-    public void playAgainYes() {
-        if (!theGame.getGameOngoing()) {
-            theGame = new TTTGameController();
-            clearBoard();
-            turnBanner.setImage(new Image("XTurn.png"));
-        }
-    }
-
-    /**
      * Game logic win checker.
      */
     public void checkWin() throws InterruptedException {
         // check for game win
-        if (tttClient.getWinner() == yourPiece) {
+        if (tttClient.getWinner() != 0) {
             // if game is over, current player is the loser
             if (tttClient.getWinner() == 1){ // if the current player is O
                 Win_Lose_Banner.setImage(new Image("X_wins.png"));
@@ -436,13 +475,12 @@ public class TTTController implements Initializable {
             }
         }
         // check for game draw
-        else if (theGame.checkDraw()){
+        else if (tttClient.checkDraw()){
             Win_Lose_Banner.setImage(new Image("Draw.png"));
-            theGame.updateGameState();  // Update the game state to TIE
         }
 
         // if game is over, set play again features
-        if (!theGame.getGameOngoing()){ // if the game is not ongoing, i.e. the game is over
+        if (!tttClient.getGameOngoing()){ // if the game is not ongoing, i.e. the game is over
             turnBanner.setImage(null);
         }
     }

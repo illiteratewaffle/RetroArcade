@@ -90,8 +90,14 @@ public class TTTGame {
      * @param board The current game board.
      * @return true if there is a winner, false otherwise.
      */
-    public boolean checkWin(TTTBoard board) {
-        return board.checkWinner() == TTTPiece.X || board.checkWinner() == TTTPiece.O;
+    public int checkWin(TTTBoard board) {
+        if (board.checkWinner() == TTTPiece.X) {
+            return 1;
+        } else if (board.checkWinner() == TTTPiece.O) {
+            return 2;
+        } else {
+            return 0;
+        }
     }
 
     /**
@@ -101,7 +107,7 @@ public class TTTGame {
      * @return true if the board is full and there is no winner, false otherwise.
      */
     public boolean checkDraw(TTTBoard board) {
-        return !checkWin(board) && board.isFull();
+        return checkWin(board) == 0 && board.isFull();
     }
 
     /**
@@ -121,7 +127,7 @@ public class TTTGame {
      * @return true if the game is over, false otherwise.
      */
     public boolean isGameOver(TTTBoard board) {
-        return checkWin(board) || checkDraw(board);
+        return checkWin(board) != 0 || checkDraw(board);
     }
 
     /**

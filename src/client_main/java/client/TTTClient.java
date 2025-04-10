@@ -43,4 +43,34 @@ public class TTTClient {
         data.put("game","Tik_Tak_Toe");
         Client.networkingMethod(data);
     }
+    public boolean getGameOngoing() throws InterruptedException {
+        HashMap<String, Object> data = new HashMap<>();
+        data.put("type", "game-move");
+        data.put("command", "getGameOngoing");
+        data.put("game","Tik_Tak_Toe");
+        Client.networkingMethod(data);
+        //wait
+        Thread.sleep(300);
+        return Client.gameOngoing;
+    }
+    public int[][] getBoardCells() throws InterruptedException {
+        HashMap<String, Object> data = new HashMap<>();
+        data.put("type", "game-move");
+        data.put("command", "getBoardCells");
+        data.put("game","Tik_Tak_Toe");
+        Client.networkingMethod(data);
+        //wait
+        Thread.sleep(300);
+        return Client.boardCells.getFirst();
+    }
+    public boolean checkDraw() throws InterruptedException {
+        HashMap<String, Object> data = new HashMap<>();
+        data.put("type", "game-move");
+        data.put("command", "checkDraw");
+        data.put("game","Tik_Tak_Toe");
+        Client.networkingMethod(data);
+        //wait
+        Thread.sleep(300);
+        return Client.gameOngoing;
+    }
 }
