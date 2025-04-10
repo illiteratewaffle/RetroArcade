@@ -101,7 +101,7 @@ public class Client {
                     // If the message is a chat, tell the GUI
                     Thread.ofVirtual().start(() -> receivedChatMessage(response));
                 } else if (response.get("type") instanceof String && response.get("type").equals("game") &&
-                        response.get("command") instanceof String && response.get("command").equals("startTurn")) {
+                        response.get("command") instanceof String && response.get("command").equals("startGame")) {
                     // If the message is a startGame, tell the GUI
                     Thread.ofVirtual().start(() -> receivedStartGame((int) response.get("data")));
                 } else if (response.get("type") instanceof String && response.get("type").equals("game") &&
@@ -139,6 +139,7 @@ public class Client {
 
     private static void receivedStartGame(int piece) {
         // TODO: GUI SHIT HERE
+        System.out.println("Game started: "+piece);
     }
 
     private static void forwardToServer(Map<String, Object> forward) {

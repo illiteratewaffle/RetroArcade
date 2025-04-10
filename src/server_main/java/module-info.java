@@ -32,5 +32,6 @@ module seng300.w25.project {
     exports session;
     exports matchmaking;
     exports GameLogic_Client.Connect4;
+    exports client;
 
 }

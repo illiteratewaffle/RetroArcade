@@ -9,7 +9,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
-import static management.JsonConverter.fromJson;
 import static management.JsonConverter.toJson;
 
 public class TemporaryClient {
