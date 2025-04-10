@@ -1,5 +1,7 @@
 package GameLogic_Client.testinggame;
 
+import GameLogic_Client.Connect4.C4Piece;
+import GameLogic_Client.Connect4.HintResult;
 import GameLogic_Client.IBoardGameController;
 import GameLogic_Client.Ivec2;
 
@@ -9,7 +11,7 @@ public class testGameController implements IBoardGameController {
 
     int[][] game = new int[][] {{2,2,2},{2,2,2},{2,2,2} };
     boolean playing = false;
-    int[] winner;
+    int winner;
 
     public int currPlayer = 1;
 
@@ -48,11 +50,11 @@ public class testGameController implements IBoardGameController {
      * @return returns the winner or returns 0
      */
     @Override
-    public int[] getWinner() {
+    public int getWinner() {
         if(!playing) {
             return winner;
         }
-        return new int[0];
+        return 0;
     }
 
     /**
@@ -101,16 +103,71 @@ public class testGameController implements IBoardGameController {
         return 0;
     }
 
+    @Override
+    public C4Piece[][] getC4Board() {
+        return new C4Piece[0][];
+    }
+
+    @Override
+    public boolean getC4IsGameOver() {
+        return false;
+    }
+
+    @Override
+    public C4Piece getC4WinnerAsEnum() {
+        return null;
+    }
+
+    @Override
+    public C4Piece getC4CurrentPlayer() {
+        return null;
+    }
+
+    @Override
+    public void printBoard() {
+
+    }
+
+    @Override
+    public HintResult getC4ColHint() {
+        return null;
+    }
+
+    @Override
+    public boolean isTileEmpty(Ivec2 tile) {
+        return false;
+    }
+
+    @Override
+    public boolean makeMove(int row, int col) {
+        return false;
+    }
+
+    @Override
+    public boolean checkWin() {
+        return false;
+    }
+
+    @Override
+    public boolean checkDraw() {
+        return false;
+    }
+
+    @Override
+    public void updateGameState() {
+
+    }
+
     private boolean checkwin() {
         if (this.game[0][0] != 2)
         {
             if(this.game[0][0] == 0)
             {
-                winner[0] = 0;
+                winner = 0;
             }
             else if(this.game[0][0] == 1)
             {
-                winner[0] = 1;
+                winner = 1;
             }
             playing = false;
             return true;
