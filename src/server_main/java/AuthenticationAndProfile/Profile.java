@@ -3,9 +3,7 @@ package AuthenticationAndProfile;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.UUID;
-
 import player.PlayerManager;
-
 import static management.ServerLogger.log;
 
 public class Profile {
@@ -81,7 +79,6 @@ public class Profile {
             String newHashedPassword = ProfileCreation.hashedPassword(newPassword);
             this.hashedPassword = newHashedPassword;
             PlayerManager.updateAttribute(id, "hashed_password", newHashedPassword);
-            PlayerManager.updateAttribute(id, "hashed_password", newHashedPassword);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } catch (NoSuchAlgorithmException n) {
@@ -118,11 +115,6 @@ public class Profile {
             PlayerManager.updateAttribute(id, "nickname", newNickname);
         } catch (SQLException s) {
             throw new SQLException(s.getMessage());
-        }
-        try {
-            PlayerManager.updateAttribute(id, "nickname", newNickname);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
         }
     }
 
@@ -211,7 +203,12 @@ public class Profile {
      * @param currentGame the current game of the player.
      */
     public void setCurrentGame(String currentGame) throws SQLException {
-        this.currentGame = currentGame;
+        try {
+            PlayerManager.updateAttribute(id, "current_game", currentGame);
+            this.currentGame = currentGame;
+        } catch (SQLException s) {
+            throw new SQLException(s.getMessage());
+        }
     }
 
     /**
@@ -246,8 +243,13 @@ public class Profile {
      *
      * @param profilePicFilePath the new profile picture of the player.
      */
-    public void setProfilePicFilePath(String profilePicFilePath) {
-        this.profilePicFilePath = profilePicFilePath;
+    public void setProfilePicFilePath(String profilePicFilePath) throws SQLException{
+        try {
+            PlayerManager.updateAttribute(id, "profile_pic_path", profilePicFilePath);
+            this.profilePicFilePath = profilePicFilePath;
+        } catch (SQLException s) {
+            throw new SQLException(s.getMessage());
+        }
     }
 
     /**
@@ -285,13 +287,7 @@ public class Profile {
         } catch (SQLException s) {
             throw new RuntimeException(s.getMessage());
         }
-        try {
-            PlayerManager.updateAttribute(id, "username", newUsername);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
     }
-
 
     // ChatGPT was used to generate the original code for the following 2 methods in ProfileCreationTest.java.
     // The prompt used was: How can I make it so every time this test is run, a new username email and password are generated and it's id is used to identify it in the assertEquals statement

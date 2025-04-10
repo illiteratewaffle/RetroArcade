@@ -2,11 +2,14 @@ package AuthenticationAndProfile;
 
 import player.PlayerManager;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+
+import static AuthenticationAndProfile.ProfileCSVReader.openSingleProfileFile;
 
 /**
  * GameHistory Class handles operation to do with the game history
@@ -28,14 +31,44 @@ public class GameHistory{
 
     public GameHistory() {}
 
+    /**
+     * Used when entering a game. Adds the game title to the GameHistory List.
+     * @param gameName
+     * @throws SQLException
+     */
+    public void updateGameHistory(String gameName) throws SQLException{
+        try {
+            this.gameHistory.add(gameName);
+            PlayerManager.addToGamesPlayed(id, gameName);
+        } catch (SQLException s) {
+            throw new SQLException(s.getMessage());
+        }
+    }
 
     /**
      * Retrives the full game history fo the user associated with the id
      * @return list of game history
      */
-    public List<String> getGameHistory(){
-
-        return new ArrayList<>(gameHistory); // returns a copy of the game history list
+    public List<String> getGameHistory() throws SQLException, IOException {
+        try {
+            PlayerManager.getProfile(id); //method to get Profile csv with all attributes associated to the specified id
+            String csvProfileFilePath = String.format("player_profile_%d.csv", id); //csv file saved to the main project directory
+            List<String> newGameHistory = new ArrayList<>();
+            ArrayList<String> profileFields = openSingleProfileFile(csvProfileFilePath);
+            String gameHistoryString = profileFields.get(ProfileCSVReader.GHIST_INDEX);
+            if (!gameHistoryString.equals("")) {
+                String[] fieldsList = gameHistoryString.split(",");
+                for (int i = 0; i < fieldsList.length; i++) {
+                    newGameHistory.add(fieldsList[i]);
+                }
+            }
+            gameHistory = newGameHistory;
+            return gameHistory; // returns a copy of the game history list
+        } catch (SQLException s) {
+            throw new SQLException(s.getMessage());
+        } catch (IOException e) {
+            throw new IOException(e.getMessage());
+        }
     }
 
     /**

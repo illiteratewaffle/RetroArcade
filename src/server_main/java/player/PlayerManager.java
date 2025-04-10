@@ -532,17 +532,12 @@ public class PlayerManager {
     public static String addToGamesPlayed(int id, String gamePlayed) throws SQLException {
         String query = """
                             UPDATE profiles
-                            SET games_played = CASE
-                            WHEN array_position(games_played, ?) IS NOT NULL
-                            THEN games_played
-                            ELSE array_append(games_played, ?)
-                            END
+                            SET games_played = array_append(games_played, ?)
                             WHERE id = ?
                 """;
         try (PreparedStatement statement = conn.prepareStatement(query)) {
             statement.setString(1, gamePlayed);
-            statement.setString(2, gamePlayed);
-            statement.setInt(3, id);
+            statement.setInt(2, id);
 
             int rowsUpdated = statement.executeUpdate();
             if (rowsUpdated > 0) {
@@ -588,6 +583,7 @@ public class PlayerManager {
     }
 
     public static void main(String[] args) throws SQLException {
-        System.out.println(searchFriendsList(2256, "User_2fedad21"));
+        System.out.println(addToGamesPlayed(450,"TTT"));
+        System.out.println(addToGamesPlayed(450, "TTT"));
     }
 }
