@@ -393,7 +393,7 @@ public class PlayerHandler implements Runnable {
             //Create the hashmap for the thread message.
             Map<String, Object> messageMap = new HashMap<>();
             messageMap.put("type", "profile-info-request");
-            messageMap.put("info", "rank");
+            messageMap.put("info", "rating");
             messageMap.put("message", rating);
 
             //Create the thread message and return it.
