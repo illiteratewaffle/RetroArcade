@@ -92,10 +92,15 @@ public class Client {
         // Now listen to all inputs from the server
         while (running) {
             try {
-                // Take a response and put it in the ConcurrentLinkedQueue
-                String response = input.readLine();
-                messages.add(fromJson(response));
-                messages.notifyAll();
+                // Take a response
+                Map<String, Object> response = fromJson(input.readLine());
+                // Check if message is "type":"chat"
+                if (response.get("type") instanceof String && response.get("type").equals("chat")) {
+                    Thread thread = Thread.ofVirtual().start(() -> receivedChatMessage(response));
+                } else {
+                    messages.add(response);
+                    messages.notifyAll();
+                }
                 // TODO: TEMPORARY PRINT TO SHOW IT WAS RECEIVED
                 System.out.println("Received message: " + response);
             } catch (IOException e) {
@@ -106,6 +111,12 @@ public class Client {
                 System.out.println("Invalid json message received: " + e.getMessage());
             }
         }
+    }
+
+    private static void receivedChatMessage(Map<String, Object> response) {
+        String sender = (String) response.get("sender");
+        String message = (String) response.get("message");
+        // TODO: GUI SHIT HERE
     }
 
     private static void forwardToServer(Map<String, Object> forward) {
