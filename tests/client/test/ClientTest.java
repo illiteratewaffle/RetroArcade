@@ -24,6 +24,8 @@ class ClientTest {
     Client client1;
     Client client2;
 
+    int gametype = 3;
+
     @BeforeEach
     void setUp() {
         // Start the dummy server instance in a separate thread.
@@ -100,7 +102,7 @@ class ClientTest {
             throw new RuntimeException(e);
         }
 
-        this.client1.enqueue(2);
+        this.client1.enqueue(gametype);
 
         try {
             Thread.sleep(5000);
@@ -119,7 +121,7 @@ class ClientTest {
 
 
 
-        this.client2.enqueue(2);
+        this.client2.enqueue(gametype);
 
         try {
             Thread.sleep(5000);

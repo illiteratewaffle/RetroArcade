@@ -15,6 +15,7 @@ public class MatchmakingQueue {
         gameQueues.put(0, new LinkedList<>()); // TTT
         gameQueues.put(1, new LinkedList<>()); // Connect 4
         gameQueues.put(2, new LinkedList<>()); // Checkers
+        gameQueues.put(3, new LinkedList<>()); // test game
     }
 
     /***

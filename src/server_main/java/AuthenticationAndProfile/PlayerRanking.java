@@ -7,16 +7,17 @@ import java.util.HashMap;
 
 public class PlayerRanking {
     private int id;
-    private double[] winLossRatio = new double[3];
-    private int[] rating = new int[3];
-    private String[] rank = new String[3];
-    private int[] wins = new int[3];
-    private int[] losses = new int[3];
-    private int[] total = new int[3];
+    private double[] winLossRatio = new double[4];
+    private int[] rating = new int[4];
+    private String[] rank = new String[4];
+    private int[] wins = new int[4];
+    private int[] losses = new int[4];
+    private int[] total = new int[4];
 
     public static final int TTT_INDEX = 0;
     public static final int CONNECT4_INDEX = 1;
     public static final int CHECKERS_INDEX = 2;
+    public static final int TEST_INDEX = 3;
 
     public PlayerRanking(int id, double[] winLossRatio, int[] rating, String[] rank, int[] wins, int[] losses, int[] total) {
         this.id = id;
@@ -39,6 +40,9 @@ public class PlayerRanking {
             gameName = "connect4";
         } else if (gameNumber == CHECKERS_INDEX) {
             gameName = "checkers";
+        }
+        else if (gameNumber == TEST_INDEX) {
+            gameName = "test";
         }
         try {
             int currentRating = Integer.parseInt(PlayerManager.getAttribute(playerID, "rating_" + gameName));
