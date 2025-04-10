@@ -405,6 +405,15 @@ public class Client2 {
         return (boolean) otherProfileData.get("online");
     }
 
+    public static void sendOtherRequest(String username) {
+
+        //Create the message map for the message to the server.
+        Map<String, Object> messageMap = new HashMap<>();
+        messageMap.put("type", "send-friend-request");
+        messageMap.put("username", username);
+        forwardToServer(messageMap);
+    }
+
     public static void acceptRequest(String username) {
 
         //Create the map for the thread message
