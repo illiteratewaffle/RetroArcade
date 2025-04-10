@@ -139,21 +139,40 @@ public class Client {
         }
     }
 
+    /**
+     * Waits until the server responds with the
+     * @param key
+     * @param value
+     * @return
+     */
     private static Map<String, Object> getResponseFromServer(String key, String value) {
+        // Set timeout for the message response
+        long timeoutMillis = 5000;
+        long startTime = System.currentTimeMillis();
+        long remainingTime = timeoutMillis;
+        // Attempt to recieve the message from the server
         try {
-            while (true) {
-                // Wait until the messages queue is updated
-                synchronized (messages) {
+            synchronized (messages) {
+                while (remainingTime > 0) {
+                    // Wait until the messages queue is updated
                     messages.wait();
-                }
-                // Check for the wanted message
-                for (Map<String, Object> message : messages) {
-                    if (message.get(key).equals(value)) {
-                        // Remove the message from the queue then return it
-                        messages.remove(message);
-                        return message;
+
+                    // Check for the wanted message
+                    for (Map<String, Object> message : messages) {
+                        if (message.get(key).equals(value)) {
+                            // Remove the message from the queue then return it
+                            messages.remove(message);
+                            return message;
+                        }
                     }
+
+                    // Calculate how much time is left
+                    long elapsedTime = System.currentTimeMillis() - startTime;
+                    remainingTime -= elapsedTime;
                 }
+                // Failed to receive a response back from the server within timeoutMillis
+                System.err.println("Failed to receive a response back from the server within " + timeoutMillis + " milliseconds.");
+                return null;
             }
         } catch (InterruptedException e) {
             System.out.println("Failed to receive a response from the server: " + e.getMessage());
