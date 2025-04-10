@@ -29,7 +29,7 @@ public class Client {
     public static List<int[][]> boardCells;
     public static boolean isDraw;
     public static boolean gameOngoing;
-    public static int currentWinner;
+    public static boolean currentWinner;
     public static int currentPlayer;
     private static int otherPlayerId;
     private static int gameType;
@@ -394,7 +394,7 @@ public class Client {
 
         switch (command) {
             case "getWinner":
-                currentWinner = (int) data.get("data");
+                currentWinner = (boolean) data.get("data");
                 break;
             case "getCurrentPlayer":
                 currentPlayer = (int) data.get("data");
@@ -483,7 +483,7 @@ public class Client {
         return gameOngoing;
     }
 
-    public static int checkWinners() {
+    public static boolean checkWinners() {
         return currentWinner;
     }
 
