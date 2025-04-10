@@ -135,7 +135,7 @@ public class LoginGUIController implements Initializable {
         if (username.equals("admin") & password.equals("admin")){
 
         } else {
-             loginSuccess =  Client2.login("10.9.150.72", 5050, username, password);
+             loginSuccess =  Client2.login("10.13.156.102", 5050, username, password);
         }
 
         if(username.isEmpty() || password.isEmpty()) {

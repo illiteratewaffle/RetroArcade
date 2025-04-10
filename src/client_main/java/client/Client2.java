@@ -23,6 +23,7 @@ public class Client2 {
     private static boolean running = true;
     private static Map<String, Object> profileData = new HashMap<>();
     private static Map<String, Object> otherProfileData = new HashMap<>();
+    private static Socket clientSocket;
 
     /**
      * Login to the server
@@ -36,6 +37,7 @@ public class Client2 {
         // Make a Thread for input to server
         try {
             Socket socket = new Socket(serverAddress, serverPort);
+            clientSocket = socket;
             // Create input and output streams for communication
             input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             output = new PrintWriter(socket.getOutputStream(), true);
@@ -64,11 +66,12 @@ public class Client2 {
         }
     }
 
-    public static void logout() {
+    public static void logout() throws IOException {
         System.out.println("Shutting down disconnection from server");
         running = false;
         // TODO: COULD THIS STILL BE WRITTEN TO BEFORE THE SERVER FULLY CLOSES?
         messages.clear();
+        clientSocket.close();
     }
 
     private static void authenticate(String username, String password, String email) {

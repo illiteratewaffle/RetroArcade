@@ -1,6 +1,6 @@
-package GUI_Client2;
+package GUI_client;
 
-import Client2.Client2;
+import client.Client2;
 import GUI_client.AudioManager;
 import GUI_client.otherPlayerProfileGUIController;
 import javafx.collections.FXCollections;
@@ -122,9 +122,10 @@ public class profileGUIController {
         Client2.getProfileInfo();
         if (Client2.getProfilePath() == null) {
             avatarPath = "/GUI_avatars/Invader_green.PNG";
-            URL url = getClass().getResource(avatarPath);
-            Image image = new Image(url.toExternalForm(), false);
-            updateProfilePicture(image);
+            //URL url = getClass().getResource(avatarPath);
+            //Image image = new Image(url.toExternalForm(), false);
+            //updateProfilePicture(image);
+            updateProfilePicture(avatarPath);
             System.out.println(avatarPath);
         } else {
             avatarPath = Client2.getProfilePath();
@@ -175,11 +176,13 @@ public class profileGUIController {
         friends_list.setOpacity(0.0);
         stats_pane.setOpacity(0.0);
 
+        //TODO: Commented out redundancies.
         //Getting the data needed to populate the inbox (friend requests) list.
-        String requests = Client2.getFriendRequests();
+        //String requests = Client2.getFriendRequests();
         //Splitting the string based on "," so that they can all be added to the listView
-        String[] requestsArray = requests.split(","); //
-        List<String> requestList = Arrays.asList(requestsArray);
+        //String[] requestsArray = requests.split(","); //
+        //List<String> requestList = Arrays.asList(requestsArray);
+        List<String> requestList = Client2.getFriendRequests();
         inbox_contents.getItems().addAll(requestList);
         //Adding the request content to the listview
         inbox_contents.setItems((ObservableList) requestList);
@@ -196,12 +199,13 @@ public class profileGUIController {
         edit_profile_button.toFront();
         edit_profile_button.setOpacity(1.0);
 
+        //TODO: Commented out redundancies.
         //Getting the data needed to populate the friends list.
-        String friends = Client2.getFriends();
-
+        //String friends = Client2.getFriends();
         //Splitting the string based on "," so that they can all be added to the listView
-        String[] friendsArray = friends.split(","); //
-        List<String> friendsList = Arrays.asList(friendsArray);
+        //String[] friendsArray = friends.split(","); //
+        //List<String> friendsList = Arrays.asList(friendsArray);
+        List<String> friendsList = Client2.getFriends();
         friends_list.getItems().addAll(friendsList);
         // Adding the content to the listview
         friends_list.setItems((ObservableList) friendsList);
@@ -220,11 +224,13 @@ public class profileGUIController {
         add_friend.setOpacity(0.0);
         add_friend.setDisable(true);
 
+        //TODO: Commented out redundancies.
         //Getting the data needed to populate the game history list.
-        String history = Client2.getGameHistory();
+        //String history = Client2.getGameHistory();
         //Splitting the string based on "," so that they can all be added to the listView
-        String[] historyArray = history.split(","); //
-        List<String> historyList = Arrays.asList(historyArray);
+        //String[] historyArray = history.split(","); //
+        //List<String> historyList = Arrays.asList(historyArray);
+        List<String> historyList = Client2.getGameHistory();
         history_list.getItems().addAll(historyList);
         //Adding the history content to the listview
         history_list.setItems((ObservableList) historyList);
@@ -255,53 +261,55 @@ public class profileGUIController {
             }
     }
 
-    //After a request is clicked, the user will have the option to accept the request. The username of the person
-    //Will be sent to Client2 through the acceptRequest method (name may have changed IDK)
-    public void accept_request(MouseEvent mouseEvent) {
-        if (selectedRequest == null) return;
-        add_friend.setOpacity(0.0);
-        add_friend.setDisable(true);
-        decline_friend.setOpacity(0.0);
-        decline_friend.setDisable(true);
-        edit_profile_button.setOpacity(0.0);
-        edit_profile_button.setDisable(true);
-        //**add call to send to Client2 here**
-        //taken from chat gtp. prompt: "how do I set a label to show for only a certain amount of time?"
-        notification.setText("Friend Added");
-        notification.setOpacity(1.0);
-        PauseTransition pause = new PauseTransition(Duration.seconds(10));
-        pause.setOnFinished(e -> notification.setVisible(false)); // hide after delay
-        pause.play();
+    //TODO: Uncomment.
+//    //After a request is clicked, the user will have the option to accept the request. The username of the person
+//    //Will be sent to Client2 through the acceptRequest method (name may have changed IDK)
+//    public void accept_request(MouseEvent mouseEvent) {
+//        if (selectedRequest == null) return;
+//        add_friend.setOpacity(0.0);
+//        add_friend.setDisable(true);
+//        decline_friend.setOpacity(0.0);
+//        decline_friend.setDisable(true);
+//        edit_profile_button.setOpacity(0.0);
+//        edit_profile_button.setDisable(true);
+//        //**add call to send to Client2 here**
+//        //taken from chat gtp. prompt: "how do I set a label to show for only a certain amount of time?"
+//        notification.setText("Friend Added");
+//        notification.setOpacity(1.0);
+//        PauseTransition pause = new PauseTransition(Duration.seconds(10));
+//        pause.setOnFinished(e -> notification.setVisible(false)); // hide after delay
+//        pause.play();
+//
+//
+//        //Not sure how this will be sent to server.
+//        client2.acceptRequest(selectedRequest); //selected request = the username of the friend
+//        inbox_contents.remove(selectedRequest); //not sure why .remove is not working, may be because client2 is still in the works
+//        selectedRequest = null;
+//    }
 
-
-        //Not sure how this will be sent to server.
-        client2.acceptRequest(selectedRequest); //selected request = the username of the friend
-        inbox_contents.remove(selectedRequest); //not sure why .remove is not working, may be because client2 is still in the works
-        selectedRequest = null;
-    }
-
+    //TODO: Uncomment.
     //After a request is clicked, the user will have the option to decline the request. The username of the person
     //Will be sent to Client2 through the acceptRequest method (name may have changed IDK)
-    public void decline_request(MouseEvent mouseEvent) {
-        if (selectedRequest == null) return;
-        add_friend.setOpacity(0.0);
-        add_friend.setDisable(true);
-        decline_friend.setOpacity(0.0);
-        decline_friend.setDisable(true);
-        edit_profile_button.setOpacity(0.0);
-        edit_profile_button.setDisable(true);
-        //Show "request declined" to user
-        notification.setText("Request Declined");
-        notification.setOpacity(1.0);
-        PauseTransition pause = new PauseTransition(Duration.seconds(10));
-        pause.setOnFinished(e -> notification.setVisible(false)); // hide after delay
-        pause.play();
-
-        //Not sure how the declined request will be sent to the server.
-        client2.declineRequest(selectedRequest);
-        inbox_contents.remove(selectedRequest);
-        selectedRequest = null;
-    }
+//    public void decline_request(MouseEvent mouseEvent) {
+//        if (selectedRequest == null) return;
+//        add_friend.setOpacity(0.0);
+//        add_friend.setDisable(true);
+//        decline_friend.setOpacity(0.0);
+//        decline_friend.setDisable(true);
+//        edit_profile_button.setOpacity(0.0);
+//        edit_profile_button.setDisable(true);
+//        //Show "request declined" to user
+//        notification.setText("Request Declined");
+//        notification.setOpacity(1.0);
+//        PauseTransition pause = new PauseTransition(Duration.seconds(10));
+//        pause.setOnFinished(e -> notification.setVisible(false)); // hide after delay
+//        pause.play();
+//
+//        //Not sure how the declined request will be sent to the server.
+//        client2.declineRequest(selectedRequest);
+//        inbox_contents.remove(selectedRequest);
+//        selectedRequest = null;
+//    }
 
     //the stats button is pressed.
     public void open_stats(MouseEvent mouseEvent) {
@@ -405,10 +413,11 @@ public class profileGUIController {
         String nickname = nickname_label.getText(); // gets user input
         nickname_label.setText(nickname);
 
+        //TODO: Uncomment.
         //When the apply button is pressed I want to send these to client2 (all strings)
-        Client2.setBio(bio);
-        Client2.setNickname(nickname);
-        Client2.setProfilePath(avatarPath);
+        //Client2.setBio(bio);
+        //Client2.setNickname(nickname);
+        //Client2.setProfilePath(avatarPath);
 
         //Notify that the profile was updated
         notification.setText("Profile updated!");
