@@ -2,6 +2,7 @@ package session;
 
 import GameLogic_Client.IBoardGameController;
 import GameLogic_Client.Ivec2;
+import GameLogic_Client.testinggame.testGameController;
 import management.*;
 import player.PlayerHandler;
 
@@ -12,6 +13,7 @@ import java.util.Map;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
+import static management.JsonConverter.toJson;
 import static management.ServerLogger.log;
 
 public class GameSessionManager implements Runnable {
@@ -50,6 +52,8 @@ public class GameSessionManager implements Runnable {
                 return c4;
             case 2:
                 return new GameLogic_Client.Checkers.CheckersController();
+            case 3:
+                return new testGameController();
             default:
                 throw new IllegalArgumentException("GameSessionManager: Unknown game type: " + gameType);
         }
@@ -68,12 +72,19 @@ public class GameSessionManager implements Runnable {
         player1.setGameSessionManagerThread(Thread.currentThread());
         player2.setGameSessionManagerThread(Thread.currentThread());
 
-        // Send "startTurn" to the players
+        // Send "startGame" to the players
         Map<String, Object> forward = new HashMap<>();
         forward.put("type", "game");
         forward.put("command", "startGame");
+        forward.put("data", 1);
+        System.out.println(forward);
         ThreadRegistry.getQueue(player1.getThread()).add(new ThreadMessage(Thread.currentThread(), forward));
-        ThreadRegistry.getQueue(player2.getThread()).add(new ThreadMessage(Thread.currentThread(), forward));
+        Map<String, Object> forward2 = new HashMap<>();
+        forward2.put("type", "game");
+        forward2.put("command", "startGame");
+        forward2.put("data", 2);
+        System.out.println(forward);
+        ThreadRegistry.getQueue(player2.getThread()).add(new ThreadMessage(Thread.currentThread(), forward2));
 
         //Set the game status pf the two players
         try {
@@ -99,12 +110,14 @@ public class GameSessionManager implements Runnable {
         while (gameController.getGameOngoing()) {
             try {
                 ThreadMessage threadMessage = myQueue.take();
+                System.out.println(toJson(threadMessage.getContent()));
                 routeMessage(threadMessage);
                 // If it is now the senders turn
                 Map<String, Object> response = new HashMap<>();
                 response.put("type", "game");
                 response.put("command", "startTurn");
                 // If it is the sender's turn, send "startTurn"
+
                 response.put("data", checkTurn(player1.getThread()));
                 ThreadRegistry.getQueue(player1.getThread()).add(new ThreadMessage(Thread.currentThread(), response));
                 response.put("data", checkTurn(player2.getThread()));
@@ -246,7 +259,7 @@ public class GameSessionManager implements Runnable {
                     // If wanting to call getCurrentPlayer()
                     case "getCurrentPlayer":
                         // TODO: THIS MUST BE DEPENDENT ON THE PLAYER CURRENTLY PLAYING
-                        forward.put("data", checkTurn(sender));
+                        forward.put("data", gameController.getCurrentPlayer());
                         sendMessageBack(sender, forward);
                         break;
                     // If wanting to call gameOngoingChangedSinceLastCommand()
