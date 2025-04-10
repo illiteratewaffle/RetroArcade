@@ -33,7 +33,8 @@ public class Client {
      */
     public static boolean login(String serverAddress, int serverPort, String username, String password) {
         // Make a Thread for input to server
-        try (Socket socket = new Socket(serverAddress, serverPort)) {
+        try {
+            Socket socket = new Socket(serverAddress, serverPort);
             // Create input and output streams for communication
             input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             output = new PrintWriter(socket.getOutputStream(), true);
@@ -72,7 +73,7 @@ public class Client {
     private static void authenticate(String username, String password, String email) {
         // Authenticate user
         Map<String, Object> authData = new HashMap<>();
-        if (email != null) {
+        if (email == null) {
             authData.put("type", "login");
             authData.put("email", email);
         } else {
@@ -95,11 +96,14 @@ public class Client {
                 // Take a response
                 Map<String, Object> response = fromJson(input.readLine());
                 // Check if message is "type":"chat"
+                // TODO: ADD SUPPORT FOR GAME STARTTURN AND GAME STARTGAME
                 if (response.get("type") instanceof String && response.get("type").equals("chat")) {
                     Thread thread = Thread.ofVirtual().start(() -> receivedChatMessage(response));
                 } else {
-                    messages.add(response);
-                    messages.notifyAll();
+                    synchronized (messages) {
+                        messages.add(response);
+                        messages.notifyAll();
+                    }
                 }
                 // TODO: TEMPORARY PRINT TO SHOW IT WAS RECEIVED
                 System.out.println("Received message: " + response);
@@ -119,6 +123,14 @@ public class Client {
         // TODO: GUI SHIT HERE
     }
 
+    private static void receivedStartTurn(Map<String, Object> response) {
+        // TODO: GUI SHIT HERE
+    }
+
+    private static void receivedStartGame(int piece) {
+        // TODO: GUI SHIT HERE
+    }
+
     private static void forwardToServer(Map<String, Object> forward) {
         try {
             output.println(toJson(forward));
@@ -130,12 +142,15 @@ public class Client {
     private static Map<String, Object> getResponseFromServer(String key, String value) {
         try {
             while (true) {
+                // Wait until the messages queue is updated
                 synchronized (messages) {
                     messages.wait();
                 }
                 // Check for the wanted message
                 for (Map<String, Object> message : messages) {
                     if (message.get(key).equals(value)) {
+                        // Remove the message from the queue then return it
+                        messages.remove(message);
                         return message;
                     }
                 }
@@ -148,11 +163,27 @@ public class Client {
 
     // NOW WE DO THE FUCKING CALL FUNCTIONS BABY WOO!!!
 
+    public static void sendChatMessage(String message) {
+        // Send message to server
+        Map<String, Object> forward = new HashMap<>();
+        forward.put("type", "chat");
+        forward.put("message", message);
+        forwardToServer(forward);
+    }
+
+    public static void enqueue(int gameType) {
+        // Send message to server
+        Map<String, Object> forward = new HashMap<>();
+        forward.put("type", "enqueue");
+        forward.put("game-type", gameType);
+        forwardToServer(forward);
+    }
+
     /**
      * Receive a 2D-Integer-Coordinate Input from the Player, and process it.
      * @param ivec2 A 2D-Integer-Coordinate Input that corresponds to a Board Cell.
      */
-    public void receiveInput(Ivec2 ivec2) {
+    public static void receiveInput(Ivec2 ivec2) {
         // Send message to server
         Map<String, Object> forward = new HashMap<>();
         forward.put("type", "game");
@@ -167,7 +198,7 @@ public class Client {
      * @param player The index of the player to remove.
      * @throws IndexOutOfBoundsException If no players with the given Index exists.
      */
-    public void removePlayer(int player) throws IndexOutOfBoundsException {
+    public static void removePlayer(int player) throws IndexOutOfBoundsException {
         // Send message to server
         Map<String, Object> forward = new HashMap<>();
         forward.put("type", "game");
@@ -180,7 +211,7 @@ public class Client {
      * @return An array of integers containing the Index of the winners of the game.
      * If there are multiple winners, the game may be interpreted as a tie between said winners.
      */
-    public int getWinner() {
+    public static int getWinner() {
         // Send message to server
         Map<String, Object> forward = new HashMap<>();
         forward.put("type", "game");
@@ -195,7 +226,7 @@ public class Client {
     /**
      * @return <code>True</code> if the game is still ongoing; <code>False</code> otherwise.
      */
-    public boolean getGameOngoing() {
+    public static boolean getGameOngoing() {
         // Send message to server
         Map<String, Object> forward = new HashMap<>();
         forward.put("type", "game");
@@ -212,15 +243,15 @@ public class Client {
      * @return
      * An array list of 2D integer arrays representing the cells of the board at each of the requested layer.
      */
-    public ArrayList<int[][]> getBoardCells(int layerMask) {
+    public static ArrayList<int[][]> getBoardCells(int layerMask) {
         // Send message to server
         Map<String, Object> forward = new HashMap<>();
         forward.put("type", "game");
-        forward.put("command", "getBoardSize");
+        forward.put("command", "getBoardCells");
         forward.put("parameter", layerMask);
         forwardToServer(forward);
         // Now wait until the correct response comes back
-        Map<String, Object> response = getResponseFromServer("command", "getBoardSize");
+        Map<String, Object> response = getResponseFromServer("command", "getBoardCells");
         // Get the data
         return ConverterTools.tripleListToListOf2dArray((List<List<List<Integer>>>) response.get("data"));
     }
@@ -228,7 +259,7 @@ public class Client {
     /**
      * @return The size of the Board.
      */
-    public Ivec2 getBoardSize() {
+    public static Ivec2 getBoardSize() {
         // Send message to server
         Map<String, Object> forward = new HashMap<>();
         forward.put("type", "game");
@@ -243,7 +274,7 @@ public class Client {
     /**
      * @return The index of the current player (the player whose turn is currently ongoing).
      */
-    public int getCurrentPlayer() {
+    public static int getCurrentPlayer() {
         // Send message to server
         Map<String, Object> forward = new HashMap<>();
         forward.put("type", "game");
@@ -259,7 +290,7 @@ public class Client {
      * @return True if the Game Ongoing has been changed
      * since the last call to <code>receiveInput</code> or <code>removePlayer</code>.
      */
-    public boolean gameOngoingChangedSinceLastCommand() {
+    public static boolean gameOngoingChangedSinceLastCommand() {
         // Send message to server
         Map<String, Object> forward = new HashMap<>();
         forward.put("type", "game");
@@ -275,7 +306,7 @@ public class Client {
      * @return True if the List of Winners has been changed
      * since the last call to <code>receiveInput</code> or <code>removePlayer</code>.
      */
-    public boolean winnersChangedSinceLastCommand() {
+    public static boolean winnersChangedSinceLastCommand() {
         // Send message to server
         Map<String, Object> forward = new HashMap<>();
         forward.put("type", "game");
@@ -291,7 +322,7 @@ public class Client {
      * @return True if the Current Player has been changed
      * since the last call to <code>receiveInput</code> or <code>removePlayer</code>.
      */
-    public boolean currentPlayerChangedSinceLastCommand() {
+    public static boolean currentPlayerChangedSinceLastCommand() {
         // Send message to server
         Map<String, Object> forward = new HashMap<>();
         forward.put("type", "game");
@@ -307,7 +338,7 @@ public class Client {
      * @return The bit-mask for all the Layers that has been changed
      * since the last call to <code>receiveInput</code> or <code>removePlayer</code>.
      */
-    public int boardChangedSinceLastCommand() {
+    public static int boardChangedSinceLastCommand() {
         // Send message to server
         Map<String, Object> forward = new HashMap<>();
         forward.put("type", "game");
@@ -317,5 +348,17 @@ public class Client {
         Map<String, Object> response = getResponseFromServer("command", "boardChangedSinceLastCommand");
         // Get the data
         return (int) response.get("data");
+    }
+
+    public static boolean checkDraw() {
+        // Send message to server
+        Map<String, Object> forward = new HashMap<>();
+        forward.put("type", "game");
+        forward.put("command", "checkDraw");
+        forwardToServer(forward);
+        // Now wait until the correct response comes back
+        Map<String, Object> response = getResponseFromServer("command", "checkDraw");
+        // Get the data
+        return (boolean) response.get("data");
     }
 }
