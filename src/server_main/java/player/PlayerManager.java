@@ -211,10 +211,13 @@ public class PlayerManager {
         String query = """
                 SELECT id
                 FROM profiles
-                WHERE id = ANY (
-                SELECT jsonb_array_elements_text(friends)::INT
-                FROM profiles WHERE id = ?)
-                AND username ILIKE ?""";
+                WHERE id IN (
+                    SELECT unnest(friends)
+                    FROM profiles
+                    WHERE id = ?
+                )
+                AND username ILIKE ?
+                """;
 
         // List containing friend Ids
         List<Integer> matchingIds = new ArrayList<>();
@@ -585,6 +588,6 @@ public class PlayerManager {
     }
 
     public static void main(String[] args) throws SQLException {
-        System.out.println(searchProfiles("cr"));
+        System.out.println(searchFriendsList(2256, "User_2fedad21"));
     }
 }

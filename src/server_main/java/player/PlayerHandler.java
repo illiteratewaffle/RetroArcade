@@ -744,6 +744,7 @@ public class PlayerHandler implements Runnable {
 //                }
                 networkManager.sendMessage(gameSessionManagerThread, threadMessage);
                 break;
+
             case "profile-info-request":
 
                 //Check the profile info being requested
@@ -782,7 +783,11 @@ public class PlayerHandler implements Runnable {
                     case "wins":
                         sendToClient(getWins());
                         break;
+                    default:
+                        ServerLogger.log("PlayerHandler: Profile Info Request not recognized.");
+                    break;
                 }
+                break;
             case "view-profile":
                 sendToClient(viewProfile(threadMessage));
                 break;
