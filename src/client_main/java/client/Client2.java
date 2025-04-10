@@ -424,6 +424,22 @@ public class Client2 {
         forwardToServer(messageMap);
     }
 
+    public static void setBio(String bio) {
+        profileData.put("bio", bio);
+    }
+
+    public static void setNickname(String nickname) {
+        profileData.put("nickname", nickname);
+    }
+
+    public static void setUsername(String username) {
+        profileData.put("username", username);
+    }
+
+    public static void setProfilePath(String profilePath) {
+        profileData.put("profile-path", profilePath);
+    }
+
     public static void sendChatMessage(String message) {
         // Send message to server
         Map<String, Object> forward = new HashMap<>();
