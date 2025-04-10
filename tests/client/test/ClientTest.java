@@ -8,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.util.concurrent.TimeoutException;
 
 import launcher.ServerLauncher;
 
@@ -24,7 +25,7 @@ class ClientTest {
     Client client1;
     Client client2;
 
-    int gametype = 3;
+    int gametype = 0;
 
     @BeforeEach
     void setUp() {
@@ -146,6 +147,48 @@ class ClientTest {
 
     @Test
     void getGameOngoing() {
+        //enqueue both clients
+        this.client1.login(serverAddress, serverPort, username1, password1);
+
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+        this.client1.enqueue(gametype);
+
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+        this.client2.login(serverAddress, serverPort, username2, password2);
+
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+
+
+
+        this.client2.enqueue(gametype);
+
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+        try {
+            boolean returns = this.client2.getGameOngoing();
+            System.out.println(returns);
+        } catch (TimeoutException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Test
@@ -158,6 +201,47 @@ class ClientTest {
 
     @Test
     void getCurrentPlayer() {
+        this.client1.login(serverAddress, serverPort, username1, password1);
+
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+        this.client1.enqueue(gametype);
+
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+        this.client2.login(serverAddress, serverPort, username2, password2);
+
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+
+
+
+        this.client2.enqueue(gametype);
+
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+        try{
+            int curr = client1.getCurrentPlayer();
+            System.out.println(curr);
+        } catch (TimeoutException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Test
