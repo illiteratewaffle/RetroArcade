@@ -448,7 +448,7 @@ public class profileGUIController {
         //Open new profile if username exists
         String friend = search_friend.getText();
         Client2.getOtherProfileInfo(friend);
-        Thread.sleep(300);
+
         if (Client2.getOtherUsername() == null){notification.setText("username not found!");
             notification.setVisible(true);
             System.out.println("username not found!");
