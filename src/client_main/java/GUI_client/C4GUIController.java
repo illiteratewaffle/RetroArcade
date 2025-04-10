@@ -4,6 +4,7 @@ import GameLogic_Client.Connect4.*;
 import GameLogic_Client.Connect4.C4Controller;
 import GameLogic_Client.Connect4.C4Piece;
 import GameLogic_Client.Ivec2;
+import client.Client2;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -184,8 +185,7 @@ public class C4GUIController implements Initializable {
      * Updates the GUI board display with based on the current game state
      */
     private void updateBoard() {
-//        C4Piece[][] board = gameLogic.getBoard().getC4Board(); // assuming getBoard() returns C4Board
-        C4Piece[][] board = c4Controller.getC4Board();;
+        C4Piece[][] board = c4Controller.getC4Board();
 
         c4GUIGrid.getChildren().clear();
 
@@ -225,14 +225,15 @@ public class C4GUIController implements Initializable {
      * @param col the index of the column clicked by the user
      */
     private void handleColumnClick(int col) {
-        if (!c4Controller.getC4IsGameOver()) {
+        if (c4Controller.getGameOngoing()) {
             c4Controller.receiveInput(new Ivec2(col, 0));
             updateBoard();
             updateTurnIndicator();
 
-            if (c4Controller.getC4IsGameOver()) {
+            if (!c4Controller.getGameOngoing()) {
                 c4Controller.c4GameLogic.updateGameState();
                 int winner = c4Controller.getWinner();
+//                int winner = Client2.getWinner();
 
                 if (winner == 0) {
                     System.out.println("It's a draw!");
@@ -358,7 +359,7 @@ public class C4GUIController implements Initializable {
      * Disables the hint button once game has been won
      */
     public void showWinImage() {
-        if (c4Controller.getC4IsGameOver()) {
+        if (!c4Controller.getGameOngoing()) {
             resultImage.setImage(new Image("win_image.png"));
             resultImage.setVisible(true);
             hintButton.setDisable(true);
@@ -370,7 +371,7 @@ public class C4GUIController implements Initializable {
      * Disables the hint button once game has tied
      */
     public void showTieImage() {
-        if (c4Controller.getC4IsGameOver()) {
+        if (!c4Controller.getGameOngoing()) {
             resultImage.setImage(new Image("its_a_tie.png"));
             resultImage.setVisible(true);
             hintButton.setDisable(true);
