@@ -8,6 +8,7 @@ import player.PlayerManager;
 import AuthenticationAndProfile.*;
 
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.*;
 
@@ -174,9 +175,26 @@ class ProfileDatabaseAccessTest {
 
     @Test
     void getAllProfiles() {
+        try {
+            Profile profile1 = ProfileCreation.createNewProfile("profile1a", "profile1a@email.com", "password");
+            Profile profile2 = ProfileCreation.createNewProfile("profile2a", "profile2a@email.com", "password2");
+            ArrayList<Profile> allProfiles = ProfileDatabaseAccess.getAllProfiles();
+            assertTrue(allProfiles.contains(profile2));
+            PlayerManager.deleteProfile(profile1.getID());
+            PlayerManager.deleteProfile(profile2.getID());
+        } catch (SQLException | NoSuchAlgorithmException | IOException s) {
+            fail(s.getMessage());
+        }
     }
 
     @Test
     void searchForProfile() {
+        try {
+            String username = PlayerManager.getUsername(id);
+            List<Integer> matchingProfiles = ProfileDatabaseAccess.searchForProfile(username);
+            assertTrue(matchingProfiles.contains(id));
+        } catch (SQLException s) {
+            fail(s.getMessage());
+        }
     }
 }

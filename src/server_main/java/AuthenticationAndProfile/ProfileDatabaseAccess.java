@@ -370,12 +370,132 @@ public class ProfileDatabaseAccess {
      * getAllProfiles() is used to obtain the HashMap of all username keys and all Profile values.
      * @return HashMap<String, Profile>
      */
-    public static ArrayList<ArrayList<String>> getAllProfiles() throws SQLException, IOException {
+    public static ArrayList<Profile> getAllProfiles() throws SQLException, IOException {
         String csvProfileFilePath = "profiles_export.csv"; //csv is generated in the main directory of the project
         try {
             PlayerManager.getProfileTable();//method to get all profiles in database into a csv file
             ArrayList<ArrayList<String>> profileFields = ProfileCSVReader.openProfilesFile(csvProfileFilePath);
-            return profileFields;
+            ArrayList<Profile> allProfiles = new ArrayList<>();
+            for (int i = 0; i < profileFields.size(); i++) {
+                //from Profile ArrayList obtain the values for Profile Class variables
+                int id = Integer.parseInt(profileFields.get(i).get(0));
+                String username = profileFields.get(i).get(ProfileCSVReader.USER_INDEX);
+                String nickname = profileFields.get(i).get(ProfileCSVReader.NICK_INDEX);
+                String email = profileFields.get(i).get(ProfileCSVReader.EMAIL_INDEX);
+                String hashedPassword = profileFields.get(i).get(ProfileCSVReader.PWD_INDEX);
+                String bio = profileFields.get(i).get(ProfileCSVReader.BIO_INDEX);
+                String profilePicFilePath = profileFields.get(i).get(ProfileCSVReader.PIC_INDEX);
+                String currentGame = profileFields.get(i).get(ProfileCSVReader.CGAME_INDEX);
+                boolean isOnline;
+                if (profileFields.get(ProfileCSVReader.ONLINE_INDEX).equals("true")) {
+                    isOnline = true;
+                } else {
+                    isOnline = false;
+                }
+
+                //Call methods to create the FriendsList, GameHistory, and PlayerRanking objects from database attached to profile id
+                FriendsList friendsList;
+                List<Integer> friends = new ArrayList<>();
+                String friendsString = profileFields.get(i).get(ProfileCSVReader.FRIENDS_INDEX);
+                if (!friendsString.equals("")) {
+                    String[] fieldsList = friendsString.split(",");
+                    for (int j = 0; j < fieldsList.length; j++) {
+                        friends.add(Integer.parseInt(fieldsList[j]));
+                    }
+                }
+                List<Integer> friendRequests = new ArrayList<>();
+                String friendRequestString = profileFields.get(i).get(ProfileCSVReader.FREQUEST_INDEX);
+                if (!friendRequestString.equals("")) {
+                    String[] fieldsList = friendRequestString.split(",");
+                    for (int j = 0; j < fieldsList.length; j++) {
+                        friendRequests.add(Integer.parseInt(fieldsList[j]));
+                    }
+                }
+                friendsList = new FriendsList(friends, friendRequests, id);
+
+                GameHistory gameHistoryObject;
+                List<String> gameHistory = new ArrayList<>();
+                String gameHistoryString = profileFields.get(i).get(ProfileCSVReader.GHIST_INDEX);
+                if (!gameHistoryString.equals("")) {
+                    String[] fieldsList = gameHistoryString.split(",");
+                    for (int j = 0; j < fieldsList.length; j++) {
+                        gameHistory.add(fieldsList[j]);
+                    }
+                }
+                HashMap<String, Double> achievementProgress = new HashMap<>();
+                String achievementProgressString = profileFields.get(i).get(ProfileCSVReader.ACHIVPROG_INDEX);
+                if (!achievementProgressString.equals("")) {
+                    String[] achievements = achievementProgressString.split(",");
+                    String section = "";
+                    String key = "";
+                    Double value = 0.00;
+                    int keyComplete = 0;
+                    for (int j = 0; j < achievements.length; j++) {
+                        String entry = achievements[j];
+                        for (int k = 0; k < entry.length(); k++) {
+                            char c = entry.charAt(k);
+                            if (c == '=') {
+                                keyComplete += 1;
+                            } else if (c == '>') {
+                                keyComplete += 1;
+                                key += section;
+                                section = "";
+                            } else if (c == ',') {
+                                value = Double.parseDouble(section);
+                                achievementProgress.put(key, value);
+                                key = "";
+                                section = "";
+                            } else if (!(c == '"' | c == ' ')) {
+                                section += c;
+                            }
+                        }
+                        value = Double.parseDouble(section);
+                        achievementProgress.put(key, value);
+                        section = "";
+                        key = "";
+                    }
+                }
+                gameHistoryObject = new GameHistory(gameHistory, achievementProgress, id);
+
+                PlayerRanking playerRanking;
+                //from Profile ArrayList obtain the values for Profile Class variables
+                double[] winLossRatio = new double[3];
+                int[] rating = new int[3];
+                String[] rank = new String[3];
+                int[] wins = new int[3];
+                int[] losses = new int[3];
+                int[] total = new int[3];
+
+                winLossRatio[0] = Double.parseDouble(profileFields.get(i).get(ProfileCSVReader.WLR_TTT_INDEX));
+                winLossRatio[1] = Double.parseDouble(profileFields.get(i).get(ProfileCSVReader.WLR_CONNECT4_INDEX));
+                winLossRatio[2] = Double.parseDouble(profileFields.get(i).get(ProfileCSVReader.WLR_CHECKERS_INDEX));
+
+                rating[0] = Integer.parseInt(profileFields.get(i).get(ProfileCSVReader.RATING_TTT_INDEX));
+                rating[1] = Integer.parseInt(profileFields.get(i).get(ProfileCSVReader.RATING_CONNECT4_INDEX));
+                rating[2] = Integer.parseInt(profileFields.get(i).get(ProfileCSVReader.RATING_CHECKERS_INDEX));
+
+                rank[0] = profileFields.get(i).get(ProfileCSVReader.RANK_TTT_INDEX);
+                rank[1] = profileFields.get(i).get(ProfileCSVReader.RANK_CONNECT4_INDEX);
+                rank[2] = profileFields.get(i).get(ProfileCSVReader.RANK_CHECKERS_INDEX);
+
+                wins[0] = Integer.parseInt(profileFields.get(i).get(ProfileCSVReader.WINS_TTT_INDEX));
+                wins[1] = Integer.parseInt(profileFields.get(i).get(ProfileCSVReader.WINS_CONNECT4_INDEX));
+                wins[2] = Integer.parseInt(profileFields.get(i).get(ProfileCSVReader.WINS_CHECKERS_INDEX));
+
+                losses[0] = Integer.parseInt(profileFields.get(i).get(ProfileCSVReader.LOSSES_TTT_INDEX));
+                losses[1] = Integer.parseInt(profileFields.get(i).get(ProfileCSVReader.LOSSES_CONNECT4_INDEX));
+                losses[2] = Integer.parseInt(profileFields.get(i).get(ProfileCSVReader.LOSSES_CHECKERS_INDEX));
+
+                total[0] = Integer.parseInt(profileFields.get(i).get(ProfileCSVReader.TOTAL_TTT_INDEX));
+                total[1] = Integer.parseInt(profileFields.get(i).get(ProfileCSVReader.TOTAL_CONNECT4_INDEX));
+                total[2] = Integer.parseInt(profileFields.get(i).get(ProfileCSVReader.TOTAL_CHECKERS_INDEX));
+
+                playerRanking = new PlayerRanking(id, winLossRatio, rating, rank, wins, losses, total);
+
+                Profile profile = new Profile(email, hashedPassword, nickname, bio, isOnline, currentGame, friendsList, playerRanking, gameHistoryObject, profilePicFilePath, username, id);
+                allProfiles.add(profile);
+            }
+            return allProfiles;
         } catch (SQLException s) {
             throw new SQLException(s.getMessage());
         } catch (IOException e) {
