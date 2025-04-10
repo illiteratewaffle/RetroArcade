@@ -20,7 +20,7 @@ public class ServerController {
 
         Thread.startVirtualThread(connectionManager);
         Thread.startVirtualThread(gameCreator);
-        ServerLogger.log("Started connection manager and game creator.");
+        ServerLogger.log("ServerController: Started ConnectionManager and GameCreator.");
     }
 
     public static void enqueuePlayer(PlayerHandler player, int gameType) {

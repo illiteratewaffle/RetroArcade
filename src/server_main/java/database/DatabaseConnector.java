@@ -5,7 +5,9 @@ import java.sql.*;
 import java.io.IOException;
 import java.util.Properties;
 
-public class databaseConnector {
+import static management.ServerLogger.log;
+
+public class DatabaseConnector {
     private static String URL = "";
     private static String USER = "";
     private static String PASSWORD = "";
@@ -16,7 +18,7 @@ public class databaseConnector {
      * @param filename
      */
     public static void loadConfiguration(String filename) {
-        try (InputStream input = databaseConnector.class.getClassLoader().getResourceAsStream(filename)) {
+        try (InputStream input = DatabaseConnector.class.getClassLoader().getResourceAsStream(filename)) {
             if (input == null) {
                 throw new FileNotFoundException("Database configuration file not found in classpath: " + filename);
             }
@@ -27,7 +29,7 @@ public class databaseConnector {
             PASSWORD = properties.getProperty("db.password");
         } catch (IOException e) {
             // TODO: could be logged?
-            System.err.println("Error loading database configuration: " + e.getMessage());
+            log("DatabaseConnector: Error loading database configuration: " + e.getMessage());
         }
     }
 
@@ -41,10 +43,10 @@ public class databaseConnector {
                 loadConfiguration("db-config-test.properties");
                 connection = DriverManager.getConnection(URL, USER, PASSWORD);
                 // TODO: log?
-                System.out.println("Connected to the database.");
+                log("DatabaseConnector: Connected to the database.");
             } catch (SQLException e) {
                 // TODO: log?
-                System.err.println("Database connection failed: " + e.getMessage());
+                log("DatabaseConnector: Database connection failed: " + e.getMessage());
             }
         }
         return connection;
