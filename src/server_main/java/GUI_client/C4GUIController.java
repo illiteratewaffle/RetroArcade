@@ -192,9 +192,9 @@ public class C4GUIController implements Initializable {
 
         for (int row = 0; row < board.length; row++) {
             for (int col = 0; col < board[0].length; col++) {
-                C4Piece piece = board[row][col];
-                if (piece != C4Piece.BLANK.getValue()) {
-                    String imgPath = piece == C4Piece.RED.getValue()
+                int pieceID = board[row][col];
+                if (pieceID != C4Piece.BLANK.ordinal()) {
+                    String imgPath = pieceID == C4Piece.RED.ordinal()
                             ? "/connect_4_assets/c4_pink_piece.png"
                             : "/connect_4_assets/c4_blue_piece.png";
                     addPieceToGrid(row, col, imgPath);
@@ -289,8 +289,8 @@ public class C4GUIController implements Initializable {
     private void highlightColumnOnHover(int col, boolean isHovering) {
         if (isHovering) {
             // Get current player and assign appropriate color (for pink or blue's turn)
-            C4Piece currentPlayer = c4Controller.getC4CurrentPlayer();
-            Color hoverColor = currentPlayer == C4Piece.RED ? Color.HOTPINK : Color.LIGHTBLUE;
+            int currentPlayer = c4Controller.getCurrentPlayer();
+            Color hoverColor = currentPlayer == C4Piece.RED.ordinal() ? Color.HOTPINK : Color.LIGHTBLUE;
 
             for (int row = 0; row < 6; row++) {
                 Rectangle highlight = new Rectangle(38, 36);
@@ -315,7 +315,7 @@ public class C4GUIController implements Initializable {
      */
     private void updateTurnIndicator() {
         turnIndicatorImage.setImage(new Image(
-                c4Controller.getC4CurrentPlayer() == C4Piece.RED
+                c4Controller.getCurrentPlayer() == C4Piece.RED.ordinal()
                         ? "/pink_turn.png"
                         : "/blue_turn.png"
         ));
@@ -397,15 +397,21 @@ public class C4GUIController implements Initializable {
      */
     @FXML
     private void clickHintButton() {
-        HintResult hint = c4Controller.getC4ColHint();
+        int[][] hintBoard = c4Controller.getBoardCells(0b10).getFirst();
+        int hintCol = 0;
+        for (; hintCol < hintBoard[0].length; hintCol++)
+        {
+            if (hintBoard[0][hintCol] != 0) break;
+        }
+
         hint_ok_button.setMouseTransparent(false);
         hintMessageImage.setVisible(false);
         noHintMessageImage.setVisible(false);
-        if (hint.col != -1) {
-            highlightHintColumn(hint.col);
-            if ("WIN".equals(hint.type)){
+        if (hintCol < hintBoard[0].length) {
+            highlightHintColumn(hintCol);
+            if (hintBoard[0][hintCol] == 2){
                 hintMessageImage.setImage(new Image("C4hint_win_image.png"));
-            }else if ("BLOCK".equals(hint.type)){
+            }else if (hintBoard[0][hintCol] == 1){
                 hintMessageImage.setImage(new Image("C4hint_block_image.png"));
             }
             hintMessageImage.setVisible(true);

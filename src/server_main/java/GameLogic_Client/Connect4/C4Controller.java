@@ -53,14 +53,6 @@ public class C4Controller implements IBoardGameController {
         }
     }
 
-    /**
-     * Gets the board for connect-4
-     * @return Connect-4 board by calling function in C4GameLogic class.
-     */
-    @Override
-    public C4Piece[][] getC4Board() {
-        return c4GameLogic.getC4Board().getC4Board();
-    }
 
     /**
      * Calls C4GameLogic class function to check whether the function
@@ -189,16 +181,16 @@ public class C4Controller implements IBoardGameController {
         return 0;
     }
 
-    public C4Piece getC4WinnerAsEnum() {
+    private C4Piece getC4WinnerAsEnum() {
         return c4GameLogic.getC4Winner();
     }
 
-    public C4Piece getC4CurrentPlayer() {return c4GameLogic.getC4CurrentPlayer();}
+    private C4Piece getC4CurrentPlayer() {return c4GameLogic.getC4CurrentPlayer();}
 
     /**
      * Prints current state of board (at any point).
      */
-    public void printBoard() {
+    private void printBoard() {
         System.out.println(c4GameLogic);
     }
 
@@ -207,7 +199,7 @@ public class C4Controller implements IBoardGameController {
      * Function to give users hints if needed during the game based on which column is an ideal pick.
      * @return hint to user
      */
-    public HintResult getC4ColHint() {
+    private HintResult getC4ColHint() {
         if (c4GameLogic == null) {
             System.out.println("Game not started. No hint available.");
             return new HintResult(-1, "NONE");
@@ -215,21 +207,21 @@ public class C4Controller implements IBoardGameController {
         return c4GameLogic.getC4HintColumn();
     }
 
-    public boolean isTileEmpty(Ivec2 tile) {
+    private boolean isTileEmpty(Ivec2 tile) {
         return false;
     }
 
-    public boolean makeMove(int row, int col) {
+    private boolean makeMove(int row, int col) {
         return false;
     }
 
-    public boolean checkWin() {
+    private boolean checkWin() {
         return false;
     }
 
-    public boolean checkDraw() {
+    private boolean checkDraw() {
         return false;
     }
 
-    public void updateGameState() {}
+    private void updateGameState() {}
 }

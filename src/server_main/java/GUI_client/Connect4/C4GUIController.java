@@ -29,61 +29,60 @@ public class C4GUIController implements Initializable {
     // You can wire this method to buttons later
     @FXML
     private void onColClick(int col) {
-        gameLogic.ReceiveInput(new ivec2(3, 0));
-        // for example, drop in column 3if (gameLogic.ReceiveInput(new ivec2(0,0))) {
+        gameLogic.receiveInput(new Ivec2(3, 0));
+        // for example, drop in column 3if (gameLogic.receiveInput(new Ivec2(0,0))) {
         updateBoardUI();
     }
 
     @FXML
     private void onCol0Click() {
-        gameLogic.ReceiveInput(new ivec2(0, 0));
+        gameLogic.receiveInput(new Ivec2(0, 0));
     }
 
     @FXML
     private void onCol1Click() {
-        gameLogic.ReceiveInput(new ivec2(1, 0));
+        gameLogic.receiveInput(new Ivec2(1, 0));
     }
 
     @FXML
     private void onCol2Click() {
-        gameLogic.ReceiveInput(new ivec2(2, 0));
+        gameLogic.receiveInput(new Ivec2(2, 0));
     }
 
     @FXML
     private void onCol3Click() {
-        gameLogic.ReceiveInput(new ivec2(3, 0));
+        gameLogic.receiveInput(new Ivec2(3, 0));
     }
 
     @FXML
     private void onCol4Click() {
-        gameLogic.ReceiveInput(new ivec2(4, 0));
+        gameLogic.receiveInput(new Ivec2(4, 0));
     }
 
     @FXML
     private void onCol5Click() {
-        gameLogic.ReceiveInput(new ivec2(5, 0));
+        gameLogic.receiveInput(new Ivec2(5, 0));
     }
 
     @FXML
     private void onCol6Click() {
-        gameLogic.ReceiveInput(new ivec2(6, 0));
+        gameLogic.receiveInput(new Ivec2(6, 0));
     }
 
     private void updateBoardUI() {
-        C4Piece[][] board = gameLogic.getC4Board();
+        int[][] board = gameLogic.getBoardCells(0b01).getFirst();
         for(int row = 0; row < 6; row++){
             for (int col = 0; col<7; col ++){
-                C4Piece piece = board[row][col];
-                Color pieceColor = getColorForPiece(piece);
+                Color pieceColor = getColorForPiece(board[row][col]);
                // boardCircles[row][col].setFill(pieceColor);
             }
         }
 
     }
-    private Color getColorForPiece(C4Piece piece){
-        if (piece == C4Piece.RED) {
+    private Color getColorForPiece(int pieceID){
+        if (pieceID == C4Piece.RED.getValue()) {
             return Color.RED;
-        } else if (piece == C4Piece.BLUE) {
+        } else if (pieceID == C4Piece.BLUE.getValue()) {
             return Color.BLUE;
         } else {
             return Color.TRANSPARENT;

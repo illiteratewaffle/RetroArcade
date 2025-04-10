@@ -1,5 +1,4 @@
 package GameLogic_Client.Connect4;
-import GameLogic_Client.Ivec2;
 
 public class C4Main {
 

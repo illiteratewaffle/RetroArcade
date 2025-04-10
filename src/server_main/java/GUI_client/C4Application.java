@@ -1,7 +1,6 @@
 package GUI_client;
 
 import GameLogic_Client.Connect4.C4Controller;
-import GUI_client.C4Application;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
