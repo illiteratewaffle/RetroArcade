@@ -19,6 +19,7 @@ import static management.JsonConverter.fromJson;
 import static management.JsonConverter.toJson;
 
 public class Client {
+    private static Socket clientSocket;
     private static BufferedReader input;
     private static PrintWriter output;
     private static final ConcurrentLinkedQueue<Map<String, Object>> messages = new ConcurrentLinkedQueue<>();
@@ -36,6 +37,7 @@ public class Client {
         // Make a Thread for input to server
         try {
             Socket socket = new Socket(serverAddress, serverPort);
+            clientSocket = socket;
             // Create input and output streams for communication
             input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             output = new PrintWriter(socket.getOutputStream(), true);
@@ -51,7 +53,9 @@ public class Client {
     // Make a shit ton of static functions, have a login
     public static boolean register(String serverAddress, int serverPort, String username, String password, String email) {
         // Make a Thread for input to server
-        try (Socket socket = new Socket(serverAddress, serverPort)) {
+        try {
+            Socket socket = new Socket(serverAddress, serverPort);
+            clientSocket = socket;
             // Create input and output streams for communication
             input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             output = new PrintWriter(socket.getOutputStream(), true);
@@ -76,9 +80,9 @@ public class Client {
         Map<String, Object> authData = new HashMap<>();
         if (email == null) {
             authData.put("type", "login");
-            authData.put("email", email);
         } else {
             authData.put("type", "register");
+            authData.put("email", email);
         }
         authData.put("username", username);
         authData.put("password", password);

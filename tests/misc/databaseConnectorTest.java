@@ -1,7 +1,7 @@
 package misc;
 
 import org.junit.jupiter.api.*;
-import database.databaseConnector;
+import database.DatabaseConnector;
 
 import java.sql.Connection;
 
@@ -12,17 +12,17 @@ import static org.junit.jupiter.api.Assertions.*;
 class DatabaseConnectorTest {
     @BeforeAll
     public static void setup() {
-        databaseConnector.loadConfiguration("db-config-test.properties"); // Load test DB
+        DatabaseConnector.loadConfiguration("db-config-test.properties"); // Load test DB
     }
 
     @Test
     public void testDatabaseConnection() {
-        Connection conn = databaseConnector.connect();
+        Connection conn = DatabaseConnector.connect();
         assertNotNull(conn, "Database should be connected!");
     }
 
     @AfterAll
     public static void tearDown() {
-        databaseConnector.disconnect();
+        DatabaseConnector.disconnect();
     }
 }

@@ -1,7 +1,6 @@
 package player;
 
-import database.databaseConnector;
-import org.postgresql.util.HStoreConverter;
+import database.DatabaseConnector;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -12,7 +11,7 @@ import java.util.List;
 import static management.ServerLogger.log;
 
 public class PlayerManager {
-    private static final Connection conn = databaseConnector.connect();
+    private static final Connection conn = DatabaseConnector.connect();
 
     /**
      * Registers a new player with the provided username, email, and hashed password.
