@@ -73,10 +73,10 @@ public class PlayerHandler implements Runnable {
     private synchronized void sendFriendRequest(ThreadMessage message) {
 
         //Check if the message contains the id of the recipient.
-        if (message.getContent().containsKey("id")) {
+        if (message.getContent().containsKey("ID")) {
 
             //If it does, then send the friend request to user associated with the id.
-            int recipientID = (int) message.getContent().get("id");
+            int recipientID = (int) message.getContent().get("ID");
             try {
                 this.getProfile().getFriendsList().sendFriendRequest(recipientID);
                 ServerLogger.log("PlayerHandler: " + this.getProfile().getUsername() + " sent friend request to " + recipientID);
@@ -96,10 +96,10 @@ public class PlayerHandler implements Runnable {
     private synchronized void acceptFriendRequest(ThreadMessage message) {
 
         //Check to make sure that the message contains the player id of the sender.
-        if (message.getContent().containsKey("id")) {
+        if (message.getContent().containsKey("ID")) {
 
             //If it does, then get the id of the sender and accept the friend request.
-            int senderID = (int) message.getContent().get("id");
+            int senderID = (int) message.getContent().get("ID");
             try {
                 this.getProfile().getFriendsList().acceptFriendRequest(senderID);
                 ServerLogger.log("PlayerHandler: " + this.getProfile().getUsername() + " accepted friend request from " + senderID);
@@ -118,8 +118,8 @@ public class PlayerHandler implements Runnable {
     private synchronized void sendGameRequest(ThreadMessage queueMessage) {
 
         //Check to see if the message even contains the recipient id we need.
-        if (queueMessage.getContent().containsKey("id")) {
-            Integer recipientID = (Integer) queueMessage.getContent().get("id");
+        if (queueMessage.getContent().containsKey("ID")) {
+            Integer recipientID = (Integer) queueMessage.getContent().get("ID");
 
             //First, obtain the player handler of the recipient using their id.
             Thread recipientThread = ThreadRegistry.getHandler(recipientID).getThread();
@@ -158,10 +158,10 @@ public class PlayerHandler implements Runnable {
      */
     private synchronized void acceptGameRequest(ThreadMessage requestMessage) {
 
-        if (requestMessage.getContent().containsKey("id")) {
+        if (requestMessage.getContent().containsKey("ID")) {
 
             //Get the id, and by extension the player handler of the user sending the game request.
-            Integer senderID = (Integer) requestMessage.getContent().get("id");
+            Integer senderID = (Integer) requestMessage.getContent().get("ID");
             PlayerHandler sender = ThreadRegistry.getHandler(senderID);
 
             //Make sure that the request message contains the game type to be played.
@@ -751,17 +751,19 @@ public class PlayerHandler implements Runnable {
             case "game":
             case "chat":
                 // Wait for there to be a GameSessionManager
-                try {
-                    synchronized (gameSessionLock) {
-                        // TODO: THIS STILL WONT WORK
-                        while (gameSessionManagerThread == null && running) {
-                            gameSessionLock.wait(500);
-                        }
-                    }
-                } catch (InterruptedException e) {
-                    log("FUCK");
+                if (gameSessionManagerThread != null) {
+                    networkManager.sendMessage(gameSessionManagerThread, threadMessage);
                 }
-                networkManager.sendMessage(gameSessionManagerThread, threadMessage);
+//                try {
+//                    synchronized (gameSessionLock) {
+//                        // TODO: THIS STILL WONT WORK
+//                        while (gameSessionManagerThread == null && running) {
+//                            gameSessionLock.wait(500);
+//                        }
+//                    }
+//                } catch (InterruptedException e) {
+//                    log("FUCK");
+//                }
                 break;
 
             case "profile-info-request":
@@ -804,7 +806,7 @@ public class PlayerHandler implements Runnable {
                         break;
                     default:
                         ServerLogger.log("PlayerHandler: Profile Info Request not recognized.");
-                    break;
+                        break;
                 }
                 break;
             case "view-profile":
