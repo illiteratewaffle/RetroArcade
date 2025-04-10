@@ -301,12 +301,12 @@
             <Font name="Silom" size="16.0" />
          </font>
       </TextField>
-      <Label fx:id="notification" layoutX="446.0" layoutY="578.0" prefHeight="44.0" prefWidth="407.0" style="-fx-background-color: #8A006C;" text="friend added!" textFill="PINK" wrapText="true">
+      <Label fx:id="notification" layoutX="446.0" layoutY="578.0" opacity="0.0" prefHeight="44.0" prefWidth="407.0" style="-fx-background-color: #8A006C;" text="friend added!" textFill="PINK" wrapText="true">
          <font>
             <Font name="Silom" size="17.0" />
          </font>
       </Label>
-      <Circle fill="#44ff1f" layoutX="207.0" layoutY="178.0" radius="17.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fx:id="game_status" fill="#44ff1f" layoutX="207.0" layoutY="178.0" radius="17.0" stroke="BLACK" strokeType="INSIDE" />
       <ImageView fx:id="friends" fitHeight="56.0" fitWidth="247.0" layoutX="598.0" layoutY="569.0" opacity="0.0">
          <image>
             <Image url="@../profile_assets/profile_buttons/friends_black.png" />

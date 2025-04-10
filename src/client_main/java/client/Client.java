@@ -224,7 +224,7 @@ public class Client {
 
     public static void login(String Username, String Password) {
         try {
-            connect("10.12.145.124", 5050, null);
+            connect("10.13.108.151", 5050, null);
             HashMap<String, Object> authData = new HashMap<>();
             authData.put("type", "login");
             authData.put("username", Username);
@@ -239,7 +239,7 @@ public class Client {
 
     public static void register(String Username, String Password, String Email) {
         try {
-            connect("10.9.125.187", 5050, null);
+            connect("10.13.108.151", 5050, null);
             HashMap<String, Object> authData = new HashMap<>();
             authData.put("type", "register");
             authData.put("username", Username);

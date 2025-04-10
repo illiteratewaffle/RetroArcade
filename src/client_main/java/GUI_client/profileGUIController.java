@@ -255,6 +255,7 @@ public class profileGUIController {
     }
 
 
+    //If a friend request is clicked into this will happen so they can
     public void click_friend_request(MouseEvent mouseEvent) {
         add_friend.setOpacity(1.0);
         add_friend.setDisable(false);
@@ -381,8 +382,9 @@ public class profileGUIController {
         //Open new profile if username exists
         String friend = search_friend.getText();
         Client.getOtherProfileInfo(friend);
-        Thread.sleep(300);
+       // Thread.sleep(300);
         if (Client.getOtherUsername() == null){notification.setText("username not found!");
+            notification.setVisible(true);
             System.out.println("username not found!");
             PauseTransition pause = new PauseTransition(Duration.seconds(10));
             pause.setOnFinished(e -> notification.setVisible(false)); // hide after delay
@@ -390,9 +392,11 @@ public class profileGUIController {
             else{
             try {
                 System.out.println("loading profile");
-                Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("otherPlayerProfile.fxml")));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("otherPlayerProfile.fxml"));
+                Parent root = loader.load(); // Load FXML
+                otherPlayerProfileGUIController controller = loader.getController(); // Get controller instance
+                controller.setFriend(friend);
                 Stage stage = (Stage) confirm_search.getScene().getWindow();
-                otherPlayerProfileGUIController.setFriend(friend);
                 stage.setScene(new Scene(root));
                 stage.show();
             } catch (IOException e) {
