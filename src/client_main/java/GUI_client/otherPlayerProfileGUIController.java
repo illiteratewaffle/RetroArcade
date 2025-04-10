@@ -238,4 +238,14 @@ public class otherPlayerProfileGUIController {
         history_list.setItems(history);
     }
 
+    public void onlineStatus() {
+        boolean status = Client2.getOtherOnlineStatus(); //need this method made.
+        if status {
+            game_status.setOpacity(1.0);
+        }
+        else{
+            game_status.setOpacity(0.0);
+        }
+    }
+
 }
