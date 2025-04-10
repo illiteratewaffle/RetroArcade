@@ -29,6 +29,7 @@ public class LoginGUIController implements Initializable {
 
     private Stage quitPopup = new Stage();
     public static boolean loginSuccess = true;
+    private static final String IP = "10.13.156.102";
 
     //buttons on login screen
     @FXML
@@ -135,7 +136,7 @@ public class LoginGUIController implements Initializable {
         if (username.equals("admin") & password.equals("admin")){
 
         } else {
-             loginSuccess =  Client2.login("10.13.156.102", 5050, username, password);
+             loginSuccess =  Client2.login(IP, 5050, username, password);
         }
 
         if(username.isEmpty() || password.isEmpty()) {
@@ -207,7 +208,7 @@ public class LoginGUIController implements Initializable {
         String password = signupPassword.getText();
         String email = signupEmail.getText();
 
-        loginSuccess = Client2.register("10.9.150.72", 5050, username, password, email);
+        loginSuccess = Client2.register(IP, 5050, username, password, email);
         Thread.sleep(100);
 
         signUpPage.setVisible(false);
