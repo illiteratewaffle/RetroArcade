@@ -1,4 +1,4 @@
-package client_main.java.leaderboardTests;;
+package client_main.java.leaderboardTests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
