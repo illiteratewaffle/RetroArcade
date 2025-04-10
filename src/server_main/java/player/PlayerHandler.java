@@ -556,6 +556,9 @@ public class PlayerHandler implements Runnable {
      * Also updates the player's online status and logs the disconnection.
      */
     private void disconnectPlayer() {
+        // Set running to false
+        running = false;
+
         //Unregister the player from the thread registry and the player list.
         ThreadRegistry.unregister(PlayerHandler.this);
 
@@ -748,10 +751,16 @@ public class PlayerHandler implements Runnable {
             case "game":
             case "chat":
                 // Wait for there to be a GameSessionManager
-//                synchronized (gameSessionLock) {
-//                    if (gameSessionManagerThread == null)
-//                        gameSessionLock.wait();
-//                }
+                try {
+                    synchronized (gameSessionLock) {
+                        // TODO: THIS STILL WONT WORK
+                        while (gameSessionManagerThread == null && running) {
+                            gameSessionLock.wait(500);
+                        }
+                    }
+                } catch (InterruptedException e) {
+                    log("FUCK");
+                }
                 networkManager.sendMessage(gameSessionManagerThread, threadMessage);
                 break;
 
