@@ -415,6 +415,15 @@ public class Client2 {
 
     }
 
+    public static void declineRequest(String username) {
+
+        //Create the map for the thread message
+        Map<String, Object> messageMap = new HashMap<>();
+        messageMap.put("type", "decline-friend-request");
+        messageMap.put("username", username);
+        forwardToServer(messageMap);
+    }
+
     public static void sendChatMessage(String message) {
         // Send message to server
         Map<String, Object> forward = new HashMap<>();
