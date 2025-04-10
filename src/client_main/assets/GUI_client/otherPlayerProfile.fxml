@@ -25,6 +25,7 @@
                 <Image url="@../GUI_avatars/Invader_purple.PNG" />
             </image>
         </ImageView>
+      <Circle fill="#44ff1f" layoutX="205.0" layoutY="177.0" radius="17.0" stroke="BLACK" strokeType="INSIDE" />
         <ImageView fitHeight="194.0" fitWidth="595.0" layoutX="220.0" layoutY="-6.0">
             <image>
                 <Image url="@../profile_assets/chat_bubble.PNG" />
@@ -35,7 +36,7 @@
                 <Image url="@../GUI_buttons/home_button.png" />
             </image>
         </ImageView>
-        <ImageView accessibleRole="BUTTON" fitHeight="89.0" fitWidth="90.0" layoutX="808.0" layoutY="2.0" onMouseClicked="#close_window" fx:id="x_button">
+        <ImageView accessibleRole="BUTTON" fitHeight="80.0" fitWidth="80.0" layoutX="808.0" layoutY="2.0" onMouseClicked="#close_window" fx:id="x_button">
             <image>
                 <Image url="@../GUI_buttons/x_button.png" />
             </image>
@@ -182,6 +183,11 @@
                 <Font name="Silom" size="16.0" />
             </font>
         </TextArea>
+      <ImageView fx:id="muteButton" fitHeight="80.0" fitWidth="80.0" layoutX="808.0" layoutY="84.0">
+         <image>
+            <Image url="@../unmuteButton.png" />
+         </image>
+      </ImageView>
         <ImageView fx:id="friends_button" accessibleRole="BUTTON" fitHeight="84.0" fitWidth="158.0" layoutX="259.0" layoutY="174.0" onMouseClicked="#open_friends" pickOnBounds="true">
             <image>
                 <Image url="@../profile_assets/profile_buttons/friends_button.png" />

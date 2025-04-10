@@ -1,6 +1,8 @@
 package GUI_client;
 import AuthenticationAndProfile.Authentication;
 
+import AuthenticationAndProfile.ProfileDatabaseAccess;
+import client.Client;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -9,13 +11,20 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import leaderboard.PlayerRanking;
 import AuthenticationAndProfile.Profile;
 
+import javax.swing.*;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.Objects;
 
 public class otherPlayerProfileGUIController {
+    @FXML
+    public ImageView muteButton;
     @FXML
     public ImageView inbox_button;
     @FXML
@@ -57,13 +66,20 @@ public class otherPlayerProfileGUIController {
     @FXML
     public Label TTT_rank_label;
     //C4 labels for stats
-    @FXML public Label c4_wlr_label;
-    @FXML public Label c4_win_label;
-    @FXML public Label c4_rating_label;
-    @FXML public Label c4_rank_label;
-    @FXML public Label bio_label;
-    @FXML public Label name_label;
-    @FXML private ScrollPane avatar_pane;
+    @FXML
+    public Label c4_wlr_label;
+    @FXML
+    public Label c4_win_label;
+    @FXML
+    public Label c4_rating_label;
+    @FXML
+    public Label c4_rank_label;
+    @FXML
+    public Label bio_label;
+    @FXML
+    public Label name_label;
+    @FXML
+    private ScrollPane avatar_pane;
     private Object GUI_avatars;
     @FXML
     public TextField nickname_label;
@@ -73,64 +89,73 @@ public class otherPlayerProfileGUIController {
     private String avatarPath;
     private String nickname;
     private String bio;
-
-
-    public void initialize(Profile loadedProfile) {
-        this.profile = loadedProfile;
-
-        avatarPath = profile.getProfilePicFilePath();
-        nickname = profile.getNickname();
-        bio = profile.getNickname();
-        bio_text_area.setEditable(false);
-
-        avatar.setImage(new Image(avatarPath));
-        nickname_label.setText(nickname);
-        bio_text_area.setText(bio);
+    private String username;
+    String passFriend;
+    public static String setFriend(String friend) {
+        return friend;
     }
 
-    //maybe we can send the information to the server once the home button is clicked?
-    public void go_home(MouseEvent mouseEvent) {
+    @FXML
+    public void initialize() {
+        String friend = setFriend(passFriend);
+        Client.getOtherProfileInfo(passFriend);
+        if (Client.getOtherProfilePath() == null) {
+            avatarPath = "/GUI_avatars/Invader_green.PNG";
+            URL url = getClass().getResource(avatarPath);
+            Image image = new Image(url.toExternalForm(), false);
+            avatar.setImage(image);
+            System.out.println(avatarPath);
+        } else {
+            avatarPath = Client.getProfilePath();
+        }
+        System.out.println(avatarPath);
+        if (Client.getUsername() == null)
+            username = "";
+        else {
+            username = Client.getUsername();
+        }
+
+        if (Client.getNickname() == null)
+            nickname = "Set your nickname!";
+        else {
+            nickname = Client.getNickname();
+        }
+        if (Client.getBio() == null)
+            bio = "Set your Bio";
+        else {
+            bio = Client.getBio();
+        }
+        getStats();
+
+        // setup soundtrack and mute status
+        String path = Objects.requireNonNull(getClass().getResource("/music/profileTrack.mp3")).toExternalForm(); // or absolute path
+        Media sound = new Media(path);
+        AudioManager.mediaPlayer = new MediaPlayer(sound);
+        AudioManager.mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+        AudioManager.mediaPlayer.play();
+        if (AudioManager.isMuted()) {
+            AudioManager.applyMute();
+            muteButton.setImage(new Image("muteButton.png"));
+        } else {
+            muteButton.setImage(new Image("unmuteButton.png"));
+        }
     }
 
-    //not sure if we should handle the case that someone is in edit mode.
-    //Depending on what we decide we may want to warn them that the changes will not be saved.
-    public void close_window(MouseEvent mouseEvent) {
+    public void muteButtonClicked(){
+        if(!AudioManager.isMuted()) {
+            muteButton.setImage(new Image("muteButton.png"));
+            AudioManager.toggleMute();
+        } else {
+            muteButton.setImage(new Image("unmuteButton.png"));
+            AudioManager.toggleMute();
+        }
     }
-    //**Other profile would need this
-    public void open_friends(MouseEvent mouseEvent) {
-        //Making sure that all other lists/table is invisible so that you cannot see the other windows, only the one clicked into.
-        inbox_contents.setOpacity(0.0);
-        history_list.setOpacity(0.0);
-        friends_list.setOpacity(1.0);
-        stats_pane.setOpacity(0.0);
-
-        // Using an obervable list so that it can be updated as more information is added.
-        //Getting the data needed to populate the friends list.
-        ObservableList<Integer> friends = FXCollections.observableArrayList(
-                profile.getFriendsList().getFriends());
-        // Adding the content to the listview
-        friends_list.setItems(friends);
-
-    }
-    //**Other profile needs this
-    public void open_history(MouseEvent mouseEvent) {
-        //Making sure that all other lists/table is invisible so that you cannot see the other windows, only the one clicked into.
-        history_list.setOpacity(1.0);
-        inbox_contents.setOpacity(0.0);
-        friends_list.setOpacity(0.0);
-        stats_pane.setOpacity(0.0);
-
-        //Using an obervable list so that it can be updated as more information is added.
-        //Getting the data needed to populate the game history list.
-        ObservableList<String> history = FXCollections.observableArrayList(
-                profile.getGameHistory().getGameHistory());
-
-        //Adding the histroy content to the listview
-        history_list.setItems(history);
-    }
-
-    //**Other profile needs this
+    //the stats button is pressed.
     public void open_stats(MouseEvent mouseEvent) {
+        getStats();
+    }
+
+        public void getStats(){
         //Making sure that all other lists/table is invisible so that you cannot see the other windows, only the one clicked into.
         history_list.setOpacity(0.0);
         inbox_contents.setOpacity(0.0);
@@ -143,47 +168,74 @@ public class otherPlayerProfileGUIController {
 
         System.out.println(i + j + k);
 
-        try {
-            //c4 stat labels -> getting the information needed to fill in the stats page
-            String c4Rank = profile.getPlayerRanking().getRank(k);
-            Double c4Wlr = Double.valueOf(profile.getPlayerRanking().getRating(k));
-            int c4Rating = profile.getPlayerRanking().getRating(k);
-            int c4Wins = profile.getPlayerRanking().getWins(k);
+        //c4 stat labels -> getting the information needed to fill in the stats page
+        String c4Rank = Client.getOtherRank(k);
+        Double c4Wlr = Double.valueOf(Client.getOtherWinLossRatio(k));
+        int c4Rating = Client.getOtherRating(k);
+        int c4Wins = Client.getOtherWins(k);
 
-            System.out.println(c4Rank + c4Wlr + c4Rating + c4Wins);
+        System.out.println(c4Rank + c4Wlr + c4Rating + c4Wins);
 
-            //Setting the c4 label to the numbers that retrieved above
+        //Setting the c4 label to the numbers that retrieved above
+        c4_rank_label.setText(String.valueOf(c4Rank));
+        c4_wlr_label.setText(String.valueOf(c4Wlr));
+        c4_rating_label.setText(String.valueOf(c4Rating));
+        c4_win_label.setText(String.valueOf(c4Wins));
 
-            c4_rank_label.setText(String.valueOf(c4Rank));
-            c4_wlr_label.setText(String.valueOf(c4Wlr));
-            c4_rating_label.setText(String.valueOf(c4Rating));
-            c4_win_label.setText(String.valueOf(c4Wins));
+        //check stat labels -> getting the information needed to fill in the stats page
+        String checkRank = Client.getOtherRank(j);
+        Double checkWlr = Double.valueOf(Client.getOtherWinLossRatio(j));
+        int checkRating = Client.getOtherRating(j);
+        int checkWins = Client.getOtherWins(j);
 
-            //check stat labels -> getting the information needed to fill in the stats page
-            String checkRank = profile.getPlayerRanking().getRank(j);
-            Double checkWlr = Double.valueOf(profile.getPlayerRanking().getRating(j));
-            int checkRating = profile.getPlayerRanking().getRating(j);
-            int checkWins = profile.getPlayerRanking().getWins(j);
+        //setting checkers labels to the numbers that retrieved above
+        check_rank_label.setText(String.valueOf(checkRank));
+        check_wlr_label.setText(String.valueOf(checkWlr));
+        check_rating_label.setText(String.valueOf(checkRating));
+        check_win_label.setText(String.valueOf(checkWins));
 
-            //setting checkers labels to the numbers that retrieved above
-            check_rank_label.setText(String.valueOf(checkRank));
-            check_wlr_label.setText(String.valueOf(checkWlr));
-            check_rating_label.setText(String.valueOf(checkRating));
-            check_win_label.setText(String.valueOf(checkWins));
+        //TTT stat labels -> getting the information needed to fill in the stats page
+        String TTTRank = Client.getOtherRank(i);
+        Double TTTWlr = Double.valueOf(Client.getOtherWinLossRatio(i));
+        int TTTRating = Client.getOtherRating(i);
+        int TTTWins = Client.getOtherWins(i);
 
-            //TTT stat labels -> getting the information needed to fill in the stats page
-            String TTTRank = profile.getPlayerRanking().getRank(i);
-            Double TTTWlr = Double.valueOf(profile.getPlayerRanking().getRating(i));
-            int TTTRating = profile.getPlayerRanking().getRating(i);
-            int TTTWins = profile.getPlayerRanking().getWins(i);
-
-            //setting checkers labels to the numbers that retrieved above
-            TTT_rank_label.setText(String.valueOf(TTTRank));
-            TTT_wlr_label.setText(String.valueOf(TTTWlr));
-            TTT_rating_label.setText(String.valueOf(TTTRating));
-            TTT_win_label.setText(String.valueOf(TTTWins));
-        } catch (SQLException s) {
-            System.out.println(s.getMessage());
-        }
+        //setting checkers labels to the numbers that retrieved above
+        TTT_rank_label.setText(String.valueOf(TTTRank));
+        TTT_wlr_label.setText(String.valueOf(TTTWlr));
+        TTT_rating_label.setText(String.valueOf(TTTRating));
+        TTT_win_label.setText(String.valueOf(TTTWins));
     }
+    public void open_friends(MouseEvent mouseEvent) {
+        //Making sure that all other lists/table is invisible so that you cannot see the other windows, only the one clicked into.
+        inbox_contents.setOpacity(0.0);
+        history_list.setOpacity(0.0);
+        friends_list.setOpacity(1.0);
+        stats_pane.setOpacity(0.0);
+
+        // Using an obervable list so that it can be updated as more information is added.
+        //Getting the data needed to populate the friends list.
+        ObservableList<String> friends = FXCollections.observableArrayList(
+                Client.getOtherFriends());
+        // Adding the content to the listview
+        friends_list.setItems(friends);
+    }
+
+    public void open_history(MouseEvent mouseEvent) {
+        //Making sure that all other lists/table is invisible so that you cannot see the other windows, only the one clicked into.
+        history_list.setOpacity(1.0);
+        inbox_contents.setOpacity(0.0);
+        friends_list.setOpacity(0.0);
+        stats_pane.setOpacity(0.0);
+        edit_profile_button.setDisable(false); edit_profile_button.toFront();
+
+        //Using an obervable list so that it can be updated as more information is added.
+        //Getting the data needed to populate the game history list.
+        ObservableList<String> history = FXCollections.observableArrayList(
+                Client.getOtherGameHistory());
+
+        //Adding the histroy content to the listview
+        history_list.setItems(history);
+    }
+
 }
