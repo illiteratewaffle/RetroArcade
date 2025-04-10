@@ -287,7 +287,7 @@ public class ProfileDatabaseAccess {
                             achievementProgress.put(key, value);
                             key = "";
                             section = "";
-                        } else if (!(c == '"' | c == ' ')) {
+                        } else if (c != '"') {
                             section += c;
                         }
                     }
@@ -442,7 +442,7 @@ public class ProfileDatabaseAccess {
                                 achievementProgress.put(key, value);
                                 key = "";
                                 section = "";
-                            } else if (!(c == '"' | c == ' ')) {
+                            } else if (!(c == '"')) {
                                 section += c;
                             }
                         }

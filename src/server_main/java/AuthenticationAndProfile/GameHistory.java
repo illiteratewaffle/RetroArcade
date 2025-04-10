@@ -94,7 +94,7 @@ public class GameHistory{
             HashMap<String, Double> achievementProgress = new HashMap<>();
             String achievementProgressString = PlayerManager.getAttribute(id, "achievement_progress");
             if (!(achievementProgressString == null | achievementProgressString.equals(""))) {
-                String[] achievements = achievementProgressString.split(",");
+                String[] achievements = achievementProgressString.split(", ");
                 String section = "";
                 String key = "";
                 Double value = 0.00;
@@ -109,12 +109,7 @@ public class GameHistory{
                             keyComplete += 1;
                             key += section;
                             section = "";
-                        } else if (c == ',') {
-                            value = Double.parseDouble(section);
-                            achievementProgress.put(key, value);
-                            key = "";
-                            section = "";
-                        } else if (!(c == '"' | c == ' ')) {
+                        } else if (c != '"') {
                             section += c;
                         }
                     }

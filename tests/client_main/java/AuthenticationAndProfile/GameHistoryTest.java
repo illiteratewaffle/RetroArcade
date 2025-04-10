@@ -97,6 +97,13 @@ class GameHistoryTest {
     }
 
     @Test void getAchievementProgress() {
-
+        try {
+            profile.getGameHistory().setAchievementProgress("10 Wins TTT", 0.50);
+            profile.getGameHistory().setAchievementProgress("50 Wins TTT", 0.10);
+            assertEquals(0.50, ProfileDatabaseAccess.obtainProfile(id).getGameHistory().getAchievementProgress().get("10 Wins TTT"));
+            assertEquals(0.10, ProfileDatabaseAccess.obtainProfile(id).getGameHistory().getAchievementProgress().get("50 Wins TTT"));
+        } catch (SQLException | IOException s) {
+            fail(s.getMessage());
+        }
     }
 }

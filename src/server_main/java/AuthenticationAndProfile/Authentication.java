@@ -21,7 +21,6 @@ public class Authentication {
      * @return true if login is successful. Throws exceptions for incorrect username or password if
      * login fails.
      */
-    //return profile object
     public static Profile logIn(String username, String password) throws SQLException, NoSuchAlgorithmException, IOException {
         try {
             String hashedPassword = ProfileCreation.hashedPassword(password);
