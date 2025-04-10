@@ -105,15 +105,10 @@ public class GameSessionManager implements Runnable {
                 response.put("type", "game");
                 response.put("command", "startTurn");
                 // If it is the sender's turn, send "startTurn"
-                if (checkTurn(threadMessage.getSender()) == 1) {
-                    ThreadRegistry.getQueue(threadMessage.getSender()).add(new ThreadMessage(Thread.currentThread(), response));
-                } else {
-                    if (player1.getThread() == threadMessage.getSender()) {
-                        ThreadRegistry.getQueue(player2.getThread()).add(new ThreadMessage(Thread.currentThread(), response));
-                    } else {
-                        ThreadRegistry.getQueue(player1.getThread()).add(new ThreadMessage(Thread.currentThread(), response));
-                    }
-                }
+                response.put("data", checkTurn(player1.getThread()));
+                ThreadRegistry.getQueue(player1.getThread()).add(new ThreadMessage(Thread.currentThread(), response));
+                response.put("data", checkTurn(player2.getThread()));
+                ThreadRegistry.getQueue(player2.getThread()).add(new ThreadMessage(Thread.currentThread(), response));
             } catch (InterruptedException e) {
                 log("GameSessionManager: Failed to take from own BlockingQueue.");
                 // TODO: shutdown game?
@@ -205,6 +200,7 @@ public class GameSessionManager implements Runnable {
             case "game":
                 // Add "type":"game" to the return json
                 forward.put("type", "game");
+                forward.put("command", content.get("command"));
                 switch ((String) content.get("command")) {
                     // If wanting to call receiveInput()
                     case "receiveInput":
