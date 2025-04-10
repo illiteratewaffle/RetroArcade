@@ -1,8 +1,6 @@
 package AuthenticationAndProfile;
 
-//import org.postgresql.util.PSQLException;
 import player.PlayerManager;
-
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
@@ -14,7 +12,6 @@ import static management.ServerLogger.log;
  * ProfileCreation Class handles converting and verify Create Account Menu parameters to create a new Profile and Update ProfileDatabase.
  * @author Alessia Flaig
  */
-//Considering moving within Profile database because the hashPassword function is also used for logIn?
 public class ProfileCreation {
     /**
      * Takes email, username, and password entered in on Create Account Menu. The password is hashed for security purposes before
@@ -82,7 +79,6 @@ public class ProfileCreation {
             //log(ProfileDatabaseAccess.obtainProfile(5).getOnlineStatus());
         } catch (SQLException s) {
             log(s.getMessage());
-
             //Email should be: "EmailShould be in index 3@email.com"
             //System.out.println(Authentication.getProfileLoggedIn().getHashedPassword());
             //System.out.printf("HashedPassword should equal %s\n", hashedPassword("hashedPasswordInIndex4"));

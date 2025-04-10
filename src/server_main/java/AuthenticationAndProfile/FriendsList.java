@@ -1,13 +1,10 @@
 package AuthenticationAndProfile;
 
-
 import player.PlayerManager;
-
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
 import static management.ServerLogger.log;
 
 /**

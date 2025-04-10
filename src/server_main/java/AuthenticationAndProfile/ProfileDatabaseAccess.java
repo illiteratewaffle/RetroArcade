@@ -1,11 +1,8 @@
 package AuthenticationAndProfile;
-//import leaderboard.PlayerRanking;
-import player.PlayerManager;
 
+import player.PlayerManager;
 import java.io.IOException;
 import java.nio.file.Paths;
-import java.security.NoSuchAlgorithmException;
-import java.sql.SQLException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;

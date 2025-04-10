@@ -53,7 +53,7 @@ class GameHistoryTest {
             GameHistory gh = new GameHistory(gameHistory, achievementProgress, id);
             assertEquals(gameHistory, gh.getGameHistory());
             assertEquals(achievementProgress, gh.getAchievementProgress());
-        } catch (SQLException s) {
+        } catch (SQLException | IOException s) {
             fail(s.getMessage());
         }
     }
