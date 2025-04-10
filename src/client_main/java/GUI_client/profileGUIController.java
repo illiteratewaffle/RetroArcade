@@ -1,6 +1,6 @@
-//package GUI_Client2;
+//package GUI_client;
 //
-//import Client2.Client2;
+//import client.Client2;
 //import GUI_client.AudioManager;
 //import GUI_client.otherPlayerProfileGUIController;
 //import javafx.collections.FXCollections;
@@ -275,7 +275,7 @@
 //
 //
 //        //Not sure how this will be sent to server.
-//        client2.acceptRequest(selectedRequest); //selected request = the username of the friend
+//        Client2.acceptRequest(selectedRequest); //selected request = the username of the friend
 //        inbox_contents.remove(selectedRequest); //not sure why .remove is not working, may be because client2 is still in the works
 //        selectedRequest = null;
 //    }
@@ -298,7 +298,7 @@
 //        pause.play();
 //
 //        //Not sure how the declined request will be sent to the server.
-//        client2.declineRequest(selectedRequest);
+//        Client2.declineRequest(selectedRequest);
 //        inbox_contents.remove(selectedRequest);
 //        selectedRequest = null;
 //    }
@@ -615,5 +615,5 @@
 ////    public static void setProfilePath(String path) {
 ////        currentProfile.setProfilePath(path);
 //}
-//
-//
+
+
