@@ -1,6 +1,6 @@
 package server.GameLogic_Client;
 
-import GameLogic_Client.Ivec2;
+import server.GameLogic_Client.Ivec2;
 
 /**
  * AbstractBoard class to be implemented by other GameBoard classes with standard functions that all boards should be able to do.
@@ -31,7 +31,7 @@ public abstract class AbstractBoard {
      * @param point the coordinate point which the piece should be set at.
      * @param piece the type of piece that should be set at the location.
      */
-    public void setPiece(GameLogic_Client.Ivec2 point, int piece) {
+    public void setPiece(Ivec2 point, int piece) {
         board[point.y][point.x] = piece;
     }
 
@@ -42,7 +42,7 @@ public abstract class AbstractBoard {
      * @param point the coordinate point of the current piece to be returned.
      * @return piece at board[y][x]
      */
-    public int getPiece(GameLogic_Client.Ivec2 point) {
+    public int getPiece(Ivec2 point) {
         return board[point.y][point.x];
     }
 
@@ -67,5 +67,5 @@ public abstract class AbstractBoard {
     /**
      * @return an <code>Ivec2</code> containing the (width, height) of the board.
      */
-    public GameLogic_Client.Ivec2 getSize() { return new Ivec2(rows, cols); }
+    public Ivec2 getSize() { return new Ivec2(rows, cols); }
 }

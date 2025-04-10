@@ -1,5 +1,4 @@
 package client_main.java.GameLogic_Client.Connect4;
-import GameLogic_Client.Connect4.C4WinChecker;
 import client_main.java.GameLogic_Client.Connect4.C4Piece;
 
 import org.junit.jupiter.api.*;

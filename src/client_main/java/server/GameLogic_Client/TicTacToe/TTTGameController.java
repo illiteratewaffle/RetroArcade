@@ -1,11 +1,9 @@
 package server.GameLogic_Client.TicTacToe;
 
-import GameLogic_Client.Connect4.C4Piece;
-import GameLogic_Client.Connect4.HintResult;
-import GameLogic_Client.GameState;
-import GameLogic_Client.IBoardGameController;
-import GameLogic_Client.Ivec2;
-import GameLogic_Client.TicTacToe.TTTGame;
+import server.GameLogic_Client.GameState;
+import server.GameLogic_Client.IBoardGameController;
+import server.GameLogic_Client.Ivec2;
+import server.GameLogic_Client.TicTacToe.TTTGame;
 
 import java.util.ArrayList;
 
@@ -19,7 +17,7 @@ public class TTTGameController implements IBoardGameController {
     /**
      * The Tic-Tac-Toe game instance.
      */
-    public GameLogic_Client.TicTacToe.TTTGame game;
+    public TTTGame game;
 
     /**
      * Initializes the game controller by creating a new game instance.
@@ -59,12 +57,12 @@ public class TTTGameController implements IBoardGameController {
      * @return An array containing the winner's index (0 for X, 1 for O), both for tie, or empty if no winner.
      */
     @Override
-    public int getWinner() {
+    public int[] getWinner() {
         return switch (game.gameState) {
-            case P1WIN -> 0;
-            case P2WIN -> 1;
-            case TIE -> 2;
-            default -> 3;
+            case GameState.P1WIN -> new int[]{0};
+            case GameState.P2WIN -> new int[]{1};
+            case GameState.TIE -> new int[]{0, 1};
+            default -> new int[]{};
         };
     }
 
@@ -87,6 +85,7 @@ public class TTTGameController implements IBoardGameController {
     @Override
     public ArrayList<int[][]> getBoardCells(int LayerMask) {
         ArrayList<int[][]> layers = new ArrayList<>();
+        if (LayerMask & 0b01 > 0) {}
         layers.add(game.board.getBoard());
         return layers;
     }

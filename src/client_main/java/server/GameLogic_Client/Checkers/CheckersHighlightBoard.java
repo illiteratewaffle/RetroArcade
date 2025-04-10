@@ -1,8 +1,8 @@
 package server.GameLogic_Client.Checkers;
 
-import GameLogic_Client.AbstractBoard;
-import GameLogic_Client.Checkers.CheckersHighlightType;
-import GameLogic_Client.Ivec2;
+import server.GameLogic_Client.AbstractBoard;
+import server.GameLogic_Client.Checkers.CheckersHighlightType;
+import server.GameLogic_Client.Ivec2;
 
 
 public class CheckersHighlightBoard extends AbstractBoard

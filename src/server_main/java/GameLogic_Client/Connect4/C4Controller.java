@@ -80,17 +80,18 @@ public class C4Controller implements IBoardGameController {
 
     }
 
-    /**
-     * Updates the state of the game as it progresses.
-     * @return integer of game outcome
-     */
+
+    // See the javadoc in the interface for information on the behaviour of this method.
     @Override
-    public int getWinner() {
-        return switch (c4GameLogic.gameState) {
-            case TIE -> 0;
-            case P1WIN -> 1;
-            case P2WIN -> 2; //draw
-            default -> 3;
+    public int[] getWinner()
+    {
+        return switch (c4GameLogic.gameState)
+        {
+            case P1WIN -> new int[]{0};
+            case P2WIN -> new int[]{1};
+            case TIE -> new int[]{0, 1};
+            // By default, declare nobody as the winner.
+            default -> new int[]{};
         };
     }
 
@@ -103,36 +104,44 @@ public class C4Controller implements IBoardGameController {
         return !c4GameLogic.getC4IsGameOver();
     }
 
-    /**
-     * Gets board's cells, used in GUI.
-     * @param LayerMask A bit-string, where the bits of all the layers to query are set to 1.
-     * @return null if it's a blank, else piece's enum value.
-     */
+
+    // See javadoc comment in the interface for more information.
     @Override
-    public ArrayList<int[][]> getBoardCells(int LayerMask) {
+    public ArrayList<int[][]> getBoardCells(int layerMask)
+    {
         ArrayList<int[][]> sendBoard = new ArrayList<>();
-        C4Piece[][] currentBoardEnum = c4GameLogic.getC4Board().getC4Board();
+        // Check the first bit of the mask, which represents the piece layer.
+        if ((layerMask & 0b1) != 0)
+        {
+            sendBoard.add(c4GameLogic.getC4Board().getBoard());
+        }
+        // Check the second bit of the mask, which represents the hint layer.
+        if ((layerMask & 0b10) != 0)
+        {
+            // Construct a 2D int array of hints and add it to the sendBoard array list.
+            Ivec2 boardSize = getBoardSize();
+            int[][] hints = new int[boardSize.y][boardSize.x];
 
-        int rows = currentBoardEnum.length;
-        int cols = currentBoardEnum[0].length;
-        int[][] intBoard = new int[rows][cols];
-
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < cols; j++) {
-                switch (currentBoardEnum[i][j]) {
-                    case BLANK:
-                        intBoard[i][j] = 0;
-                        break;
-                    case RED:
-                        intBoard[i][j] = 1;
-                        break;
-                    case BLUE:
-                        intBoard[i][j] = 2;
-                        break;
+            // Only provide highlighting when the game is not over.
+            if (getGameOngoing())
+            {
+                HintResult hint = getC4ColHint();
+                // Map each hint type to an index.
+                int hintIndex = switch (hint.type)
+                {
+                    case "BLOCK" -> 1;
+                    case "WIN" -> 2;
+                    default -> 0;
+                };
+                // Fill the appropriate column with said index.
+                for (int r = 0; r < boardSize.y; r++)
+                {
+                    hints[r][hint.col] = hintIndex;
                 }
             }
+
+            sendBoard.add(hints);
         }
-        sendBoard.add(intBoard);
         return sendBoard;
     }
 
@@ -189,7 +198,6 @@ public class C4Controller implements IBoardGameController {
     /**
      * Prints current state of board (at any point).
      */
-    @Override
     public void printBoard() {
         System.out.println(c4GameLogic);
     }
@@ -199,7 +207,6 @@ public class C4Controller implements IBoardGameController {
      * Function to give users hints if needed during the game based on which column is an ideal pick.
      * @return hint to user
      */
-    @Override
     public HintResult getC4ColHint() {
         if (c4GameLogic == null) {
             System.out.println("Game not started. No hint available.");
@@ -208,26 +215,21 @@ public class C4Controller implements IBoardGameController {
         return c4GameLogic.getC4HintColumn();
     }
 
-    @Override
     public boolean isTileEmpty(Ivec2 tile) {
         return false;
     }
 
-    @Override
     public boolean makeMove(int row, int col) {
         return false;
     }
 
-    @Override
     public boolean checkWin() {
         return false;
     }
 
-    @Override
     public boolean checkDraw() {
         return false;
     }
 
-    @Override
     public void updateGameState() {}
 }

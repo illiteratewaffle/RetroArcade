@@ -1,11 +1,8 @@
 package GameLogic_Client.Connect4;
 
-import GameLogic_Client.Connect4.C4Piece;
-import GameLogic_Client.Connect4.C4WinChecker;
 import GameLogic_Client.Ivec2;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
-import GameLogic_Client.Connect4.C4WinCheckerO1;
 
 public class C4WinCheckerO1Test {
 

@@ -1,8 +1,8 @@
 package server.GameLogic_Client.TicTacToe;
 
-import GameLogic_Client.AbstractBoard;
-import GameLogic_Client.Ivec2;
-import GameLogic_Client.TicTacToe.TTTPiece;
+import server.GameLogic_Client.AbstractBoard;
+import server.GameLogic_Client.Ivec2;
+import server.GameLogic_Client.TicTacToe.TTTPiece;
 
 /**
  * Represents a Tic-Tac-Toe board.

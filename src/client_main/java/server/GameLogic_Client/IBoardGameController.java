@@ -1,5 +1,5 @@
 package server.GameLogic_Client;
-import GameLogic_Client.Ivec2;
+import server.GameLogic_Client.Ivec2;
 
 import java.util.ArrayList;
 
@@ -20,7 +20,7 @@ public interface IBoardGameController
      * Receive a 2D-Integer-Coordinate Input from the Player, and process it.
      * @param input A 2D-Integer-Coordinate Input that corresponds to a Board Cell.
      */
-    void receiveInput(GameLogic_Client.Ivec2 input);
+    void receiveInput(Ivec2 input);
 
     /**
      * Remove the player of a given Index (counting from 0) from the game.

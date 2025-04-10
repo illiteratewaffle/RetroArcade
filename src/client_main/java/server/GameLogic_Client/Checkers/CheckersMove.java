@@ -1,7 +1,7 @@
 // setting package to checkers
 package server.GameLogic_Client.Checkers;
 // importing the Ivec2 class from game logic package
-import GameLogic_Client.Ivec2;
+import server.GameLogic_Client.Ivec2;
 import org.jetbrains.annotations.Nullable;
 
 /**

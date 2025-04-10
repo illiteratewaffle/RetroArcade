@@ -1,9 +1,9 @@
 package server.GameLogic_Client.TicTacToe;
 
-import GameLogic_Client.GameState;
-import GameLogic_Client.Ivec2;
-import GameLogic_Client.TicTacToe.TTTBoard;
-import GameLogic_Client.TicTacToe.TTTPiece;
+import server.GameLogic_Client.GameState;
+import server.GameLogic_Client.Ivec2;
+import server.GameLogic_Client.TicTacToe.TTTBoard;
+import server.GameLogic_Client.TicTacToe.TTTPiece;
 
 /**
  * Represents the Tic-Tac-Toe game logic, including game state management and move handling.

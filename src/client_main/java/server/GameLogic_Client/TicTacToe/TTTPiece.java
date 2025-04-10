@@ -30,10 +30,10 @@ public enum TTTPiece {
      * @return corresponding TTTPiece
      */
     public static TTTPiece fromInt(int value) {
-        switch (value) {
-            case 1: return X;
-            case 2: return O;
-            default: return EMPTY;
-        }
+        return switch (value) {
+            case 1 -> X;
+            case 2 -> O;
+            default -> EMPTY;
+        };
     }
 }

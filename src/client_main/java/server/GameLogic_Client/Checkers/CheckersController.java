@@ -1,15 +1,13 @@
 package server.GameLogic_Client.Checkers;
 
-import GameLogic_Client.Checkers.CheckersBoard;
-import GameLogic_Client.Checkers.CheckersHighlightBoard;
-import GameLogic_Client.Checkers.CheckersHighlightType;
-import GameLogic_Client.Checkers.CheckersMove;
-import GameLogic_Client.Checkers.CheckersPiece;
-import GameLogic_Client.Connect4.C4Piece;
-import GameLogic_Client.Connect4.HintResult;
-import GameLogic_Client.GameState;
-import GameLogic_Client.IBoardGameController;
-import GameLogic_Client.Ivec2;
+import server.GameLogic_Client.Checkers.CheckersBoard;
+import server.GameLogic_Client.Checkers.CheckersHighlightBoard;
+import server.GameLogic_Client.Checkers.CheckersHighlightType;
+import server.GameLogic_Client.Checkers.CheckersMove;
+import server.GameLogic_Client.Checkers.CheckersPiece;
+import server.GameLogic_Client.GameState;
+import server.GameLogic_Client.IBoardGameController;
+import server.GameLogic_Client.Ivec2;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -21,7 +19,7 @@ import java.util.HashSet;
 public class CheckersController implements IBoardGameController
 {
     // The underlying checkers board to store the position of pieces.
-    private GameLogic_Client.Checkers.CheckersBoard board;
+    private CheckersBoard board;
 
     //checks if the player can interact with the board
     private boolean turnP1 = true;
@@ -29,7 +27,7 @@ public class CheckersController implements IBoardGameController
     // Stores the set of valid moves that can currently be made as a hashmap.
     // The keys contain the coordinates of pieces that can move.
     // The values are the sets of moves for the respective pieces.
-    private HashMap<Ivec2, HashMap<Ivec2, GameLogic_Client.Checkers.CheckersMove>> validInputs;
+    private HashMap<Ivec2, HashMap<Ivec2, CheckersMove>> validInputs;
 
     // Internal flag to check if the current player has moved this turn.
     // If they have, their turn will end
@@ -73,10 +71,10 @@ public class CheckersController implements IBoardGameController
      * for the <code>CheckersBoard</code> to make the move.
      */
     @NotNull
-    private HashMap<Ivec2, GameLogic_Client.Checkers.CheckersMove> getPieceMoves(Ivec2 pieceLocation, boolean[] mustCapture)
+    private HashMap<Ivec2, CheckersMove> getPieceMoves(Ivec2 pieceLocation, boolean[] mustCapture)
     {
         // HashMap to store the valid moves of this piece.
-        HashMap<Ivec2, GameLogic_Client.Checkers.CheckersMove> pieceValidMoves = new HashMap<>();
+        HashMap<Ivec2, CheckersMove> pieceValidMoves = new HashMap<>();
 
         // Edge case for when the pieceLocation does not refer to a valid tile with a piece on it.
         if (!(board.isValidTile(pieceLocation) && board.isPiece(pieceLocation))) return pieceValidMoves;
@@ -116,7 +114,7 @@ public class CheckersController implements IBoardGameController
         }
 
         // Temporarily store the move in each direction for preprocessing.
-        GameLogic_Client.Checkers.CheckersMove NewMove;
+        CheckersMove NewMove;
 
         // Keep track of whether the current set of moves would result in a capture.
         boolean storedMovesAreCaptures = mustCapture[0];
@@ -198,7 +196,7 @@ public class CheckersController implements IBoardGameController
      * A valid move must end on a valid empty tile of the board, and result in a capture if specified.
      */
     @Nullable
-    private GameLogic_Client.Checkers.CheckersMove getMoveInDirection(Ivec2 pieceLocation, Ivec2 direction, boolean[] MustCapture)
+    private CheckersMove getMoveInDirection(Ivec2 pieceLocation, Ivec2 direction, boolean[] MustCapture)
     {
         // Edge case for when the pieceLocation does not refer to a valid tile with a piece on it.
         if (!(board.isValidTile(pieceLocation) && board.isPiece(pieceLocation))) return null;
@@ -223,7 +221,7 @@ public class CheckersController implements IBoardGameController
                 Ivec2 targetLocation = captureLocation.add(direction);
                 if (board.isValidTile(targetLocation) && !board.isPiece(targetLocation))
                 {
-                    return new GameLogic_Client.Checkers.CheckersMove(pieceLocation, targetLocation, captureLocation);
+                    return new CheckersMove(pieceLocation, targetLocation, captureLocation);
                 }
             }
         }
@@ -238,7 +236,7 @@ public class CheckersController implements IBoardGameController
                 if (!board.isPiece(targetLocation))
                 {
                     // Return the normal move.
-                    return new GameLogic_Client.Checkers.CheckersMove(pieceLocation, targetLocation, null);
+                    return new CheckersMove(pieceLocation, targetLocation, null);
                 }
                 // If there is a piece there, check if it can be captured.
                 // This involves first checking if its owner is different from that of the current piece.
@@ -257,7 +255,7 @@ public class CheckersController implements IBoardGameController
                         MustCapture[0] = true;
 
                         // Return the capture move.
-                        return new GameLogic_Client.Checkers.CheckersMove(pieceLocation, targetLocation, captureLocation);
+                        return new CheckersMove(pieceLocation, targetLocation, captureLocation);
                     }
                 }
             }
@@ -296,13 +294,13 @@ public class CheckersController implements IBoardGameController
         board = new CheckersBoard(defaultHeight, defaultWidth, new int[defaultWidth][defaultHeight]);
         for (Ivec2 pieceLocation : defaultInitLocationsP1)
         {
-            board.setPiece(pieceLocation, GameLogic_Client.Checkers.CheckersPiece.P1PAWN.getValue());
+            board.setPiece(pieceLocation, CheckersPiece.P1PAWN.getValue());
         }
         for (Ivec2 pieceLocation : defaultInitLocationsP2)
         {
             board.setPiece(pieceLocation, CheckersPiece.P2PAWN.getValue());
         }
-        validInputs = new HashMap<Ivec2, HashMap<Ivec2, GameLogic_Client.Checkers.CheckersMove>>();
+        validInputs = new HashMap<Ivec2, HashMap<Ivec2, CheckersMove>>();
         // Prepare the game controller for the next (first) turn.
         updateNextTurnGameState();
     }
@@ -330,9 +328,6 @@ public class CheckersController implements IBoardGameController
        }
    }
 
-    public HintResult getC4ColHint() {
-        return null;
-    }
 
 
     public static void main(String[] args)
@@ -364,7 +359,7 @@ public class CheckersController implements IBoardGameController
             // Get the current player, and add the valid moves of all of their pieces to the Valid Moves map.
 
             // Temporarily store the set of moves that can be made by each piece.
-            HashMap<Ivec2, GameLogic_Client.Checkers.CheckersMove> currentPieceMoves;
+            HashMap<Ivec2, CheckersMove> currentPieceMoves;
 
             // If the Player has moved this turn, lock them to only using the piece they have selected.
             if (hasMovedThisTurn)
@@ -423,11 +418,11 @@ public class CheckersController implements IBoardGameController
     private boolean processMoveInput(Ivec2 pieceLocation, Ivec2 targetLocation)
     {
         // First check if the piece at PieceLocation can be moved.
-        HashMap<Ivec2, GameLogic_Client.Checkers.CheckersMove> pieceValidMoves = validInputs.get(pieceLocation);
+        HashMap<Ivec2, CheckersMove> pieceValidMoves = validInputs.get(pieceLocation);
         if (pieceValidMoves != null)
         {
             // Then check if the TargetLocation is a position said piece can make a move to.
-            GameLogic_Client.Checkers.CheckersMove move = pieceValidMoves.get(targetLocation);
+            CheckersMove move = pieceValidMoves.get(targetLocation);
             if (move != null)
             {
                 board.makeMove(move);
@@ -593,6 +588,7 @@ public class CheckersController implements IBoardGameController
     protected boolean currentPlayerChanged = false;
     protected int boardChanged = 0;
 
+    @Override
     public void receiveInput(Ivec2 input)
     {
         // Reset the flags to help detect changes since the last input.
@@ -642,6 +638,7 @@ public class CheckersController implements IBoardGameController
     }
 
 
+    @Override
     public void removePlayer(int player) throws IndexOutOfBoundsException
     {
         // Reset the flags to help detect changes since the last input.
@@ -663,25 +660,28 @@ public class CheckersController implements IBoardGameController
     }
 
 
-    public int getWinner()
+    @Override
+    public int[] getWinner()
     {
         return switch (currentGameState)
         {
-            case P1WIN -> 0;
-            case P2WIN -> 1;
-            case TIE -> 2;
+            case P1WIN -> new int[]{0};
+            case P2WIN -> new int[]{1};
+            case TIE -> new int[]{0,1};
             // By default, declare nobody as the winner.
-            default -> 3;
+            default -> new int[]{};
         };
     }
 
 
+    @Override
     public boolean getGameOngoing()
     {
         return currentGameState == GameState.ONGOING;
     }
 
 
+    @Override
     public ArrayList<int[][]> getBoardCells(int layerMask)
     {
         ArrayList<int[][]> boardCells = new ArrayList<>();
@@ -700,64 +700,44 @@ public class CheckersController implements IBoardGameController
     }
 
 
+    @Override
     public Ivec2 getBoardSize()
     {
         return board.getSize();
     }
 
 
+    @Override
     public int getCurrentPlayer()
     {
         return turnP1 ? 0 : 1;
     }
 
 
+    @Override
     public boolean gameOngoingChangedSinceLastCommand()
     {
         return gameOngoingChanged;
     }
 
 
+    @Override
     public boolean winnersChangedSinceLastCommand()
     {
         return winnersChanged;
     }
 
+
+    @Override
     public boolean currentPlayerChangedSinceLastCommand()
     {
         return currentPlayerChanged;
     }
 
+
+    @Override
     public int boardChangedSinceLastCommand()
     {
         return boardChanged;
-    }
-
-    /**
-     * Ignored
-     */
-    public C4Piece[][] getC4Board() {
-        return null;
-    }
-
-    /**
-     * Ignored
-     */
-    public boolean getC4IsGameOver() {
-        return false;
-    }
-
-    /**
-     * Ignored.
-     */
-    public C4Piece getC4WinnerAsEnum() {
-        return null;
-    }
-
-    /**
-     * Ignored.
-     */
-    public C4Piece getC4CurrentPlayer() {
-        return null;
     }
 }

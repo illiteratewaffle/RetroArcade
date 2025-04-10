@@ -1,11 +1,8 @@
 package GameLogic_Client.TicTacToe;
 
-import GameLogic_Client.Connect4.C4Piece;
-import GameLogic_Client.Connect4.HintResult;
 import GameLogic_Client.GameState;
 import GameLogic_Client.IBoardGameController;
 import GameLogic_Client.Ivec2;
-import org.intellij.lang.annotations.Identifier;
 
 import java.util.ArrayList;
 
@@ -33,7 +30,6 @@ public class TTTGameController implements IBoardGameController {
      * @param tile Ivec2 coordinates of the tile that you want to check if empty.
      * @return returns true if empty, false if not empty.
      */
-    @Override
     public boolean isTileEmpty(Ivec2 tile) {
         return game.board.isEmpty(tile);
     }
@@ -44,7 +40,6 @@ public class TTTGameController implements IBoardGameController {
      * @param col the col coordinate of the move.
      * @return returns true if the move is valid. False if invalid.
      */
-    @Override
     public boolean makeMove(int row, int col) {
         return game.makeMove(row, col);
     }
@@ -53,7 +48,6 @@ public class TTTGameController implements IBoardGameController {
      * checks if a win condition has been reached by either player.
      * @return returns true if a player has won, false if nobody has won yet.
      */
-    @Override
     public boolean checkWin() {
         return game.checkWin(game.board);
     }
@@ -62,7 +56,6 @@ public class TTTGameController implements IBoardGameController {
      * checks if a draw condition has been reached in-game.
      * @return returns true if there's a draw, false otherwise.
      */
-    @Override
     public boolean checkDraw() {
         return game.checkDraw(game.board);
     }
@@ -70,16 +63,11 @@ public class TTTGameController implements IBoardGameController {
     /**
      * updates the game state via the game logic.
      */
-    @Override
     public void updateGameState() {
         game.updateGameState();
     }
 
-    /**
-     * Processes the player's move input.
-     *
-     * @param input A 2D coordinate representing the player's move.
-     */
+
     @Override
     public void receiveInput(Ivec2 input) {
         if (!game.makeMove(input.y, input.x)) {
@@ -87,12 +75,7 @@ public class TTTGameController implements IBoardGameController {
         }
     }
 
-    /**
-     * Handles player removal (currently not implemented with functionality).
-     *
-     * @param player The index of the player to be removed (0 or 1).
-     * @throws IndexOutOfBoundsException If an invalid player index is provided.
-     */
+
     @Override
     public void removePlayer(int player) throws IndexOutOfBoundsException {
         if (player < 0 || player > 1) {
@@ -100,18 +83,17 @@ public class TTTGameController implements IBoardGameController {
         }
     }
 
-    /**
-     * Determines if there is a winner.
-     *
-     * @return An array containing the winner's index (0 for X, 1 for O), both for tie, or empty if no winner.
-     */
+
     @Override
-    public int getWinner() {
-        return switch (game.gameState) {
-            case P1WIN -> 0;
-            case P2WIN -> 1;
-            case TIE -> 2;
-            default -> 3;
+    public int[] getWinner()
+    {
+        return switch (game.gameState)
+        {
+            case P1WIN -> new int[]{0};
+            case P2WIN -> new int[]{1};
+            case TIE -> new int[]{0, 1};
+            // By default, declare nobody as the winner.
+            default -> new int[]{};
         };
     }
 
@@ -125,16 +107,24 @@ public class TTTGameController implements IBoardGameController {
         return game.gameState == GameState.ONGOING;
     }
 
-    /**
-     * Retrieves the current state of the game board.
-     *
-     * @param LayerMask A layer mask (not used in the current implementation).
-     * @return A list containing the board's current state.
-     */
+
     @Override
-    public ArrayList<int[][]> getBoardCells(int LayerMask) {
+    public ArrayList<int[][]> getBoardCells(int layerMask)
+    {
         ArrayList<int[][]> layers = new ArrayList<>();
-        layers.add(game.board.getBoard());
+        // Check the first bit of the mask, which represents the piece layer.
+        if ((layerMask & 0b1) != 0)
+        {
+            layers.add(game.board.getBoard());
+        }
+        // Check the second bit of the mask, which represents the hint layer.
+        if ((layerMask & 0b10) != 0)
+        {
+            // Construct a 2D int array of hints and add it to the boardCells array list.
+            // For Tic-Tac-Toe, there are no hints, so we simply return an empty array.
+            Ivec2 boardSize = getBoardSize();
+            layers.add(new int[boardSize.y][boardSize.x]);
+        }
         return layers;
     }
 
@@ -191,38 +181,12 @@ public class TTTGameController implements IBoardGameController {
     /**
      * Indicates whether the board state has changed since the last command.
      *
-     * @return 1 as a simple indicator of change.
+     * @return A bit-field where the bit of the layer that was changed is turned on.<br>
+     * Since the Tic-Tac-Toe board changes whenever a valid input is received,
+     * the return value is always 0b01 to indicate that the first layer (pieces) has been changed.
      */
     @Override
     public int boardChangedSinceLastCommand() {
-        return 1;
-    }
-
-    /**
-     * Ignored
-     */
-    public C4Piece[][] getC4Board() {
-        return null;
-    }
-
-    /**
-     * Ignored
-     */
-    public boolean getC4IsGameOver() {
-        return false;
-    }
-
-    public C4Piece getC4WinnerAsEnum() {
-        return null;
-    }
-
-    public C4Piece getC4CurrentPlayer() {
-        return null;
-    }
-
-    public void printBoard() {}
-
-    public HintResult getC4ColHint() {
-        return null;
+        return 0b01;
     }
 }

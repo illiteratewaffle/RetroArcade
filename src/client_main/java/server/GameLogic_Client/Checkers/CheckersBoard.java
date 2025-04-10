@@ -1,9 +1,9 @@
 package server.GameLogic_Client.Checkers;
 
-import GameLogic_Client.AbstractBoard;
-import GameLogic_Client.Checkers.CheckersMove;
-import GameLogic_Client.Checkers.CheckersPiece;
-import GameLogic_Client.Ivec2;
+import server.GameLogic_Client.AbstractBoard;
+import server.GameLogic_Client.Checkers.CheckersMove;
+import server.GameLogic_Client.Checkers.CheckersPiece;
+import server.GameLogic_Client.Ivec2;
 
 import java.util.HashSet;
 
