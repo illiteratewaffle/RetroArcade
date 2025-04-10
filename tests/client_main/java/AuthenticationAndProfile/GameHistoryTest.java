@@ -9,7 +9,6 @@ import player.PlayerManager;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
-import java.sql.SQLWarning;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -44,6 +43,10 @@ class GameHistoryTest {
     void getGameHistory() {
         try {
             List<String> gameHistory = new ArrayList<>(Arrays.asList("TTT", "Checkers", "Connect4", "Checkers"));
+            PlayerManager.addToGamesPlayed(id, "TTT");
+            PlayerManager.addToGamesPlayed(id, "Checkers");
+            PlayerManager.addToGamesPlayed(id, "Connect4");
+            PlayerManager.addToGamesPlayed(id, "Checkers");
             HashMap<String, Double> achievementProgress = new HashMap<>();
             achievementProgress.put("Win_Streak", 0.75);
             PlayerManager.setAchievementProgress(id, "Win_Streak", "0.75");
@@ -51,6 +54,7 @@ class GameHistoryTest {
             PlayerManager.setAchievementProgress(id,"Matches_Played", "0.50");
 
             GameHistory gh = new GameHistory(gameHistory, achievementProgress, id);
+
             assertEquals(gameHistory, gh.getGameHistory());
             assertEquals(achievementProgress, gh.getAchievementProgress());
         } catch (SQLException | IOException s) {
