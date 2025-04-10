@@ -291,11 +291,6 @@
             <Cursor fx:constant="OPEN_HAND" />
          </cursor>
       </ImageView>
-      <ImageView fx:id="done_button" fitHeight="29.0" fitWidth="128.0" layoutX="55.0" layoutY="572.0" onMouseClicked="#apply_changes" opacity="0.0" pickOnBounds="true">
-         <image>
-            <Image url="@../profile_assets/profile_buttons/done_button.png" />
-         </image>
-      </ImageView>
       <TextField fx:id="search_friend" layoutX="28.0" layoutY="568.0" prefHeight="45.0" prefWidth="274.0" promptText="Search for a friend!" style="-fx-background-color: transparent; -fx-text-fill: pink; -fx-prompt-text-fill: pink; -fx-border-color: pink; -fx-border-width: px;">
          <font>
             <Font name="Silom" size="16.0" />
@@ -307,7 +302,12 @@
          </font>
       </Label>
       <Circle fx:id="game_status" fill="#44ff1f" layoutX="207.0" layoutY="178.0" radius="17.0" stroke="BLACK" strokeType="INSIDE" />
-      <ImageView fitHeight="104.0" fitWidth="200.0">
+      <ImageView fx:id="done_button" fitHeight="29.0" fitWidth="128.0" layoutX="55.0" layoutY="572.0" onMouseClicked="#apply_changes" opacity="0.0" pickOnBounds="true">
+         <image>
+            <Image url="@../profile_assets/profile_buttons/done_button.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="visit_button" fitHeight="75.0" fitWidth="248.0" layoutX="513.0" layoutY="556.0" onMouseClicked="#visit_friend" opacity="0.0">
          <image>
             <Image url="@../profile_assets/profile_buttons/visit_friend_button.png" />
          </image>
