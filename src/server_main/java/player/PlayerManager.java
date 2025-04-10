@@ -40,10 +40,10 @@ public class PlayerManager {
 
             if(rs.next()) {
                 int newPlayerID = rs.getInt("id");
-                System.out.println("Player " + newPlayerID + " Registered Successfully!");
+                log("Player " + newPlayerID + " Registered Successfully!");
                 return newPlayerID;
             } else {
-                System.err.println("Registration failed: No ID returned.");
+                log("Registration failed: No ID returned.");
                 return -1;
             }
 
@@ -81,7 +81,7 @@ public class PlayerManager {
             }
         } catch (SQLException e) {
             // If there was an error authenticating a player, user is notified
-            System.err.println("Authentication failed: " + e.getMessage());
+            log("Authentication failed: " + e.getMessage());
             // Returns -1
             throw new SQLException("Failed to authenticate player: " + e.getMessage(), e);
         }
@@ -362,7 +362,7 @@ public class PlayerManager {
             if (rs.next()) {
                 return rs.getString(attrColumn);
             } else {
-                System.err.println("No player found with ID: " + id);
+                log("No player found with ID: " + id);
                 return null;
             }
         } catch (SQLException e) {
