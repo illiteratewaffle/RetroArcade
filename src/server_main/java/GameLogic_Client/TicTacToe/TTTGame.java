@@ -43,7 +43,7 @@ public class TTTGame {
      * @return true if the move was successful, false if the move was invalid.
      */
     public boolean makeMove(int row, int col) {
-        Ivec2 point = new Ivec2(row, col);
+        Ivec2 point = new Ivec2(col, row);
 
         if (!board.placePiece(point, TTTPiece.fromInt(currentPlayer))) {
             return false;
