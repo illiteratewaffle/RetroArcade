@@ -189,7 +189,7 @@ public class Client2 {
         forwardBio.put("info", "bio");
         forwardToServer(forwardBio);
         Map<String, Object> messageBio = getResponseFromServer("info", "bio");
-        profileData.put("bio", messageBio);
+        profileData.put("bio", messageBio.get("message"));
 
         // Send the nickname request to the server
         Map<String, Object> forwardNickname = new HashMap<>();
@@ -197,23 +197,23 @@ public class Client2 {
         forwardNickname.put("info", "nickname");
         forwardToServer(forwardNickname);
         Map<String, Object> messageNickname = getResponseFromServer("info", "nickname");
-        profileData.put("nickname", messageNickname);
+        profileData.put("nickname", messageNickname.get("message"));
 
         // Send the username request to the server
         Map<String, Object> forwardUsername = new HashMap<>();
         forwardUsername.put("type", "profile-info-request");
-        forwardUsername.put("info", "nickname");
+        forwardUsername.put("info", "username");
         forwardToServer(forwardUsername);
         Map<String, Object> messageUsername = getResponseFromServer("info", "username");
-        profileData.put("username", messageUsername);
+        profileData.put("username", messageUsername.get("message"));
 
         // Send the profile path request to the server
         Map<String, Object> forwardProfilePath = new HashMap<>();
         forwardProfilePath.put("type", "profile-info-request");
-        forwardProfilePath.put("info", "profile-path");
+        forwardProfilePath.put("info", "profilePath");
         forwardToServer(forwardProfilePath);
         Map<String, Object> messageProfilePath = getResponseFromServer("info", "profile-path");
-        profileData.put("profile-path", messageProfilePath);
+        profileData.put("profile-path", messageProfilePath.get("message"));
 
         // Send the friends list request to the server
         Map<String, Object> forwardFriends = new HashMap<>();
@@ -221,7 +221,7 @@ public class Client2 {
         forwardFriends.put("info", "friends");
         forwardToServer(forwardFriends);
         Map<String, Object> messageFriends = getResponseFromServer("info", "friends");
-        profileData.put("friends", messageFriends);
+        profileData.put("friends", messageFriends.get("message"));
 
         // Send the friend requests, request to the server
         Map<String, Object> forwardFriendRequests = new HashMap<>();
@@ -229,7 +229,7 @@ public class Client2 {
         forwardFriendRequests.put("info", "friendRequests");
         forwardToServer(forwardFriendRequests);
         Map<String, Object> messageFriendRequest = getResponseFromServer("info", "friendRequests");
-        profileData.put("friendRequests", messageFriendRequest);
+        profileData.put("friendRequests", messageFriendRequest.get("message"));
 
         // Send the game history request to the server
         Map<String, Object> forwardGameHistory = new HashMap<>();
@@ -237,7 +237,7 @@ public class Client2 {
         forwardGameHistory.put("info", "gameHistory");
         forwardToServer(forwardGameHistory);
         Map<String, Object> messageGameHistory = getResponseFromServer("info", "gameHistory");
-        profileData.put("gameHistory", messageGameHistory);
+        profileData.put("gameHistory", messageGameHistory.get("message"));
 
         // Send the win loss ratio request to the server.
         Map<String, Object> forwardRatio = new HashMap<>();
@@ -245,7 +245,7 @@ public class Client2 {
         forwardRatio.put("info", "winLossRatio");
         forwardToServer(forwardRatio);
         Map<String, Object> messageRatio = getResponseFromServer("info", "winLossRatio");
-        profileData.put("winLossRatio", messageRatio);
+        profileData.put("winLossRatio", messageRatio.get("message"));
 
         // Send the rating request to the server.
         Map<String, Object> forwardRating = new HashMap<>();
@@ -253,7 +253,7 @@ public class Client2 {
         forwardRating.put("info", "rating");
         forwardToServer(forwardRating);
         Map<String, Object> messageRating = getResponseFromServer("info", "rating");
-        profileData.put("rating", messageRating);
+        profileData.put("rating", messageRating.get("message"));
 
         // Send the rank request to the server.
         Map<String, Object> forwardRank = new HashMap<>();
@@ -261,7 +261,7 @@ public class Client2 {
         forwardRank.put("info", "rank");
         forwardToServer(forwardRank);
         Map<String, Object> messageRank = getResponseFromServer("info", "rank");
-        profileData.put("rank", messageRank);
+        profileData.put("rank", messageRank.get("message"));
 
         // Send the wins request to the server
         Map<String, Object> forwardWins = new HashMap<>();
@@ -269,7 +269,7 @@ public class Client2 {
         forwardWins.put("info", "wins");
         forwardToServer(forwardWins);
         Map<String, Object> messageWins = getResponseFromServer("info", "wins");
-        profileData.put("wins", messageWins);
+        profileData.put("wins", messageWins.get("message"));
     }
 
     public static String getBio() {
@@ -447,6 +447,18 @@ public class Client2 {
 
     public static void setProfilePath(String profilePath) {
         profileData.put("profile-path", profilePath);
+    }
+
+    public static void setFriends(List<String> friends) {
+        profileData.put("friends", friends);
+    }
+
+    public static void setGameHistory(List<String> gameHistory) {
+        profileData.put("gameHistory", gameHistory);
+    }
+
+    public static void setWinLossRatio(Double winLossRatio) {
+        profileData.put("winLossRatio", winLossRatio);
     }
 
     public static void sendChatMessage(String message) {
