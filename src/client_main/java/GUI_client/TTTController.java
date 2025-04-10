@@ -4,8 +4,8 @@ import GameLogic_Client.Ivec2;
 import GameLogic_Client.GameState;
 import GameLogic_Client.TicTacToe.TTTBoard;
 import GameLogic_Client.TicTacToe.TTTGameController;
-import client.Client;
-import client.TTTClient;
+import client.Client2;
+// import client.TTTClient;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
@@ -112,11 +112,12 @@ public class TTTController implements Initializable {
     public GridPane gameBoard;
 
 
+
     public static int yourPiece;
     // chat manager
     ChatManager chatManager = new ChatManager();
 
-    public static BooleanProperty isYourTurn = new SimpleBooleanProperty(true);
+    public static BooleanProperty isYourTurn = new SimpleBooleanProperty(false);
     public static BooleanProperty msgReceived = new SimpleBooleanProperty(false);
     public static String currentMessage;
     // easter egg
@@ -125,14 +126,15 @@ public class TTTController implements Initializable {
     // stage for "are you sure?" popup
     private Stage quitPopup = new Stage();
 
-    public TTTClient tttClient;
+    // public TTTClient tttClient;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        tttClient = new TTTClient();
+        // tttClient = new TTTClient();
         // set background and foreground images
         msgReceived.addListener((observableValue, False, True) -> {
             if (True) {
+                System.out.println(yourPiece);
                 getMessage(currentMessage);
                 msgReceived.set(false);
             }
@@ -140,7 +142,7 @@ public class TTTController implements Initializable {
         isYourTurn.addListener((observable, False, True) -> {
             if (True) {
                 // change new int[][]
-                int[][] board = Client.getBoardCells().getFirst();
+                int[][] board = Client2.getBoardCells(0).getFirst();
                 updateBoard(board);
             }
         });
@@ -364,10 +366,10 @@ public class TTTController implements Initializable {
     private void setTile(int row, int col, ImageView imageView) throws InterruptedException {
         Image X = new Image("X.png");
         Image O = new Image("O.png");
-        if (tttClient.getCurrentPlayer() == 1) {
-            if (tttClient.getGameOngoing()) {
-                if (tttClient.getBoardCells()[row][col] == 0) {
-                    if (yourPiece == 1) {
+        if (isYourTurn.getValue()) {
+            if (Client2.getGameOngoing()) {
+                if (Client2.getBoardCells(0).getFirst()[row][col] == 0) {
+                    if (yourPiece == 2) {
                         imageView.setImage(X);
                         turnBanner.setImage(new Image("OTurn.png"));
                     } else {
@@ -375,7 +377,7 @@ public class TTTController implements Initializable {
                         turnBanner.setImage(new Image("XTurn.png"));
                     }
                     checkWin();
-                    TTTClient.receiveInput(new Ivec2(row, col));
+                    Client2.receiveInput(new Ivec2(col, row));
                     isYourTurn.set(false);
                 }
             }
@@ -389,8 +391,8 @@ public class TTTController implements Initializable {
      * @param col
      */
     private void hoverEvent(StackPane stackPane, int row, int col) throws InterruptedException {
-        //if (tttClient.getGameOngoing()) {
-            //if (tttClient.getBoardCells()[row][col] == 0) {
+        //if (Client2.getGameOngoing()) {
+            //if (Client2.getBoardCells()[row][col] == 0) {
                 stackPane.setStyle("-fx-border-color: yellow; -fx-border-width: 3px; -fx-border-radius: 5px;");
             //}
         //}
@@ -469,42 +471,20 @@ public class TTTController implements Initializable {
      */
     public void checkWin() throws InterruptedException {
         // check for game win
-        if (tttClient.getWinner()) {
-            // if game is over, current player is the loser
-            if (tttClient.getCurrentPlayer() == 1){ // if the current player is O
-                Win_Lose_Banner.setImage(new Image("X_wins.png"));
-            } else if (tttClient.getCurrentPlayer() == 2){
-                Win_Lose_Banner.setImage(new Image("O_wins.png"));
-            }
-        }
-        // check for game draw
-        else if (tttClient.checkDraw()){
+        int winner = Client2.getWinner();
+        // if game is over, current player is the loser
+        if (winner == 0){ // if the current player is O
+            Win_Lose_Banner.setImage(new Image("X_wins.png"));
+        } else if (winner == 1){
+            Win_Lose_Banner.setImage(new Image("O_wins.png"));
+        } else if (winner == 2){
             Win_Lose_Banner.setImage(new Image("Draw.png"));
         }
-
         // if game is over, set play again features
-        if (!tttClient.getGameOngoing()){ // if the game is not ongoing, i.e. the game is over
+        if (!Client2.getGameOngoing()){ // if the game is not ongoing, i.e. the game is over
             turnBanner.setImage(null);
         }
     }
-
-
-    /**
-     * clears all board images and play again images
-     */
-    public void clearBoard(){
-        Tile_0_0.setImage(null);
-        Tile_0_1.setImage(null);
-        Tile_0_2.setImage(null);
-        Tile_1_0.setImage(null);
-        Tile_1_1.setImage(null);
-        Tile_1_2.setImage(null);
-        Tile_2_0.setImage(null);
-        Tile_2_1.setImage(null);
-        Tile_2_2.setImage(null);
-        Win_Lose_Banner.setImage(null);
-    }
-
     /**
      * gets a string from chat text field and appends it to chat area
      */
@@ -513,7 +493,7 @@ public class TTTController implements Initializable {
         if (!message.trim().isEmpty() && chatManager.isAppropriate(message)){
             chat_area.appendText("You: " + message + "\n");
             chat_input_field.clear();
-            Client.sendMessageToServer(message);
+            Client2.sendChatMessage(message);
         }
         else{
             chat_area.appendText("Your message contains\ninappropriate language.\nPlease try again.\n");
@@ -570,8 +550,6 @@ public class TTTController implements Initializable {
         sendButton.setImage(new Image(Objects.requireNonNull(getClass().getResource("/GUI_buttons/send_button.png")).toExternalForm()));
     }
     public void updateBoard(int[][] board){
-        Image x = new Image("X.png");
-        Image o = new Image("O.png");
         updateConditional(Tile_0_0, 0, 0, board);
         updateConditional(Tile_0_1, 0, 1, board);
         updateConditional(Tile_0_2, 0, 2, board);
@@ -581,9 +559,6 @@ public class TTTController implements Initializable {
         updateConditional(Tile_2_0, 2, 0, board);
         updateConditional(Tile_2_1, 2, 1, board);
         updateConditional(Tile_2_2, 2, 2, board);
-
-
-
     }
     private void updateConditional(ImageView tile, int row, int col, int[][] board){
         Image x = new Image("X.png");

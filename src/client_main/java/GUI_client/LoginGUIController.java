@@ -135,8 +135,7 @@ public class LoginGUIController implements Initializable {
         if (username.equals("admin") & password.equals("admin")){
 
         } else {
-            Client.login(username, password);
-            Thread.sleep(100);
+             loginSuccess =  Client2.login("10.9.150.72", 5050, username, password);
         }
 
         if(username.isEmpty() || password.isEmpty()) {
@@ -208,7 +207,7 @@ public class LoginGUIController implements Initializable {
         String password = signupPassword.getText();
         String email = signupEmail.getText();
 
-        Client.register(username, password, email);
+        loginSuccess = Client2.register("10.9.150.72", 5050, username, password, email);
         Thread.sleep(100);
 
         signUpPage.setVisible(false);

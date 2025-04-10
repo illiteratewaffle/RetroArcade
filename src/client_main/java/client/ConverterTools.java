@@ -40,6 +40,46 @@ public class ConverterTools {
     }
 
     /**
+     * Converts a double int array to a list.
+     * @param array The double int array.
+     * @return The corresponding list.
+     */
+    public static List<Double> convertDoubleArrayToDoubleList(double[] array) {
+        return Arrays.stream(array).boxed().toList();
+    }
+
+    /**
+     * Converts a list of doubles into a double array.
+     * @param list The double list.
+     * @return The corresponding array.
+     */
+    public static double[] convertDoublelistToDoubleArray(List<Double> list) {
+        double[] arr = new double[list.size()];
+        for (int i = 0; i < list.size(); i++) {
+            arr[i] = list.get(i);
+        }
+        return arr;
+    }
+
+    /**
+     * Converts a List of Strings into a String array.
+     * @param list the list of Strings to convert.
+     * @return a String[] containing the values from the list.
+     */
+    public static String[] convertStringListToStringArray(List<String> list) {
+        return list.toArray(new String[0]);
+    }
+
+    /**
+     * Converts a String array into a List of Strings.
+     * @param array the String array to convert.
+     * @return a List<String> containing the values from the array.
+     */
+    public static List<String> convertStringArrayToStringList(String[] array) {
+        return Arrays.asList(array);
+    }
+
+    /**
      * Converts a list to an int array
      * @param list the list
      * @return the corresponding int array
@@ -84,8 +124,8 @@ public class ConverterTools {
      * @param list the input triple nested List of an Integer
      * @return the List of a 2d int array
      */
-    public static List<int[][]> tripleListToListOf2dArray(List<List<List<Integer>>> list) {
-        List<int[][]> result = new ArrayList<>();
+    public static ArrayList<int[][]> tripleListToListOf2dArray(List<List<List<Integer>>> list) {
+        ArrayList<int[][]> result = new ArrayList<>();
         // iterate through each 2D list in the input
         for (List<List<Integer>> array2DList : list) {
             // count rows and add them to an empty 2d array
@@ -144,4 +184,30 @@ public class ConverterTools {
     public static HintResult intToHintResult(List<Object> list) {
         return new HintResult((int) list.get(0), (String) list.get(1));
     }
+
+    public static List<List<Integer>> c4Piece2dArrayTo2dList(C4Piece[][] array) {
+        List<List<Integer>> result = new ArrayList<>();
+        for (C4Piece[] row : array) {
+            List<Integer> rowList = new ArrayList<>();
+            for (C4Piece c4Piece : row) {
+                rowList.add(c4Piece.getValue());
+            }
+            result.add(rowList);
+        }
+        return result;
+    }
+
+    public static C4Piece[][] c4Piece2dListTo2dArray(List<List<Integer>> list) {
+        C4Piece[][] result = new C4Piece[list.size()][];
+        for (int i = 0; i < list.size(); i++) {
+            List<Integer> rowList = list.get(i);
+            C4Piece[] row = new C4Piece[rowList.size()];
+            for (int j = 0; j < rowList.size(); j++) {
+                row[j] = intToC4Piece(rowList.get(j));
+            }
+            result[i] = row;
+        }
+        return result;
+    }
 }
+

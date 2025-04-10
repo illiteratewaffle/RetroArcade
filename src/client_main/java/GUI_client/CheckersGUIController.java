@@ -1,8 +1,7 @@
 package GUI_client;
-
-import GameLogic_Client.Checkers.CheckersController;
-
 import GameLogic_Client.Ivec2;
+
+import GameLogic_Client.Checkers.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -54,7 +53,7 @@ public class CheckersGUIController implements Initializable {
     @FXML
     private ImageView checkerChatBg;
 
-    private CheckersController gameLogic;
+    private CheckersController Client;
     private ChatManager chatManager;
     private Stage quitPopup = new Stage();
 
@@ -81,7 +80,6 @@ public class CheckersGUIController implements Initializable {
     private StackPane previouslySelectedTile = null;
     private int lastClickedRow = -1;
     private int lastClickedCol = -1;
-    private CheckersClient checkersClient;
 
     /**
     Initializes the GUI board
@@ -90,8 +88,7 @@ public class CheckersGUIController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // relative addresses
-        checkersClient = new CheckersClient();
-        gameLogic = new CheckersController();
+        Client = new CheckersController();
         chatManager = new ChatManager();
         blueChecker = new Image("checkers_blue_piece.png");
         pinkChecker = new Image("checkers_pink_piece.png");
@@ -202,7 +199,7 @@ public class CheckersGUIController implements Initializable {
 
         Ivec2 tileClicked = new Ivec2(col, row);
 
-        checkersClient.receiveInput(tileClicked);
+        Client2.receiveInput(tileClicked);
 
         refreshBoard();
         getTurn();
@@ -214,8 +211,8 @@ public class CheckersGUIController implements Initializable {
      */
 
     private void getTurn() {
-        int currentPlayer = gameLogic.getCurrentPlayer();
-        int winner = gameLogic.getWinner();
+        int currentPlayer = Client2.getCurrentPlayer();
+        int winner = Client.getWinner();
 
         // Check if the game is ongoing before checking the turns
         if (winner == 3) {
@@ -236,8 +233,8 @@ public class CheckersGUIController implements Initializable {
      */
 
     private void refreshBoard() {
-        int[][] pieceBoard = gameLogic.getBoardCells(0b1).getFirst();
-        int[][] highlightBoard = gameLogic.getBoardCells(0b10).getFirst();
+        int[][] pieceBoard = Client.getBoardCells(0b1).getFirst();
+        int[][] highlightBoard = Client.getBoardCells(0b10).getFirst();
         // itterate through the board and update one by one
         for (int i = 0; i < BOARD_SIZE; i++) {
             for (int j = 0; j < BOARD_SIZE; j++) {
@@ -270,7 +267,7 @@ public class CheckersGUIController implements Initializable {
      */
     private void checkWinners() {
         // used to determine who won
-        int winner = gameLogic.getWinner();
+        int winner = Client.getWinner();
 
         // array of length one means someone one
         if (winner == 0) {
