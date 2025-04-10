@@ -2,10 +2,10 @@ package AuthenticationAndProfile;
 
 import player.PlayerManager;
 import static management.ServerLogger.log;
-
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
+
 /**
  * Authentication Class handles Profile Login and Logout
  * @author Alessia Flaig

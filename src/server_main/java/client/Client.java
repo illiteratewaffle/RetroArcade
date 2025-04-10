@@ -13,6 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.TimeoutException;
 
 import static management.JsonConverter.fromJson;
 import static management.JsonConverter.toJson;
@@ -95,11 +96,20 @@ public class Client {
             try {
                 // Take a response
                 Map<String, Object> response = fromJson(input.readLine());
-                // Check if message is "type":"chat"
                 // TODO: ADD SUPPORT FOR GAME STARTTURN AND GAME STARTGAME
                 if (response.get("type") instanceof String && response.get("type").equals("chat")) {
-                    Thread thread = Thread.ofVirtual().start(() -> receivedChatMessage(response));
+                    // If the message is a chat, tell the GUI
+                    Thread.ofVirtual().start(() -> receivedChatMessage(response));
+                } else if (response.get("type") instanceof String && response.get("type").equals("game") &&
+                        response.get("command") instanceof String && response.get("command").equals("startTurn")) {
+                    // If the message is a startGame, tell the GUI
+                    Thread.ofVirtual().start(() -> receivedStartGame((int) response.get("data")));
+                } else if (response.get("type") instanceof String && response.get("type").equals("game") &&
+                        response.get("command") instanceof String && response.get("command").equals("startTurn")) {
+                    // If the message is a startTurn, tell the GUI
+                    Thread.ofVirtual().start(Client::receivedStartTurn);
                 } else {
+                    // Otherwise, put it in the message queue
                     synchronized (messages) {
                         messages.add(response);
                         messages.notifyAll();
@@ -108,11 +118,11 @@ public class Client {
                 // TODO: TEMPORARY PRINT TO SHOW IT WAS RECEIVED
                 System.out.println("Received message: " + response);
             } catch (IOException e) {
-                System.out.println("Server may have shut down?: " + e.getMessage());
+                System.err.println("Server may have shut down?: " + e.getMessage());
                 // Shut down thread if IOException
                 break;
             } catch (IllegalArgumentException e) {
-                System.out.println("Invalid json message received: " + e.getMessage());
+                System.err.println("Invalid json message received: " + e.getMessage());
             }
         }
     }
@@ -123,7 +133,7 @@ public class Client {
         // TODO: GUI SHIT HERE
     }
 
-    private static void receivedStartTurn(Map<String, Object> response) {
+    private static void receivedStartTurn() {
         // TODO: GUI SHIT HERE
     }
 
@@ -135,29 +145,48 @@ public class Client {
         try {
             output.println(toJson(forward));
         } catch (IllegalArgumentException e) {
-            System.out.println("Attempted to send invalid json: " + e.getMessage());
+            System.err.println("Attempted to send invalid json: " + e.getMessage());
         }
     }
 
-    private static Map<String, Object> getResponseFromServer(String key, String value) {
+    /**
+     * Waits until the server responds with the
+     * @param key
+     * @param value
+     * @return
+     */
+    private static Map<String, Object> getResponseFromServer(String key, String value) throws TimeoutException {
+        // Set timeout for the message response
+        long timeoutMillis = 5000;
+        long startTime = System.currentTimeMillis();
+        long remainingTime = timeoutMillis;
+        // Attempt to recieve the message from the server
         try {
-            while (true) {
-                // Wait until the messages queue is updated
-                synchronized (messages) {
+            synchronized (messages) {
+                while (remainingTime > 0) {
+                    // Wait until the messages queue is updated
                     messages.wait();
-                }
-                // Check for the wanted message
-                for (Map<String, Object> message : messages) {
-                    if (message.get(key).equals(value)) {
-                        // Remove the message from the queue then return it
-                        messages.remove(message);
-                        return message;
+
+                    // Check for the wanted message
+                    for (Map<String, Object> message : messages) {
+                        if (message.get(key).equals(value)) {
+                            // Remove the message from the queue then return it
+                            messages.remove(message);
+                            return message;
+                        }
                     }
+
+                    // Calculate how much time is left
+                    long elapsedTime = System.currentTimeMillis() - startTime;
+                    remainingTime -= elapsedTime;
                 }
+                // Failed to receive a response back from the server within timeoutMillis
+                System.err.println("Failed to receive a response back from the server within " + timeoutMillis + " milliseconds.");
+                throw new TimeoutException("Failed to receive a response back from the server within " + timeoutMillis + " milliseconds.");
             }
         } catch (InterruptedException e) {
-            System.out.println("Failed to receive a response from the server: " + e.getMessage());
-            return null;
+            System.err.println("Failed to receive a response from the server: " + e.getMessage());
+            throw new TimeoutException("Failed to receive a response from the server: " + e.getMessage());
         }
     }
 
@@ -211,7 +240,7 @@ public class Client {
      * @return An array of integers containing the Index of the winners of the game.
      * If there are multiple winners, the game may be interpreted as a tie between said winners.
      */
-    public static int getWinner() {
+    public static int getWinner() throws TimeoutException {
         // Send message to server
         Map<String, Object> forward = new HashMap<>();
         forward.put("type", "game");
@@ -226,7 +255,7 @@ public class Client {
     /**
      * @return <code>True</code> if the game is still ongoing; <code>False</code> otherwise.
      */
-    public static boolean getGameOngoing() {
+    public static boolean getGameOngoing() throws TimeoutException {
         // Send message to server
         Map<String, Object> forward = new HashMap<>();
         forward.put("type", "game");
@@ -243,7 +272,7 @@ public class Client {
      * @return
      * An array list of 2D integer arrays representing the cells of the board at each of the requested layer.
      */
-    public static ArrayList<int[][]> getBoardCells(int layerMask) {
+    public static ArrayList<int[][]> getBoardCells(int layerMask) throws TimeoutException {
         // Send message to server
         Map<String, Object> forward = new HashMap<>();
         forward.put("type", "game");
@@ -259,7 +288,7 @@ public class Client {
     /**
      * @return The size of the Board.
      */
-    public static Ivec2 getBoardSize() {
+    public static Ivec2 getBoardSize() throws TimeoutException {
         // Send message to server
         Map<String, Object> forward = new HashMap<>();
         forward.put("type", "game");
@@ -274,7 +303,7 @@ public class Client {
     /**
      * @return The index of the current player (the player whose turn is currently ongoing).
      */
-    public static int getCurrentPlayer() {
+    public static int getCurrentPlayer() throws TimeoutException {
         // Send message to server
         Map<String, Object> forward = new HashMap<>();
         forward.put("type", "game");
@@ -290,7 +319,7 @@ public class Client {
      * @return True if the Game Ongoing has been changed
      * since the last call to <code>receiveInput</code> or <code>removePlayer</code>.
      */
-    public static boolean gameOngoingChangedSinceLastCommand() {
+    public static boolean gameOngoingChangedSinceLastCommand() throws TimeoutException {
         // Send message to server
         Map<String, Object> forward = new HashMap<>();
         forward.put("type", "game");
@@ -306,7 +335,7 @@ public class Client {
      * @return True if the List of Winners has been changed
      * since the last call to <code>receiveInput</code> or <code>removePlayer</code>.
      */
-    public static boolean winnersChangedSinceLastCommand() {
+    public static boolean winnersChangedSinceLastCommand() throws TimeoutException {
         // Send message to server
         Map<String, Object> forward = new HashMap<>();
         forward.put("type", "game");
@@ -322,7 +351,7 @@ public class Client {
      * @return True if the Current Player has been changed
      * since the last call to <code>receiveInput</code> or <code>removePlayer</code>.
      */
-    public static boolean currentPlayerChangedSinceLastCommand() {
+    public static boolean currentPlayerChangedSinceLastCommand() throws TimeoutException {
         // Send message to server
         Map<String, Object> forward = new HashMap<>();
         forward.put("type", "game");
@@ -338,7 +367,7 @@ public class Client {
      * @return The bit-mask for all the Layers that has been changed
      * since the last call to <code>receiveInput</code> or <code>removePlayer</code>.
      */
-    public static int boardChangedSinceLastCommand() {
+    public static int boardChangedSinceLastCommand() throws TimeoutException {
         // Send message to server
         Map<String, Object> forward = new HashMap<>();
         forward.put("type", "game");
@@ -350,7 +379,7 @@ public class Client {
         return (int) response.get("data");
     }
 
-    public static boolean checkDraw() {
+    public static boolean checkDraw() throws TimeoutException {
         // Send message to server
         Map<String, Object> forward = new HashMap<>();
         forward.put("type", "game");

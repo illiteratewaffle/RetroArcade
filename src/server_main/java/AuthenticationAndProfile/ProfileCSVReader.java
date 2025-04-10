@@ -1,9 +1,9 @@
 package AuthenticationAndProfile;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-
 import static management.ServerLogger.log;
 
 public class ProfileCSVReader {
@@ -142,7 +142,6 @@ public class ProfileCSVReader {
         }
         return fields;
     }
-
 
     /**
      * openProfilesFiles(String filePath) method used to read profile csv's that contain all ids in the database.

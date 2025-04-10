@@ -338,7 +338,12 @@ public class PlayerHandler implements Runnable {
     private ThreadMessage getGameHistory() {
 
         //Get the game history of the user.
-        List<String> gameHistory = this.getProfile().getGameHistory().getGameHistory();
+        List<String> gameHistory = new ArrayList<>();
+        try {
+            gameHistory = this.getProfile().getGameHistory().getGameHistory();
+        } catch (SQLException | IOException s) {
+            ServerLogger.log("PlayerHandler: " + this.getProfile().getUsername() + " unable to get game history.");
+        }
 
         //Create the hashmap for the thread message.
         Map<String, Object> messageMap = new HashMap<>();
