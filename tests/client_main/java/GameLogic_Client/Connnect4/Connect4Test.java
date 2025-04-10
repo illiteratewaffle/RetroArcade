@@ -58,8 +58,8 @@ public class Connect4Test {
         }
 
         for(int i = 0; i < 4; i++)
-            assertTrue(C4WinCheckerO1.checkForwardSlash(new Ivec2(i,2+i), C4Piece.RED, board.getC4Board()),
-                    "Failed at: " + new Ivec2(i,2+i).toString());
+            assertTrue(C4WinCheckerO1.checkForwardSlash(new Ivec2(i,5-i), C4Piece.RED, board.getC4Board()),
+                    "Failed at: " + new Ivec2(i,5-i).toString());
     }
 
     @Test
@@ -68,14 +68,14 @@ public class Connect4Test {
         C4Board board = game.getC4Board();
 
         for(int i = 0; i < 4; i++){
-            for (int j = 0; j < 4-i; j++)
+            for (int j = 0; j < 3-i; j++)
                 game.c4DropPiece(i, C4Piece.BLUE);
             game.c4DropPiece(i, C4Piece.RED);
         }
 
         for(int i = 0; i < 4; i++)
-            assertTrue(C4WinCheckerO1.checkBackSlash(new Ivec2(i,5-i), C4Piece.RED, board.getC4Board()),
-                    "Failed at: " + new Ivec2(i,5-i).toString());
+            assertTrue(C4WinCheckerO1.checkBackSlash(new Ivec2(i,2+i), C4Piece.RED, board.getC4Board()),
+                    "Failed at: " + new Ivec2(i,2+i).toString());
     }
 
     @Test
