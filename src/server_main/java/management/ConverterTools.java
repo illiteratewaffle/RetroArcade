@@ -124,8 +124,8 @@ public class ConverterTools {
      * @param list the input triple nested List of an Integer
      * @return the List of a 2d int array
      */
-    public static List<int[][]> tripleListToListOf2dArray(List<List<List<Integer>>> list) {
-        List<int[][]> result = new ArrayList<>();
+    public static ArrayList<int[][]> tripleListToListOf2dArray(List<List<List<Integer>>> list) {
+        ArrayList<int[][]> result = new ArrayList<>();
         // iterate through each 2D list in the input
         for (List<List<Integer>> array2DList : list) {
             // count rows and add them to an empty 2d array
