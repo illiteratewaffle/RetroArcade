@@ -21,7 +21,7 @@ public class TTTGameController implements IBoardGameController {
     /**
      * The Tic-Tac-Toe game instance.
      */
-    private TTTGame game;
+    public TTTGame game;
     public int yourPiece = 1;
     /**
      * Initializes the game controller by creating a new game instance.
@@ -53,7 +53,7 @@ public class TTTGameController implements IBoardGameController {
      * checks if a win condition has been reached by either player.
      * @return returns true if a player has won, false if nobody has won yet.
      */
-    public boolean checkWin() {
+    public int checkWin() {
         return game.checkWin(game.board);
     }
 
@@ -226,5 +226,8 @@ public class TTTGameController implements IBoardGameController {
     }
     public int getTile(int row, int col){
         return this.game.board.getPiece(new Ivec2(row, col));
+    }
+    public TTTGame getGame(){
+        return this.game;
     }
 }
