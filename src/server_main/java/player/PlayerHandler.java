@@ -496,22 +496,26 @@ public class PlayerHandler implements Runnable {
             double ratio0 = profile.getPlayerRanking().getWinLossRatio(0);
             double ratio1 = profile.getPlayerRanking().getWinLossRatio(1);
             double ratio2 = profile.getPlayerRanking().getWinLossRatio(2);
-            double[] ratio = {ratio0, ratio1, ratio2};
+            double[] ratioArray = {ratio0, ratio1, ratio2};
+            List<Double> ratio = ConverterTools.convertDoubleArrayToDoubleList(ratioArray);
 
             int rating0 = profile.getPlayerRanking().getRating(id, 0);
             int rating1 = profile.getPlayerRanking().getRating(id, 1);
             int rating2 = profile.getPlayerRanking().getRating(id, 2);
-            int[] rating = {rating0, rating1, rating2};
+            int[] ratingArray = {rating0, rating1, rating2};
+            List<Integer> rating = ConverterTools.convertIntArrayToList(ratingArray);
 
             String ranking0 = profile.getPlayerRanking().getRank(rating0);
             String ranking1 = profile.getPlayerRanking().getRank(rating1);
             String ranking2 = profile.getPlayerRanking().getRank(rating2);
-            String[] rank = {ranking0, ranking1, ranking2};
+            String[] rankArray = {ranking0, ranking1, ranking2};
+            List<String> rank = ConverterTools.convertStringArrayToStringList(rankArray);
 
             int win0 = profile.getPlayerRanking().getWins(0);
             int win1 = profile.getPlayerRanking().getWins(1);
             int win2 = profile.getPlayerRanking().getWins(2);
-            int[] win = {win0, win1, win2};
+            int[] winArray = {win0, win1, win2};
+            List<Integer> win = ConverterTools.convertIntArrayToList(winArray);
 
             boolean onlineStatus = profile.getOnlineStatus();
 
@@ -587,6 +591,7 @@ public class PlayerHandler implements Runnable {
             printWriter.flush();
         } catch (IllegalArgumentException e) {
             ServerLogger.log("PlayerHandler: " + this.getProfile().getUsername() + " could not send message to client.");
+            System.out.println(e.getMessage());
         }
     }
 
