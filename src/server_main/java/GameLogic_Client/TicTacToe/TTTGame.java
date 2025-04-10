@@ -14,9 +14,6 @@ public class TTTGame {
      */
     public TTTBoard board;
 
-    public int yourPiece;
-    public int opponentPiece;
-
     /**
      * The current player (1 for X, 2 for O).
      */
@@ -94,7 +91,7 @@ public class TTTGame {
      * @return true if there is a winner, false otherwise.
      */
     public boolean checkWin(TTTBoard board) {
-        return board.checkWinner() == TTTPiece.X || board.checkWinner() == TTTPiece.O;
+        return ((board.checkWinner() == TTTPiece.O) || (board.checkWinner() == TTTPiece.X));
     }
 
     /**

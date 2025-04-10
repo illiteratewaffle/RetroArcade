@@ -5,7 +5,8 @@ import GameLogic_Client.Connect4.HintResult;
 import GameLogic_Client.GameState;
 import GameLogic_Client.IBoardGameController;
 import GameLogic_Client.Ivec2;
-import org.intellij.lang.annotations.Identifier;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 
 import java.util.ArrayList;
 
@@ -19,8 +20,8 @@ public class TTTGameController implements IBoardGameController {
     /**
      * The Tic-Tac-Toe game instance.
      */
-    private TTTGame game;
-
+    public TTTGame game;
+    public int yourPiece = 1;
     /**
      * Initializes the game controller by creating a new game instance.
      */
@@ -33,7 +34,6 @@ public class TTTGameController implements IBoardGameController {
      * @param tile Ivec2 coordinates of the tile that you want to check if empty.
      * @return returns true if empty, false if not empty.
      */
-    @Override
     public boolean isTileEmpty(Ivec2 tile) {
         return game.board.isEmpty(tile);
     }
@@ -44,7 +44,6 @@ public class TTTGameController implements IBoardGameController {
      * @param col the col coordinate of the move.
      * @return returns true if the move is valid. False if invalid.
      */
-    @Override
     public boolean makeMove(int row, int col) {
         return game.makeMove(row, col);
     }
@@ -53,7 +52,6 @@ public class TTTGameController implements IBoardGameController {
      * checks if a win condition has been reached by either player.
      * @return returns true if a player has won, false if nobody has won yet.
      */
-    @Override
     public boolean checkWin() {
         return game.checkWin(game.board);
     }
@@ -62,7 +60,6 @@ public class TTTGameController implements IBoardGameController {
      * checks if a draw condition has been reached in-game.
      * @return returns true if there's a draw, false otherwise.
      */
-    @Override
     public boolean checkDraw() {
         return game.checkDraw(game.board);
     }
@@ -70,7 +67,6 @@ public class TTTGameController implements IBoardGameController {
     /**
      * updates the game state via the game logic.
      */
-    @Override
     public void updateGameState() {
         game.updateGameState();
     }
@@ -220,9 +216,17 @@ public class TTTGameController implements IBoardGameController {
         return null;
     }
 
-    public void printBoard() {}
+    public void printBoard() {
+
+    }
 
     public HintResult getC4ColHint() {
         return null;
+    }
+    public int getTile(int row, int col){
+        return this.game.board.getPiece(new Ivec2(row, col));
+    }
+    public TTTGame getGame(){
+        return this.game;
     }
 }
