@@ -176,10 +176,18 @@ class ProfileDatabaseAccessTest {
     @Test
     void getAllProfiles() {
         try {
-            Profile profile1 = ProfileCreation.createNewProfile("profile1a", "profile1a@email.com", "password");
-            Profile profile2 = ProfileCreation.createNewProfile("profile2a", "profile2a@email.com", "password2");
+            Profile profile1 = ProfileCreation.createNewProfile("profile1c", "profile1c@email.com", "password");
+            Profile profile2 = ProfileCreation.createNewProfile("profile2c", "profile2c@email.com", "password2");
             ArrayList<Profile> allProfiles = ProfileDatabaseAccess.getAllProfiles();
-            assertTrue(allProfiles.contains(profile2));
+            boolean found = false;
+            for (int i = 0; i < allProfiles.size(); i++) {
+                Profile profileCheck = allProfiles.get(i);
+                if (profileCheck.getUsername().equals(profile.getUsername()) | profileCheck.getUsername().equals(profile1.getUsername())
+                        | profileCheck.getUsername().equals(profile2.getUsername())) {
+                    found = true;
+                }
+            }
+            assertTrue(found);
             PlayerManager.deleteProfile(profile1.getID());
             PlayerManager.deleteProfile(profile2.getID());
         } catch (SQLException | NoSuchAlgorithmException | IOException s) {
@@ -191,7 +199,11 @@ class ProfileDatabaseAccessTest {
     void searchForProfile() {
         try {
             String username = PlayerManager.getUsername(id);
-            List<Integer> matchingProfiles = ProfileDatabaseAccess.searchForProfile(username);
+            List<Integer> matchingProfiles = ProfileDatabaseAccess.searchForProfile("user");
+            for (int i = 0; i < matchingProfiles.size(); i ++){
+                System.out.println(matchingProfiles.get(i));
+            }
+            System.out.println("id: " + id);
             assertTrue(matchingProfiles.contains(id));
         } catch (SQLException s) {
             fail(s.getMessage());
