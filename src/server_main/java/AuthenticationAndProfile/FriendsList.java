@@ -241,7 +241,7 @@ public class FriendsList {
             // printing for testing purposes
             FriendsList receiverFriendsList = ProfileDatabaseAccess.obtainProfile(recievingId).getFriendsList();
             List<Integer> recievingFriendRequests = receiverFriendsList.getFriendRequests();
-            System.out.println(recievingFriendRequests);
+            // System.out.println(recievingFriendRequests);
 
         } catch (SQLException s) {
             throw new SQLException(s.getMessage());
