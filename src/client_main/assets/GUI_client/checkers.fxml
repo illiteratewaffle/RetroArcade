@@ -11,9 +11,8 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="checkersBackgroundImage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI_client.CheckersGUIController">
+<AnchorPane fx:id="checkersBackgroundImage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI_client.CheckersGUIController">
     <children>
         <ImageView fx:id="carpetBackground" fitHeight="697.0" fitWidth="957.0" layoutX="-15.0" layoutY="-22.0" pickOnBounds="true" preserveRatio="true">
             <image>
@@ -321,11 +320,8 @@
             <content>
                 <TextArea fx:id="checkerChatArea" mouseTransparent="true" prefHeight="293.0" prefWidth="200.0" />
             </content></ScrollPane>
-        <TextField fx:id="checkerChatInput" layoutX="684.0" layoutY="437.0" prefHeight="25.0" prefWidth="147.0" promptText="send to chat">
-         <font>
-            <Font name="Silom" size="13.0" />
-         </font></TextField>
-        <ImageView fx:id="sendButton" fitHeight="41.0" fitWidth="62.0" layoutX="831.0" layoutY="432.0" onMouseClicked="#sendMessage" onMousePressed="#sendButtonPressed" onMouseReleased="#sendButtonReleased" pickOnBounds="true" preserveRatio="true">
+        <TextField fx:id="checkerChatInput" layoutX="684.0" layoutY="437.0" prefHeight="25.0" prefWidth="151.0" promptText="send to chat" />
+        <ImageView fx:id="sendButton" fitHeight="25.0" fitWidth="48.0" layoutX="847.0" layoutY="437.0" onMouseClicked="#sendMessage" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@../send_button.png" />
             </image>
