@@ -1,0 +1,2 @@
+id,username,nickname,email,hashed_password,bio,profile_pic_path,current_game,is_online,win_loss_ratio_ttt,win_loss_ratio_connect4,win_loss_ratio_checkers,rating_ttt,rating_connect4,rating_checkers,rank_ttt,rank_connect4,rank_checkers,wins_ttt,wins_connect4,wins_checkers,games_played,achievement_progress,friends,friend_requests,created_at
+2,NewDatabase2,null,newdatabase2@email.com,36BF094B11C4CC51E3E50B9174CFBC765CE04D4B43841891C6C977170E182827,null,null,null,null,0,0,0,0,0,0,unranked,unranked,unranked,0,0,0,null,null,null,null,2025-04-02 20:56:12.074822
