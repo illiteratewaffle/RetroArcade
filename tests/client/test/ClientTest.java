@@ -12,6 +12,7 @@ import java.io.PrintStream;
 import java.util.concurrent.TimeoutException;
 
 import launcher.ServerLauncher;
+import org.junit.jupiter.api.Timeout;
 
 class ClientTest {
     private static Thread serverThread;
@@ -53,6 +54,7 @@ class ClientTest {
     }
 
     @Test
+    @Timeout(5)
     void login() {
         boolean returned = client1.login(serverAddress, serverPort, username1, password1);
 
@@ -70,6 +72,7 @@ class ClientTest {
     }
 
     @Test
+    @Timeout(5)
     void logout() {
         client1.login(serverAddress, serverPort, username1, password1);
         try {
@@ -94,6 +97,7 @@ class ClientTest {
     }
 
     @Test
+    @Timeout(5)
     void enqueue() {
         //enqueue both clients
         this.client1.login(serverAddress, serverPort, username1, password1);
@@ -135,6 +139,7 @@ class ClientTest {
     }
 
     @Test
+    @Timeout(5)
     void receiveInput() {
         this.client1.login(serverAddress, serverPort, username1, password1);
 
@@ -191,6 +196,7 @@ class ClientTest {
     }
 
     @Test
+    @Timeout(5)
     void getGameOngoing() {
         //enqueue both clients
         this.client1.login(serverAddress, serverPort, username1, password1);
@@ -237,6 +243,7 @@ class ClientTest {
     }
 
     @Test
+    @Timeout(5)
     void getBoardCells() {
         this.client1.login(serverAddress, serverPort, username1, password1);
 
@@ -286,6 +293,7 @@ class ClientTest {
     }
 
     @Test
+    @Timeout(5)
     void getCurrentPlayer() {
         this.client1.login(serverAddress, serverPort, username1, password1);
 
