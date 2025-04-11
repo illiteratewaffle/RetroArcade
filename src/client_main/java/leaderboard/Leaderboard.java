@@ -56,7 +56,7 @@ public class Leaderboard {
      */
     public void updateLeaderboard() {
 
-        //PlayerManager.getProfileTable(); //BRING BACK WHEN COMPLETELY DONE LEADERBOARD
+        //PlayerManager.getProfileTable(); // SERVER-CLIENT COMMUNICATION STUB: RETRIEVES PROFILE LIST
 
         this.rankings = CSVFileReader.retrieveProfiles(FILEPATH);
 
@@ -398,8 +398,8 @@ public class Leaderboard {
     public ArrayList<ArrayList<String>> filterFriends(){
 
         FriendsList friendsList = new FriendsList();
-        //List<Integer> friendsID = friendsList.getFriends(); // now waiting for authentication to fix their method
-        List<Integer> friendsID = Arrays.asList(19, 97, 98, 86); // for testing purposes, comment when auth fixes
+        //List<Integer> friendsID = friendsList.getFriends(); // SERVER-CLIENT COMMUNICATION STUB
+        List<Integer> friendsID = Arrays.asList(19, 97, 98, 86); // LOCAL FRIENDS LIST
 
         for (int i = rankings.size() - 1; i >= 0; i--) {
             ArrayList<String> row = rankings.get(i);
