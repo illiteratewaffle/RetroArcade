@@ -434,7 +434,7 @@ public class Client {
         // Send the profile path request to the server
         Map<String, Object> forwardProfilePath = new HashMap<>();
         forwardProfilePath.put("type", "profile-info-request");
-        forwardProfilePath.put("info", "profilePath");
+        forwardProfilePath.put("info", "profile-Path");
         forwardToServer(forwardProfilePath);
         Map<String, Object> messageProfilePath = getResponseFromServer("info", "profile-path");
         profileData.put("profile-path", messageProfilePath.get("message"));
