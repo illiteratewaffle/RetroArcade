@@ -96,24 +96,4 @@ public interface IBoardGameController
      * since the last call to <code>receiveInput</code> or <code>removePlayer</code>.
      */
     int boardChangedSinceLastCommand();
-
-    /**
-     * Gets the board for connect-4
-     * @return Connect-4 board by calling function in C4GameLogic class.
-     */
-    C4Piece[][] getC4Board();
-
-    /**
-     * Calls C4GameLogic class function to check whether the function
-     * @return true or false based on whether the game is over or not.
-     */
-    boolean getC4IsGameOver();
-
-
-    C4Piece getC4WinnerAsEnum();
-
-    C4Piece getC4CurrentPlayer();
-    void printBoard();
-
-    HintResult getC4ColHint();
 }
