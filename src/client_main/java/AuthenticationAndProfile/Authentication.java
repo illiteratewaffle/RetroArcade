@@ -58,16 +58,4 @@ public class Authentication {
             throw new IOException(e.getMessage());
         }
     }
-
-//    public static String forgotPassword(String username, String email) {
-//        String password;
-//        try {
-//            password = PlayerManager.findPassword(username, email);
-//            log("Password sent to email: " + email);
-//            log("Password: " + password);
-//        } catch (SQLException s) {
-//            log("Username or Email do not exist. " + s.getMessage());
-//        }
-//        return password;
-//    }
 }

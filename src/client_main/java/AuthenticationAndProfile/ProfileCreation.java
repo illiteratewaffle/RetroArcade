@@ -28,12 +28,6 @@ public class ProfileCreation {
             if (id == -1) {
                 throw new SQLException("Invalid email or username. Credentials are already associated with an existing account.");
             } else {
-//                PlayerManager.setAchievementProgress(id, "10 Wins Tick Tac Toe", "0.00");
-//                PlayerManager.setAchievementProgress(id, "10 Wins Connect 4", "0.00");
-//                PlayerManager.setAchievementProgress(id, "10 Wins Checkers", "0.00");
-//                PlayerManager.setAchievementProgress(id, "50 Games Played Tick Tac Toe", "0.00");
-//                PlayerManager.setAchievementProgress(id, "50 Games Played Connect 4", "0.00");
-//                PlayerManager.setAchievementProgress(id, "50 Games Played Checkers", "0.00");
                 log("Profile registered correctly. Trying to Log In.");
                 Profile loggedInProfile = Authentication.logIn(username, password);
                 return loggedInProfile;
@@ -67,25 +61,6 @@ public class ProfileCreation {
             throw new NoSuchAlgorithmException("No such SHA-256 algorithm");
         }
         return hashed;
-    }
-
-    public static void main(String[] args) {
-        try {
-            Profile profile = ProfileCreation.createNewProfile("NewBranchDatabase", "newbranchdatabase@email.com", "1234586ass8sword");
-            log(profile.getID());
-            //should print true
-            log(profile.getOnlineStatus());
-            //log(ProfileDatabaseAccess.obtainProfile(5).getOnlineStatus());
-        } catch (SQLException s) {
-            log(s.getMessage());
-            //Email should be: "EmailShould be in index 3@email.com"
-            //System.out.println(Authentication.getProfileLoggedIn().getHashedPassword());
-            //System.out.printf("HashedPassword should equal %s\n", hashedPassword("hashedPasswordInIndex4"));
-            //System.out.println(Authentication.getProfileLoggedIn().getUsername());
-            //Username should be : "username should be in index 1"
-        } catch (NoSuchAlgorithmException | IOException e) {
-            log(e.getMessage());
-        }
     }
 }
 

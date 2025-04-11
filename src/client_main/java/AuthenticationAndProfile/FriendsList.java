@@ -58,7 +58,6 @@ public class FriendsList {
      * @return A list of the friends id numbers
      */
     public List<Integer> getFriends() throws SQLException {
-//        return friends;
         try {
             String friendsData = PlayerManager.getAttribute(id, "friends");
             List<Integer> newFriends = new ArrayList<>();
@@ -234,14 +233,13 @@ public class FriendsList {
             sendingUsername = ProfileDatabaseAccess.obtainProfile(this.id).getUsername(); // username of the user sending the request
             int sendingId = this.id; // id of the user sending the request
             String receivingUsername = PlayerManager.getAttribute(recievingId, "username");
-            //ArrayList<ArrayList<String>> profiles = ProfileCSVReader.openProfilesFile("profiles_export.csv");
+
             PlayerManager.addToFriendRequests(recievingId, sendingId);
             log(String.format("%s has sent a friend request to %s", sendingUsername, receivingUsername));
 
-            // printing for testing purposes
             FriendsList receiverFriendsList = ProfileDatabaseAccess.obtainProfile(recievingId).getFriendsList();
             List<Integer> recievingFriendRequests = receiverFriendsList.getFriendRequests();
-            // System.out.println(recievingFriendRequests);
+
 
         } catch (SQLException s) {
             throw new SQLException(s.getMessage());
@@ -250,6 +248,3 @@ public class FriendsList {
         }
     }
 }
-
-// String username = Profile.exportUsername(id)
-// int id = idFromUsername(username)

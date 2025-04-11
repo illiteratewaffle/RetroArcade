@@ -7,36 +7,6 @@ import java.util.ArrayList;
 import static AuthenticationAndProfile.ServerLogger.log;
 
 public class ProfileCSVReader {
-    /* New: With Game Rankings *********************************
-    ID: index 0
-    username: index 1
-    nickname: index 2
-    email: index 3
-    hashedPassword: index 4
-    bio: index 5
-    profilePicFilePath: index 6
-    currentGameStatus: index 7
-    isOnlineStatus: index 8
-    (TTT)
-    winLossRatio: index 9
-    rating: index 10
-    rank: index 11
-    wins: index 12
-    (Connect-4)
-     winLossRatio: index 13
-    rating: index 14
-    rank: index 15
-    wins: index 16
-    (Checkers)
-     winLossRatio: index 17
-    rating: index 18
-    rank: index 19
-    wins: index 20
-    gameHistory: index 21
-    achievementProgress: index 22
-    friends: index 23
-    friendRequests: index 24
-     */
     protected static final int ID_INDEX = 0;  //id
     protected static final int USER_INDEX = 1; //email
     protected static final int NICK_INDEX = 2; //null
@@ -106,34 +76,6 @@ public class ProfileCSVReader {
                     }
                 }
                 br.close();
-
-//            System.out.println("ID: " + fields.get(ID_INDEX)
-//                    + " Username: " + fields.get(USER_INDEX)
-//                    + " Nickname: " + fields.get(NICK_INDEX)
-//                    + " Email: " + fields.get(EMAIL_INDEX)
-//                    + " HashedPassword: " + fields.get(PWD_INDEX)
-//                    + " Bio: " + fields.get(BIO_INDEX)
-//                    + " Profile pic: " + fields.get(PIC_INDEX)
-//                    + " Current game: " + fields.get(CGAME_INDEX)
-//                    + " IsOnline: " + fields.get(ONLINE_INDEX)
-//                    + " WLR TTT: " + fields.get(WLR_TTT_INDEX)
-//                    + "WLR C4:" + fields.get(WLR_CONNECT4_INDEX)
-//                    + "WLR C4:" + fields.get(WLR_CHECKERS_INDEX)
-//                    + " Rating: " + fields.get(RATING_TTT_INDEX)
-//                    + " Rating: " + fields.get(RATING_CONNECT4_INDEX)
-//                    + " Rating: " + fields.get(RATING_CHECKERS_INDEX)
-//                    + " Rank: " + fields.get(RANK_TTT_INDEX)
-//                    + " Rank: " + fields.get(RANK_CONNECT4_INDEX)
-//                    + " Rank: " + fields.get(RANK_CHECKERS_INDEX)
-//                    + " Wins: " + fields.get(WINS_TTT_INDEX)
-//                    + " Wins: " + fields.get(WINS_CONNECT4_INDEX)
-//                    + " Wins: " + fields.get(WINS_CHECKERS_INDEX)
-//                    + " GameHistory: " + fields.get(GHIST_INDEX)
-//                    + " AchievementProgress: " + fields.get(ACHIVPROG_INDEX)
-//                    + " Friends: " + fields.get(FRIENDS_INDEX)
-//                    + " FriendRequests: " + fields.get(FREQUEST_INDEX)
-//                    + " Creation Time: " + fields.get(FREQUEST_INDEX + 1)
-//            );
             } else {
                 throw new NullPointerException("CSV is empty");
             }
@@ -202,14 +144,6 @@ public class ProfileCSVReader {
                 }
                 csvLine += profiles.get(i).get(j) + ",";
             }
-        }
-    }
-
-    public static void main(String[] args) {
-        try {
-            openSingleProfileFile("player_profile_19.csv");
-        } catch (IOException e) {
-            log(e.getMessage());
         }
     }
 }

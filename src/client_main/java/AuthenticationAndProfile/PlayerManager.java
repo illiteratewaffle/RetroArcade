@@ -578,8 +578,4 @@ public class PlayerManager {
             throw new SQLException("Error setting achievement progress: " + e.getMessage(), e);
         }
     }
-
-    public static void main(String[] args) throws SQLException {
-        System.out.println(searchProfiles("cr"));
-    }
 }

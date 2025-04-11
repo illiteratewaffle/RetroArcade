@@ -18,7 +18,7 @@ import static java.nio.file.Files.delete;
  */
 public class ProfileDatabaseAccess {
     /**
-     * obtainProfile(long id) is called to recreate a Profile object for a profile from its information saved to the Database.
+     * obtainProfile(int id) is called to recreate a Profile object for a profile from its information saved to the Database.
      * The method calls a PlayerManager method to send a csv file for the specified id. If an error results from the id not existing
      * in the database, an error is handled. The csv files from the FriendsList, GameHistory,
      * and PlayerRanking database csv's are also read and the information put into constructors. These objects, as well as the other
@@ -67,6 +67,13 @@ public class ProfileDatabaseAccess {
         }
     }
 
+    /**
+     * Directly obtains Profile information to create a Profile object from the database associated with the
+     * given profile id without generating a csv file through getAttribute() method calls.
+     * @param id
+     * @return
+     * @throws SQLException
+     */
     public static Profile obtainProfileDirect(int id) throws SQLException {
         try {
             //from Profile ArrayList obtain the values for Profile Class variables
@@ -138,6 +145,13 @@ public class ProfileDatabaseAccess {
         }
     }
 
+    /**
+     * Directly obtains FriendsList information to create a FriendsList object from the database associated with the
+     * given profile id without generating a csv file through getAttribute() method calls.
+     * @param id
+     * @return
+     * @throws SQLException
+     */
     public static FriendsList obtainFriendsListDirect(int id) throws SQLException{
         List<Integer> friends = new ArrayList<>();
         String friendsString = PlayerManager.getAttribute(id, "friends");
@@ -159,6 +173,11 @@ public class ProfileDatabaseAccess {
         return friendsList;
     }
 
+    /**
+     * Constructs a PlayerRanking Object based off of the PlayerRanking variables saved to the database for the specified id.
+     * @param id
+     * @return PlayerRanking object reflecting an up to date PlayerRanking that composes the profile saved in the database.
+     */
     public static PlayerRanking obtainPlayerRanking(int id) {
         //call method to get csv for id
         try {
@@ -208,6 +227,13 @@ public class ProfileDatabaseAccess {
         }
     }
 
+    /**
+     * Directly obtains PlayerRanking information to craete a PlayerRanking object from the database associated with the
+     * given profile id without generating a csv file through getAttribute() method calls.
+     * @param id
+     * @return
+     * @throws SQLException
+     */
     public static PlayerRanking obtainPlayerRankingDirect(int id) throws SQLException{
         //from Profile ArrayList obtain the values for Profile Class variables
         double[] winLossRatio = new double[3];
@@ -248,6 +274,11 @@ public class ProfileDatabaseAccess {
         return playerRanking;
     }
 
+    /**
+     * Constructs a GameHistory Object based off of the GameHistory variables saved to the database for the specified id.
+     * @param id
+     * @return GameHistory object reflecting an up to date GameHistory that composes the profile saved in the database.
+     */
     public static GameHistory obtainGameHistory(int id) throws IOException {
         //call method to get csv for id
         try {
@@ -304,6 +335,13 @@ public class ProfileDatabaseAccess {
         }
     }
 
+    /**
+     * Directly obtains GameHistory information to create a GameHistory object from the database associated with the
+     * given profile id without generating a csv file through getAttribute() method calls.
+     * @param id
+     * @return
+     * @throws SQLException
+     */
     public static GameHistory obtainGameHistoryDirect(int id) throws SQLException {
         try {
             List<String> gameHistory = new ArrayList<>();
@@ -350,7 +388,7 @@ public class ProfileDatabaseAccess {
     }
 
     /**
-     * removeProfile(long id) removes all profile information associated from the Database and logs the account out.
+     * removeProfile(int id) removes all profile information associated from the Database and logs the account out.
      * @param id
      */
     public static void removeProfile(int id) throws SQLException, IOException {
@@ -363,8 +401,8 @@ public class ProfileDatabaseAccess {
     }
 
     /**
-     * getAllProfiles() is used to obtain the HashMap of all username keys and all Profile values.
-     * @return HashMap<String, Profile>
+     * getAllProfiles() is used to obtain an ArrayList of all Profiles in the database.
+     * @return ArrayList<Profile>
      */
     public static ArrayList<Profile> getAllProfiles() throws SQLException, IOException {
         String csvProfileFilePath = "profiles_export.csv"; //csv is generated in the main directory of the project
@@ -510,16 +548,6 @@ public class ProfileDatabaseAccess {
         } catch (SQLException s) {
             throw new SQLException(s.getMessage());
         }
-    }
-
-
-
-    public static void main(String[] args) {
-//        try {
-//
-//        } catch (SQLException | NoSuchAlgorithmException s){
-//            System.out.println(s.getMessage());
-//        }
     }
 }
 
