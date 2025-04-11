@@ -1,4 +1,4 @@
-package GameLogic_Client.Checkers;
+package GameLogic_Client;
 
 public enum GameState {
     ONGOING,
