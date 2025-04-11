@@ -14,6 +14,7 @@ public class C4Board extends AbstractBoard {
     public C4Board(int rows, int cols) {
         super(rows, cols, new int[rows][cols]);
         initBlankBoard(); // fills board with BLANK pieces
+        System.out.println("A new Connect-Four board has been created");
     }
 
 

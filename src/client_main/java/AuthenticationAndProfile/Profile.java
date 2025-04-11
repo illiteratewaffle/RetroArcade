@@ -3,8 +3,6 @@ package AuthenticationAndProfile;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.UUID;
-import server.player.PlayerManager;
-import static server.management.ServerLogger.log;
 
 public class Profile {
     private String email;

@@ -1,4 +1,4 @@
-package server.management;
+package AuthenticationAndProfile;
 
 import java.io.FileWriter;
 import java.io.IOException;

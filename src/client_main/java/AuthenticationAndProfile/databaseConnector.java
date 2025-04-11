@@ -1,4 +1,4 @@
-package server.database;
+package AuthenticationAndProfile;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.sql.*;

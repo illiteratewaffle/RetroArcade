@@ -1,7 +1,4 @@
-package server.player;
-
-import server.database.databaseConnector;
-import org.postgresql.util.HStoreConverter;
+package AuthenticationAndProfile;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -9,7 +6,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import static server.management.ServerLogger.log;
+import static AuthenticationAndProfile.ServerLogger.log;
 
 public class PlayerManager {
     private static final Connection conn = databaseConnector.connect();
