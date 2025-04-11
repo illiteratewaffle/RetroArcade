@@ -1,10 +1,5 @@
 package client_main.java.GameLogic_Client.TicTacToe;
 
-/**
- * TTTGameTest class to test the functions and methods of the TTTGame class.
- * Author: Vicente David, Emma Djukic - Game Logic Team
- */
-
 import GameLogic_Client.GameState;
 import GameLogic_Client.Ivec2;
 import GameLogic_Client.TicTacToe.TTTGame;
@@ -14,6 +9,10 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * TTTGameTest class to test the functions and methods of the TTTGame class.
+ * Author: Vicente David, Emma Djukic - Game Logic Team
+ */
 public class TTTGameTest {
 
     private TTTGame game;

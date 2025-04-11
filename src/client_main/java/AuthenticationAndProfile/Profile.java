@@ -77,12 +77,20 @@ public class Profile {
             String newHashedPassword = ProfileCreation.hashedPassword(newPassword);
             this.hashedPassword = newHashedPassword;
             PlayerManager.updateAttribute(id, "hashed_password", newHashedPassword);
-            PlayerManager.updateAttribute(id, "hashed_password", newHashedPassword);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } catch (NoSuchAlgorithmException n) {
             throw new NoSuchAlgorithmException(n.getMessage());
         }
+    }
+
+    /**
+     * Gets the player's ID.
+     *
+     * @return the player's ID.
+     */
+    public int getID() {
+        return id;
     }
 
     /**
@@ -105,11 +113,6 @@ public class Profile {
             PlayerManager.updateAttribute(id, "nickname", newNickname);
         } catch (SQLException s) {
             throw new SQLException(s.getMessage());
-        }
-        try {
-            PlayerManager.updateAttribute(id, "nickname", newNickname);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
         }
     }
 
@@ -159,6 +162,10 @@ public class Profile {
         }
     }
 
+    /**
+     * Gets OnlineStatus. True if online or false if offline.
+     * @return
+     */
     public boolean getOnlineStatus() {
         return isOnline;
     }
@@ -166,6 +173,8 @@ public class Profile {
     /**
      * Check if a player is in a game. If so, prints out the game they're playing (likely usable by GUI team).
      * If not, prints out "Online" if the player is online. Otherwise, prints out "Offline".
+     *
+     * @return the current status of the player.
      */
     public String getCurrentStatus() {
         String currentStatus;
@@ -196,7 +205,12 @@ public class Profile {
      * @param currentGame the current game of the player.
      */
     public void setCurrentGame(String currentGame) throws SQLException {
-        this.currentGame = currentGame;
+        try {
+            PlayerManager.updateAttribute(id, "current_game", currentGame);
+            this.currentGame = currentGame;
+        } catch (SQLException s) {
+            throw new SQLException(s.getMessage());
+        }
     }
 
     /**
@@ -231,8 +245,13 @@ public class Profile {
      *
      * @param profilePicFilePath the new profile picture of the player.
      */
-    public void setProfilePicFilePath(String profilePicFilePath) {
-        this.profilePicFilePath = profilePicFilePath;
+    public void setProfilePicFilePath(String profilePicFilePath) throws SQLException{
+        try {
+            PlayerManager.updateAttribute(id, "profile_pic_path", profilePicFilePath);
+            this.profilePicFilePath = profilePicFilePath;
+        } catch (SQLException s) {
+            throw new SQLException(s.getMessage());
+        }
     }
 
     /**
@@ -248,6 +267,11 @@ public class Profile {
         }
     }
 
+    /**
+     * Gets the player's username.
+     *
+     * @return the player's username.
+     */
     public String getUsername() {
         return username;
     }
@@ -265,12 +289,14 @@ public class Profile {
         } catch (SQLException s) {
             throw new RuntimeException(s.getMessage());
         }
-        try {
-            PlayerManager.updateAttribute(id, "username", newUsername);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
     }
+
+    // ChatGPT was used to generate the original code for the following 2 methods in ProfileCreationTest.java.
+    // The prompt used was: How can I make it so every time this test is run, a new username email and password are generated and it's id is used to identify it in the assertEquals statement
+    // ChatGPT suggested using UUID.randomUUID() to generate a unique identifier for the username, email, and password.
+    // UUID.randomUUID() generates a random universally unique identifier using a strong pseudo random number generator.
+    // The identifier is then converted to a string using .toString. This ensures every time this test is ran, a unique profile is created.
+    // To ensure this code is efficiently reusable, I've moved the generation of usernames and passwords to their own methods in the Profile class.
 
     /**
      * Generates a unique username.
@@ -293,33 +319,30 @@ public class Profile {
         return password;
     }
 
+    /**
+     * Gets the player's friends and friend requests as a FriendsList object.
+     *
+     * @return a FriendsList object.
+     */
     public FriendsList getFriendsList() {
         return friendsList;
     }
 
+    /**
+     * Sets the player's friends and friend requests through a FriendsList object.
+     *
+     * @param friendsList the new friends/friend requests of the player.
+     */
     public void setFriendsList(FriendsList friendsList) {
         this.friendsList = friendsList;
     }
 
+    /**
+     * Gets the player's ranking.
+     *
+     * @return the player's ranking.
+     */
     public PlayerRanking getPlayerRanking() {
         return playerRanking;
     }
-
-
-    public static void main(String[] args) {
-
-    }
-
-    public int getID() {
-        return id;
-    }
 }
-
-
-// ChatGPT was used to generate the original code for the following 2 methods in ProfileCreationTest.java.
-// The prompt used was: How can I make it so every time this test is run, a new username email and password are generated and it's id is used to identify it in the assertEquals statement
-// ChatGPT suggested using UUID.randomUUID() to generate a unique identifier for the username, email, and password.
-// UUID.randomUUID() generates a random universally unique identifier using a strong pseudo random number generator.
-// The identifier is then converted to a string using .toString. This ensures every time this test is ran, a unique profile is created.
-// The rest of the code in this test case (ProfileCreation.createNewProfile and following) was written without any AI assistance.
-// To ensure this code is efficiently reusable, I've moved the generation of usernames and passwords to their own methods in the Profile class.
