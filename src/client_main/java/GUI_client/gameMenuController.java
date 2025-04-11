@@ -140,7 +140,7 @@ public class gameMenuController implements Initializable {
 
             // check if user wants to close TTT game
             if (controller.closeYes) {
-                Client2.logout();
+                //Client2.logout();
 
                 AudioManager.mediaPlayer.stop();
                 Parent newRoot = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("login.fxml")));
