@@ -1,6 +1,9 @@
 package GameLogic_Client.Checkers;
 
+import GameLogic_Client.Connect4.C4Piece;
+import GameLogic_Client.Connect4.HintResult;
 import GameLogic_Client.IBoardGameController;
+import GameLogic_Client.GameState;
 import GameLogic_Client.Ivec2;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -361,6 +364,11 @@ public class CheckersController implements IBoardGameController
        }
    }
 
+    @Override
+    public HintResult getC4ColHint() {
+        return null;
+    }
+
 
 // Internal State Methods. Used internally by the CheckersController to manage its state.
     /**
@@ -702,16 +710,16 @@ public class CheckersController implements IBoardGameController
      *
      * @return an array with data on who has won the match
      */
-    public int[] getWinner()
+    public int getWinner()
     {
         return switch (currentGameState)
         {
-            case P1WIN -> new int[]{0};
-            case P2WIN -> new int[]{1};
+            case P1WIN -> 0;
+            case P2WIN -> 1;
 
-            case TIE -> new int[]{0, 1};
+            case TIE -> 2;
             // By default, declare nobody as the winner.
-            default -> new int[]{};
+            default -> 3;
         };
     }
 
@@ -771,5 +779,25 @@ public class CheckersController implements IBoardGameController
     public int boardChangedSinceLastCommand()
     {
         return boardChanged;
+    }
+
+    @Override
+    public C4Piece[][] getC4Board() {
+        return new C4Piece[0][];
+    }
+
+    @Override
+    public boolean getC4IsGameOver() {
+        return false;
+    }
+
+    @Override
+    public C4Piece getC4WinnerAsEnum() {
+        return null;
+    }
+
+    @Override
+    public C4Piece getC4CurrentPlayer() {
+        return null;
     }
 }
