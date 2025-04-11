@@ -1,6 +1,7 @@
-package server.management;
+package networking_main.management;
 
 import org.junit.jupiter.api.Test;
+import server.management.JsonConverter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
