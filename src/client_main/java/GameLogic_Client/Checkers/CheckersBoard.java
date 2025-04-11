@@ -139,7 +139,6 @@ public class CheckersBoard extends AbstractBoard
     /**
      * @param tileCoord
      * @return True if there is a valid Checkers Piece at the specified TileCoord; False otherwise.
-     * @throws IndexOutOfBoundsException If the tile coordinate is out of the bounds of the board.
      */
     public boolean isPiece(Ivec2 tileCoord)
     {
@@ -149,7 +148,6 @@ public class CheckersBoard extends AbstractBoard
     /**
      * @param tileCoord
      * @return True if the Piece at the specified tileCoord is a Player 1 Piece; False otherwise.
-     * @throws IndexOutOfBoundsException If the tile coordinate is out of the bounds of the board.
      */
     public boolean isP1(Ivec2 tileCoord)
     {
@@ -159,7 +157,6 @@ public class CheckersBoard extends AbstractBoard
     /**
      * @param tileCoord
      * @return True if the Piece at the specified TileCoord is a Player 1 Piece; False otherwise.
-     * @throws IndexOutOfBoundsException If the tile coordinate is out of the bounds of the board.
      */
     public boolean isP2(Ivec2 tileCoord)
     {
@@ -170,7 +167,6 @@ public class CheckersBoard extends AbstractBoard
     /**
      * @param tileCoord
      * @return True if the Piece at the specified TileCoord is a King Piece; False otherwise.
-     * @throws IndexOutOfBoundsException If the tile coordinate is out of the bounds of the board.
      */
     public boolean isKing(Ivec2 tileCoord)
     {
@@ -180,7 +176,6 @@ public class CheckersBoard extends AbstractBoard
     /**
      * @param tileCoord
      * @return True if the Piece at the specified tileCoord is a Pawn Piece; False otherwise.
-     * @throws IndexOutOfBoundsException If the tile coordinate is out of the bounds of the board.
      */
     public boolean isPawn(Ivec2 tileCoord)
     {
