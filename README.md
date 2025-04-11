@@ -42,7 +42,8 @@ The current version has seperate server and client files and has networking capa
 - **GUI:** JavaFX
 - **Networking:** java.net (sockets)
 - **Concurrency:** Java Threads
-- **Database** PostgreSQL
+- **Database:** PostgreSQL
+- **Testing:** JUnit 5
 
 ---
 
@@ -50,15 +51,19 @@ The current version has seperate server and client files and has networking capa
 
 ### Starting the Server
 
-1. Clone the repository and switch to the `SERVER` branch.
+1. Clone the repository and switch to the `Server` branch.
 2. Navigate to the `Launcher` package.
 3. Run the server launcher class to start the server instance.
+
+Branch: "Server", src/server_main/java/launcher/ServerLauncher.java
 
 ### Launching the Client
 
 1. Switch to the `p3_GUI` branch or open the client-side code.
 2. Navigate to the `GUI_client` package.
-3. Run the main application (src/client_main/java/GUI_client/MainApplication.java) class to launch the game client.
+3. Run the main application class to launch the game client.
+
+Branch: "p3_GUI", src/client_main/java/GUI_client/MainApplication.java
 
 ---
 
