@@ -476,7 +476,7 @@ public class TTTController implements Initializable {
      */
     public void checkWin() throws InterruptedException {
         // check for game win
-        theGame.checkWin();
+
         int winner = theGame.getWinner();
         // if game is over, current player is the loser
         if (winner == 0){ // if the current player is O
