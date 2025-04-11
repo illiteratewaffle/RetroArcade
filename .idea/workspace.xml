@@ -4,13 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ba5d62c9-ef67-4eb7-8775-b12157e4f5a8" name="Changes" comment="Mute button and Audio controlller to monitor muted status between controllers">
-      <change afterPath="$PROJECT_DIR$/src/client_main/resources/opponentTurnImage.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/client_main/resources/yourTurnImage.png" afterDir="false" />
+    <list default="true" id="ba5d62c9-ef67-4eb7-8775-b12157e4f5a8" name="Changes" comment="Fixed TTTGame tests">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client_main/java/GUI_client/TTTApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client_main/java/GUI_client/MainApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client_main/java/GUI_client/TTTController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client_main/java/GUI_client/TTTController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client_main/java/GameLogic_Client/TicTacToe/TTTGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client_main/java/GameLogic_Client/TicTacToe/TTTGame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/client_main/java/GameLogic_Client/TicTacToe/TTTPlayer.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,6 +22,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="p3_GUI" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitLabDefaultAccount">
@@ -48,7 +49,8 @@
     "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "p3__TicTacToe",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/Tyler/IdeaProjects/seng300-w25-project/src/client_main/resources"
+    "last_opened_file_path": "C:/Users/Tyler/IdeaProjects/seng300-w25-project/src/client_main/resources",
+    "node.js.selected.package.tslint": "(autodetect)"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -118,6 +120,7 @@
     <MESSAGE value="Added popup window exit controller and fxml" />
     <MESSAGE value="Set new play buttons for game menu + hover events." />
     <MESSAGE value="Mute button and Audio controlller to monitor muted status between controllers" />
-    <option name="LAST_COMMIT_MESSAGE" value="Mute button and Audio controlller to monitor muted status between controllers" />
+    <MESSAGE value="Fixed TTTGame tests" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed TTTGame tests" />
   </component>
 </project>
