@@ -56,8 +56,8 @@ public class CheckersControllerTest {
         assertEquals(0, gameLogic.getCurrentPlayer());
         // The game should still be ongoing.
         assertTrue(gameLogic.getGameOngoing());
-        // There should be no winners yet.
-        assertEquals(0, gameLogic.getWinner());
+        // There should be no winners yet (state == 3).
+        assertEquals(3, gameLogic.getWinner());
     }
 
     @Test
@@ -1172,8 +1172,6 @@ public class CheckersControllerTest {
         // There are no pieces belonging to player 2 left.
         // This should result in a win for player 1.
         assertFalse(gameLogic.getGameOngoing());
-        // There should be exactly 1 winner.
-        assertEquals(1, gameLogic.getWinner());
         // This should be player 1 (represented by index 0).
         assertEquals(0, gameLogic.getWinner());
 
@@ -1235,8 +1233,6 @@ public class CheckersControllerTest {
         // The only piece belonging to player 2 should be unable to move.
         // This should result in a win for player 1.
         assertFalse(gameLogic.getGameOngoing());
-        // There should be exactly 1 winner.
-        assertEquals(1, gameLogic.getWinner());
         // This should be player 1 (represented by index 0).
         assertEquals(0, gameLogic.getWinner());
 
@@ -1296,7 +1292,7 @@ public class CheckersControllerTest {
 
         // No players should be able to make any other moves.
         assertFalse(gameLogic.getGameOngoing());
-        // There should be exactly 2 winners (tie).
+        // There should be exactly 2 winners (tie); this is state 2.
         assertEquals(2, gameLogic.getWinner());
 
         // After a win, there should be no valid inputs left.
