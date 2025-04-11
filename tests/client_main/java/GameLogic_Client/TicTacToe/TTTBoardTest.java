@@ -9,6 +9,10 @@ import org.junit.jupiter.api.Test;
 
 import GameLogic_Client.Ivec2;
 
+/**
+ * TTTBoardTest class to test the functions and methods of the TTTBoard class.
+ * Author: Emma Djukic - Game Logic Team
+ */
 class TTTBoardTest {
     private TTTBoard board;
 

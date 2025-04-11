@@ -7,6 +7,10 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * TTTGameControllerTest class to test the functions and methods of the TTTGameController class.
+ * Author: Emma Djukic - Game Logic Team
+ */
 class TTTGameControllerTest {
     TTTGameController gameController;
 
@@ -20,12 +24,14 @@ class TTTGameControllerTest {
         assertEquals(1, gameController.getCurrentPlayer(), "Current player should be X at start of the game");
         gameController.makeMove(0, 0);
         assertEquals(2, gameController.getCurrentPlayer(), "Current player should now be O after first turn");
+        gameController.makeMove(1, 1);
+        assertEquals(1, gameController.getCurrentPlayer(), "Current player should switch back to X after second turn");
     }
 
     @Test
     void removePlayerOutOfBounds() {
         Exception ex = assertThrows(IndexOutOfBoundsException.class, () -> {
-            gameController.removePlayer(2); //should throw index out of bounds exception as 2 > 1
+            gameController.removePlayer(2); // should throw index out of bounds exception as 2 > 1
         });
         assertEquals("Invalid player index.", ex.getMessage());
     }
@@ -33,13 +39,16 @@ class TTTGameControllerTest {
     @Test
     void removePlayerSuccess() {
         assertDoesNotThrow(() -> {
-            gameController.removePlayer(0); //should not throw exception as index is in bounds.
+            gameController.removePlayer(0); // should not throw exception as index is in bounds
+        });
+        assertDoesNotThrow(() -> {
+            gameController.removePlayer(1); // should not throw exception as index is in bounds
         });
     }
 
     @Test
     void getWinnerNone() {
-        assertEquals(3, gameController.getWinner()); //should return 3.
+        assertEquals(3, gameController.getWinner(), "No winner at the start of the game");
     }
 
     @Test
@@ -48,8 +57,8 @@ class TTTGameControllerTest {
         gameController.makeMove(0, 1);
         gameController.makeMove(1, 0);
         gameController.makeMove(1, 1);
-        gameController.makeMove(2, 0); // player 1 should win here
-        assertArrayEquals(new int[] {0}, new int[]{gameController.getWinner()});
+        gameController.makeMove(2, 0); // player 1 (X) should win here
+        assertEquals(0, gameController.getWinner(), "Player 1 (X) should win after this move");
     }
 
     @Test
@@ -59,8 +68,8 @@ class TTTGameControllerTest {
         gameController.makeMove(1, 0);
         gameController.makeMove(1, 1);
         gameController.makeMove(2, 2);
-        gameController.makeMove(2, 1); // Player 2 should win here
-        assertArrayEquals(new int[] {1}, new int[]{gameController.getWinner()});
+        gameController.makeMove(2, 1); // player 2 (O) should win here
+        assertEquals(1, gameController.getWinner(), "Player 2 (O) should win after this move");
     }
 
     @Test
@@ -75,12 +84,12 @@ class TTTGameControllerTest {
         gameController.makeMove(2,0);  //player 2
         gameController.makeMove(2,2);  //player 1
         // this should result in a draw
-        assertEquals(2, gameController.getWinner());
+        assertEquals(2, gameController.getWinner(), "The game should end in a draw");
     }
 
     @Test
     void getGameOngoingTrue() {
-        assertTrue(gameController.getGameOngoing(), "Game should be ongoing from the beginning");
+        assertTrue(gameController.getGameOngoing(), "Game should be ongoing at the start");
     }
 
     @Test
@@ -90,14 +99,13 @@ class TTTGameControllerTest {
         gameController.makeMove(1, 0);
         gameController.makeMove(1, 1);
         gameController.makeMove(2, 0); // X should win here, thus ending the game
-        gameController.getWinner();
-        assertFalse(gameController.getGameOngoing(), "Game should now be completed");
+        assertFalse(gameController.getGameOngoing(), "Game should now be completed after a win");
     }
 
     @Test
     void getBoardSize() {
         Ivec2 boardSize = new Ivec2(3, 3);
-        assertEquals(boardSize, gameController.getBoardSize()); // tic-tac-toe board size is always 3x3
+        assertEquals(boardSize, gameController.getBoardSize(), "Tic-Tac-Toe board size should always be 3x3");
     }
 
     @Test
@@ -111,7 +119,7 @@ class TTTGameControllerTest {
     void receiveInputInvalidMove() {
         Ivec2 input = new Ivec2(0, 0);
         gameController.receiveInput(input); // valid
-        gameController.receiveInput(input); // invalid
+        gameController.receiveInput(input); // invalid, same spot
         assertEquals(2, gameController.getCurrentPlayer(), "Player should not switch after invalid move");
     }
 
@@ -124,9 +132,41 @@ class TTTGameControllerTest {
 
     @Test
     void changeTrackersDefaultValues() {
-        assertFalse(gameController.gameOngoingChangedSinceLastCommand());
-        assertFalse(gameController.winnersChangedSinceLastCommand());
-        assertFalse(gameController.currentPlayerChangedSinceLastCommand());
-        assertEquals(1, gameController.boardChangedSinceLastCommand());
+        assertFalse(gameController.gameOngoingChangedSinceLastCommand(), "Game ongoing status should not have changed yet");
+        assertFalse(gameController.winnersChangedSinceLastCommand(), "Winner status should not have changed yet");
+        assertFalse(gameController.currentPlayerChangedSinceLastCommand(), "Current player should not have changed yet");
+        assertEquals(1, gameController.boardChangedSinceLastCommand(), "Board state should have changed at least once after starting");
+    }
+
+    @Test
+    void testMultipleMovesAndWinner() {
+        gameController.makeMove(0, 0);
+        gameController.makeMove(1, 0);
+        gameController.makeMove(0, 1);
+        gameController.makeMove(1, 1);
+        gameController.makeMove(0, 2); // player 1 should win with a row of X's
+        assertEquals(0, gameController.getWinner(), "Player 1 should win with a horizontal row");
+    }
+
+    @Test
+    void testInvalidMoveOnOccupiedTile() {
+        gameController.makeMove(0, 0);
+        gameController.makeMove(0, 0); // invalid move on the same tile
+        assertEquals(2, gameController.getCurrentPlayer(), "Player should not switch after an invalid move");
+    }
+
+    @Test
+    void testFullBoardNoWinner() {
+        // Fill up the board with a situation where there is no winner (a tie).
+        gameController.makeMove(0, 0); // X
+        gameController.makeMove(0, 1); // O
+        gameController.makeMove(0, 2); // X
+        gameController.makeMove(1, 1);
+        gameController.makeMove(1, 0);
+        gameController.makeMove(1, 2);
+        gameController.makeMove(2, 1);
+        gameController.makeMove(2, 0);
+        gameController.makeMove(2, 2);
+        assertEquals(2, gameController.getWinner(), "The game should end in a draw (tie)");
     }
 }
