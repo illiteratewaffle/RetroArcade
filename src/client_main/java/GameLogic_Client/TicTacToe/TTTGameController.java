@@ -63,6 +63,7 @@ public class TTTGameController implements IBoardGameController {
     @Override
     public int[] GetWinner() {
         if (game.checkWin(game.board)) {
+            gameOngoing = false;
             return new int[] { game.currentPlayer };
         }
         return new int[0];
