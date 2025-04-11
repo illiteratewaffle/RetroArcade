@@ -2,7 +2,6 @@ package GameLogic_Client.Connect4;
 
 import GameLogic_Client.IBoardGameController;
 import GameLogic_Client.Ivec2;
-import client.Client2;
 import java.util.ArrayList;
 
 public class C4Controller implements IBoardGameController {
