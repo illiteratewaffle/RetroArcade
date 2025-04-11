@@ -30,7 +30,7 @@ class FriendsListTest {
             String username2 = Profile.generateUsername();
             String email2 = username2 + "@example.com";
             String password2 = Profile.generatePassword();
-            Files.copy(Paths.get("profiles_export.csv"), Paths.get("test_profiles_export.csv"), StandardCopyOption.REPLACE_EXISTING);
+//            Files.copy(Paths.get("profiles_export.csv"), Paths.get("test_profiles_export.csv"), StandardCopyOption.REPLACE_EXISTING);
             // two profiles created for testing purposes
             profileA = ProfileCreation.createNewProfile(username1, email1, password1);
             profileB = ProfileCreation.createNewProfile(username2, email2, password2);
