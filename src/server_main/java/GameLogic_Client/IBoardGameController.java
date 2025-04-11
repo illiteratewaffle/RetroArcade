@@ -1,6 +1,5 @@
+// set package to game logic client
 package GameLogic_Client;
-import GameLogic_Client.Connect4.C4Piece;
-import GameLogic_Client.Connect4.HintResult;
 
 import java.util.ArrayList;
 
@@ -30,16 +29,6 @@ public interface IBoardGameController
      * @throws IndexOutOfBoundsException If no players with the given Index exists.
      */
     void removePlayer(int player) throws IndexOutOfBoundsException;
-
-//  Additional method added for completion's sake. Is non-applicable for this project.
-//  /**
-//   * Add a Player using the given InitData to the game.
-//   * @param InitData The PlayerData containing the arguments for initialising the given Player.
-//   * @return The Index of the newly added Player.
-//   * @throws IllegalArgumentException If InitData contains invalid or missing information.
-//  */
-//  int AddPlayer(PlayerData InitData) throws IllegalArgumentException;
-
 
     /**
      * @return An array of integers containing the Index of the winners of the game.
@@ -96,35 +85,4 @@ public interface IBoardGameController
      * since the last call to <code>receiveInput</code> or <code>removePlayer</code>.
      */
     int boardChangedSinceLastCommand();
-
-    /**
-     * Gets the board for connect-4
-     * @return Connect-4 board by calling function in C4GameLogic class.
-     */
-    C4Piece[][] getC4Board();
-
-    /**
-     * Calls C4GameLogic class function to check whether the function
-     * @return true or false based on whether the game is over or not.
-     */
-    boolean getC4IsGameOver();
-
-    C4Piece getC4WinnerAsEnum();
-
-    C4Piece getC4CurrentPlayer();
-
-    // do I have to implement this??
-    void printBoard();
-
-    HintResult getC4ColHint();
-
-    boolean isTileEmpty(Ivec2 tile);
-
-    boolean makeMove(int row, int col);
-
-    boolean checkWin();
-
-    boolean checkDraw();
-
-    void updateGameState();
 }

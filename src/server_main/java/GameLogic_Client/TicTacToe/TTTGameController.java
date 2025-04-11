@@ -1,5 +1,6 @@
 package GameLogic_Client.TicTacToe;
 
+import GUI_client.TTTController;
 import GameLogic_Client.Connect4.C4Piece;
 import GameLogic_Client.Connect4.HintResult;
 import GameLogic_Client.GameState;
@@ -52,7 +53,7 @@ public class TTTGameController implements IBoardGameController {
      * checks if a win condition has been reached by either player.
      * @return returns true if a player has won, false if nobody has won yet.
      */
-    public boolean checkWin() {
+    public int checkWin() {
         return game.checkWin(game.board);
     }
 
@@ -99,7 +100,7 @@ public class TTTGameController implements IBoardGameController {
     /**
      * Determines if there is a winner.
      *
-     * @return An array containing the winner's index (0 for X, 1 for O), both for tie, or empty if no winner.
+     * @return 0 for X; 1 for O; 2 for a tie; 3 when nobody has won yet.
      */
     @Override
     public int getWinner() {

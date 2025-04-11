@@ -6,9 +6,9 @@ public class C4WinCheckerO1 {
         C4GameLogic game = new C4GameLogic();
         game.updateGameState();
         return checkHorizontal(lastCoordinate, piece, board) ||
-                checkVertical(lastCoordinate, piece, board) ||
-                checkForwardSlash(lastCoordinate, piece, board) ||
-                checkBackSlash(lastCoordinate, piece, board);
+            checkVertical(lastCoordinate, piece, board) ||
+            checkForwardSlash(lastCoordinate, piece, board) ||
+            checkBackSlash(lastCoordinate, piece, board);
     }
 
     public static boolean checkHorizontal(Ivec2 last, C4Piece piece, C4Piece[][] board) {

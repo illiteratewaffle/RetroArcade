@@ -12,24 +12,17 @@ module seng300.w25.project {
     requires com.almasb.fxgl.all;
     requires java.desktop;
     requires annotations;
-    requires org.junit.jupiter.api;
     requires javafx.media;
     requires java.sql;
     requires org.postgresql.jdbc;
+    //requires org.junit.jupiter.api;
 
 
-    //opens GUI_client to javafx.fxml;
+    opens GUI_client to javafx.fxml;
+    exports GUI_client;
+    /*exports GameLogic_Client;
 
-    exports database;
-    exports player;
-    exports AuthenticationAndProfile;
-    exports GameLogic_Client.Checkers;
-    exports GameLogic_Client.TicTacToe;
-    exports GameLogic_Client;
-    exports management;
-    exports launcher;
-    exports session;
-    exports matchmaking;
+    //opens GUI_client to javafx.fxml, javafx.graphics;
     exports GameLogic_Client.Connect4;
-    exports client;
+    opens GameLogic_Client.Connect4 to javafx.fxml, javafx.graphics; */
 }

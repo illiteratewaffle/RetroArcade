@@ -1,4 +1,4 @@
-package client_main.GameLogic_Client.Checkers;
+package client_main.java.GameLogic_Client.Checkers;
 
 import GameLogic_Client.Checkers.*;
 
@@ -56,8 +56,8 @@ public class CheckersControllerTest {
         assertEquals(0, gameLogic.getCurrentPlayer());
         // The game should still be ongoing.
         assertTrue(gameLogic.getGameOngoing());
-        // There should be no winners yet.
-        assertEquals(-1, gameLogic.getWinner());
+        // There should be no winners yet (state == 3).
+        assertEquals(3, gameLogic.getWinner());
     }
 
     @Test
@@ -87,12 +87,12 @@ public class CheckersControllerTest {
         int player = 1;
         CheckersController checkersController = new CheckersController();
 
-        // gamestate should be ongoing before a player is removed
-        assertEquals(GameState.ONGOING, checkersController.getState());
+        // The game should be ongoing before a player is removed.
+        assertTrue(checkersController.getGameOngoing());
         checkersController.removePlayer(player);
 
-        // gamestate should change after removal
-        assertEquals(GameState.P1WIN, checkersController.getState());
+        // The remaining player should win after the removal.
+        assertEquals(0, checkersController.getWinner());
     }
     @Test
     public void removePlayerTest0()
@@ -100,12 +100,12 @@ public class CheckersControllerTest {
         int player = 0;
         CheckersController checkersController = new CheckersController();
 
-        // gamestate should be ongoing before a player is removed
-        assertEquals(GameState.ONGOING, checkersController.getState());
+        // The game should be ongoing before a player is removed.
+        assertTrue(checkersController.getGameOngoing());
         checkersController.removePlayer(player);
 
-        // gamestate should change after removal
-        assertEquals(GameState.P2WIN, checkersController.getState());
+        // The remaining player should win after the removal.
+        assertEquals(1, checkersController.getWinner());
     }
 
 
@@ -1172,7 +1172,7 @@ public class CheckersControllerTest {
         // There are no pieces belonging to player 2 left.
         // This should result in a win for player 1.
         assertFalse(gameLogic.getGameOngoing());
-        // There should be exactly 1 winner.
+        // This should be player 1 (represented by index 0).
         assertEquals(0, gameLogic.getWinner());
 
         // After a win, there should be no valid inputs left.
@@ -1233,8 +1233,6 @@ public class CheckersControllerTest {
         // The only piece belonging to player 2 should be unable to move.
         // This should result in a win for player 1.
         assertFalse(gameLogic.getGameOngoing());
-        // There should be exactly 1 winner.
-        assertEquals(0, gameLogic.getWinner());
         // This should be player 1 (represented by index 0).
         assertEquals(0, gameLogic.getWinner());
 
@@ -1294,6 +1292,7 @@ public class CheckersControllerTest {
 
         // No players should be able to make any other moves.
         assertFalse(gameLogic.getGameOngoing());
+        // There should be exactly 2 winners (tie); this is state 2.
         assertEquals(2, gameLogic.getWinner());
 
         // After a win, there should be no valid inputs left.

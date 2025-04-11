@@ -1,7 +1,11 @@
 package GameLogic_Client.Checkers;
 
+/**
+ * enum for the type of highlight with 1 being piece, 2 being a selected piece, 3 being a capture, and 4 being a tile
+ */
 public enum CheckersHighlightType
 {
+    // enum values
     PIECE(1),
     SELECTED_PIECE(2),
     CAPTURE(3),
@@ -16,7 +20,7 @@ public enum CheckersHighlightType
      * Generate a CheckersHighlightType enum with the given value.
      * @param value The value for the generated enum. No 2 enums should have the same value.
      */
-    private CheckersHighlightType(int value)
+    CheckersHighlightType(int value)
     {
         this.value = value;
     }

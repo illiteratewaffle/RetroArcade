@@ -1,18 +1,20 @@
 package GameLogic_Client.Checkers;
 
-import GameLogic_Client.Connect4.C4Piece;
-import GameLogic_Client.Connect4.HintResult;
-import GameLogic_Client.IBoardGameController;
+// game logic class imports
 import GameLogic_Client.GameState;
+import GameLogic_Client.IBoardGameController;
 import GameLogic_Client.Ivec2;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+// java util imports
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 
-
+/**
+ * checkers controller implements the methods required in the IBoardGameController
+ */
 public class CheckersController implements IBoardGameController
 {
     // The underlying checkers board to store the position of pieces.
@@ -86,8 +88,6 @@ public class CheckersController implements IBoardGameController
         boolean shouldCheckTopRight = false;
         boolean shouldCheckBottomLeft = false;
         boolean shouldCheckBottomRight = false;
-
-        //To Ryan: problem?
 
         // King pieces can move in all 4 directions.
         if (board.isKing(pieceLocation))
@@ -287,29 +287,25 @@ public class CheckersController implements IBoardGameController
     }
 
 
-// Default variables for starting a game.
+    // Default variables for starting a game.
     final static int defaultWidth = 8;
     final static int defaultHeight = 8;
 
-    public GameState getState(){
-        return currentGameState;
-    }
-
     // Player 1's pieces begin at the bottom of the board, moving upwards.
     final static Ivec2[] defaultInitLocationsP1 = new Ivec2[]
-        {
-                new Ivec2(1, 7), new Ivec2(3, 7), new Ivec2(5, 7), new Ivec2(7, 7),
-                new Ivec2(0, 6), new Ivec2(2, 6), new Ivec2(4, 6), new Ivec2(6, 6),
-                new Ivec2(1, 5), new Ivec2(3, 5), new Ivec2(5, 5), new Ivec2(7, 5)
-        };
+            {
+                    new Ivec2(1, 7), new Ivec2(3, 7), new Ivec2(5, 7), new Ivec2(7, 7),
+                    new Ivec2(0, 6), new Ivec2(2, 6), new Ivec2(4, 6), new Ivec2(6, 6),
+                    new Ivec2(1, 5), new Ivec2(3, 5), new Ivec2(5, 5), new Ivec2(7, 5)
+            };
 
     // Player 2's pieces begin at the top of the board, moving downwards.
     final static Ivec2[] defaultInitLocationsP2 = new Ivec2[]
-        {
-                new Ivec2(0, 0), new Ivec2(2, 0), new Ivec2(4, 0), new Ivec2(6, 0),
-                new Ivec2(1, 1), new Ivec2(3, 1), new Ivec2(5, 1), new Ivec2(7, 1),
-                new Ivec2(0, 2), new Ivec2(2, 2), new Ivec2(4, 2), new Ivec2(6, 2)
-        };
+            {
+                    new Ivec2(0, 0), new Ivec2(2, 0), new Ivec2(4, 0), new Ivec2(6, 0),
+                    new Ivec2(1, 1), new Ivec2(3, 1), new Ivec2(5, 1), new Ivec2(7, 1),
+                    new Ivec2(0, 2), new Ivec2(2, 2), new Ivec2(4, 2), new Ivec2(6, 2)
+            };
 
 
     /**
@@ -350,51 +346,32 @@ public class CheckersController implements IBoardGameController
      * Reworked into a test method for showing the board
      * until I figure out how to get the GUI working on my local device. - Leo
      */
-   public void printBoard()
-   {
-       for (int y = defaultHeight - 1; y >= 0; y--)
-       {
-           int x = 0;
-           String Cell;
-           for (; x < defaultWidth - 1; x++)
-           {
-               Cell = "[ " + String.valueOf(board.getPiece(new Ivec2(x, y))) + " ]";
-               System.out.print(Cell);
-           }
-           Cell = "[ " + String.valueOf(board.getPiece(new Ivec2(x, y))) + " ]\n";
-           System.out.print(Cell);
-       }
-   }
-
-    @Override
-    public HintResult getC4ColHint() {
-        return null;
+    public void printBoard()
+    {
+        for (int y = defaultHeight - 1; y >= 0; y--)
+        {
+            int x = 0;
+            String Cell;
+            for (; x < defaultWidth - 1; x++)
+            {
+                Cell = "[ " + String.valueOf(board.getPiece(new Ivec2(x, y))) + " ]";
+                System.out.print(Cell);
+            }
+            Cell = "[ " + String.valueOf(board.getPiece(new Ivec2(x, y))) + " ]\n";
+            System.out.print(Cell);
+        }
     }
 
-    @Override
-    public boolean isTileEmpty(Ivec2 tile) {
-        return false;
+    public static void main(String[] args)
+    {
+        CheckersController test = new CheckersController();
+        test.receiveInput(new Ivec2(1, 2));
+        test.receiveInput(new Ivec2(1, 3));
+        test.receiveInput(new Ivec2(1, 2));
+        test.receiveInput(new Ivec2(2, 3));
+        test.printBoard();
     }
 
-    @Override
-    public boolean makeMove(int row, int col) {
-        return false;
-    }
-
-    @Override
-    public boolean checkWin() {
-        return false;
-    }
-
-    @Override
-    public boolean checkDraw() {
-        return false;
-    }
-
-    @Override
-    public void updateGameState() {
-
-    }
 
 
 // Internal State Methods. Used internally by the CheckersController to manage its state.
@@ -647,15 +624,12 @@ public class CheckersController implements IBoardGameController
     }
 
 
-// Interface implementation.
+    // Interface implementation.
     protected boolean gameOngoingChanged = false;
     protected boolean winnersChanged = false;
     protected boolean currentPlayerChanged = false;
     protected int boardChanged = 0;
 
-    /**
-     * Manages the back eng logic behind every click
-     */
     public void receiveInput(Ivec2 input)
     {
         // Reset the flags to help detect changes since the last input.
@@ -732,10 +706,9 @@ public class CheckersController implements IBoardGameController
         else throw new IndexOutOfBoundsException("Players in Checkers are denoted as either 0 or 1 only.");
     }
 
+
     /**
-     * Getter for winner
-     *
-     * @return an array with data on who has won the match
+     * @return 0 if P1 wins; 1 if P2 wins; 2 if it is a tie; 3 if nobody has won.
      */
     public int getWinner()
     {
@@ -743,10 +716,9 @@ public class CheckersController implements IBoardGameController
         {
             case P1WIN -> 0;
             case P2WIN -> 1;
-
             case TIE -> 2;
             // By default, declare nobody as the winner.
-            default -> -1;
+            default -> 3;
         };
     }
 
@@ -806,25 +778,5 @@ public class CheckersController implements IBoardGameController
     public int boardChangedSinceLastCommand()
     {
         return boardChanged;
-    }
-
-    @Override
-    public C4Piece[][] getC4Board() {
-        return new C4Piece[0][];
-    }
-
-    @Override
-    public boolean getC4IsGameOver() {
-        return false;
-    }
-
-    @Override
-    public C4Piece getC4WinnerAsEnum() {
-        return null;
-    }
-
-    @Override
-    public C4Piece getC4CurrentPlayer() {
-        return null;
     }
 }

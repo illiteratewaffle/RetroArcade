@@ -1,48 +1,125 @@
-package client_main.GameLogic_Client.TicTacToe;
-/**
- * TTGameTest class to test the functions and methods of the TTTGame class.
- * Author: Vicente David - Game Logic Team
- */
+package client_main.java.GameLogic_Client.TicTacToe;
 
+import GameLogic_Client.GameState;
+import GameLogic_Client.Ivec2;
 import GameLogic_Client.TicTacToe.TTTGame;
 import GameLogic_Client.TicTacToe.TTTPiece;
-import GameLogic_Client.Ivec2;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
-class TTTGameTest {
+
+/**
+ * TTTGameTest class to test the functions and methods of the TTTGame class.
+ * Author: Vicente David, Emma Djukic - Game Logic Team
+ */
+public class TTTGameTest {
+
     private TTTGame game;
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         game = new TTTGame();
     }
 
     @Test
-    void makeMove() {
-        assertTrue(game.makeMove(0, 0), "Move should be valid as the board is empty");
-        assertFalse(game.makeMove(0, 0), "Move should be invalid as this tile is not empty");
+    public void testGameInitialization() {
+        assertEquals(1, game.currentPlayer, "The game should start with player 1.");
+        assertEquals(GameState.ONGOING, game.gameState, "Game state should be ONGOING at the start.");
+        assertNotNull(game.board, "Board should be initialized.");
     }
 
     @Test
-    void switchTurn() {
-        assertEquals(1, game.currentPlayer, "Current player should be 1 at the start of the game");
-        game.switchTurn();
-        assertEquals(2, game.currentPlayer, "Current player should be 2 after first turn ends");
-        game.switchTurn();
-        assertEquals(1, game.currentPlayer, "Current player should be 1 after player 2 ends turn");
+    public void testValidMoveAndSwitchTurn() {
+        assertTrue(game.makeMove(0, 0), "Valid move should return true.");
+        assertEquals(2, game.currentPlayer, "After player 1's move, it should be player 2's turn.");
     }
 
     @Test
-    void checkWin() {
+    public void testInvalidMoveOccupiedCell() {
+        game.makeMove(0, 0); // Player 1 moves
+        assertFalse(game.makeMove(0, 0), "Move to an occupied cell should return false.");
+    }
+
+    @Test
+    public void testWinningMoveRow() {
+        game.makeMove(0, 0); // X
+        game.makeMove(1, 0); // O
+        game.makeMove(0, 1); // X
+        game.makeMove(1, 1); // O
+        game.makeMove(0, 2); // X - win
+
+        assertEquals(GameState.P1WIN, game.gameState, "Player 1 should win.");
+        assertEquals(1, game.checkWin(game.board), "Player 1 should be the winner.");
+        assertTrue(game.isGameOver(game.board), "Game should be over after a win.");
+    }
+
+    @Test
+    public void testWinningMoveColumn() {
+        game.makeMove(0, 0); // X
+        game.makeMove(0, 1); // O
+        game.makeMove(1, 0); // X
+        game.makeMove(1, 1); // O
+        game.makeMove(2, 0); // X - win
+
+        assertEquals(GameState.P1WIN, game.gameState, "Player 1 should win.");
+        assertEquals(1, game.checkWin(game.board), "Player 1 should be the winner.");
+    }
+
+    @Test
+    public void testWinningMoveDiagonal() {
+        game.makeMove(0, 0); // X
+        game.makeMove(0, 1); // O
+        game.makeMove(1, 1); // X
+        game.makeMove(2, 1); // O
+        game.makeMove(2, 2); // X - win
+
+        assertEquals(GameState.P1WIN, game.gameState, "Player 1 should win.");
+        assertEquals(1, game.checkWin(game.board), "Player 1 should be the winner.");
+    }
+
+    @Test
+    public void testDrawGame() {
+        game.makeMove(0, 0); // X
+        game.makeMove(0, 1); // O
+        game.makeMove(0, 2); // X
+        game.makeMove(1, 1); // O
+        game.makeMove(1, 0); // X
+        game.makeMove(1, 2); // O
+        game.makeMove(2, 1); // X
+        game.makeMove(2, 0); // O
+        game.makeMove(2, 2); // X
+
+        assertEquals(GameState.TIE, game.gameState, "Game should end in a tie.");
+        assertTrue(game.checkDraw(game.board), "The game should be a draw as there are no winners.");
+        assertTrue(game.isGameOver(game.board), "Game should be over in a draw scenario.");
+    }
+
+    @Test
+    void getPiece() {
+        Ivec2 point = new Ivec2(0, 0);
+        assertEquals(TTTPiece.EMPTY, game.getPiece(point), "Board should be empty initially.");
+
         game.makeMove(0, 0);
-        game.makeMove(1,0);
-        game.makeMove(0,1);
-        assertFalse(game.checkWin(game.board), "should return false as no player has achieved a win condition");
-        game.makeMove(1,1);
-        game.makeMove(0,2);
-        assertTrue(game.checkWin(game.board), "should return true as player 3 has a tile in the first row");
+        assertEquals(TTTPiece.X, game.getPiece(point), "Should return 'X' for player 1's move at (0,0).");
+
+        Ivec2 point2 = new Ivec2(0, 1);
+        game.makeMove(1, 0);
+        assertEquals(TTTPiece.O, game.getPiece(point2), "Should return 'O' for player 2's move at (0,1).");
+    }
+
+    @Test
+    public void testCheckWinNoWinner() {
+        game.makeMove(0, 0); // X
+        game.makeMove(1, 1); // O
+        assertEquals(0, game.checkWin(game.board), "No winner yet.");
+    }
+
+    @Test
+    public void testCheckDrawFalseIfBoardNotFull() {
+        game.makeMove(0, 0); // X
+        game.makeMove(0, 1); // O
+        assertFalse(game.checkDraw(game.board), "Board is not full, so it shouldn't be a draw.");
     }
 
     @Test
@@ -52,39 +129,48 @@ class TTTGameTest {
         game.makeMove(0,2);  //player 1
         game.makeMove(1,1);  //player 2
         game.makeMove(1,0);  //player 1
-        assertFalse(game.checkDraw(game.board), "Should return false as game is still ongoing and no win condition is met");
+        assertFalse(game.checkDraw(game.board), "Should return false as game is still ongoing and no win condition is met.");
+
         game.makeMove(1,2);  //player 2
         game.makeMove(2,1);  //player 1
         game.makeMove(2,0);  //player 2
         game.makeMove(2,2);  //player 1
-        assertTrue(game.checkDraw(game.board), "should return true as no win condition is met and all tiles are full");
+        assertTrue(game.checkDraw(game.board), "Should return true as no win condition is met and all tiles are full.");
     }
 
     @Test
-    void getPiece() {
-        Ivec2 point = new Ivec2(0, 0);
-        assertEquals(TTTPiece.EMPTY, game.getPiece(point), "Should get the empty piece as none have been placed");
-
+    public void testSwitchTurnTwice() {
         game.makeMove(0, 0);
-        assertEquals(TTTPiece.X, game.getPiece(point), "Should get 'X' in top left tile");
-
-        Ivec2 point2 = new Ivec2(0, 1);
-        game.makeMove(1, 0);
-        assertEquals(TTTPiece.O, game.getPiece(point2), "Should get 'O' in top middle tile");
+        assertEquals(2, game.currentPlayer, "After player 1's move, it should be player 2's turn.");
+        game.makeMove(1, 1);
+        assertEquals(1, game.currentPlayer, "After player 2's move, it should be player 1's turn.");
     }
-    
+
     @Test
     void isGameOver() {
-        // NOTE: these tests are technically unnecessary and redundant as the isGameOver() function
-        // is already being tested by checkDraw() and checkWin() methods.
         game.makeMove(0, 0); //player 1
         game.makeMove(0,1); //player 2
         game.makeMove(0,2); //player 1
-        assertFalse(game.isGameOver(game.board), "should return false as no player has achieved a win/draw condition");
+        assertFalse(game.isGameOver(game.board), "Game should not be over yet.");
+
         game.makeMove(1,0); //player 2
         game.makeMove(1,1); //player 1
         game.makeMove(1,2); //player 2
         game.makeMove(2,0); //player 1
-        assertTrue(game.isGameOver(game.board), "should return true as win condition is met by player 1");
+        assertTrue(game.isGameOver(game.board), "Game should be over as player 1 wins.");
+    }
+
+    @Test
+    public void testGameResetAfterWin() {
+        game.makeMove(0, 0); // X
+        game.makeMove(1, 0); // O
+        game.makeMove(0, 1); // X
+        game.makeMove(1, 1); // O
+        game.makeMove(0, 2); // X - win
+
+        assertEquals(GameState.P1WIN, game.gameState);
+        game = new TTTGame(); // Reset game
+        assertEquals(GameState.ONGOING, game.gameState, "Game should reset to ongoing after a win.");
+        assertEquals(1, game.currentPlayer, "Player 1 should start after reset.");
     }
 }

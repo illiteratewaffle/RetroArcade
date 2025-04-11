@@ -21,7 +21,11 @@ final public class Ivec2
     // Store the components of this vector's coordinates.
     final public Integer x, y;
 
-
+    /**
+     * constructor of the ivec2 class which takes an x and y value and creates an ivec2 object with those values
+     * @param x the value for x
+     * @param y the value for y
+     */
     public Ivec2(int x, int y)
     {
         this.x = x;
@@ -171,10 +175,5 @@ final public class Ivec2
     public Ivec2 divide(int denominator)
     {
         return new Ivec2(x / denominator, y / denominator);
-    }
-
-    @Override
-    public String toString() {
-        return "(" + x.toString() + "," + y.toString() + ")";
     }
 }
