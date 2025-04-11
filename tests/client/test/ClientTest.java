@@ -16,7 +16,7 @@ import org.junit.jupiter.api.Timeout;
 
 class ClientTest {
     private static Thread serverThread;
-
+//
     String serverAddress = "localhost";
     int serverPort = 5050;
     String username1 = "evan";
