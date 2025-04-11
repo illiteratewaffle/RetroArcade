@@ -7,6 +7,8 @@ import java.util.*;
 import AuthenticationAndProfile.PlayerRanking;
 import player.PlayerHandler;
 
+import static management.ServerLogger.log;
+
 public class MatchmakingQueue {
     private static final Map<Integer, LinkedList<PlayerHandler>> gameQueues = new HashMap<>();
 
@@ -58,7 +60,11 @@ public class MatchmakingQueue {
      * @param gameType gameType specifying which LinkedList to add the PlayerHandler into
      */
     public static void enqueue(PlayerHandler handler, int gameType) throws SQLException {
-        gameQueues.get(gameType).add(handler);
+        try {
+            gameQueues.get(gameType).add(handler);
+        } catch (NullPointerException e) {
+            log("MatchmakingQueue: Failed to add handler to queue: " + e.getMessage());
+        }
         quickSort(gameType);
     }
 
