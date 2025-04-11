@@ -1,5 +1,6 @@
 // setting package to checkers
 package GameLogic_Client.Checkers;
+
 // importing the Ivec2 class from game logic package
 import GameLogic_Client.Ivec2;
 import org.jetbrains.annotations.Nullable;
@@ -26,7 +27,7 @@ public class CheckersMove {
         this.captureCoordinate = captureCoordinate;
     }
     /**
-     * @return The start coordinate <code>Ivec2</code> of the movey.<br>
+     * @return The start coordinate <code>Ivec2</code> of the move.<br>
      * (Where the piece will be moved from.)
      */
     public Ivec2 getStartCoordinate() {

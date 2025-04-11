@@ -1,7 +1,5 @@
 package GameLogic_Client.Connect4;
 
-import GameLogic_Client.Connect4.C4Piece;
-
 public class C4WinChecker {
     private C4WinChecker() {
 

@@ -1,6 +1,10 @@
 package GameLogic_Client.Checkers;
 
+/**
+ * enum for the declaration of different piece types 0 for none, 1 for p1 pawn, 2 for p2 pawn, and so on
+ */
 public enum CheckersPiece {
+    // enum values
     NONE(0),
     P1PAWN(1),
     P1KING(2),
@@ -16,7 +20,7 @@ public enum CheckersPiece {
      * Generate a CheckersPiece enum with the given value.
      * @param value The value for the generated enum. No 2 enums should have the same value.
      */
-    private CheckersPiece(int value)
+    CheckersPiece(int value)
     {
         this.value = value;
     }
