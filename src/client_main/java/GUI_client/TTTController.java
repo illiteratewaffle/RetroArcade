@@ -112,7 +112,7 @@ public class TTTController implements Initializable {
     public GridPane gameBoard;
 
 
-
+    TTTGameController theGame;
     public static int yourPiece;
     // chat manager
     ChatManager chatManager = new ChatManager();
@@ -130,15 +130,17 @@ public class TTTController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        theGame = new TTTGameController();
         // tttClient = new TTTClient();
         // set background and foreground images
         msgReceived.addListener((observableValue, False, True) -> {
             if (True) {
-                System.out.println(yourPiece);
+                System.out.println(theGame.getCurrentPlayer());
                 getMessage(currentMessage);
                 msgReceived.set(false);
             }
         });
+        /*
         isYourTurn.addListener((observable, False, True) -> {
             if (True) {
                 // change new int[][]
@@ -146,6 +148,7 @@ public class TTTController implements Initializable {
                 updateBoard(board);
             }
         });
+        */
         Image bg_image = new Image("background_retro.png");
         Image b_image = new Image("foreground.png");
         background_image.setImage(bg_image);
@@ -193,167 +196,169 @@ public class TTTController implements Initializable {
         mouse-entered event: if tile is empty, yellow border appears around hovering imageview
         mouse-exited event: changes border color back to transparent
          */
-            Tile_0_0.setOnMouseClicked(event -> {
-                TileBorder_0_0.setStyle("-fx-border-color: transparent;");
-                try {
-                    setTile(0, 0, Tile_0_0);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-            });
-            Tile_0_0.setOnMouseEntered(event -> {
-                try {
-                    hoverEvent(TileBorder_0_0, 0, 0);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-            });
-            Tile_0_0.setOnMouseExited(event -> TileBorder_0_0.setStyle("-fx-border-color: transparent;"));
+        Tile_0_0.setOnMouseClicked(event -> {
+            TileBorder_0_0.setStyle("-fx-border-color: transparent;");
+            try {
+                setTile(0, 0, Tile_0_0);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        });
+        Tile_0_0.setOnMouseEntered(event -> {
+            try {
+                hoverEvent(TileBorder_0_0, 0, 0);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        });
+        Tile_0_0.setOnMouseExited(event -> TileBorder_0_0.setStyle("-fx-border-color: transparent;"));
 
 
-            Tile_0_1.setOnMouseClicked(event -> {
-                TileBorder_0_1.setStyle("-fx-border-color: transparent;");
-                try {
-                    setTile(0, 1, Tile_0_1);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-            });
-            Tile_0_1.setOnMouseEntered(event -> {
-                try {
-                    hoverEvent(TileBorder_0_1, 0, 1);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-            });
-            Tile_0_1.setOnMouseExited(event -> TileBorder_0_1.setStyle("-fx-border-color: transparent;"));
+        Tile_0_1.setOnMouseClicked(event -> {
+            TileBorder_0_1.setStyle("-fx-border-color: transparent;");
+            try {
+                setTile(0, 1, Tile_0_1);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        });
+        Tile_0_1.setOnMouseEntered(event -> {
+            try {
+                hoverEvent(TileBorder_0_1, 0, 1);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        });
+        Tile_0_1.setOnMouseExited(event -> TileBorder_0_1.setStyle("-fx-border-color: transparent;"));
 
 
-            Tile_0_2.setOnMouseClicked(event -> {
-                TileBorder_0_2.setStyle("-fx-border-color: transparent;");
-                try {
-                    setTile(0, 2, Tile_0_2);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-            });
-            Tile_0_2.setOnMouseEntered(event -> {
-                try {
-                    hoverEvent(TileBorder_0_2, 0, 2);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-            });
-            Tile_0_2.setOnMouseExited(event -> TileBorder_0_2.setStyle("-fx-border-color: transparent;"));
+        Tile_0_2.setOnMouseClicked(event -> {
+            TileBorder_0_2.setStyle("-fx-border-color: transparent;");
+            try {
+                setTile(0, 2, Tile_0_2);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        });
+        Tile_0_2.setOnMouseEntered(event -> {
+            try {
+                hoverEvent(TileBorder_0_2, 0, 2);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        });
+        Tile_0_2.setOnMouseExited(event -> TileBorder_0_2.setStyle("-fx-border-color: transparent;"));
 
 
-            Tile_1_0.setOnMouseClicked(event -> {
-                TileBorder_1_0.setStyle("-fx-border-color: transparent;");
-                try {
-                    setTile(1, 0, Tile_1_0);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-            });
-            Tile_1_0.setOnMouseEntered(event -> {
-                try {
-                    hoverEvent(TileBorder_1_0, 1, 0);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-            });
-            Tile_1_0.setOnMouseExited(event -> TileBorder_1_0.setStyle("-fx-border-color: transparent;"));
+        Tile_1_0.setOnMouseClicked(event -> {
+            TileBorder_1_0.setStyle("-fx-border-color: transparent;");
+            try {
+                setTile(1, 0, Tile_1_0);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        });
+        Tile_1_0.setOnMouseEntered(event -> {
+            try {
+                hoverEvent(TileBorder_1_0, 1, 0);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        });
+        Tile_1_0.setOnMouseExited(event -> TileBorder_1_0.setStyle("-fx-border-color: transparent;"));
 
 
-            Tile_1_1.setOnMouseClicked(event -> {
-                TileBorder_1_1.setStyle("-fx-border-color: transparent;");
-                try {
-                    setTile(1, 1, Tile_1_1);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-            });
-            Tile_1_1.setOnMouseEntered(event -> {
-                try {
-                    hoverEvent(TileBorder_1_1, 1, 1);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-            });
-            Tile_1_1.setOnMouseExited(event -> TileBorder_1_1.setStyle("-fx-border-color: transparent;"));
+        Tile_1_1.setOnMouseClicked(event -> {
+            TileBorder_1_1.setStyle("-fx-border-color: transparent;");
+            try {
+                setTile(1, 1, Tile_1_1);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        });
+        Tile_1_1.setOnMouseEntered(event -> {
+            try {
+                hoverEvent(TileBorder_1_1, 1, 1);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        });
+        Tile_1_1.setOnMouseExited(event -> TileBorder_1_1.setStyle("-fx-border-color: transparent;"));
 
 
-            Tile_1_2.setOnMouseClicked(event -> {
-                TileBorder_1_2.setStyle("-fx-border-color: transparent;");
-                try {
-                    setTile(1, 2, Tile_1_2);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-            });
-            Tile_1_2.setOnMouseEntered(event -> {
-                try {
-                    hoverEvent(TileBorder_1_2, 1, 2);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-            });
-            Tile_1_2.setOnMouseExited(event -> TileBorder_1_2.setStyle("-fx-border-color: transparent;"));
+        Tile_1_2.setOnMouseClicked(event -> {
+            TileBorder_1_2.setStyle("-fx-border-color: transparent;");
+            try {
+                setTile(1, 2, Tile_1_2);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        });
+        Tile_1_2.setOnMouseEntered(event -> {
+            try {
+                hoverEvent(TileBorder_1_2, 1, 2);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        });
+        Tile_1_2.setOnMouseExited(event -> TileBorder_1_2.setStyle("-fx-border-color: transparent;"));
 
 
-            Tile_2_0.setOnMouseClicked(event -> {
-                TileBorder_2_0.setStyle("-fx-border-color: transparent;");
-                try {
-                    setTile(2, 0, Tile_2_0);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-            });
-            Tile_2_0.setOnMouseEntered(event -> {
-                try {
-                    hoverEvent(TileBorder_2_0, 2, 0);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-            });
-            Tile_2_0.setOnMouseExited(event -> TileBorder_2_0.setStyle("-fx-border-color: transparent;"));
+        Tile_2_0.setOnMouseClicked(event -> {
+            TileBorder_2_0.setStyle("-fx-border-color: transparent;");
+            try {
+                setTile(2, 0, Tile_2_0);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        });
+        Tile_2_0.setOnMouseEntered(event -> {
+            try {
+                hoverEvent(TileBorder_2_0, 2, 0);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        });
+        Tile_2_0.setOnMouseExited(event -> TileBorder_2_0.setStyle("-fx-border-color: transparent;"));
 
 
-            Tile_2_1.setOnMouseClicked(event -> {
-                TileBorder_2_1.setStyle("-fx-border-color: transparent;");
-                try {
-                    setTile(2, 1, Tile_2_1);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-            });
-            Tile_2_1.setOnMouseEntered(event -> {
-                try {
-                    hoverEvent(TileBorder_2_1, 2, 1);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-            });
-            Tile_2_1.setOnMouseExited(event -> TileBorder_2_1.setStyle("-fx-border-color: transparent;"));
+        Tile_2_1.setOnMouseClicked(event -> {
+            TileBorder_2_1.setStyle("-fx-border-color: transparent;");
+            try {
+                setTile(2, 1, Tile_2_1);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        });
+        Tile_2_1.setOnMouseEntered(event -> {
+            try {
+                hoverEvent(TileBorder_2_1, 2, 1);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        });
+        Tile_2_1.setOnMouseExited(event -> TileBorder_2_1.setStyle("-fx-border-color: transparent;"));
 
 
-            Tile_2_2.setOnMouseClicked(event -> {
-                TileBorder_2_2.setStyle("-fx-border-color: transparent;");
-                try {
-                    setTile(2, 2, Tile_2_2);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-            });
-            Tile_2_2.setOnMouseEntered(event -> {
-                try {
-                    hoverEvent(TileBorder_2_2, 2, 2);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-            });
-            Tile_2_2.setOnMouseExited(event -> TileBorder_2_2.setStyle("-fx-border-color: transparent;"));
-        }
+        Tile_2_2.setOnMouseClicked(event -> {
+            TileBorder_2_2.setStyle("-fx-border-color: transparent;");
+            try {
+                setTile(2, 2, Tile_2_2);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        });
+        Tile_2_2.setOnMouseEntered(event -> {
+            try {
+                hoverEvent(TileBorder_2_2, 2, 2);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        });
+        Tile_2_2.setOnMouseExited(event -> TileBorder_2_2.setStyle("-fx-border-color: transparent;"));
+
+        updateBoard(theGame.getBoardCells(0b11).getFirst());
+    }
 
     /**
      * gets the row and column index of game tile
@@ -366,21 +371,21 @@ public class TTTController implements Initializable {
     private void setTile(int row, int col, ImageView imageView) throws InterruptedException {
         Image X = new Image("X.png");
         Image O = new Image("O.png");
-        if (isYourTurn.getValue()) {
-            if (Client2.getGameOngoing()) {
-                if (Client2.getBoardCells(0).getFirst()[row][col] == 0) {
-                    if (yourPiece == 2) {
-                        imageView.setImage(X);
-                        turnBanner.setImage(new Image("OTurn.png"));
-                    } else {
-                        imageView.setImage(O);
-                        turnBanner.setImage(new Image("XTurn.png"));
-                    }
-                    checkWin();
-                    Client2.receiveInput(new Ivec2(col, row));
-                    isYourTurn.set(false);
+        if (theGame.getGameOngoing()) {
+            if (theGame.getBoardCells(0b01).getFirst()[row][col] == 0) {
+                if (theGame.getCurrentPlayer() == 1) {
+                    imageView.setImage(X);
+                    turnBanner.setImage(new Image("OTurn.png"));
+                } else {
+                    imageView.setImage(O);
+                    turnBanner.setImage(new Image("XTurn.png"));
                 }
+                theGame.receiveInput(new Ivec2(col, row));
+                checkWin();
             }
+            // For clarity. Print the board as it is represented in GameLogic
+            // so that we can be sure that the tiles are placed correctly.
+            //updateBoard(theGame.getBoardCells(0b11).getFirst());
         }
     }
 
@@ -471,7 +476,8 @@ public class TTTController implements Initializable {
      */
     public void checkWin() throws InterruptedException {
         // check for game win
-        int winner = Client2.getWinner();
+        theGame.checkWin();
+        int winner = theGame.getWinner();
         // if game is over, current player is the loser
         if (winner == 0){ // if the current player is O
             Win_Lose_Banner.setImage(new Image("X_wins.png"));
@@ -481,7 +487,7 @@ public class TTTController implements Initializable {
             Win_Lose_Banner.setImage(new Image("Draw.png"));
         }
         // if game is over, set play again features
-        if (!Client2.getGameOngoing()){ // if the game is not ongoing, i.e. the game is over
+        if (!theGame.getGameOngoing()){ // if the game is not ongoing, i.e. the game is over
             turnBanner.setImage(null);
         }
     }
