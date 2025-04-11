@@ -66,7 +66,6 @@ public class gameMenuController implements Initializable {
      * @throws IOException
      */
     public void play_TTT() throws IOException {
-        Client2.enqueue(0);
         // stop current soundtrack
         AudioManager.mediaPlayer.stop();
         // load TTT resources
@@ -85,8 +84,6 @@ public class gameMenuController implements Initializable {
      * @throws IOException
      */
     public void play_checkers() throws IOException {
-        Client2.enqueue(2);
-
         // stop current soundtrack
         AudioManager.mediaPlayer.stop();
         // get checkers fxml resources
@@ -143,7 +140,7 @@ public class gameMenuController implements Initializable {
 
             // check if user wants to close TTT game
             if (controller.closeYes) {
-                Client2.logout();
+                Client.closeEverything();
 
                 AudioManager.mediaPlayer.stop();
                 Parent newRoot = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("login.fxml")));
