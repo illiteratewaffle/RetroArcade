@@ -35,7 +35,9 @@ final public class Ivec2
     @Override
     public int hashCode()
     {
-        return x.hashCode() * y.hashCode();
+        int xHash = x.hashCode();
+        int yHash = y.hashCode();
+        return ((xHash + (yHash >> 16)) << 16) + (xHash >> 16) + ((yHash << 16) >> 16);
     }
 
 
@@ -49,7 +51,7 @@ final public class Ivec2
     @Override
     public boolean equals(Object obj)
     {
-        // Only compare this with other Ivec2 instances.
+        // Only compare this with other Ivec2 instance.
         if (obj instanceof Ivec2 other)
         {
             return x.equals(other.x) && y.equals(other.y);

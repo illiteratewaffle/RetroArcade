@@ -1,8 +1,5 @@
 package GameLogic_Client.Checkers;
 
-import GameLogic_Client.Connect4.C4Piece;
-import GameLogic_Client.Connect4.HintResult;
-import GameLogic_Client.GameState;
 import GameLogic_Client.IBoardGameController;
 import GameLogic_Client.Ivec2;
 import org.jetbrains.annotations.NotNull;
@@ -86,8 +83,6 @@ public class CheckersController implements IBoardGameController
         boolean shouldCheckTopRight = false;
         boolean shouldCheckBottomLeft = false;
         boolean shouldCheckBottomRight = false;
-
-        //To Ryan: problem?
 
         // King pieces can move in all 4 directions.
         if (board.isKing(pieceLocation))
@@ -176,6 +171,31 @@ public class CheckersController implements IBoardGameController
         return pieceValidMoves;
     }
 
+    /**
+     * A public version of getPieceMoves for testing purposes
+     *
+     * @param pieceLocation
+     * The location of the piece on the board.<br>
+     * If the location is invalid, or if its corresponding tile does not contain a piece,
+     * an empty HashMap will be returned by default.
+     * @param mustCapture
+     * An array of at least 1 boolean.<br>
+     * The first value specifies whether all the moves by this piece must result in a capture or not.<br>
+     * Note that a piece will be forced to make a capture whenever possible.<br>
+     * When this case occurs, the value pointed at will be set to true for completion.<br>
+     * If this array is null or empty, the caller will not detect any changes in it, and
+     * it will be assumed that the moves by this piece do not need to result in a captures.
+     * @return
+     * A <code>HashMap</code> containing all possible moves this piece can make (with the filter considered).
+     * This maps the Target Position of each move to a corresponding <code>CheckersMove</code> instance.<br>
+     * The Target Position is used for mapping and validating discrete <code>Ivec2</code> user inputs,
+     * while the <code>CheckersMove</code> instance stores all the data needed
+     * for the <code>CheckersBoard</code> to make the move.
+     */
+    public HashMap<Ivec2, CheckersMove> getPieceMovesPublic(Ivec2 pieceLocation, boolean[] mustCapture)
+    {
+        return getPieceMoves(pieceLocation, mustCapture);
+    }
 
     /**
      * @param pieceLocation
@@ -266,6 +286,10 @@ public class CheckersController implements IBoardGameController
     final static int defaultWidth = 8;
     final static int defaultHeight = 8;
 
+    public GameState getState(){
+        return currentGameState;
+    }
+
     // Player 1's pieces begin at the bottom of the board, moving upwards.
     final static Ivec2[] defaultInitLocationsP1 = new Ivec2[]
         {
@@ -303,6 +327,18 @@ public class CheckersController implements IBoardGameController
     }
 
     /**
+     * Create a controller that simulates the logic of a game of checkers on the specified board.
+     * @param board The CheckersBoard containing the initial piece layout of the game.
+     */
+    public CheckersController(CheckersBoard board)
+    {
+        this.board = board;
+        validInputs = new HashMap<Ivec2, HashMap<Ivec2, CheckersMove>>();
+        // Prepare the game controller for the next (first) turn.
+        updateNextTurnGameState();
+    }
+
+    /**
      * prints out how the board looks at any point (continously????)
      * commented this out bc there was an error -ava
      * <br><br>
@@ -324,22 +360,6 @@ public class CheckersController implements IBoardGameController
            System.out.print(Cell);
        }
    }
-
-    public HintResult getC4ColHint() {
-        return null;
-    }
-
-
-    public static void main(String[] args)
-   {
-       CheckersController test = new CheckersController();
-       test.receiveInput(new Ivec2(1, 2));
-       test.receiveInput(new Ivec2(1, 3));
-       test.receiveInput(new Ivec2(1, 2));
-       test.receiveInput(new Ivec2(2, 3));
-       test.printBoard();
-   }
-
 
 
 // Internal State Methods. Used internally by the CheckersController to manage its state.
@@ -405,6 +425,16 @@ public class CheckersController implements IBoardGameController
                 }
             }
         }
+    }
+
+    /**
+     * A public version of updateValidInputs for testing purposes.
+     * @return A copy of the validInputs map that is used internally by this class.
+     */
+    public HashMap<Ivec2, HashMap<Ivec2, CheckersMove>> updateValidInputsPublic()
+    {
+        updateValidInputs();
+        return validInputs;
     }
 
 
@@ -588,6 +618,9 @@ public class CheckersController implements IBoardGameController
     protected boolean currentPlayerChanged = false;
     protected int boardChanged = 0;
 
+    /**
+     * Manages the back eng logic behind every click
+     */
     public void receiveInput(Ivec2 input)
     {
         // Reset the flags to help detect changes since the last input.
@@ -636,6 +669,13 @@ public class CheckersController implements IBoardGameController
         return;
     }
 
+    /**
+     * A public helper method to retrieve the location of the selected piece for testing purposes.
+     * @return The location of the currently selected piece, or null if no pieces are currently selected.
+     */
+    public Ivec2 getCurrentPieceLocation() { return currentPieceLocation; }
+
+
 
     public void removePlayer(int player) throws IndexOutOfBoundsException
     {
@@ -657,16 +697,21 @@ public class CheckersController implements IBoardGameController
         else throw new IndexOutOfBoundsException("Players in Checkers are denoted as either 0 or 1 only.");
     }
 
-
-    public int getWinner()
+    /**
+     * Getter for winner
+     *
+     * @return an array with data on who has won the match
+     */
+    public int[] getWinner()
     {
         return switch (currentGameState)
         {
-            case P1WIN -> 0;
-            case P2WIN -> 1;
-            case TIE -> 2;
+            case P1WIN -> new int[]{0};
+            case P2WIN -> new int[]{1};
+
+            case TIE -> new int[]{0, 1};
             // By default, declare nobody as the winner.
-            default -> 3;
+            default -> new int[]{};
         };
     }
 
@@ -726,28 +771,5 @@ public class CheckersController implements IBoardGameController
     public int boardChangedSinceLastCommand()
     {
         return boardChanged;
-    }
-
-    /**
-     * Ignored
-     */
-    public C4Piece[][] getC4Board() {
-        return null;
-    }
-
-    /**
-     * Ignored
-     */
-    @Override
-    public boolean getC4IsGameOver() {
-        return false;
-    }
-
-    public C4Piece getC4WinnerAsEnum() {
-        return null;
-    }
-
-    public C4Piece getC4CurrentPlayer() {
-        return null;
     }
 }
