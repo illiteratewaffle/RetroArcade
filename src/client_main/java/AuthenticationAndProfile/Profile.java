@@ -3,7 +3,6 @@ package AuthenticationAndProfile;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.UUID;
-import static AuthenticationAndProfile.ServerLogger.log;
 
 public class Profile {
     private String email;
@@ -163,6 +162,10 @@ public class Profile {
         }
     }
 
+    /**
+     * Gets OnlineStatus. True if online or false if offline.
+     * @return
+     */
     public boolean getOnlineStatus() {
         return isOnline;
     }

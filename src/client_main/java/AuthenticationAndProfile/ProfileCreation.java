@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import static AuthenticationAndProfile.ServerLogger.log;
 
 /**
- * ProfileCreation Class handles converting and verify Create Account Menu parameters to create a new Profile and Update ProfileDatabase.
+ * ProfileCreation Class handles converting and verifying Create Account Menu parameters to create a new Profile and Update ProfileDatabase.
  * @author Alessia Flaig
  */
 public class ProfileCreation {
@@ -44,13 +44,14 @@ public class ProfileCreation {
     /**
      * Hashing Algorithm for Password. Takes the entered password and encrypts it to save profile credentials to the ProfileDatabase.
      * @param unhashedPassword
-     * @return
+     * @return hashedPassword String
      */
     public static String hashedPassword(String unhashedPassword) throws NoSuchAlgorithmException {
         String hashed = "";
         //inbuilt MessageDigest class for SHA-256 hashing
         //Source: https://www.baeldung.com/sha-256-hashing-java
-        //Convert bytes to hex Source: https://www.geeksforgeeks.org/java-program-to-convert-byte-array-to-hex-string/
+        //Converts array of bytes to hexadecimal string
+        // Source: https://www.geeksforgeeks.org/java-program-to-convert-byte-array-to-hex-string/
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
             byte[] encodedHash = digest.digest(unhashedPassword.getBytes(StandardCharsets.UTF_8));

@@ -5,7 +5,11 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import static AuthenticationAndProfile.ServerLogger.log;
-
+/**
+ * ProfileCSVReader Class handles reading csv files sent from the database and converts information into ArrayLists to be accessible by
+ * various methods.
+ * @author Alessia Flaig
+ */
 public class ProfileCSVReader {
     protected static final int ID_INDEX = 0;  //id
     protected static final int USER_INDEX = 1; //email
@@ -41,11 +45,9 @@ public class ProfileCSVReader {
 
 
     /**
-     * Opens CSV file (from networking): A list of one profile and their information
-     * Puts it into ArrayList
-     * Returns said ArrayList
+     * Opens CSV file (from networking): A list of one profile and their information. This method puts it into ArrayList.
      *
-     * @return
+     * @return ArrayList<String></String>
      */
     public static ArrayList<String> openSingleProfileFile(String filePath) throws IOException, NullPointerException {
         ArrayList<String> fields = new ArrayList<>();
@@ -88,7 +90,7 @@ public class ProfileCSVReader {
     /**
      * openProfilesFiles(String filePath) method used to read profile csv's that contain all ids in the database.
      * @param filePath
-     * @return ArrayList<String> of all profiles in the database
+     * @return ArrayList<ArrayList<String> of all profiles in the database
      */
     public static ArrayList<ArrayList<String>> openProfilesFile(String filePath) throws IOException{
         ArrayList<ArrayList<String>> fields = new ArrayList<>();
