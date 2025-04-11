@@ -1,11 +1,7 @@
 package AuthenticationAndProfile;
 
-import server.player.PlayerManager;
-
-import java.io.IOException;
-import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
-import static server.management.ServerLogger.log;
+
 public class Main {
     /**
      * Main Method to start the server

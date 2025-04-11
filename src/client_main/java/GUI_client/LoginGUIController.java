@@ -29,7 +29,7 @@ public class LoginGUIController implements Initializable {
 
     private Stage quitPopup = new Stage();
     public static boolean loginSuccess = true;
-    private static final String IP = "10.13.156.102";
+    private static final String IP = "68.146.218.17";
 
     //buttons on login screen
     @FXML

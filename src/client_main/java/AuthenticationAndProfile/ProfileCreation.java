@@ -1,14 +1,13 @@
 package AuthenticationAndProfile;
 
 //import org.postgresql.util.PSQLException;
-import server.player.PlayerManager;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
-import static server.management.ServerLogger.log;
+import static AuthenticationAndProfile.ServerLogger.log;
 
 /**
  * ProfileCreation Class handles converting and verify Create Account Menu parameters to create a new Profile and Update ProfileDatabase.

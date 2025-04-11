@@ -1,8 +1,5 @@
 package AuthenticationAndProfile;
 
-import server.player.PlayerManager;
-import server.player.PlayerManager.*;
-
 import java.sql.SQLException;
 
 public class PlayerRanking {
