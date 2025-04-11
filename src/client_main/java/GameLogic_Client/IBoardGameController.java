@@ -1,6 +1,5 @@
+// set package to game logic client
 package GameLogic_Client;
-import GameLogic_Client.Connect4.C4Piece;
-import GameLogic_Client.Connect4.HintResult;
 
 import java.util.ArrayList;
 
@@ -30,16 +29,6 @@ public interface IBoardGameController
      * @throws IndexOutOfBoundsException If no players with the given Index exists.
      */
     void removePlayer(int player) throws IndexOutOfBoundsException;
-
-//  Additional method added for completion's sake. Is non-applicable for this project.
-//  /**
-//   * Add a Player using the given InitData to the game.
-//   * @param InitData The PlayerData containing the arguments for initialising the given Player.
-//   * @return The Index of the newly added Player.
-//   * @throws IllegalArgumentException If InitData contains invalid or missing information.
-//  */
-//  int AddPlayer(PlayerData InitData) throws IllegalArgumentException;
-
 
     /**
      * @return An array of integers containing the Index of the winners of the game.
