@@ -21,7 +21,7 @@ public class C4GameLogic {
     public C4GameLogic() {
         this.c4Board = new C4Board(6,7);
         gameState = GameState.ONGOING;
-        System.out.println("A new connect four board has been created");
+//        System.out.println("A new connect four board has been created");
     }
 
     /**
