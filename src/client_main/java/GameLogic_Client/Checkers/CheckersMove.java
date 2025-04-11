@@ -27,7 +27,7 @@ public class CheckersMove {
         this.captureCoordinate = captureCoordinate;
     }
     /**
-     * @return The start coordinate <code>Ivec2</code> of the movey.<br>
+     * @return The start coordinate <code>Ivec2</code> of the move.<br>
      * (Where the piece will be moved from.)
      */
     public Ivec2 getStartCoordinate() {
