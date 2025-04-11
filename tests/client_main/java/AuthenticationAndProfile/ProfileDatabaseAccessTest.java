@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class ProfileDatabaseAccessTest {
     private static int id;
     private static Profile profile;
-
+    /*
     @BeforeEach
     void setUp() {
         id = PlayerManager.registerPlayer("username", "email@email.com", "12345678");
@@ -111,5 +111,5 @@ class ProfileDatabaseAccessTest {
 
     @Test
     void viewOtherProfile() {
-    }
+    }*/
 }

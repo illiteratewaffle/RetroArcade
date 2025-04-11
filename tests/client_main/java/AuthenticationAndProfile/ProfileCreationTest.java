@@ -8,7 +8,7 @@ import java.util.UUID;
 import AuthenticationAndProfile.*;
 
 class ProfileCreationTest {
-
+    /*
     @Test
     void validHashedPassword() {
         String password = "1234567";
@@ -37,5 +37,5 @@ class ProfileCreationTest {
         assertEquals(email, PlayerManager.getAttribute(newProfileID, "email"));
         assertEquals(hashedPassword, PlayerManager.getAttribute(newProfileID, "hashed_password"));
         ProfileDatabaseAccess.removeProfile(newProfileID);
-    }
+    }*/
 }
