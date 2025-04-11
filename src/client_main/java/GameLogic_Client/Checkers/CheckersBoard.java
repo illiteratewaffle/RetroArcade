@@ -7,7 +7,9 @@ import GameLogic_Client.Ivec2;
 // importing hash set
 import java.util.HashSet;
 
-// inherits from Resources.AbstractBoard.java
+/**
+ * inherits from Resources.AbstractBoard.java
+ */
 public class CheckersBoard extends AbstractBoard
 {
     // p1 and p2 piece locations
