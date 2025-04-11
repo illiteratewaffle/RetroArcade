@@ -44,8 +44,11 @@ public class Main {
 //            System.out.println(s.getMessage());
 //        }
         try {
-            System.out.println(ProfileCreation.createNewProfile("1", "1", "1").getID());
-        } catch (SQLException | NoSuchAlgorithmException | IOException e) {
+            int id = PlayerManager.getProfileID("profile1c");
+            int id1 = PlayerManager.getProfileID("profile2c");
+            PlayerManager.deleteProfile(id);
+            PlayerManager.deleteProfile(id1);
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
     }

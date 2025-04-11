@@ -3,7 +3,7 @@ package matchmaking_tests;
 import AuthenticationAndProfile.Profile;
 import AuthenticationAndProfile.ProfileCreation;
 import AuthenticationAndProfile.PlayerRanking;
-import client_main.java.AuthenticationAndProfile.EmailGenerator;
+import server_main.java.AuthenticationAndProfile.EmailGenerator;
 import matchmaking.Matchmaking;
 import matchmaking.MatchmakingQueue;
 import org.junit.jupiter.api.*;
