@@ -16,6 +16,8 @@ import java.util.concurrent.LinkedBlockingQueue;
 import static management.JsonConverter.toJson;
 import static management.ServerLogger.log;
 
+import listeners.TurnChangeListener;
+
 public class GameSessionManager implements Runnable {
     private final PlayerHandler player1;
     private final PlayerHandler player2;
@@ -106,22 +108,11 @@ public class GameSessionManager implements Runnable {
                 ":" + player1.getProfile().getID() + " and " + player2.getProfile().getUsername() + ":" +
                 player2.getProfile().getID() + ".");
 
-        // While the game is ongoing, could replace with a running boolean?
+        // While the game is ongoing
         while (gameController.getGameOngoing()) {
             try {
                 ThreadMessage threadMessage = myQueue.take();
-                System.out.println(toJson(threadMessage.getContent()));
                 routeMessage(threadMessage);
-                // If it is now the senders turn
-                Map<String, Object> response = new HashMap<>();
-                response.put("type", "game");
-                response.put("command", "startTurn");
-                // If it is the sender's turn, send "startTurn"
-
-                response.put("data", checkTurn(player1.getThread()));
-                ThreadRegistry.getQueue(player1.getThread()).add(new ThreadMessage(Thread.currentThread(), response));
-                response.put("data", checkTurn(player2.getThread()));
-                ThreadRegistry.getQueue(player2.getThread()).add(new ThreadMessage(Thread.currentThread(), response));
             } catch (InterruptedException e) {
                 log("GameSessionManager: Failed to take from own BlockingQueue.");
                 // TODO: shutdown game?
@@ -259,7 +250,7 @@ public class GameSessionManager implements Runnable {
                     // If wanting to call getCurrentPlayer()
                     case "getCurrentPlayer":
                         // TODO: THIS MUST BE DEPENDENT ON THE PLAYER CURRENTLY PLAYING
-                        forward.put("data", gameController.getCurrentPlayer());
+                        forward.put("data", checkTurn(sender));
                         sendMessageBack(sender, forward);
                         break;
                     // If wanting to call gameOngoingChangedSinceLastCommand()
@@ -282,7 +273,6 @@ public class GameSessionManager implements Runnable {
                         forward.put("data", gameController.boardChangedSinceLastCommand());
                         sendMessageBack(sender, forward);
                         break;
-                        // TODO: UP TO HERE
                     case "getC4Board":
                         forward.put("data", ConverterTools.c4Piece2dArrayTo2dList(gameController.getC4Board()));
                         sendMessageBack(sender, forward);
