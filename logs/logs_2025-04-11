@@ -1,0 +1,304 @@
+[2025-04-11T09:44:21.0893786] ServerController: Started ConnectionManager and GameCreator.
+[2025-04-11T09:44:21.0903863] ConnectionManager: Listening on port 5050
+[2025-04-11T09:44:26.102417] ConnectionManager: Accepted connection from /127.0.0.1:59365
+[2025-04-11T09:44:26.1286714] Authentication successful. Player ID: 701
+[2025-04-11T09:44:26.1726752] Player data written to: player_profile_701.csv
+[2025-04-11T09:44:26.1978179] Player data written to: player_profile_701.csv
+[2025-04-11T09:44:26.2184004] Player data written to: player_profile_701.csv
+[2025-04-11T09:44:26.2457089] Player data written to: player_profile_701.csv
+[2025-04-11T09:44:26.2693935] Authentication: Player 701 is setOnline
+[2025-04-11T09:44:26.2693935] AuthenticateClient: Player evan:701 authenticated.
+[2025-04-11T09:44:31.1094327] GameCreator: Enqueued player evan:701
+[2025-04-11T09:44:31.1130656] GameCreator: Created game session manager for TestUsername:999 and evan:701
+[2025-04-11T09:44:31.11841] ServerController: Started ConnectionManager and GameCreator.
+[2025-04-11T09:44:31.1195015] ConnectionManager: encountered an error: Address already in use: bind
+[2025-04-11T09:44:36.1342368] ServerController: Started ConnectionManager and GameCreator.
+[2025-04-11T09:44:36.1354148] ConnectionManager: encountered an error: Address already in use: bind
+[2025-04-11T09:44:41.1483011] ServerController: Started ConnectionManager and GameCreator.
+[2025-04-11T09:44:41.1483011] ConnectionManager: encountered an error: Address already in use: bind
+[2025-04-11T09:44:46.1597302] ConnectionManager: Accepted connection from /127.0.0.1:59367
+[2025-04-11T09:44:46.1803871] Authentication successful. Player ID: 701
+[2025-04-11T09:44:46.2218983] Player data written to: player_profile_701.csv
+[2025-04-11T09:44:46.2586725] Player data written to: player_profile_701.csv
+[2025-04-11T09:44:46.2792669] Player data written to: player_profile_701.csv
+[2025-04-11T09:44:46.3083977] Player data written to: player_profile_701.csv
+[2025-04-11T09:44:46.3331878] Authentication: Player 701 is setOnline
+[2025-04-11T09:44:46.3331878] AuthenticateClient: Player evan:701 authenticated.
+[2025-04-11T09:44:51.1642643] GameCreator: Enqueued player evan:701
+[2025-04-11T09:44:51.1672645] ServerController: Started ConnectionManager and GameCreator.
+[2025-04-11T09:44:51.1672645] ConnectionManager: encountered an error: Address already in use: bind
+[2025-04-11T09:44:56.1704198] ServerController: Started ConnectionManager and GameCreator.
+[2025-04-11T09:44:56.1714945] ConnectionManager: encountered an error: Address already in use: bind
+[2025-04-11T09:45:01.1824886] ServerController: Started ConnectionManager and GameCreator.
+[2025-04-11T09:45:01.1824886] ConnectionManager: encountered an error: Address already in use: bind
+[2025-04-11T09:45:06.188969] ConnectionManager: Accepted connection from /127.0.0.1:59368
+[2025-04-11T09:45:06.2113629] Authentication successful. Player ID: 701
+[2025-04-11T09:45:06.2566445] Player data written to: player_profile_701.csv
+[2025-04-11T09:45:06.2889937] Player data written to: player_profile_701.csv
+[2025-04-11T09:45:06.3120896] Player data written to: player_profile_701.csv
+[2025-04-11T09:45:06.3358001] Player data written to: player_profile_701.csv
+[2025-04-11T09:45:06.3693932] Authentication: Player 701 is setOnline
+[2025-04-11T09:45:06.3693932] AuthenticateClient: Player evan:701 authenticated.
+[2025-04-11T09:45:11.1968879] ServerController: Started ConnectionManager and GameCreator.
+[2025-04-11T09:45:11.1979759] ConnectionManager: encountered an error: Address already in use: bind
+[2025-04-11T09:45:11.2390462] PlayerHandler: Player evan:701 disconnected.
+[2025-04-11T09:45:16.2078697] ServerController: Started ConnectionManager and GameCreator.
+[2025-04-11T09:45:16.2078697] ConnectionManager: encountered an error: Address already in use: bind
+[2025-04-11T09:45:21.2153954] ConnectionManager: Accepted connection from /127.0.0.1:59374
+[2025-04-11T09:45:21.2393485] Authentication successful. Player ID: 701
+[2025-04-11T09:45:21.2768902] Player data written to: player_profile_701.csv
+[2025-04-11T09:45:21.3064749] Player data written to: player_profile_701.csv
+[2025-04-11T09:45:21.3294355] Player data written to: player_profile_701.csv
+[2025-04-11T09:45:21.3836027] Player data written to: player_profile_701.csv
+[2025-04-11T09:45:21.4030834] Authentication: Player 701 is setOnline
+[2025-04-11T09:45:21.4030834] AuthenticateClient: Player evan:701 authenticated.
+[2025-04-11T09:45:26.226239] GameCreator: Enqueued player evan:701
+[2025-04-11T09:45:26.226239] GameCreator: Created game session manager for evan:701 and evan:701
+[2025-04-11T09:45:26.2297293] ServerController: Started ConnectionManager and GameCreator.
+[2025-04-11T09:45:26.2297293] ConnectionManager: encountered an error: Address already in use: bind
+[2025-04-11T09:45:26.2797816] GameSessionManager: Created 0 with players evan:701 and evan:701.
+[2025-04-11T09:45:31.2468249] ServerController: Started ConnectionManager and GameCreator.
+[2025-04-11T09:45:31.2468249] ConnectionManager: encountered an error: Address already in use: bind
+[2025-04-11T09:45:36.2468396] ConnectionManager: Accepted connection from /127.0.0.1:59376
+[2025-04-11T09:45:36.2707359] Authentication successful. Player ID: 701
+[2025-04-11T09:45:36.3113215] Player data written to: player_profile_701.csv
+[2025-04-11T09:45:36.3318039] Player data written to: player_profile_701.csv
+[2025-04-11T09:45:36.3557136] Player data written to: player_profile_701.csv
+[2025-04-11T09:45:36.3808157] Player data written to: player_profile_701.csv
+[2025-04-11T09:45:36.4016465] Authentication: Player 701 is setOnline
+[2025-04-11T09:45:36.4016465] AuthenticateClient: Player evan:701 authenticated.
+[2025-04-11T09:45:41.2528712] ServerController: Started ConnectionManager and GameCreator.
+[2025-04-11T09:45:41.2540977] ConnectionManager: encountered an error: Address already in use: bind
+[2025-04-11T09:45:46.2589512] ServerController: Started ConnectionManager and GameCreator.
+[2025-04-11T09:45:46.2589512] ConnectionManager: encountered an error: Address already in use: bind
+[2025-04-11T09:45:51.2741791] ServerController: Started ConnectionManager and GameCreator.
+[2025-04-11T09:45:51.2741791] ConnectionManager: encountered an error: Address already in use: bind
+[2025-04-11T09:45:56.2799391] ServerController: Started ConnectionManager and GameCreator.
+[2025-04-11T09:45:56.2799391] ConnectionManager: encountered an error: Address already in use: bind
+[2025-04-11T09:46:01.2937733] ConnectionManager: Accepted connection from /127.0.0.1:59378
+[2025-04-11T09:46:01.3144898] Authentication successful. Player ID: 701
+[2025-04-11T09:46:01.3640323] Player data written to: player_profile_701.csv
+[2025-04-11T09:46:01.3861842] Player data written to: player_profile_701.csv
+[2025-04-11T09:46:01.4139543] Player data written to: player_profile_701.csv
+[2025-04-11T09:46:01.4343352] Player data written to: player_profile_701.csv
+[2025-04-11T09:46:01.4550008] Authentication: Player 701 is setOnline
+[2025-04-11T09:46:01.4550008] AuthenticateClient: Player evan:701 authenticated.
+[2025-04-11T09:46:06.2940211] GameCreator: Enqueued player evan:701
+[2025-04-11T09:46:06.2970461] ServerController: Started ConnectionManager and GameCreator.
+[2025-04-11T09:46:06.2970461] ConnectionManager: encountered an error: Address already in use: bind
+[2025-04-11T09:46:11.3087869] ServerController: Started ConnectionManager and GameCreator.
+[2025-04-11T09:46:11.3087869] ConnectionManager: encountered an error: Address already in use: bind
+[2025-04-11T09:46:16.3239472] ConnectionManager: Accepted connection from /127.0.0.1:59380
+[2025-04-11T09:46:16.3542334] Authentication successful. Player ID: 701
+[2025-04-11T09:46:16.4043913] Player data written to: player_profile_701.csv
+[2025-04-11T09:46:16.4315696] Player data written to: player_profile_701.csv
+[2025-04-11T09:46:16.4595861] Player data written to: player_profile_701.csv
+[2025-04-11T09:46:16.4821513] Player data written to: player_profile_701.csv
+[2025-04-11T09:46:16.5038678] Authentication: Player 701 is setOnline
+[2025-04-11T09:46:16.5038678] AuthenticateClient: Player evan:701 authenticated.
+[2025-04-11T09:46:21.3313296] ServerController: Started ConnectionManager and GameCreator.
+[2025-04-11T09:46:21.3313296] ConnectionManager: encountered an error: Address already in use: bind
+[2025-04-11T09:46:21.4571412] This is a test log entry
+[2025-04-11T14:27:09.3146029] ServerController: Started ConnectionManager and GameCreator.
+[2025-04-11T14:27:09.3176031] ConnectionManager: Listening on port 5050
+[2025-04-11T14:27:14.3318416] ConnectionManager: Accepted connection from /127.0.0.1:60234
+[2025-04-11T14:27:14.6132356] DatabaseConnector: Connected to the database.
+[2025-04-11T14:27:14.6560493] Authentication successful. Player ID: 701
+[2025-04-11T14:27:14.7956164] Player data written to: player_profile_701.csv
+[2025-04-11T14:27:14.8361656] Player data written to: player_profile_701.csv
+[2025-04-11T14:27:14.8716505] Player data written to: player_profile_701.csv
+[2025-04-11T14:27:14.896072] Player data written to: player_profile_701.csv
+[2025-04-11T14:27:14.9273005] Authentication: Player 701 is setOnline
+[2025-04-11T14:27:14.9273005] AuthenticateClient: Player evan:701 authenticated.
+[2025-04-11T14:27:19.3439657] GameCreator: Enqueued player evan:701
+[2025-04-11T14:27:19.3524229] ServerController: Started ConnectionManager and GameCreator.
+[2025-04-11T14:27:19.3524229] ConnectionManager: encountered an error: Address already in use: bind
+[2025-04-11T14:27:24.3524969] ServerController: Started ConnectionManager and GameCreator.
+[2025-04-11T14:27:24.3535502] ConnectionManager: encountered an error: Address already in use: bind
+[2025-04-11T14:27:29.3546293] ServerController: Started ConnectionManager and GameCreator.
+[2025-04-11T14:27:29.3546293] ConnectionManager: encountered an error: Address already in use: bind
+[2025-04-11T14:27:34.3662167] ConnectionManager: Accepted connection from /127.0.0.1:60248
+[2025-04-11T14:27:34.3895098] Authentication successful. Player ID: 701
+[2025-04-11T14:27:34.4313576] Player data written to: player_profile_701.csv
+[2025-04-11T14:27:34.4625717] Player data written to: player_profile_701.csv
+[2025-04-11T14:27:34.4890393] Player data written to: player_profile_701.csv
+[2025-04-11T14:27:34.5233263] Player data written to: player_profile_701.csv
+[2025-04-11T14:27:34.5523188] Authentication: Player 701 is setOnline
+[2025-04-11T14:27:34.5523188] AuthenticateClient: Player evan:701 authenticated.
+[2025-04-11T14:27:39.3671623] GameCreator: Enqueued player evan:701
+[2025-04-11T14:27:39.3752357] ConnectionManager: encountered an error: Address already in use: bind
+[2025-04-11T14:27:39.3752357] ServerController: Started ConnectionManager and GameCreator.
+[2025-04-11T14:27:44.3876199] ServerController: Started ConnectionManager and GameCreator.
+[2025-04-11T14:27:44.3886196] ConnectionManager: encountered an error: Address already in use: bind
+[2025-04-11T14:27:49.3889516] ServerController: Started ConnectionManager and GameCreator.
+[2025-04-11T14:27:49.3889516] ConnectionManager: encountered an error: Address already in use: bind
+[2025-04-11T14:27:54.4013908] ConnectionManager: Accepted connection from /127.0.0.1:60253
+[2025-04-11T14:27:54.4238964] Authentication successful. Player ID: 701
+[2025-04-11T14:27:54.4717152] Player data written to: player_profile_701.csv
+[2025-04-11T14:27:54.5265927] Player data written to: player_profile_701.csv
+[2025-04-11T14:27:54.5547561] Player data written to: player_profile_701.csv
+[2025-04-11T14:27:54.5827563] Player data written to: player_profile_701.csv
+[2025-04-11T14:27:54.6071549] Authentication: Player 701 is setOnline
+[2025-04-11T14:27:54.6071549] AuthenticateClient: Player evan:701 authenticated.
+[2025-04-11T14:27:59.4165173] ServerController: Started ConnectionManager and GameCreator.
+[2025-04-11T14:27:59.417517] ConnectionManager: encountered an error: Address already in use: bind
+[2025-04-11T14:27:59.4564517] PlayerHandler: Player evan:701 disconnected.
+[2025-04-11T14:28:04.4270421] ServerController: Started ConnectionManager and GameCreator.
+[2025-04-11T14:28:04.4280418] ConnectionManager: encountered an error: Address already in use: bind
+[2025-04-11T14:28:09.4333315] ConnectionManager: Accepted connection from /127.0.0.1:60254
+[2025-04-11T14:28:09.454506] Authentication successful. Player ID: 701
+[2025-04-11T14:28:09.5007305] Player data written to: player_profile_701.csv
+[2025-04-11T14:28:09.535449] Player data written to: player_profile_701.csv
+[2025-04-11T14:28:09.5620263] Player data written to: player_profile_701.csv
+[2025-04-11T14:28:09.5920516] Player data written to: player_profile_701.csv
+[2025-04-11T14:28:09.6200526] Authentication: Player 701 is setOnline
+[2025-04-11T14:28:09.6200526] AuthenticateClient: Player evan:701 authenticated.
+[2025-04-11T14:28:14.446425] GameCreator: Enqueued player evan:701
+[2025-04-11T14:28:14.4485485] ServerController: Started ConnectionManager and GameCreator.
+[2025-04-11T14:28:14.4495528] ConnectionManager: encountered an error: Address already in use: bind
+[2025-04-11T14:28:14.4495528] GameCreator: Created game session manager for evan:701 and evan:701
+[2025-04-11T14:28:14.5355551] GameSessionManager: Created 0 with players evan:701 and evan:701.
+[2025-04-11T14:28:19.456383] ConnectionManager: encountered an error: Address already in use: bind
+[2025-04-11T14:28:19.456383] ServerController: Started ConnectionManager and GameCreator.
+[2025-04-11T14:28:24.4620473] ConnectionManager: Accepted connection from /127.0.0.1:60256
+[2025-04-11T14:28:24.4940473] Authentication successful. Player ID: 701
+[2025-04-11T14:28:24.5477144] Player data written to: player_profile_701.csv
+[2025-04-11T14:28:24.5870025] Player data written to: player_profile_701.csv
+[2025-04-11T14:28:24.6090178] Player data written to: player_profile_701.csv
+[2025-04-11T14:28:24.6310188] Player data written to: player_profile_701.csv
+[2025-04-11T14:28:24.6585261] Authentication: Player 701 is setOnline
+[2025-04-11T14:28:24.6585261] AuthenticateClient: Player evan:701 authenticated.
+[2025-04-11T14:28:29.468754] ServerController: Started ConnectionManager and GameCreator.
+[2025-04-11T14:28:29.468754] ConnectionManager: encountered an error: Address already in use: bind
+[2025-04-11T14:28:34.4690903] ServerController: Started ConnectionManager and GameCreator.
+[2025-04-11T14:28:34.4700904] ConnectionManager: encountered an error: Address already in use: bind
+[2025-04-11T14:28:39.4818131] ServerController: Started ConnectionManager and GameCreator.
+[2025-04-11T14:28:39.4818131] ConnectionManager: encountered an error: Address already in use: bind
+[2025-04-11T14:28:44.48563] ServerController: Started ConnectionManager and GameCreator.
+[2025-04-11T14:28:44.4866296] ConnectionManager: encountered an error: Address already in use: bind
+[2025-04-11T14:28:49.4951624] ConnectionManager: Accepted connection from /127.0.0.1:60271
+[2025-04-11T14:28:49.5164924] Authentication successful. Player ID: 701
+[2025-04-11T14:28:49.5724219] Player data written to: player_profile_701.csv
+[2025-04-11T14:28:49.5982535] Player data written to: player_profile_701.csv
+[2025-04-11T14:28:49.6203829] Player data written to: player_profile_701.csv
+[2025-04-11T14:28:49.6515456] Player data written to: player_profile_701.csv
+[2025-04-11T14:28:49.6752955] Authentication: Player 701 is setOnline
+[2025-04-11T14:28:49.6752955] AuthenticateClient: Player evan:701 authenticated.
+[2025-04-11T14:28:54.50576] ServerController: Started ConnectionManager and GameCreator.
+[2025-04-11T14:28:54.50576] ConnectionManager: encountered an error: Address already in use: bind
+[2025-04-11T14:28:59.5101656] ServerController: Started ConnectionManager and GameCreator.
+[2025-04-11T14:28:59.5101656] ConnectionManager: encountered an error: Address already in use: bind
+[2025-04-11T14:29:04.5192812] ConnectionManager: Accepted connection from /127.0.0.1:60273
+[2025-04-11T14:29:04.537281] Authentication successful. Player ID: 701
+[2025-04-11T14:29:04.5797882] Player data written to: player_profile_701.csv
+[2025-04-11T14:29:04.603788] Player data written to: player_profile_701.csv
+[2025-04-11T14:29:04.629788] Player data written to: player_profile_701.csv
+[2025-04-11T14:29:04.6601205] Player data written to: player_profile_701.csv
+[2025-04-11T14:29:04.7176297] Authentication: Player 701 is setOnline
+[2025-04-11T14:29:04.7176297] AuthenticateClient: Player evan:701 authenticated.
+[2025-04-11T14:29:09.5301427] GameCreator: Enqueued player evan:701
+[2025-04-11T14:29:09.5547892] ServerController: Started ConnectionManager and GameCreator.
+[2025-04-11T14:29:09.5547892] ConnectionManager: encountered an error: Address already in use: bind
+[2025-04-11T14:29:09.6155165] This is a test log entry
+[2025-04-11T15:38:22.0896826] ServerController: Started ConnectionManager and GameCreator.
+[2025-04-11T15:38:22.0928224] ConnectionManager: Listening on port 5050
+[2025-04-11T15:38:27.0970137] ConnectionManager: Accepted connection from /127.0.0.1:60829
+[2025-04-11T15:38:27.3297308] DatabaseConnector: Connected to the database.
+[2025-04-11T15:38:27.3727227] Authentication successful. Player ID: 701
+[2025-04-11T15:38:27.5053744] Player data written to: player_profile_701.csv
+[2025-04-11T15:38:27.5503869] Player data written to: player_profile_701.csv
+[2025-04-11T15:38:27.5841193] Player data written to: player_profile_701.csv
+[2025-04-11T15:38:27.6152719] Player data written to: player_profile_701.csv
+[2025-04-11T15:38:27.6440277] Authentication: Player 701 is setOnline
+[2025-04-11T15:38:27.6451336] AuthenticateClient: Player evan:701 authenticated.
+[2025-04-11T15:38:32.1016843] GameCreator: Enqueued player evan:701
+[2025-04-11T15:38:32.1097699] ServerController: Started ConnectionManager and GameCreator.
+[2025-04-11T15:38:32.1107695] ConnectionManager: encountered an error: Address already in use: bind
+[2025-04-11T15:38:32.1432493] GameCreator: Created game session manager for TestUsername:999 and evan:701
+[2025-04-11T15:38:37.1115376] ServerController: Started ConnectionManager and GameCreator.
+[2025-04-11T15:38:37.1126647] ConnectionManager: encountered an error: Address already in use: bind
+[2025-04-11T15:38:42.1173629] ServerController: Started ConnectionManager and GameCreator.
+[2025-04-11T15:38:42.1173629] ConnectionManager: encountered an error: Address already in use: bind
+[2025-04-11T15:38:47.1268842] ConnectionManager: Accepted connection from /127.0.0.1:60831
+[2025-04-11T15:38:47.1513934] Authentication successful. Player ID: 701
+[2025-04-11T15:38:47.1954688] Player data written to: player_profile_701.csv
+[2025-04-11T15:38:47.2270579] Player data written to: player_profile_701.csv
+[2025-04-11T15:38:47.2540611] Player data written to: player_profile_701.csv
+[2025-04-11T15:38:47.2785928] Player data written to: player_profile_701.csv
+[2025-04-11T15:38:47.3019915] Authentication: Player 701 is setOnline
+[2025-04-11T15:38:47.3019915] AuthenticateClient: Player evan:701 authenticated.
+[2025-04-11T15:38:52.1273836] GameCreator: Enqueued player evan:701
+[2025-04-11T15:38:52.1305842] ServerController: Started ConnectionManager and GameCreator.
+[2025-04-11T15:38:52.1305842] ConnectionManager: encountered an error: Address already in use: bind
+[2025-04-11T15:38:57.134936] ServerController: Started ConnectionManager and GameCreator.
+[2025-04-11T15:38:57.1360366] ConnectionManager: encountered an error: Address already in use: bind
+[2025-04-11T15:39:02.1502007] ServerController: Started ConnectionManager and GameCreator.
+[2025-04-11T15:39:02.1502007] ConnectionManager: encountered an error: Address already in use: bind
+[2025-04-11T15:39:07.1589771] ConnectionManager: Accepted connection from /127.0.0.1:60837
+[2025-04-11T15:39:07.1823499] Authentication successful. Player ID: 701
+[2025-04-11T15:39:07.2283324] Player data written to: player_profile_701.csv
+[2025-04-11T15:39:07.2538738] Player data written to: player_profile_701.csv
+[2025-04-11T15:39:07.2757628] Player data written to: player_profile_701.csv
+[2025-04-11T15:39:07.3026774] Player data written to: player_profile_701.csv
+[2025-04-11T15:39:07.3286782] Authentication: Player 701 is setOnline
+[2025-04-11T15:39:07.3286782] AuthenticateClient: Player evan:701 authenticated.
+[2025-04-11T15:39:12.1697551] ServerController: Started ConnectionManager and GameCreator.
+[2025-04-11T15:39:12.1697551] ConnectionManager: encountered an error: Address already in use: bind
+[2025-04-11T15:39:12.212055] PlayerHandler: Player evan:701 disconnected.
+[2025-04-11T15:39:17.1828129] ServerController: Started ConnectionManager and GameCreator.
+[2025-04-11T15:39:17.1828129] ConnectionManager: encountered an error: Address already in use: bind
+[2025-04-11T15:39:22.187272] ConnectionManager: Accepted connection from /127.0.0.1:60838
+[2025-04-11T15:39:22.2132789] Authentication successful. Player ID: 701
+[2025-04-11T15:39:22.2550976] Player data written to: player_profile_701.csv
+[2025-04-11T15:39:22.2780026] Player data written to: player_profile_701.csv
+[2025-04-11T15:39:22.309061] Player data written to: player_profile_701.csv
+[2025-04-11T15:39:22.330044] Player data written to: player_profile_701.csv
+[2025-04-11T15:39:22.3532499] Authentication: Player 701 is setOnline
+[2025-04-11T15:39:22.3532499] AuthenticateClient: Player evan:701 authenticated.
+[2025-04-11T15:39:27.1972194] GameCreator: Enqueued player evan:701
+[2025-04-11T15:39:27.1972194] GameCreator: Created game session manager for evan:701 and evan:701
+[2025-04-11T15:39:27.200615] ServerController: Started ConnectionManager and GameCreator.
+[2025-04-11T15:39:27.200615] ConnectionManager: encountered an error: Address already in use: bind
+[2025-04-11T15:39:27.2489085] GameSessionManager: Created 0 with players evan:701 and evan:701.
+[2025-04-11T15:39:32.2155005] ServerController: Started ConnectionManager and GameCreator.
+[2025-04-11T15:39:32.2165522] ConnectionManager: encountered an error: Address already in use: bind
+[2025-04-11T15:39:37.229372] ConnectionManager: Accepted connection from /127.0.0.1:60839
+[2025-04-11T15:39:37.2505243] Authentication successful. Player ID: 701
+[2025-04-11T15:39:37.3024332] Player data written to: player_profile_701.csv
+[2025-04-11T15:39:37.3262353] Player data written to: player_profile_701.csv
+[2025-04-11T15:39:37.3476357] Player data written to: player_profile_701.csv
+[2025-04-11T15:39:37.370257] Player data written to: player_profile_701.csv
+[2025-04-11T15:39:37.3997394] Authentication: Player 701 is setOnline
+[2025-04-11T15:39:37.3997394] AuthenticateClient: Player evan:701 authenticated.
+[2025-04-11T15:39:42.2450824] ServerController: Started ConnectionManager and GameCreator.
+[2025-04-11T15:39:42.2450824] ConnectionManager: encountered an error: Address already in use: bind
+[2025-04-11T15:39:47.2579565] ServerController: Started ConnectionManager and GameCreator.
+[2025-04-11T15:39:47.2590071] ConnectionManager: encountered an error: Address already in use: bind
+[2025-04-11T15:39:52.268661] ServerController: Started ConnectionManager and GameCreator.
+[2025-04-11T15:39:52.268661] ConnectionManager: encountered an error: Address already in use: bind
+[2025-04-11T15:39:57.276901] ServerController: Started ConnectionManager and GameCreator.
+[2025-04-11T15:39:57.276901] ConnectionManager: encountered an error: Address already in use: bind
+[2025-04-11T15:40:02.28027] ConnectionManager: Accepted connection from /127.0.0.1:60844
+[2025-04-11T15:40:02.3087896] Authentication successful. Player ID: 701
+[2025-04-11T15:40:02.348445] Player data written to: player_profile_701.csv
+[2025-04-11T15:40:02.3704205] Player data written to: player_profile_701.csv
+[2025-04-11T15:40:02.3923408] Player data written to: player_profile_701.csv
+[2025-04-11T15:40:02.4144827] Player data written to: player_profile_701.csv
+[2025-04-11T15:40:02.4384388] Authentication: Player 701 is setOnline
+[2025-04-11T15:40:02.4394439] AuthenticateClient: Player evan:701 authenticated.
+[2025-04-11T15:40:07.2901487] ServerController: Started ConnectionManager and GameCreator.
+[2025-04-11T15:40:07.2911489] ConnectionManager: encountered an error: Address already in use: bind
+[2025-04-11T15:40:12.2970851] ServerController: Started ConnectionManager and GameCreator.
+[2025-04-11T15:40:12.2970851] ConnectionManager: encountered an error: Address already in use: bind
+[2025-04-11T15:40:17.2997034] ConnectionManager: Accepted connection from /127.0.0.1:60850
+[2025-04-11T15:40:17.3222053] Authentication successful. Player ID: 701
+[2025-04-11T15:40:17.3732213] Player data written to: player_profile_701.csv
+[2025-04-11T15:40:17.3967516] Player data written to: player_profile_701.csv
+[2025-04-11T15:40:17.4174264] Player data written to: player_profile_701.csv
+[2025-04-11T15:40:17.4394143] Player data written to: player_profile_701.csv
+[2025-04-11T15:40:17.4625651] Authentication: Player 701 is setOnline
+[2025-04-11T15:40:17.4625651] AuthenticateClient: Player evan:701 authenticated.
+[2025-04-11T15:40:22.3006369] GameCreator: Enqueued player evan:701
+[2025-04-11T15:40:22.330613] ServerController: Started ConnectionManager and GameCreator.
+[2025-04-11T15:40:22.330613] ConnectionManager: encountered an error: Address already in use: bind
+[2025-04-11T15:40:22.3943195] This is a test log entry
