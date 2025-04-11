@@ -1,10 +1,10 @@
 package AuthenticationAndProfile;
 
-import static AuthenticationAndProfile.ServerLogger.log;
-
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
+import static AuthenticationAndProfile.ServerLogger.log;
+
 /**
  * Authentication Class handles Profile Login and Logout
  * @author Alessia Flaig
@@ -20,17 +20,20 @@ public class Authentication {
      * @return true if login is successful. Throws exceptions for incorrect username or password if
      * login fails.
      */
-    //return profile object
     public static Profile logIn(String username, String password) throws SQLException, NoSuchAlgorithmException, IOException {
         try {
             String hashedPassword = ProfileCreation.hashedPassword(password);
             Profile profile;
             int id = PlayerManager.authenticatePlayer(username, hashedPassword);
             if (id != -1) {
-                profile = ProfileDatabaseAccess.obtainProfile(id);
-                profile.setOnlineStatus(true);
-                log(String.format("Player %d is setOnline\n", id));
-                return profile;
+                if (Boolean.valueOf(PlayerManager.getAttribute(id, "is_online")).equals(false)) {
+                    profile = ProfileDatabaseAccess.obtainProfile(id);
+                    profile.setOnlineStatus(true);
+                    log(String.format("Authentication: Player %d is setOnline", id));
+                    return profile;
+                } else {
+                    throw new SQLException("Profile is already logged in.");
+                }
             } else {
                 throw new SQLException("Incorrect Username or Password");
             }

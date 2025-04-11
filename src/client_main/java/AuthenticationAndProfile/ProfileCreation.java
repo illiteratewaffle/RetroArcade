@@ -1,7 +1,5 @@
 package AuthenticationAndProfile;
 
-//import org.postgresql.util.PSQLException;
-
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
@@ -13,7 +11,6 @@ import static AuthenticationAndProfile.ServerLogger.log;
  * ProfileCreation Class handles converting and verify Create Account Menu parameters to create a new Profile and Update ProfileDatabase.
  * @author Alessia Flaig
  */
-//Considering moving within Profile database because the hashPassword function is also used for logIn?
 public class ProfileCreation {
     /**
      * Takes email, username, and password entered in on Create Account Menu. The password is hashed for security purposes before
@@ -31,12 +28,18 @@ public class ProfileCreation {
             if (id == -1) {
                 throw new SQLException("Invalid email or username. Credentials are already associated with an existing account.");
             } else {
+//                PlayerManager.setAchievementProgress(id, "10 Wins Tick Tac Toe", "0.00");
+//                PlayerManager.setAchievementProgress(id, "10 Wins Connect 4", "0.00");
+//                PlayerManager.setAchievementProgress(id, "10 Wins Checkers", "0.00");
+//                PlayerManager.setAchievementProgress(id, "50 Games Played Tick Tac Toe", "0.00");
+//                PlayerManager.setAchievementProgress(id, "50 Games Played Connect 4", "0.00");
+//                PlayerManager.setAchievementProgress(id, "50 Games Played Checkers", "0.00");
                 log("Profile registered correctly. Trying to Log In.");
                 Profile loggedInProfile = Authentication.logIn(username, password);
                 return loggedInProfile;
             }
         } catch (SQLException s) {
-            throw new SQLException("Login Unsuccessful: " + s.getMessage());
+            throw new SQLException("Profile creation failed: " + s.getMessage());
         } catch (NoSuchAlgorithmException e) {
             throw new NoSuchAlgorithmException(e.getMessage());
         } catch (IOException i) {
@@ -75,7 +78,6 @@ public class ProfileCreation {
             //log(ProfileDatabaseAccess.obtainProfile(5).getOnlineStatus());
         } catch (SQLException s) {
             log(s.getMessage());
-
             //Email should be: "EmailShould be in index 3@email.com"
             //System.out.println(Authentication.getProfileLoggedIn().getHashedPassword());
             //System.out.printf("HashedPassword should equal %s\n", hashedPassword("hashedPasswordInIndex4"));
