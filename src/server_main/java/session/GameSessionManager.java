@@ -13,10 +13,7 @@ import java.util.Map;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
-import static management.JsonConverter.toJson;
 import static management.ServerLogger.log;
-
-import listeners.TurnChangeListener;
 
 public class GameSessionManager implements Runnable {
     private final PlayerHandler player1;
