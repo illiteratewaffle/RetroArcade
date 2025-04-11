@@ -176,6 +176,31 @@ public class CheckersController implements IBoardGameController
         return pieceValidMoves;
     }
 
+    /**
+     * A public version of getPieceMoves for testing purposes
+     *
+     * @param pieceLocation
+     * The location of the piece on the board.<br>
+     * If the location is invalid, or if its corresponding tile does not contain a piece,
+     * an empty HashMap will be returned by default.
+     * @param mustCapture
+     * An array of at least 1 boolean.<br>
+     * The first value specifies whether all the moves by this piece must result in a capture or not.<br>
+     * Note that a piece will be forced to make a capture whenever possible.<br>
+     * When this case occurs, the value pointed at will be set to true for completion.<br>
+     * If this array is null or empty, the caller will not detect any changes in it, and
+     * it will be assumed that the moves by this piece do not need to result in a captures.
+     * @return
+     * A <code>HashMap</code> containing all possible moves this piece can make (with the filter considered).
+     * This maps the Target Position of each move to a corresponding <code>CheckersMove</code> instance.<br>
+     * The Target Position is used for mapping and validating discrete <code>Ivec2</code> user inputs,
+     * while the <code>CheckersMove</code> instance stores all the data needed
+     * for the <code>CheckersBoard</code> to make the move.
+     */
+    public HashMap<Ivec2, CheckersMove> getPieceMovesPublic(Ivec2 pieceLocation, boolean[] mustCapture)
+    {
+        return getPieceMoves(pieceLocation, mustCapture);
+    }
 
     /**
      * @param pieceLocation
@@ -303,6 +328,18 @@ public class CheckersController implements IBoardGameController
     }
 
     /**
+     * Create a controller that simulates the logic of a game of checkers on the specified board.
+     * @param board The CheckersBoard containing the initial piece layout of the game.
+     */
+    public CheckersController(CheckersBoard board)
+    {
+        this.board = board;
+        validInputs = new HashMap<Ivec2, HashMap<Ivec2, CheckersMove>>();
+        // Prepare the game controller for the next (first) turn.
+        updateNextTurnGameState();
+    }
+
+    /**
      * prints out how the board looks at any point (continously????)
      * commented this out bc there was an error -ava
      * <br><br>
@@ -400,6 +437,16 @@ public class CheckersController implements IBoardGameController
                 }
             }
         }
+    }
+
+    /**
+     * A public version of updateValidInputs for testing purposes.
+     * @return A copy of the validInputs map that is used internally by this class.
+     */
+    public HashMap<Ivec2, HashMap<Ivec2, CheckersMove>> updateValidInputsPublic()
+    {
+        updateValidInputs();
+        return validInputs;
     }
 
 
@@ -631,6 +678,13 @@ public class CheckersController implements IBoardGameController
         return;
     }
 
+    /**
+     * A public helper method to retrieve the location of the selected piece for testing purposes.
+     * @return The location of the currently selected piece, or null if no pieces are currently selected.
+     */
+    public Ivec2 getCurrentPieceLocation() { return currentPieceLocation; }
+
+
 
     public void removePlayer(int player) throws IndexOutOfBoundsException
     {
@@ -653,6 +707,9 @@ public class CheckersController implements IBoardGameController
     }
 
 
+    /**
+     * @return 0 if P1 wins; 1 if P2 wins; 2 if it is a tie; 3 if nobody has won.
+     */
     public int getWinner()
     {
         return switch (currentGameState)

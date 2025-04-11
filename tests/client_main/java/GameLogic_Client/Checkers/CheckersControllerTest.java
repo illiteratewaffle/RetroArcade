@@ -87,12 +87,12 @@ public class CheckersControllerTest {
         int player = 1;
         CheckersController checkersController = new CheckersController();
 
-        // gamestate should be ongoing before a player is removed
-        assertEquals(GameState.ONGOING, checkersController.getState());
+        // The game should be ongoing before a player is removed.
+        assertTrue(checkersController.getGameOngoing());
         checkersController.removePlayer(player);
 
-        // gamestate should change after removal
-        assertEquals(GameState.P1WIN, checkersController.getState());
+        // The remaining player should win after the removal.
+        assertEquals(0, checkersController.getWinner());
     }
     @Test
     public void removePlayerTest0()
@@ -100,12 +100,12 @@ public class CheckersControllerTest {
         int player = 0;
         CheckersController checkersController = new CheckersController();
 
-        // gamestate should be ongoing before a player is removed
-        assertEquals(GameState.ONGOING, checkersController.getState());
+        // The game should be ongoing before a player is removed.
+        assertTrue(checkersController.getGameOngoing());
         checkersController.removePlayer(player);
 
-        // gamestate should change after removal
-        assertEquals(GameState.P2WIN, checkersController.getState());
+        // The remaining player should win after the removal.
+        assertEquals(1, checkersController.getWinner());
     }
 
 
