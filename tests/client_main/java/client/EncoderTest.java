@@ -1,5 +1,6 @@
-package client;
+package client_main.java.client;
 
+import client.Encoder;
 import org.junit.jupiter.api.Test;
 
 public class EncoderTest {
