@@ -45,12 +45,14 @@ public class ClientHandler implements Runnable  {
           String commandFromClient; // placeholder for clientFuntions
           String messageFromServer; // placeholder for server messages
           String message; //
+          String[][] objectArguments;
         while (clientSocket.isConnected()) {
             try {
                 message = bufferedReader.readLine();
                 if (CheckIfJson(message) == true){
                     messageFromServer = message;
-                    message = ConvertFromJson(messageFromServer);
+                    objectArguments = ConvertFromJson(messageFromServer);
+                    // TODO convert argument to object
                     sendResponse(message);
                 }
                 else{
@@ -77,10 +79,13 @@ public class ClientHandler implements Runnable  {
      * Converts data into a JSON string.
      */
     public String ConvertToJson(Object data) {
-
         try {
-            // Convert recieved Function to JSON
-            return "{}";  // Placeholder
+            // Placeholder
+            String ID = "null", Username = "null", action = "null", message = "null", recipient = "null";
+            // Actual Code
+            Boolean isActionAccepted = false;
+            String encoding = Encoder.encodeToJSON(ID, Username, isActionAccepted, action, message, recipient);
+            return encoding;
         } catch (Exception e) {
             return "{}"; // Return an empty JSON object on error
         }
@@ -89,14 +94,16 @@ public class ClientHandler implements Runnable  {
     /**
      * Converts a JSON string into a return function.
      */
-    public String ConvertFromJson(String jsonData) {
+    public String[][] ConvertFromJson(String jsonData) {
         // Convert JSON encoding to Function to send back
-        return null;
+        String[][] array = Encoder.decodeJSON(jsonData);
+        return array;
+
     }
-    public boolean CheckIfJson(String inputData){
-        //check if message is from server or client
-        return true; //placeholder
+    public boolean CheckIfJson(String inputData) {
+        return (inputData.startsWith("{") && inputData.endsWith("}")); // Basic JSON check
     }
+
     /**
      * Sends JSON string to the associated PlayerHandler.
      * @param message the message the function wants to send
@@ -115,6 +122,16 @@ public class ClientHandler implements Runnable  {
      * Sends a response function back to sender.
      */
     public void sendResponse(String message) {
+        try {
+            bufferedWriter.write(message);
+            bufferedWriter.newLine();
+            bufferedWriter.flush();
+        } catch (Exception e) {
+            CloseEverything(clientSocket, bufferedReader, bufferedWriter);
+        }
+    }
+
+    public void sendResponseAll(String message) {
         for (ClientHandler clientHandler :clientHandlers){
             try {
                 clientHandler.bufferedWriter.write(message);

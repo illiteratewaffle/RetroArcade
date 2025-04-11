@@ -36,6 +36,7 @@ public class ConnectionManager implements Runnable {
                 Thread.ofVirtual().start(authenticateClient);
 
                 //Store the players handlers thread and blocking queue on the thread registry.
+                ThreadRegistry.register(playerThread, queue);
             }
         } catch (IOException e) {
             //Throw a message to the console and print a stack trace if there is an error.

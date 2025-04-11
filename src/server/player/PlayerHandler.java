@@ -108,16 +108,12 @@ public class PlayerHandler implements Runnable {
             }
         }
     }
-}
 
-/*
-List of things to remember yuh:
- - Should use the virtual thread builder to name the thread and specify what should happen if a thread fails (logging it)
- - We have no proper system for the playerHandler knowing what thread the GameSessionManager is on
-    - Therefore, I am simply waiting until I get a message from the blockingQueue to copy their thread.
-    - However, this system to put it simply, sucks fucking ass
- - Alright why does PlayerHandler create a LinkedBlockingQueue? How does it share its own blocking queue to the main queue? bruh.
-    - I know see but think it could be improved to be more straightforward
- - ClientHandler seems to act as if it is on the server side and is trying to be a PlayerHandler and ClientHandler? very confused.
- - Why do we not have a static class responsible for converting json to classes and vice versa?
- */
+    /**
+     * Will return null if the PlayerHandler object has not been run on a virtual thread
+     * @return the main thread object
+     */
+    public Thread getThread() {
+        return mainThread;
+    }
+}
