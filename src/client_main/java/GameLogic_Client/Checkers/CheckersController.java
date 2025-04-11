@@ -1,18 +1,20 @@
 package GameLogic_Client.Checkers;
 
-import GameLogic_Client.Connect4.C4Piece;
-import GameLogic_Client.Connect4.HintResult;
+// game logic class imports
 import GameLogic_Client.GameState;
 import GameLogic_Client.IBoardGameController;
 import GameLogic_Client.Ivec2;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+// java util imports
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 
-
+/**
+ * checkers controller implements the methods required in the IBoardGameController
+ */
 public class CheckersController implements IBoardGameController
 {
     // The underlying checkers board to store the position of pieces.
@@ -86,8 +88,6 @@ public class CheckersController implements IBoardGameController
         boolean shouldCheckTopRight = false;
         boolean shouldCheckBottomLeft = false;
         boolean shouldCheckBottomRight = false;
-
-        //To Ryan: problem?
 
         // King pieces can move in all 4 directions.
         if (board.isKing(pieceLocation))
