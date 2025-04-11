@@ -100,7 +100,7 @@ public class TTTGameController implements IBoardGameController {
     /**
      * Determines if there is a winner.
      *
-     * @return An array containing the winner's index (0 for X, 1 for O), both for tie, or empty if no winner.
+     * @return 0 for X; 1 for O; 2 for a tie; 3 when nobody has won yet.
      */
     @Override
     public int getWinner() {
