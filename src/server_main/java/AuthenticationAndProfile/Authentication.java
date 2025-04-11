@@ -1,10 +1,10 @@
 package AuthenticationAndProfile;
 
 import player.PlayerManager;
-import static management.ServerLogger.log;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
+import static management.ServerLogger.log;
 
 /**
  * Authentication Class handles Profile Login and Logout
@@ -13,8 +13,8 @@ import java.sql.SQLException;
 public class Authentication {
     /**
      * logIn(String username, String password)
-     * This method takes a provided username and password from the LogIn page and authenticates the LogIn credentials.
-     * When successfully logged in, profile's isOnline is set to true.
+     * This method takes a provided username and password from the LogIn page and authenticates the LogIn credentials using
+     * a hashed version of the password. When successfully logged in, profile's isOnline is set to true.
      *
      * @param username String
      * @param password String
@@ -48,7 +48,7 @@ public class Authentication {
     }
 
     /**
-     * logOut() Sets profile's isOnline to false and sets the profileLoggedIn to null so that the previous profile information is no longer accessed.
+     * logOut() Sets profile's isOnline to false and updates the database.
      */
     public static void logOut(int id) throws SQLException, IOException {
         try {
@@ -59,16 +59,4 @@ public class Authentication {
             throw new IOException(e.getMessage());
         }
     }
-
-//    public static String forgotPassword(String username, String email) {
-//        String password;
-//        try {
-//            password = PlayerManager.findPassword(username, email);
-//            log("Password sent to email: " + email);
-//            log("Password: " + password);
-//        } catch (SQLException s) {
-//            log("Username or Email do not exist. " + s.getMessage());
-//        }
-//        return password;
-//    }
 }

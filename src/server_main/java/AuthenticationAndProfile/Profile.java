@@ -4,7 +4,6 @@ import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.UUID;
 import player.PlayerManager;
-import static management.ServerLogger.log;
 
 public class Profile {
     private String email;
@@ -164,6 +163,10 @@ public class Profile {
         }
     }
 
+    /**
+     * Gets OnlineStatus. True if online or false if offline.
+     * @return
+     */
     public boolean getOnlineStatus() {
         return isOnline;
     }

@@ -1,9 +1,9 @@
 package AuthenticationAndProfile;
 
-import player.PlayerManager;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.HashMap;
+import player.PlayerManager;
 
 public class PlayerRanking {
     private int id;
@@ -40,8 +40,7 @@ public class PlayerRanking {
             gameName = "connect4";
         } else if (gameNumber == CHECKERS_INDEX) {
             gameName = "checkers";
-        }
-        else if (gameNumber == TEST_INDEX) {
+        } else if (gameNumber == TEST_INDEX) {
             gameName = "test";
         }
         try {
@@ -133,7 +132,6 @@ public class PlayerRanking {
         }
     }
 
-
     public int getWins(int gameNumber) throws SQLException {
         String gameName = null;
         if (gameNumber == TTT_INDEX) {
@@ -150,24 +148,6 @@ public class PlayerRanking {
         }
     }
 
-    //    public void setWinLossRatio(int gameNumber, double ratio) throws SQLException {
-//        try {
-//            String gameName = "";
-//            if (gameNumber == TTT_INDEX) {
-//                gameName = "ttt";
-//            } else if (gameNumber == CONNECT4_INDEX) {
-//                gameName = "connect4";
-//            } else if (gameNumber == CHECKERS_INDEX) {
-//                gameName = "checkers";
-//            }
-//            String attribute = String.format("win_loss_ratio_%s", gameName);
-//            PlayerManager.updateAttribute(id, attribute, ratio);
-//            winLossRatio[gameNumber] = ratio;
-//        } catch (SQLException s) {
-//            throw new SQLException(s.getMessage());
-//        }
-//    }
-
     public static void setGameRating(int playerID, int gameNumber, int rating) throws SQLException {
         String gameName = null;
         if (gameNumber == TTT_INDEX) {
@@ -183,22 +163,6 @@ public class PlayerRanking {
             throw new SQLException(s.getMessage());
         }
     }
-
-//    public void setRank(String[] rank) {
-//        this.rank = rank;
-//    }
-//
-//    public void setWins(int[] wins) {
-//        this.wins = wins;
-//    }
-//
-//    public void setLosses(int[] losses) {
-//        this.losses = losses;
-//    }
-//
-//    public void setTotal(int[] total) {
-//        this.total = total;
-//    }
 
     public int getTotal(int gameNumber) throws SQLException{
         String gameName = null;

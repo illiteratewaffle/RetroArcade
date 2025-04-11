@@ -1,14 +1,12 @@
 package AuthenticationAndProfile;
 
-import player.PlayerManager;
-
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-
+import player.PlayerManager;
 import static AuthenticationAndProfile.ProfileCSVReader.openSingleProfileFile;
 
 /**
