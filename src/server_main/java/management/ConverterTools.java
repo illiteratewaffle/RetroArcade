@@ -95,7 +95,6 @@ public class ConverterTools {
      */
     public static List<List<List<Integer>>> listOf2dArrayto3dlist(List<int[][]> list) {
         List<List<List<Integer>>> result = new ArrayList<>();
-
         // iterate through all 2d arrays in the list
         for (int[][] array2D : list) {
             // create a list of a list of integers for all 2d arrays
