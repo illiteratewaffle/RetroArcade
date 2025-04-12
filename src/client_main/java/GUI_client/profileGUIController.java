@@ -1,8 +1,9 @@
 package GUI_client;
-
+import AuthenticationAndProfile.Profile;
 import client.Client2;
 import GUI_client.AudioManager;
 import GUI_client.otherPlayerProfileGUIController;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -27,7 +28,7 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
+import java.util.Objects;;
 
 public class profileGUIController {
     @FXML
@@ -105,49 +106,54 @@ public class profileGUIController {
     public Label notification;
     @FXML
     private TextArea bio_text_area;
-    @FXML
-    private ImageView image;
-    public static String passFriend;
     private String avatarPath;
     private String nickname;
     private String bio;
     private String username;
     private String selectedRequest;
     private String selectedFriend;
+    static String friend;
 
+    //**NOTE TO MARKER: Any instance of a hardcoded input is simply because the server was not working for that specific part:
+    //but I still wanted to show the functionality of the GUI.
     @FXML
     public void initialize() {
         Client2.getProfileInfo();
         if (Client2.getProfilePath() == null) {
-            avatarPath = "/GUI_avatars/Invader_green.PNG";
-            //URL url = getClass().getResource(avatarPath);
-            //Image image = new Image(url.toExternalForm(), false);
-            //updateProfilePicture(image);
+            String avatarPath = "/GUI_avatars/Invader_green.PNG";
             updateProfilePicture(avatarPath);
             System.out.println(avatarPath);
         } else {
+            Platform.runLater(() -> {
+                updateProfilePicture(avatarPath);
+            });
             avatarPath = Client2.getProfilePath();
         }
         System.out.println(avatarPath);
 
 
-        if (Client2.getUsername() == null)
+        if (Client2.getUsername() == null) {
             username = "";
-        else {
+            name_label.setText("@" + username);
+        } else {
             username = Client2.getUsername();
+            nickname_label.setText("@" + username);
         }
 
-        if (Client2.getNickname() == null)
+        if (Client2.getNickname() == null) {
             nickname = "Set your nickname!";
-        else {
+            nickname_label.setText(nickname);
+        } else {
             nickname = Client2.getNickname();
+            nickname_label.setText(nickname);
         }
-        if (Client2.getBio() == null)
+        if (Client2.getBio() == null) {
             bio = "Set your Bio";
-        else {
+            bio_text_area.setText(bio);
+        } else {
             bio = Client2.getBio();
+            bio_text_area.setText(bio);
         }
-
         System.out.println(avatarPath);
 
         getStats();
@@ -253,13 +259,12 @@ public class profileGUIController {
         //The selectedRequest will then be sent as an accepted request or a declined request depending on what button
         //The user clicked (The next 2 methods below)
         String selected = inbox_contents.getSelectionModel().getSelectedItem().toString();
-            if (selectedRequest != null){
-                selectedRequest = selected;
-                System.out.println("you clicked on"+ selectedRequest);
-            }
-            else{
-                System.out.println("Nothing to Click!");
-            }
+        if (selectedRequest != null) {
+            selectedRequest = selected;
+            System.out.println("you clicked on" + selectedRequest);
+        } else {
+            System.out.println("Nothing to Click!");
+        }
     }
 
     //After a request is clicked, the user will have the option to accept the request. The username of the person
@@ -274,17 +279,19 @@ public class profileGUIController {
         edit_profile_button.setDisable(true);
         //**add call to send to Client2 here**
         //taken from chat gtp. prompt: "how do I set a label to show for only a certain amount of time?"
+        notification.toFront();
         notification.setText("Friend Added");
         notification.setOpacity(1.0);
         PauseTransition pause = new PauseTransition(Duration.seconds(10));
         pause.setOnFinished(e -> notification.setVisible(false)); // hide after delay
         pause.play();
-
+        notification.toBack();
 
         //Not sure how this will be sent to server.
         Client2.acceptRequest(selectedRequest); //selected request = the username of the friend
+        friends_list.getItems().add(selectedRequest); //add to friend to
+        inbox_contents.getItems().remove(selectedRequest);
         //TODO: Figure out why .remove doesn't work
-        // inbox_contents.remove(selectedRequest); //not sure why .remove is not working, may be because client2 is still in the works
         selectedRequest = null;
     }
 
@@ -299,12 +306,13 @@ public class profileGUIController {
         edit_profile_button.setOpacity(0.0);
         edit_profile_button.setDisable(true);
         //Show "request declined" to user
+        notification.toFront();
         notification.setText("Request Declined");
         notification.setOpacity(1.0);
         PauseTransition pause = new PauseTransition(Duration.seconds(10));
         pause.setOnFinished(e -> notification.setVisible(false)); // hide after delay
         pause.play();
-
+        notification.toBack();
         //Not sure how the declined request will be sent to the server.
         Client2.declineRequest(selectedRequest);
         //TODO: Figure out why .remove doesn't work
@@ -374,38 +382,63 @@ public class profileGUIController {
     //edit button is pressed.
     public void open_edit_profile(MouseEvent mouseEvent) {
         //Making sure that all other lists/table is invisible while editing profile.
-        history_list.setOpacity(0.0);history_button.setDisable(false);
-        inbox_contents.setOpacity(0.0);inbox_button.setDisable(false);
-        friends_list.setOpacity(0.0);friends_button.setDisable(false);
-        stats_pane.setOpacity(0.0);stats_button.setDisable(false);
-        edit_profile_button.setOpacity(0.0);edit_profile_button.setDisable(false);
-        done_button.setOpacity(1.0);done_button.setDisable(false); done_button.toFront();
-        avatar_pane.setOpacity(1.0);avatar_pane.setDisable(false);
+        history_list.setOpacity(0.0);
+        history_button.setDisable(false);
+        inbox_contents.setOpacity(0.0);
+        inbox_button.setDisable(false);
+        friends_list.setOpacity(0.0);
+        friends_button.setDisable(false);
+        stats_pane.setOpacity(0.0);
+        stats_button.setDisable(false);
+        edit_profile_button.setOpacity(0.0);
+        edit_profile_button.setDisable(false);
+        done_button.setOpacity(1.0);
+        done_button.setDisable(false);
+        done_button.toFront();
+        avatar_pane.setOpacity(1.0);
+        avatar_pane.setDisable(false);
         nickname_label.setEditable(true);
-        bio_text_area.setEditable(true);bio_text_area.setOpacity(1.0);
+        bio_text_area.setEditable(true);
+        bio_text_area.setOpacity(1.0);
         nickname_label.setStyle("-fx-background-color: white;");
-        confirm_search.setOpacity(0.0);confirm_search.setDisable(true);
-        search_friend.setOpacity(0.0);search_friend.setDisable(true);
-        home_button.setOpacity(0.0); home_button.setDisable(true); //force person to finish editing before exiting the page
+        confirm_search.setOpacity(0.0);
+        confirm_search.setDisable(true);
+        search_friend.setOpacity(0.0);
+        search_friend.setDisable(true);
+        home_button.setOpacity(0.0);
+        home_button.setDisable(true); //force person to finish editing before exiting the page
 
     }
 
     //The once the done button is pressed, the editing will no longer occur.
     //my idea is to have the done button click be what will initiate sending to the server.
     public void apply_changes(MouseEvent mouseEvent) {
-        history_list.setOpacity(0.0);history_button.setDisable(false);
-        inbox_contents.setOpacity(0.0);inbox_button.setDisable(false);
-        friends_list.setOpacity(0.0);friends_button.setDisable(false);
-        stats_pane.setOpacity(1.0);stats_button.setDisable(false);
-        edit_profile_button.setOpacity(1.0);edit_profile_button.setDisable(false);
-        done_button.setOpacity(0.0);done_button.setDisable(true);
-        avatar_pane.setOpacity(0.0);avatar_pane.setDisable(true);
+        history_list.setOpacity(0.0);
+        history_button.setDisable(false);
+        inbox_contents.setOpacity(0.0);
+        inbox_button.setDisable(false);
+        friends_list.setOpacity(0.0);
+        friends_button.setDisable(false);
+        stats_pane.setOpacity(1.0);
+        stats_button.setDisable(false);
+        edit_profile_button.setOpacity(1.0);
+        edit_profile_button.setDisable(false);
+        done_button.setOpacity(0.0);
+        done_button.setDisable(true);
+        avatar_pane.setOpacity(0.0);
+        avatar_pane.setDisable(true);
         nickname_label.setEditable(false);
-        bio_text_area.setEditable(false);bio_text_area.setOpacity(1.0);
+        bio_text_area.setEditable(false);
+        bio_text_area.setOpacity(1.0);
         nickname_label.setStyle("-fx-background-color: transparent;");
-        confirm_search.setOpacity(1.0);confirm_search.setDisable(false); confirm_search.toFront();
-        search_friend.setOpacity(1.0);search_friend.setDisable(false);search_friend.toFront();
-        home_button.setOpacity(1.0); home_button.setDisable(false);
+        confirm_search.setOpacity(1.0);
+        confirm_search.setDisable(false);
+        confirm_search.toFront();
+        search_friend.setOpacity(1.0);
+        search_friend.setDisable(false);
+        search_friend.toFront();
+        home_button.setOpacity(1.0);
+        home_button.setDisable(false);
 
         String bio = bio_text_area.getText(); // gets user input
         bio_label.setText(bio);
@@ -415,16 +448,24 @@ public class profileGUIController {
         nickname_label.setText(nickname);
 
         //When the apply button is pressed I want to send these to client2 (all strings)
-        Client2.setBio(bio);
-        Client2.setNickname(nickname);
-        Client2.setProfilePath(avatarPath);
+        Platform.runLater(() -> {
+            Client2.setBio(bio);
+        });
+        Platform.runLater(() -> {
+            Client2.setNickname(nickname);
+        });
+        Platform.runLater(() -> {
+            Client2.setProfilePath(avatarPath);
+        });
 
         //Notify that the profile was updated
+        notification.toFront();
         notification.setText("Profile updated!");
         notification.setVisible(true);
         PauseTransition pause = new PauseTransition(Duration.seconds(5));
         pause.setOnFinished(e -> notification.setVisible(false));
         pause.play();
+        notification.toBack();
 
 
     }
@@ -432,14 +473,15 @@ public class profileGUIController {
     //Any click on a picture will call to this to set the picture.
     public void updateProfilePicture(String path) {
         URL url = getClass().getResource(path);
+
         if (url != null) {
             System.out.println("Image URL: " + url);
-            Image image = new Image(url.toExternalForm(), false);
+            Image img = new Image(url.toExternalForm(), false);
+            avatar.setImage(img);
+            avatarPath = path;
         } else {
             System.out.println("Failed to load image from path: " + path);
         }
-        avatarPath = path;
-        avatar.setImage(image.getImage());
     }
 
     //For the search button, it will get the text from the search bar next to it.
@@ -448,29 +490,39 @@ public class profileGUIController {
         //Open new profile if username exists
         String friend = search_friend.getText();
         Client2.getOtherProfileInfo(friend);
-
-        if (Client2.getOtherUsername() == null){notification.setText("username not found!");
-            notification.setVisible(true);
-            System.out.println("username not found!");
-            PauseTransition pause = new PauseTransition(Duration.seconds(10));
-            pause.setOnFinished(e -> notification.setVisible(false)); // hide after delay
-            pause.play();}
-        else{
-            try {
-                //Not sure if I am loading this properly.
-                System.out.println("loading profile");
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("otherPlayerProfile.fxml"));
-                Parent root = loader.load(); // Load FXML
-                otherPlayerProfileGUIController controller = loader.getController(); // Get controller instance
-                controller.setFriend(friend);
-                Stage stage = (Stage) confirm_search.getScene().getWindow();
-                stage.setScene(new Scene(root));
-                stage.show();
-            } catch (IOException e) {
-                e.printStackTrace();
-                System.out.println("error in loading new profile");
+        Platform.runLater(() -> {
+            if (Client2.getOtherUsername() == null) {
+                notification.toFront();
+                notification.setText("username not found!");
+                notification.setVisible(true);
+                System.out.println("username not found!");
+                PauseTransition pause = new PauseTransition(Duration.seconds(10));
+                pause.setOnFinished(e -> notification.setVisible(false)); // hide after delay
+                pause.play();
+                notification.toBack();
+            } else {
+                try {
+                    //Alternative way to try to load:
+//                    System.out.println("loading profile");
+//                    Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("otherPlayerProfile.fxml")));
+//                    // get the current gameMenu stage
+//                    Stage stage = (Stage) search_friend.getScene().getWindow();
+//
+//                    stage.setScene(new Scene(root));
+//                    stage.show();
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("otherPlayerProfile.fxml"));
+                    Parent root = loader.load(); // Load FXML
+                    otherPlayerProfileGUIController controller = loader.getController(); // Get controller instance
+                    controller.setFriend(friend);
+                    Stage stage = (Stage) confirm_search.getScene().getWindow();
+                    stage.setScene(new Scene(root));
+                    stage.show();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    System.out.println("error in loading new profile");
+                }
             }
-        }
+        });
     }
 
     //clicking on a friend from the friends list should take the person to their profile.
@@ -481,13 +533,14 @@ public class profileGUIController {
         decline_friend.setDisable(true);
         edit_profile_button.setOpacity(0.0);
         edit_profile_button.setDisable(true);
-        visit_button.setOpacity(1.0); visit_button.setDisable(false); visit_button.toFront();
+        visit_button.setOpacity(1.0);
+        visit_button.setDisable(false);
+        visit_button.toFront();
         String selected = friends_list.getSelectionModel().getSelectedItem().toString();
-        if (selectedFriend != null){
+        if (selectedFriend != null) {
             selectedFriend = selected;
-            System.out.println("you clicked on"+ selectedFriend);
-        }
-        else{
+            System.out.println("you clicked on" + selectedFriend);
+        } else {
             System.out.println("Nothing to Click!");
         }
     }
@@ -498,12 +551,14 @@ public class profileGUIController {
         Client2.getOtherProfileInfo(selectedFriend);
         Thread.sleep(300);
         if (Client2.getOtherUsername() == null) {
+            notification.toFront();
             notification.setText("username not found!");
             notification.setVisible(true);
             System.out.println("username not found!");
             PauseTransition pause = new PauseTransition(Duration.seconds(10));
             pause.setOnFinished(e -> notification.setVisible(false)); // hide after delay
             pause.play();
+            notification.toBack();
         } else {
             try {
                 //Not sure if I am loading this properly.
@@ -528,59 +583,158 @@ public class profileGUIController {
     //------------------------------------------------------------------------------
     public void choose_poop(MouseEvent mouseEvent) {
         String path = "/GUI_avatars/poop.PNG";
-        updateProfilePicture(path);
+        URL url = getClass().getResource(path);
+
+        if (url != null) {
+            System.out.println("Image URL: " + url);
+            Image img = new Image(url.toExternalForm(), false);
+            avatar.setImage(img);
+            avatarPath = path;
+        } else {
+            System.out.println("Failed to load image from path: " + path);
+        }
     }
 
 
     public void choose_goomba(MouseEvent mouseEvent) {
         String path = "/GUI_avatars/mario_goomba.PNG";
-        updateProfilePicture(path);
+        URL url = getClass().getResource(path);
+
+        if (url != null) {
+            System.out.println("Image URL: " + url);
+            Image img = new Image(url.toExternalForm(), false);
+            avatar.setImage(img);
+            avatarPath = path;
+        } else {
+            System.out.println("Failed to load image from path: " + path);
+        }
     }
 
     public void choose_purple_alien(MouseEvent mouseEvent) {
         String path = "/GUI_avatars/invader_purple.PNG";
-        updateProfilePicture(path);
+        URL url = getClass().getResource(path);
+
+        if (url != null) {
+            System.out.println("Image URL: " + url);
+            Image img = new Image(url.toExternalForm(), false);
+            avatar.setImage(img);
+            avatarPath = path;
+        } else {
+            System.out.println("Failed to load image from path: " + path);
+        }
     }
 
 
     public void choose_pink_alien(MouseEvent mouseEvent) {
         String path = "/GUI_avatars/Invader_pink.PNG";
-        updateProfilePicture(path);
+        URL url = getClass().getResource(path);
+
+        if (url != null) {
+            System.out.println("Image URL: " + url);
+            Image img = new Image(url.toExternalForm(), false);
+            avatar.setImage(img);
+            avatarPath = path;
+        } else {
+            System.out.println("Failed to load image from path: " + path);
+        }
     }
 
     public void choose_green_alien(MouseEvent mouseEvent) {
         String path = "/GUI_avatars/Invader_green.PNG";
-        updateProfilePicture(path);
+        URL url = getClass().getResource(path);
+
+        if (url != null) {
+            System.out.println("Image URL: " + url);
+            Image img = new Image(url.toExternalForm(), false);
+            avatar.setImage(img);
+            avatarPath = path;
+        } else {
+            System.out.println("Failed to load image from path: " + path);
+        }
     }
 
     public void choose_cyan_alien(MouseEvent mouseEvent) {
         String path = "/GUI_avatars/Invader_cyan.PNG";
-        updateProfilePicture(path);
+        URL url = getClass().getResource(path);
+
+        if (url != null) {
+            System.out.println("Image URL: " + url);
+            Image img = new Image(url.toExternalForm(), false);
+            avatar.setImage(img);
+            avatarPath = path;
+        } else {
+            System.out.println("Failed to load image from path: " + path);
+        }
     }
 
     public void choose_toad(MouseEvent mouseEvent) {
         String path = "/GUI_avatars/mario_toad.PNG";
-        updateProfilePicture(path);
+        URL url = getClass().getResource(path);
+
+        if (url != null) {
+            System.out.println("Image URL: " + url);
+            Image img = new Image(url.toExternalForm(), false);
+            avatar.setImage(img);
+            avatarPath = path;
+        } else {
+            System.out.println("Failed to load image from path: " + path);
+        }
     }
 
     public void choose_blue_ghost(MouseEvent mouseEvent) {
         String path = "/GUI_avatars/pacman_blue.PNG";
-        updateProfilePicture(path);
+        URL url = getClass().getResource(path);
+
+        if (url != null) {
+            System.out.println("Image URL: " + url);
+            Image img = new Image(url.toExternalForm(), false);
+            avatar.setImage(img);
+            avatarPath = path;
+        } else {
+            System.out.println("Failed to load image from path: " + path);
+        }
     }
 
     public void choose_pink_ghost(MouseEvent mouseEvent) {
         String path = "/GUI_avatars/pacman_pink.PNG";
-        updateProfilePicture(path);
+        URL url = getClass().getResource(path);
+
+        if (url != null) {
+            System.out.println("Image URL: " + url);
+            Image img = new Image(url.toExternalForm(), false);
+            avatar.setImage(img);
+            avatarPath = path;
+        } else {
+            System.out.println("Failed to load image from path: " + path);
+        }
     }
 
     public void choose_red_ghost(MouseEvent mouseEvent) {
         String path = "/GUI_avatars/pacman_red.PNG";
-        updateProfilePicture(path);
+        URL url = getClass().getResource(path);
+
+        if (url != null) {
+            System.out.println("Image URL: " + url);
+            Image img = new Image(url.toExternalForm(), false);
+            avatar.setImage(img);
+            avatarPath = path;
+        } else {
+            System.out.println("Failed to load image from path: " + path);
+        }
     }
 
     public void choose_yellow_ghost(MouseEvent mouseEvent) {
         String path = "/GUI_avatars/pacman_yellow.PNG";
-        updateProfilePicture(path);
+        URL url = getClass().getResource(path);
+
+        if (url != null) {
+            System.out.println("Image URL: " + url);
+            Image img = new Image(url.toExternalForm(), false);
+            avatar.setImage(img);
+            avatarPath = path;
+        } else {
+            System.out.println("Failed to load image from path: " + path);
+        }
     }
 
     public void homeButtonClicked() throws IOException {
@@ -611,18 +765,20 @@ public class profileGUIController {
         }
     }
 
+
     //------------------------------------------------------------------------------
-    public static void setNickname(String nickname) {
-        //currentProfile.setNickname(nickname);
-
+    public void searchPressed() {
+        confirm_search.setImage(new Image("search_button_pressed.png"));
     }
 
-    public static void setBio(String bio) {
-        //currentProfile.setBio(bio);
+    public void searchReleased() {
+        confirm_search.setImage(new Image("search_button.png"));
     }
 
-    public static void setProfilePath(String path) {
-        //currentProfile.setProfilePath(path);
-}}
+    public void send_request(MouseEvent mouseEvent) {
+    }
+
+}
+
 
 

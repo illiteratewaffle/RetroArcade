@@ -38,6 +38,7 @@ public class Client2 {
         try {
             Socket socket = new Socket(serverAddress, serverPort);
             clientSocket = socket;
+            Client2.output = new PrintWriter(socket.getOutputStream(), true);
             // Create input and output streams for communication
             input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             output = new PrintWriter(socket.getOutputStream(), true);
@@ -331,7 +332,7 @@ public class Client2 {
         forwardToServer(viewProfileForward);
 
         // Wait to receive the info
-        Map<String, Object> otherProfile = getResponseFromServer("type", "view-profile");
+        Map<String, Object> otherProfile = getResponseFromServer("type", "viewprofile");
 
         //Retrieve all the data in the correct form from the other profile.
         String otherBio = (String) otherProfile.get("bio");
