@@ -55,6 +55,10 @@ The current version has seperate server and client files and has networking capa
 2. Navigate to the `Launcher` package.
 3. Run the server launcher class to start the server instance.
 
+Sources root: src/client_main/java
+Resources root: src/client_main/assets
+Test sources root: tests
+
 Branch: "Server", src/server_main/java/launcher/ServerLauncher.java
 
 ### Launching the Client
@@ -62,6 +66,7 @@ Branch: "Server", src/server_main/java/launcher/ServerLauncher.java
 1. Switch to the `p3_GUI` branch or open the client-side code.
 2. Navigate to the `GUI_client` package.
 3. Run the main application class to launch the game client.
+
 
 Branch: "p3_GUI", src/client_main/java/GUI_client/MainApplication.java
 
