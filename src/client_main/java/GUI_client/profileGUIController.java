@@ -28,7 +28,8 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;;
+import java.util.Objects;
+import GUI_client.otherPlayerProfileGUIController;
 
 public class profileGUIController {
     @FXML
@@ -125,9 +126,9 @@ public class profileGUIController {
             System.out.println(avatarPath);
         } else {
             Platform.runLater(() -> {
+                avatarPath = Client2.getProfilePath();
                 updateProfilePicture(avatarPath);
             });
-            avatarPath = Client2.getProfilePath();
         }
         System.out.println(avatarPath);
 
@@ -180,13 +181,6 @@ public class profileGUIController {
         history_list.setOpacity(0.0);
         friends_list.setOpacity(0.0);
         stats_pane.setOpacity(0.0);
-
-        //TODO: Commented out redundancies.
-        //Getting the data needed to populate the inbox (friend requests) list.
-        //String requests = Client2.getFriendRequests();
-        //Splitting the string based on "," so that they can all be added to the listView
-        //String[] requestsArray = requests.split(","); //
-        //List<String> requestList = Arrays.asList(requestsArray);
         List<String> requestList = Client2.getFriendRequests();
         inbox_contents.getItems().addAll(requestList);
         //Adding the request content to the listview
@@ -204,13 +198,6 @@ public class profileGUIController {
         edit_profile_button.setDisable(false);
         edit_profile_button.toFront();
         edit_profile_button.setOpacity(1.0);
-
-        //TODO: Commented out redundancies.
-        //Getting the data needed to populate the friends list.
-        //String friends = Client2.getFriends();
-        //Splitting the string based on "," so that they can all be added to the listView
-        //String[] friendsArray = friends.split(","); //
-        //List<String> friendsList = Arrays.asList(friendsArray);
         List<String> friendsList = Client2.getFriends();
         friends_list.getItems().addAll(friendsList);
         // Adding the content to the listview
@@ -230,13 +217,6 @@ public class profileGUIController {
         edit_profile_button.setOpacity(1.0);
         add_friend.setOpacity(0.0);
         add_friend.setDisable(true);
-
-        //TODO: Commented out redundancies.
-        //Getting the data needed to populate the game history list.
-        //String history = Client2.getGameHistory();
-        //Splitting the string based on "," so that they can all be added to the listView
-        //String[] historyArray = history.split(","); //
-        //List<String> historyList = Arrays.asList(historyArray);
         List<String> historyList = Client2.getGameHistory();
         history_list.getItems().addAll(historyList);
         //Adding the history content to the listview
@@ -289,9 +269,7 @@ public class profileGUIController {
 
         //Not sure how this will be sent to server.
         Client2.acceptRequest(selectedRequest); //selected request = the username of the friend
-        friends_list.getItems().add(selectedRequest); //add to friend to
         inbox_contents.getItems().remove(selectedRequest);
-        //TODO: Figure out why .remove doesn't work
         selectedRequest = null;
     }
 
@@ -315,8 +293,7 @@ public class profileGUIController {
         notification.toBack();
         //Not sure how the declined request will be sent to the server.
         Client2.declineRequest(selectedRequest);
-        //TODO: Figure out why .remove doesn't work
-        //inbox_contents.remove(selectedRequest);
+        inbox_contents.getItems().remove(selectedRequest);
         selectedRequest = null;
     }
 
@@ -490,40 +467,40 @@ public class profileGUIController {
         //Open new profile if username exists
         String friend = search_friend.getText();
         Client2.getOtherProfileInfo(friend);
-        Platform.runLater(() -> {
-            if (Client2.getOtherUsername() == null) {
-                notification.toFront();
-                notification.setText("username not found!");
-                notification.setVisible(true);
-                System.out.println("username not found!");
-                PauseTransition pause = new PauseTransition(Duration.seconds(10));
-                pause.setOnFinished(e -> notification.setVisible(false)); // hide after delay
-                pause.play();
-                notification.toBack();
-            } else {
+        PauseTransition wait = new PauseTransition(Duration.seconds(3));
+        username = Client2.getUsername();
+        if (username == null) {
+            notification.toFront();
+            notification.setText("username not found!");
+            notification.setVisible(true);
+            System.out.println("username not found!");
+            PauseTransition pause = new PauseTransition(Duration.seconds(10));
+            pause.setOnFinished(e -> notification.setVisible(false)); // hide after delay
+            pause.play();
+            notification.toBack();
+            // Now wait for the response asynchronously
+
+            //Alternative way to try to load:
+            System.out.println("loading profile");
+        }
+        else{
                 try {
-                    //Alternative way to try to load:
-//                    System.out.println("loading profile");
-//                    Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("otherPlayerProfile.fxml")));
-//                    // get the current gameMenu stage
-//                    Stage stage = (Stage) search_friend.getScene().getWindow();
-//
-//                    stage.setScene(new Scene(root));
-//                    stage.show();
+                    System.out.println("Loading other Profile");
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("otherPlayerProfile.fxml"));
-                    Parent root = loader.load(); // Load FXML
-                    otherPlayerProfileGUIController controller = loader.getController(); // Get controller instance
-                    controller.setFriend(friend);
-                    Stage stage = (Stage) confirm_search.getScene().getWindow();
+                    Parent root = loader.load();
+                    otherPlayerProfileGUIController controller = loader.getController();
+                    controller.setFriendUsername(friend); // assuming you're parsing the JSON/dictionary
+                    Stage stage = (Stage) search_friend.getScene().getWindow();
                     stage.setScene(new Scene(root));
                     stage.show();
                 } catch (IOException e) {
-                    e.printStackTrace();
-                    System.out.println("error in loading new profile");
+                    System.out.println("Unable to load profile");
+                    e.printStackTrace(); // this would tell you why it's not loading
                 }
-            }
-        });
+        }
     }
+
+
 
     //clicking on a friend from the friends list should take the person to their profile.
     public void click_friend_list(MouseEvent mouseEvent) {
@@ -566,7 +543,7 @@ public class profileGUIController {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("otherPlayerProfile.fxml"));
                 Parent root = loader.load(); // Load FXML
                 otherPlayerProfileGUIController controller = loader.getController(); // Get controller instance
-                controller.setFriend(selectedFriend);
+                controller.setFriendUsername(selectedFriend);
                 Stage stage = (Stage) visit_button.getScene().getWindow();
                 stage.setScene(new Scene(root));
                 stage.show();

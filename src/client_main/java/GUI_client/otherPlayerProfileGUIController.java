@@ -26,6 +26,9 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.Objects;
 
+import static GUI_client.profileGUIController.friend;
+import static java.awt.SystemColor.info;
+
 public class otherPlayerProfileGUIController {
     @FXML
     public ImageView muteButton;
@@ -101,14 +104,14 @@ public class otherPlayerProfileGUIController {
     private String username;
     static String selectedFriend;
 
-    public static String setFriend(String friend) {
+    public static String setFriendUsername(String friend) {
         return friend;
     }
 
     @FXML
     public void initialize() {
-        String friend = setFriend(selectedFriend);
-        Client2.getOtherProfileInfo(selectedFriend);
+        System.out.println("You made it to the other profile!");
+        Client2.getOtherProfileInfo(friend);
         if (Client2.getOtherProfilePath() == null) {
             avatarPath = "/GUI_avatars/Invader_green.PNG";
             URL url = getClass().getResource(avatarPath);

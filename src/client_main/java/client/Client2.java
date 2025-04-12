@@ -38,7 +38,7 @@ public class Client2 {
         try {
             Socket socket = new Socket(serverAddress, serverPort);
             clientSocket = socket;
-            Client2.output = new PrintWriter(socket.getOutputStream(), true);
+            //Client2.output = new PrintWriter(socket.getOutputStream(), true);
             // Create input and output streams for communication
             input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             output = new PrintWriter(socket.getOutputStream(), true);
