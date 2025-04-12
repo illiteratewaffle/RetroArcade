@@ -52,23 +52,33 @@ The current version has seperate server and client files and has networking capa
 ### Starting the Server
 
 1. Clone the repository and switch to the `Server` branch.
-2. Navigate to the `Launcher` package.
-3. Run the server launcher class to start the server instance.
+2. Set up roots (see below)
+3. Navigate to the `Launcher` package.
+4. Run the server launcher class to start the server instance.
 
-Sources root: src/client_main/java
-Resources root: src/client_main/assets
-Test sources root: tests
+#### Location: Branch: "Server", src/server_main/java/launcher/ServerLauncher.java
 
-Branch: "Server", src/server_main/java/launcher/ServerLauncher.java
+### Set up roots:
+Sources root: src/server_main/java \
+Test sources root: tests 
+
+
 
 ### Launching the Client
 
-1. Switch to the `p3_GUI` branch or open the client-side code.
-2. Navigate to the `GUI_client` package.
-3. Run the main application class to launch the game client.
+1. Set up roots (see below)
+2. Switch to the `p3_GUI` branch or open the client-side code.
+3. Navigate to the `GUI_client` package.
+4. Run the main application class to launch the game client.
+
+#### Location: Branch: "p3_GUI", src/client_main/java/GUI_client/MainApplication.java
+
+### Set up roots:
+Sources root: src/client_main/java \
+Resources root: src/client_main/assets \
+Test sources root: tests 
 
 
-Branch: "p3_GUI", src/client_main/java/GUI_client/MainApplication.java
 
 ---
 
