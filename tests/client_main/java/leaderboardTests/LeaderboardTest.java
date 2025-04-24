@@ -32,7 +32,7 @@ public class LeaderboardTest {
         writer.close();
     }
 
-    // constructor .
+    // constructor ..
 
     @Test
     public void testConstructorNullSortChoice() {
